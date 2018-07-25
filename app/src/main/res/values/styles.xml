@@ -8,4 +8,63 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="div_hor_gray">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/gray_hi</item>
+    </style>
+
+    <style name="div_hor_6_gray">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">6dp</item>
+        <item name="android:background">@color/bg_hi</item>
+    </style>
+
+
+    <style name="font_3_13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c_3</item>
+    </style>
+
+    <style name="font_3_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/c_3</item>
+    </style>
+    <style name="font_3_20">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/c_3</item>
+    </style>
+
+    <style name="font_6_13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c_6</item>
+    </style>
+
+    <style name="font_6_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/c_6</item>
+    </style>
+    <style name="font_6_20">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/c_6</item>
+    </style>
+    <style name="font_9_13">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c_9</item>
+    </style>
+
+    <style name="font_9_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/c_9</item>
+    </style>
+    <style name="font_9_20">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/c_9</item>
+    </style>
 </resources>
