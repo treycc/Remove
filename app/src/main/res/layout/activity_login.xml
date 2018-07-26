@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white_hi">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white_hi"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -15,8 +16,8 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="24dp"
-            android:background="#bebebe"/>
+            android:layout_marginTop="36dp"
+            android:background="@mipmap/bg_company"/>
 
         <TextView
             style="@style/font_3_20"
@@ -28,7 +29,6 @@
             android:text="房屋征收信息系统"
             android:textStyle="bold"/>
 
-        <View style="@style/div_hor_gray"/>
 
 
         <LinearLayout
@@ -36,9 +36,12 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            android:gravity="center_vertical">
+            android:layout_marginTop="48dp"
+            android:gravity="center_vertical"
+            android:padding="12dp">
 
             <TextView
+                style="@style/font_3_15"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
@@ -47,6 +50,7 @@
                 android:text="用户名："/>
 
             <EditText
+                style="@style/font_9_15"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -59,9 +63,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:padding="12dp">
 
             <TextView
+                style="@style/font_3_15"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
@@ -70,6 +76,7 @@
                 android:text="密码："/>
 
             <EditText
+                style="@style/font_9_15"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -77,20 +84,28 @@
                 android:hint="请输入密码"/>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.kingja.supershapeview.view.SuperShapeTextView
+            style="@style/font_f_15"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
-            android:text="登录"/>
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="登录"
+            app:super_cornerRadius="4dp"
+            app:super_solidColor="@color/main"/>
 
     </LinearLayout>
 
     <TextView
-       android:layout_alignParentBottom="true"
-       android:layout_marginBottom="12dp"
-        android:gravity="center"
-        style="@style/font_3_20"
-        android:text="2018®浙江健德普信息科技有限公司"
+        style="@style/font_6_15"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="12dp"
+        android:gravity="center"
+        android:text="2018®浙江健德普信息科技有限公司"/>
 </RelativeLayout>

@@ -11,6 +11,8 @@
 
     <color name="gray_hi">#CCCCCC</color>
     <color name="bg_hi">#F6F6F6</color>
-
+    <color name="red_hi">#EA1022</color>
     <color name="white_hi">#ffffff</color>
+    <color name="half_hi">#33ffffff</color>
+    <color name="main">#075d96</color>
 </resources>

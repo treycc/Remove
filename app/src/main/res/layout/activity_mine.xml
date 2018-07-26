@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:background="@color/bg_hi"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+
+        <com.kingja.supershapeview.view.SuperShapeImageView
+            android:id="@+id/iv_personal_head"
+            android:layout_marginRight="12dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_head"
+            app:super_cornerRadius="56dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_marginBottom="4dp"
+                style="@style/font_3_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KingJA"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="浙江健德普信息科技有限公司"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+
+        <TextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="账号"/>
+
+
+        <TextView
+            style="@style/font_9_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:text="24554446"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+
+        <TextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="别名"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/font_9_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="菠菜蚊子"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="18dp"
+                android:background="@mipmap/arrow_right"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+
+        <TextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="项目"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/font_9_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="下沙村二期"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="18dp"
+                android:background="@mipmap/arrow_right"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+
+        <TextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="手机号码"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/font_9_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="18866686666"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="18dp"
+                android:background="@mipmap/arrow_right"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+
+        <TextView
+            style="@style/font_3_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置"/>
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/arrow_right"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+
+        <TextView
+            style="@style/font_3_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="客服"/>
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/arrow_right"/>
+
+
+    </RelativeLayout>
+</LinearLayout>

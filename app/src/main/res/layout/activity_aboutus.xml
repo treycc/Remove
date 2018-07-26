@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/gray_hi"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_marginBottom="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="版本：V"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.0.0"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2018®浙江健德普信息科技有限公司"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:padding="12dp"
+        style="@style/font_3_15"
+        android:text="使用协议"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View style="@style/div_hor_gray"/>
+
+    <TextView
+        android:padding="12dp"
+        style="@style/font_9_13"
+        android:text="1. 使用条款的接受
+请您在使用本网站前仔细阅读以下各项使用条款（以下简称）。通过访问和/或使用本网站，您表示同意接受本条款的所有条件和条款。如果您不愿接受本条款的全部条件和条款，请您不要访问或使用本网站。
+
+2. 变更和修改
+虾米网有权随时对本条款进行修改，并且一旦发生条款的变动，虾米网将在相关页面上提示修改的内容；用户如果不同意本条款的修改，可以放弃使用或访问本网站或取消已经获得的服务；如果用户选择在本条款变更后继续访问或使用本网站，则视为用户已经接受本条款的修改。
+
+3. 服务说明
+虾米网是一个向广大用户提供内容审核工具和内容分享工具的服务平台，本身不直接提供内容。
+虾米网运用自己的系统通过互联网向用户提供服务，除非虾米网另有明确规定或同用户书面达成新的协议，增强或强化目前服务的任何新功能，包括新产品以及新增加的服务，均无条件地适用本条款。
+虾米网不保证服务一定会满足用户的使用要求，也不保证服务不会被中断，对服务的及时性、安全性、准确性也不作担保。"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
