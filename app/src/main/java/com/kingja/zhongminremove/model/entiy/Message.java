@@ -1,35 +1,36 @@
 package com.kingja.zhongminremove.model.entiy;
 
 /**
- * Description:我的消息
- * Create Time:2018/4/18 15:18
+ * Description:TODO
+ * Create Time:2018/7/27 0027 下午 3:46
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
 public class Message {
-    private Integer id;
-    private String title;
+    private String sender;
+    private String date;
     private String content;
-    private String createdAt;
-    /**
-     * 是否已读 1是 0否
-     */
-    private Integer isread;
 
-    public Integer getId() {
-        return id;
+    public Message(String sender, String date, String content) {
+        this.sender = sender;
+        this.date = date;
+        this.content = content;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getSender() {
+        return sender;
     }
 
-    public String getTitle() {
-        return title;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getContent() {
@@ -38,21 +39,5 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Integer getIsread() {
-        return isread;
-    }
-
-    public void setIsread(Integer isread) {
-        this.isread = isread;
     }
 }

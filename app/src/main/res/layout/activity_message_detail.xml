@@ -7,7 +7,7 @@
     android:padding="12dp">
 
     <TextView
-        style="@style/font_3_20"
+        style="@style/font_3_15"
         android:text="丈量数据审核失败"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

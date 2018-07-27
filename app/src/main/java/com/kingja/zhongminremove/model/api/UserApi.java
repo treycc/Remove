@@ -3,7 +3,6 @@ package com.kingja.zhongminremove.model.api;
 
 import com.kingja.zhongminremove.constant.Constants;
 import com.kingja.zhongminremove.model.HttpResult;
-import com.kingja.zhongminremove.model.entiy.Login;
 import com.kingja.zhongminremove.model.service.UserService;
 import com.kingja.zhongminremove.util.TokenHeadInterceptor;
 
@@ -51,15 +50,5 @@ public class UserApi {
         return userService;
     }
 
-    public Observable<HttpResult<Login>> login(String userName, String password, String deviceId, String deviceName,
-                                               String osName) {
-        return userService.login(userName, password, deviceId, deviceName, osName).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
-
-    public Observable<HttpResult<Object>> register(String mobile, String password, String code) {
-        return userService.register(mobile, password, code).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-    }
 
 }

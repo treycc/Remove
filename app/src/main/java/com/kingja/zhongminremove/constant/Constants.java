@@ -23,4 +23,10 @@ public class Constants {
     /*Extra*/
 
     public static final String EXTRA_OTHER_ACCOUNT_ID = "EXTRA_OTHER_ACCOUNT_ID";
+
+    public interface ModifyCode {
+        int MODIFY_PHONE = 0;
+        int MODIFY_ALIAS = 1;
+    }
+
 }

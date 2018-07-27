@@ -2,12 +2,6 @@ package com.kingja.zhongminremove.model.service;
 
 
 import com.kingja.zhongminremove.model.HttpResult;
-import com.kingja.zhongminremove.model.entiy.Deal;
-import com.kingja.zhongminremove.model.entiy.Discount;
-import com.kingja.zhongminremove.model.entiy.Friend;
-import com.kingja.zhongminremove.model.entiy.Login;
-import com.kingja.zhongminremove.model.entiy.PersonalInfo;
-import com.kingja.zhongminremove.model.entiy.Wallet;
 import com.squareup.haha.perflib.Visitor;
 
 import java.util.List;
@@ -16,12 +10,10 @@ import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 
 /**
  * 项目名称：和Api相关联
@@ -31,11 +23,6 @@ import retrofit2.http.Path;
  * 修改备注：
  */
 public interface UserService {
-    /*登录OK*/
-    @FormUrlEncoded
-    @POST("/app/user/login")
-    Observable<HttpResult<Login>> login(@Field("mobile") String mobile, @Field("password") String password, @Field
-            ("deviceId") String deviceId, @Field("deviceName") String deviceName, @Field("osName") String osName);
 
     /*发送验证码OK*/
     @FormUrlEncoded
@@ -100,33 +87,13 @@ public interface UserService {
     @Multipart
     @POST("/app/user/changeHeadimg")
     Observable<HttpResult<String>> uploadHeadImg(@Part MultipartBody.Part headImg);
+
     //=================================================================================
     /*忘记密码*/
     @FormUrlEncoded
     @POST("forgetPw")
     Observable<HttpResult<Object>> setNewPassword(@Field("mobile") String mobile, @Field("password") String password,
                                                   @Field("code") String code);
-
-    /*交易明细*/
-    @GET("me/deal_list")
-    Observable<HttpResult<List<Deal>>> getDealList();
-
-    /*我的优惠券*/
-    @GET("me/voucher")
-    Observable<HttpResult<List<Discount>>> voucher();
-
-    /*我的钱包*/
-    @GET("me/wallet")
-    Observable<HttpResult<Wallet>> wallet();
-
-
-    /*个人信息*/
-    @GET("u/{id}")
-    Observable<HttpResult<PersonalInfo>> getPersonalInfo(@Path("id") String id);
-
-    /*我的好友*/
-    @GET("me/friends")
-    Observable<HttpResult<List<Friend>>> getMineFriends();
 
 
 }

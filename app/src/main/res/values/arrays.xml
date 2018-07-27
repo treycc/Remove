@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="suggestType">
+        <item>Bug缺陷</item>
         <item>意见和建议</item>
         <item>商务合作</item>
-        <item>Bug修改</item>
         <item>其他</item>
     </string-array>
 </resources>

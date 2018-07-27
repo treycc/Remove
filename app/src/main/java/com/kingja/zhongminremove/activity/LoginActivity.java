@@ -1,9 +1,5 @@
 package com.kingja.zhongminremove.activity;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-
 import com.kingja.zhongminremove.R;
 import com.kingja.zhongminremove.base.BaseTitleActivity;
 import com.kingja.zhongminremove.injector.component.AppComponent;

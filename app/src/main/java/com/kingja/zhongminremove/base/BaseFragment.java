@@ -23,7 +23,7 @@ import butterknife.Unbinder;
  * Desc: BaseFragment
  */
 public abstract class BaseFragment extends Fragment {
-    protected String TAG=getClass().getSimpleName();
+    protected String TAG = getClass().getSimpleName();
     private ProgressDialog mDialogProgress;
     protected Unbinder unbinder;
 
@@ -38,16 +38,18 @@ public abstract class BaseFragment extends Fragment {
         initVariable();
         initCommon();
         initComponent(App.getContext().getAppComponent());
-        initViewAndListener();
+        initView();
+        initDate();
         initNet();
-
     }
+
 
     protected abstract void initVariable();
 
     private void initCommon() {
         mDialogProgress = new ProgressDialog(getActivity());
     }
+
     /*设置圆形进度条*/
     protected void setProgressShow(boolean ifShow) {
         if (ifShow) {
@@ -59,19 +61,22 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void initComponent(AppComponent appComponent);
 
-    protected abstract void initViewAndListener();
+    protected abstract void initView();
+
+    protected abstract void initDate();
+
     protected abstract void initNet();
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+            savedInstanceState) {
         View mRootView = inflater.inflate(getContentId(), container, false);
         unbinder = ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
     protected abstract int getContentId();
-
 
 
     @Override
@@ -84,7 +89,6 @@ public abstract class BaseFragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
     }
-
 
 
 }

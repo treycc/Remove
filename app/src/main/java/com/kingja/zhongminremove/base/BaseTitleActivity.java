@@ -47,7 +47,14 @@ public abstract class BaseTitleActivity extends BaseActivity {
         if (ifHideTitle()) {
             rl_title_root.setVisibility(View.GONE);
         }
+        if (ifHideBack()) {
+            llTitleBack.setVisibility(View.GONE);
+        }
         return rootView;
+    }
+
+    protected boolean ifHideBack() {
+        return false;
     }
 
     protected boolean ifHideTitle() {
@@ -83,14 +90,11 @@ public abstract class BaseTitleActivity extends BaseActivity {
 
     @Override
     public abstract void initVariable();
-
+    protected abstract int getContentView();
     @Override
     protected abstract void initComponent(AppComponent appComponent);
 
-
     protected abstract String getContentTitle();
-
-    protected abstract int getContentView();
 
     @Override
     protected abstract void initView();
