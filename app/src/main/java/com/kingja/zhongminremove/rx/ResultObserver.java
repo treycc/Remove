@@ -34,7 +34,6 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
 
     @Override
     public void onNext(HttpResult<T> httpResult) {
-
         Logger.json(new Gson().toJson(httpResult));
         baseView.hideLoading();
         if (httpResult.getCode() == 0) {
@@ -44,7 +43,7 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
         } else if (httpResult.getCode() == -1) {
             ToastUtil.showText("登录失效");
         } else {
-            ToastUtil.showText(httpResult.getMsg());
+            ToastUtil.showText(httpResult.getMessage());
         }
     }
 

@@ -7,4 +7,14 @@ package com.kingja.zhongminremove.page.login;
  * Email:kingjavip@gmail.com
  */
 public class Login {
+
+    private String Token;
+
+    public String getToken() {
+        return Token;
+    }
+
+    public void setToken(String token) {
+        Token = token;
+    }
 }

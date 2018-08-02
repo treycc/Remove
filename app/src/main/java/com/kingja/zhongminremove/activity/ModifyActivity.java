@@ -2,7 +2,6 @@ package com.kingja.zhongminremove.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.kingja.zhongminremove.util.NoDoubleClickListener;
 import com.kingja.zhongminremove.util.SimpleTextWatcher;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

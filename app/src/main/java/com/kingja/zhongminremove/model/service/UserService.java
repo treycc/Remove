@@ -20,8 +20,9 @@ public interface UserService {
 
     /*登录*/
     @FormUrlEncoded
-    @POST("/app/user/smsmessage")
-    Observable<HttpResult<Login>> login(@Field("mobile") String mobile, @Field("flag") String flag);
+    @POST("/api/employee/login")
+    Observable<HttpResult<Login>> login(@Field("accountName") String accountName, @Field("password") String password,
+                                        @Field("accountType ") int accountType);
 
 
 }
