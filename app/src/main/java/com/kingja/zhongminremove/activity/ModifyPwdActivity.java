@@ -6,15 +6,19 @@ import com.kingja.zhongminremove.injector.component.AppComponent;
 
 /**
  * Description:TODO
- * Create Time:2018/7/26 0026 上午 8:45
+ * Create Time:2018/7/30 0030 上午 10:42
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class LoginActivity extends BaseTitleActivity {
-
+public class ModifyPwdActivity extends BaseTitleActivity {
     @Override
     public void initVariable() {
 
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_modify_pwd;
     }
 
     @Override
@@ -24,12 +28,7 @@ public class LoginActivity extends BaseTitleActivity {
 
     @Override
     protected String getContentTitle() {
-        return "";
-    }
-
-    @Override
-    protected int getContentView() {
-        return R.layout.activity_login;
+        return "修改密码";
     }
 
     @Override
@@ -45,10 +44,5 @@ public class LoginActivity extends BaseTitleActivity {
     @Override
     protected void initNet() {
 
-    }
-
-    @Override
-    protected boolean ifHideTitle() {
-        return true;
     }
 }

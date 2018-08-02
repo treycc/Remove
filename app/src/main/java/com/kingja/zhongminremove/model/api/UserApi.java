@@ -2,15 +2,11 @@ package com.kingja.zhongminremove.model.api;
 
 
 import com.kingja.zhongminremove.constant.Constants;
-import com.kingja.zhongminremove.model.HttpResult;
 import com.kingja.zhongminremove.model.service.UserService;
 import com.kingja.zhongminremove.util.TokenHeadInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

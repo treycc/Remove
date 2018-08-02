@@ -1,41 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/bg_hi"
               android:orientation="vertical">
 
-    <View
-        style="@style/div_hor_gray"
-        android:layout_marginTop="12dp"/>
 
-    <RelativeLayout
+    <LinearLayout
+        android:layout_marginTop="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white_hi"
+        android:gravity="center_vertical"
         android:padding="12dp">
 
-        <ImageView
-            android:id="@+id/iv_modify_clear"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@mipmap/ic_input_clear"/>
+        <TextView
+            android:id="@+id/tv_modify_title"
+            android:layout_marginRight="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户名"/>
 
-        <EditText
-            android:id="@+id/et_modify_value"
-            style="@style/font_3_13"
+        <com.kingja.supershapeview.view.SuperShapeRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
-            android:layout_toLeftOf="@id/iv_modify_clear"
-            android:background="@null"
-            android:hint="请输入新的昵称"/>
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingRight="12dp"
+            android:paddingLeft="12dp"
+            app:super_strokeColor="@color/c_6"
+            app:super_strokeWidth="1dp">
+
+            <ImageView
+                android:id="@+id/iv_modify_clear"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/ic_input_clear"/>
+
+            <EditText
+                android:id="@+id/et_modify_value"
+                style="@style/font_3_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:layout_toLeftOf="@id/iv_modify_clear"
+                android:background="@null"/>
 
 
-    </RelativeLayout>
+        </com.kingja.supershapeview.view.SuperShapeRelativeLayout>
 
-    <View style="@style/div_hor_gray"/>
+    </LinearLayout>
+
+
 </LinearLayout>

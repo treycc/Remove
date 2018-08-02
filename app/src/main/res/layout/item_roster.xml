@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="12dp">
+
+
+    <TextView
+        style="@style/font_3_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="浙江省温州市龙湾区三垟湿地3期"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/font_9_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="高佳林"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_marginRight="8dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@mipmap/ic_search"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@mipmap/ic_search"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@mipmap/ic_search"/>
+
+        <TextView
+            style="@style/font_9_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="18866998652"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

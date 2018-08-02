@@ -1,6 +1,9 @@
 package com.kingja.zhongminremove.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -9,9 +12,12 @@ import android.widget.TextView;
 import com.kingja.supershapeview.view.SuperShapeImageView;
 import com.kingja.zhongminremove.R;
 import com.kingja.zhongminremove.activity.ModifyActivity;
+import com.kingja.zhongminremove.activity.ProjectListActivity;
+import com.kingja.zhongminremove.activity.SettingActivity;
 import com.kingja.zhongminremove.base.BaseFragment;
 import com.kingja.zhongminremove.constant.Constants;
 import com.kingja.zhongminremove.injector.component.AppComponent;
+import com.kingja.zhongminremove.util.GoUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -56,15 +62,18 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.rl_mine_alias:
                 String alias = tvMineAlias.getText().toString().trim();
-                ModifyActivity.goActivity(getActivity(), Constants.ModifyCode.MODIFY_PHONE, "别名", alias);
+                ModifyActivity.goActivityInFragment(this, Constants.ModifyCode.MODIFY_ALIAS, "别名", alias);
                 break;
             case R.id.rl_mine_project:
+                GoUtil.goActivity(getActivity(), ProjectListActivity.class);
                 break;
             case R.id.rl_mine_phone:
                 String phone = tvMinePhone.getText().toString().trim();
-                ModifyActivity.goActivity(getActivity(), Constants.ModifyCode.MODIFY_PHONE, "手机号", phone);
+                ModifyActivity.goActivityInFragment(this, Constants.ModifyCode.MODIFY_PHONE, "手机号", phone);
                 break;
             case R.id.rl_mine_setting:
+                GoUtil.goActivity(getActivity(), SettingActivity.class);
+
                 break;
             case R.id.rl_mine_service:
                 break;
@@ -72,6 +81,25 @@ public class MineFragment extends BaseFragment {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            String newVaule = data.getStringExtra("newVaule");
+            switch (requestCode) {
+                case Constants.ModifyCode.MODIFY_ALIAS:
+                    tvMineAlias.setText(newVaule);
+                    break;
+                case Constants.ModifyCode.MODIFY_PHONE:
+                    tvMinePhone.setText(newVaule);
+                    break;
+                default:
+                    break;
+
+            }
+        }
+
     }
 
     public static MineFragment newInstance() {

@@ -2,10 +2,13 @@ package com.kingja.zhongminremove.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.kingja.zhongminremove.R;
 import com.kingja.zhongminremove.base.BaseTitleActivity;
@@ -16,6 +19,8 @@ import com.kingja.zhongminremove.util.NoDoubleClickListener;
 import com.kingja.zhongminremove.util.SimpleTextWatcher;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Description:TODO
@@ -29,9 +34,20 @@ public class ModifyActivity extends BaseTitleActivity {
     ImageView ivModifyClear;
     @BindView(R.id.et_modify_value)
     EditText etModifyValue;
+    @BindView(R.id.tv_modify_title)
+    TextView tvModifyTitle;
     private String title;
     private String oldValue;
     private int requesCode;
+
+    @OnClick({R.id.iv_modify_clear})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.iv_modify_clear:
+                etModifyValue.setText("");
+                break;
+        }
+    }
 
     @Override
     public void initVariable() {
@@ -62,14 +78,14 @@ public class ModifyActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        setContentTitle("修改" + title);
-        setRightClick("保存", new NoDoubleClickListener() {
+        setRightClick("确定", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
                 checkDateFormat();
             }
         });
         etModifyValue.setText(oldValue);
+        tvModifyTitle.setText(title);
         etModifyValue.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
@@ -102,6 +118,7 @@ public class ModifyActivity extends BaseTitleActivity {
         Intent intent = new Intent();
         intent.putExtra("newVaule", newValue);
         setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
     @Override
@@ -109,12 +126,20 @@ public class ModifyActivity extends BaseTitleActivity {
 
     }
 
-    public static void goActivity(Activity activity, int requesCode, String title, String oldValue) {
+    public static void goActivityInActivity(Activity activity, int requesCode, String title, String oldValue) {
         Intent intent = new Intent(activity, ModifyActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("oldValue", oldValue);
         intent.putExtra("requesCode", requesCode);
         activity.startActivityForResult(intent, requesCode);
+    }
+
+    public static void goActivityInFragment(Fragment fragment, int requesCode, String title, String oldValue) {
+        Intent intent = new Intent(fragment.getActivity(), ModifyActivity.class);
+        intent.putExtra("title", title);
+        intent.putExtra("oldValue", oldValue);
+        intent.putExtra("requesCode", requesCode);
+        fragment.startActivityForResult(intent, requesCode);
     }
 
 }

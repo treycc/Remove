@@ -1,10 +1,7 @@
 package com.kingja.zhongminremove.activity;
 
-import android.os.Bundle;
-
 import com.kingja.zhongminremove.R;
 import com.kingja.zhongminremove.adapter.CommonAdapter;
-import com.kingja.zhongminremove.adapter.ProjectAdapter;
 import com.kingja.zhongminremove.adapter.ViewHolder;
 import com.kingja.zhongminremove.base.BaseTitleActivity;
 import com.kingja.zhongminremove.injector.component.AppComponent;
@@ -16,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:TODO

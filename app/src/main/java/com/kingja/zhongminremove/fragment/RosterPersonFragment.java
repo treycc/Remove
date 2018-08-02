@@ -5,13 +5,12 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.kingja.zhongminremove.R;
-import com.kingja.zhongminremove.activity.MessageDetailActivity;
+import com.kingja.zhongminremove.activity.RosterDetailActivity;
 import com.kingja.zhongminremove.adapter.CommonAdapter;
 import com.kingja.zhongminremove.adapter.ViewHolder;
 import com.kingja.zhongminremove.base.BaseFragment;
 import com.kingja.zhongminremove.injector.component.AppComponent;
 import com.kingja.zhongminremove.model.entiy.Message;
-import com.kingja.zhongminremove.util.GoUtil;
 import com.kingja.zhongminremove.view.PullToBottomListView;
 import com.kingja.zhongminremove.view.RefreshSwipeRefreshLayout;
 
@@ -27,7 +26,7 @@ import butterknife.OnItemClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MessageFragment extends BaseFragment {
+public class RosterPersonFragment extends BaseFragment {
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
@@ -35,8 +34,8 @@ public class MessageFragment extends BaseFragment {
     private List<Message> messages = new ArrayList<>();
     private CommonAdapter adapter;
 
-    public static MessageFragment newInstance() {
-        MessageFragment fragment = new MessageFragment();
+    public static RosterPersonFragment newInstance() {
+        RosterPersonFragment fragment = new RosterPersonFragment();
         Bundle args = new Bundle();
         args.putString("param", null);
         fragment.setArguments(args);
@@ -45,7 +44,8 @@ public class MessageFragment extends BaseFragment {
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        GoUtil.goActivity(getActivity(), MessageDetailActivity.class);
+
+        RosterDetailActivity.goActivity(getActivity(),null);
     }
 
     @Override
@@ -66,15 +66,21 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        plv.setAdapter(adapter = new CommonAdapter<Message>(getActivity(), messages, R.layout.item_message) {
-            @Override
+        plv.setAdapter(adapter = new CommonAdapter<Message>(getActivity(), messages, R.layout.item_roster) {
+                    @Override
+                    public int getCount() {
+                        return 10;
+                    }
+
+                    @Override
             public void convert(ViewHolder helper, Message item) {
-                helper.setText(R.id.tv_message_sender, item.getSender());
-                helper.setText(R.id.tv_message_date, item.getDate());
-                helper.setText(R.id.tv_message_content, item.getContent());
+//                helper.setText(R.id.tv_message_sender, item.getSender());
+//                helper.setText(R.id.tv_message_date, item.getDate());
+//                helper.setText(R.id.tv_message_content, item.getContent());
 //                helper.setText(R.id.v_message_isReaded, item.getPerson());
             }
-        });
+        }
+        );
     }
 
     @Override

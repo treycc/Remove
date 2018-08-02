@@ -2,97 +2,72 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:background="@color/white_hi"
               android:orientation="vertical"
               android:padding="12dp">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_projectName"
+        style="@style/font_3_15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="三垟湿地二期"/>
 
-        <TextView
-            style="@style/font_3_15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="项目名称"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3.5">
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_projectYear"
+                style="@style/font_9_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="89"/>
 
-                <TextView
-                    android:id="@+id/tv_projectName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="三垟湿地二期"/>
+            <TextView
+                style="@style/font_9_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:text="年"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true">
+            <TextView
+                style="@style/font_9_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="负责人:"/>
 
-                    <TextView
-                        style="@style/font_3_15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="12dp"
-                        android:text="年代"/>
-
-                    <TextView
-                        android:id="@+id/tv_projectYear"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="89"/>
-                </LinearLayout>
-            </RelativeLayout>
-
+            <TextView
+                android:id="@+id/tv_projectManager"
+                style="@style/font_9_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="司马懿"/>
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/arrow_right"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_projectAddress"
+        style="@style/font_9_13"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            style="@style/font_3_15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="负责人"/>
-
-        <TextView
-            android:id="@+id/tv_projectManager"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:text="司马懿"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            style="@style/font_3_15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="地址"/>
-
-        <TextView
-            android:id="@+id/tv_projectAddress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:text="浙江省温州市龙湾区三垟湿地，大龙街道200号-354号"/>
-    </LinearLayout>
-
+        android:layout_height="wrap_content"
+        android:text="浙江省温州市龙湾区三垟湿地，大龙街道200号-354号"/>
 
 </LinearLayout>

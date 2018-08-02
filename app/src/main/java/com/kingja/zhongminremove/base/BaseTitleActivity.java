@@ -88,6 +88,11 @@ public abstract class BaseTitleActivity extends BaseActivity {
         tv_right_text.setOnClickListener(onClickListener);
     }
 
+    public void hideRightClick() {
+        TextView tv_right_text = rootView.findViewById(R.id.tv_right_text);
+        tv_right_text.setVisibility(View.GONE);
+    }
+
     @Override
     public abstract void initVariable();
     protected abstract int getContentView();

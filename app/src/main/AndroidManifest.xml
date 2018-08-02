@@ -39,13 +39,40 @@
             </intent-filter>
         </activity>
         <!--项目列表-->
-        <!--<activity android:name=".activity.ProjectListActivity"
-        android:screenOrientation="portrait/>-->
-        <!--项目主页-->
-        <!--<activity android:name=".activity.HomeActivity"
-        android:screenOrientation="portrait/>-->
+        <activity
+            android:name=".activity.ProjectListActivity"
+            android:screenOrientation="portrait"/>
         <!--修改页-->
-        <activity android:name=".activity.ModifyActivity"
+        <activity
+            android:name=".activity.ModifyActivity"
+            android:screenOrientation="portrait"/>
+        <!--设置页-->
+        <activity
+            android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait"/>
+        <!--消息详情-->
+        <activity
+            android:name=".activity.MessageDetailActivity"
+            android:screenOrientation="portrait"/>
+        <!--修改密码-->
+        <activity
+            android:name=".activity.ModifyPwdActivity"
+            android:screenOrientation="portrait"/>
+        <!--意见及建议-->
+        <activity
+            android:name=".activity.SuggestActivity"
+            android:screenOrientation="portrait"/>
+        <!--关于我们-->
+        <activity
+            android:name=".activity.AboutUsActivity"
+            android:screenOrientation="portrait"/>
+        <!--花名册列表-->
+        <activity
+            android:name=".activity.RosterListActivity"
+            android:screenOrientation="portrait"/>
+        <!--花名册详情-->
+        <activity
+            android:name=".activity.RosterDetailActivity"
             android:screenOrientation="portrait"/>
 
         <meta-data

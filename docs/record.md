@@ -1,0 +1,1 @@
+* Fragment 中接受onActivityResult回调要使用fragment.startActivityForResult方法

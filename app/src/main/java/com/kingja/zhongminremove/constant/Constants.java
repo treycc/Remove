@@ -8,7 +8,7 @@ package com.kingja.zhongminremove.constant;
  * 修改备注：
  */
 public class Constants {
-    public static final String BASE_URL = "http://116.62.220.255";
+    public static final String BASE_URL = "http://192.168.0.108:8080";
     public static final int PAGE_SIZE = 20;
     public static final int PAGE_FIRST = 1;
     public static final int PAGE_SIZE_100 = 100;

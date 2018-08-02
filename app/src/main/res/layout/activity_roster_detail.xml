@@ -1,366 +1,368 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_hi">
 
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp">
-
-
-        <com.kingja.zhongminremove.view.RequiredTextView
-            style="@style/font_6_13"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="户主"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/ll_ownerName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:padding="12dp">
 
 
-            <TextView
-                style="@style/font_9_13"
+            <com.kingja.zhongminremove.view.RequiredTextView
+                style="@style/font_6_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
                 android:layout_weight="1"
-                android:text="张三"/>
+                android:text="户主"/>
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
-                android:background="@mipmap/arrow_right"/>
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <View style="@style/div_hor_gray"/>
-
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp">
-
-
-        <com.kingja.zhongminremove.view.RequiredTextView
-            style="@style/font_6_13"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="地址"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:orientation="horizontal">
-
-
-            <TextView
-                style="@style/font_9_13"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:layout_weight="1"
-                android:text="温州市龙湾区"/>
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
-                android:background="@mipmap/arrow_right"/>
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <View style="@style/div_hor_gray"/>
-
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp">
-
-
-        <com.kingja.zhongminremove.view.RequiredTextView
-            style="@style/font_6_13"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="性别"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:orientation="horizontal">
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
                 android:orientation="horizontal">
 
 
-                <RadioButton
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/font_9_13"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
                     android:layout_weight="1"
+                    android:text="张三"/>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="18dp"
+                    android:background="@mipmap/arrow_right"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <LinearLayout
+            android:id="@+id/ll_ownerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+
+            <com.kingja.zhongminremove.view.RequiredTextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="地址"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    style="@style/font_9_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1"
+                    android:text="温州市龙湾区"/>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="18dp"
+                    android:background="@mipmap/arrow_right"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+
+            <com.kingja.zhongminremove.view.RequiredTextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="性别"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/font_9_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="男"/>
 
-                <RadioButton
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="手机"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/font_9_13"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
                     android:layout_weight="1"
-                    android:text="女"/>
-            </RadioGroup>
+                    android:text="18888886668"/>
 
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="18dp"
+                    android:background="@mipmap/arrow_right"/>
+            </LinearLayout>
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <View style="@style/div_hor_gray"/>
-
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp">
-
-
-        <com.kingja.zhongminremove.view.RequiredTextView
-            style="@style/font_6_13"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="手机"/>
+        <View style="@style/div_hor_gray"/>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="身份证"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/font_9_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1"
+                    android:text="3333003320123212122"/>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="18dp"
+                    android:background="@mipmap/arrow_right"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="类型"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/font_9_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1"
+                    android:text="住宅"/>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="18dp"
+                    android:background="@mipmap/arrow_right"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
 
 
             <TextView
-                style="@style/font_9_13"
+                style="@style/font_6_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
                 android:layout_weight="1"
-                android:text="18888886668"/>
+                android:text="是否丈量"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+
+            <TextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="是否评估"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@mipmap/bg_add_photo"/>
 
             <ImageView
                 android:layout_width="15dp"
                 android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:background="@mipmap/arrow_right"/>
 
+        </RelativeLayout>
 
-        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/gray_hi"/>
 
-
-    </LinearLayout>
-
-    <View style="@style/div_hor_gray"/>
-
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp">
-
-
-        <com.kingja.zhongminremove.view.RequiredTextView
-            style="@style/font_6_13"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="身份证"/>
+        <View style="@style/div_hor_gray"/>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:orientation="horizontal">
-
+            android:gravity="center_vertical"
+            android:padding="12dp">
 
             <TextView
-                style="@style/font_9_13"
+                style="@style/font_6_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
                 android:layout_weight="1"
-                android:text="3333003320123212122"/>
+                android:text="备注"/>
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
-                android:background="@mipmap/arrow_right"/>
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <View style="@style/div_hor_gray"/>
-
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp">
-
-
-        <com.kingja.zhongminremove.view.RequiredTextView
-            style="@style/font_6_13"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="类型"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:orientation="horizontal">
-
-
-            <TextView
-                style="@style/font_9_13"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:layout_weight="1"
-                android:text="住宅"/>
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
-                android:background="@mipmap/arrow_right"/>
+                <TextView
+                    style="@style/font_9_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1"
+                    android:text="温州市拆迁 总部归属北京市创为律师事务所,是专业的拆迁维权律师事务所.温州市拆迁 承诺案件受理后24小时内启动法律程序"/>
 
-
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="18dp"
+                    android:background="@mipmap/arrow_right"/>
+            </LinearLayout>
         </LinearLayout>
 
-
+        <View style="@style/div_hor_gray"/>
     </LinearLayout>
-
-    <View style="@style/div_hor_gray"/>
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp">
-
-
-        <com.kingja.zhongminremove.view.RequiredTextView
-            style="@style/font_6_13"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="定位"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:orientation="horizontal">
-
-
-            <TextView
-                style="@style/font_9_13"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:layout_weight="1"
-                android:text="124.25421 542.25545"/>
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
-                android:background="@mipmap/arrow_right"/>
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <View style="@style/div_hor_gray"/>
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp">
-
-
-        <com.kingja.zhongminremove.view.RequiredTextView
-            style="@style/font_6_13"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="是否丈量"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:orientation="horizontal">
-
-
-           <CheckBox
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"/>
-
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <View style="@style/div_hor_gray"/>
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp">
-
-
-        <com.kingja.zhongminremove.view.RequiredTextView
-            style="@style/font_6_13"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="是否评估"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.5"
-            android:orientation="horizontal">
-
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-
-    </LinearLayout>
-    <View style="@style/div_hor_gray"/>
-</LinearLayout>
+</ScrollView>

@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="@color/bg_hi"
               android:orientation="vertical">
 
 
     <RelativeLayout
-        android:layout_marginTop="6dp"
-        android:background="@color/white_hi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@color/white_hi"
         android:padding="12dp">
-
 
         <TextView
             style="@style/font_6_15"
@@ -23,16 +22,20 @@
             android:text="推送消息"/>
 
         <CheckBox
+            android:id="@+id/cb_setting_jpush"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
+
     <View style="@style/div_hor_gray"/>
+
     <RelativeLayout
-        android:background="@color/white_hi"
+        android:id="@+id/rl_setting_modifypwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white_hi"
         android:padding="12dp">
 
 
@@ -51,11 +54,13 @@
             android:background="@mipmap/arrow_right"/>
 
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_marginTop="6dp"
-        android:background="@color/white_hi"
+        android:id="@+id/rl_setting_suggest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@color/white_hi"
         android:padding="12dp">
 
 
@@ -74,11 +79,14 @@
             android:background="@mipmap/arrow_right"/>
 
     </RelativeLayout>
+
     <View style="@style/div_hor_gray"/>
+
     <RelativeLayout
-        android:background="@color/white_hi"
+        android:id="@+id/rl_setting_aboutus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white_hi"
         android:padding="12dp">
 
 
@@ -97,11 +105,13 @@
             android:background="@mipmap/arrow_right"/>
 
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_marginTop="6dp"
-        android:background="@color/white_hi"
+        android:id="@+id/rl_setting_clearCache"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@color/white_hi"
         android:padding="12dp">
 
 
@@ -113,25 +123,28 @@
             android:text="清理缓存"/>
 
         <TextView
-            android:layout_alignParentRight="true"
+            android:id="@+id/tv_setting_cache"
             style="@style/font_9_15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="12M"/>
 
     </RelativeLayout>
+
     <View style="@style/div_hor_gray"/>
 
     <com.kingja.supershapeview.view.SuperShapeTextView
-        android:layout_marginTop="24dp"
+        android:id="@+id/stv_setting_quit"
         style="@style/font_f_15"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="10dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:text="退出"
         app:super_cornerRadius="4dp"
