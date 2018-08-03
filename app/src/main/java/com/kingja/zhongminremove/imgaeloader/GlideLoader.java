@@ -1,6 +1,7 @@
 package com.kingja.zhongminremove.imgaeloader;
 
 import android.content.Context;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +21,15 @@ public class GlideLoader implements IImageLoader {
                 .load(Constants.BASE_URL + url)
                 .centerCrop()
                 .placeholder(resourceId == -1 ? R.mipmap.ic_logo : resourceId)
+                .crossFade()
+                .into(view);
+    }
+
+    @Override
+    public void loadImage(Context context, Uri uri, ImageView view) {
+        Glide.with(context)
+                .load(uri)
+                .centerCrop()
                 .crossFade()
                 .into(view);
     }

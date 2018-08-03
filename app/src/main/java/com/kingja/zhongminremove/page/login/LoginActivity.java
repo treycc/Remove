@@ -1,6 +1,5 @@
 package com.kingja.zhongminremove.page.login;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.kingja.supershapeview.view.SuperShapeEditText;
@@ -9,12 +8,10 @@ import com.kingja.zhongminremove.R;
 import com.kingja.zhongminremove.base.BaseTitleActivity;
 import com.kingja.zhongminremove.injector.component.AppComponent;
 import com.kingja.zhongminremove.util.CheckUtil;
-import com.kingja.zhongminremove.util.GoUtil;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -41,7 +38,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
                 String username = setLoginAccountName.getText().toString().trim();
                 String password = setLoginPassword.getText().toString().trim();
                 if (CheckUtil.checkEmpty(username, "请输入用户名") && CheckUtil.checkEmpty(password, "请输入密码")) {
-                    mLoginPresenter.login(username, password,0);
+                    mLoginPresenter.login(username, password, 0);
                 }
                 break;
             default:

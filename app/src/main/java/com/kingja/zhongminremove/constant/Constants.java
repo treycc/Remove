@@ -27,6 +27,9 @@ public class Constants {
     public interface ModifyCode {
         int MODIFY_PHONE = 0;
         int MODIFY_ALIAS = 1;
+        int MODIFY_OWNER_NAME = 2;
+        int MODIFY_ADDRESS = 3;
+        int MODIFY_IDCARD = 4;
     }
 
 }

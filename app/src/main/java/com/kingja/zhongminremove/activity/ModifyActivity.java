@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -97,12 +98,30 @@ public class ModifyActivity extends BaseTitleActivity {
         String newVaule = etModifyValue.getText().toString().trim();
         switch (requesCode) {
             case Constants.ModifyCode.MODIFY_PHONE:
-                if (CheckUtil.checkPhoneFormat(newVaule)) {
+                if (!TextUtils.isEmpty(newVaule)) {
+                    if (CheckUtil.checkPhoneFormat(newVaule)) {
+                        saveValue(newVaule);
+                    }
+                } else {
                     saveValue(newVaule);
                 }
                 break;
-            case Constants.ModifyCode.MODIFY_ALIAS:
-                if (CheckUtil.checkEmpty(newVaule, "请输入别名")) {
+            case Constants.ModifyCode.MODIFY_OWNER_NAME:
+                if (CheckUtil.checkEmpty(newVaule, "请输入" + title)) {
+                    saveValue(newVaule);
+                }
+                break;
+            case Constants.ModifyCode.MODIFY_ADDRESS:
+                if (CheckUtil.checkEmpty(newVaule, "请输入" + title)) {
+                    saveValue(newVaule);
+                }
+                break;
+            case Constants.ModifyCode.MODIFY_IDCARD:
+                if (!TextUtils.isEmpty(newVaule)) {
+                    if (CheckUtil.checkIdCard(newVaule, "身份证格式有误")) {
+                        saveValue(newVaule);
+                    }
+                } else {
                     saveValue(newVaule);
                 }
                 break;

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white_hi"
     android:descendantFocusability="blocksDescendants"
-    android:focusableInTouchMode="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,28 +30,23 @@
                 android:layout_weight="1"
                 android:text="户主"/>
 
-            <LinearLayout
+            <com.kingja.supershapeview.view.SuperShapeEditText
+                android:id="@+id/set_roster_name"
+                android:hint="请输入户主姓名"
+                style="@style/font_9_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
-                android:orientation="horizontal">
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                app:super_strokeColor="@color/c_6"
+                app:super_strokeWidth="1px">
 
 
-                <TextView
-                    android:id="@+id/tv_roster_name"
-                    style="@style/font_9_13"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1"
-                    android:text="张三"/>
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="18dp"
-                    android:background="@mipmap/arrow_right"/>
-
-            </LinearLayout>
+            </com.kingja.supershapeview.view.SuperShapeEditText>
         </LinearLayout>
 
         <View style="@style/div_hor_gray"/>
@@ -70,29 +66,24 @@
                 android:layout_weight="1"
                 android:text="地址"/>
 
-            <LinearLayout
+
+            <com.kingja.supershapeview.view.SuperShapeEditText
+                android:id="@+id/set_roster_address"
+                android:hint="请输入地址"
+                style="@style/font_9_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
-                android:orientation="horizontal">
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                app:super_strokeColor="@color/c_6"
+                app:super_strokeWidth="1px">
 
 
-                <TextView
-                    android:id="@+id/tv_roster_address"
-                    style="@style/font_9_13"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1"
-                    android:text="温州市龙湾区"/>
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="18dp"
-                    android:background="@mipmap/arrow_right"/>
-
-
-            </LinearLayout>
+            </com.kingja.supershapeview.view.SuperShapeEditText>
 
 
         </LinearLayout>
@@ -114,28 +105,36 @@
                 android:layout_weight="1"
                 android:text="性别"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_roster_gender"
-                    style="@style/font_9_13"
+                <RadioGroup
+                    android:id="@+id/rg_roster_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="男"/>
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:checked="true"
+                        android:id="@+id/rb_roster_man"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
+                        android:text="男"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_roster_woman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="女"/>
+
+                </RadioGroup>
 
 
-                <Switch
-                    android:id="@+id/switch_roster_gender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -156,26 +155,24 @@
                 android:layout_weight="1"
                 android:text="手机"/>
 
-            <LinearLayout
+
+            <com.kingja.supershapeview.view.SuperShapeEditText
+                android:id="@+id/set_roster_phone"
+                android:hint="请输入手机号"
+                style="@style/font_9_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
-                android:orientation="horizontal">
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                app:super_strokeColor="@color/c_6"
+                app:super_strokeWidth="1px">
 
-                <TextView
-                    android:id="@+id/tv_roster_phone"
-                    style="@style/font_9_13"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1"
-                    android:text="18888886668"/>
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="18dp"
-                    android:background="@mipmap/arrow_right"/>
-            </LinearLayout>
+            </com.kingja.supershapeview.view.SuperShapeEditText>
         </LinearLayout>
 
         <View style="@style/div_hor_gray"/>
@@ -194,26 +191,24 @@
                 android:layout_weight="1"
                 android:text="身份证"/>
 
-            <LinearLayout
+
+            <com.kingja.supershapeview.view.SuperShapeEditText
+                android:id="@+id/set_roster_idcard"
+                android:hint="请输入身份证号"
+                style="@style/font_9_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
-                android:orientation="horizontal">
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                app:super_strokeColor="@color/c_6"
+                app:super_strokeWidth="1px">
 
-                <TextView
-                    android:id="@+id/tv_roster_idcard"
-                    style="@style/font_9_13"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1"
-                    android:text="3333003320123212122"/>
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="18dp"
-                    android:background="@mipmap/arrow_right"/>
-            </LinearLayout>
+            </com.kingja.supershapeview.view.SuperShapeEditText>
         </LinearLayout>
 
         <View style="@style/div_hor_gray"/>
@@ -238,19 +233,27 @@
                 android:layout_weight="3.5"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_roster_type"
-                    style="@style/font_9_13"
-                    android:layout_width="0dp"
+                <RadioGroup
+                    android:id="@+id/rg_roster_type"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1"
-                    android:text="住宅"/>
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="18dp"
-                    android:background="@mipmap/arrow_right"/>
+                    <RadioButton
+                        android:checked="true"
+                        android:id="@+id/rb_roster_personal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
+                        android:text="个人"/>
+
+                    <RadioButton
+                        android:id="@+id/rb_roster_company"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="企业"/>
+
+                </RadioGroup>
             </LinearLayout>
         </LinearLayout>
 
@@ -334,13 +337,6 @@
                 android:layout_marginRight="12dp"
                 android:layout_weight="1"/>
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@mipmap/arrow_right"/>
-
         </LinearLayout>
 
         <View
@@ -364,27 +360,25 @@
                 android:layout_weight="1"
                 android:text="备注"/>
 
-            <LinearLayout
+
+            <com.kingja.supershapeview.view.SuperShapeEditText
+                android:id="@+id/set_roster_remark"
+                android:hint="请输入备注内容"
+                android:gravity="start"
+                style="@style/font_9_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="4dp"
+                android:lines="4"
+                app:super_strokeColor="@color/c_6"
+                app:super_strokeWidth="1px">
 
-                <TextView
-                    android:id="@+id/tv_roster_remark"
-                    style="@style/font_9_13"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1"
-                    android:text="温州市拆迁 总部归属北京市创为律师事务所,是专业的拆迁维权律师事务所.温州市拆迁 承诺案件受理后24小时内启动法律程序"/>
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="18dp"
-                    android:background="@mipmap/arrow_right"/>
-            </LinearLayout>
+            </com.kingja.supershapeview.view.SuperShapeEditText>
         </LinearLayout>
 
         <View style="@style/div_hor_gray"/>

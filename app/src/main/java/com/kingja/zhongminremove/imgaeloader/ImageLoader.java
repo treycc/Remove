@@ -1,6 +1,7 @@
 package com.kingja.zhongminremove.imgaeloader;
 
 import android.content.Context;
+import android.net.Uri;
 import android.widget.ImageView;
 
 /**
@@ -20,6 +21,11 @@ public class ImageLoader implements IImageLoader {
     @Override
     public void loadImage(Context context, String url, int resourceId, ImageView view) {
         imageLoader.loadImage(context, url, resourceId, view);
+    }
+
+    @Override
+    public void loadImage(Context context, Uri uri, ImageView view) {
+        imageLoader.loadImage(context, uri, view);
     }
 
     public void loadImage(Context context, String url, ImageView view) {

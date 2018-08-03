@@ -22,7 +22,7 @@
     <style name="div_hor_bg">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
-        <item name="android:background">@color/bg_hi</item>
+        <item name="android:background">@color/gray_hi</item>
     </style>
     <style name="div_hor_gray_6">
         <item name="android:layout_width">match_parent</item>
