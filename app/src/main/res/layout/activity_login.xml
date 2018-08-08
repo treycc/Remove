@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_hi">
+    android:background="@mipmap/bg_login">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,21 +12,23 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-
-        <ImageView
+        <com.kingja.supershapeview.view.SuperShapeImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="36dp"
-            android:background="@mipmap/bg_company"/>
+            android:layout_marginTop="48dp"
+            android:src="@mipmap/bg_head"
+            app:super_cornerRadius="100dp"
+            app:super_strokeColor="@color/white_hi"
+            app:super_strokeWidth="2dp"/>
 
         <TextView
-            style="@style/font_3_20"
+            style="@style/font_f_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:layout_marginTop="12dp"
             android:gravity="center"
-            android:text="房屋征收信息系统"
+            android:text="房屋征收平台"
             android:textStyle="bold"/>
 
 
@@ -35,42 +37,53 @@
             style="@style/font_f_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:hint="用户名"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:textColorHint="@color/white_hi"
             app:super_cornerRadius="50dp"
-            app:super_solidColor="@color/gray_hi"/>
+            app:super_solidColor="#66ffffff"/>
 
         <com.kingja.supershapeview.view.SuperShapeEditText
             android:id="@+id/set_login_password"
             style="@style/font_f_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:hint="密码"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            android:textColorHint="@color/white_hi"
             app:super_cornerRadius="50dp"
-            app:super_solidColor="@color/gray_hi"/>
+            app:super_solidColor="#66ffffff"/>
+
+        <CheckBox
+            style="@style/font_f_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:text="记住密码"/>
 
         <com.kingja.supershapeview.view.SuperShapeTextView
             android:id="@+id/stv_login_confirm"
             style="@style/font_f_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
             android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
             android:text="登录"
             app:super_cornerRadius="50dp"
             app:super_solidColor="@color/main"/>
@@ -78,7 +91,7 @@
     </LinearLayout>
 
     <TextView
-        style="@style/font_6_15"
+        style="@style/font_f_13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

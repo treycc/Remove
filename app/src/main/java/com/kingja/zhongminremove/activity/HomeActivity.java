@@ -8,6 +8,8 @@ import android.support.v4.content.ContextCompat;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kingja.zhongminremove.R;
@@ -16,6 +18,7 @@ import com.kingja.zhongminremove.fragment.MapFragment;
 import com.kingja.zhongminremove.fragment.MessageFragment;
 import com.kingja.zhongminremove.fragment.MineFragment;
 import com.kingja.zhongminremove.injector.component.AppComponent;
+import com.kingja.zhongminremove.util.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +40,18 @@ public class HomeActivity extends BaseTitleActivity {
     TextView tvTabMessage;
     @BindView(R.id.tv_tab_mine)
     TextView tvTabMine;
+    @BindView(R.id.iv_tab_map)
+    ImageView ivTabMap;
+    @BindView(R.id.ll_tab_map)
+    LinearLayout llTabMap;
+    @BindView(R.id.iv_tab_message)
+    ImageView ivTabMessage;
+    @BindView(R.id.ll_tab_message)
+    LinearLayout llTabMessage;
+    @BindView(R.id.iv_tab_mine)
+    ImageView ivTabMine;
+    @BindView(R.id.ll_tab_mine)
+    LinearLayout llTabMine;
     private FragmentManager supportFragmentManager;
     private Fragment currentFragment;
     private static SparseArray<Fragment> fragmentMap = new SparseArray<>();
@@ -132,7 +147,7 @@ public class HomeActivity extends BaseTitleActivity {
                 .getColor(this, R.color.c_9));
         tvTabMessage.setTextColor(fragmentId == FRAGMENT_MESSAGE ? ContextCompat.getColor(this, R.color.main) :
                 ContextCompat
-                .getColor(this, R.color.c_9));
+                        .getColor(this, R.color.c_9));
         tvTabMine.setTextColor(fragmentId == FRAGMENT_MINE ? ContextCompat.getColor(this, R.color.main) : ContextCompat
                 .getColor(this, R.color.c_9));
     }
@@ -141,6 +156,25 @@ public class HomeActivity extends BaseTitleActivity {
     protected void onDestroy() {
         super.onDestroy();
         fragmentMap.clear();
+    }
+
+    //防止Fragment重生重叠
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+    }
+
+    private long mLastTime;
+
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - mLastTime < 500) {
+            finish();
+        } else {
+            ToastUtil.showText("连续点击退出");
+            mLastTime = currentTime;
+
+        }
     }
 
 }

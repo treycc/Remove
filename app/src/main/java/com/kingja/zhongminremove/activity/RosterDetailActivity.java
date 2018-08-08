@@ -205,10 +205,12 @@ public class RosterDetailActivity extends BaseTitleActivity {
 
     }
 
-    public static void goActivity(Context context, Roster roster) {
+    public static void goActivity(Activity context, Roster roster) {
         Intent intent = new Intent(context, RosterDetailActivity.class);
         intent.putExtra("roster", roster);
         context.startActivity(intent);
+        context.finish();
+
     }
 
     @Override

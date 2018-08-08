@@ -5,9 +5,13 @@ import android.view.View;
 import com.kingja.supershapeview.view.SuperShapeEditText;
 import com.kingja.supershapeview.view.SuperShapeTextView;
 import com.kingja.zhongminremove.R;
+import com.kingja.zhongminremove.activity.ProjectListActivity;
 import com.kingja.zhongminremove.base.BaseTitleActivity;
 import com.kingja.zhongminremove.injector.component.AppComponent;
 import com.kingja.zhongminremove.util.CheckUtil;
+import com.kingja.zhongminremove.util.EncryptUtil;
+import com.kingja.zhongminremove.util.GoUtil;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -15,7 +19,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * Description:TODO
+ * Description:登录界面
  * Create Time:2018/7/26 0026 上午 8:45
  * Author:KingJA
  * Email:kingjavip@gmail.com
@@ -38,7 +42,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
                 String username = setLoginAccountName.getText().toString().trim();
                 String password = setLoginPassword.getText().toString().trim();
                 if (CheckUtil.checkEmpty(username, "请输入用户名") && CheckUtil.checkEmpty(password, "请输入密码")) {
-                    mLoginPresenter.login(username, password, 0);
+                    mLoginPresenter.login(username, EncryptUtil.getDoubleMd5(password), 0);
                 }
                 break;
             default:
@@ -91,7 +95,8 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
 
     @Override
     public void onLoginSuccess(Login account) {
-
+        Logger.d("token:" + account.getToken());
+        GoUtil.goActivityAndFinish(this, ProjectListActivity.class);
     }
 
     @Override

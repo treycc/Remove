@@ -31,7 +31,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activity.RosterAddActivity">
+        <activity android:name=".activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -67,13 +67,24 @@
             android:name=".activity.AboutUsActivity"
             android:screenOrientation="portrait"/>
         <!--花名册列表-->
-<!--        <activity
+        <activity
             android:name=".activity.RosterListActivity"
-            android:screenOrientation="portrait"/>-->
+            android:screenOrientation="portrait"/>
         <!--花名册详情-->
         <activity
             android:name=".activity.RosterDetailActivity"
             android:screenOrientation="portrait"/>
+        <!--定位页-->
+        <activity
+            android:name=".activity.LocationActivity"
+            android:screenOrientation="portrait"/>
+        <!--主界面-->
+<!--
+        <activity
+            android:launchMode="singleTask"
+            android:name=".activity.HomeActivity"
+            android:screenOrientation="portrait"/>
+-->
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

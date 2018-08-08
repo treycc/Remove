@@ -1,6 +1,8 @@
 package com.kingja.zhongminremove.model.api;
 
 
+import android.util.Log;
+
 import com.kingja.zhongminremove.constant.Constants;
 import com.kingja.zhongminremove.model.service.UserService;
 import com.kingja.zhongminremove.util.TokenHeadInterceptor;
@@ -31,6 +33,7 @@ public class UserApi {
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
+                .addInterceptor(httpLoggingInterceptor)
                 .addInterceptor(new TokenHeadInterceptor())
                 .build();
         Retrofit retrofit = new Retrofit.Builder()

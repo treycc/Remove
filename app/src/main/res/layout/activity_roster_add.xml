@@ -32,11 +32,11 @@
 
             <com.kingja.supershapeview.view.SuperShapeEditText
                 android:id="@+id/set_roster_name"
-                android:hint="请输入户主姓名"
                 style="@style/font_9_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
+                android:hint="请输入户主姓名"
                 android:paddingBottom="4dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
@@ -69,11 +69,11 @@
 
             <com.kingja.supershapeview.view.SuperShapeEditText
                 android:id="@+id/set_roster_address"
-                android:hint="请输入地址"
                 style="@style/font_9_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
+                android:hint="请输入地址"
                 android:paddingBottom="4dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
@@ -118,11 +118,11 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:checked="true"
                         android:id="@+id/rb_roster_man"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="18dp"
+                        android:checked="true"
                         android:text="男"/>
 
                     <RadioButton
@@ -158,11 +158,12 @@
 
             <com.kingja.supershapeview.view.SuperShapeEditText
                 android:id="@+id/set_roster_phone"
-                android:hint="请输入手机号"
                 style="@style/font_9_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
+                android:hint="请输入手机号"
+                android:inputType="number"
                 android:paddingBottom="4dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
@@ -194,11 +195,13 @@
 
             <com.kingja.supershapeview.view.SuperShapeEditText
                 android:id="@+id/set_roster_idcard"
-                android:hint="请输入身份证号"
                 style="@style/font_9_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
+                android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+                android:hint="请输入身份证号"
+                android:inputType="number"
                 android:paddingBottom="4dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
@@ -240,11 +243,11 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:checked="true"
                         android:id="@+id/rb_roster_personal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="18dp"
+                        android:checked="true"
                         android:text="个人"/>
 
                     <RadioButton
@@ -339,12 +342,47 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/gray_hi"/>
-
         <View style="@style/div_hor_gray"/>
+
+        <LinearLayout
+            android:id="@+id/ll_roster_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+
+            <TextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="定位"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:background="@mipmap/ic_location"
+                    android:id="@+id/iv_roster_location"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <View style="@style/div_hor_gray"/>
+
+        <fragment
+            android:id="@+id/fragment_lnglat"
+            android:name="com.kingja.zhongminremove.fragment.LngLatFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
 
         <LinearLayout
             android:id="@+id/ll_roster_remark"
@@ -363,17 +401,17 @@
 
             <com.kingja.supershapeview.view.SuperShapeEditText
                 android:id="@+id/set_roster_remark"
-                android:hint="请输入备注内容"
-                android:gravity="start"
                 style="@style/font_9_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
+                android:gravity="start"
+                android:hint="请输入备注内容"
+                android:lines="4"
                 android:paddingBottom="4dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingTop="4dp"
-                android:lines="4"
                 app:super_strokeColor="@color/c_6"
                 app:super_strokeWidth="1px">
 

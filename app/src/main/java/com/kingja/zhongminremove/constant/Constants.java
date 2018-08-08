@@ -8,7 +8,7 @@ package com.kingja.zhongminremove.constant;
  * 修改备注：
  */
 public class Constants {
-    public static final String BASE_URL = "http://192.168.0.108:8080";
+    public static final String BASE_URL = "http://192.168.0.2:8080";
     public static final int PAGE_SIZE = 20;
     public static final int PAGE_FIRST = 1;
     public static final int PAGE_SIZE_100 = 100;
@@ -30,6 +30,12 @@ public class Constants {
         int MODIFY_OWNER_NAME = 2;
         int MODIFY_ADDRESS = 3;
         int MODIFY_IDCARD = 4;
+    }
+
+    public interface MapSetting {
+        double Lat = 27.965626136017267;
+        double Lng = 120.73433669492793;
+        float Zoom = 6;
     }
 
 }
