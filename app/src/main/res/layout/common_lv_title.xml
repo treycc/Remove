@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_hi"
+              android:orientation="vertical">
+    <TextView
+        android:background="@color/white_hi"
+        android:padding="12dp"
+        android:gravity="center"
+        android:text="消息"
+        style="@style/font_6_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <com.jdp.hls.view.RefreshSwipeRefreshLayout
+        android:background="@color/white_hi"
+        android:layout_marginTop="12dp"
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.jdp.hls.view.PullToBottomListView
+            android:id="@+id/plv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/gray_hi"
+            android:dividerHeight="1px"
+            tools:listitem="@layout/item_project"/>
+    </com.jdp.hls.view.RefreshSwipeRefreshLayout>
+</LinearLayout>

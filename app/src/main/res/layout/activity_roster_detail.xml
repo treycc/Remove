@@ -22,7 +22,7 @@
             android:padding="12dp">
 
 
-            <com.kingja.zhongminremove.view.RequiredTextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/font_6_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:padding="12dp">
 
 
-            <com.kingja.zhongminremove.view.RequiredTextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/font_6_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
             android:padding="12dp">
 
 
-            <com.kingja.zhongminremove.view.RequiredTextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/font_6_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

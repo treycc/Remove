@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
-        applicationId "com.kingja.zhongminremove"
+        applicationId "com.jdp.hls"
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
         versionCode VERSION_CODE as int
@@ -19,7 +20,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("zhongminremove.jks")
+            storeFile file("hls.jks")
             storePassword "wzy1gqqbuu"
             keyAlias "wzy1gqqbuu"
             keyPassword "wzy1gqqbuu"
@@ -43,7 +44,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '27.0.3'
+
 }
 
 dependencies {

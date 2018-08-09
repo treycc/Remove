@@ -2,16 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/bg_hi"
               android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/main">
+        android:background="@color/white_hi">
 
         <TextView
             android:id="@+id/tv_title"
-            style="@style/font_f_18"
+            style="@style/font_6_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -19,7 +20,7 @@
 
         <TextView
             android:id="@+id/tv_right_oper"
-            style="@style/font_f_15"
+            style="@style/font_main_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -29,8 +30,11 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_marginTop="12dp"
+        android:background="@color/white_hi"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.amap.api.maps.MapView
             android:id="@+id/map"
             android:layout_width="match_parent"

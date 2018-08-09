@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragment_map"
-        android:name="com.kingja.zhongminremove.fragment.LocationFragment"
+        android:name="com.jdp.hls.fragment.LocationFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

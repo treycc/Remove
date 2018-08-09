@@ -23,7 +23,7 @@
             android:padding="12dp">
 
 
-            <com.kingja.zhongminremove.view.RequiredTextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/font_6_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:padding="12dp">
 
 
-            <com.kingja.zhongminremove.view.RequiredTextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/font_6_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
             android:padding="12dp">
 
 
-            <com.kingja.zhongminremove.view.RequiredTextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/font_6_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -379,7 +379,7 @@
 
         <fragment
             android:id="@+id/fragment_lnglat"
-            android:name="com.kingja.zhongminremove.fragment.LngLatFragment"
+            android:name="com.jdp.hls.fragment.LngLatFragment"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
 
