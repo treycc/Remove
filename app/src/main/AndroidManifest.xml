@@ -31,7 +31,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activity.RosterAddActivity">
+        <!--.page.login.LoginActivity-->
+        <activity android:name=".page.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -40,11 +41,11 @@
         </activity>
         <!--项目列表-->
         <activity
-            android:name=".activity.ProjectListActivity"
+            android:name=".page.projects.ProjectListActivity"
             android:screenOrientation="portrait"/>
         <!--修改页-->
         <activity
-            android:name=".activity.ModifyActivity"
+            android:name=".page.modify.ModifyActivity"
             android:screenOrientation="portrait"/>
         <!--设置页-->
         <activity
@@ -56,11 +57,11 @@
             android:screenOrientation="portrait"/>
         <!--修改密码-->
         <activity
-            android:name=".activity.ModifyPwdActivity"
+            android:name=".page.modifyPassword.ModifyPasswordActivity"
             android:screenOrientation="portrait"/>
         <!--意见及建议-->
         <activity
-            android:name=".activity.SuggestActivity"
+            android:name=".page.suggest.SuggestActivity"
             android:screenOrientation="portrait"/>
         <!--关于我们-->
         <activity
@@ -70,21 +71,23 @@
         <activity
             android:name=".activity.RosterListActivity"
             android:screenOrientation="portrait"/>
+        <!--添加花名册-->
+        <activity
+            android:name=".activity.RosterAddActivity"
+            android:screenOrientation="portrait"/>
         <!--花名册详情-->
         <activity
-            android:name=".activity.RosterDetailActivity"
+            android:name=".page.rosterdetail.RosterDetailActivity"
             android:screenOrientation="portrait"/>
         <!--定位页-->
         <activity
             android:name=".activity.LocationActivity"
             android:screenOrientation="portrait"/>
         <!--主界面-->
-<!--
         <activity
-            android:launchMode="singleTask"
             android:name=".activity.HomeActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
--->
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

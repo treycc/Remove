@@ -21,12 +21,14 @@ public class RosterPageAdapter extends FragmentPagerAdapter {
     private final Context context;
     private Fragment[] fragments;
     private String[] titles;
+    private final String[] rosterCountArr;
 
-    public RosterPageAdapter(Context context, FragmentManager fm, Fragment[] fragments, String[] titles) {
+    public RosterPageAdapter(Context context, FragmentManager fm, Fragment[] fragments, String[] titles,String[] rosterCountArr) {
         super(fm);
         this.context = context;
         this.fragments = fragments;
         this.titles = titles;
+        this.rosterCountArr = rosterCountArr;
     }
 
 
@@ -50,6 +52,7 @@ public class RosterPageAdapter extends FragmentPagerAdapter {
         TextView tv_rosterType = view.findViewById(R.id.tv_rosterType);
         TextView tv_rosterCount = view.findViewById(R.id.tv_rosterCount);
         tv_rosterType.setText(titles[position]);
+        tv_rosterCount.setText(rosterCountArr[position]);
         return view;
     }
 }

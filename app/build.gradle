@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion COMPILE_SDK_VERSION as int
-    buildToolsVersion BUILD_TOOLS_VERSION
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.jdp.hls"
         minSdkVersion MIN_SDK_VERSION as int
@@ -66,7 +66,7 @@ dependencies {
     implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //Logger
-    implementation 'com.orhanobut:logger:2.1.1'
+    implementation 'com.orhanobut:logger:2.2.0'
     /*glide*/
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     /*dagger2*/
@@ -92,4 +92,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     /*rxpermissions*/
     implementation('com.github.tbruyelle:rxpermissions:0.10.2') { exclude group: 'com.android.support' }
+    /*encrypt*/
+    implementation 'com.gcssloop.util:encrypt:1.0.2'
+    implementation 'lib.kingja.switchbutton:switchbutton:1.1.7'
 }

@@ -5,15 +5,17 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.activity.RosterDetailActivity;
+import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.Message;
+import com.jdp.hls.model.entiy.Roster;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,31 +33,30 @@ public class RosterPersonFragment extends BaseFragment {
     PullToBottomListView plv;
     @BindView(R.id.srl)
     RefreshSwipeRefreshLayout srl;
-    private List<Message> messages = new ArrayList<>();
+    private List<Roster> rosters = new ArrayList<>();
     private CommonAdapter adapter;
 
-    public static RosterPersonFragment newInstance() {
+    public static RosterPersonFragment newInstance(List<Roster> rosters) {
         RosterPersonFragment fragment = new RosterPersonFragment();
         Bundle args = new Bundle();
-        args.putString("param", null);
+        args.putSerializable("rosters", (Serializable) rosters);
         fragment.setArguments(args);
         return fragment;
     }
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        Roster roster = (Roster) adapterView.getItemAtPosition(position);
+        RosterDetailActivity.goActivity(getActivity(), roster);
 
-        RosterDetailActivity.goActivity(getActivity(),null);
+
     }
 
     @Override
     protected void initVariable() {
         if (getArguments() != null) {
-            String param = getArguments().getString("param");
-        }
-        for (int i = 0; i < 10; i++) {
-            messages.add(new Message("曹雪晴" + i, "2018-08-22 10:22:2" + i, "您好，请发送的丈量信息审核不通过，审核人为朱自清，不通过原因为：图片清晰度不够" +
-                    i));
+            rosters = (List<Roster>) getArguments().getSerializable("rosters");
+            LogUtil.e(TAG, "rosters:" + rosters.size());
         }
     }
 
@@ -66,20 +67,20 @@ public class RosterPersonFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        plv.setAdapter(adapter = new CommonAdapter<Message>(getActivity(), messages, R.layout.item_roster) {
+        plv.setAdapter(adapter = new CommonAdapter<Roster>(getActivity(), rosters, R.layout.item_roster) {
                     @Override
-                    public int getCount() {
-                        return 10;
+                    public void convert(ViewHolder helper, Roster item) {
+                        helper.setText(R.id.tv_roster_address, item.getHouseAddress());
+                        helper.setText(R.id.tv_roster_name, item.getRealName());
+                        helper.setText(R.id.tv_roster_phone, item.getMobilePhone());
+                        helper.setBackgroundResource(R.id.iv_roster_isMeasure, item.isMeasured() ? R.mipmap
+                                .ic_measure_action : R.mipmap
+                                .ic_measure_nor);
+                        helper.setBackgroundResource(R.id.iv_roster_isEvaluated, item.isMeasured() ? R.mipmap
+                                .ic_evaluate_action : R.mipmap
+                                .ic_evaluate_nor);
                     }
-
-                    @Override
-            public void convert(ViewHolder helper, Message item) {
-//                helper.setText(R.id.tv_message_sender, item.getSender());
-//                helper.setText(R.id.tv_message_date, item.getDate());
-//                helper.setText(R.id.tv_message_content, item.getContent());
-//                helper.setText(R.id.v_message_isReaded, item.getPerson());
-            }
-        }
+                }
         );
     }
 

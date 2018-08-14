@@ -1,8 +1,22 @@
 package com.jdp.hls.util;
 
+import android.util.Base64;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Arrays;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Description:TODO
@@ -50,6 +64,79 @@ public class EncryptUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println("排序后:" + GetSignature(1533692048653L, "98f8a2d67d5e454f85c2469696fa66ee"));
+//        System.out.println("排序后:" + GetSignature(1533692048653L, "98f8a2d67d5e454f85c2469696fa66ee"));
+        String content = "123456";
+        String password = "jdphls";
+        System.out.println("加密前：" + content);
+        String encrypt = encrypt(content, password);
+        System.out.println("加密后：" + encrypt.toString());
+        System.out.println("解密后：" +decrypt(encrypt, password));
     }
+
+    public static void test() {
+        String content = "test";
+        String password = "123456";
+        System.out.println("加密前：" + content);
+        String encrypt = encrypt(content, password);
+        System.out.println("加密后：" + encrypt.toString());
+        System.out.println("解密后：" +decrypt(encrypt, password));
+    }
+
+    /**
+     * 加密
+     *
+     * @param content  需要加密的内容
+     * @param password 加密密码
+     * @return
+     */
+    public static String encrypt(String content, String password) {
+        KeyGenerator kgen = null;
+        try {
+            kgen = KeyGenerator.getInstance("AES");
+            kgen.init(128, new SecureRandom(password.getBytes()));
+            SecretKey secretKey = kgen.generateKey();
+            byte[] enCodeFormat = secretKey.getEncoded();
+            SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
+            Cipher cipher = Cipher.getInstance("AES");// 创建密码器
+            cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化
+            byte[] byteContent = content.getBytes("utf-8");
+            byte[] result = cipher.doFinal(byteContent);
+            return result.toString();//加密
+        } catch (NoSuchAlgorithmException | InvalidKeyException
+                | NoSuchPaddingException | BadPaddingException
+                | UnsupportedEncodingException | IllegalBlockSizeException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 解密
+     *
+     * @param content  待解密内容
+     * @param password 解密密钥
+     * @return
+     */
+    public static String decrypt(String content, String password) {
+        KeyGenerator kgen = null;
+        try {
+            kgen = KeyGenerator.getInstance("AES");
+            kgen.init(128, new SecureRandom(password.getBytes()));
+            SecretKey secretKey = kgen.generateKey();
+            byte[] enCodeFormat = secretKey.getEncoded();
+            SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
+            Cipher cipher = Cipher.getInstance("AES");// 创建密码器
+            cipher.init(Cipher.DECRYPT_MODE, key);// 初始化
+            byte[] result = cipher.doFinal(Base64.decode(content, Base64.DEFAULT));
+            String resultStr = new String(result);
+            return resultStr; // 解密
+        } catch (NoSuchAlgorithmException | BadPaddingException
+                | IllegalBlockSizeException | NoSuchPaddingException
+                | InvalidKeyException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
 }

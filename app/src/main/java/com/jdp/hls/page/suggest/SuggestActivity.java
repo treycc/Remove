@@ -1,4 +1,4 @@
-package com.jdp.hls.activity;
+package com.jdp.hls.page.suggest;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;

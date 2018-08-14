@@ -4,14 +4,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.page.modifyPassword.ModifyPasswordActivity;
+import com.jdp.hls.page.suggest.SuggestActivity;
+import com.jdp.hls.util.DataCleanManager;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeTextView;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,8 +30,8 @@ import butterknife.OnClick;
  * Email:kingjavip@gmail.com
  */
 public class SettingActivity extends BaseTitleActivity {
-    @BindView(R.id.cb_setting_jpush)
-    CheckBox cbSettingJpush;
+    @BindView(R.id.switch_setting_msg)
+    Switch switchSettingMsg;
     @BindView(R.id.rl_setting_modifypwd)
     RelativeLayout rlSettingModifypwd;
     @BindView(R.id.rl_setting_suggest)
@@ -44,7 +50,7 @@ public class SettingActivity extends BaseTitleActivity {
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_setting_modifypwd:
-                GoUtil.goActivity(this, ModifyPwdActivity.class);
+                GoUtil.goActivity(this, ModifyPasswordActivity.class);
                 break;
             case R.id.rl_setting_suggest:
                 GoUtil.goActivity(this, SuggestActivity.class);
@@ -54,6 +60,8 @@ public class SettingActivity extends BaseTitleActivity {
                 break;
             case R.id.rl_setting_clearCache:
                 ToastUtil.showText("清理缓存");
+                DataCleanManager.cleanInternalCache(this);
+                tvSettingCache.setText(DataCleanManager.getCacheSize(getCacheDir()));
                 break;
             case R.id.stv_setting_quit:
                 ToastUtil.showText("退出");
@@ -91,7 +99,7 @@ public class SettingActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-
+        tvSettingCache.setText(DataCleanManager.getCacheSize(getCacheDir()));
     }
 
     @Override

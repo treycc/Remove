@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white_hi"
-    android:descendantFocusability="blocksDescendants"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -284,7 +284,7 @@
                 android:orientation="horizontal">
 
                 <Switch
-                    android:id="@+id/switch_roster_measure"
+                    android:id="@+id/switch_roster_measured"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -316,7 +316,7 @@
                 android:orientation="horizontal">
 
                 <Switch
-                    android:id="@+id/switch_roster_assess"
+                    android:id="@+id/switch_roster_evaluated"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -367,14 +367,15 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:background="@mipmap/ic_location"
                     android:id="@+id/iv_roster_location"
                     android:layout_width="24dp"
-                    android:layout_height="24dp"/>
+                    android:layout_height="24dp"
+                    android:background="@mipmap/ic_location"/>
             </LinearLayout>
 
 
         </LinearLayout>
+
         <View style="@style/div_hor_gray"/>
 
         <fragment
@@ -382,7 +383,6 @@
             android:name="com.jdp.hls.fragment.LngLatFragment"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
-
 
         <LinearLayout
             android:id="@+id/ll_roster_remark"

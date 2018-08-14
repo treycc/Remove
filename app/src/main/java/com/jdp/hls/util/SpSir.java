@@ -12,12 +12,22 @@ import com.jdp.hls.base.App;
  * Email:kingjavip@gmail.com
  */
 public class SpSir {
-    private static final String TOKEN = "token";
-    private static final String NICKNAME = "nickName";
-    private static final String HEADIMG = "headImg";
-    private static final String USERID = "userId";
-    private static final String MOBILE = "mobile";
+    private String Token = "Token";
+    private String CompanyName = "CompanyName";
+    private String CompanyId = "CompanyId";
+    private String HeadUrl = "HeadUrl";
+    private String EmployeeId = "EmployeeId";
+    private String MobilePhone = "MobilePhone";
+    private String AccountName = "AccountName";
+    private String AccountAlias = "AccountAlias";
+    private String RealName = "RealName";
+    private String Projects = "Projects";
+    private String ProjectId = "ProjectId";
+    private String ProjectName = "ProjectName";
+    private String IfRememberBaby = "IfRememberBaby";
+    private String ComeOnBaby = "ComeOnBaby";
     private static final String EMPTY_STRING = "";
+    private static final int ZERO_INT = -1;
     private static SpSir mSpSir;
     private SharedPreferences mSp;
 
@@ -36,57 +46,119 @@ public class SpSir {
         return mSpSir;
     }
 
-    /*================================GET================================*/
-
-    public String getNickname() {
-        return getString(NICKNAME);
-    }
-
-    public String getUserId() {
-        return getString(USERID);
-    }
-
     public String getToken() {
-        return getString(TOKEN);
+        return getString(Token);
     }
 
-    public String getMobile() {
-        return getString(MOBILE);
+    public void setToken(String token) {
+        putString(Token, token);
     }
 
-    public String getHeadImg() {
-        return getString(HEADIMG);
+    public String getCompanyName() {
+        return getString(CompanyName);
     }
 
-    /*================================PUT================================*/
-
-
-    public void putNickName(String nickName) {
-        putString(NICKNAME, nickName);
+    public void setCompanyName(String companyName) {
+        putString(CompanyName, companyName);
     }
 
-    public void putToken(String token) {
-        putString(TOKEN, token);
+    public int getCompanyId() {
+        return getInt(CompanyId);
     }
 
-    public void putMobile(String mobile) {
-        putString(MOBILE, mobile);
+    public void setCompanyId(int companyId) {
+        putInt(CompanyId, companyId);
     }
 
-    public void putUserId(String userId) {
-        putString(USERID, userId);
+    public String getHeadUrl() {
+        return getString(HeadUrl);
     }
 
-    public void putHeadImg(String headImg) {
-        putString(HEADIMG, headImg);
+    public void setHeadUrl(String headUrl) {
+        putString(HeadUrl, headUrl);
+    }
+
+    public int getEmployeeId() {
+        return getInt(EmployeeId);
+    }
+
+    public void setEmployeeId(int employeeId) {
+        putInt(EmployeeId, employeeId);
+    }
+
+    public String getMobilePhone() {
+        return getString(MobilePhone);
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        putString(MobilePhone, mobilePhone);
+    }
+
+    public int getAccountName() {
+        return getInt(AccountName);
+    }
+
+    public void setAccountName(int accountName) {
+        putInt(AccountName, accountName);
+    }
+
+    public String getAccountAlias() {
+        return getString(AccountAlias);
+    }
+
+    public void setAccountAlias(String accountAlias) {
+        putString(AccountAlias, accountAlias);
+    }
+
+    public String getRealName() {
+        return getString(RealName);
+    }
+
+    public void setRealName(String realName) {
+        putString(RealName, realName);
+    }
+
+    public String getProjects() {
+        return getString(Projects);
+    }
+
+    public void setProjects(String projects) {
+        putString(Projects, projects);
+    }
+
+    public String getProjectId() {
+        return getString(ProjectId);
+    }
+
+    public void setProjectId(String projectId) {
+        putString(ProjectId, projectId);
+    }
+
+    public String getProjectName() {
+        return getString(ProjectName);
+    }
+
+    public void setProjectName(String projectName) {
+        putString(ProjectName, projectName);
     }
 
 
-    private void putString(String key, String value) {
-        if (value != null) {
-            mSp.edit().putString(key, value).apply();
-        }
+    public String getComeOnBaby() {
+        return getString(ComeOnBaby);
     }
+
+    public void setComeOnBaby(String comeOnBaby) {
+        putString(ComeOnBaby, comeOnBaby);
+    }
+
+    public boolean getIfRememberBaby() {
+        return getBoolean(IfRememberBaby, false);
+    }
+
+    public void setIfRememberBaby(boolean ifRememberBaby) {
+        putboolean(IfRememberBaby, ifRememberBaby);
+    }
+
 
     private String getString(String key, String defaultValue) {
         return mSp.getString(key, defaultValue);
@@ -96,11 +168,32 @@ public class SpSir {
         return mSp.getString(key, EMPTY_STRING);
     }
 
+    private void putString(String key, String value) {
+        if (value != null) {
+            mSp.edit().putString(key, value).apply();
+        }
+    }
+
+    private int getInt(String key) {
+        return mSp.getInt(key, ZERO_INT);
+    }
+
+    private int getInt(String key, int defaultValue) {
+        return mSp.getInt(key, defaultValue);
+    }
+
+    private void putInt(String key, int value) {
+        mSp.edit().putInt(key, value).apply();
+    }
+
+    private boolean getBoolean(String key, boolean defaultValue) {
+        return mSp.getBoolean(key, defaultValue);
+    }
+
+    private void putboolean(String key, boolean value) {
+        mSp.edit().putBoolean(key, value).apply();
+    }
+
     public void clearData() {
-        putNickName(EMPTY_STRING);
-        putUserId(EMPTY_STRING);
-        putHeadImg(EMPTY_STRING);
-        putToken(EMPTY_STRING);
-        putMobile(EMPTY_STRING);
     }
 }

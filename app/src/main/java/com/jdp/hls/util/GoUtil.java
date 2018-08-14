@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -49,6 +50,12 @@ public class GoUtil {
         Intent intent = new Intent(activity,
                 clazz);
         activity.startActivityForResult(intent, requestID);
+    }
+
+    public static void goActivityForResultInFragment(Fragment fragment, Class clazz, int requestID) {
+        Intent intent = new Intent(fragment.getActivity(),
+                clazz);
+        fragment.startActivityForResult(intent, requestID);
     }
 
     public static void goActivityForResultWithBundle(Activity activity, Class clazz, Bundle bundle, int requestID) {

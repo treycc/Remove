@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
-import com.jdp.hls.fragment.MapFragment;
+import com.jdp.hls.page.map.MapFragment;
 import com.jdp.hls.fragment.MessageFragment;
 import com.jdp.hls.fragment.MineFragment;
 import com.jdp.hls.injector.component.AppComponent;
@@ -160,6 +161,7 @@ public class HomeActivity extends BaseTitleActivity {
     protected void onDestroy() {
         super.onDestroy();
         fragmentMap.clear();
+        Log.e(TAG, "关闭页面: " );
     }
 
     //防止Fragment重生重叠
@@ -180,5 +182,7 @@ public class HomeActivity extends BaseTitleActivity {
 
         }
     }
+
+
 
 }

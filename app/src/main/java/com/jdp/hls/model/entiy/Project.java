@@ -1,53 +1,58 @@
 package com.jdp.hls.model.entiy;
 
+import java.io.Serializable;
+
 /**
  * Description:TODO
  * Create Time:2018/7/27 0027 上午 10:13
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class Project {
-    private String name;
-    private String address;
-    private String year;
-    private String person;
+public class Project implements Serializable{
 
-    public Project(String name, String address, String year, String person) {
-        this.name = name;
-        this.address = address;
-        this.year = year;
-        this.person = person;
+    private String ProjectId;
+    private String ProjectName;
+    private int Year;
+    private String Address;
+    private String RealName;
+
+    public String getRealName() {
+        return RealName;
     }
 
-    public String getName() {
-        return name;
+    public void setRealName(String realName) {
+        RealName = realName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getProjectId() {
+        return ProjectId;
+    }
+
+    public void setProjectId(String ProjectId) {
+        this.ProjectId = ProjectId;
+    }
+
+    public String getProjectName() {
+        return ProjectName;
+    }
+
+    public void setProjectName(String ProjectName) {
+        this.ProjectName = ProjectName;
+    }
+
+    public int getYear() {
+        return Year;
+    }
+
+    public void setYear(int Year) {
+        this.Year = Year;
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getPerson() {
-        return person;
-    }
-
-    public void setPerson(String person) {
-        this.person = person;
+    public void setAddress(String Address) {
+        this.Address = Address;
     }
 }

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,7 +39,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -84,9 +82,9 @@ public class RosterAddActivity extends BaseTitleActivity {
     RadioGroup rgRosterType;
     @BindView(R.id.ll_roster_type)
     LinearLayout llRosterType;
-    @BindView(R.id.switch_roster_measure)
+    @BindView(R.id.switch_roster_measured)
     Switch switchRosterMeasure;
-    @BindView(R.id.switch_roster_assess)
+    @BindView(R.id.switch_roster_evaluated)
     Switch switchRosterAssess;
     @BindView(R.id.rv_roster_img)
     RecyclerView rvRosterImg;
@@ -257,10 +255,4 @@ public class RosterAddActivity extends BaseTitleActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

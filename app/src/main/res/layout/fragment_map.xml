@@ -19,14 +19,28 @@
             android:text="项目名称"/>
 
         <TextView
-            android:id="@+id/tv_right_oper"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:id="@+id/tv_roster_list"
             style="@style/font_main_13"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:layout_marginRight="16dp"
             android:text="列表"/>
+
+        <TextView
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:id="@+id/tv_roster_add"
+            style="@style/font_main_13"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:text="增加"/>
     </RelativeLayout>
 
     <RelativeLayout

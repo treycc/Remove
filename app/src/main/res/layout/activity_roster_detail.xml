@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white_hi"
     android:descendantFocusability="blocksDescendants"
     android:focusableInTouchMode="true"
@@ -43,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
                     android:layout_weight="1"
-                    android:text="张三"/>
+                    android:text=""/>
 
                 <ImageView
                     android:layout_width="15dp"
@@ -84,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
                     android:layout_weight="1"
-                    android:text="温州市龙湾区"/>
+                    android:text=""/>
 
                 <ImageView
                     android:layout_width="15dp"
@@ -114,28 +115,28 @@
                 android:layout_weight="1"
                 android:text="性别"/>
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <FrameLayout
                 android:layout_weight="3.5"
-                android:orientation="horizontal">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_roster_gender"
-                    style="@style/font_9_13"
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/smb_roster_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="男"/>
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp"
+                    app:strokeRadius="4dp"
+                    app:strokeWidth="1dp"
+                    app:selectedTab="0"
+                    app:selectedColor="@color/main"
+                    app:switchTabs="@array/switch_gender"
+                    app:textSize="14sp" />
+            </FrameLayout>
 
 
-                <Switch
-                    android:id="@+id/switch_roster_gender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
 
 
         </LinearLayout>
@@ -169,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
                     android:layout_weight="1"
-                    android:text="18888886668"/>
+                    android:text=""/>
 
                 <ImageView
                     android:layout_width="15dp"
@@ -207,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
                     android:layout_weight="1"
-                    android:text="3333003320123212122"/>
+                    android:text=""/>
 
                 <ImageView
                     android:layout_width="15dp"
@@ -232,26 +233,26 @@
                 android:layout_weight="1"
                 android:text="类型"/>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <FrameLayout
                 android:layout_weight="3.5"
-                android:orientation="horizontal">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_roster_type"
-                    style="@style/font_9_13"
-                    android:layout_width="0dp"
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/smb_roster_type"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1"
-                    android:text="住宅"/>
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="18dp"
-                    android:background="@mipmap/arrow_right"/>
-            </LinearLayout>
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp"
+                    app:strokeRadius="4dp"
+                    app:strokeWidth="1dp"
+                    app:selectedTab="0"
+                    app:selectedColor="@color/main"
+                    app:switchTabs="@array/switch_roster_type"
+                    app:textSize="14sp" />
+            </FrameLayout>
         </LinearLayout>
 
         <View style="@style/div_hor_gray"/>
@@ -270,18 +271,26 @@
                 android:layout_weight="1"
                 android:text="是否丈量"/>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <FrameLayout
                 android:layout_weight="3.5"
-                android:gravity="end"
-                android:orientation="horizontal">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
 
-                <Switch
-                    android:id="@+id/switch_roster_measure"
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/smb_roster_measured"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp"
+                    app:strokeRadius="4dp"
+                    app:strokeWidth="1dp"
+                    app:selectedTab="0"
+                    app:selectedColor="@color/main"
+                    app:switchTabs="@array/switch_measure"
+                    app:textSize="14sp" />
+            </FrameLayout>
 
 
         </LinearLayout>
@@ -302,19 +311,26 @@
                 android:layout_weight="1"
                 android:text="是否评估"/>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <FrameLayout
                 android:layout_weight="3.5"
-                android:gravity="end"
-                android:orientation="horizontal">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
 
-                <Switch
-                    android:id="@+id/switch_roster_assess"
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/smb_roster_evaluated"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingRight="16dp"
+                    android:paddingLeft="16dp"
+                    app:strokeRadius="4dp"
+                    app:strokeWidth="1dp"
+                    app:selectedTab="0"
+                    app:selectedColor="@color/main"
+                    app:switchTabs="@array/switch_evaluated"
+                    app:textSize="14sp" />
+            </FrameLayout>
 
         </LinearLayout>
 
@@ -342,12 +358,47 @@
                 android:background="@mipmap/arrow_right"/>
 
         </LinearLayout>
+        <View style="@style/div_hor_gray"/>
 
-        <View
+        <LinearLayout
+            android:id="@+id/ll_roster_location"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/gray_hi"/>
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
 
+
+            <TextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="定位"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_roster_location"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@mipmap/ic_location"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <fragment
+            android:id="@+id/fragment_lnglat"
+            android:name="com.jdp.hls.fragment.LngLatFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
         <View style="@style/div_hor_gray"/>
 
         <LinearLayout
@@ -378,7 +429,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
                     android:layout_weight="1"
-                    android:text="温州市拆迁 总部归属北京市创为律师事务所,是专业的拆迁维权律师事务所.温州市拆迁 承诺案件受理后24小时内启动法律程序"/>
+                    android:text=""/>
 
                 <ImageView
                     android:layout_width="15dp"

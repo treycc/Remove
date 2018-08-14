@@ -18,7 +18,8 @@ public class TokenHeadInterceptor implements Interceptor {
         Request request = chain.request()
                 .newBuilder()
                 .addHeader("token", SpSir.getInstance().getToken())
-//                .addHeader("Content-Type", SpSir.getInstance().getToken())
+                .addHeader("timeStamp", "1")
+                .addHeader("signature", "1")
                 .build();
         return chain.proceed(request);
     }

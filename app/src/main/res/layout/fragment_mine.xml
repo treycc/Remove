@@ -42,6 +42,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_mine_realName"
                 style="@style/font_3_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,6 +50,7 @@
                 android:text="KingJA"/>
 
             <TextView
+                android:id="@+id/tv_mine_companyName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="浙江健德普信息科技有限公司"/>
@@ -217,6 +219,49 @@
 
     </LinearLayout>
     <View style="@style/div_hor_gray"/>
+    <LinearLayout
+        android:id="@+id/ll_mine_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+
+        <TextView
+            style="@style/font_3_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="客服"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_mine_service"
+                style="@style/font_9_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="057788662288"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="18dp"
+                android:background="@mipmap/arrow_right"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <View style="@style/div_hor_gray"/>
     <RelativeLayout
         android:id="@+id/rl_mine_setting"
         android:layout_width="match_parent"
@@ -240,28 +285,5 @@
 
 
     </RelativeLayout>
-    <View style="@style/div_hor_gray"/>
-    <RelativeLayout
-        android:id="@+id/rl_mine_service"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_hi"
-        android:gravity="center_vertical"
-        android:padding="12dp">
 
-
-        <TextView
-            style="@style/font_3_15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="客服"/>
-
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="18dp"
-            android:layout_alignParentRight="true"
-            android:background="@mipmap/arrow_right"/>
-
-
-    </RelativeLayout>
 </LinearLayout>

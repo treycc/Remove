@@ -62,6 +62,11 @@ public class ViewHolder {
 
         return this;
     }
+    public ViewHolder setBackgroundResource(int viewId, int drawableId) {
+        ImageView view = getView(viewId);
+        view.setBackgroundResource(drawableId);
+        return this;
+    }
 
     public ViewHolder setImageBitmap(int viewId, Bitmap bm) {
         ImageView view = getView(viewId);

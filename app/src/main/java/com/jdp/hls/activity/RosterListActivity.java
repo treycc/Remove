@@ -1,6 +1,7 @@
 package com.jdp.hls.activity;
 
-import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,9 +11,13 @@ import com.jdp.hls.adapter.RosterPageAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.fragment.RosterPersonFragment;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.Roster;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:TODO
@@ -25,13 +30,26 @@ public class RosterListActivity extends BaseTitleActivity {
     TabLayout tabRoster;
     @BindView(R.id.vp_roster)
     ViewPager vpRoster;
-    private String[] rosters = {"个人", "企业"};
+    private String[] rosterArr = {"个人", "企业"};
+    private String[] rosterCountArr = {"0户", "0家"};
     private Fragment mFragmentArr[] = new Fragment[2];
+    private List<Roster> rosters;
+    private List<Roster> personalRosters = new ArrayList<>();
+    private List<Roster> companyRosters = new ArrayList<>();
 
 
     @Override
     public void initVariable() {
-
+        rosters = (List<Roster>) getIntent().getSerializableExtra("rosters");
+        for (Roster roster : rosters) {
+            if (roster.isEnterprise()) {
+                companyRosters.add(roster);
+            } else {
+                personalRosters.add(roster);
+            }
+        }
+        rosterCountArr[0]=personalRosters.size()+"户";
+        rosterCountArr[1]=personalRosters.size()+"家";
     }
 
     @Override
@@ -52,16 +70,15 @@ public class RosterListActivity extends BaseTitleActivity {
     @Override
     protected void initView() {
         tabRoster.setTabMode(TabLayout.MODE_FIXED);
-        tabRoster.addTab(tabRoster.newTab().setText(rosters[0]));
-        tabRoster.addTab(tabRoster.newTab().setText(rosters[1]));
-        mFragmentArr[0] = new RosterPersonFragment();
-        mFragmentArr[1] = new RosterPersonFragment();
+        tabRoster.addTab(tabRoster.newTab().setText(rosterArr[0]));
+        tabRoster.addTab(tabRoster.newTab().setText(rosterArr[1]));
+        mFragmentArr[0] = RosterPersonFragment.newInstance(personalRosters);
+        mFragmentArr[1] = RosterPersonFragment.newInstance(companyRosters);
         RosterPageAdapter mRosterPageAdapter = new RosterPageAdapter(this, getSupportFragmentManager(), mFragmentArr,
-                rosters);
+                rosterArr,rosterCountArr);
         vpRoster.setAdapter(mRosterPageAdapter);
         vpRoster.setOffscreenPageLimit(2);
         tabRoster.setupWithViewPager(vpRoster);
-
         for (int i = 0; i < tabRoster.getTabCount(); i++) {
             TabLayout.Tab tab = tabRoster.getTabAt(i);
             tab.setCustomView(mRosterPageAdapter.getTabView(i));
@@ -78,10 +95,10 @@ public class RosterListActivity extends BaseTitleActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public static void goActivity(Activity activity, List<Roster> rosters) {
+        Intent intent = new Intent(activity, RosterListActivity.class);
+        intent.putExtra("rosters", (Serializable) rosters);
+        activity.startActivity(intent);
     }
+
 }

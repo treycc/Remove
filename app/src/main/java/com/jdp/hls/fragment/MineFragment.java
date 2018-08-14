@@ -2,6 +2,7 @@ package com.jdp.hls.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -9,18 +10,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.activity.ModifyActivity;
-import com.jdp.hls.activity.ProjectListActivity;
+import com.jdp.hls.page.modify.ModifyActivity;
+import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.activity.SettingActivity;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.SpSir;
 import com.kingja.supershapeview.view.SuperShapeImageView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Description:TODO
@@ -49,12 +51,16 @@ public class MineFragment extends BaseFragment {
     LinearLayout rlMinePhone;
     @BindView(R.id.rl_mine_setting)
     RelativeLayout rlMineSetting;
-    @BindView(R.id.rl_mine_service)
-    RelativeLayout rlMineService;
-    Unbinder unbinder;
+    @BindView(R.id.tv_mine_realName)
+    TextView tvMineRealName;
+    @BindView(R.id.tv_mine_companyName)
+    TextView tvMineCompanyName;
+    @BindView(R.id.tv_mine_service)
+    TextView tvMineService;
+    public static final int REQUST_PROJECTS=8;
 
     @OnClick({R.id.rl_mine_account, R.id.rl_mine_alias, R.id.rl_mine_project, R.id.rl_mine_phone, R.id
-            .rl_mine_setting, R.id.rl_mine_service})
+            .rl_mine_setting, R.id.ll_mine_service})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_mine_account:
@@ -64,7 +70,7 @@ public class MineFragment extends BaseFragment {
                 ModifyActivity.goActivityInFragment(this, Constants.ModifyCode.MODIFY_ALIAS, "别名", alias);
                 break;
             case R.id.rl_mine_project:
-                GoUtil.goActivity(getActivity(), ProjectListActivity.class);
+                GoUtil.goActivityForResultInFragment(this, ProjectListActivity.class,REQUST_PROJECTS);
                 break;
             case R.id.rl_mine_phone:
                 String phone = tvMinePhone.getText().toString().trim();
@@ -72,18 +78,25 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.rl_mine_setting:
                 GoUtil.goActivity(getActivity(), SettingActivity.class);
-
                 break;
-            case R.id.rl_mine_service:
+            case R.id.ll_mine_service:
+                callPhone(tvMineService.getText().toString().trim());
                 break;
-
             default:
                 break;
         }
     }
 
+    public void callPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        LogUtil.e(TAG,"onActivityResult requestCode:"+requestCode);
         if (resultCode == Activity.RESULT_OK && data != null) {
             String newVaule = data.getStringExtra("newVaule");
             switch (requestCode) {
@@ -92,6 +105,10 @@ public class MineFragment extends BaseFragment {
                     break;
                 case Constants.ModifyCode.MODIFY_PHONE:
                     tvMinePhone.setText(newVaule);
+                    break;
+                case REQUST_PROJECTS:
+                    LogUtil.e(TAG,"projectName:"+data.getStringExtra("projectName"));
+                    tvMineProject.setText(data.getStringExtra("projectName"));
                     break;
                 default:
                     break;
@@ -128,7 +145,12 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initDate() {
-
+        tvMineRealName.setText(SpSir.getInstance().getRealName());
+        tvMineCompanyName.setText(SpSir.getInstance().getCompanyName());
+        tvMinePhone.setText(SpSir.getInstance().getMobilePhone());
+        tvMineAccount.setText(String.valueOf(SpSir.getInstance().getAccountName()));
+        tvMineAlias.setText(SpSir.getInstance().getAccountAlias());
+        tvMineProject.setText(SpSir.getInstance().getProjectName());
     }
 
     @Override
@@ -140,5 +162,7 @@ public class MineFragment extends BaseFragment {
     protected int getContentId() {
         return R.layout.fragment_mine;
     }
+
+
 
 }

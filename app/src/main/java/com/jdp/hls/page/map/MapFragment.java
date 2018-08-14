@@ -1,9 +1,13 @@
-package com.jdp.hls.fragment;
+package com.jdp.hls.page.map;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -14,12 +18,31 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.jdp.hls.R;
+import com.jdp.hls.activity.MainActivity;
+import com.jdp.hls.activity.RosterAddActivity;
 import com.jdp.hls.activity.RosterListActivity;
 import com.jdp.hls.base.BaseFragment;
+import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.SpSir;
+import com.jdp.hls.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,23 +53,35 @@ import butterknife.OnClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MapFragment extends BaseFragment implements LocationSource, AMapLocationListener {
+public class MapFragment extends BaseFragment implements LocationSource, AMapLocationListener, GetRosterContract.View, AMap.OnMarkerClickListener, AMap.OnInfoWindowClickListener {
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_right_oper)
-    TextView tvRightOper;
+    @BindView(R.id.tv_roster_list)
+    TextView tvRosterList;
+    @BindView(R.id.tv_roster_add)
+    TextView tvRosterAdd;
     @BindView(R.id.map)
     MapView mMapView;
     private AMap mAMap;
     public AMapLocationClient mLocationClient;
     private OnLocationChangedListener mListener;
     private AMapLocationClientOption mLocationOption;
+    @Inject
+    GetRosterPresenter getRosterPresenter;
+    private List<Roster> rosters;
 
-    @OnClick({R.id.tv_right_oper})
+    @OnClick({R.id.tv_roster_list, R.id.tv_roster_add})
     public void click(View view) {
         switch (view.getId()) {
-            case R.id.tv_right_oper:
-                GoUtil.goActivity(getActivity(), RosterListActivity.class);
+            case R.id.tv_roster_list:
+                if (rosters != null) {
+                    RosterListActivity.goActivity(getActivity(), rosters);
+                } else {
+                    ToastUtil.showText("没有花名册信息");
+                }
+                break;
+            case R.id.tv_roster_add:
+                GoUtil.goActivity(getActivity(),RosterAddActivity.class);
                 break;
             default:
                 break;
@@ -57,16 +92,18 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mMapView.onCreate(savedInstanceState);
-        AMap aMap = mMapView.getMap();
         if (mAMap == null) {
             mAMap = mMapView.getMap();
             mAMap.getUiSettings().setRotateGesturesEnabled(false);
             mAMap.moveCamera(CameraUpdateFactory.zoomBy(6));
             mAMap.setLocationSource(this);// 设置定位监听
+            mAMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
+            mAMap.setOnInfoWindowClickListener(this);// 设置点击InfoWindow事件监听器
             //设置地图拖动监听
 //            mAMap.setOnCameraChangeListener(this);
             mAMap.setMyLocationEnabled(true);//true激活定位
             mAMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
+            mAMap.setInfoWindowAdapter(null);
         }
 
     }
@@ -81,18 +118,24 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
 
     @Override
     protected void initVariable() {
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             String param = getArguments().getString("param");
         }
     }
 
+
     @Override
     protected void initComponent(AppComponent appComponent) {
-
+        DaggerBaseCompnent.builder()
+                .appComponent(appComponent)
+                .build()
+                .inject(this);
     }
 
     @Override
     protected void initView() {
+        getRosterPresenter.attachView(this);
     }
 
     @Override
@@ -102,7 +145,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
 
     @Override
     protected void initNet() {
-
+        getRosterPresenter.getRosterList(SpSir.getInstance().getProjectId(), SpSir.getInstance().getEmployeeId());
     }
 
     @Override
@@ -134,7 +177,11 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mMapView.onDestroy();
+        EventBus.getDefault().unregister(this);
+        if (mMapView != null) {
+            mMapView.onDestroy();
+        }
+
         if (mLocationClient != null) {
             mLocationClient.onDestroy();
         }
@@ -196,5 +243,62 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
                 Log.e("AmapErr", errText);
             }
         }
+    }
+
+    @Override
+    public void onGetRosterdSuccess(List<Roster> rosters) {
+        this.rosters = rosters;
+        LogUtil.e(TAG,"花名册数量:"+rosters.size());
+        drawRostersOnMap(rosters);
+    }
+
+
+
+    @Override
+    public void showLoading() {
+        setProgressShow(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        setProgressShow(false);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshRosters(RefreshRostersEvent refreshRostersEvent) {
+        LogUtil.e(TAG, "刷新花名册");
+        initNet();
+    }
+    /**
+     * 绘制地图锚点
+     * @param rosters
+     */
+    private void drawRostersOnMap(List<Roster> rosters) {
+        for (Roster roster : rosters) {
+            setMarket( roster);
+        }
+        mMapView.invalidate();
+    }
+    private void setMarket(Roster roster) {
+        MarkerOptions markOptions = new MarkerOptions();
+        markOptions.draggable(true);//设置Marker可拖动
+        markOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap
+                .gps_point))).anchor(0.5f, 0.5f);
+        Marker  marker = mAMap.addMarker(markOptions);
+        marker.setTitle(roster.getRealName());
+        marker.setSnippet(roster.getHouseAddress());
+        marker.setPosition(new LatLng(roster.getLatitude(),roster.getLongitude()));
+
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        marker.showInfoWindow();
+        return true;
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+
     }
 }

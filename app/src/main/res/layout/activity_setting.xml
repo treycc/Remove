@@ -21,8 +21,8 @@
             android:layout_centerVertical="true"
             android:text="推送消息"/>
 
-        <CheckBox
-            android:id="@+id/cb_setting_jpush"
+        <Switch
+            android:id="@+id/switch_setting_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"/>

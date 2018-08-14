@@ -1,4 +1,4 @@
-package com.jdp.hls.activity;
+package com.jdp.hls.page.modify;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,11 +12,16 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.page.projects.ProjectsPresenter;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SimpleTextWatcher;
+import com.jdp.hls.util.SpSir;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,7 +32,7 @@ import butterknife.OnClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ModifyActivity extends BaseTitleActivity {
+public class ModifyActivity extends BaseTitleActivity implements ModifyContract.View {
 
     @BindView(R.id.iv_modify_clear)
     ImageView ivModifyClear;
@@ -38,6 +43,9 @@ public class ModifyActivity extends BaseTitleActivity {
     private String title;
     private String oldValue;
     private int requesCode;
+
+    @Inject
+    ModifyPresenter modifyPresenter;
 
     @OnClick({R.id.iv_modify_clear})
     public void click(View view) {
@@ -62,7 +70,10 @@ public class ModifyActivity extends BaseTitleActivity {
 
     @Override
     protected void initComponent(AppComponent appComponent) {
-
+        DaggerBaseCompnent.builder()
+                .appComponent(appComponent)
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -72,7 +83,7 @@ public class ModifyActivity extends BaseTitleActivity {
 
     @Override
     protected void initView() {
-
+        modifyPresenter.attachView(this);
     }
 
     @Override
@@ -100,15 +111,20 @@ public class ModifyActivity extends BaseTitleActivity {
             case Constants.ModifyCode.MODIFY_PHONE:
                 if (!TextUtils.isEmpty(newVaule)) {
                     if (CheckUtil.checkPhoneFormat(newVaule)) {
-                        saveValue(newVaule);
+                        modifyPresenter.modifyMobile(SpSir.getInstance().getEmployeeId(),newVaule);
                     }
                 } else {
-                    saveValue(newVaule);
+                    modifyPresenter.modifyMobile(SpSir.getInstance().getEmployeeId(),newVaule);
                 }
                 break;
             case Constants.ModifyCode.MODIFY_OWNER_NAME:
                 if (CheckUtil.checkEmpty(newVaule, "请输入" + title)) {
                     saveValue(newVaule);
+                }
+                break;
+            case Constants.ModifyCode.MODIFY_ALIAS:
+                if (CheckUtil.checkEmpty(newVaule, "请输入" + title)) {
+                    modifyPresenter.modifyAlias(SpSir.getInstance().getEmployeeId(),newVaule);
                 }
                 break;
             case Constants.ModifyCode.MODIFY_ADDRESS:
@@ -159,4 +175,25 @@ public class ModifyActivity extends BaseTitleActivity {
         fragment.startActivityForResult(intent, requesCode);
     }
 
+    @Override
+    public void onModifyAliasSuccess(String aliasName) {
+        SpSir.getInstance().setAccountAlias(aliasName);
+        saveValue(aliasName);
+    }
+
+    @Override
+    public void onModifyMobileSuccess(String mobile) {
+        SpSir.getInstance().setMobilePhone(mobile);
+        saveValue(mobile);
+    }
+
+    @Override
+    public void showLoading() {
+        setProgressShow(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        setProgressShow(false);
+    }
 }
