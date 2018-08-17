@@ -42,7 +42,7 @@ public class ProjectsPresenter implements ProjectsContract.Presenter {
 
     @Override
     public void getProjects(int userId) {
-        mApi.getUserService().getProjects(userId).subscribeOn(Schedulers.io())
+        mApi.getApiService().getProjects(userId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<List<Project>>(mView) {
                     @Override

@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.RosterDetail;
-import com.jdp.hls.page.modifyPassword.ModifyPasswordContract;
 import com.jdp.hls.rx.ResultObserver;
 
 import javax.inject.Inject;
@@ -30,7 +29,7 @@ public class RosterDetailPresenter implements RosterDetailContract.Presenter {
 
     @Override
     public void getRosterDetail(String houseId, int employeeId, int isEnterprise) {
-        mApi.getUserService().getRosterDetail(houseId, employeeId, isEnterprise).subscribeOn(Schedulers.io())
+        mApi.getApiService().getRosterDetail(houseId, employeeId, isEnterprise).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<RosterDetail>(mView) {
                     @Override

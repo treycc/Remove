@@ -2,7 +2,7 @@ package com.jdp.hls.model.api;
 
 
 import com.jdp.hls.constant.Constants;
-import com.jdp.hls.model.service.UserService;
+import com.jdp.hls.model.service.ApiService;
 import com.jdp.hls.util.TokenHeadInterceptor;
 
 import java.util.concurrent.TimeUnit;
@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class UserApi {
 
-    private UserService userService;
+    private ApiService apiService;
 
     public UserApi() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -40,11 +40,11 @@ public class UserApi {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build();
-        userService = retrofit.create(UserService.class);
+        apiService = retrofit.create(ApiService.class);
     }
 
-    public UserService getUserService() {
-        return userService;
+    public ApiService getApiService() {
+        return apiService;
     }
 
 

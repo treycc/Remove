@@ -32,7 +32,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <!--.page.login.LoginActivity-->
-        <activity android:name=".page.login.LoginActivity">
+        <activity android:name=".page.login.LoginActivity"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -73,7 +74,7 @@
             android:screenOrientation="portrait"/>
         <!--添加花名册-->
         <activity
-            android:name=".activity.RosterAddActivity"
+            android:name=".page.rosteradd.RosterAddActivity"
             android:screenOrientation="portrait"/>
         <!--花名册详情-->
         <activity
@@ -87,6 +88,14 @@
         <activity
             android:name=".activity.HomeActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <!--协议界面-->
+        <activity
+            android:name=".activity.AgreementActivity"
+            android:screenOrientation="portrait"/>
+      <!--选择联系人-->
+        <activity
+            android:name=".page.personSearch.PersonSearchActivity"
             android:screenOrientation="portrait"/>
 
         <meta-data

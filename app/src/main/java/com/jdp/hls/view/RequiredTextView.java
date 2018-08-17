@@ -18,9 +18,13 @@ public class RequiredTextView extends AppCompatTextView {
 
     public RequiredTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        SpannableString spanString = new SpannableString("*"+this.getText());
+    }
+
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        SpannableString spanString = new SpannableString("*"+text);
         ForegroundColorSpan span = new ForegroundColorSpan(Color.RED);
         spanString.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        this.setText(spanString);
+        super.setText(spanString, type);
     }
 }

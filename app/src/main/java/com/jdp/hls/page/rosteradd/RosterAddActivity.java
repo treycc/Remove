@@ -1,47 +1,59 @@
-package com.jdp.hls.activity;
+package com.jdp.hls.page.rosteradd;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
-import android.support.v4.app.FragmentTransaction;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Switch;
 
 import com.jdp.hls.R;
+import com.jdp.hls.activity.LocationActivity;
+import com.jdp.hls.model.entiy.Person;
+import com.jdp.hls.page.personSearch.PersonSearchActivity;
 import com.jdp.hls.adapter.BaseRvPositionAdapter;
 import com.jdp.hls.adapter.ImgUriAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.fragment.LngLatFragment;
-import com.jdp.hls.fragment.LocationFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.util.CheckUtil;
+import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.view.RequiredTextView;
 import com.jdp.hls.view.RvItemDecoration;
 import com.kingja.supershapeview.view.SuperShapeEditText;
+import com.kingja.supershapeview.view.SuperShapeTextView;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
 
+import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import lib.kingja.switchbutton.SwitchMultiButton;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:增加花名册
@@ -49,7 +61,7 @@ import io.reactivex.functions.Consumer;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class RosterAddActivity extends BaseTitleActivity {
+public class RosterAddActivity extends BaseTitleActivity implements RosterAddContract.View {
     @BindView(R.id.set_roster_name)
     SuperShapeEditText setRosterName;
     @BindView(R.id.ll_roster_name)
@@ -58,14 +70,6 @@ public class RosterAddActivity extends BaseTitleActivity {
     SuperShapeEditText setRosterAddress;
     @BindView(R.id.ll_roster_address)
     LinearLayout llRosterAddress;
-    @BindView(R.id.rb_roster_man)
-    RadioButton rbRosterMan;
-    @BindView(R.id.rb_roster_woman)
-    RadioButton rbRosterWoman;
-    @BindView(R.id.rg_roster_gender)
-    RadioGroup rgRosterGender;
-    @BindView(R.id.ll_roster_gender)
-    LinearLayout llRosterGender;
     @BindView(R.id.set_roster_phone)
     SuperShapeEditText setRosterPhone;
     @BindView(R.id.ll_roster_phone)
@@ -74,18 +78,6 @@ public class RosterAddActivity extends BaseTitleActivity {
     SuperShapeEditText setRosterIdcard;
     @BindView(R.id.ll_roster_idcard)
     LinearLayout llRosterIdcard;
-    @BindView(R.id.rb_roster_personal)
-    RadioButton rbRosterPersonal;
-    @BindView(R.id.rb_roster_company)
-    RadioButton rbRosterCompany;
-    @BindView(R.id.rg_roster_type)
-    RadioGroup rgRosterType;
-    @BindView(R.id.ll_roster_type)
-    LinearLayout llRosterType;
-    @BindView(R.id.switch_roster_measured)
-    Switch switchRosterMeasure;
-    @BindView(R.id.switch_roster_evaluated)
-    Switch switchRosterAssess;
     @BindView(R.id.rv_roster_img)
     RecyclerView rvRosterImg;
     @BindView(R.id.ll_roster_img)
@@ -96,20 +88,44 @@ public class RosterAddActivity extends BaseTitleActivity {
     LinearLayout llRosterRemark;
     @BindView(R.id.ll_roster_location)
     LinearLayout llRosterLocation;
+    @BindView(R.id.smb_roster_gender)
+    SwitchMultiButton smbRosterGender;
+    @BindView(R.id.smb_roster_type)
+    SwitchMultiButton smbRosterType;
+    @BindView(R.id.smb_roster_measured)
+    SwitchMultiButton smbRosterMeasured;
+    @BindView(R.id.smb_roster_evaluated)
+    SwitchMultiButton smbRosterEvaluated;
+    @BindView(R.id.iv_roster_location)
+    ImageView ivRosterLocation;
+    @BindView(R.id.rtv_ownerType)
+    RequiredTextView rtvOwnerType;
+    @BindView(R.id.set_roster_import)
+    SuperShapeTextView setRosterImport;
     private List<Uri> photoUris = new ArrayList<>();
     private ImgUriAdapter imgUriAdapter;
     List<Uri> mSelectedUris;
-    private static final int REQUEST_CODE_CHOOSE = 0;
     private static final int REQUEST_CODE_LOCATION = 1;
-    private LocationFragment locationFragment;
     private LngLatFragment lngLatFragment;
+    @Inject
+    RosterAddPresenter rosterAddPresenter;
+    private double lng;
+    private double lat;
+    private int gender = 1;
+    private int isEnterprise;
+    private int isMeasured;
+    private int isEvaluated;
+    private static final int REQUEST_CODE_PERSON = 2;
 
-    @OnClick({R.id.ll_roster_location,R.id.fragment_lnglat})
+    @OnClick({R.id.ll_roster_location, R.id.fragment_lnglat, R.id.set_roster_import})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.ll_roster_location:
             case R.id.fragment_lnglat:
                 GoUtil.goActivityForResult(this, LocationActivity.class, REQUEST_CODE_LOCATION);
+                break;
+            case R.id.set_roster_import:
+                GoUtil.goActivityForResult(this, PersonSearchActivity.class, REQUEST_CODE_PERSON);
                 break;
         }
     }
@@ -117,7 +133,7 @@ public class RosterAddActivity extends BaseTitleActivity {
 
     @Override
     public void initVariable() {
-
+        checkPermissions();
     }
 
     @Override
@@ -127,7 +143,10 @@ public class RosterAddActivity extends BaseTitleActivity {
 
     @Override
     protected void initComponent(AppComponent appComponent) {
-
+        DaggerBaseCompnent.builder()
+                .appComponent(appComponent)
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -137,6 +156,7 @@ public class RosterAddActivity extends BaseTitleActivity {
 
     @Override
     protected void initView() {
+        rosterAddPresenter.attachView(this);
         imgUriAdapter = new ImgUriAdapter(this, photoUris);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(OrientationHelper.HORIZONTAL);
@@ -149,8 +169,7 @@ public class RosterAddActivity extends BaseTitleActivity {
             @Override
             public void onItemClick(List<Uri> list, int position) {
                 if (imgUriAdapter.isLastItem(position)) {
-                    ToastUtil.showText("添加图片" + position);
-                    openCamera();
+                    MatisseUtil.openCamera(RosterAddActivity.this);
                 } else {
                     ToastUtil.showText("点击放大" + position);
                 }
@@ -167,18 +186,19 @@ public class RosterAddActivity extends BaseTitleActivity {
 
             }
         });
-//        initMapFragment();
-        checkPermissions();
         lngLatFragment = (LngLatFragment) getSupportFragmentManager().findFragmentById(R.id
                 .fragment_lnglat);
-
+        initSwitchButton();
     }
 
-    private void initMapFragment() {
-        if (locationFragment == null) {
-            locationFragment = LocationFragment.newInstance();
-        }
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    private void initSwitchButton() {
+        smbRosterGender.setOnSwitchListener((position, tabText) -> gender = position == 0 ? 1 : 0);
+        smbRosterType.setOnSwitchListener((position, tabText) -> {
+            isEnterprise = position == 1 ? 1 : 0;
+            rtvOwnerType.setText(position == 1 ? "企业" : "户主");
+        });
+        smbRosterMeasured.setOnSwitchListener((position, tabText) -> isMeasured = position == 0 ? 1 : 0);
+        smbRosterEvaluated.setOnSwitchListener((position, tabText) -> isEvaluated = position == 0 ? 1 : 0);
     }
 
     public void checkPermissions() {
@@ -212,22 +232,30 @@ public class RosterAddActivity extends BaseTitleActivity {
         if (CheckUtil.checkEmpty(name, "请输入户主姓名")
                 && CheckUtil.checkEmpty(address, "请输入地址")
                 && CheckUtil.checkPhoneFormatAllowEmpty(phone)
-                && CheckUtil.checkIdCardAllowEmpty(idcard, "身份证格式错误")) {
-            ToastUtil.showText("保存");
+                && CheckUtil.checkIdCardAllowEmpty(idcard, "身份证格式错误")
+                && CheckUtil.checkLngLat(lng, lat)) {
+            MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("isEnterprise", String.valueOf(isEnterprise))
+                    .addFormDataPart("projectId", SpSir.getInstance().getProjectId())
+                    .addFormDataPart("realName", name)
+                    .addFormDataPart("gender", String.valueOf(gender))
+                    .addFormDataPart("address", address)
+                    .addFormDataPart("idcard", idcard)
+                    .addFormDataPart("mobilePhone", phone)
+                    .addFormDataPart("remark", remark)
+                    .addFormDataPart("isEvaluated", String.valueOf(isEvaluated))
+                    .addFormDataPart("isMeasured", String.valueOf(isMeasured))
+                    .addFormDataPart("longitude", String.valueOf(lng))
+                    .addFormDataPart("latitude", String.valueOf(lat));
+            List<Uri> uris = imgUriAdapter.getDate();
+            for (int i = 0; i < uris.size(); i++) {
+                File photoFile = FileUtil.getFileByUri(uris.get(i), this);
+                bodyBuilder.addFormDataPart("rosterFile" + i, photoFile.getName(), RequestBody.create(MediaType.parse
+                        ("image/*"), photoFile));
+            }
+            RequestBody requestBody = bodyBuilder.build();
+            rosterAddPresenter.addRoster(requestBody);
         }
-    }
-
-    private void openCamera() {
-        Matisse.from(this)
-                .choose(MimeType.allOf())
-                .countable(true)
-//                .capture(true)
-                .theme(R.style.PhotoTheme)//主题  暗色主题 R.style.Matisse_Dracula
-                .maxSelectable(9) // 图片选择的最多数量
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                .thumbnailScale(0.85f) // 缩略图的比例
-                .imageEngine(new GlideEngine()) // 使用的图片加载引擎
-                .forResult(REQUEST_CODE_CHOOSE); // 设置作为标记的请求码
     }
 
 
@@ -236,15 +264,17 @@ public class RosterAddActivity extends BaseTitleActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
             switch (requestCode) {
-                case REQUEST_CODE_CHOOSE:
+                case MatisseUtil.REQUEST_CODE_CHOOSE:
                     mSelectedUris = Matisse.obtainResult(data);
                     imgUriAdapter.addData(mSelectedUris);
                     break;
                 case REQUEST_CODE_LOCATION:
-                    double lng = data.getDoubleExtra("lng", -1);
-                    double lat = data.getDoubleExtra("lat", -1);
-                    Log.e(TAG, "lng: " + lng + " lat:" + lat);
+                    lng = data.getDoubleExtra("lng", -1);
+                    lat = data.getDoubleExtra("lat", -1);
                     lngLatFragment.setLnglat(lng, lat);
+                    break;
+                case REQUEST_CODE_PERSON:
+                    Person person = (Person) data.getSerializableExtra("person");
                     break;
             }
         }
@@ -255,4 +285,27 @@ public class RosterAddActivity extends BaseTitleActivity {
 
     }
 
+    @Override
+    public void onAddRosterSuccess() {
+        ToastUtil.showText("添加花名册成功");
+        finish();
+    }
+
+    @Override
+    public void showLoading() {
+        setProgressShow(true);
+
+    }
+
+    @Override
+    public void hideLoading() {
+        setProgressShow(false);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

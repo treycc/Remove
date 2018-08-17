@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import com.jdp.hls.R;
+import com.jdp.hls.activity.HomeActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
@@ -16,11 +17,11 @@ import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.util.AesUtil;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.EncryptUtil;
+import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.kingja.supershapeview.view.SuperShapeEditText;
 import com.kingja.supershapeview.view.SuperShapeTextView;
-import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -122,8 +123,6 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
         boolean ifRememberBaby = SpSir.getInstance().getIfRememberBaby();
         if (ifRememberBaby) {
             cbRememberPasswrod.setChecked(true);
-            LogUtil.e("取出加密：", SpSir.getInstance().getComeOnBaby());
-            LogUtil.e("解码后：", AesUtil.decode(SpSir.getInstance().getComeOnBaby()));
             setLoginPassword.setText(AesUtil.decode(SpSir.getInstance().getComeOnBaby()));
             setLoginAccountName.setText(String.valueOf(SpSir.getInstance().getAccountName()));
         }
@@ -143,9 +142,6 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
     public void onLoginSuccess(Login account) {
         if (cbRememberPasswrod.isChecked()) {
             SpSir.getInstance().setIfRememberBaby(true);
-            LogUtil.e("加密前：",password);
-            LogUtil.e("加密后1：", AesUtil.encrypt(password));
-            LogUtil.e("加密后2：", AesUtil.encrypt(password));
             SpSir.getInstance().setComeOnBaby(AesUtil.encrypt(password));
         } else {
             SpSir.getInstance().setIfRememberBaby(false);
@@ -158,7 +154,10 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
             if (projects.size() > 1) {
                 ProjectListActivity.goActivity(this, projects);
             } else {
-                LogUtil.e(TAG, "直接跳转");
+                Project project = projects.get(0);
+                SpSir.getInstance().setProjectId(project.getProjectId());
+                SpSir.getInstance().setProjectName(project.getProjectName());
+                GoUtil.goActivityAndFinish(this, HomeActivity.class);
             }
         }
     }
@@ -174,6 +173,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
         SpSir.getInstance().setMobilePhone(userInfo.getMobilePhone());
         SpSir.getInstance().setAccountName(userInfo.getAccountName());
         SpSir.getInstance().setAccountAlias(userInfo.getAccountAlias());
+        SpSir.getInstance().setServerName(userInfo.getServerName());
     }
 
     @Override

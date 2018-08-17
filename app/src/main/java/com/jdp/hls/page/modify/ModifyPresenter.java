@@ -39,7 +39,7 @@ public class ModifyPresenter implements ModifyContract.Presenter {
 
     @Override
     public void modifyAlias(int employeeId, String aliasName) {
-        mApi.getUserService().modifyAlias(employeeId, aliasName).subscribeOn(Schedulers.io())
+        mApi.getApiService().modifyAlias(employeeId, aliasName).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<Object>(mView) {
                     @Override
@@ -51,7 +51,7 @@ public class ModifyPresenter implements ModifyContract.Presenter {
 
     @Override
     public void modifyMobile(int employeeId, String mobile) {
-        mApi.getUserService().modifyMobile(employeeId, mobile).subscribeOn(Schedulers.io())
+        mApi.getApiService().modifyMobile(employeeId, mobile).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<Object>(mView) {
                     @Override

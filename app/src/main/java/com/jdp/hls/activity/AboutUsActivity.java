@@ -1,8 +1,20 @@
 package com.jdp.hls.activity;
 
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.page.rosteradd.RosterAddActivity;
+import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.util.VersionUtil;
+import com.kingja.supershapeview.view.SuperShapeImageView;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Description:TODO
@@ -11,6 +23,24 @@ import com.jdp.hls.injector.component.AppComponent;
  * Email:kingjavip@gmail.com
  */
 public class AboutUsActivity extends BaseTitleActivity {
+    @BindView(R.id.siv_aboutus_logo)
+    SuperShapeImageView sivAboutusLogo;
+    @BindView(R.id.tv_aboutus_version)
+    TextView tvAboutusVersion;
+    @BindView(R.id.rl_aboutus_agreement)
+    RelativeLayout rlAboutusAgreement;
+
+    @OnClick({R.id.rl_aboutus_agreement})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.rl_aboutus_agreement:
+                GoUtil.goActivity(this,AgreementActivity.class);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void initVariable() {
 
@@ -38,11 +68,12 @@ public class AboutUsActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-
+        tvAboutusVersion.setText(String.format("当前版本:%s",VersionUtil.getVerName(this)));
     }
 
     @Override
     protected void initNet() {
 
     }
+
 }

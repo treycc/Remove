@@ -49,7 +49,7 @@ public class RosterListActivity extends BaseTitleActivity {
             }
         }
         rosterCountArr[0]=personalRosters.size()+"户";
-        rosterCountArr[1]=personalRosters.size()+"家";
+        rosterCountArr[1]=companyRosters.size()+"家";
     }
 
     @Override

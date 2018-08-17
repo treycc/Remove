@@ -70,6 +70,8 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
             mAMap.setMyLocationEnabled(true);
             //设置默认定位按钮是否显示
             mAMap.getUiSettings().setMyLocationButtonEnabled(true);
+            //设置缩放按钮是否显示
+            mAMap.getUiSettings().setZoomControlsEnabled(false);
         }
     }
 

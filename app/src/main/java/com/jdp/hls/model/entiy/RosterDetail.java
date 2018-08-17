@@ -1,6 +1,7 @@
 package com.jdp.hls.model.entiy;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Description:TODO
@@ -18,6 +19,42 @@ public class RosterDetail implements Serializable {
     private boolean IsEnterprise;
     private boolean IsEvaluated;
     private boolean IsMeasured;
+    private boolean Gender;
+    private String Remark;
+    private String Idcard;
+    private List<ImgInfo> HouseFiles;
+
+    public List<ImgInfo> getHouseFiles() {
+        return HouseFiles;
+    }
+
+    public void setHouseFiles(List<ImgInfo> houseFiles) {
+        HouseFiles = houseFiles;
+    }
+
+    public String getIdcard() {
+        return Idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        Idcard = idcard;
+    }
+
+    public boolean isGender() {
+        return Gender;
+    }
+
+    public void setGender(boolean gender) {
+        Gender = gender;
+    }
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
+    }
 
     public String getHouseId() {
         return HouseId;

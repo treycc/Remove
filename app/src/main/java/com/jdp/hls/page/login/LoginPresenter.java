@@ -29,7 +29,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void login(String accountName, String password,int  accountType) {
-        mApi.getUserService().login( accountName,  password,  accountType).subscribeOn(Schedulers.io())
+        mApi.getApiService().login( accountName,  password,  accountType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<Login>(mView) {
                     @Override

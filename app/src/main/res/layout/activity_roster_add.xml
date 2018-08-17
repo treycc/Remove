@@ -8,48 +8,12 @@
     android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-
-        <LinearLayout
-            android:id="@+id/ll_roster_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="12dp">
-
-
-            <com.jdp.hls.view.RequiredTextView
-                style="@style/font_6_13"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="户主"/>
-
-            <com.kingja.supershapeview.view.SuperShapeEditText
-                android:id="@+id/set_roster_name"
-                style="@style/font_9_13"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3.5"
-                android:hint="请输入户主姓名"
-                android:paddingBottom="4dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingTop="4dp"
-                android:singleLine="true"
-                app:super_strokeColor="@color/c_6"
-                app:super_strokeWidth="1px">
-
-
-            </com.kingja.supershapeview.view.SuperShapeEditText>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray"/>
 
         <LinearLayout
             android:id="@+id/ll_roster_address"
@@ -88,6 +52,65 @@
 
         </LinearLayout>
 
+        <View style="@style/div_hor_gray_6"/>
+
+        <LinearLayout
+            android:id="@+id/ll_roster_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+
+            <com.jdp.hls.view.RequiredTextView
+                android:id="@+id/rtv_ownerType"
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="户主"/>
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5">
+
+                <com.kingja.supershapeview.view.SuperShapeEditText
+                    android:layout_marginRight="12dp"
+                    android:id="@+id/set_roster_name"
+                    style="@style/font_9_13"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入名称或者导入现有数据"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="4dp"
+                    android:singleLine="true"
+                    app:super_strokeColor="@color/c_6"
+                    app:super_strokeWidth="1px"/>
+
+                <com.kingja.supershapeview.view.SuperShapeTextView
+                    android:id="@+id/set_roster_import"
+                    style="@style/font_f_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="导入"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="4dp"
+                    android:singleLine="true"
+                    app:super_solidColor="@color/main"
+                    app:super_cornerRadius="3dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <View style="@style/div_hor_gray"/>
 
         <LinearLayout
@@ -98,43 +121,33 @@
             android:padding="12dp">
 
 
-            <com.jdp.hls.view.RequiredTextView
+            <TextView
                 style="@style/font_6_13"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="性别"/>
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.5"
-                android:orientation="horizontal">
+                android:layout_weight="3.5">
 
-                <RadioGroup
-                    android:id="@+id/rg_roster_gender"
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/smb_roster_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_roster_man"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="18dp"
-                        android:checked="true"
-                        android:text="男"/>
-
-                    <RadioButton
-                        android:id="@+id/rb_roster_woman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="女"/>
-
-                </RadioGroup>
-
-
-            </LinearLayout>
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="4dp"
+                    app:selectedColor="@color/main"
+                    app:selectedTab="0"
+                    app:strokeRadius="4dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/switch_gender"
+                    app:textSize="14sp"/>
+            </FrameLayout>
 
 
         </LinearLayout>
@@ -153,7 +166,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="手机"/>
+                android:text="手机号"/>
 
 
             <com.kingja.supershapeview.view.SuperShapeEditText
@@ -192,7 +205,6 @@
                 android:layout_weight="1"
                 android:text="身份证"/>
 
-
             <com.kingja.supershapeview.view.SuperShapeEditText
                 android:id="@+id/set_roster_idcard"
                 style="@style/font_9_13"
@@ -214,7 +226,7 @@
             </com.kingja.supershapeview.view.SuperShapeEditText>
         </LinearLayout>
 
-        <View style="@style/div_hor_gray"/>
+        <View style="@style/div_hor_gray_6"/>
 
         <LinearLayout
             android:id="@+id/ll_roster_type"
@@ -230,34 +242,26 @@
                 android:layout_weight="1"
                 android:text="类型"/>
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.5"
-                android:orientation="horizontal">
+                android:layout_weight="3.5">
 
-                <RadioGroup
-                    android:id="@+id/rg_roster_type"
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/smb_roster_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_roster_personal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="18dp"
-                        android:checked="true"
-                        android:text="个人"/>
-
-                    <RadioButton
-                        android:id="@+id/rb_roster_company"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="企业"/>
-
-                </RadioGroup>
-            </LinearLayout>
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="4dp"
+                    app:selectedColor="@color/main"
+                    app:selectedTab="0"
+                    app:strokeRadius="4dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/switch_roster_type"
+                    app:textSize="14sp"/>
+            </FrameLayout>
         </LinearLayout>
 
         <View style="@style/div_hor_gray"/>
@@ -276,18 +280,26 @@
                 android:layout_weight="1"
                 android:text="是否丈量"/>
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.5"
-                android:gravity="end"
-                android:orientation="horizontal">
+                android:layout_weight="3.5">
 
-                <Switch
-                    android:id="@+id/switch_roster_measured"
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/smb_roster_measured"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="4dp"
+                    app:selectedColor="@color/main"
+                    app:selectedTab="0"
+                    app:strokeRadius="4dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/switch_measure"
+                    app:textSize="14sp"/>
+            </FrameLayout>
 
 
         </LinearLayout>
@@ -308,18 +320,26 @@
                 android:layout_weight="1"
                 android:text="是否评估"/>
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.5"
-                android:gravity="end"
-                android:orientation="horizontal">
+                android:layout_weight="3.5">
 
-                <Switch
-                    android:id="@+id/switch_roster_evaluated"
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/smb_roster_evaluated"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="4dp"
+                    app:selectedColor="@color/main"
+                    app:selectedTab="0"
+                    app:strokeRadius="4dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/switch_evaluated"
+                    app:textSize="14sp"/>
+            </FrameLayout>
 
 
         </LinearLayout>
@@ -332,13 +352,19 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:padding="12dp">
+            <TextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="图片"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_roster_img"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
-                android:layout_weight="1"/>
+                android:layout_weight="3.5"/>
 
         </LinearLayout>
 

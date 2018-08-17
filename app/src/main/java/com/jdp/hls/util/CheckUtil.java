@@ -176,4 +176,12 @@ public class CheckUtil {
         }
         return true;
     }
+
+    public static boolean checkLngLat(double lng, double lat) {
+        if (lng==0||lat==0) {
+            ToastUtil.showText("请进行定位");
+            return   false;
+        }
+        return true;
+    }
 }

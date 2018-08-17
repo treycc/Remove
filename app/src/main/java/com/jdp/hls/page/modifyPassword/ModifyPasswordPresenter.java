@@ -3,8 +3,6 @@ package com.jdp.hls.page.modifyPassword;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
-import com.jdp.hls.model.entiy.Login;
-import com.jdp.hls.page.login.LoginContract;
 import com.jdp.hls.rx.ResultObserver;
 
 import javax.inject.Inject;
@@ -30,7 +28,7 @@ public class ModifyPasswordPresenter implements ModifyPasswordContract.Presenter
 
     @Override
     public void modifyPassword(String oldPassword, String newPassword) {
-        mApi.getUserService().modifyPassword(oldPassword, newPassword).subscribeOn(Schedulers.io())
+        mApi.getApiService().modifyPassword(oldPassword, newPassword).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<Object>(mView) {
                     @Override

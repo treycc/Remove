@@ -19,17 +19,16 @@ import com.jdp.hls.model.entiy.Roster;
  */
 public class KMapInfoWindowAdapter implements AMap.InfoWindowAdapter {
     private final Context context;
-    private final Roster roster;
     private View infoWindow = null;
 
 
-    public KMapInfoWindowAdapter(Context context, Roster roster) {
+    public KMapInfoWindowAdapter(Context context) {
         this.context = context;
-        this.roster = roster;
     }
 
     @Override
     public View getInfoWindow(Marker marker) {
+        Roster  roster = (Roster) marker.getObject();
         if (infoWindow == null) {
             infoWindow = LayoutInflater.from(context).inflate(
                     R.layout.map_info_window, null);

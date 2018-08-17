@@ -8,7 +8,9 @@ import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.page.map.MapFragment;
 import com.jdp.hls.page.modify.ModifyActivity;
 import com.jdp.hls.page.modifyPassword.ModifyPasswordActivity;
+import com.jdp.hls.page.personSearch.PersonSearchActivity;
 import com.jdp.hls.page.projects.ProjectListActivity;
+import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.page.suggest.SuggestActivity;
 
@@ -24,4 +26,6 @@ public interface BaseCompnent {
     void inject(ProjectListActivity activity);
     void inject(ModifyActivity activity);
     void inject(RosterDetailActivity activity);
+    void inject(RosterAddActivity activity);
+    void inject(PersonSearchActivity activity);
 }

@@ -1,8 +1,6 @@
 package com.jdp.hls.activity;
 
-import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -10,17 +8,16 @@ import android.widget.TextView;
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.page.modifyPassword.ModifyPasswordActivity;
 import com.jdp.hls.page.suggest.SuggestActivity;
+import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.DataCleanManager;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeTextView;
 
-import java.io.File;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -65,6 +62,8 @@ public class SettingActivity extends BaseTitleActivity {
                 break;
             case R.id.stv_setting_quit:
                 ToastUtil.showText("退出");
+                AppManager.getAppManager().finishAllActivity();
+                GoUtil.goActivity(this, LoginActivity.class);
                 break;
 
             default:
@@ -107,10 +106,4 @@ public class SettingActivity extends BaseTitleActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

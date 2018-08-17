@@ -1,12 +1,16 @@
 package com.jdp.hls.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.util.LogUtil;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -15,7 +19,9 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ImgAdapter extends BaseRvAdaper<ImgInfo> {
+public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
+    protected final String TAG = getClass().getSimpleName();
+
     public ImgAdapter(Context context, List<ImgInfo> list) {
         super(context, list);
     }
@@ -27,23 +33,67 @@ public class ImgAdapter extends BaseRvAdaper<ImgInfo> {
 
     @Override
     protected int getItemView() {
-        return R.layout.item_roster_img;
+        return R.layout.item_img_clear;
     }
 
     @Override
-    protected void bindHolder(ViewHolder baseHolder, ImgInfo visitor, int position) {
+    protected void bindHolder(ViewHolder baseHolder, List<ImgInfo> list, int position) {
         final ImgInfoViewHolder holder = (ImgInfoViewHolder) baseHolder;
-//        holder.tv_visitor_tab.setText(visitor.getName());
+        if (position == getItemCount() - 1) {
+            holder.iv_img.setImageResource(R.mipmap.bg_add_photo);
+            holder.iv_clear.setVisibility(View.GONE);
+        } else {
+            String url = list.get(position).getFileUrl();
+            if (TextUtils.isEmpty(url)) {
+                ImageLoader.getInstance().loadImage(context,list.get(position).getUri(), holder.iv_img);
+            }else{
+                LogUtil.e("图片url",list.get(position).getFileUrl());
+                ImageLoader.getInstance().loadImage(context,list.get(position).getFileUrl(), holder.iv_img);
+            }
+
+            holder.iv_clear.setVisibility(View.VISIBLE);
+            holder.iv_clear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    list.remove(position);
+                    notifyDataSetChanged();
+                }
+            });
+        }
     }
 
+    @Override
+    public void addData(List<ImgInfo> list) {
+        this.list.addAll(list);
+        LinkedHashSet<ImgInfo> set = new LinkedHashSet<>(this.list.size());
+        set.addAll(this.list);
+        this.list.clear();
+        this.list.addAll(set);
+        this.notifyDataSetChanged();
+    }
+
+    public List<ImgInfo> getDate() {
+        return list;
+    }
+
+    @Override
+    public int getItemCount() {
+        return super.getItemCount() + 1;
+    }
 
     class ImgInfoViewHolder extends ViewHolder {
-        ImageView iv_roster_img;
+        ImageView iv_img;
+        ImageView iv_clear;
 
         ImgInfoViewHolder(View itemView) {
             super(itemView);
-            iv_roster_img = itemView.findViewById(R.id.iv_roster_img);
+            iv_img = itemView.findViewById(R.id.iv_img);
+            iv_clear = itemView.findViewById(R.id.iv_clear);
         }
+    }
+
+    public boolean isLastItem(int position) {
+        return position == getItemCount() - 1;
     }
 
 }

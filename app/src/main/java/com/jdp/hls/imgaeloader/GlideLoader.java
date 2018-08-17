@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.jdp.hls.R;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.util.SpSir;
 
 /**
  * Description：TODO
@@ -18,9 +19,10 @@ public class GlideLoader implements IImageLoader {
     @Override
     public void loadImage(Context context, String url, int resourceId, ImageView view) {
         Glide.with(context)
-                .load(Constants.BASE_URL + url)
+                .load(SpSir.getInstance().getServerName()+ url)
                 .centerCrop()
-                .placeholder(resourceId == -1 ? R.mipmap.ic_logo : resourceId)
+                .placeholder(resourceId == -1 ? R.mipmap.ic_img_placeholder : resourceId)
+                .error(R.mipmap.ic_img_fail)
                 .crossFade()
                 .into(view);
     }
@@ -30,6 +32,7 @@ public class GlideLoader implements IImageLoader {
         Glide.with(context)
                 .load(uri)
                 .centerCrop()
+                .error(R.mipmap.ic_img_fail)
                 .crossFade()
                 .into(view);
     }

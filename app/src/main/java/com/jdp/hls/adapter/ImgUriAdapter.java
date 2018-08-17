@@ -20,7 +20,7 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class ImgUriAdapter extends BaseRvPositionAdapter<Uri> {
-    private static final String TAG = "ImgUriAdapter";
+    protected  final String TAG = getClass().getSimpleName();
 
     public ImgUriAdapter(Context context, List<Uri> list) {
         super(context, list);
@@ -66,6 +66,10 @@ public class ImgUriAdapter extends BaseRvPositionAdapter<Uri> {
         this.list.clear();
         this.list.addAll(set);
         this.notifyDataSetChanged();
+    }
+
+    public List<Uri> getDate() {
+        return list;
     }
 
     @Override

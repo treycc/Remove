@@ -26,6 +26,7 @@ public class SpSir {
     private String ProjectName = "ProjectName";
     private String IfRememberBaby = "IfRememberBaby";
     private String ComeOnBaby = "ComeOnBaby";
+    private String ServerName = "ServerName";
     private static final String EMPTY_STRING = "";
     private static final int ZERO_INT = -1;
     private static SpSir mSpSir;
@@ -150,6 +151,18 @@ public class SpSir {
     public void setComeOnBaby(String comeOnBaby) {
         putString(ComeOnBaby, comeOnBaby);
     }
+
+        public String getServerName() {
+        return getString(ServerName);
+    }
+
+    public void setServerName(String serverName) {
+        putString(ServerName, serverName);
+    }
+
+
+
+
 
     public boolean getIfRememberBaby() {
         return getBoolean(IfRememberBaby, false);

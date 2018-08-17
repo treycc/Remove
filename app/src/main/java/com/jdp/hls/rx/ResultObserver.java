@@ -4,9 +4,15 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.jdp.hls.base.BaseView;
+import com.jdp.hls.constant.Status;
+import com.jdp.hls.event.ResetLoginStatusEvent;
 import com.jdp.hls.model.HttpResult;
+import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.observers.DefaultObserver;
 
@@ -36,18 +42,34 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
     public void onNext(HttpResult<T> httpResult) {
         Logger.json(new Gson().toJson(httpResult));
         baseView.hideLoading();
-        if (httpResult.getCode() == 0) {
+        if (httpResult.getCode() == Status.ResultCode.SUCCESS) {
             onSuccess(httpResult.getData());
-        } else if (httpResult.getCode() == 1) {
-            ToastUtil.showText("系统错误，请联系客服");
-        } else if (httpResult.getCode() == -1) {
-            ToastUtil.showText("登录失效");
+        } else if (httpResult.getCode() == Status.ResultCode.ERROR_SERVER) {
+            onServerError(httpResult.getCode(), httpResult.getMessage());
+        } else if (httpResult.getCode() == Status.ResultCode.ERROR_LOGIN_FAIL) {
+            onLoginFail();
         } else {
-            ToastUtil.showText(httpResult.getMessage());
+            onError(httpResult.getCode(), httpResult.getMessage());
         }
     }
 
     protected abstract void onSuccess(T t);
+
+    protected void onError(int code, String message) {
+        LogUtil.e(TAG, "code:" + code + " message:" + message);
+        ToastUtil.showText(message);
+    }
+
+    protected void onServerError(int code, String message) {
+        LogUtil.e(TAG, "code:" + code + " message:" + message);
+//        ToastUtil.showText(message);
+    }
+
+    protected void onLoginFail() {
+        ToastUtil.showText("用户未登录或登录已过期，请重新登录");
+        SpSir.getInstance().clearData();
+        EventBus.getDefault().post(new ResetLoginStatusEvent());
+    }
 
     @Override
     public void onError(Throwable e) {

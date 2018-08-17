@@ -37,13 +37,13 @@
                 android:layout_marginRight="8dp"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@mipmap/ic_search"/>
+                android:background="@mipmap/ic_measure_nor"/>
 
             <ImageView
                 android:id="@+id/iv_roster_isEvaluated"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@mipmap/ic_search"/>
+                android:background="@mipmap/ic_evaluate_nor"/>
         </LinearLayout>
 
     </RelativeLayout>
@@ -57,7 +57,7 @@
         <ImageView
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:background="@mipmap/ic_search"/>
+            android:background="@mipmap/ic_phone"/>
 
         <TextView
             android:id="@+id/tv_roster_phone"

@@ -42,7 +42,8 @@ public class LngLatFragment extends BaseFragment {
             aMap = mMapView.getMap();
             aMap.moveCamera(CameraUpdateFactory.zoomBy(Constants.MapSetting.Zoom));
             aMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Constants.MapSetting.Lat, Constants.MapSetting.Lng)));
-            aMap.setMyLocationEnabled(true);
+            //激活定位并显示定位锚点
+//            aMap.setMyLocationEnabled(true);
             UiSettings mUiSettings = aMap.getUiSettings();
             //不显示缩放
             mUiSettings.setZoomControlsEnabled(false);
