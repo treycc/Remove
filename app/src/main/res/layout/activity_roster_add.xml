@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
@@ -55,6 +56,54 @@
         <View style="@style/div_hor_gray_6"/>
 
         <LinearLayout
+            android:id="@+id/ll_roster_companyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="12dp">
+
+
+                <com.jdp.hls.view.RequiredTextView
+                    style="@style/font_6_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="企业名称"/>
+
+
+                <com.kingja.supershapeview.view.SuperShapeEditText
+                    android:id="@+id/set_roster_companyName"
+                    style="@style/font_9_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.5"
+                    android:hint="请输入企业名称"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="4dp"
+                    android:singleLine="true"
+                    app:super_strokeColor="@color/c_6"
+                    app:super_strokeWidth="1px">
+
+
+                </com.kingja.supershapeview.view.SuperShapeEditText>
+
+
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray"/>
+        </LinearLayout>
+
+
+        <LinearLayout
             android:id="@+id/ll_roster_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,19 +120,19 @@
                 android:text="户主"/>
 
             <LinearLayout
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.5">
+                android:layout_weight="3.5"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <com.kingja.supershapeview.view.SuperShapeEditText
-                    android:layout_marginRight="12dp"
                     android:id="@+id/set_roster_name"
                     style="@style/font_9_13"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1"
                     android:hint="请输入名称或者导入现有数据"
                     android:paddingBottom="4dp"
                     android:paddingLeft="12dp"
@@ -98,17 +147,90 @@
                     style="@style/font_f_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="导入"
                     android:paddingBottom="4dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:paddingTop="4dp"
                     android:singleLine="true"
-                    app:super_solidColor="@color/main"
-                    app:super_cornerRadius="3dp"/>
+                    android:text="导入"
+                    app:super_cornerRadius="3dp"
+                    app:super_solidColor="@color/main"/>
 
             </LinearLayout>
 
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+
+        <LinearLayout
+            android:id="@+id/ll_roster_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="手机号"/>
+
+
+            <com.kingja.supershapeview.view.SuperShapeEditText
+                android:id="@+id/set_roster_phone"
+                style="@style/font_9_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:hint="请输入手机号"
+                android:inputType="number"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                app:super_strokeColor="@color/c_6"
+                app:super_strokeWidth="1px">
+            </com.kingja.supershapeview.view.SuperShapeEditText>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <LinearLayout
+            android:id="@+id/ll_roster_idcard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="身份证"/>
+
+            <com.kingja.supershapeview.view.SuperShapeEditText
+                android:id="@+id/set_roster_idcard"
+                style="@style/font_9_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.5"
+                android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+                android:hint="请输入身份证号"
+                android:inputType="number"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                app:super_strokeColor="@color/c_6"
+                app:super_strokeWidth="1px">
+
+
+            </com.kingja.supershapeview.view.SuperShapeEditText>
         </LinearLayout>
 
         <View style="@style/div_hor_gray"/>
@@ -150,80 +272,6 @@
             </FrameLayout>
 
 
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray"/>
-
-        <LinearLayout
-            android:id="@+id/ll_roster_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="12dp">
-
-            <TextView
-                style="@style/font_6_13"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="手机号"/>
-
-
-            <com.kingja.supershapeview.view.SuperShapeEditText
-                android:id="@+id/set_roster_phone"
-                style="@style/font_9_13"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3.5"
-                android:hint="请输入手机号"
-                android:inputType="number"
-                android:paddingBottom="4dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingTop="4dp"
-                android:singleLine="true"
-                app:super_strokeColor="@color/c_6"
-                app:super_strokeWidth="1px">
-
-
-            </com.kingja.supershapeview.view.SuperShapeEditText>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray"/>
-
-        <LinearLayout
-            android:id="@+id/ll_roster_idcard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="12dp">
-
-            <TextView
-                style="@style/font_6_13"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="身份证"/>
-
-            <com.kingja.supershapeview.view.SuperShapeEditText
-                android:id="@+id/set_roster_idcard"
-                style="@style/font_9_13"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3.5"
-                android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
-                android:hint="请输入身份证号"
-                android:inputType="number"
-                android:paddingBottom="4dp"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:paddingTop="4dp"
-                android:singleLine="true"
-                app:super_strokeColor="@color/c_6"
-                app:super_strokeWidth="1px">
-
-
-            </com.kingja.supershapeview.view.SuperShapeEditText>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_6"/>
@@ -352,6 +400,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:padding="12dp">
+
             <TextView
                 style="@style/font_6_13"
                 android:layout_width="0dp"
@@ -385,19 +434,28 @@
                 android:layout_weight="1"
                 android:text="定位"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
-                android:gravity="end"
                 android:orientation="horizontal">
 
+                <TextView
+                    android:layout_centerVertical="true"
+                    style="@style/font_9_13"
+                    android:id="@+id/tv_roster_hasLocationed"
+                    android:text="未定位"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
                 <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
                     android:id="@+id/iv_roster_location"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:background="@mipmap/ic_location"/>
-            </LinearLayout>
+                    android:background="@mipmap/ic_confirm_nor"/>
+            </RelativeLayout>
 
 
         </LinearLayout>

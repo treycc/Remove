@@ -9,31 +9,49 @@ import java.io.Serializable;
  * Email:kingjavip@gmail.com
  */
 public class Person implements Serializable{
-    private String name;
-    private String moblie;
-    private String idcard;
+    private String PersonId;
+    private String RealName;
+    private String Idcard;
+    private String MobilePhone;
+    private boolean Gender;
 
-    public String getName() {
-        return name;
+    public String getPersonId() {
+        return PersonId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPersonId(String personId) {
+        PersonId = personId;
     }
 
-    public String getMoblie() {
-        return moblie;
+    public String getRealName() {
+        return RealName;
     }
 
-    public void setMoblie(String moblie) {
-        this.moblie = moblie;
+    public void setRealName(String realName) {
+        RealName = realName;
     }
 
     public String getIdcard() {
-        return idcard;
+        return Idcard;
     }
 
     public void setIdcard(String idcard) {
-        this.idcard = idcard;
+        Idcard = idcard;
+    }
+
+    public String getMobilePhone() {
+        return MobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        MobilePhone = mobilePhone;
+    }
+
+    public boolean isGender() {
+        return Gender;
+    }
+
+    public void setGender(boolean gender) {
+        Gender = gender;
     }
 }

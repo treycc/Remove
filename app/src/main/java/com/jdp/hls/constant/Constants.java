@@ -18,6 +18,7 @@ public class Constants {
     public static final String EXTRA_QUESTION = "EXTRA_QUESTION";
     public static final int GRIDVIEW_IMG_COUNT = 3;
     public static final int GRIDVIEW_GIFT_COUNT = 4;
+    public static final int MAX_IMG_UPLOAD_COUNT = 9;
 
 
     /*Extra*/
@@ -30,6 +31,8 @@ public class Constants {
         int MODIFY_OWNER_NAME = 2;
         int MODIFY_ADDRESS = 3;
         int MODIFY_IDCARD = 4;
+        int MODIFY_COMPANY_NAME = 5;
+        int MODIFY_REMARK = 6;
     }
 
     public interface MapSetting {

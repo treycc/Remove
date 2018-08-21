@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.RosterPageAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
-import com.jdp.hls.fragment.RosterPersonFragment;
+import com.jdp.hls.page.rosterlist.RosterListFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Roster;
 
@@ -72,8 +72,8 @@ public class RosterListActivity extends BaseTitleActivity {
         tabRoster.setTabMode(TabLayout.MODE_FIXED);
         tabRoster.addTab(tabRoster.newTab().setText(rosterArr[0]));
         tabRoster.addTab(tabRoster.newTab().setText(rosterArr[1]));
-        mFragmentArr[0] = RosterPersonFragment.newInstance(personalRosters);
-        mFragmentArr[1] = RosterPersonFragment.newInstance(companyRosters);
+        mFragmentArr[0] = RosterListFragment.newInstance(personalRosters,0);
+        mFragmentArr[1] = RosterListFragment.newInstance(companyRosters,1);
         RosterPageAdapter mRosterPageAdapter = new RosterPageAdapter(this, getSupportFragmentManager(), mFragmentArr,
                 rosterArr,rosterCountArr);
         vpRoster.setAdapter(mRosterPageAdapter);

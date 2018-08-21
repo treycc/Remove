@@ -1,21 +1,29 @@
-package com.jdp.hls.activity;
+package com.jdp.hls.page.setting;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jdp.hls.R;
+import com.jdp.hls.activity.AboutUsActivity;
 import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.page.modifyPassword.ModifyPasswordActivity;
 import com.jdp.hls.page.suggest.SuggestActivity;
 import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.DataCleanManager;
+import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeTextView;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,7 +34,7 @@ import butterknife.OnClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class SettingActivity extends BaseTitleActivity {
+public class SettingActivity extends BaseTitleActivity implements SettingContract.View {
     @BindView(R.id.switch_setting_msg)
     Switch switchSettingMsg;
     @BindView(R.id.rl_setting_modifypwd)
@@ -41,6 +49,8 @@ public class SettingActivity extends BaseTitleActivity {
     RelativeLayout rlSettingClearCache;
     @BindView(R.id.stv_setting_quit)
     SuperShapeTextView stvSettingQuit;
+    @Inject
+    SettingPresenter settingPresenter;
 
     @OnClick({R.id.rl_setting_modifypwd, R.id.rl_setting_suggest, R.id.rl_setting_aboutus, R.id
             .rl_setting_clearCache, R.id.stv_setting_quit})
@@ -61,9 +71,7 @@ public class SettingActivity extends BaseTitleActivity {
                 tvSettingCache.setText(DataCleanManager.getCacheSize(getCacheDir()));
                 break;
             case R.id.stv_setting_quit:
-                ToastUtil.showText("退出");
-                AppManager.getAppManager().finishAllActivity();
-                GoUtil.goActivity(this, LoginActivity.class);
+                checkQuit();
                 break;
 
             default:
@@ -71,9 +79,25 @@ public class SettingActivity extends BaseTitleActivity {
         }
     }
 
+    private void checkQuit() {
+        DialogUtil.showDoubleDialog(this, "是否确认退出", new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                settingPresenter.logout();
+                AppManager.getAppManager().finishAllActivity();
+                GoUtil.goActivity(SettingActivity.this, LoginActivity.class);
+            }
+        });
+
+    }
+
     @Override
     public void initVariable() {
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -83,7 +107,10 @@ public class SettingActivity extends BaseTitleActivity {
 
     @Override
     protected void initComponent(AppComponent appComponent) {
-
+        DaggerBaseCompnent.builder()
+                .appComponent(appComponent)
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -93,7 +120,7 @@ public class SettingActivity extends BaseTitleActivity {
 
     @Override
     protected void initView() {
-
+        settingPresenter.attachView(this);
     }
 
     @Override
@@ -106,4 +133,18 @@ public class SettingActivity extends BaseTitleActivity {
 
     }
 
+    @Override
+    public void onLogoutSuccess() {
+
+    }
+
+    @Override
+    public void showLoading() {
+        setProgressShow(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        setProgressShow(false);
+    }
 }

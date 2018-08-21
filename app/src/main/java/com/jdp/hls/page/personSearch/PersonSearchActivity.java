@@ -2,6 +2,9 @@ package com.jdp.hls.page.personSearch;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -9,6 +12,7 @@ import android.widget.ImageView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.CommonAdapter;
+import com.jdp.hls.adapter.PersonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
@@ -33,7 +37,8 @@ import butterknife.OnItemClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class PersonSearchActivity extends BaseTitleActivity implements PersonsContract.View {
+public class PersonSearchActivity extends BaseTitleActivity implements PersonsContract.View, SwipeRefreshLayout
+        .OnRefreshListener {
     @BindView(R.id.et_keyword)
     EditText etKeyword;
     @BindView(R.id.iv_search)
@@ -46,7 +51,7 @@ public class PersonSearchActivity extends BaseTitleActivity implements PersonsCo
     PersonsPresenter personsPresenter;
     List<Person> persons = new ArrayList<>();
 
-    private CommonAdapter adapter;
+    private PersonAdapter adapter;
 
     @OnClick({R.id.iv_search})
     public void click(View view) {
@@ -55,13 +60,16 @@ public class PersonSearchActivity extends BaseTitleActivity implements PersonsCo
                 break;
         }
     }
+
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Person person = (Person) adapterView.getItemAtPosition(position);
         Intent intent = new Intent();
-        intent.putExtra("person",person);
-        setResult(Activity.RESULT_OK,intent);
+        intent.putExtra("person", person);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
+
     @Override
     public void initVariable() {
 
@@ -92,15 +100,24 @@ public class PersonSearchActivity extends BaseTitleActivity implements PersonsCo
 
     @Override
     protected void initData() {
-        plv.setAdapter(adapter = new CommonAdapter<Person>(this, persons, R.layout.item_person) {
-                    @Override
-                    public void convert(ViewHolder helper, Person person) {
-                        helper.setText(R.id.tv_person_name, person.getName());
-                        helper.setText(R.id.tv_person_mobile, person.getMoblie());
-                        helper.setText(R.id.tv_person_idcard, person.getIdcard());
-                    }
-                }
-        );
+        plv.setAdapter(adapter = new PersonAdapter(this, persons, R.layout.item_person));
+        srl.setOnRefreshListener(this);
+        etKeyword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                adapter.searchPerson(s.toString());
+            }
+        });
     }
 
     @Override
@@ -117,11 +134,16 @@ public class PersonSearchActivity extends BaseTitleActivity implements PersonsCo
 
     @Override
     public void showLoading() {
-        setProgressShow(true);
+        srl.setRefreshing(true);
     }
 
     @Override
     public void hideLoading() {
-        setProgressShow(false);
+        srl.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        initNet();
     }
 }

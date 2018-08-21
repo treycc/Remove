@@ -3,27 +3,36 @@ package com.jdp.hls.page.rosteradd;
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jdp.hls.R;
+import com.jdp.hls.activity.BigImgActivity;
 import com.jdp.hls.activity.LocationActivity;
-import com.jdp.hls.model.entiy.Person;
-import com.jdp.hls.page.personSearch.PersonSearchActivity;
 import com.jdp.hls.adapter.BaseRvPositionAdapter;
 import com.jdp.hls.adapter.ImgUriAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.Person;
+import com.jdp.hls.page.personSearch.PersonSearchActivity;
 import com.jdp.hls.util.CheckUtil;
+import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.MatisseUtil;
@@ -38,15 +47,15 @@ import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -102,6 +111,16 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     RequiredTextView rtvOwnerType;
     @BindView(R.id.set_roster_import)
     SuperShapeTextView setRosterImport;
+    @BindView(R.id.set_roster_companyName)
+    SuperShapeEditText setRosterCompanyName;
+    @BindView(R.id.ll_roster_companyName)
+    LinearLayout llRosterCompanyName;
+    @BindView(R.id.ll_roster_gender)
+    LinearLayout llRosterGender;
+    @BindView(R.id.ll_roster_type)
+    LinearLayout llRosterType;
+    @BindView(R.id.tv_roster_hasLocationed)
+    TextView tvRosterHasLocationed;
     private List<Uri> photoUris = new ArrayList<>();
     private ImgUriAdapter imgUriAdapter;
     List<Uri> mSelectedUris;
@@ -113,8 +132,9 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     private double lat;
     private int gender = 1;
     private int isEnterprise;
-    private int isMeasured;
-    private int isEvaluated;
+    private int isMeasured = 1;
+    private int isEvaluated = 1;
+    private String personId;
     private static final int REQUEST_CODE_PERSON = 2;
 
     @OnClick({R.id.ll_roster_location, R.id.fragment_lnglat, R.id.set_roster_import})
@@ -169,9 +189,10 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
             @Override
             public void onItemClick(List<Uri> list, int position) {
                 if (imgUriAdapter.isLastItem(position)) {
-                    MatisseUtil.openCamera(RosterAddActivity.this);
+                    MatisseUtil.openCamera(RosterAddActivity.this, Constants.MAX_IMG_UPLOAD_COUNT);
                 } else {
-                    ToastUtil.showText("点击放大" + position);
+                    BigImgActivity.goActivity(RosterAddActivity.this, MatisseUtil.getDTOImgInfoFromUri(imgUriAdapter
+                            .getDate()), position);
                 }
             }
         });
@@ -183,7 +204,6 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
             @Override
             public void onNoDoubleClick(View v) {
                 checkDate();
-
             }
         });
         lngLatFragment = (LngLatFragment) getSupportFragmentManager().findFragmentById(R.id
@@ -195,7 +215,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
         smbRosterGender.setOnSwitchListener((position, tabText) -> gender = position == 0 ? 1 : 0);
         smbRosterType.setOnSwitchListener((position, tabText) -> {
             isEnterprise = position == 1 ? 1 : 0;
-            rtvOwnerType.setText(position == 1 ? "企业" : "户主");
+            llRosterCompanyName.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
         });
         smbRosterMeasured.setOnSwitchListener((position, tabText) -> isMeasured = position == 0 ? 1 : 0);
         smbRosterEvaluated.setOnSwitchListener((position, tabText) -> isEvaluated = position == 0 ? 1 : 0);
@@ -224,13 +244,15 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     }
 
     private void checkDate() {
-        String name = setRosterName.getText().toString().trim();
         String address = setRosterAddress.getText().toString().trim();
+        String name = setRosterName.getText().toString().trim();
         String phone = setRosterPhone.getText().toString().trim();
         String idcard = setRosterIdcard.getText().toString().trim();
         String remark = setRosterRemark.getText().toString().trim();
+        String companyName = setRosterCompanyName.getText().toString().trim();
         if (CheckUtil.checkEmpty(name, "请输入户主姓名")
                 && CheckUtil.checkEmpty(address, "请输入地址")
+                && checkCompanyName(companyName)
                 && CheckUtil.checkPhoneFormatAllowEmpty(phone)
                 && CheckUtil.checkIdCardAllowEmpty(idcard, "身份证格式错误")
                 && CheckUtil.checkLngLat(lng, lat)) {
@@ -247,6 +269,14 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
                     .addFormDataPart("isMeasured", String.valueOf(isMeasured))
                     .addFormDataPart("longitude", String.valueOf(lng))
                     .addFormDataPart("latitude", String.valueOf(lat));
+            /*如果是企业，则传企业名称*/
+            if (isEnterprise == 1) {
+                bodyBuilder.addFormDataPart("enterpriseName", companyName);
+            }
+            /*如果是导入，则传personId*/
+            if (!TextUtils.isEmpty(personId)) {
+                bodyBuilder.addFormDataPart("personId", personId);
+            }
             List<Uri> uris = imgUriAdapter.getDate();
             for (int i = 0; i < uris.size(); i++) {
                 File photoFile = FileUtil.getFileByUri(uris.get(i), this);
@@ -256,6 +286,16 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
             RequestBody requestBody = bodyBuilder.build();
             rosterAddPresenter.addRoster(requestBody);
         }
+    }
+
+    private boolean checkCompanyName(String companyName) {
+        if (isEnterprise == 1) {
+            if (TextUtils.isEmpty(companyName)) {
+                ToastUtil.showText("请输入企业名称");
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -271,12 +311,43 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
                 case REQUEST_CODE_LOCATION:
                     lng = data.getDoubleExtra("lng", -1);
                     lat = data.getDoubleExtra("lat", -1);
-                    lngLatFragment.setLnglat(lng, lat);
+                    setLocation(lng, lat);
                     break;
                 case REQUEST_CODE_PERSON:
                     Person person = (Person) data.getSerializableExtra("person");
+                    String realName = person.getRealName();
+                    String mobilePhone = person.getMobilePhone().trim();
+                    String idcard = person.getIdcard().trim();
+                    setSwtichEnable(mobilePhone, setRosterPhone);
+                    setSwtichEnable(realName, setRosterName);
+                    setSwtichEnable(idcard, setRosterIdcard);
+                    smbRosterGender.setSelectedTab(person.isGender() ? 0 : 1);
+                    smbRosterGender.setOnTouchListener(null);
+                    personId = person.getPersonId();
                     break;
             }
+        }
+    }
+
+    private void setSwtichEnable(String mobilePhone, SuperShapeEditText editText) {
+        if (!TextUtils.isEmpty(mobilePhone)) {
+            editText.setText(mobilePhone);
+            editText.getSuperManager().setStrokeColor(ContextCompat.getColor(this, R.color.transparent));
+            editText.setEnabled(false);
+        } else {
+            editText.getSuperManager().setStrokeColor(ContextCompat.getColor(this, R.color.c_6));
+            editText.setEnabled(true);
+        }
+    }
+
+    private void setLocation(double lng, double lat) {
+        if (lng != 0 && lat != 0) {
+            lngLatFragment.setLnglat(lng, lat);
+            ivRosterLocation.setBackgroundResource(R.mipmap.ic_confirm_sel);
+            tvRosterHasLocationed.setText("已定位");
+        } else {
+            ivRosterLocation.setBackgroundResource(R.mipmap.ic_confirm_nor);
+            tvRosterHasLocationed.setText("未定位");
         }
     }
 
@@ -287,8 +358,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
 
     @Override
     public void onAddRosterSuccess() {
-        ToastUtil.showText("添加花名册成功");
-        finish();
+        showSuccessDialog();
     }
 
     @Override
@@ -303,9 +373,31 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void onBackPressed() {
+        showQuitDialog();
     }
+
+    private void showQuitDialog() {
+        DialogUtil.showDoubleDialog(this, "当前是编辑页面，是否确认退出？", new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                finish();
+            }
+        });
+    }
+    private void showSuccessDialog() {
+        DialogUtil.showConfirmDialog(this, "花名册添加成功", new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                EventBus.getDefault().post(new RefreshRostersEvent());
+                finish();
+            }
+        });
+    }
+
+    @Override
+    protected void onBack() {
+        showQuitDialog();
+    }
+
 }

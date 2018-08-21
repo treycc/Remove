@@ -31,7 +31,7 @@ import butterknife.OnClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ModifyActivity extends BaseTitleActivity implements ModifyContract.View {
+public class ModifyAndUploadActivity extends BaseTitleActivity implements ModifyAndUploadContract.View {
 
     @BindView(R.id.iv_modify_clear)
     ImageView ivModifyClear;
@@ -44,7 +44,7 @@ public class ModifyActivity extends BaseTitleActivity implements ModifyContract.
     private int requesCode;
 
     @Inject
-    ModifyPresenter modifyPresenter;
+    ModifyAndUploadPresenter modifyAndUploadPresenter;
 
     @OnClick({R.id.iv_modify_clear})
     public void click(View view) {
@@ -82,7 +82,7 @@ public class ModifyActivity extends BaseTitleActivity implements ModifyContract.
 
     @Override
     protected void initView() {
-        modifyPresenter.attachView(this);
+        modifyAndUploadPresenter.attachView(this);
     }
 
     @Override
@@ -110,10 +110,10 @@ public class ModifyActivity extends BaseTitleActivity implements ModifyContract.
             case Constants.ModifyCode.MODIFY_PHONE:
                 if (!TextUtils.isEmpty(newVaule)) {
                     if (CheckUtil.checkPhoneFormat(newVaule)) {
-                        modifyPresenter.modifyMobile(SpSir.getInstance().getEmployeeId(),newVaule);
+                        modifyAndUploadPresenter.modifyMobile(SpSir.getInstance().getEmployeeId(),newVaule);
                     }
                 } else {
-                    modifyPresenter.modifyMobile(SpSir.getInstance().getEmployeeId(),newVaule);
+                    modifyAndUploadPresenter.modifyMobile(SpSir.getInstance().getEmployeeId(),newVaule);
                 }
                 break;
             case Constants.ModifyCode.MODIFY_OWNER_NAME:
@@ -123,7 +123,7 @@ public class ModifyActivity extends BaseTitleActivity implements ModifyContract.
                 break;
             case Constants.ModifyCode.MODIFY_ALIAS:
                 if (CheckUtil.checkEmpty(newVaule, "请输入" + title)) {
-                    modifyPresenter.modifyAlias(SpSir.getInstance().getEmployeeId(),newVaule);
+                    modifyAndUploadPresenter.modifyAlias(SpSir.getInstance().getEmployeeId(),newVaule);
                 }
                 break;
             case Constants.ModifyCode.MODIFY_ADDRESS:
@@ -159,7 +159,7 @@ public class ModifyActivity extends BaseTitleActivity implements ModifyContract.
     }
 
     public static void goActivityInActivity(Activity activity, int requesCode, String title, String oldValue) {
-        Intent intent = new Intent(activity, ModifyActivity.class);
+        Intent intent = new Intent(activity, ModifyAndUploadActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("oldValue", oldValue);
         intent.putExtra("requesCode", requesCode);
@@ -167,7 +167,7 @@ public class ModifyActivity extends BaseTitleActivity implements ModifyContract.
     }
 
     public static void goActivityInFragment(Fragment fragment, int requesCode, String title, String oldValue) {
-        Intent intent = new Intent(fragment.getActivity(), ModifyActivity.class);
+        Intent intent = new Intent(fragment.getActivity(), ModifyAndUploadActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("oldValue", oldValue);
         intent.putExtra("requesCode", requesCode);

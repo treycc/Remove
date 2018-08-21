@@ -5,6 +5,7 @@ import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.RosterDetail;
 
+import okhttp3.RequestBody;
 import retrofit2.http.Query;
 
 /**
@@ -16,9 +17,11 @@ import retrofit2.http.Query;
 public interface RosterDetailContract {
     interface View extends BaseView {
         void onGetRosterDetailSuccess(RosterDetail rosterDetail);
+        void onModifyRosterSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
         void getRosterDetail(String houseId, int employeeId, int isEnterprise);
+        void modifyRoster(RequestBody requestBody);
     }
 }

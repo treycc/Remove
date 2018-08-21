@@ -340,11 +340,6 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 
 
 }

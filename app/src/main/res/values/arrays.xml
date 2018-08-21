@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="suggestType">
-        <item>Bug缺陷</item>
-        <item>意见和建议</item>
-        <item>商务合作</item>
-        <item>其他</item>
+        <item>功能异常:功能故障或不可用</item>
+        <item>产品建议:用的不爽，我有建议</item>
+        <item>安全问题:密码、隐私、欺诈等</item>
+        <item>其它问题</item>
     </string-array>
 
     <string-array name="switch_gender">

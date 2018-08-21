@@ -22,7 +22,25 @@ public class RosterDetail implements Serializable {
     private boolean Gender;
     private String Remark;
     private String Idcard;
+    private String EnterpriseName;
+    private String PersonId;
     private List<ImgInfo> HouseFiles;
+
+    public String getPersonId() {
+        return PersonId;
+    }
+
+    public void setPersonId(String personId) {
+        PersonId = personId;
+    }
+
+    public String getEnterpriseName() {
+        return EnterpriseName;
+    }
+
+    public void setEnterpriseName(String enterpriseName) {
+        EnterpriseName = enterpriseName;
+    }
 
     public List<ImgInfo> getHouseFiles() {
         return HouseFiles;

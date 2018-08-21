@@ -35,14 +35,14 @@
             <ImageView
                 android:id="@+id/iv_roster_isMeasure"
                 android:layout_marginRight="8dp"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:background="@mipmap/ic_measure_nor"/>
 
             <ImageView
                 android:id="@+id/iv_roster_isEvaluated"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:background="@mipmap/ic_evaluate_nor"/>
         </LinearLayout>
 

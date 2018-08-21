@@ -32,8 +32,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <!--.page.login.LoginActivity-->
-        <activity android:name=".page.login.LoginActivity"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name=".page.login.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -46,11 +47,11 @@
             android:screenOrientation="portrait"/>
         <!--修改页-->
         <activity
-            android:name=".page.modify.ModifyActivity"
+            android:name=".page.modify.ModifyAndUploadActivity"
             android:screenOrientation="portrait"/>
         <!--设置页-->
         <activity
-            android:name=".activity.SettingActivity"
+            android:name=".page.setting.SettingActivity"
             android:screenOrientation="portrait"/>
         <!--消息详情-->
         <activity
@@ -63,7 +64,8 @@
         <!--意见及建议-->
         <activity
             android:name=".page.suggest.SuggestActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <!--关于我们-->
         <activity
             android:name=".activity.AboutUsActivity"
@@ -88,14 +90,23 @@
         <activity
             android:name=".activity.HomeActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <!--协议界面-->
         <activity
             android:name=".activity.AgreementActivity"
             android:screenOrientation="portrait"/>
-      <!--选择联系人-->
+        <!--选择联系人-->
         <activity
             android:name=".page.personSearch.PersonSearchActivity"
+            android:screenOrientation="portrait"/>
+        <!--编辑页面-->
+        <activity
+            android:name=".activity.ModifyActivity"
+            android:screenOrientation="portrait"/>
+        <!--大图界面-->
+        <activity
+            android:name=".activity.BigImgActivity"
             android:screenOrientation="portrait"/>
 
         <meta-data

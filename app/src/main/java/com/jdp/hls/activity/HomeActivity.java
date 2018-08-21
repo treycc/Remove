@@ -15,11 +15,18 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.event.ResetLoginStatusEvent;
+import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.page.map.MapFragment;
 import com.jdp.hls.fragment.MessageFragment;
 import com.jdp.hls.fragment.MineFragment;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.util.AppManager;
+import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.ToastUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -179,10 +186,12 @@ public class HomeActivity extends BaseTitleActivity {
         } else {
             ToastUtil.showText("连续点击退出");
             mLastTime = currentTime;
-
         }
     }
 
-
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void reLogin(ResetLoginStatusEvent resetLoginStatusEvent) {
+        AppManager.getAppManager().finishAllActivity();
+        GoUtil.goActivity(this, LoginActivity.class);
+    }
 }

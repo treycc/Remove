@@ -17,18 +17,18 @@ import io.reactivex.schedulers.Schedulers;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ModifyPresenter implements ModifyContract.Presenter {
+public class ModifyAndUploadPresenter implements ModifyAndUploadContract.Presenter {
     private UserApi mApi;
-    private ModifyContract.View mView;
+    private ModifyAndUploadContract.View mView;
 
     @Inject
-    public ModifyPresenter(UserApi mApi) {
+    public ModifyAndUploadPresenter(UserApi mApi) {
         this.mApi = mApi;
     }
 
 
     @Override
-    public void attachView(@NonNull ModifyContract.View view) {
+    public void attachView(@NonNull ModifyAndUploadContract.View view) {
         this.mView = view;
     }
 

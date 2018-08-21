@@ -2,13 +2,15 @@ package com.jdp.hls.model.entiy;
 
 import android.net.Uri;
 
+import java.io.Serializable;
+
 /**
  * Description:TODO
  * Create Time:2018/8/3 0003 上午 9:21
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ImgInfo {
+public class ImgInfo implements Serializable{
     private String Id;
     private String FileUrl;
     private String SmallImgUrl;
@@ -61,7 +63,12 @@ public class ImgInfo {
             return false;
         }
         ImgInfo imgInfo = (ImgInfo) obj;
-        return uri.equals(imgInfo.uri);
+        if (uri != null) {
+            return uri.equals(imgInfo.getUri());
+        }else{
+            return FileUrl.equals(imgInfo.getFileUrl());
+        }
+
     }
 
 }

@@ -123,8 +123,8 @@
                 android:text="菠菜蚊子"/>
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
+                android:layout_width="9dp"
+                android:layout_height="16dp"
                 android:background="@mipmap/arrow_right"/>
 
 
@@ -166,8 +166,8 @@
                 android:text="下沙村二期"/>
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
+                android:layout_width="9dp"
+                android:layout_height="16dp"
                 android:background="@mipmap/arrow_right"/>
 
 
@@ -209,8 +209,8 @@
                 android:text="18866686666"/>
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
+                android:layout_width="9dp"
+                android:layout_height="16dp"
                 android:background="@mipmap/arrow_right"/>
 
 
@@ -252,8 +252,8 @@
                 android:text="057788662288"/>
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
+                android:layout_width="9dp"
+                android:layout_height="16dp"
                 android:background="@mipmap/arrow_right"/>
 
 
@@ -278,8 +278,8 @@
             android:text="设置"/>
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="18dp"
+            android:layout_width="9dp"
+            android:layout_height="16dp"
             android:layout_alignParentRight="true"
             android:background="@mipmap/arrow_right"/>
 

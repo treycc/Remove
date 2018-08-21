@@ -44,7 +44,6 @@ public class ImgUriAdapter extends BaseRvPositionAdapter<Uri> {
             holder.iv_img.setImageResource(R.mipmap.bg_add_photo);
             holder.iv_clear.setVisibility(View.GONE);
         } else {
-            Log.e(TAG, "Uri: " + list.get(position).toString());
             ImageLoader.getInstance().loadImage(context, list.get(position), holder.iv_img);
             holder.iv_clear.setVisibility(View.VISIBLE);
             holder.iv_clear.setOnClickListener(new View.OnClickListener() {

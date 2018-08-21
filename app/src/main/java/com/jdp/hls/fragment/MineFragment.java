@@ -10,9 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.page.modify.ModifyActivity;
+import com.jdp.hls.page.modify.ModifyAndUploadActivity;
 import com.jdp.hls.page.projects.ProjectListActivity;
-import com.jdp.hls.activity.SettingActivity;
+import com.jdp.hls.page.setting.SettingActivity;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
@@ -67,14 +67,14 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.rl_mine_alias:
                 String alias = tvMineAlias.getText().toString().trim();
-                ModifyActivity.goActivityInFragment(this, Constants.ModifyCode.MODIFY_ALIAS, "别名", alias);
+                ModifyAndUploadActivity.goActivityInFragment(this, Constants.ModifyCode.MODIFY_ALIAS, "别名", alias);
                 break;
             case R.id.rl_mine_project:
                 GoUtil.goActivityForResultInFragment(this, ProjectListActivity.class,REQUST_PROJECTS);
                 break;
             case R.id.rl_mine_phone:
                 String phone = tvMinePhone.getText().toString().trim();
-                ModifyActivity.goActivityInFragment(this, Constants.ModifyCode.MODIFY_PHONE, "手机号", phone);
+                ModifyAndUploadActivity.goActivityInFragment(this, Constants.ModifyCode.MODIFY_PHONE, "手机号", phone);
                 break;
             case R.id.rl_mine_setting:
                 GoUtil.goActivity(getActivity(), SettingActivity.class);

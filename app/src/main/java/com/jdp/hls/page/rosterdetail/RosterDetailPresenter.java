@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 
 
 /**
@@ -36,6 +37,19 @@ public class RosterDetailPresenter implements RosterDetailContract.Presenter {
                     protected void onSuccess(RosterDetail rosterDetail) {
                         mView.onGetRosterDetailSuccess(rosterDetail);
                     }
+                });
+    }
+
+    @Override
+    public void modifyRoster(RequestBody requestBody) {
+        mApi.getApiService().modifyRoster(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object obj) {
+                        mView.onModifyRosterSuccess();
+                    }
+
                 });
     }
 

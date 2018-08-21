@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import com.jdp.hls.R;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.ImgInfo;
-import com.jdp.hls.util.LogUtil;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
     protected final String TAG = getClass().getSimpleName();
+    private List<String> deleteImgIds = new ArrayList<>();
 
     public ImgAdapter(Context context, List<ImgInfo> list) {
         super(context, list);
@@ -43,18 +44,18 @@ public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
             holder.iv_img.setImageResource(R.mipmap.bg_add_photo);
             holder.iv_clear.setVisibility(View.GONE);
         } else {
-            String url = list.get(position).getFileUrl();
+            String url = list.get(position).getSmallImgUrl();
             if (TextUtils.isEmpty(url)) {
-                ImageLoader.getInstance().loadImage(context,list.get(position).getUri(), holder.iv_img);
-            }else{
-                LogUtil.e("图片url",list.get(position).getFileUrl());
-                ImageLoader.getInstance().loadImage(context,list.get(position).getFileUrl(), holder.iv_img);
+                ImageLoader.getInstance().loadImage(context, list.get(position).getUri(), holder.iv_img);
+            } else {
+                ImageLoader.getInstance().loadImage(context, url, holder.iv_img);
             }
 
             holder.iv_clear.setVisibility(View.VISIBLE);
             holder.iv_clear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    deleteImgIds.add(list.get(position).getId());
                     list.remove(position);
                     notifyDataSetChanged();
                 }
@@ -74,6 +75,19 @@ public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
 
     public List<ImgInfo> getDate() {
         return list;
+    }
+
+    public String getDeleteImgIds() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < deleteImgIds.size(); i++) {
+            if (i != deleteImgIds.size() - 1) {
+                sb.append(deleteImgIds.get(i));
+                sb.append("#");
+            } else {
+                sb.append(deleteImgIds.get(i));
+            }
+        }
+        return sb.toString();
     }
 
     @Override

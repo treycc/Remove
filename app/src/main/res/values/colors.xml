@@ -15,4 +15,5 @@
     <color name="white_hi">#ffffff</color>
     <color name="half_hi">#33ffffff</color>
     <color name="main">#13A4F9</color>
+    <color name="transparent">#00ffffff</color>
 </resources>

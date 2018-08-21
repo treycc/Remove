@@ -95,4 +95,6 @@ dependencies {
     /*encrypt*/
     implementation 'com.gcssloop.util:encrypt:1.0.2'
     implementation 'lib.kingja.switchbutton:switchbutton:1.1.7'
+    /*对话框*/
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 }

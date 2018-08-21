@@ -34,7 +34,7 @@ public abstract class BaseTitleActivity extends BaseActivity {
         tvTitleTitle = rootView.findViewById(R.id.tv_title_title);
         LinearLayout llTitleBack = rootView.findViewById(R.id.ll_title_back);
         tvTitleTitle.setText(getContentTitle() == null ? "" : getContentTitle());
-        llTitleBack.setOnClickListener(v -> finish());
+        llTitleBack.setOnClickListener(v -> onBack());
         View content = View.inflate(this, getContentView(), null);
         if (content != null) {
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
@@ -50,6 +50,9 @@ public abstract class BaseTitleActivity extends BaseActivity {
             llTitleBack.setVisibility(View.GONE);
         }
         return rootView;
+    }
+    protected void onBack() {
+        finish();
     }
 
     protected boolean ifHideBack() {
@@ -94,7 +97,9 @@ public abstract class BaseTitleActivity extends BaseActivity {
 
     @Override
     public abstract void initVariable();
+
     protected abstract int getContentView();
+
     @Override
     protected abstract void initComponent(AppComponent appComponent);
 

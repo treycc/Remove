@@ -46,6 +46,11 @@ public interface ApiService {
     Observable<HttpResult<List<Roster>>> getRosterList(@Query("projectId") String projectId, @Query("employeeId")
             int employeeId);
 
+    /*根据类型获取花名册*/
+    @GET("api/person/GetRosterListByType")
+    Observable<HttpResult<List<Roster>>> getRosterListByType(@Query("projectId") String projectId, @Query("employeeId")
+            int employeeId, @Query("isEnterprise") int isEnterprise);
+
     /*获取花名册详情页*/
     @GET("api/person/GetRosterDetail")
     Observable<HttpResult<RosterDetail>> getRosterDetail(@Query("houseId") String houseId, @Query("employeeId")
@@ -71,8 +76,18 @@ public interface ApiService {
     Observable<HttpResult<Object>> addRoster(@Body RequestBody rosterBody);
 
     /*获取人员列表*/
-    @POST("api/person/getPersons")
+    @GET("api/person/GetPersonList")
     Observable<HttpResult<List<Person>>> getPersons(@Query("projectId") String projectId);
 
+    /*修改花名册*/
+    @POST("api/person/ModifyRoster")
+    Observable<HttpResult<Object>> modifyRoster(@Body RequestBody rosterBody);
 
+    /*意见和建议*/
+    @POST("api/suggest/add")
+    Observable<HttpResult<Object>> suggest(@Body RequestBody rosterBody);
+
+    /*退出登录*/
+    @POST("api/user/logout")
+    Observable<HttpResult<Object>> logout();
 }

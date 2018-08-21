@@ -66,7 +66,7 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
     }
 
     protected void onLoginFail() {
-        ToastUtil.showText("用户未登录或登录已过期，请重新登录");
+        ToastUtil.showText("用户未登录或登录失效，请重新登录");
         SpSir.getInstance().clearData();
         EventBus.getDefault().post(new ResetLoginStatusEvent());
     }

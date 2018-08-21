@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="@color/bg_hi"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
               android:orientation="vertical">
 
     <LinearLayout
@@ -21,33 +24,12 @@
 
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/sp_suggestType"
             style="@style/font_9_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/suggestType"
             />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="@color/white_hi"
-        android:padding="12dp">
-
-        <TextView
-            style="@style/font_6_13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:text="标题"/>
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"/>
     </LinearLayout>
 
 
@@ -58,15 +40,17 @@
         android:background="@color/white_hi"
         android:padding="12dp">
 
-
-        <EditText
-            style="@style/font_9_13"
+        <com.kingja.supershapeview.view.SuperShapeEditText
+            android:id="@+id/et_content"
+            android:gravity="start"
+            style="@style/font_9_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:gravity="start"
-            android:hint="请输入内容"
-            android:lines="6"/>
+            android:hint="请补充详细问题和意见"
+            android:padding="12dp"
+            android:lines="6"
+            app:super_strokeColor="@color/c_6"
+            app:super_strokeWidth="1px"/>
     </LinearLayout>
 
     <LinearLayout
@@ -82,12 +66,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:text="上传图片"/>
+            android:text="请提供相关问题的截图或照片"/>
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@mipmap/bg_add_photo"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_suggest_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </LinearLayout>

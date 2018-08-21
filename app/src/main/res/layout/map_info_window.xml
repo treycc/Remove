@@ -30,6 +30,6 @@
 
     <ImageView
         android:background="@mipmap/arrow_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="9dp"
+        android:layout_height="16dp"/>
 </LinearLayout>
