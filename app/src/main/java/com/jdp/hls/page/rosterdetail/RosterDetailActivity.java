@@ -242,7 +242,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         rvRosterImg.setAdapter(imgAdapter);
         rvRosterImg.setItemAnimator(new DefaultItemAnimator());
         rvRosterImg.addItemDecoration(new RvItemDecoration(this, RvItemDecoration.LayoutStyle.HORIZONTAL_LIST,
-                12, 0x00ffffff));
+                0, 0x00ffffff));
     }
 
     private NoDoubleClickListener noDoubleClickListener = new NoDoubleClickListener() {
@@ -263,7 +263,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                 && CheckUtil.checkEmpty(address, "请输入地址")
                 && checkCompanyName(companyName)
                 && CheckUtil.checkPhoneFormatAllowEmpty(phone)
-                && CheckUtil.checkIdCardAllowEmpty(idcard, "身份证格式错误")
+                && CheckUtil.checkIdCardAllowEmpty(idcard)
                 && CheckUtil.checkLngLat(lng, lat)) {
             MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("isEnterprise", String.valueOf(isEnterprise))
@@ -328,6 +328,13 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                 }
             }
         });
+        imgAdapter.setOnImgDeletedListener(new ImgAdapter.OnImgDeletedListener() {
+            @Override
+            public void onImgDeleted() {
+                modifyMap.setImgs();
+                checkHasModified();
+            }
+        });
         initSwitchButton();
     }
 
@@ -388,16 +395,8 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
 
     @Override
     public void onModifyRosterSuccess() {
-        showSuccessDialog();
-    }
-    private void showSuccessDialog() {
-        DialogUtil.showConfirmDialog(this, "花名册修改成功", new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                EventBus.getDefault().post(new RefreshRostersEvent(isEnterprise));
-                finish();
-            }
-        });
+        EventBus.getDefault().post(new RefreshRostersEvent(isEnterprise));
+        DialogUtil.showQuitDialog(this,"花名册修改成功");
     }
     private void setLocation(double lng, double lat) {
         if (lng != 0 && lat != 0) {

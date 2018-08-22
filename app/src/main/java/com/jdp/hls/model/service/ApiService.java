@@ -90,4 +90,10 @@ public interface ApiService {
     /*退出登录*/
     @POST("api/user/logout")
     Observable<HttpResult<Object>> logout();
+
+    /*修改密码*/
+    @FormUrlEncoded
+    @POST("api/user/changePassword")
+    Observable<HttpResult<Object>> modifyPassword(@Field("employeeId") int employeeId, @Field("oldPassword") String
+            oldPassword, @Field("newPassword") String newPassword);
 }

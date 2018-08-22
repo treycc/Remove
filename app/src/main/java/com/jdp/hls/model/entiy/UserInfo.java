@@ -16,15 +16,9 @@ public class UserInfo {
     private String MobilePhone;
     private int AccountName;
     private String AccountAlias;
-    private String ServerName;
 
-    public String getServerName() {
-        return ServerName;
-    }
 
-    public void setServerName(String serverName) {
-        ServerName = serverName;
-    }
+
 
     public int getEmployeeId() {
         return EmployeeId;

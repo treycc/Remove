@@ -20,6 +20,7 @@ import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.DataCleanManager;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeTextView;
 
@@ -66,8 +67,8 @@ public class SettingActivity extends BaseTitleActivity implements SettingContrac
                 GoUtil.goActivity(this, AboutUsActivity.class);
                 break;
             case R.id.rl_setting_clearCache:
-                ToastUtil.showText("清理缓存");
-                DataCleanManager.cleanInternalCache(this);
+                ToastUtil.showText("清理成功");
+                DataCleanManager.clearAppCache(this);
                 tvSettingCache.setText(DataCleanManager.getCacheSize(getCacheDir()));
                 break;
             case R.id.stv_setting_quit:

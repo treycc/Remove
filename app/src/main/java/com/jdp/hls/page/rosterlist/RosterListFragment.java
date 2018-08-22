@@ -99,7 +99,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
                         helper.setBackgroundResource(R.id.iv_roster_isMeasure, item.isMeasured() ? R.mipmap
                                 .ic_measure_action : R.mipmap
                                 .ic_measure_nor);
-                        helper.setBackgroundResource(R.id.iv_roster_isEvaluated, item.isMeasured() ? R.mipmap
+                        helper.setBackgroundResource(R.id.iv_roster_isEvaluated, item.isEvaluated() ? R.mipmap
                                 .ic_evaluate_action : R.mipmap
                                 .ic_evaluate_nor);
                     }
@@ -124,6 +124,10 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
 
     @Override
     public void onGetRosterListByTypeSuccess(List<Roster> rosters) {
+        adapter.setData(rosters);
+    }
+
+    public void refreshData(List<Roster> rosters) {
         adapter.setData(rosters);
     }
 

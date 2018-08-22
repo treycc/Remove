@@ -2,8 +2,10 @@ package com.jdp.hls.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jdp.hls.R;
 import com.jdp.hls.page.login.LoginActivity;
@@ -23,6 +25,21 @@ public class DialogUtil {
                 .content(message)
                 .positiveText(CONFIRM)
                 .onPositive(callback)
+                .show();
+    }
+
+    public static void showQuitDialog(Activity context, String message) {
+        new MaterialDialog.Builder(context)
+                .content(message)
+                .positiveText(CONFIRM)
+                .cancelable(false)
+                .canceledOnTouchOutside(false)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        context.finish();
+                    }
+                })
                 .show();
     }
 

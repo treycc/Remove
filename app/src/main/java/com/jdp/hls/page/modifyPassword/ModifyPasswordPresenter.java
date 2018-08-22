@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.rx.ResultObserver;
+import com.jdp.hls.util.EncryptUtil;
 
 import javax.inject.Inject;
 
@@ -27,13 +28,14 @@ public class ModifyPasswordPresenter implements ModifyPasswordContract.Presenter
     }
 
     @Override
-    public void modifyPassword(String oldPassword, String newPassword) {
-        mApi.getApiService().modifyPassword(oldPassword, newPassword).subscribeOn(Schedulers.io())
+    public void modifyPassword(int employeeId, String oldPassword, String newPassword) {
+        mApi.getApiService().modifyPassword(employeeId, EncryptUtil.getDoubleMd5(oldPassword), EncryptUtil
+                .getDoubleMd5(newPassword)).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<Object>(mView) {
                     @Override
                     protected void onSuccess(Object obj) {
-                        mView.onModifyPasswordSuccess();
+                        mView.onModifyPasswordSuccess(newPassword);
                     }
                 });
     }

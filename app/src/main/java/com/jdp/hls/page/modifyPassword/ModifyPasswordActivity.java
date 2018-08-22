@@ -6,8 +6,12 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.util.AesUtil;
 import com.jdp.hls.util.CheckUtil;
+import com.jdp.hls.util.DialogUtil;
+import com.jdp.hls.util.EncryptUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeEditText;
 
@@ -68,7 +72,6 @@ public class ModifyPasswordActivity extends BaseTitleActivity implements ModifyP
                 modifyPassword();
             }
         });
-
     }
 
     private void modifyPassword() {
@@ -78,7 +81,7 @@ public class ModifyPasswordActivity extends BaseTitleActivity implements ModifyP
         if (CheckUtil.checkEmpty(oldPassword, "请输入旧密码") && CheckUtil.checkEmpty(newPassword, "请输入新密码") && CheckUtil
                 .checkEmpty(repeatPassword, "请输入确认密码") && CheckUtil.checkSame(newPassword, repeatPassword,
                 "两次输入密码不一致，请重新输入")) {
-            modifyPasswordPresenter.modifyPassword(oldPassword, newPassword);
+            modifyPasswordPresenter.modifyPassword(SpSir.getInstance().getEmployeeId(), oldPassword, newPassword);
         }
 
     }
@@ -89,9 +92,10 @@ public class ModifyPasswordActivity extends BaseTitleActivity implements ModifyP
     }
 
     @Override
-    public void onModifyPasswordSuccess() {
-        ToastUtil.showText(getString(R.string.success_modify_password));
-        finish();
+    public void onModifyPasswordSuccess(String newPassword) {
+        SpSir.getInstance().setIfRememberBaby(false);
+        SpSir.getInstance().setComeOnBaby("");
+        DialogUtil.showQuitDialog(this,"密码修改成功");
     }
 
     @Override

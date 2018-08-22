@@ -1,5 +1,6 @@
 package com.jdp.hls.base;
 
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -93,6 +94,12 @@ public abstract class BaseTitleActivity extends BaseActivity {
     public void hideRightClick() {
         TextView tv_right_text = rootView.findViewById(R.id.tv_right_text);
         tv_right_text.setVisibility(View.GONE);
+    }
+
+    public void setRightClickable(boolean clickable) {
+        TextView tv_right_text = rootView.findViewById(R.id.tv_right_text);
+        tv_right_text.setEnabled(clickable);
+        tv_right_text.setTextColor(clickable?ContextCompat.getColor(this,R.color.main):ContextCompat.getColor(this,R.color.c_9));
     }
 
     @Override

@@ -4,6 +4,8 @@ package com.jdp.hls.page.modifyPassword;
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 
+import retrofit2.http.Field;
+
 /**
  * Description：TODO
  * Create Time：2016/10/10 14:38
@@ -12,10 +14,10 @@ import com.jdp.hls.base.BaseView;
  */
 public interface ModifyPasswordContract {
     interface View extends BaseView {
-        void onModifyPasswordSuccess();
+        void onModifyPasswordSuccess(String newPassword);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void modifyPassword(String oldPassword, String newPassword);
+        void modifyPassword(int employeeId, String oldPassword, String newPassword);
     }
 }

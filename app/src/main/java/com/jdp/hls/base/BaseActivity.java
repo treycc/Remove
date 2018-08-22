@@ -45,6 +45,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     /*初始化公共组件*/
     private void initCommon() {
         mDialogProgress = new ProgressDialog(this);
+        mDialogProgress.setCancelable(false);
+        mDialogProgress.setCanceledOnTouchOutside(false);
         mDialogProgress.setMessage("加载中");
     }
 
@@ -98,7 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         RxRe.getInstance().cancle(this);
-        if (mDialogProgress.isShowing()) {
+        if (mDialogProgress!=null&&mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
             mDialogProgress = null;
         }

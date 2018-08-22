@@ -27,6 +27,7 @@ public class SpSir {
     private String IfRememberBaby = "IfRememberBaby";
     private String ComeOnBaby = "ComeOnBaby";
     private String ServerName = "ServerName";
+    private String ProtocolUrl = "ProtocolUrl";
     private static final String EMPTY_STRING = "";
     private static final int ZERO_INT = -1;
     private static SpSir mSpSir;
@@ -152,7 +153,7 @@ public class SpSir {
         putString(ComeOnBaby, comeOnBaby);
     }
 
-        public String getServerName() {
+    public String getServerName() {
         return getString(ServerName);
     }
 
@@ -160,9 +161,13 @@ public class SpSir {
         putString(ServerName, serverName);
     }
 
+    public String getProtocolUrl() {
+        return getString(ProtocolUrl);
+    }
 
-
-
+    public void setProtocolUrl(String protocolUrl) {
+        putString(ProtocolUrl, protocolUrl);
+    }
 
     public boolean getIfRememberBaby() {
         return getBoolean(IfRememberBaby, false);
@@ -171,7 +176,6 @@ public class SpSir {
     public void setIfRememberBaby(boolean ifRememberBaby) {
         putboolean(IfRememberBaby, ifRememberBaby);
     }
-
 
     private String getString(String key, String defaultValue) {
         return mSp.getString(key, defaultValue);

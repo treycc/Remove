@@ -78,21 +78,23 @@ public class ModifyActivity extends BaseTitleActivity {
     @Override
     protected void initView() {
     }
-
+    private NoDoubleClickListener noDoubleClickListener = new NoDoubleClickListener() {
+        @Override
+        public void onNoDoubleClick(View v) {
+            checkDateFormat();
+        }
+    };
     @Override
     protected void initData() {
-        setRightClick("确定", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                checkDateFormat();
-            }
-        });
+        setRightClick("修改",noDoubleClickListener);
+        setRightClickable(false);
         etModifyValue.setText(oldValue);
         tvModifyTitle.setText(title);
         etModifyValue.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
                 ivModifyClear.setVisibility(editable.length() > 0 ? View.VISIBLE : View.GONE);
+                setRightClickable(!editable.toString().equals(oldValue));
             }
         });
         etModifyValue.setSelection(etModifyValue.getText().toString().trim().length());
@@ -135,7 +137,7 @@ public class ModifyActivity extends BaseTitleActivity {
                 break;
             case Constants.ModifyCode.MODIFY_IDCARD:
                 if (!TextUtils.isEmpty(newVaule)) {
-                    if (CheckUtil.checkIdCard(newVaule, "身份证格式有误")) {
+                    if (CheckUtil.checkIdcard(newVaule)) {
                         saveValue(newVaule);
                     }
                 } else {

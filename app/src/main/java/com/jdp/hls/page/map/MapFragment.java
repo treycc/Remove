@@ -4,9 +4,10 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,10 +32,12 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.map.KMapInfoWindowAdapter;
+import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.util.AppUtil;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
@@ -44,12 +47,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -60,7 +63,8 @@ import butterknife.Unbinder;
  * Email:kingjavip@gmail.com
  */
 public class MapFragment extends BaseFragment implements LocationSource, AMapLocationListener, GetRosterContract
-        .View, AMap.OnMarkerClickListener, AMap.OnInfoWindowClickListener, AMap.OnMapClickListener {
+        .View, AMap.OnMarkerClickListener, AMap.OnInfoWindowClickListener, AMap.OnMapClickListener, TextView
+        .OnEditorActionListener {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_roster_list)
@@ -74,6 +78,11 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     @BindView(R.id.iv_map_refresh)
     ImageView ivMapRefresh;
     Unbinder unbinder;
+    @BindView(R.id.iv_search)
+    ImageView ivSearch;
+    Unbinder unbinder1;
+    @BindView(R.id.et_keyword)
+    EditText etKeyword;
     private AMap mAMap;
     public AMapLocationClient mLocationClient;
     private OnLocationChangedListener mListener;
@@ -83,7 +92,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     private List<Roster> rosters;
     private Marker currentMarker;
 
-    @OnClick({R.id.tv_roster_list, R.id.tv_roster_add, R.id.iv_map_refresh, R.id.iv_map_showall})
+    @OnClick({R.id.tv_roster_list, R.id.tv_roster_add, R.id.iv_map_refresh, R.id.iv_map_showall, R.id.iv_search})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.tv_roster_list:
@@ -99,11 +108,14 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
             case R.id.iv_map_refresh:
                 initNet();
                 break;
+            case R.id.iv_search:
+                String keyword = etKeyword.getText().toString().trim();
+                checkData(keyword);
+                break;
             case R.id.iv_map_showall:
                 if (rosters != null && rosters.size() > 0) {
                     showAllRostersOnMap(rosters);
                 }
-
                 break;
             default:
                 break;
@@ -160,7 +172,8 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
 
     @Override
     protected void initDate() {
-
+        etKeyword.setOnEditorActionListener(this);
+        tvTitle.setText(SpSir.getInstance().getProjectName());
     }
 
     @Override
@@ -268,6 +281,10 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     @Override
     public void onGetRosterdSuccess(List<Roster> rosters) {
         this.rosters = rosters;
+        refreshRostersOnMap(rosters);
+    }
+
+    private void refreshRostersOnMap(List<Roster> rosters) {
         drawRostersOnMap(rosters);
         showAllRostersOnMap(rosters);
     }
@@ -304,6 +321,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
      * @param rosters
      */
     private void drawRostersOnMap(List<Roster> rosters) {
+        mAMap.clear();
         for (Roster roster : rosters) {
             setMarket(roster);
         }
@@ -329,17 +347,43 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
         marker.showInfoWindow();
         return true;
     }
+
     @Override
     public void onMapClick(LatLng latLng) {
         currentMarker.hideInfoWindow();
     }
+
     @Override
     public void onInfoWindowClick(Marker marker) {
         Roster roster = (Roster) marker.getObject();
         RosterDetailActivity.goActivity(getActivity(), roster);
     }
 
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            String keyword = v.getText().toString().trim();
+            checkData(keyword);
+            return true;
+        }
+        return false;
+    }
 
+    private void checkData(String keyword) {
+        doSearch(keyword);
+    }
 
-
+    private void doSearch(String keyword) {
+        if (rosters == null && rosters.size() == 0) {
+            ToastUtil.showText("暂无花名册信息");
+            return;
+        }
+        List<Roster> selectRosters =new ArrayList<>();
+        for (Roster roster : rosters) {
+            if (roster.getRealName().contains(keyword) || roster.getHouseAddress().contains(keyword)) {
+                selectRosters.add(roster);
+            }
+        }
+        refreshRostersOnMap(selectRosters);
+    }
 }

@@ -7,9 +7,7 @@ import android.widget.TextView;
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.util.VersionUtil;
 import com.kingja.supershapeview.view.SuperShapeImageView;
 
@@ -34,7 +32,7 @@ public class AboutUsActivity extends BaseTitleActivity {
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_aboutus_agreement:
-                GoUtil.goActivity(this,AgreementActivity.class);
+                GoUtil.goActivity(this,ProtocolActivity.class);
                 break;
             default:
                 break;

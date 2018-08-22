@@ -20,6 +20,25 @@ public class Login {
      */
 
     private String Token;
+    private String ServerName;
+    private String ProtocolUrl;
+
+    public String getProtocolUrl() {
+        return ProtocolUrl;
+    }
+
+    public void setProtocolUrl(String protocolUrl) {
+        ProtocolUrl = protocolUrl;
+    }
+
+    public String getServerName() {
+        return ServerName;
+    }
+
+    public void setServerName(String serverName) {
+        ServerName = serverName;
+    }
+
     private UserInfo UserInfo;
     private List<Project> Projects;
 

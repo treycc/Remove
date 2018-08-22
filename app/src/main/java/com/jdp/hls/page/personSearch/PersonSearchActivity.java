@@ -57,6 +57,7 @@ public class PersonSearchActivity extends BaseTitleActivity implements PersonsCo
     public void click(View view) {
         switch (view.getId()) {
             case R.id.iv_search:
+                adapter.searchPerson(etKeyword.getText().toString().trim());
                 break;
         }
     }

@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="更改密码"/>
+            android:text="修改密码"/>
 
         <ImageView
             android:layout_width="9dp"
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="意见及建议"/>
+            android:text="意见和建议"/>
 
         <ImageView
             android:layout_width="9dp"

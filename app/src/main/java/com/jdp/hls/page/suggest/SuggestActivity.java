@@ -171,7 +171,7 @@ public class SuggestActivity extends BaseTitleActivity implements SuggestContrac
 
     @Override
     public void onSuggestSuccess() {
-        showSuccessDialog();
+       DialogUtil.showQuitDialog(this,"感谢您提供的意见和建议");
     }
 
     @Override
@@ -184,12 +184,4 @@ public class SuggestActivity extends BaseTitleActivity implements SuggestContrac
         setProgressShow(false);
     }
 
-    private void showSuccessDialog() {
-        DialogUtil.showConfirmDialog(this, "感谢您提供的意见和建议", new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                finish();
-            }
-        });
-    }
 }

@@ -16,6 +16,7 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.util.CheckUtil;
+import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
@@ -85,20 +86,24 @@ public class ModifyAndUploadActivity extends BaseTitleActivity implements Modify
         modifyAndUploadPresenter.attachView(this);
     }
 
+    private NoDoubleClickListener noDoubleClickListener = new NoDoubleClickListener() {
+        @Override
+        public void onNoDoubleClick(View v) {
+            checkDateFormat();
+        }
+    };
+
     @Override
     protected void initData() {
-        setRightClick("确定", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                checkDateFormat();
-            }
-        });
+        setRightClick("修改",noDoubleClickListener);
+        setRightClickable(false);
         etModifyValue.setText(oldValue);
         tvModifyTitle.setText(title);
         etModifyValue.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
                 ivModifyClear.setVisibility(editable.length() > 0 ? View.VISIBLE : View.GONE);
+                setRightClickable(!editable.toString().equals(oldValue));
             }
         });
         etModifyValue.setSelection(etModifyValue.getText().toString().trim().length());
@@ -108,12 +113,8 @@ public class ModifyAndUploadActivity extends BaseTitleActivity implements Modify
         String newVaule = etModifyValue.getText().toString().trim();
         switch (requesCode) {
             case Constants.ModifyCode.MODIFY_PHONE:
-                if (!TextUtils.isEmpty(newVaule)) {
-                    if (CheckUtil.checkPhoneFormat(newVaule)) {
-                        modifyAndUploadPresenter.modifyMobile(SpSir.getInstance().getEmployeeId(),newVaule);
-                    }
-                } else {
-                    modifyAndUploadPresenter.modifyMobile(SpSir.getInstance().getEmployeeId(),newVaule);
+                if (CheckUtil.checkPhoneFormat(newVaule)) {
+                    modifyAndUploadPresenter.modifyMobile(SpSir.getInstance().getEmployeeId(), newVaule);
                 }
                 break;
             case Constants.ModifyCode.MODIFY_OWNER_NAME:
@@ -123,7 +124,7 @@ public class ModifyAndUploadActivity extends BaseTitleActivity implements Modify
                 break;
             case Constants.ModifyCode.MODIFY_ALIAS:
                 if (CheckUtil.checkEmpty(newVaule, "请输入" + title)) {
-                    modifyAndUploadPresenter.modifyAlias(SpSir.getInstance().getEmployeeId(),newVaule);
+                    modifyAndUploadPresenter.modifyAlias(SpSir.getInstance().getEmployeeId(), newVaule);
                 }
                 break;
             case Constants.ModifyCode.MODIFY_ADDRESS:
@@ -133,7 +134,7 @@ public class ModifyAndUploadActivity extends BaseTitleActivity implements Modify
                 break;
             case Constants.ModifyCode.MODIFY_IDCARD:
                 if (!TextUtils.isEmpty(newVaule)) {
-                    if (CheckUtil.checkIdCard(newVaule, "身份证格式有误")) {
+                    if (CheckUtil.checkIdcard(newVaule)) {
                         saveValue(newVaule);
                     }
                 } else {
@@ -150,7 +151,7 @@ public class ModifyAndUploadActivity extends BaseTitleActivity implements Modify
         Intent intent = new Intent();
         intent.putExtra("newVaule", newValue);
         setResult(Activity.RESULT_OK, intent);
-        finish();
+        DialogUtil.showQuitDialog(this, "修改" + title + "成功");
     }
 
     @Override

@@ -14,6 +14,8 @@
         android:text="浙江省温州市龙湾区三垟湿地3期"/>
 
     <RelativeLayout
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -33,17 +35,18 @@
             android:gravity="center_vertical">
 
             <ImageView
+                android:layout_marginRight="12dp"
+                android:id="@+id/iv_roster_isEvaluated"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@mipmap/ic_evaluate_nor"/>
+            <ImageView
                 android:id="@+id/iv_roster_isMeasure"
-                android:layout_marginRight="8dp"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_marginRight="12dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:background="@mipmap/ic_measure_nor"/>
 
-            <ImageView
-                android:id="@+id/iv_roster_isEvaluated"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:background="@mipmap/ic_evaluate_nor"/>
         </LinearLayout>
 
     </RelativeLayout>

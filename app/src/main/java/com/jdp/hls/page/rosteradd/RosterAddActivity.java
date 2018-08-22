@@ -171,7 +171,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
 
     @Override
     protected String getContentTitle() {
-        return "增加";
+        return "添加花名册";
     }
 
     @Override
@@ -250,11 +250,11 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
         String idcard = setRosterIdcard.getText().toString().trim();
         String remark = setRosterRemark.getText().toString().trim();
         String companyName = setRosterCompanyName.getText().toString().trim();
-        if (CheckUtil.checkEmpty(name, "请输入户主姓名")
-                && CheckUtil.checkEmpty(address, "请输入地址")
+        if (CheckUtil.checkEmpty(address, "请输入地址")
+                && CheckUtil.checkEmpty(name, "请输入户主姓名")
                 && checkCompanyName(companyName)
                 && CheckUtil.checkPhoneFormatAllowEmpty(phone)
-                && CheckUtil.checkIdCardAllowEmpty(idcard, "身份证格式错误")
+                && CheckUtil.checkIdCardAllowEmpty(idcard)
                 && CheckUtil.checkLngLat(lng, lat)) {
             MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("isEnterprise", String.valueOf(isEnterprise))
@@ -358,7 +358,8 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
 
     @Override
     public void onAddRosterSuccess() {
-        showSuccessDialog();
+        EventBus.getDefault().post(new RefreshRostersEvent());
+        DialogUtil.showQuitDialog(this, "花名册添加成功");
     }
 
     @Override
@@ -381,15 +382,6 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
         DialogUtil.showDoubleDialog(this, "当前是编辑页面，是否确认退出？", new MaterialDialog.SingleButtonCallback() {
             @Override
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                finish();
-            }
-        });
-    }
-    private void showSuccessDialog() {
-        DialogUtil.showConfirmDialog(this, "花名册添加成功", new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                EventBus.getDefault().post(new RefreshRostersEvent());
                 finish();
             }
         });

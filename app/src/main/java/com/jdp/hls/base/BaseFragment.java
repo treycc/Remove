@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.rx.RxRe;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -47,6 +48,9 @@ public abstract class BaseFragment extends Fragment {
 
     private void initCommon() {
         mDialogProgress = new ProgressDialog(getActivity());
+        mDialogProgress.setCancelable(false);
+        mDialogProgress.setCanceledOnTouchOutside(false);
+        mDialogProgress.setMessage("加载中");
     }
 
     /*设置圆形进度条*/
@@ -81,7 +85,14 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        RxRe.getInstance().cancle(this);
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+            mDialogProgress = null;
+        }
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
     }
 
     @Override

@@ -22,6 +22,7 @@ import java.util.List;
 public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
     protected final String TAG = getClass().getSimpleName();
     private List<String> deleteImgIds = new ArrayList<>();
+    private OnImgDeletedListener onImgDeletedListener;
 
     public ImgAdapter(Context context, List<ImgInfo> list) {
         super(context, list);
@@ -55,12 +56,23 @@ public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
             holder.iv_clear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (onImgDeletedListener != null) {
+                        onImgDeletedListener.onImgDeleted();
+                    }
                     deleteImgIds.add(list.get(position).getId());
                     list.remove(position);
                     notifyDataSetChanged();
                 }
             });
         }
+    }
+
+    public interface OnImgDeletedListener{
+        void onImgDeleted();
+    }
+
+    public void setOnImgDeletedListener(OnImgDeletedListener onImgDeletedListener) {
+        this.onImgDeletedListener = onImgDeletedListener;
     }
 
     @Override

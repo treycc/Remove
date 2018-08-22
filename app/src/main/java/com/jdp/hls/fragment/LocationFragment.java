@@ -183,7 +183,7 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
 
     private void initLocation() {
         //初始化定位
-        mLocationClient = new AMapLocationClient(getActivity());
+        mLocationClient = new AMapLocationClient(App.getContext());
         //设置定位回调监听
         mLocationClient.setLocationListener(this);
         //初始化AMapLocationClientOption对象

@@ -72,6 +72,22 @@ public class CheckUtil {
         return true;
     }
 
+    public static boolean checkIdcard(String idcard) {
+        // 判断非空
+        if (TextUtils.isEmpty(idcard)) {
+            ToastUtil.showText("请输入身份证号");
+            return false;
+        }
+
+        // 判断身份证号格式
+        if (!Pattern.matches(
+                "(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)", idcard)) {
+            ToastUtil.showText("身份证号格式不对");
+            return false;
+        }
+        return true;
+    }
+
     public static boolean checkPhoneFormatAllowEmpty(String phone) {
         if (!TextUtils.isEmpty(phone)) {
             return checkPhoneFormat(phone);
@@ -170,9 +186,9 @@ public class CheckUtil {
         return false;
     }
 
-    public static boolean checkIdCardAllowEmpty(final String value, String tip) {
+    public static boolean checkIdCardAllowEmpty(final String value) {
         if (!TextUtils.isEmpty(value)) {
-          return   checkIdCard(value,tip);
+          return   checkIdcard(value);
         }
         return true;
     }
