@@ -137,14 +137,4 @@ public class SettingActivity extends BaseTitleActivity implements SettingContrac
     public void onLogoutSuccess() {
 
     }
-
-    @Override
-    public void showLoading() {
-        setProgressShow(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        setProgressShow(false);
-    }
 }

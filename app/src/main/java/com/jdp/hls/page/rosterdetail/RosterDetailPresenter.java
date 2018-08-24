@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.RosterDetail;
-import com.jdp.hls.rx.ResultObserver;
+import com.jdp.hls.model.entiy.ResultObserver;
 
 import javax.inject.Inject;
 

@@ -130,10 +130,10 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     RosterAddPresenter rosterAddPresenter;
     private double lng;
     private double lat;
-    private int gender = 1;
-    private int isEnterprise;
-    private int isMeasured = 1;
-    private int isEvaluated = 1;
+    private boolean gender = true;
+    private boolean isEnterprise=false;
+    private boolean isMeasured = true;
+    private boolean isEvaluated = true;
     private String personId;
     private static final int REQUEST_CODE_PERSON = 2;
 
@@ -212,13 +212,13 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     }
 
     private void initSwitchButton() {
-        smbRosterGender.setOnSwitchListener((position, tabText) -> gender = position == 0 ? 1 : 0);
+        smbRosterGender.setOnSwitchListener((position, tabText) -> gender = position == 0 );
         smbRosterType.setOnSwitchListener((position, tabText) -> {
-            isEnterprise = position == 1 ? 1 : 0;
+            isEnterprise = position == 1 ;
             llRosterCompanyName.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
         });
-        smbRosterMeasured.setOnSwitchListener((position, tabText) -> isMeasured = position == 0 ? 1 : 0);
-        smbRosterEvaluated.setOnSwitchListener((position, tabText) -> isEvaluated = position == 0 ? 1 : 0);
+        smbRosterMeasured.setOnSwitchListener((position, tabText) -> isMeasured = position == 0 );
+        smbRosterEvaluated.setOnSwitchListener((position, tabText) -> isEvaluated = position == 0 );
     }
 
     public void checkPermissions() {
@@ -270,7 +270,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
                     .addFormDataPart("longitude", String.valueOf(lng))
                     .addFormDataPart("latitude", String.valueOf(lat));
             /*如果是企业，则传企业名称*/
-            if (isEnterprise == 1) {
+            if (isEnterprise ) {
                 bodyBuilder.addFormDataPart("enterpriseName", companyName);
             }
             /*如果是导入，则传personId*/
@@ -289,7 +289,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     }
 
     private boolean checkCompanyName(String companyName) {
-        if (isEnterprise == 1) {
+        if (isEnterprise) {
             if (TextUtils.isEmpty(companyName)) {
                 ToastUtil.showText("请输入企业名称");
                 return false;
@@ -360,17 +360,6 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     public void onAddRosterSuccess() {
         EventBus.getDefault().post(new RefreshRostersEvent());
         DialogUtil.showQuitDialog(this, "花名册添加成功");
-    }
-
-    @Override
-    public void showLoading() {
-        setProgressShow(true);
-
-    }
-
-    @Override
-    public void hideLoading() {
-        setProgressShow(false);
     }
 
     @Override

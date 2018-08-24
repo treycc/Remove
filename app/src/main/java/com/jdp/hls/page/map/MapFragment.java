@@ -135,7 +135,6 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
             mAMap.setOnMapClickListener(this);
             mAMap.setInfoWindowAdapter(new KMapInfoWindowAdapter(getActivity()));
         }
-
     }
 
     public static MapFragment newInstance() {

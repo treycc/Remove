@@ -97,14 +97,4 @@ public class ModifyPasswordActivity extends BaseTitleActivity implements ModifyP
         SpSir.getInstance().setComeOnBaby("");
         DialogUtil.showQuitDialog(this,"密码修改成功");
     }
-
-    @Override
-    public void showLoading() {
-        setProgressShow(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        setProgressShow(false);
-    }
 }

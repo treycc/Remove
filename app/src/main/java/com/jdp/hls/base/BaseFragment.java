@@ -100,5 +100,11 @@ public abstract class BaseFragment extends Fragment {
         super.onHiddenChanged(hidden);
     }
 
+    public void showEmpty(){}
 
+    public void showError(){}
+
+    public void showNetError(){}
+
+    public void showSuccess(){}
 }

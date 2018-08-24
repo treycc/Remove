@@ -69,7 +69,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
         EventBus.getDefault().register(this);
         if (getArguments() != null) {
             rosters = (List<Roster>) getArguments().getSerializable("rosters");
-            isEnterprise = getArguments().getInt("isEnterprise");
+            isEnterprise = getArguments().getInt("isEnterprise",0);
         }
     }
 
@@ -96,6 +96,9 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
                         helper.setText(R.id.tv_roster_address, item.getHouseAddress());
                         helper.setText(R.id.tv_roster_name, item.getRealName());
                         helper.setText(R.id.tv_roster_phone, item.getMobilePhone());
+                        helper.setBackgroundResource(R.id.iv_roster_hasLocation, (item.getLatitude()==0&&item.getLongitude()==0) ? R.mipmap
+                                .ic_has_location_nor : R.mipmap
+                                .ic_has_location_sel);
                         helper.setBackgroundResource(R.id.iv_roster_isMeasure, item.isMeasured() ? R.mipmap
                                 .ic_measure_action : R.mipmap
                                 .ic_measure_nor);
@@ -144,12 +147,12 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
     @Override
     public void onRefresh() {
         getRostersByTypePresenter.getRosterListByType(SpSir.getInstance().getProjectId(), SpSir.getInstance()
-                .getEmployeeId(), isEnterprise);
+                .getEmployeeId(), isEnterprise );
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshRosters(RefreshRostersEvent event) {
-        if (event.getIsEnterprisep() == isEnterprise) {
+        if (event.getIsEnterprisep()) {
             getRostersByTypePresenter.getRosterListByType(SpSir.getInstance().getProjectId(), SpSir.getInstance()
                     .getEmployeeId(), isEnterprise);
         }

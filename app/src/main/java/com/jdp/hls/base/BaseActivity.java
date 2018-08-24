@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements BaseView {
     protected String TAG = getClass().getSimpleName();
     private ProgressDialog mDialogProgress;
 
@@ -38,9 +38,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         initNet();
         AppManager.getAppManager().addActivity(this);
     }
-
-
-
 
     /*初始化公共组件*/
     private void initCommon() {
@@ -60,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected boolean getProgressShow() {
-       return (mDialogProgress!=null&&mDialogProgress.isShowing());
+        return (mDialogProgress != null && mDialogProgress.isShowing());
     }
 
     /*获取初始化数据*/
@@ -74,8 +71,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /*初始化界面和事件*/
     protected abstract void initView();
+
     protected abstract void initData();
-   /*初始化网络数据*/
+
+    /*初始化网络数据*/
     protected abstract void initNet();
 
 
@@ -83,7 +82,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected AppComponent getAppComponent() {
         return App.getContext().getAppComponent();
     }
-   /*提供全局AppModule*/
+
+    /*提供全局AppModule*/
     protected AppModule getAppModule() {
         return App.getContext().getAppModule();
     }
@@ -100,10 +100,20 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         RxRe.getInstance().cancle(this);
-        if (mDialogProgress!=null&&mDialogProgress.isShowing()) {
+        if (mDialogProgress != null && mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
             mDialogProgress = null;
         }
         AppManager.getAppManager().finishActivity(this);
+    }
+
+    @Override
+    public void showLoading() {
+        setProgressShow(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        setProgressShow(false);
     }
 }

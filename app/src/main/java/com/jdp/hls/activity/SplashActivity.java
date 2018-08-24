@@ -63,7 +63,7 @@ public class SplashActivity  extends BaseActivity{
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         dispatchHander.removeCallbacks(dispatcherRunnable);
+        super.onDestroy();
     }
 }

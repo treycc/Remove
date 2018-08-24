@@ -53,14 +53,14 @@ public class ModifyMap extends HashMap<Integer, Boolean> {
     public void setIdcard(String idcard) {
         put(KEY_IDCARD,!idcard.equals(rosterDetail.getIdcard()));
     }
-    public void setGender(int gender) {
-        put(KEY_GENDER,gender!=(rosterDetail.isGender()?1:0));
+    public void setGender(boolean gender) {
+        put(KEY_GENDER,gender!=rosterDetail.isGender());
     }
-    public void setMeasured(int measured) {
-        put(KEY_MEASURED,measured!=(rosterDetail.isMeasured()?1:0));
+    public void setMeasured(boolean measured) {
+        put(KEY_MEASURED,measured!=rosterDetail.isMeasured());
     }
-    public void setEvaluated(int evaluated) {
-        put(KEY_EVALUATED,evaluated!=(rosterDetail.isEvaluated()?1:0));
+    public void setEvaluated(boolean evaluated) {
+        put(KEY_EVALUATED,evaluated!=rosterDetail.isEvaluated());
     }
     public void setImgs() {
         put(KEY_IMG_COUNT,true);

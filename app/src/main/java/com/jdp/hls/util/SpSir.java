@@ -28,6 +28,7 @@ public class SpSir {
     private String ComeOnBaby = "ComeOnBaby";
     private String ServerName = "ServerName";
     private String ProtocolUrl = "ProtocolUrl";
+    private String UserName = "UserName";
     private static final String EMPTY_STRING = "";
     private static final int ZERO_INT = -1;
     private static SpSir mSpSir;
@@ -167,6 +168,12 @@ public class SpSir {
 
     public void setProtocolUrl(String protocolUrl) {
         putString(ProtocolUrl, protocolUrl);
+    }  public String getUserName() {
+        return getString(UserName);
+    }
+
+    public void setUserName(String userName) {
+        putString(UserName, userName);
     }
 
     public boolean getIfRememberBaby() {

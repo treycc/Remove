@@ -120,6 +120,12 @@ public abstract class BaseTitleActivity extends BaseActivity {
 
     @Override
     protected abstract void initNet();
+    public void showEmpty(){}
 
+    public void showError(){}
+
+    public void showNetError(){}
+
+    public void showSuccess(){}
 
 }

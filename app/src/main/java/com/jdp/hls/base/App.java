@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.jdp.hls.callback.EmptyCallback;
+import com.jdp.hls.callback.ErrorNetworkCallback;
+import com.jdp.hls.callback.LoadingCallback;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.injector.component.DaggerAppComponent;
@@ -48,8 +51,12 @@ public class App extends MultiDexApplication {
     public static SharedPreferences getSp() {
         return mSharedPreferences;
     }
+
     private void initLoadSir() {
         LoadSir.beginBuilder()
+                .addCallback(new EmptyCallback())
+                .addCallback(new ErrorNetworkCallback())
+                .addCallback(new LoadingCallback())
                 .commit();
     }
 

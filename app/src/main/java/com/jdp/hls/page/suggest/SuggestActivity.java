@@ -174,14 +174,4 @@ public class SuggestActivity extends BaseTitleActivity implements SuggestContrac
        DialogUtil.showQuitDialog(this,"感谢您提供的意见和建议");
     }
 
-    @Override
-    public void showLoading() {
-        setProgressShow(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        setProgressShow(false);
-    }
-
 }

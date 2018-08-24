@@ -1,4 +1,4 @@
-package com.jdp.hls.rx;
+package com.jdp.hls.model.entiy;
 
 import android.util.Log;
 
@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ResetLoginStatusEvent;
-import com.jdp.hls.model.entiy.HttpResult;
+import com.jdp.hls.rx.RxRe;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;

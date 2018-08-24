@@ -142,9 +142,11 @@ public class LngLatFragment extends BaseFragment {
      */
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (mMapView != null) {
             mMapView.onDestroy();
+            mMapView=null;
         }
+        super.onDestroy();
+
     }
 }

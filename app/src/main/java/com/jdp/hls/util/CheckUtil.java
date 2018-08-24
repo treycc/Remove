@@ -49,6 +49,28 @@ public class CheckUtil {
         return true;
     }
 
+    /**
+     * 验证是否以0开始
+     *
+     * @param
+     * @return
+     */
+    public static boolean checkAlias(String alias) {
+        // 判断非空
+        if (TextUtils.isEmpty(alias)) {
+            ToastUtil.showText("请输入别名");
+            return false;
+        }
+
+        // 不能数字开头，只能包含数字，字母，下划线
+        if (!Pattern.matches(
+                "^[a-zA-Z_][A-Za-z0-9_]*$", alias)) {
+            ToastUtil.showText("别名格式不对");
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * 手机号码验证

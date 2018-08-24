@@ -54,13 +54,14 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
     @BindView(R.id.cb_remember_passwrod)
     CheckBox cbRememberPasswrod;
     private String password;
+    private String username;
 
 
     @OnClick({R.id.stv_login_confirm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.stv_login_confirm:
-                String username = setLoginAccountName.getText().toString().trim();
+                username = setLoginAccountName.getText().toString().trim();
                 password = setLoginPassword.getText().toString().trim();
                 if (CheckUtil.checkEmpty(username, "请输入用户名") && CheckUtil.checkEmpty(password, "请输入密码")) {
                     mLoginPresenter.login(username, EncryptUtil.getDoubleMd5(password), 0);
@@ -127,7 +128,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
         if (ifRememberBaby) {
             cbRememberPasswrod.setChecked(true);
             setLoginPassword.setText(AesUtil.decode(SpSir.getInstance().getComeOnBaby()));
-            setLoginAccountName.setText(String.valueOf(SpSir.getInstance().getAccountName()));
+            setLoginAccountName.setText(String.valueOf(SpSir.getInstance().getUserName()));
         }
     }
 
@@ -147,6 +148,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
         if (cbRememberPasswrod.isChecked()) {
             SpSir.getInstance().setIfRememberBaby(true);
             SpSir.getInstance().setComeOnBaby(AesUtil.encrypt(password));
+            SpSir.getInstance().setUserName(username);
         } else {
             SpSir.getInstance().setIfRememberBaby(false);
             SpSir.getInstance().setComeOnBaby("");
@@ -180,16 +182,6 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
         SpSir.getInstance().setAccountAlias(userInfo.getAccountAlias());
         SpSir.getInstance().setServerName(account.getServerName());
         SpSir.getInstance().setProtocolUrl(account.getProtocolUrl());
-    }
-
-    @Override
-    public void showLoading() {
-        setProgressShow(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        setProgressShow(false);
     }
 
 }

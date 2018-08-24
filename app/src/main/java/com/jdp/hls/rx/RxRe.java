@@ -1,5 +1,7 @@
 package com.jdp.hls.rx;
 
+import com.jdp.hls.model.entiy.ResultObserver;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

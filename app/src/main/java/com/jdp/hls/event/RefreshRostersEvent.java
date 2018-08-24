@@ -7,20 +7,20 @@ package com.jdp.hls.event;
  * Email:kingjavip@gmail.com
  */
 public class RefreshRostersEvent {
-    private int isEnterprisep;
+    private boolean isEnterprisep;
 
     public RefreshRostersEvent() {
     }
 
-    public RefreshRostersEvent(int isEnterprisep) {
+    public RefreshRostersEvent(boolean isEnterprisep) {
         this.isEnterprisep = isEnterprisep;
     }
 
-    public int getIsEnterprisep() {
+    public boolean getIsEnterprisep() {
         return isEnterprisep;
     }
 
-    public void setIsEnterprisep(int isEnterprisep) {
+    public void setIsEnterprisep(boolean isEnterprisep) {
         this.isEnterprisep = isEnterprisep;
     }
 }

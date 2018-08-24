@@ -134,16 +134,6 @@ public class PersonSearchActivity extends BaseTitleActivity implements PersonsCo
     }
 
     @Override
-    public void showLoading() {
-        srl.setRefreshing(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        srl.setRefreshing(false);
-    }
-
-    @Override
     public void onRefresh() {
         initNet();
     }

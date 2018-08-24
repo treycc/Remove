@@ -123,7 +123,7 @@ public class ModifyAndUploadActivity extends BaseTitleActivity implements Modify
                 }
                 break;
             case Constants.ModifyCode.MODIFY_ALIAS:
-                if (CheckUtil.checkEmpty(newVaule, "请输入" + title)) {
+                if (CheckUtil.checkAlias(newVaule)) {
                     modifyAndUploadPresenter.modifyAlias(SpSir.getInstance().getEmployeeId(), newVaule);
                 }
                 break;
@@ -185,15 +185,5 @@ public class ModifyAndUploadActivity extends BaseTitleActivity implements Modify
     public void onModifyMobileSuccess(String mobile) {
         SpSir.getInstance().setMobilePhone(mobile);
         saveValue(mobile);
-    }
-
-    @Override
-    public void showLoading() {
-        setProgressShow(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        setProgressShow(false);
     }
 }

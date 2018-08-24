@@ -46,7 +46,10 @@
         android:layout_height="wrap_content"
         android:background="@color/white_hi"
         app:tabIndicatorColor="@color/main"
-        app:tabIndicatorHeight="1dp"/>
+        app:tabIndicatorHeight="1dp"
+        app:tabMaxWidth="0dp"
+        app:tabGravity="fill"
+        app:tabMode="fixed"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_roster"

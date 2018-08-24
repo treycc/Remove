@@ -105,9 +105,6 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     TextView tvRosterCompanyName;
     @BindView(R.id.ll_roster_location)
     LinearLayout llRosterLocation;
-    private int isMeasured;
-    private int isEvaluated;
-    private int gender;
     private static final int REQUEST_CODE_LOCATION = 1;
     private List<ImgInfo> imgInfos = new ArrayList<>();
     private Roster roster;
@@ -119,7 +116,10 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     RosterDetailPresenter rosterDetailPresenter;
     private double lng;
     private double lat;
-    private int isEnterprise;
+    private boolean gender = true;
+    private boolean isEnterprise = false;
+    private boolean isMeasured = true;
+    private boolean isEvaluated = true;
     private String personId;
     private String houseId;
 
@@ -282,7 +282,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                     .addFormDataPart("deleteFileIDs", imgAdapter.getDeleteImgIds())
                     .addFormDataPart("remark", remark);
             /*如果是企业，则传企业名称*/
-            if (isEnterprise == 1) {
+            if (isEnterprise) {
                 bodyBuilder.addFormDataPart("enterpriseName", companyName);
             }
             List<ImgInfo> imgInfos = imgAdapter.getDate();
@@ -292,7 +292,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                     File photoFile = FileUtil.getFileByUri(uri, this);
                     bodyBuilder.addFormDataPart("rosterFile" + i, photoFile.getName(), RequestBody.create(MediaType
                             .parse
-                            ("image/*"), photoFile));
+                                    ("image/*"), photoFile));
                 }
 
             }
@@ -302,7 +302,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     }
 
     private boolean checkCompanyName(String companyName) {
-        if (isEnterprise == 1) {
+        if (isEnterprise) {
             if (TextUtils.isEmpty(companyName)) {
                 ToastUtil.showText("请输入企业名称");
                 return false;
@@ -320,8 +320,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
             @Override
             public void onItemClick(List<ImgInfo> list, int position) {
                 if (imgAdapter.isLastItem(position)) {
-                    ToastUtil.showText("添加图片" + position);
-                    MatisseUtil.openCamera(RosterDetailActivity.this,Constants.MAX_IMG_UPLOAD_COUNT);
+                    MatisseUtil.openCamera(RosterDetailActivity.this, Constants.MAX_IMG_UPLOAD_COUNT);
                 } else {
                     BigImgActivity.goActivity(RosterDetailActivity.this, MatisseUtil.getDTOImgInfoFromImgInfo(imgAdapter
                             .getDate()), position);
@@ -341,22 +340,22 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        getSupportFragmentManager().beginTransaction().remove(lngLatFragment).commit();
+        getSupportFragmentManager().beginTransaction().remove(lngLatFragment).commitAllowingStateLoss();
     }
 
     private void initSwitchButton() {
         smbRosterGender.setOnSwitchListener((position, tabText) -> {
-            gender = position == 0 ? 1 : 0;
+            gender = position == 0;
             modifyMap.setGender(gender);
             checkHasModified();
         });
         smbRosterMeasured.setOnSwitchListener((position, tabText) -> {
-            isMeasured = position == 0 ? 1 : 0;
+            isMeasured = position == 0;
             modifyMap.setMeasured(isMeasured);
             checkHasModified();
         });
         smbRosterEvaluated.setOnSwitchListener((position, tabText) -> {
-            isEvaluated = position == 0 ? 1 : 0;
+            isEvaluated = position == 0;
             modifyMap.setEvaluated(isEvaluated);
             checkHasModified();
         });
@@ -378,18 +377,21 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     public void onGetRosterDetailSuccess(RosterDetail rosterDetail) {
         houseId = rosterDetail.getHouseId();
         personId = rosterDetail.getPersonId();
-         lng = rosterDetail.getLongitude();
-         lat = rosterDetail.getLatitude();
-        isEnterprise = rosterDetail.isEnterprise() ? 1 : 0;
+        lng = rosterDetail.getLongitude();
+        lat = rosterDetail.getLatitude();
         modifyMap = new ModifyMap(rosterDetail);
         tvRosterName.setText(rosterDetail.getRealName());
         tvRosterAddress.setText(rosterDetail.getHouseAddress());
         tvRosterPhone.setText(rosterDetail.getMobilePhone());
         tvRosterIdcard.setText(rosterDetail.getIdcard());
         tvRosterRemark.setText(rosterDetail.getRemark());
-        smbRosterGender.setSelectedTab(rosterDetail.isGender() ? 0 : 1);
-        smbRosterMeasured.setSelectedTab(rosterDetail.isMeasured() ? 0 : 1);
-        smbRosterEvaluated.setSelectedTab(rosterDetail.isEvaluated() ? 0 : 1);
+        isEnterprise = rosterDetail.isEnterprise();
+        gender = rosterDetail.isGender();
+        isMeasured = rosterDetail.isMeasured();
+         isEvaluated = rosterDetail.isEvaluated();
+        smbRosterGender.setSelectedTab(gender ? 0 : 1);
+        smbRosterMeasured.setSelectedTab(isMeasured ? 0 : 1);
+        smbRosterEvaluated.setSelectedTab(isEvaluated ? 0 : 1);
         llRosterCompanyName.setVisibility(rosterDetail.isEnterprise() ? View.VISIBLE : View.GONE);
         tvRosterCompanyName.setText(rosterDetail.getEnterpriseName());
         setLocation(lng, lat);
@@ -402,8 +404,9 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     @Override
     public void onModifyRosterSuccess() {
         EventBus.getDefault().post(new RefreshRostersEvent(isEnterprise));
-        DialogUtil.showQuitDialog(this,"花名册修改成功");
+        DialogUtil.showQuitDialog(this, "花名册修改成功");
     }
+
     private void setLocation(double lng, double lat) {
         if (lng != 0 && lat != 0) {
             lngLatFragment.setLnglat(lng, lat);
@@ -415,16 +418,6 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         }
     }
 
-    @Override
-    public void showLoading() {
-        setProgressShow(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        setProgressShow(false);
-    }
-
     private void checkHasModified() {
         if (modifyMap.hasModified()) {
             setRightClick("保存", noDoubleClickListener);
@@ -432,6 +425,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
             hideRightClick();
         }
     }
+
     @Override
     public void onBackPressed() {
         showQuitDialog();
@@ -458,6 +452,5 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     protected void onBack() {
         showQuitDialog();
     }
-
 
 }

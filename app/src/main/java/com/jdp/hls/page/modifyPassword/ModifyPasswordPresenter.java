@@ -3,7 +3,7 @@ package com.jdp.hls.page.modifyPassword;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
-import com.jdp.hls.rx.ResultObserver;
+import com.jdp.hls.model.entiy.ResultObserver;
 import com.jdp.hls.util.EncryptUtil;
 
 import javax.inject.Inject;

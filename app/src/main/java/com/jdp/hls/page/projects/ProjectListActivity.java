@@ -140,14 +140,4 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     public void onGetProjectsSuccess(List<Project> projects) {
         adapter.setData(projects);
     }
-
-    @Override
-    public void showLoading() {
-        setProgressShow(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        setProgressShow(false);
-    }
 }
