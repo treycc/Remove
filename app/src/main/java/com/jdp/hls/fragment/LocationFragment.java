@@ -25,6 +25,7 @@ import com.jdp.hls.base.App;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.RegeocodeTask;
 
 import butterknife.BindView;
@@ -146,13 +147,16 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
      */
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        LogUtil.e(TAG,"消灭onDestroy");
+        LogUtil.e(TAG,"mMapView:"+(mMapView==null));
         if (mMapView != null) {
             mMapView.onDestroy();
+            mMapView=null;
         }
         if (mLocationClient != null) {
             mLocationClient.onDestroy();
         }
+        super.onDestroy();
     }
 
     /**
@@ -271,9 +275,7 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     public void onRegecodeGet(RegeocodeTask.PositionEntity entity) {
         Log.e(TAG, "onRegecodeGet: " + entity.address);
         Log.e(TAG, " 经度: " + entity.longitude + " 纬度: " + entity.latitue);
-
         setMarket(new LatLng(entity.latitue, entity.longitude), entity.city, entity.address);
-
         currentLat = entity.latitue;
         currentLng = entity.longitude;
         if (onLocationGetListener != null) {

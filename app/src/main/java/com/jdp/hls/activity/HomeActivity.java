@@ -186,6 +186,7 @@ public class HomeActivity extends BaseTitleActivity {
         long currentTime = System.currentTimeMillis();
         if (currentTime - mLastTime < 500) {
             finish();
+            System.exit(0);
         } else {
             ToastUtil.showText("连续点击退出");
             mLastTime = currentTime;

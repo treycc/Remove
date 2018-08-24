@@ -19,6 +19,7 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.util.LogUtil;
 
 import butterknife.BindView;
 
@@ -142,11 +143,13 @@ public class LngLatFragment extends BaseFragment {
      */
     @Override
     public void onDestroy() {
+        LogUtil.e(TAG,"消灭onDestroy");
+        LogUtil.e(TAG,"mMapView:"+(mMapView==null));
+        super.onDestroy();
         if (mMapView != null) {
             mMapView.onDestroy();
             mMapView=null;
         }
-        super.onDestroy();
 
     }
 }

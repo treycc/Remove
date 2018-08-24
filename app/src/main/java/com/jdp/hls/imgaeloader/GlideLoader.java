@@ -6,7 +6,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.jdp.hls.R;
-import com.jdp.hls.constant.Constants;
 import com.jdp.hls.util.SpSir;
 
 /**
@@ -24,6 +23,7 @@ public class GlideLoader implements IImageLoader {
                 .placeholder(resourceId == -1 ? R.mipmap.ic_img_placeholder : resourceId)
                 .error(R.mipmap.ic_img_fail)
                 .crossFade()
+                .skipMemoryCache(true)
                 .into(view);
     }
 
@@ -34,6 +34,7 @@ public class GlideLoader implements IImageLoader {
                 .centerCrop()
                 .error(R.mipmap.ic_img_fail)
                 .crossFade()
+                .skipMemoryCache(true)
                 .into(view);
     }
 }

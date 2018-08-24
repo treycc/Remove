@@ -206,7 +206,8 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        LogUtil.e(TAG,"消灭onDestroy");
+        LogUtil.e(TAG,"mMapView:"+(mMapView==null));
         EventBus.getDefault().unregister(this);
         if (mMapView != null) {
             mMapView.onDestroy();
@@ -215,6 +216,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
         if (mLocationClient != null) {
             mLocationClient.onDestroy();
         }
+        super.onDestroy();
     }
 
     /**
