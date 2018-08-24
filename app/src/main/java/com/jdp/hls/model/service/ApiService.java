@@ -1,7 +1,7 @@
 package com.jdp.hls.model.service;
 
 
-import com.jdp.hls.model.HttpResult;
+import com.jdp.hls.model.entiy.HttpResult;
 import com.jdp.hls.model.entiy.Login;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;

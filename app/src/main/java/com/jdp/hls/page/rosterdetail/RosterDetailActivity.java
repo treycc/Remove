@@ -338,6 +338,12 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         initSwitchButton();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getSupportFragmentManager().beginTransaction().remove(lngLatFragment).commit();
+    }
+
     private void initSwitchButton() {
         smbRosterGender.setOnSwitchListener((position, tabText) -> {
             gender = position == 0 ? 1 : 0;

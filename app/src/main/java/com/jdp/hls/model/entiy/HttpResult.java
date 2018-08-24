@@ -1,4 +1,4 @@
-package com.jdp.hls.model;
+package com.jdp.hls.model.entiy;
 
 /**
  * Description：TODO

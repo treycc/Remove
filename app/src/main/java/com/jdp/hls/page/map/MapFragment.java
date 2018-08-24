@@ -32,12 +32,10 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.map.KMapInfoWindowAdapter;
-import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.util.AppUtil;
-import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
@@ -378,9 +376,10 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
             ToastUtil.showText("暂无花名册信息");
             return;
         }
-        List<Roster> selectRosters =new ArrayList<>();
+        List<Roster> selectRosters = new ArrayList<>();
         for (Roster roster : rosters) {
-            if (roster.getRealName().contains(keyword) || roster.getHouseAddress().contains(keyword)) {
+            if (roster.getRealName().contains(keyword) || roster.getHouseAddress().contains(keyword) || roster
+                    .getMobilePhone().contains(keyword)) {
                 selectRosters.add(roster);
             }
         }

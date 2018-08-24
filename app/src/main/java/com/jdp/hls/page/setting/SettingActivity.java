@@ -20,7 +20,6 @@ import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.DataCleanManager;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeTextView;
 

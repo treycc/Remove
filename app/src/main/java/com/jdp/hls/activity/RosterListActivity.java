@@ -141,7 +141,8 @@ public class RosterListActivity extends BaseTitleActivity {
         }
         List<Roster> selectRosters = new ArrayList<>();
         for (Roster roster : rosters) {
-            if (roster.getRealName().contains(keyword) || roster.getHouseAddress().contains(keyword)) {
+            if (roster.getRealName().contains(keyword) || roster.getHouseAddress().contains(keyword) || roster
+                    .getMobilePhone().contains(keyword)) {
                 selectRosters.add(roster);
             }
         }

@@ -20,6 +20,7 @@ import com.jdp.hls.util.EncryptUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
+import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeEditText;
 import com.kingja.supershapeview.view.SuperShapeTextView;
 import com.tbruyelle.rxpermissions2.Permission;
@@ -74,6 +75,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
     public void initVariable() {
         checkPermissions();
     }
+
     public void checkPermissions() {
         RxPermissions rxPermission = new RxPermissions(this);
         Disposable disposable = rxPermission
@@ -95,6 +97,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
                     }
                 });
     }
+
     @Override
     protected void initComponent(AppComponent appComponent) {
         DaggerBaseCompnent.builder()
@@ -140,6 +143,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
 
     @Override
     public void onLoginSuccess(Login account) {
+        saveUserInfo(account);
         if (cbRememberPasswrod.isChecked()) {
             SpSir.getInstance().setIfRememberBaby(true);
             SpSir.getInstance().setComeOnBaby(AesUtil.encrypt(password));
@@ -147,8 +151,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
             SpSir.getInstance().setIfRememberBaby(false);
             SpSir.getInstance().setComeOnBaby("");
         }
-        LogUtil.e(TAG,"token:"+account.getToken());
-        saveUserInfo(account);
+        LogUtil.e(TAG, "token:" + account.getToken());
         List<Project> projects = account.getProjects();
         if (projects != null && projects.size() > 0) {
             if (projects.size() > 1) {
@@ -159,6 +162,8 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
                 SpSir.getInstance().setProjectName(project.getProjectName());
                 GoUtil.goActivityAndFinish(this, HomeActivity.class);
             }
+        }else{
+            ToastUtil.showText("您的账号下没有项目");
         }
     }
 

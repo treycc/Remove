@@ -32,7 +32,7 @@ public class PersonAdapter extends CommonAdapter<Person> {
     public void searchPerson(String keyword) {
         selectDatas = new ArrayList<>();
         for (Person person : mDatas) {
-            if (person.getRealName().contains(keyword) || person.getIdcard().contains(keyword)) {
+            if (person.getRealName().contains(keyword) || person.getIdcard().contains(keyword)|| person.getMobilePhone().contains(keyword)) {
                 selectDatas.add(person);
             }
         }

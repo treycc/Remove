@@ -20,6 +20,7 @@ public class LocationActivity extends BaseTitleActivity {
 
     private double currentLng;
     private double currentLat;
+    private LocationFragment locationFragment;
 
     @Override
     public void initVariable() {
@@ -58,7 +59,7 @@ public class LocationActivity extends BaseTitleActivity {
                 finish();
             }
         });
-        LocationFragment locationFragment = (LocationFragment) getSupportFragmentManager().findFragmentById(R.id
+        locationFragment = (LocationFragment) getSupportFragmentManager().findFragmentById(R.id
                 .fragment_map);
         locationFragment.setOnLocationGetListener(new LocationFragment.OnLocationGetListener() {
             @Override
@@ -67,6 +68,12 @@ public class LocationActivity extends BaseTitleActivity {
                 currentLat = lat;
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getSupportFragmentManager().beginTransaction().remove(locationFragment).commit();
     }
 
     @Override

@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.jdp.hls"
         minSdkVersion MIN_SDK_VERSION as int
@@ -30,14 +30,16 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            buildApkBy()
         }
         debug {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            buildApkBy()
         }
     }
     compileOptions {
@@ -92,9 +94,16 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     /*rxpermissions*/
     implementation('com.github.tbruyelle:rxpermissions:0.10.2') { exclude group: 'com.android.support' }
-    /*encrypt*/
-    implementation 'com.gcssloop.util:encrypt:1.0.2'
     implementation 'lib.kingja.switchbutton:switchbutton:1.1.7'
-    /*对话框*/
-    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 }
+
+def buildApkBy() {
+    android.applicationVariants.all { variant ->
+        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+            def buildType = variant.buildType.name
+            apkData.outputFileName = APP_NAME + "_V" +
+                    VERSION_NAME + "_" + VERSION_CODE + "_" + buildType + ".apk"
+        }
+    }
+}
+

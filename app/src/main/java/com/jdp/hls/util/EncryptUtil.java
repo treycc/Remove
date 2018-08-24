@@ -65,12 +65,12 @@ public class EncryptUtil {
 
     public static void main(String[] args) {
 //        System.out.println("排序后:" + GetSignature(1533692048653L, "98f8a2d67d5e454f85c2469696fa66ee"));
-        String content = "123456";
-        String password = "jdphls";
-        System.out.println("加密前：" + content);
-        String encrypt = encrypt(content, password);
-        System.out.println("加密后：" + encrypt.toString());
-        System.out.println("解密后：" +decrypt(encrypt, password));
+//        String content = "123456";
+//        String password = "jdphls";
+//        System.out.println("加密前：" + content);
+//        String encrypt = encrypt(content, password);
+//        System.out.println("加密后：" + encrypt.toString());
+//        System.out.println("解密后：" +decrypt(encrypt, password));
     }
 
     public static void test() {
