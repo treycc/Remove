@@ -29,6 +29,7 @@
             android:background="@mipmap/ic_search"/>
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/et_keyword"
             style="@style/font_9_13"
             android:layout_width="0dp"

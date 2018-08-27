@@ -2,9 +2,7 @@ package com.jdp.hls.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,7 +16,6 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
-import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.ToastUtil;
 
 import java.io.Serializable;
@@ -26,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -73,8 +69,6 @@ public class RosterListActivity extends BaseTitleActivity {
         }
         rosterCountArr[0] = personalRosters.size() + "户";
         rosterCountArr[1] = companyRosters.size() + "家";
-
-
     }
 
     @Override

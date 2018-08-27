@@ -9,7 +9,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.callback.EmptyCallback;
+import com.jdp.hls.callback.ErrorCallback;
+import com.jdp.hls.callback.LoadingCallback;
 import com.jdp.hls.injector.component.AppComponent;
+import com.kingja.loadsir.callback.Callback;
+import com.kingja.loadsir.core.LoadService;
+import com.kingja.loadsir.core.LoadSir;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -25,7 +31,7 @@ public abstract class BaseTitleActivity extends BaseActivity {
     protected View rootView;
     private TextView tvTitleTitle;
     private Unbinder bind;
-
+    protected LoadService mBaseLoadService;
 
     @Override
     public View getContentId() {
@@ -43,6 +49,15 @@ public abstract class BaseTitleActivity extends BaseActivity {
             flContent.addView(content, params);
             bind = ButterKnife.bind(this, rootView);
             // register after ButterKnife.bind()
+//            if (ifRegisterLoadSir()) {
+//                mBaseLoadService = LoadSir.getDefault().register(content, new Callback.OnReloadListener() {
+//                    @Override
+//                    public void onReload(View v) {
+//                        onNetReload(v);
+//                    }
+//                });
+//            }
+
         }
         if (ifHideTitle()) {
             rl_title_root.setVisibility(View.GONE);
@@ -52,6 +67,32 @@ public abstract class BaseTitleActivity extends BaseActivity {
         }
         return rootView;
     }
+
+    protected boolean ifRegisterLoadSir() {
+        return false;
+    }
+
+    @Override
+    public void showLoadingCallback() {
+        mBaseLoadService.showCallback(LoadingCallback.class);
+    }
+    @Override
+    public void showEmptyCallback(){
+        mBaseLoadService.showCallback(EmptyCallback.class);
+    }
+    @Override
+    public void showErrorCallback(){
+        mBaseLoadService.showCallback(ErrorCallback.class);
+    }
+    @Override
+    public void showSuccessCallback(){
+        mBaseLoadService.showSuccess();
+    }
+    private void onNetReload(View v) {
+        initNet();
+    }
+
+
     protected void onBack() {
         finish();
     }
@@ -120,12 +161,6 @@ public abstract class BaseTitleActivity extends BaseActivity {
 
     @Override
     protected abstract void initNet();
-    public void showEmpty(){}
 
-    public void showError(){}
-
-    public void showNetError(){}
-
-    public void showSuccess(){}
 
 }

@@ -137,6 +137,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
 
     }
 
+
     @Override
     protected boolean ifHideTitle() {
         return true;

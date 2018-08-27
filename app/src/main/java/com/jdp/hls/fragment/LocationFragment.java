@@ -42,7 +42,7 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     MapView mMapView;
     private AMap mAMap;
     public AMapLocationClient mLocationClient;
-    private OnLocationChangedListener mListener;
+    private OnLocationChangedListener mOnLocationChangedListener;
     private RegeocodeTask mRegeocodeTask;
     private double currentLng = -1;//经度
     private double currentLat = -1;//纬度
@@ -61,7 +61,8 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     private void initMap() {
         if (mAMap == null) {
             mAMap = mMapView.getMap();
-            mAMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Constants.MapSetting.Lat, Constants.MapSetting.Lng)));
+            mAMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Constants.MapSetting.Lat, Constants.MapSetting
+                    .Lng)));
             mAMap.moveCamera(CameraUpdateFactory.zoomBy(Constants.MapSetting.Zoom));
             //设置定位监听，监听开始定位和结束定位
             mAMap.setLocationSource(this);
@@ -122,7 +123,6 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     public void onResume() {
         super.onResume();
         mMapView.onResume();
-        LogUtil.e(TAG,"onResume mMapView:"+(mMapView==null));
     }
 
     /**
@@ -131,9 +131,7 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     @Override
     public void onPause() {
         super.onPause();
-        LogUtil.e(TAG,"onPause前 mMapView:"+(mMapView==null));
         mMapView.onPause();
-        LogUtil.e(TAG,"onPause后 mMapView:"+(mMapView==null));
     }
 
     /**
@@ -150,14 +148,15 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
      */
     @Override
     public void onDestroy() {
-        LogUtil.e(TAG,"消灭onDestroy");
-        LogUtil.e(TAG,"mMapView:"+(mMapView==null));
         if (mMapView != null) {
             mMapView.onDestroy();
-            mMapView=null;
+            mMapView = null;
         }
         if (mLocationClient != null) {
             mLocationClient.onDestroy();
+        }
+        if (mOnLocationChangedListener != null) {
+            mOnLocationChangedListener = null;
         }
         super.onDestroy();
     }
@@ -168,7 +167,7 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     @Override
     public void activate(OnLocationChangedListener listener) {
         Log.e(TAG, "激活定位: ");
-        mListener = listener;
+        mOnLocationChangedListener = listener;
         if (mLocationClient == null) {
             initLocation();
         }
@@ -180,7 +179,7 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     @Override
     public void deactivate() {
         Log.e(TAG, "停止定位: ");
-        mListener = null;
+        mOnLocationChangedListener = null;
         if (mLocationClient != null) {
             mLocationClient.stopLocation();
             mLocationClient.onDestroy();
@@ -214,12 +213,12 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
         currentLat = la.latitude;
         currentLng = la.longitude;
         if (onLocationGetListener != null) {
-            onLocationGetListener.onLoactionGet(currentLng,currentLat);
+            onLocationGetListener.onLoactionGet(currentLng, currentLat);
         }
         setMarket(la, amapLocation.getCity(), amapLocation.getAddress());
-        if (mListener != null && amapLocation != null) {
+        if (mOnLocationChangedListener != null && amapLocation != null) {
             if (amapLocation != null && amapLocation.getErrorCode() == 0) {
-                mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
+                mOnLocationChangedListener.onLocationChanged(amapLocation);// 显示系统小蓝点
             } else {
                 String errText = "定位失败," + amapLocation.getErrorCode() + ": "
                         + amapLocation.getErrorInfo();
@@ -242,7 +241,7 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     @Override
     public void onCameraChangeFinish(CameraPosition cameraPosition) {
         LatLng latLng = cameraPosition.target;
-//        mRegeocodeTask.search(latLng.latitude, latLng.longitude);
+        mRegeocodeTask.search(latLng.latitude, latLng.longitude);
     }
 
     private Marker mGPSMarker;             //定位位置显示
@@ -282,12 +281,12 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
         currentLat = entity.latitue;
         currentLng = entity.longitude;
         if (onLocationGetListener != null) {
-            onLocationGetListener.onLoactionGet(currentLng,currentLat);
+            onLocationGetListener.onLoactionGet(currentLng, currentLat);
         }
     }
 
-    public interface OnLocationGetListener{
-        void onLoactionGet(double lng,double lat);
+    public interface OnLocationGetListener {
+        void onLoactionGet(double lng, double lat);
     }
 
     public void setOnLocationGetListener(OnLocationGetListener onLocationGetListener) {

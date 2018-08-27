@@ -51,6 +51,7 @@
             android:layout_weight="1"
             android:text="新密码"/>
         <com.kingja.supershapeview.view.SuperShapeEditText
+            android:inputType="textPassword"
             android:id="@+id/set_newPassword"
             style="@style/font_9_13"
             android:layout_width="0dp"
@@ -81,6 +82,7 @@
             android:layout_weight="1"
             android:text="确认密码"/>
         <com.kingja.supershapeview.view.SuperShapeEditText
+            android:inputType="textPassword"
             android:id="@+id/set_repeatPassword"
             style="@style/font_9_13"
             android:layout_width="0dp"

@@ -2,13 +2,18 @@ package com.jdp.hls.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.fragment.LocationFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.util.NoDoubleClickListener;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Description:用户定位
@@ -18,6 +23,8 @@ import com.jdp.hls.util.NoDoubleClickListener;
  */
 public class LocationActivity extends BaseTitleActivity {
 
+    @BindView(R.id.fl_map)
+    FrameLayout flMap;
     private double currentLng;
     private double currentLat;
     private LocationFragment locationFragment;
@@ -53,14 +60,18 @@ public class LocationActivity extends BaseTitleActivity {
             @Override
             public void onNoDoubleClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("lng",currentLng);
-                intent.putExtra("lat",currentLat);
-                setResult(Activity.RESULT_OK,intent);
+                intent.putExtra("lng", currentLng);
+                intent.putExtra("lat", currentLat);
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
-        locationFragment = (LocationFragment) getSupportFragmentManager().findFragmentById(R.id
-                .fragment_map);
+//        locationFragment = (LocationFragment) getSupportFragmentManager().findFragmentById(R.id
+//                .fragment_map);
+        if (locationFragment == null) {
+            locationFragment = new LocationFragment();
+            getSupportFragmentManager().beginTransaction().add(R.id.fl_map, locationFragment).commit();
+        }
         locationFragment.setOnLocationGetListener(new LocationFragment.OnLocationGetListener() {
             @Override
             public void onLoactionGet(double lng, double lat) {
@@ -79,5 +90,12 @@ public class LocationActivity extends BaseTitleActivity {
     @Override
     protected void initNet() {
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

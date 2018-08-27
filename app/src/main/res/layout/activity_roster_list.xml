@@ -21,8 +21,14 @@
         app:super_cornerRadius="50dp"
         app:super_solidColor="@color/white_hi">
 
-
+        <ImageView
+            android:layout_marginRight="12dp"
+            android:id="@+id/iv_rosters_search"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@mipmap/ic_search"/>
         <EditText
+            android:singleLine="true"
             android:id="@+id/et_rosters_keyword"
             style="@style/font_9_13"
             android:layout_width="0dp"
@@ -32,11 +38,7 @@
             android:background="@null"
             android:hint="请输入搜索关键字"/>
 
-        <ImageView
-            android:id="@+id/iv_rosters_search"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@mipmap/ic_search"/>
+
 
     </com.kingja.supershapeview.view.SuperShapeLinearLayout>
 

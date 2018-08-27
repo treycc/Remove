@@ -16,6 +16,7 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.page.login.LoginPresenter;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.InputMethodManagerUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
@@ -140,4 +141,11 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     public void onGetProjectsSuccess(List<Project> projects) {
         adapter.setData(projects);
     }
+
+    @Override
+    protected void onDestroy() {
+        InputMethodManagerUtil.fixInputMethodManagerLeak(this);
+        super.onDestroy();
+    }
+
 }

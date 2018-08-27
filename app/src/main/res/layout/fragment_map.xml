@@ -70,6 +70,7 @@
         <EditText
             android:id="@+id/et_keyword"
             style="@style/font_9_13"
+            android:singleLine="true"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="12dp"

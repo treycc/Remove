@@ -7,15 +7,20 @@ package com.jdp.hls.base;
  * Email:kingjavip@gmail.com
  */
 public interface BaseView {
-    public default void showLoading(){}
+    public default void showLoading() {
+    }
 
-    public default  void hideLoading(){}
+    public default void hideLoading() {
+    }
+    public default void showLoadingCallback() {
+    }
+    public default void showEmptyCallback() {
+    }
 
-    public default void showEmpty(){}
+    public default void showErrorCallback() {
+    }
 
-    public default void showError(){}
 
-    public default void showNetError(){}
-
-    public default void showSuccess(){}
+    public default void showSuccessCallback() {
+    }
 }

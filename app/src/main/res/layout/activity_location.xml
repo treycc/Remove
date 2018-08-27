@@ -4,10 +4,13 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <fragment
+<!--    <fragment
         android:id="@+id/fragment_map"
         android:name="com.jdp.hls.fragment.LocationFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent"/>-->
+    <FrameLayout
+        android:id="@+id/fl_map"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"/>
 </LinearLayout>

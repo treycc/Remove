@@ -78,7 +78,7 @@ public class ModifyAndUploadActivity extends BaseTitleActivity implements Modify
 
     @Override
     protected String getContentTitle() {
-        return "修改";
+        return "保存";
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ModifyAndUploadActivity extends BaseTitleActivity implements Modify
 
     @Override
     protected void initData() {
-        setRightClick("修改",noDoubleClickListener);
+        setRightClick("修改", noDoubleClickListener);
         setRightClickable(false);
         etModifyValue.setText(oldValue);
         tvModifyTitle.setText(title);

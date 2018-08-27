@@ -10,6 +10,7 @@ import com.jdp.hls.base.BaseActivity;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.InputMethodManagerUtil;
 
 /**
  * Description:启动页
@@ -63,6 +64,7 @@ public class SplashActivity  extends BaseActivity{
 
     @Override
     protected void onDestroy() {
+        InputMethodManagerUtil.fixInputMethodManagerLeak(this);
         dispatchHander.removeCallbacks(dispatcherRunnable);
         super.onDestroy();
     }

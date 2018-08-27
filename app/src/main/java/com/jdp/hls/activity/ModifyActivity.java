@@ -72,7 +72,7 @@ public class ModifyActivity extends BaseTitleActivity {
 
     @Override
     protected String getContentTitle() {
-        return "修改";
+        return "保存";
     }
 
     @Override
