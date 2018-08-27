@@ -61,14 +61,12 @@ public class RegeocodeTask implements GeocodeSearch.OnGeocodeSearchListener {
                 String address = regeocodeReult.getRegeocodeAddress()
                         .getFormatAddress();
                 String city = regeocodeReult.getRegeocodeAddress().getCity();
-
                 PositionEntity entity = new PositionEntity();
                 entity.address = address;
                 entity.city = city;
                 entity.latitue = lat;
                 entity.longitude = lng;
                 mOnLocationGetListener.onRegecodeGet(entity);
-
             }
         }
         //TODO 可以根据app自身需求对查询错误情况进行相应的提示或者逻辑处理

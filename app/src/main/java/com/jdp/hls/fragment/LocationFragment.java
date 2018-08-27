@@ -122,6 +122,7 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        LogUtil.e(TAG,"onResume mMapView:"+(mMapView==null));
     }
 
     /**
@@ -130,7 +131,9 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     @Override
     public void onPause() {
         super.onPause();
+        LogUtil.e(TAG,"onPause前 mMapView:"+(mMapView==null));
         mMapView.onPause();
+        LogUtil.e(TAG,"onPause后 mMapView:"+(mMapView==null));
     }
 
     /**
@@ -239,7 +242,7 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     @Override
     public void onCameraChangeFinish(CameraPosition cameraPosition) {
         LatLng latLng = cameraPosition.target;
-        mRegeocodeTask.search(latLng.latitude, latLng.longitude);
+//        mRegeocodeTask.search(latLng.latitude, latLng.longitude);
     }
 
     private Marker mGPSMarker;             //定位位置显示
