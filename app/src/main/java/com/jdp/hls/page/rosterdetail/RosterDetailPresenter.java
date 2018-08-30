@@ -3,6 +3,7 @@ package com.jdp.hls.page.rosterdetail;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.ResultObserver;
 
@@ -32,7 +33,7 @@ public class RosterDetailPresenter implements RosterDetailContract.Presenter {
     public void getRosterDetail(String houseId, int employeeId, int isEnterprise) {
         mApi.getApiService().getRosterDetail(houseId, employeeId, isEnterprise).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<RosterDetail>(mView) {
+                (new LoadSirObserver<RosterDetail>(mView) {
                     @Override
                     protected void onSuccess(RosterDetail rosterDetail) {
                         mView.onGetRosterDetailSuccess(rosterDetail);

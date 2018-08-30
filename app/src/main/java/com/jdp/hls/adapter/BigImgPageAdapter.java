@@ -2,14 +2,19 @@ package com.jdp.hls.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.DTOImgInfo;
+import com.jdp.hls.util.DialogUtil;
+import com.jdp.hls.util.ImageUtil;
 
 import java.util.List;
 
@@ -46,7 +51,19 @@ public class BigImgPageAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ImageView imageView = new ImageView(context);
+        PhotoView imageView = new PhotoView(context);
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                DialogUtil.showConfirmDialog(context, "保存图片到本地", new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        ImageUtil.saveImgView(context,imageView);
+                    }
+                });
+                return true;
+            }
+        });
         String fileUrl = imgInfos.get(position).getUrl();
         if (TextUtils.isEmpty(fileUrl)) {
             ImageLoader.getInstance().loadImage(context, Uri.parse(imgInfos.get(position).getUriStr()) , imageView);

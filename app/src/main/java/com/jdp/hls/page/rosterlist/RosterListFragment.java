@@ -32,7 +32,7 @@ import butterknife.BindView;
 import butterknife.OnItemClick;
 
 /**
- * Description:TODO
+ * Description:花名册列表
  * Create Time:2018/7/27 0027 下午 2:59
  * Author:KingJA
  * Email:kingjavip@gmail.com
@@ -96,7 +96,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
                         helper.setText(R.id.tv_roster_address, item.getHouseAddress());
                         helper.setText(R.id.tv_roster_name, item.getRealName());
                         helper.setText(R.id.tv_roster_phone, item.getMobilePhone());
-                        helper.setBackgroundResource(R.id.iv_roster_hasLocation, (item.getLatitude()==0&&item.getLongitude()==0) ? R.mipmap
+                        helper.setBackgroundResource(R.id.iv_roster_hasLocation, (item.getLatitude()==0||item.getLongitude()==0) ? R.mipmap
                                 .ic_has_location_nor : R.mipmap
                                 .ic_has_location_sel);
                         helper.setBackgroundResource(R.id.iv_roster_isMeasure, item.isMeasured() ? R.mipmap
@@ -143,7 +143,6 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
     public void hideLoading() {
         srl.setRefreshing(false);
     }
-
     @Override
     public void onRefresh() {
         getRostersByTypePresenter.getRosterListByType(SpSir.getInstance().getProjectId(), SpSir.getInstance()

@@ -1,6 +1,7 @@
 package com.jdp.hls.base;
 
 
+import com.jdp.hls.page.crash.CrashActivity;
 import com.jdp.hls.page.setting.SettingActivity;
 import com.jdp.hls.injector.annotation.PerActivity;
 import com.jdp.hls.injector.component.AppComponent;
@@ -32,4 +33,5 @@ public interface BaseCompnent {
     void inject(PersonSearchActivity target);
     void inject(RosterListFragment target);
     void inject(SettingActivity target);
+    void inject(CrashActivity target);
 }

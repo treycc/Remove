@@ -8,7 +8,8 @@ package com.jdp.hls.constant;
  * 修改备注：
  */
 public class Constants {
-    public static final String BASE_URL = "http://192.168.0.2:8080/";
+//    public static final String BASE_URL = "http://192.168.0.2:8080/";
+    public static final String BASE_URL = "http://192.168.0.5:8081/";
     public static final int PAGE_SIZE = 20;
     public static final int PAGE_FIRST = 1;
     public static final int PAGE_SIZE_100 = 100;
@@ -19,6 +20,8 @@ public class Constants {
     public static final int GRIDVIEW_IMG_COUNT = 3;
     public static final int GRIDVIEW_GIFT_COUNT = 4;
     public static final int MAX_IMG_UPLOAD_COUNT = 9;
+    public static final String  LOG_FILENAME = "Logs";
+    public static final String DIR_HIL = "HLS";
 
 
     /*Extra*/
@@ -39,6 +42,12 @@ public class Constants {
         double Lat = 27.965626136017267;
         double Lng = 120.73433669492793;
         float Zoom = 6;
+    }
+
+    public interface NETWORK {
+        int CONNECTTIMEOUT = 30;
+        int WRITETIMEOUT = 40;
+        int READTIMEOUT = 40;
     }
 
 }

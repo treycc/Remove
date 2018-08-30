@@ -3,7 +3,6 @@ package com.jdp.hls.model.api;
 
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.model.service.ApiService;
-import com.jdp.hls.util.TokenHeadInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,11 +27,11 @@ public class UserApi {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(20, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .addInterceptor(httpLoggingInterceptor)
+                .connectTimeout(Constants.NETWORK.CONNECTTIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(Constants.NETWORK.WRITETIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(Constants.NETWORK.READTIMEOUT, TimeUnit.SECONDS)
                 .addInterceptor(new TokenHeadInterceptor())
+                .addInterceptor(httpLoggingInterceptor)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
@@ -46,6 +45,7 @@ public class UserApi {
     public ApiService getApiService() {
         return apiService;
     }
+
 
 
 }

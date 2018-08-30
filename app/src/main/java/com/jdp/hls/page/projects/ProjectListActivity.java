@@ -11,16 +11,20 @@ import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.callback.ErrorCallback;
+import com.jdp.hls.callback.LoadingCallback;
 import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Project;
-import com.jdp.hls.page.login.LoginPresenter;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.InputMethodManagerUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.kingja.loadsir.callback.Callback;
+import com.kingja.loadsir.core.LoadService;
+import com.kingja.loadsir.core.LoadSir;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -50,6 +54,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
 
     @Inject
     ProjectsPresenter projectsPresenter;
+
 
 
     @OnItemClick({R.id.plv})
@@ -101,6 +106,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
 
     @Override
     protected void initView() {
+
         projectsPresenter.attachView(this);
         plv.setAdapter(adapter = new CommonAdapter<Project>(this, projects, R.layout.item_project) {
             @Override
@@ -136,6 +142,8 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
         activity.startActivity(intent);
         activity.finish();
     }
+
+
 
     @Override
     public void onGetProjectsSuccess(List<Project> projects) {

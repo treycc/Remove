@@ -1,4 +1,4 @@
-package com.jdp.hls.util;
+package com.jdp.hls.model.api;
 
 import com.orhanobut.logger.Logger;
 

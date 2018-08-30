@@ -49,14 +49,14 @@ public abstract class BaseTitleActivity extends BaseActivity {
             flContent.addView(content, params);
             bind = ButterKnife.bind(this, rootView);
             // register after ButterKnife.bind()
-//            if (ifRegisterLoadSir()) {
-//                mBaseLoadService = LoadSir.getDefault().register(content, new Callback.OnReloadListener() {
-//                    @Override
-//                    public void onReload(View v) {
-//                        onNetReload(v);
-//                    }
-//                });
-//            }
+            if (ifRegisterLoadSir()) {
+                mBaseLoadService = LoadSir.getDefault().register(content, new Callback.OnReloadListener() {
+                    @Override
+                    public void onReload(View v) {
+                        onNetReload(v);
+                    }
+                });
+            }
 
         }
         if (ifHideTitle()) {

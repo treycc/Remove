@@ -12,6 +12,8 @@ public interface BaseView {
 
     public default void hideLoading() {
     }
+    public default void showError() {
+    }
     public default void showLoadingCallback() {
     }
     public default void showEmptyCallback() {

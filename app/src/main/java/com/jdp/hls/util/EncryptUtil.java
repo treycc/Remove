@@ -55,7 +55,7 @@ public class EncryptUtil {
         return re_md5;
     }
 
-    public static String GetSignature(long timeStamp, String token) {
+    public static String getSignature(long timeStamp, String token) {
         String signature = timeStamp + token;
         char[] chars = signature.toCharArray();
         Arrays.sort(chars);

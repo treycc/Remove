@@ -160,6 +160,14 @@
 -dontwarn com.kingja.loadsir.**
 -keep class com.kingja.loadsir.** {*;}
 
+# photoview
+-dontwarn com.github.chrisbanes.**
+-keep class com.github.chrisbanes.** {*;}
+
+# 崩溃处理
+-dontwarn cat.ereza.customactivityoncrash.**
+-keep class cat.ereza.customactivityoncrash.** {*;}
+
 
 -dontwarn javax.annotation.**
 -dontwarn javax.inject.**

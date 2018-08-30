@@ -1,4 +1,8 @@
-package com.jdp.hls.util;
+package com.jdp.hls.model.api;
+
+import com.jdp.hls.util.EncryptUtil;
+import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.SpSir;
 
 import java.io.IOException;
 
@@ -15,14 +19,15 @@ import okhttp3.Response;
 public class TokenHeadInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
+        long timeStamp = System.currentTimeMillis();
+        String token = SpSir.getInstance().getToken();
         Request request = chain.request()
                 .newBuilder()
-                .addHeader("token", SpSir.getInstance().getToken())
-                .addHeader("timeStamp", "1")
-                .addHeader("signature", "1")
+                .addHeader("token", token)
+                .addHeader("timeStamp", String.valueOf(timeStamp))
+                .addHeader("signature", EncryptUtil.getSignature(timeStamp,token))
                 .build();
         return chain.proceed(request);
     }
 
-//    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
 }

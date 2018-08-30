@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.jdp.hls.R;
+import com.jdp.hls.page.crash.CrashActivity;
 import com.jdp.hls.callback.EmptyCallback;
 import com.jdp.hls.callback.ErrorCallback;
 import com.jdp.hls.callback.LoadingCallback;
@@ -17,7 +19,8 @@ import com.jdp.hls.injector.module.SpModule;
 import com.kingja.loadsir.core.LoadSir;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-import com.squareup.leakcanary.LeakCanary;
+
+import cat.ereza.customactivityoncrash.config.CaocConfig;
 
 
 /**
@@ -36,16 +39,19 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         initLoadSir();
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            // This process is dedicated to LeakCanary for heap analysis.
+//            // You should not init your app in this process.
+//            return;
+//        }
+//        LeakCanary.install(this);
         Logger.addLogAdapter(new AndroidLogAdapter());
-        LeakCanary.install(this);
         sInstance = this;
         mSharedPreferences = getSharedPreferences(Constants.APPLICATION_NAME, MODE_PRIVATE);
         setupComponent();
+        CaocConfig.Builder.create()
+                .errorActivity(CrashActivity.class)
+                .apply();
     }
 
     public static SharedPreferences getSp() {

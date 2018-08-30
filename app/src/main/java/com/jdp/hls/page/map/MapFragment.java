@@ -126,6 +126,8 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
         mMapView.onCreate(savedInstanceState);
         if (mAMap == null) {
             mAMap = mMapView.getMap();
+            mAMap.setMapType(AMap.MAP_TYPE_NORMAL);// 标准地图模式
+//            mAMap.setMapType(AMap.MAP_TYPE_SATELLITE);// 卫星地图模式
             mAMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Constants.MapSetting.Lat, Constants.MapSetting
                     .Lng)));
             mAMap.getUiSettings().setZoomControlsEnabled(false);
@@ -291,6 +293,9 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     private void showAllRostersOnMap(List<Roster> rosters) {
         LatLngBounds.Builder newbounds = new LatLngBounds.Builder();
         for (Roster roster : rosters) {
+            if (roster.getLatitude() == 0 || roster.getLongitude() == 0) {
+                continue;
+            }
             newbounds.include(new LatLng(roster.getLatitude(), roster.getLongitude()));
         }
         mAMap.animateCamera(CameraUpdateFactory.newLatLngBounds(newbounds.build(),
@@ -322,6 +327,9 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     private void drawRostersOnMap(List<Roster> rosters) {
         mAMap.clear();
         for (Roster roster : rosters) {
+            if (roster.getLatitude() == 0 || roster.getLongitude() == 0) {
+                continue;
+            }
             setMarket(roster);
         }
         mMapView.invalidate();

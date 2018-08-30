@@ -1,7 +1,5 @@
 package com.jdp.hls.model.entiy;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.constant.Status;
@@ -24,7 +22,7 @@ import io.reactivex.observers.DefaultObserver;
  */
 public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
     private static final String TAG = "ResultObserver";
-    private BaseView baseView;
+    protected BaseView baseView;
 
     public ResultObserver(BaseView baseView) {
         this.baseView = baseView;
@@ -33,15 +31,26 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
     @Override
     protected void onStart() {
         super.onStart();
-        baseView.showLoading();
+        showLoading();
         RxRe.getInstance().add(baseView, this);
-        Log.e(TAG, "onStart: ");
+    }
+
+    protected void showLoading() {
+        baseView.showLoading();
+    }
+
+    protected void hideLoading() {
+        baseView.hideLoading();
+    }
+
+    protected void showError() {
+        baseView.hideLoading();
     }
 
     @Override
     public void onNext(HttpResult<T> httpResult) {
         Logger.json(new Gson().toJson(httpResult));
-        baseView.hideLoading();
+        hideLoading();
         if (httpResult.getCode() == Status.ResultCode.SUCCESS) {
             onSuccess(httpResult.getData());
         } else if (httpResult.getCode() == Status.ResultCode.ERROR_SERVER) {
@@ -56,13 +65,11 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
     protected abstract void onSuccess(T t);
 
     protected void onError(int code, String message) {
-        LogUtil.e(TAG, "code:" + code + " message:" + message);
         ToastUtil.showText(message);
+
     }
 
     protected void onServerError(int code, String message) {
-        LogUtil.e(TAG, "code:" + code + " message:" + message);
-//        ToastUtil.showText(message);
     }
 
     protected void onLoginFail() {
@@ -74,17 +81,17 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
     @Override
     public void onError(Throwable e) {
         //记录错误
-        Log.e(TAG, "onError: " + e.toString());
-        baseView.hideLoading();
+        LogUtil.e(TAG, "onError: " + e.toString());
+        showError();
     }
 
     @Override
     public void onComplete() {
-        Log.e(TAG, "onComplete: ");
+        LogUtil.e(TAG, "onComplete: ");
     }
 
     public void cancleRequest() {
-        Log.e(TAG, "cancleRequest: ");
+        LogUtil.e(TAG, "cancleRequest: ");
         cancel();
     }
 }

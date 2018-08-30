@@ -96,4 +96,12 @@ public interface ApiService {
     @POST("api/user/changePassword")
     Observable<HttpResult<Object>> modifyPassword(@Field("employeeId") int employeeId, @Field("oldPassword") String
             oldPassword, @Field("newPassword") String newPassword);
+
+    /*上传异常*/
+    @FormUrlEncoded
+    @POST("api/systemSevice/postLog")
+    Observable<HttpResult<Object>> uploadError(@Field("iP") String iP, @Field("applicationType") String
+            applicationType, @Field("oSversion") String oSversion, @Field("exceptionType") String exceptionType,
+                                               @Field("exceptionMsg") String exceptionMsg, @Field("employeeId")
+                                                       String employeeId);
 }

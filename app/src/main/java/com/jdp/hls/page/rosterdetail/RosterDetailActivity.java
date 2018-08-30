@@ -453,4 +453,8 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         showQuitDialog();
     }
 
+    @Override
+    protected boolean ifRegisterLoadSir() {
+        return true;
+    }
 }

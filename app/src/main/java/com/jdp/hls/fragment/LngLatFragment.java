@@ -10,6 +10,7 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.TextureMapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
@@ -31,7 +32,7 @@ import butterknife.BindView;
  */
 public class LngLatFragment extends BaseFragment {
     @BindView(R.id.map_fragment)
-    MapView mMapView;
+    TextureMapView mMapView;
     private AMap aMap;
 
     @Override
