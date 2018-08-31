@@ -80,14 +80,9 @@ public class SettingActivity extends BaseTitleActivity implements SettingContrac
     }
 
     private void checkQuit() {
-        DialogUtil.showDoubleDialog(this, "是否确认退出", new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                settingPresenter.logout();
-                AppManager.getAppManager().finishAllActivity();
-                GoUtil.goActivity(SettingActivity.this, LoginActivity.class);
-            }
-        });
+        settingPresenter.logout();
+        AppManager.getAppManager().finishAllActivity();
+        GoUtil.goActivity(SettingActivity.this, LoginActivity.class);
 
     }
 

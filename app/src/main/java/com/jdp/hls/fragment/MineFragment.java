@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -57,6 +59,8 @@ public class MineFragment extends BaseFragment {
     TextView tvMineCompanyName;
     @BindView(R.id.tv_mine_service)
     TextView tvMineService;
+    @BindView(R.id.iv_arrow_alias)
+    ImageView ivArrowAlias;
     public static final int REQUST_PROJECTS=8;
 
     @OnClick({R.id.rl_mine_account, R.id.rl_mine_alias, R.id.rl_mine_project, R.id.rl_mine_phone, R.id
@@ -149,8 +153,13 @@ public class MineFragment extends BaseFragment {
         tvMineCompanyName.setText(SpSir.getInstance().getCompanyName());
         tvMinePhone.setText(SpSir.getInstance().getMobilePhone());
         tvMineAccount.setText(String.valueOf(SpSir.getInstance().getAccountName()));
-        tvMineAlias.setText(SpSir.getInstance().getAccountAlias());
         tvMineProject.setText(SpSir.getInstance().getProjectName());
+        String alias = SpSir.getInstance().getAccountAlias();
+        ivArrowAlias.setVisibility(TextUtils.isEmpty(alias)?View.VISIBLE:View.GONE);
+        rlMineAlias.setEnabled(TextUtils.isEmpty(alias));
+        tvMineAlias.setText(alias);
+
+
     }
 
     @Override

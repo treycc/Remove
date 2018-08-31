@@ -53,7 +53,6 @@
         <com.kingja.supershapeview.view.SuperShapeEditText
             android:id="@+id/set_login_password"
             style="@style/font_f_15"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="48dp"
@@ -61,6 +60,7 @@
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:hint="密码"
+            android:inputType="textPassword"
             android:paddingBottom="12dp"
             android:paddingTop="12dp"
             android:textColorHint="@color/white_hi"
@@ -68,14 +68,16 @@
             app:super_solidColor="#66ffffff"/>
 
         <CheckBox
-            android:id="@+id/cb_remember_passwrod"
             style="@style/font_f_13"
+            android:id="@+id/cb_remember_passwrod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="48dp"
             android:layout_marginRight="48dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="12dp"
+            android:button="@drawable/selector_cb_remember"
             android:text="记住密码"/>
 
         <com.kingja.supershapeview.view.SuperShapeTextView
@@ -101,5 +103,5 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="12dp"
         android:gravity="center"
-        android:text="2018®浙江健德普信息科技有限公司"/>
+        android:text="2018 @ 房屋征收平台"/>
 </RelativeLayout>

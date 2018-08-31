@@ -8,7 +8,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,10 +39,12 @@ import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.ModifyMap;
 import com.jdp.hls.view.RvItemDecoration;
+import com.kingja.supershapeview.view.SuperShapeEditText;
 import com.zhihu.matisse.Matisse;
 
 import org.greenrobot.eventbus.EventBus;
@@ -83,8 +87,8 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     LinearLayout llRosterIdcard;
     @BindView(R.id.rv_roster_img)
     RecyclerView rvRosterImg;
-    @BindView(R.id.tv_roster_remark)
-    TextView tvRosterRemark;
+    @BindView(R.id.set_roster_remark)
+    SuperShapeEditText setRosterRemark;
     @BindView(R.id.ll_roster_remark)
     LinearLayout llRosterRemark;
     @BindView(R.id.ll_roster_img)
@@ -150,7 +154,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                 ModifyActivity.goActivityInActivity(this, Constants.ModifyCode.MODIFY_PHONE, "手机号", phone);
                 break;
             case R.id.ll_roster_remark:
-                String remark = tvRosterRemark.getText().toString().trim();
+                String remark = setRosterRemark.getText().toString().trim();
                 ModifyActivity.goActivityInActivity(this, Constants.ModifyCode.MODIFY_REMARK, "备注", remark);
                 break;
             case R.id.ll_roster_location:
@@ -186,7 +190,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                     modifyMap.setIdcard(newVaule);
                     break;
                 case Constants.ModifyCode.MODIFY_REMARK:
-                    tvRosterRemark.setText(newVaule);
+                    setRosterRemark.setText(newVaule);
                     modifyMap.setRemark(newVaule);
                     break;
                 case REQUEST_CODE_LOCATION:
@@ -257,7 +261,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         String name = tvRosterName.getText().toString().trim();
         String phone = tvRosterPhone.getText().toString().trim();
         String idcard = tvRosterIdcard.getText().toString().trim();
-        String remark = tvRosterRemark.getText().toString().trim();
+        String remark = setRosterRemark.getText().toString().trim();
         String companyName = tvRosterCompanyName.getText().toString().trim();
         if (CheckUtil.checkEmpty(name, "请输入户主姓名")
                 && CheckUtil.checkEmpty(address, "请输入地址")
@@ -314,6 +318,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     @Override
     protected void initData() {
         setRightClick("保存", noDoubleClickListener);
+        setRightClickable(false);
         lngLatFragment = (LngLatFragment) getSupportFragmentManager().findFragmentById(R.id
                 .fragment_lnglat);
         imgAdapter.setOnItemClickListener(new BaseRvPositionAdapter.OnItemClickListener<ImgInfo>() {
@@ -331,6 +336,13 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
             @Override
             public void onImgDeleted() {
                 modifyMap.setImgs();
+                checkHasModified();
+            }
+        });
+        setRosterRemark.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                modifyMap.setRemark(s.toString());
                 checkHasModified();
             }
         });
@@ -384,7 +396,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         tvRosterAddress.setText(rosterDetail.getHouseAddress());
         tvRosterPhone.setText(rosterDetail.getMobilePhone());
         tvRosterIdcard.setText(rosterDetail.getIdcard());
-        tvRosterRemark.setText(rosterDetail.getRemark());
+        setRosterRemark.setText(rosterDetail.getRemark());
         isEnterprise = rosterDetail.isEnterprise();
         gender = rosterDetail.isGender();
         isMeasured = rosterDetail.isMeasured();
@@ -419,11 +431,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     }
 
     private void checkHasModified() {
-        if (modifyMap.hasModified()) {
-            setRightClick("保存", noDoubleClickListener);
-        } else {
-            hideRightClick();
-        }
+        setRightClickable(modifyMap.hasModified());
     }
 
     @Override

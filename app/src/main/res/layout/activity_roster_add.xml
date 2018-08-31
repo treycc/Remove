@@ -257,14 +257,12 @@
 
                 <lib.kingja.switchbutton.SwitchMultiButton
                     android:id="@+id/smb_roster_gender"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
                     android:paddingTop="4dp"
                     app:selectedColor="@color/main"
-                    app:selectedTab="0"
+                    app:selectedTab="1"
                     app:strokeRadius="4dp"
                     app:strokeWidth="1dp"
                     app:switchTabs="@array/switch_gender"
@@ -297,14 +295,12 @@
 
                 <lib.kingja.switchbutton.SwitchMultiButton
                     android:id="@+id/smb_roster_type"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
                     android:paddingTop="4dp"
                     app:selectedColor="@color/main"
-                    app:selectedTab="0"
+                    app:selectedTab="1"
                     app:strokeRadius="4dp"
                     app:strokeWidth="1dp"
                     app:switchTabs="@array/switch_roster_type"
@@ -335,14 +331,12 @@
 
                 <lib.kingja.switchbutton.SwitchMultiButton
                     android:id="@+id/smb_roster_measured"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
                     android:paddingTop="4dp"
                     app:selectedColor="@color/main"
-                    app:selectedTab="0"
+                    app:selectedTab="1"
                     app:strokeRadius="4dp"
                     app:strokeWidth="1dp"
                     app:switchTabs="@array/switch_measure"
@@ -375,14 +369,12 @@
 
                 <lib.kingja.switchbutton.SwitchMultiButton
                     android:id="@+id/smb_roster_evaluated"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
                     android:paddingTop="4dp"
                     app:selectedColor="@color/main"
-                    app:selectedTab="0"
+                    app:selectedTab="1"
                     app:strokeRadius="4dp"
                     app:strokeWidth="1dp"
                     app:switchTabs="@array/switch_evaluated"
@@ -400,9 +392,9 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:paddingBottom="6dp"
-            android:paddingTop="6dp"
+            android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingLeft="12dp">
+            android:paddingTop="6dp">
 
             <TextView
                 style="@style/font_6_13"
@@ -444,19 +436,19 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_centerVertical="true"
-                    style="@style/font_9_13"
                     android:id="@+id/tv_roster_hasLocationed"
-                    android:text="未定位"
+                    style="@style/font_9_13"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="未定位"/>
 
                 <ImageView
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
                     android:id="@+id/iv_roster_location"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:background="@mipmap/ic_confirm_nor"/>
             </RelativeLayout>
 

@@ -256,11 +256,9 @@
 
                 <lib.kingja.switchbutton.SwitchMultiButton
                     android:id="@+id/smb_roster_gender"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
                     android:paddingTop="4dp"
                     app:selectedColor="@color/main"
                     app:selectedTab="0"
@@ -296,11 +294,9 @@
 
                 <lib.kingja.switchbutton.SwitchMultiButton
                     android:id="@+id/smb_roster_measured"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
                     android:paddingTop="4dp"
                     app:selectedColor="@color/main"
                     app:selectedTab="0"
@@ -336,11 +332,9 @@
 
                 <lib.kingja.switchbutton.SwitchMultiButton
                     android:id="@+id/smb_roster_evaluated"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
                     android:paddingTop="4dp"
                     app:selectedColor="@color/main"
                     app:selectedTab="0"
@@ -462,19 +456,21 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_roster_remark"
+                <com.kingja.supershapeview.view.SuperShapeEditText
+                    android:id="@+id/set_roster_remark"
                     style="@style/font_9_13"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_weight="1"
-                    android:text=""/>
-
-                <ImageView
-                    android:layout_width="9dp"
-                    android:layout_height="16dp"
-                    android:background="@mipmap/arrow_right"/>
+                    android:layout_weight="3.5"
+                    android:gravity="start"
+                    android:hint="请输入备注内容"
+                    android:lines="4"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="4dp"
+                    app:super_strokeColor="@color/c_6"
+                    app:super_strokeWidth="1px"/>
 
             </LinearLayout>
         </LinearLayout>

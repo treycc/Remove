@@ -3,7 +3,6 @@ package com.jdp.hls.page.rosteradd;
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jdp.hls.R;
 import com.jdp.hls.activity.BigImgActivity;
 import com.jdp.hls.activity.LocationActivity;
@@ -132,8 +129,8 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     private double lat;
     private boolean gender = true;
     private boolean isEnterprise=false;
-    private boolean isMeasured = true;
-    private boolean isEvaluated = true;
+    private boolean isMeasured = false;
+    private boolean isEvaluated = false;
     private String personId;
     private static final int REQUEST_CODE_PERSON = 2;
 
@@ -360,25 +357,6 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     public void onAddRosterSuccess() {
         EventBus.getDefault().post(new RefreshRostersEvent());
         DialogUtil.showQuitDialog(this, "花名册添加成功");
-    }
-
-    @Override
-    public void onBackPressed() {
-        showQuitDialog();
-    }
-
-    private void showQuitDialog() {
-        DialogUtil.showDoubleDialog(this, "当前是编辑页面，是否确认退出？", new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                finish();
-            }
-        });
-    }
-
-    @Override
-    protected void onBack() {
-        showQuitDialog();
     }
 
 }

@@ -11,6 +11,7 @@ import com.jdp.hls.model.entiy.ImgInfo;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,24 +29,26 @@ public class MatisseUtil {
         Matisse.from(context)
                 .choose(MimeType.allOf())
                 .countable(true)
-//                .capture(true)
+                .capture(true)
                 .theme(R.style.PhotoTheme)//主题  暗色主题 R.style.Matisse_Dracula
                 .maxSelectable(9) // 图片选择的最多数量
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                 .thumbnailScale(0.85f) // 缩略图的比例
                 .imageEngine(new GlideEngine()) // 使用的图片加载引擎
+                .captureStrategy(new CaptureStrategy(true,"com.jdp.hls.fileProvider"))
                 .forResult(REQUEST_CODE_CHOOSE); // 设置作为标记的请求码
     }
     public static void openCamera(Activity context,int maxCount) {
         Matisse.from(context)
                 .choose(MimeType.allOf())
                 .countable(true)
-//                .capture(true)
+                .capture(true)
                 .theme(R.style.PhotoTheme)//主题  暗色主题 R.style.Matisse_Dracula
                 .maxSelectable(maxCount) // 图片选择的最多数量
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                 .thumbnailScale(0.85f) // 缩略图的比例
                 .imageEngine(new GlideEngine()) // 使用的图片加载引擎
+                .captureStrategy(new CaptureStrategy(true,"com.jdp.hls.fileProvider"))
                 .forResult(REQUEST_CODE_CHOOSE); // 设置作为标记的请求码
     }
 

@@ -45,7 +45,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * Description:意见或建议
+ * Description:意见及建议
  * Create Time:2018/7/30 0030 上午 10:42
  * Author:KingJA
  * Email:kingjavip@gmail.com
@@ -84,7 +84,7 @@ public class SuggestActivity extends BaseTitleActivity implements SuggestContrac
 
     @Override
     protected String getContentTitle() {
-        return "意见和建议";
+        return "意见及建议";
     }
 
     @Override

@@ -15,7 +15,10 @@ import com.jdp.hls.adapter.RosterPageAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Roster;
+import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
+import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 
 import java.io.Serializable;
@@ -106,6 +109,12 @@ public class RosterListActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
+        setRightClick("添加", new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                GoUtil.goActivity(RosterListActivity.this, RosterAddActivity.class);
+            }
+        });
         etRostersKeyword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

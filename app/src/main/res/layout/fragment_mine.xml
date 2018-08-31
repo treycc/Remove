@@ -20,7 +20,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:background="@color/white_hi"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -65,7 +65,7 @@
         android:id="@+id/rl_mine_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:background="@color/white_hi"
         android:gravity="center_vertical"
         android:padding="12dp">
@@ -123,6 +123,7 @@
                 android:text="菠菜蚊子"/>
 
             <ImageView
+                android:id="@+id/iv_arrow_alias"
                 android:layout_width="9dp"
                 android:layout_height="16dp"
                 android:background="@mipmap/arrow_right"/>
@@ -218,7 +219,32 @@
 
 
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_mine_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:padding="12dp">
+
+
+        <TextView
+            style="@style/font_3_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置"/>
+
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/arrow_right"/>
+
+
+    </RelativeLayout>
     <View style="@style/div_hor_gray"/>
+
     <LinearLayout
         android:id="@+id/ll_mine_service"
         android:layout_width="match_parent"
@@ -261,29 +287,4 @@
 
 
     </LinearLayout>
-    <View style="@style/div_hor_gray"/>
-    <RelativeLayout
-        android:id="@+id/rl_mine_setting"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_hi"
-        android:gravity="center_vertical"
-        android:padding="12dp">
-
-
-        <TextView
-            style="@style/font_3_15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="设置"/>
-
-        <ImageView
-            android:layout_width="9dp"
-            android:layout_height="16dp"
-            android:layout_alignParentRight="true"
-            android:background="@mipmap/arrow_right"/>
-
-
-    </RelativeLayout>
-
 </LinearLayout>
