@@ -25,7 +25,7 @@
 
         <com.kingja.supershapeview.view.SuperShapeTextView
             android:id="@+id/set_restartApp"
-            style="@style/font_f_13"
+            style="@style/font_f_15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="4dp"

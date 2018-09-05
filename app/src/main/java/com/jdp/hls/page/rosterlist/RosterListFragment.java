@@ -1,5 +1,6 @@
 package com.jdp.hls.page.rosterlist;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -10,10 +11,12 @@ import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
-import com.jdp.hls.event.RefreshRostersEvent;
+import com.jdp.hls.event.AddRostersEvent;
+import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
@@ -44,7 +47,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
     @BindView(R.id.srl)
     RefreshSwipeRefreshLayout srl;
     private List<Roster> rosters = new ArrayList<>();
-    private CommonAdapter adapter;
+    private RosterListAdapter adapter;
     private int isEnterprise;
     @Inject
     GetRostersByTypePresenter getRostersByTypePresenter;
@@ -69,7 +72,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
         EventBus.getDefault().register(this);
         if (getArguments() != null) {
             rosters = (List<Roster>) getArguments().getSerializable("rosters");
-            isEnterprise = getArguments().getInt("isEnterprise",0);
+            isEnterprise = getArguments().getInt("isEnterprise", 0);
         }
     }
 
@@ -90,24 +93,47 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
     @Override
     protected void initView() {
         getRostersByTypePresenter.attachView(this);
-        plv.setAdapter(adapter = new CommonAdapter<Roster>(getActivity(), rosters, R.layout.item_roster) {
-                    @Override
-                    public void convert(ViewHolder helper, Roster item) {
-                        helper.setText(R.id.tv_roster_address, item.getHouseAddress());
-                        helper.setText(R.id.tv_roster_name, item.getRealName());
-                        helper.setText(R.id.tv_roster_phone, item.getMobilePhone());
-                        helper.setBackgroundResource(R.id.iv_roster_hasLocation, (item.getLatitude()==0||item.getLongitude()==0) ? R.mipmap
-                                .ic_has_location_nor : R.mipmap
-                                .ic_has_location_sel);
-                        helper.setBackgroundResource(R.id.iv_roster_isMeasure, item.isMeasured() ? R.mipmap
-                                .ic_measure_action : R.mipmap
-                                .ic_measure_nor);
-                        helper.setBackgroundResource(R.id.iv_roster_isEvaluated, item.isEvaluated() ? R.mipmap
-                                .ic_evaluate_action : R.mipmap
-                                .ic_evaluate_nor);
-                    }
+        adapter = new RosterListAdapter(getActivity(), rosters, R.layout.item_roster);
+        plv.setAdapter(adapter);
+    }
+
+    class RosterListAdapter extends CommonAdapter<Roster> {
+        public RosterListAdapter(Context context, List<Roster> datas, int itemLayoutId) {
+            super(context, datas, itemLayoutId);
+        }
+
+        @Override
+        public void convert(ViewHolder helper, Roster item) {
+            helper.setText(R.id.tv_roster_address, item.getHouseAddress());
+            helper.setText(R.id.tv_roster_name, item.getRealName());
+            helper.setText(R.id.tv_roster_phone, item.getMobilePhone());
+            helper.setBackgroundResource(R.id.iv_roster_hasLocation, (item.getLatitude() == 0 || item.getLongitude()
+                    == 0) ? R.mipmap
+                    .ic_has_location_nor : R.mipmap
+                    .ic_has_location_sel);
+            helper.setBackgroundResource(R.id.iv_roster_isMeasure, item.isMeasured() ? R.mipmap
+                    .ic_measure_action : R.mipmap
+                    .ic_measure_nor);
+            helper.setBackgroundResource(R.id.iv_roster_isEvaluated, item.isEvaluated() ? R.mipmap
+                    .ic_evaluate_action : R.mipmap
+                    .ic_evaluate_nor);
+        }
+
+        public void modifyData(Roster roster) {
+            for (Roster mData : this.mDatas) {
+                if (mData.getHouseId().equals(roster.getHouseId())) {
+                    mData.setLongitude(roster.getLongitude());
+                    mData.setLatitude(roster.getLatitude());
+                    mData.setEnterprise(roster.isEnterprise());
+                    mData.setEvaluated(roster.isEvaluated());
+                    mData.setMeasured(roster.isMeasured());
+                    mData.setRealName(roster.getRealName());
+                    mData.setMobilePhone(roster.getMobilePhone());
+                    mData.setHouseAddress(roster.getHouseAddress());
                 }
-        );
+            }
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -143,17 +169,27 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
     public void hideLoading() {
         srl.setRefreshing(false);
     }
+
     @Override
     public void onRefresh() {
         getRostersByTypePresenter.getRosterListByType(SpSir.getInstance().getProjectId(), SpSir.getInstance()
-                .getEmployeeId(), isEnterprise );
+                .getEmployeeId(), isEnterprise);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshRosters(RefreshRostersEvent event) {
-        if (event.getIsEnterprisep()) {
-            getRostersByTypePresenter.getRosterListByType(SpSir.getInstance().getProjectId(), SpSir.getInstance()
-                    .getEmployeeId(), isEnterprise);
+    public void refreshRosters(AddRostersEvent event) {
+        int enterprise = event.getRoster().isEnterprise() ? 1 : 0;
+        if (enterprise == isEnterprise) {
+            adapter.addData(event.getRoster());
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modifyRosters(ModifyRostersEvent event) {
+        int enterprise = event.getRoster().isEnterprise() ? 1 : 0;
+        LogUtil.e(TAG, "enterprise:" + enterprise + " isEnterprise:" + isEnterprise);
+        if (enterprise == isEnterprise) {
+            adapter.modifyData(event.getRoster());
         }
     }
 }

@@ -3,9 +3,12 @@ package com.jdp.hls.page.map;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,6 +41,8 @@ import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.util.AppUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.SimpleTextWatcher;
+import com.jdp.hls.util.SoftKeyboardUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 
@@ -51,6 +56,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -81,6 +87,9 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     Unbinder unbinder1;
     @BindView(R.id.et_keyword)
     EditText etKeyword;
+    @BindView(R.id.iv_clear)
+    ImageView ivClear;
+    Unbinder unbinder2;
     private AMap mAMap;
     public AMapLocationClient mLocationClient;
     private OnLocationChangedListener mListener;
@@ -90,7 +99,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     private List<Roster> rosters;
     private Marker currentMarker;
 
-    @OnClick({R.id.tv_roster_list, R.id.tv_roster_add, R.id.iv_map_refresh, R.id.iv_map_showall, R.id.iv_search})
+    @OnClick({R.id.tv_roster_list, R.id.tv_roster_add, R.id.iv_map_refresh, R.id.iv_map_showall, R.id.iv_search, R.id.iv_clear})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.tv_roster_list:
@@ -107,6 +116,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
                 initNet();
                 break;
             case R.id.iv_search:
+                SoftKeyboardUtil.hideSoftKeyboard(getActivity());
                 String keyword = etKeyword.getText().toString().trim();
                 checkData(keyword);
                 break;
@@ -114,6 +124,9 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
                 if (rosters != null && rosters.size() > 0) {
                     showAllRostersOnMap(rosters);
                 }
+                break;
+            case R.id.iv_clear:
+                etKeyword.setText("");
                 break;
             default:
                 break;
@@ -172,6 +185,12 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     @Override
     protected void initDate() {
         etKeyword.setOnEditorActionListener(this);
+        etKeyword.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                ivClear.setVisibility(s.length()>0?View.VISIBLE:View.GONE);
+            }
+        });
         tvTitle.setText(SpSir.getInstance().getProjectName());
     }
 
@@ -208,8 +227,8 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
 
     @Override
     public void onDestroy() {
-        LogUtil.e(TAG,"消灭onDestroy");
-        LogUtil.e(TAG,"mMapView:"+(mMapView==null));
+        LogUtil.e(TAG, "消灭onDestroy");
+        LogUtil.e(TAG, "mMapView:" + (mMapView == null));
         EventBus.getDefault().unregister(this);
         if (mMapView != null) {
             mMapView.onDestroy();
@@ -393,5 +412,19 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
             }
         }
         refreshRostersOnMap(selectRosters);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder2 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder2.unbind();
     }
 }

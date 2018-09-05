@@ -3,6 +3,8 @@ package com.jdp.hls.page.rosteradd;
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jdp.hls.R;
 import com.jdp.hls.activity.BigImgActivity;
 import com.jdp.hls.activity.LocationActivity;
@@ -23,10 +27,12 @@ import com.jdp.hls.adapter.ImgUriAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.AddRostersEvent;
 import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Person;
+import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.personSearch.PersonSearchActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.DialogUtil;
@@ -34,6 +40,7 @@ import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.PermissionsUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.RequiredTextView;
@@ -128,7 +135,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     private double lng;
     private double lat;
     private boolean gender = true;
-    private boolean isEnterprise=false;
+    private boolean isEnterprise = false;
     private boolean isMeasured = false;
     private boolean isEvaluated = false;
     private String personId;
@@ -150,7 +157,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
 
     @Override
     public void initVariable() {
-        checkPermissions();
+
     }
 
     @Override
@@ -186,7 +193,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
             @Override
             public void onItemClick(List<Uri> list, int position) {
                 if (imgUriAdapter.isLastItem(position)) {
-                    MatisseUtil.openCamera(RosterAddActivity.this, Constants.MAX_IMG_UPLOAD_COUNT);
+                    PermissionsUtil.checkOpenPhoto(RosterAddActivity.this);
                 } else {
                     BigImgActivity.goActivity(RosterAddActivity.this, MatisseUtil.getDTOImgInfoFromUri(imgUriAdapter
                             .getDate()), position);
@@ -209,36 +216,15 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     }
 
     private void initSwitchButton() {
-        smbRosterGender.setOnSwitchListener((position, tabText) -> gender = position == 0 );
+        smbRosterGender.setOnSwitchListener((position, tabText) -> gender = position == 0);
         smbRosterType.setOnSwitchListener((position, tabText) -> {
-            isEnterprise = position == 1 ;
+            isEnterprise = position == 1;
             llRosterCompanyName.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
         });
-        smbRosterMeasured.setOnSwitchListener((position, tabText) -> isMeasured = position == 0 );
-        smbRosterEvaluated.setOnSwitchListener((position, tabText) -> isEvaluated = position == 0 );
+        smbRosterMeasured.setOnSwitchListener((position, tabText) -> isMeasured = position == 1);
+        smbRosterEvaluated.setOnSwitchListener((position, tabText) -> isEvaluated = position == 1);
     }
 
-    public void checkPermissions() {
-        RxPermissions rxPermission = new RxPermissions(this);
-        Disposable disposable = rxPermission
-                .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.ACCESS_FINE_LOCATION)
-                .subscribe(new Consumer<Permission>() {
-                    @Override
-                    public void accept(Permission permission) throws Exception {
-                        if (permission.granted) {
-                            // 用户已经同意该权限
-                            Log.d(TAG, permission.name + " is granted.");
-                        } else if (permission.shouldShowRequestPermissionRationale) {
-                            // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
-                            Log.d(TAG, permission.name + " is denied. More info should be provided.");
-                        } else {
-                            // 用户拒绝了该权限，并且选中『不再询问』
-                            Log.d(TAG, permission.name + " is denied.");
-                        }
-                    }
-                });
-    }
 
     private void checkDate() {
         String address = setRosterAddress.getText().toString().trim();
@@ -247,9 +233,10 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
         String idcard = setRosterIdcard.getText().toString().trim();
         String remark = setRosterRemark.getText().toString().trim();
         String companyName = setRosterCompanyName.getText().toString().trim();
+
         if (CheckUtil.checkEmpty(address, "请输入地址")
-                && CheckUtil.checkEmpty(name, "请输入户主姓名")
                 && checkCompanyName(companyName)
+                && CheckUtil.checkEmpty(name, "请输入户主姓名")
                 && CheckUtil.checkPhoneFormatAllowEmpty(phone)
                 && CheckUtil.checkIdCardAllowEmpty(idcard)
                 && CheckUtil.checkLngLat(lng, lat)) {
@@ -267,7 +254,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
                     .addFormDataPart("longitude", String.valueOf(lng))
                     .addFormDataPart("latitude", String.valueOf(lat));
             /*如果是企业，则传企业名称*/
-            if (isEnterprise ) {
+            if (isEnterprise) {
                 bodyBuilder.addFormDataPart("enterpriseName", companyName);
             }
             /*如果是导入，则传personId*/
@@ -354,9 +341,67 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     }
 
     @Override
-    public void onAddRosterSuccess() {
+    public void onAddRosterSuccess(String houseId) {
         EventBus.getDefault().post(new RefreshRostersEvent());
-        DialogUtil.showQuitDialog(this, "花名册添加成功");
+        EventBus.getDefault().post(getRefreshRostersEvent(houseId));
+        DialogUtil.showDoubleDialog(this, "花名册添加成功，是否继续添加", new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                RosterAddActivity.this.finish();
+            }
+        }, new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                clearData();
+            }
+        });
     }
 
+    private AddRostersEvent getRefreshRostersEvent(String houseId) {
+        String address = setRosterAddress.getText().toString().trim();
+        String realName = setRosterName.getText().toString().trim();
+        String phone = setRosterPhone.getText().toString().trim();
+        Roster roster = new Roster();
+        roster.setHouseId(houseId);
+        roster.setLongitude(lng);
+        roster.setLatitude(lat);
+        roster.setEnterprise(isEnterprise);
+        roster.setEvaluated(isEvaluated);
+        roster.setMeasured(isMeasured);
+        roster.setRealName(realName);
+        roster.setMobilePhone(phone);
+        roster.setHouseAddress(address);
+        return new AddRostersEvent(roster);
+    }
+
+    private void clearData() {
+//        lng = 0;
+////        lat = 0;
+////        gender = true;
+////        isEnterprise = false;
+////        isMeasured = false;
+////        isEvaluated = false;
+////        personId = "";
+////        smbRosterType.setSelectedTab(0);
+////        smbRosterGender.setSelectedTab(0);
+////        smbRosterMeasured.setSelectedTab(0);
+////        smbRosterEvaluated.setSelectedTab(0);
+////        setRosterAddress.setText("");
+////        setRosterCompanyName.setText("");
+////        setRosterName.setText("");
+////        setRosterPhone.setText("");
+////        setRosterIdcard.setText("");
+////        setRosterRemark.setText("");
+////        imgUriAdapter.clearDate();
+////        lngLatFragment.setLnglat(Constants.MapSetting.Lat, Constants.MapSetting.Lng);
+////        ivRosterLocation.setBackgroundResource(R.mipmap.ic_confirm_nor);
+////        tvRosterHasLocationed.setText("未定位");
+        restartActivity();
+    }
+
+    private void restartActivity() {
+        Intent mIntent = getIntent();
+        finish();
+        startActivity(mIntent);
+    }
 }

@@ -74,7 +74,10 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         this.mDatas = list;
         notifyDataSetChanged();
     }
-
+    public void addData(T data) {
+        this.mDatas.add(0,data);
+        notifyDataSetChanged();
+    }
 
 
 }

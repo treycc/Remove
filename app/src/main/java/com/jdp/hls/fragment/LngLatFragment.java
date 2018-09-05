@@ -1,5 +1,6 @@
 package com.jdp.hls.fragment;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +10,6 @@ import android.view.View;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.MapView;
 import com.amap.api.maps.TextureMapView;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
@@ -17,10 +17,12 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.jdp.hls.R;
+import com.jdp.hls.activity.LocationActivity;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.ToastUtil;
 
 import butterknife.BindView;
 
@@ -30,7 +32,7 @@ import butterknife.BindView;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class LngLatFragment extends BaseFragment {
+public class LngLatFragment extends BaseFragment implements AMap.OnMapClickListener {
     @BindView(R.id.map_fragment)
     TextureMapView mMapView;
     private AMap aMap;
@@ -42,6 +44,7 @@ public class LngLatFragment extends BaseFragment {
         mMapView.onCreate(savedInstanceState);
         if (aMap == null) {
             aMap = mMapView.getMap();
+            aMap.setOnMapClickListener(this);
             aMap.moveCamera(CameraUpdateFactory.zoomBy(Constants.MapSetting.Zoom));
             aMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Constants.MapSetting.Lat, Constants.MapSetting
                     .Lng)));
@@ -151,6 +154,10 @@ public class LngLatFragment extends BaseFragment {
             mMapView.onDestroy();
             mMapView=null;
         }
+    }
 
+    @Override
+    public void onMapClick(LatLng latLng) {
+        startActivity(new Intent(getActivity(), LocationActivity.class));
     }
 }

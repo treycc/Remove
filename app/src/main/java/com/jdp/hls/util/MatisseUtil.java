@@ -1,16 +1,14 @@
 package com.jdp.hls.util;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
 
-import com.jdp.hls.R;
 import com.jdp.hls.model.entiy.DTOImgInfo;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.util.ArrayList;
@@ -25,33 +23,34 @@ import java.util.List;
 public class MatisseUtil {
     public static final int REQUEST_CODE_CHOOSE=888;
 
-    public static void openCamera(Activity context) {
-        Matisse.from(context)
-                .choose(MimeType.allOf())
-                .countable(true)
-                .capture(true)
-                .theme(R.style.PhotoTheme)//主题  暗色主题 R.style.Matisse_Dracula
-                .maxSelectable(9) // 图片选择的最多数量
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                .thumbnailScale(0.85f) // 缩略图的比例
-                .imageEngine(new GlideEngine()) // 使用的图片加载引擎
-                .captureStrategy(new CaptureStrategy(true,"com.jdp.hls.fileProvider"))
-                .forResult(REQUEST_CODE_CHOOSE); // 设置作为标记的请求码
-    }
     public static void openCamera(Activity context,int maxCount) {
         Matisse.from(context)
-                .choose(MimeType.allOf())
+                .choose(MimeType.ofAll(), false)
                 .countable(true)
                 .capture(true)
-                .theme(R.style.PhotoTheme)//主题  暗色主题 R.style.Matisse_Dracula
-                .maxSelectable(maxCount) // 图片选择的最多数量
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                .thumbnailScale(0.85f) // 缩略图的比例
-                .imageEngine(new GlideEngine()) // 使用的图片加载引擎
-                .captureStrategy(new CaptureStrategy(true,"com.jdp.hls.fileProvider"))
-                .forResult(REQUEST_CODE_CHOOSE); // 设置作为标记的请求码
+                .captureStrategy(
+                        new CaptureStrategy(true, "com.jdp.hls.fileProvider"))
+                .maxSelectable(maxCount)
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                .thumbnailScale(0.85f)
+                .originalEnable(true)
+                .maxOriginalSize(10)
+                .forResult(REQUEST_CODE_CHOOSE);
     }
-
+    public static void openCameraInFragment(Fragment context, int maxCount) {
+        Matisse.from(context)
+                .choose(MimeType.ofAll(), false)
+                .countable(true)
+                .capture(true)
+                .captureStrategy(
+                        new CaptureStrategy(true, "com.jdp.hls.fileProvider"))
+                .maxSelectable(maxCount)
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                .thumbnailScale(0.85f)
+                .originalEnable(true)
+                .maxOriginalSize(10)
+                .forResult(REQUEST_CODE_CHOOSE);
+    }
     public static List<ImgInfo> getImgInfoFromUri(List<Uri> uris) {
         List<ImgInfo> imgInfos = new ArrayList<>();
         for (Uri uri : uris) {

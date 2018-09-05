@@ -1,11 +1,10 @@
-package com.jdp.hls.page.rosteradd;
+package com.jdp.hls.page.mine;
 
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
-import com.jdp.hls.model.entiy.RosterDetail;
 
-import okhttp3.RequestBody;
+import okhttp3.MultipartBody;
 
 /**
  * Description：TODO
@@ -13,12 +12,13 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public interface RosterAddContract {
+public interface MineContract {
     interface View extends BaseView {
-        void onAddRosterSuccess(String houseId);
+        void onUploadHeadImgSuccess(String url);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void addRoster(RequestBody requestBody);
+        void uploadHeadImg(MultipartBody.Part headImg);
+
     }
 }

@@ -32,6 +32,7 @@ public class GlideLoader implements IImageLoader {
         Glide.with(context)
                 .load(uri)
                 .centerCrop()
+                .placeholder(R.mipmap.ic_img_placeholder)
                 .error(R.mipmap.ic_img_fail)
                 .crossFade()
                 .skipMemoryCache(true)

@@ -16,7 +16,7 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.event.ResetLoginStatusEvent;
 import com.jdp.hls.fragment.MessageFragment;
-import com.jdp.hls.fragment.MineFragment;
+import com.jdp.hls.page.mine.MineFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.page.map.MapFragment;

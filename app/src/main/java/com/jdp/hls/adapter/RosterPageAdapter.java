@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
@@ -22,13 +23,15 @@ public class RosterPageAdapter extends FragmentPagerAdapter {
     private Fragment[] fragments;
     private String[] titles;
     private  String[] rosterCountArr;
+    private int[] imgArr;
 
-    public RosterPageAdapter(Context context, FragmentManager fm, Fragment[] fragments, String[] titles,String[] rosterCountArr) {
+    public RosterPageAdapter(Context context, FragmentManager fm, Fragment[] fragments, String[] titles, String[] rosterCountArr, int[] imgArr) {
         super(fm);
         this.context = context;
         this.fragments = fragments;
         this.titles = titles;
         this.rosterCountArr = rosterCountArr;
+        this.imgArr = imgArr;
     }
 
 
@@ -51,6 +54,8 @@ public class RosterPageAdapter extends FragmentPagerAdapter {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_tab_roster, null);
         TextView tv_rosterType = view.findViewById(R.id.tv_rosterType);
         TextView tv_rosterCount = view.findViewById(R.id.tv_rosterCount);
+        ImageView iv_icon = view.findViewById(R.id.iv_icon);
+        iv_icon.setBackgroundResource(imgArr[position]);
         tv_rosterType.setText(titles[position]);
         tv_rosterCount.setText(rosterCountArr[position]);
         return view;

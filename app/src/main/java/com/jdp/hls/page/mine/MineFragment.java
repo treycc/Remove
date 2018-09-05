@@ -1,4 +1,4 @@
-package com.jdp.hls.fragment;
+package com.jdp.hls.page.mine;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,19 +12,33 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.base.BaseFragment;
+import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
+import com.jdp.hls.imgaeloader.ImageLoader;
+import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.modify.ModifyAndUploadActivity;
 import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.page.setting.SettingActivity;
-import com.jdp.hls.base.BaseFragment;
-import com.jdp.hls.constant.Constants;
-import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.SpSir;
+import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeImageView;
+import com.zhihu.matisse.Matisse;
+
+import java.io.File;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:TODO
@@ -32,7 +46,7 @@ import butterknife.OnClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment implements MineContract.View {
     @BindView(R.id.iv_personal_head)
     SuperShapeImageView ivPersonalHead;
     @BindView(R.id.tv_mine_account)
@@ -61,10 +75,12 @@ public class MineFragment extends BaseFragment {
     TextView tvMineService;
     @BindView(R.id.iv_arrow_alias)
     ImageView ivArrowAlias;
-    public static final int REQUST_PROJECTS=8;
+    public static final int REQUST_PROJECTS = 8;
+    @Inject
+    MinePresenter minePresenter;
 
     @OnClick({R.id.rl_mine_account, R.id.rl_mine_alias, R.id.rl_mine_project, R.id.rl_mine_phone, R.id
-            .rl_mine_setting, R.id.ll_mine_service})
+            .rl_mine_setting, R.id.ll_mine_service, R.id.ll_personal_head})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_mine_account:
@@ -74,7 +90,7 @@ public class MineFragment extends BaseFragment {
                 ModifyAndUploadActivity.goActivityInFragment(this, Constants.ModifyCode.MODIFY_ALIAS, "别名", alias);
                 break;
             case R.id.rl_mine_project:
-                GoUtil.goActivityForResultInFragment(this, ProjectListActivity.class,REQUST_PROJECTS);
+                GoUtil.goActivityForResultInFragment(this, ProjectListActivity.class, REQUST_PROJECTS);
                 break;
             case R.id.rl_mine_phone:
                 String phone = tvMinePhone.getText().toString().trim();
@@ -85,6 +101,9 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.ll_mine_service:
                 callPhone(tvMineService.getText().toString().trim());
+                break;
+            case R.id.ll_personal_head:
+                MatisseUtil.openCameraInFragment(this,Constants.SINGLE_IMG_UPLOAD_COUNT);
                 break;
             default:
                 break;
@@ -100,7 +119,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LogUtil.e(TAG,"onActivityResult requestCode:"+requestCode);
+        LogUtil.e(TAG, "onActivityResult requestCode:" + requestCode);
         if (resultCode == Activity.RESULT_OK && data != null) {
             String newVaule = data.getStringExtra("newVaule");
             switch (requestCode) {
@@ -111,8 +130,15 @@ public class MineFragment extends BaseFragment {
                     tvMinePhone.setText(newVaule);
                     break;
                 case REQUST_PROJECTS:
-                    LogUtil.e(TAG,"projectName:"+data.getStringExtra("projectName"));
+                    LogUtil.e(TAG, "projectName:" + data.getStringExtra("projectName"));
                     tvMineProject.setText(data.getStringExtra("projectName"));
+                    break;
+                case MatisseUtil.REQUEST_CODE_CHOOSE:
+                    List<Uri> selectedUris = Matisse.obtainResult(data);
+                    if (selectedUris != null && selectedUris.size() > 0) {
+                        ImageLoader.getInstance().loadImage(getActivity(), selectedUris.get(0), ivPersonalHead);
+                        uploadHeadImg(selectedUris.get(0));
+                    }
                     break;
                 default:
                     break;
@@ -121,7 +147,12 @@ public class MineFragment extends BaseFragment {
         }
 
     }
-
+    private void uploadHeadImg(Uri uri) {
+        File headImgFile = FileUtil.getFileByUri(uri, getActivity());
+        RequestBody body = RequestBody.create(MediaType.parse("image/jpg"), headImgFile);
+        MultipartBody.Part photoPart = MultipartBody.Part.createFormData("file", headImgFile.getName(), body);
+        minePresenter.uploadHeadImg(photoPart);
+    }
     public static MineFragment newInstance() {
         MineFragment fragment = new MineFragment();
         Bundle args = new Bundle();
@@ -139,12 +170,15 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initComponent(AppComponent appComponent) {
-
+        DaggerBaseCompnent.builder()
+                .appComponent(appComponent)
+                .build()
+                .inject(this);
     }
 
     @Override
     protected void initView() {
-
+        minePresenter.attachView(this);
     }
 
     @Override
@@ -155,11 +189,13 @@ public class MineFragment extends BaseFragment {
         tvMineAccount.setText(String.valueOf(SpSir.getInstance().getAccountName()));
         tvMineProject.setText(SpSir.getInstance().getProjectName());
         String alias = SpSir.getInstance().getAccountAlias();
-        ivArrowAlias.setVisibility(TextUtils.isEmpty(alias)?View.VISIBLE:View.GONE);
+        ivArrowAlias.setVisibility(TextUtils.isEmpty(alias) ? View.VISIBLE : View.GONE);
         rlMineAlias.setEnabled(TextUtils.isEmpty(alias));
         tvMineAlias.setText(alias);
-
-
+        String headUrl = SpSir.getInstance().getHeadUrl();
+        if (!TextUtils.isEmpty(headUrl)) {
+            ImageLoader.getInstance().loadImage(getActivity(), headUrl, ivPersonalHead);
+        }
     }
 
     @Override
@@ -173,5 +209,9 @@ public class MineFragment extends BaseFragment {
     }
 
 
-
+    @Override
+    public void onUploadHeadImgSuccess(String url) {
+        SpSir.getInstance().setHeadUrl(url);
+        ToastUtil.showText("头像上传成功");
+    }
 }

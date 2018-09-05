@@ -125,7 +125,7 @@
     </style>
 
 
-
+<!--
     <style name="PhotoTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/red_hi</item>
         <item name="colorPrimaryDark">@color/red_hi</item>
@@ -143,5 +143,5 @@
         <item name="bottomToolbar.apply.color">@color/zhihu_bottom_toolbar_apply</item>
         <item name="listPopupWindowStyle">@style/Popup.Zhihu</item>
         <item name="capture.color">@color/zhihu_capture</item>
-    </style>
+    </style>-->
 </resources>

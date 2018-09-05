@@ -10,7 +10,6 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,18 +26,21 @@ import com.jdp.hls.adapter.ImgAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
+import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.PermissionsUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
@@ -115,15 +117,15 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     private LngLatFragment lngLatFragment;
     private ImgAdapter imgAdapter;
     List<Uri> mSelectedUris;
-    private ModifyMap modifyMap;
+    private ModifyMap modifyMap = new ModifyMap();
     @Inject
     RosterDetailPresenter rosterDetailPresenter;
     private double lng;
     private double lat;
     private boolean gender = true;
     private boolean isEnterprise = false;
-    private boolean isMeasured = true;
-    private boolean isEvaluated = true;
+    private boolean isMeasured = false;
+    private boolean isEvaluated = false;
     private String personId;
     private String houseId;
 
@@ -295,8 +297,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                 if (uri != null) {
                     File photoFile = FileUtil.getFileByUri(uri, this);
                     bodyBuilder.addFormDataPart("rosterFile" + i, photoFile.getName(), RequestBody.create(MediaType
-                            .parse
-                                    ("image/*"), photoFile));
+                            .parse("image/*"), photoFile));
                 }
 
             }
@@ -325,7 +326,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
             @Override
             public void onItemClick(List<ImgInfo> list, int position) {
                 if (imgAdapter.isLastItem(position)) {
-                    MatisseUtil.openCamera(RosterDetailActivity.this, Constants.MAX_IMG_UPLOAD_COUNT);
+                    PermissionsUtil.checkOpenPhoto(RosterDetailActivity.this);
                 } else {
                     BigImgActivity.goActivity(RosterDetailActivity.this, MatisseUtil.getDTOImgInfoFromImgInfo(imgAdapter
                             .getDate()), position);
@@ -362,12 +363,12 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
             checkHasModified();
         });
         smbRosterMeasured.setOnSwitchListener((position, tabText) -> {
-            isMeasured = position == 0;
+            isMeasured = position == 1;
             modifyMap.setMeasured(isMeasured);
             checkHasModified();
         });
         smbRosterEvaluated.setOnSwitchListener((position, tabText) -> {
-            isEvaluated = position == 0;
+            isEvaluated = position == 1;
             modifyMap.setEvaluated(isEvaluated);
             checkHasModified();
         });
@@ -391,7 +392,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         personId = rosterDetail.getPersonId();
         lng = rosterDetail.getLongitude();
         lat = rosterDetail.getLatitude();
-        modifyMap = new ModifyMap(rosterDetail);
+        modifyMap.setData(rosterDetail);
         tvRosterName.setText(rosterDetail.getRealName());
         tvRosterAddress.setText(rosterDetail.getHouseAddress());
         tvRosterPhone.setText(rosterDetail.getMobilePhone());
@@ -400,10 +401,10 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         isEnterprise = rosterDetail.isEnterprise();
         gender = rosterDetail.isGender();
         isMeasured = rosterDetail.isMeasured();
-         isEvaluated = rosterDetail.isEvaluated();
+        isEvaluated = rosterDetail.isEvaluated();
         smbRosterGender.setSelectedTab(gender ? 0 : 1);
-        smbRosterMeasured.setSelectedTab(isMeasured ? 0 : 1);
-        smbRosterEvaluated.setSelectedTab(isEvaluated ? 0 : 1);
+        smbRosterMeasured.setSelectedTab(isMeasured ? 1 : 0);
+        smbRosterEvaluated.setSelectedTab(isEvaluated ? 1 : 0);
         llRosterCompanyName.setVisibility(rosterDetail.isEnterprise() ? View.VISIBLE : View.GONE);
         tvRosterCompanyName.setText(rosterDetail.getEnterpriseName());
         setLocation(lng, lat);
@@ -415,9 +416,28 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
 
     @Override
     public void onModifyRosterSuccess() {
-        EventBus.getDefault().post(new RefreshRostersEvent(isEnterprise));
+        EventBus.getDefault().post(new RefreshRostersEvent());
+        EventBus.getDefault().post(getModifyRostersEvent());
         DialogUtil.showQuitDialog(this, "花名册修改成功");
     }
+
+    private ModifyRostersEvent getModifyRostersEvent() {
+        String address = tvRosterAddress.getText().toString().trim();
+        String name = tvRosterName.getText().toString().trim();
+        String phone = tvRosterPhone.getText().toString().trim();
+        Roster roster = new Roster();
+        roster.setHouseId(houseId);
+        roster.setLongitude(lng);
+        roster.setLatitude(lat);
+        roster.setEnterprise(isEnterprise);
+        roster.setEvaluated(isEvaluated);
+        roster.setMeasured(isMeasured);
+        roster.setRealName(name);
+        roster.setMobilePhone(phone);
+        roster.setHouseAddress(address);
+        return new ModifyRostersEvent(roster);
+    }
+
 
     private void setLocation(double lng, double lat) {
         if (lng != 0 && lat != 0) {

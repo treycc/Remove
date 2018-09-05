@@ -43,34 +43,28 @@ public class DialogUtil {
                 .show();
     }
 
-    public static void showDoubleDialog(Context context, String message, MaterialDialog.SingleButtonCallback callback) {
+    public static void showDoubleDialog(Context context, String message, MaterialDialog.SingleButtonCallback
+            positiveCallback) {
         new MaterialDialog.Builder(context)
                 .content(message)
                 .positiveText("确认")
                 .negativeText("取消")
                 .positiveColor(ContextCompat.getColor(context, R.color.main))
                 .negativeColor(ContextCompat.getColor(context, R.color.gray_hi))
-                .onPositive(callback)
+                .onPositive(positiveCallback)
                 .show();
     }
 
-    public static void showDoubleDialog(Context context, String title, String message, MaterialDialog
-            .SingleButtonCallback positiveCallback, MaterialDialog.SingleButtonCallback negativeCallback) {
+    public static void showDoubleDialog(Context context, String message, MaterialDialog.SingleButtonCallback
+            negativecallback, MaterialDialog.SingleButtonCallback positiveCallback) {
         new MaterialDialog.Builder(context)
-                .title(title)
                 .content(message)
                 .positiveText("确认")
                 .negativeText("取消")
-                .positiveColor(ContextCompat.getColor(context, R.color.red_hi))
+                .positiveColor(ContextCompat.getColor(context, R.color.main))
                 .negativeColor(ContextCompat.getColor(context, R.color.gray_hi))
                 .onPositive(positiveCallback)
-                .onNegative(negativeCallback)
+                .onNegative(negativecallback)
                 .show();
-    }
-
-    public static void showLoginActivity(Activity context) {
-        DialogUtil.showConfirmDialog(context, "亲，您还未登录，是否马上登录", (dialog, which) -> {
-            GoUtil.goActivity(context, LoginActivity.class);
-        });
     }
 }

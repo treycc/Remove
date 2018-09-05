@@ -25,7 +25,7 @@ public class ModifyMap extends HashMap<Integer, Boolean> {
 
     private RosterDetail rosterDetail;
 
-    public ModifyMap(RosterDetail rosterDetail) {
+    public void setData(RosterDetail rosterDetail) {
         this.rosterDetail = rosterDetail;
     }
 

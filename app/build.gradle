@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion COMPILE_SDK_VERSION as int
-    buildToolsVersion BUILD_TOOLS_VERSION
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.jdp.hls"
         minSdkVersion MIN_SDK_VERSION as int
@@ -53,6 +53,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.amap.api:location:4.1.0'
+
     //    implementation 'com.amap.api:map2d:5.2.0'
     implementation 'com.amap.api:3dmap:6.3.0'
     implementation 'com.amap.api:search:6.1.0'
@@ -60,49 +61,69 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${SUPPORT_VERSION}"
     implementation "com.android.support:cardview-v7:${SUPPORT_VERSION}"
     implementation "com.android.support:design:${SUPPORT_VERSION}"
+
     /*jakewharton*/
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
     /*multidex*/
     implementation 'com.android.support:multidex:1.0.2'
+
     /*debugCompile*/
     implementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+
     //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
     //Logger
     implementation 'com.orhanobut:logger:2.2.0'
+
     /*glide*/
     implementation 'com.github.bumptech.glide:glide:3.7.0'
+
     /*dagger2*/
     implementation 'com.google.dagger:dagger:2.11'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+
     //RxJava,RxAndroid
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.4'
     implementation 'org.reactivestreams:reactive-streams:1.0.1'
+
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+
     /*KingJA's Libraries*/
     implementation 'com.kingja.loadsir:loadsir:1.3.6'
+
     /*pulltofresh*/
-    implementation 'com.zhihu.android:matisse:0.4.3'
+    implementation 'com.zhihu.android:matisse:0.5.1'
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+
     /*material-dialogs*/
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+
     /*eventbus*/
     implementation 'org.greenrobot:eventbus:3.1.1'
+
     /*rxpermissions*/
     implementation('com.github.tbruyelle:rxpermissions:0.10.2') { exclude group: 'com.android.support' }
+
     /*多重选择按钮*/
     implementation 'lib.kingja.switchbutton:switchbutton:1.1.7'
+
     /*数据库，SP调试*/
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
+
     /*崩溃*/
     implementation 'cat.ereza:customactivityoncrash:2.2.0'
+
     /*图片缩放*/
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    implementation 'com.github.arcadefire:nice-spinner:1.3.4'
 }
 
 def buildApkBy() {

@@ -81,7 +81,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
         RxPermissions rxPermission = new RxPermissions(this);
         Disposable disposable = rxPermission
                 .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.ACCESS_FINE_LOCATION)
+                        Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe(new Consumer<Permission>() {
                     @Override
                     public void accept(Permission permission) throws Exception {
@@ -165,7 +165,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
                 SpSir.getInstance().setProjectName(project.getProjectName());
                 GoUtil.goActivityAndFinish(this, HomeActivity.class);
             }
-        }else{
+        } else {
             ToastUtil.showText("您的账号下没有项目");
         }
     }

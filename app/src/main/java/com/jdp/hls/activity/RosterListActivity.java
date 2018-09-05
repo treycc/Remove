@@ -2,6 +2,7 @@ package com.jdp.hls.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
@@ -13,19 +14,27 @@ import android.widget.ImageView;
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.RosterPageAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.event.AddRostersEvent;
+import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -43,18 +52,25 @@ public class RosterListActivity extends BaseTitleActivity {
     EditText etRostersKeyword;
     @BindView(R.id.iv_rosters_search)
     ImageView ivRostersSearch;
+    @BindView(R.id.iv_clear)
+    ImageView ivClear;
     private String[] rosterArr = {"个人", "企业"};
     private String[] rosterCountArr = {"0户", "0家"};
+    private int[] imgArr = {R.mipmap.ic_location_personal, R.mipmap.ic_location_enterprise};
     private RosterListFragment mFragmentArr[] = new RosterListFragment[2];
     private List<Roster> rosters;
     private List<Roster> personalRosters = new ArrayList<>();
     private List<Roster> companyRosters = new ArrayList<>();
     private RosterPageAdapter mRosterPageAdapter;
 
-    @OnClick({R.id.iv_rosters_search})
+    @OnClick({R.id.iv_rosters_search, R.id.iv_clear})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.iv_rosters_search:
+                break;
+
+            case R.id.iv_clear:
+                etRostersKeyword.setText("");
                 break;
         }
     }
@@ -62,6 +78,7 @@ public class RosterListActivity extends BaseTitleActivity {
 
     @Override
     public void initVariable() {
+        EventBus.getDefault().register(this);
         rosters = (List<Roster>) getIntent().getSerializableExtra("rosters");
         for (Roster roster : rosters) {
             if (roster.isEnterprise()) {
@@ -72,6 +89,12 @@ public class RosterListActivity extends BaseTitleActivity {
         }
         rosterCountArr[0] = personalRosters.size() + "户";
         rosterCountArr[1] = companyRosters.size() + "家";
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -97,7 +120,7 @@ public class RosterListActivity extends BaseTitleActivity {
         mFragmentArr[0] = RosterListFragment.newInstance(personalRosters, 0);
         mFragmentArr[1] = RosterListFragment.newInstance(companyRosters, 1);
         mRosterPageAdapter = new RosterPageAdapter(this, getSupportFragmentManager(), mFragmentArr,
-                rosterArr, rosterCountArr);
+                rosterArr, rosterCountArr, imgArr);
         vpRoster.setAdapter(mRosterPageAdapter);
         vpRoster.setOffscreenPageLimit(2);
         tabRoster.setupWithViewPager(vpRoster);
@@ -129,6 +152,7 @@ public class RosterListActivity extends BaseTitleActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 checkData(s.toString());
+                ivClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
             }
         });
     }
@@ -142,6 +166,10 @@ public class RosterListActivity extends BaseTitleActivity {
             ToastUtil.showText("暂无花名册信息");
             return;
         }
+        refreshData(keyword);
+    }
+
+    private void refreshData(String keyword) {
         List<Roster> selectRosters = new ArrayList<>();
         for (Roster roster : rosters) {
             if (roster.getRealName().contains(keyword) || roster.getHouseAddress().contains(keyword) || roster
@@ -161,8 +189,12 @@ public class RosterListActivity extends BaseTitleActivity {
         mFragmentArr[0].refreshData(personalRosters);
         mFragmentArr[1].refreshData(companyRosters);
 
-        rosterCountArr[0] = personalRosters.size() + "户";
-        rosterCountArr[1] = companyRosters.size() + "家";
+        refreshTitles(personalRosters.size(), companyRosters.size());
+    }
+
+    private void refreshTitles(int personalRosters, int companyRosters) {
+        rosterCountArr[0] = personalRosters + "户";
+        rosterCountArr[1] = companyRosters + "家";
 
         mRosterPageAdapter.refreshrosterCount(rosterCountArr);
 
@@ -183,4 +215,15 @@ public class RosterListActivity extends BaseTitleActivity {
         activity.startActivity(intent);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void addRosters(AddRostersEvent event) {
+        int personalCount = personalRosters.size();
+        int companyCount = companyRosters.size();
+        if (event.getRoster().isEnterprise()) {
+            companyCount++;
+        } else {
+            personalCount++;
+        }
+        refreshTitles(personalCount, companyCount);
+    }
 }

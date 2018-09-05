@@ -23,13 +23,19 @@
             android:text="类型"/>
 
 
-        <Spinner
-            android:id="@+id/sp_suggestType"
-            style="@style/font_9_13"
+        <!--<Spinner-->
+            <!--android:id="@+id/sp_suggestType"-->
+            <!--style="@style/font_9_13"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:entries="@array/suggestType"-->
+            <!--/>-->
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/nice_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/suggestType"
-            />
+            app:textTint="@color/c_9"/>
     </LinearLayout>
 
 

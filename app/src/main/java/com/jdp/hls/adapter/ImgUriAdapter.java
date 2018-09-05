@@ -67,6 +67,11 @@ public class ImgUriAdapter extends BaseRvPositionAdapter<Uri> {
         this.notifyDataSetChanged();
     }
 
+    public void clearDate() {
+        this.list.clear();
+        this.notifyDataSetChanged();
+    }
+
     public List<Uri> getDate() {
         return list;
     }

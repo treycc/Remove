@@ -33,8 +33,12 @@ import com.jdp.hls.view.RvItemDecoration;
 import com.kingja.supershapeview.view.SuperShapeEditText;
 import com.zhihu.matisse.Matisse;
 
+import org.angmarch.views.NiceSpinner;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,8 +55,8 @@ import okhttp3.RequestBody;
  * Email:kingjavip@gmail.com
  */
 public class SuggestActivity extends BaseTitleActivity implements SuggestContract.View {
-    @BindView(R.id.sp_suggestType)
-    Spinner spSuggestType;
+    @BindView(R.id.nice_spinner)
+    NiceSpinner niceSpinner;
     @BindView(R.id.et_content)
     SuperShapeEditText etContent;
     @BindView(R.id.rv_suggest_img)
@@ -132,7 +136,8 @@ public class SuggestActivity extends BaseTitleActivity implements SuggestContrac
                 checkData();
             }
         });
-        spSuggestType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        niceSpinner.attachDataSource(Arrays.asList("功能异常:功能故障或不可用", "产品建议:用的不爽，我有建议", "安全问题:密码、隐私、欺诈等", "其它问题"));
+        niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 suggestType = position;
@@ -171,7 +176,7 @@ public class SuggestActivity extends BaseTitleActivity implements SuggestContrac
 
     @Override
     public void onSuggestSuccess() {
-       DialogUtil.showQuitDialog(this,"感谢您提供的意见和建议");
+        DialogUtil.showQuitDialog(this, "感谢您提供的意见和建议");
     }
 
 }

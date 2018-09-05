@@ -22,7 +22,7 @@ import butterknife.Unbinder;
  * Time: 12:14 AM
  * Desc: BaseFragment
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements BaseView {
     protected String TAG = getClass().getSimpleName();
     private ProgressDialog mDialogProgress;
     protected Unbinder unbinder;
@@ -99,12 +99,13 @@ public abstract class BaseFragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
     }
+    @Override
+    public void showLoading() {
+        setProgressShow(true);
+    }
 
-    public void showEmptyCallback(){}
-
-    public void showErrorCallback(){}
-
-    public void showNetError(){}
-
-    public void showSuccessCallback(){}
+    @Override
+    public void hideLoading() {
+        setProgressShow(false);
+    }
 }

@@ -11,12 +11,15 @@ import com.jdp.hls.model.entiy.RosterDetail;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -71,9 +74,9 @@ public interface ApiService {
     @GET("api/project/GetUserProject")
     Observable<HttpResult<List<Project>>> getProjects(@Query("userId") int userId);
 
-    /*增加花名册*/
+    /*添加花名册*/
     @POST("api/person/AddRoster")
-    Observable<HttpResult<Object>> addRoster(@Body RequestBody rosterBody);
+    Observable<HttpResult<String>> addRoster(@Body RequestBody rosterBody);
 
     /*获取人员列表*/
     @GET("api/person/GetPersonList")
@@ -104,4 +107,9 @@ public interface ApiService {
             applicationType, @Field("oSversion") String oSversion, @Field("exceptionType") String exceptionType,
                                                @Field("exceptionMsg") String exceptionMsg, @Field("employeeId")
                                                        String employeeId);
+
+    /*上传头像*/
+    @Multipart
+    @POST("api/user/postUserPhoto")
+    Observable<HttpResult<String>> uploadHeadImg(@Part MultipartBody.Part headImg);
 }

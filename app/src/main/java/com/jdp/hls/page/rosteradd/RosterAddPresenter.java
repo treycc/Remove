@@ -31,10 +31,10 @@ public class RosterAddPresenter implements RosterAddContract.Presenter {
     public void addRoster(RequestBody requestBody) {
         mApi.getApiService().addRoster(requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<String>(mView) {
                     @Override
-                    protected void onSuccess(Object obj) {
-                        mView.onAddRosterSuccess();
+                    protected void onSuccess(String houseId) {
+                        mView.onAddRosterSuccess(houseId);
                     }
 
                 });
