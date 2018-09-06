@@ -2,19 +2,13 @@ package com.jdp.hls.page.suggest;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.Spinner;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jdp.hls.R;
 import com.jdp.hls.activity.BigImgActivity;
 import com.jdp.hls.adapter.BaseRvPositionAdapter;
@@ -28,7 +22,6 @@ import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SpSir;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.RvItemDecoration;
 import com.kingja.supershapeview.view.SuperShapeEditText;
 import com.zhihu.matisse.Matisse;
@@ -38,7 +31,6 @@ import org.angmarch.views.NiceSpinner;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;

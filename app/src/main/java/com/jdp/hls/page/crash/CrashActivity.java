@@ -121,7 +121,7 @@ public class CrashActivity extends BaseTitleActivity implements CrashContract.Vi
 
     @Override
     protected void initNet() {
-        crashPresenter.uploadError("", "1", VersionUtil.getVerName(this), "2", getErrorInfo(), "1");
+//        crashPresenter.uploadError("", "1", VersionUtil.getVerName(this), "2", getErrorInfo(), "1");
     }
 
     private void copyErrorToClipboard() {

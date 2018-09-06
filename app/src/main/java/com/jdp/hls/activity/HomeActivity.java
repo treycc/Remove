@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.event.ResetLoginStatusEvent;
+import com.jdp.hls.fragment.HomeFragment;
 import com.jdp.hls.fragment.MessageFragment;
 import com.jdp.hls.page.mine.MineFragment;
 import com.jdp.hls.injector.component.AppComponent;
@@ -63,7 +64,7 @@ public class HomeActivity extends BaseTitleActivity {
     private FragmentManager supportFragmentManager;
     private Fragment currentFragment;
     private static SparseArray<Fragment> fragmentMap = new SparseArray<>();
-    private static final int FRAGMENT_MAP = 0;
+    private static final int FRAGMENT_HOME = 0;
     private static final int FRAGMENT_MESSAGE = 1;
     private static final int FRAGMENT_MINE = 2;
     private int currentTabIndex = 0;
@@ -72,7 +73,7 @@ public class HomeActivity extends BaseTitleActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_tab_map:
-                switchFragment(FRAGMENT_MAP);
+                switchFragment(FRAGMENT_HOME);
                 break;
             case R.id.ll_tab_message:
                 switchFragment(FRAGMENT_MESSAGE);
@@ -109,7 +110,7 @@ public class HomeActivity extends BaseTitleActivity {
     @Override
     protected void initView() {
         supportFragmentManager = getSupportFragmentManager();
-        fragmentMap.put(FRAGMENT_MAP, currentFragment = MapFragment.newInstance());
+        fragmentMap.put(FRAGMENT_HOME, currentFragment =new HomeFragment());
         fragmentMap.put(FRAGMENT_MESSAGE, MessageFragment.newInstance());
         fragmentMap.put(FRAGMENT_MINE, MineFragment.newInstance());
         getSupportFragmentManager().beginTransaction().add(R.id.fl_home, currentFragment).commit();
@@ -152,14 +153,14 @@ public class HomeActivity extends BaseTitleActivity {
     }
 
     private void setTabStatus(int fragmentId) {
-        tvTabMap.setTextColor(fragmentId == FRAGMENT_MAP ? ContextCompat.getColor(this, R.color.main) : ContextCompat
+        tvTabMap.setTextColor(fragmentId == FRAGMENT_HOME ? ContextCompat.getColor(this, R.color.main) : ContextCompat
                 .getColor(this, R.color.c_9));
         tvTabMessage.setTextColor(fragmentId == FRAGMENT_MESSAGE ? ContextCompat.getColor(this, R.color.main) :
                 ContextCompat
                         .getColor(this, R.color.c_9));
         tvTabMine.setTextColor(fragmentId == FRAGMENT_MINE ? ContextCompat.getColor(this, R.color.main) : ContextCompat
                 .getColor(this, R.color.c_9));
-        ivTabMap.setBackgroundResource(fragmentId == FRAGMENT_MAP ? R.mipmap.ic_tab_map_sel : R.mipmap.ic_tab_map_nor);
+        ivTabMap.setBackgroundResource(fragmentId == FRAGMENT_HOME ? R.mipmap.ic_tab_map_sel : R.mipmap.ic_tab_map_nor);
         ivTabMessage.setBackgroundResource(fragmentId == FRAGMENT_MESSAGE ? R.mipmap.ic_tab_msg_sel : R.mipmap
                 .ic_tab_msg_nor);
         ivTabMine.setBackgroundResource(fragmentId == FRAGMENT_MINE ? R.mipmap.ic_tab_mine_sel : R.mipmap

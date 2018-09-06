@@ -119,11 +119,12 @@ dependencies {
 
     /*崩溃*/
     implementation 'cat.ereza:customactivityoncrash:2.2.0'
-
     /*图片缩放*/
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
-
+    /*下拉框*/
     implementation 'com.github.arcadefire:nice-spinner:1.3.4'
+    /*图表*/
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }
 
 def buildApkBy() {

@@ -16,4 +16,10 @@
     <color name="half_hi">#33ffffff</color>
     <color name="main">#13A4F9</color>
     <color name="transparent">#00ffffff</color>
+
+
+    <color name="pie_red">#F18F72</color>
+    <color name="pie_yellow">#F1EE6B</color>
+    <color name="pie_cyan">#76DDDC</color>
+    <color name="pie_green">#8FC320</color>
 </resources>

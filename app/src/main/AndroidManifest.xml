@@ -28,13 +28,13 @@
         android:name="com.jdp.hls.base.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_start"
-        android:roundIcon="@mipmap/ic_start"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_start"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <!--.page.login.LoginActivity-->
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.StatisticsActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -122,6 +122,14 @@
         <activity
             android:name=".page.crash.CrashActivity"
             android:screenOrientation="portrait"/>
+        <!--征收业务-->
+        <activity
+            android:name=".activity.LevyActivity"
+            android:screenOrientation="portrait"/>
+        <!--统计-->
+  <!--      <activity
+            android:name=".activity.StatisticsActivity"
+            android:screenOrientation="portrait"/>-->
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -139,13 +147,13 @@
         </provider>
 
         <!--<provider-->
-            <!--android:name="android.support.v4.content.FileProvider"-->
-            <!--android:authorities="com.zhihu.matisse.sample.fileprovider"-->
-            <!--android:exported="false"-->
-            <!--android:grantUriPermissions="true">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-                <!--android:resource="@xml/file_paths_public"></meta-data>-->
+        <!--android:name="android.support.v4.content.FileProvider"-->
+        <!--android:authorities="com.zhihu.matisse.sample.fileprovider"-->
+        <!--android:exported="false"-->
+        <!--android:grantUriPermissions="true">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+        <!--android:resource="@xml/file_paths_public"></meta-data>-->
         <!--</provider>-->
 
     </application>
