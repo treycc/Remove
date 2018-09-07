@@ -78,7 +78,7 @@ public class MessageFragment extends BaseFragment {
     }
 
     @Override
-    protected void initDate() {
+    protected void initData() {
 
     }
 

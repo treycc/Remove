@@ -58,7 +58,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    protected void initDate() {
+    protected void initData() {
 
     }
 

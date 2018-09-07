@@ -21,6 +21,7 @@ public class Constants {
     public static final int GRIDVIEW_GIFT_COUNT = 4;
     public static final int MAX_IMG_UPLOAD_COUNT = 9;
     public static final int SINGLE_IMG_UPLOAD_COUNT = 1;
+
     public static final String  LOG_FILENAME = "Logs";
     public static final String DIR_HIL = "HLS";
 
@@ -39,6 +40,9 @@ public class Constants {
         int MODIFY_REMARK = 6;
     }
 
+    public interface RequestCode {
+        int REQUEST_CODE_LOCATION = 10;
+    }
     public interface MapSetting {
         double Lat = 27.965626136017267;
         double Lng = 120.73433669492793;

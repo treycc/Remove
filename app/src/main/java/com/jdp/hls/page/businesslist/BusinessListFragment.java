@@ -1,4 +1,4 @@
-package com.jdp.hls.page.rosterlist;
+package com.jdp.hls.page.businesslist;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,9 +14,11 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.event.AddRostersEvent;
 import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.Task;
+import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
+import com.jdp.hls.page.rosterlist.GetRostersByTypeContract;
+import com.jdp.hls.page.rosterlist.GetRostersByTypePresenter;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
@@ -36,12 +38,12 @@ import butterknife.BindView;
 import butterknife.OnItemClick;
 
 /**
- * Description:花名册列表
+ * Description:业务列表
  * Create Time:2018/7/27 0027 下午 2:59
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class RosterListFragment extends BaseFragment implements GetRostersByTypeContract.View, SwipeRefreshLayout
+public class BusinessListFragment extends BaseFragment implements GetRostersByTypeContract.View, SwipeRefreshLayout
         .OnRefreshListener {
     @BindView(R.id.plv)
     PullToBottomListView plv;
@@ -53,8 +55,8 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
     @Inject
     GetRostersByTypePresenter getRostersByTypePresenter;
 
-    public static RosterListFragment newInstance(List<Roster> rosters, int isEnterprise) {
-        RosterListFragment fragment = new RosterListFragment();
+    public static BusinessListFragment newInstance(List<Business> rosters, int isEnterprise) {
+        BusinessListFragment fragment = new BusinessListFragment();
         Bundle args = new Bundle();
         args.putSerializable("rosters", (Serializable) rosters);
         args.putInt("isEnterprise", isEnterprise);

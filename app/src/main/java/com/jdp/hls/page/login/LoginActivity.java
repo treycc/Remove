@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import com.jdp.hls.R;
-import com.jdp.hls.activity.HomeActivity;
+import com.jdp.hls.page.home.HomeActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;

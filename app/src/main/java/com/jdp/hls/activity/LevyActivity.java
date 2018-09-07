@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.page.businesslist.BusinessListActivity;
+import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.util.GoUtil;
 
 import butterknife.BindView;
@@ -64,6 +66,7 @@ public class LevyActivity extends BaseTitleActivity {
         switch (view.getId()) {
             case R.id.ll_business_todo:
                 /*待办业务*/
+                GoUtil.goActivity(this, BusinessListActivity.class);
                 break;
             case R.id.ll_business_done:
                 /*已办业务*/
@@ -79,6 +82,7 @@ public class LevyActivity extends BaseTitleActivity {
                 break;
             case R.id.ll_operate_roster:
                 /*花名册*/
+                GoUtil.goActivity(this, RosterActivity.class);
                 break;
             case R.id.ll_operate_publicity:
                 /*公示管理*/
@@ -91,7 +95,7 @@ public class LevyActivity extends BaseTitleActivity {
                 break;
             case R.id.ll_statistics_sign:
                 /*签约统计*/
-                GoUtil.goActivity(this,StatisticsActivity.class);
+                GoUtil.goActivity(this, StatisticsActivity.class);
                 break;
             case R.id.ll_statistics_measure:
                 /*入户丈量*/

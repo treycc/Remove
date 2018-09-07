@@ -39,7 +39,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         initCommon();
         initComponent(App.getContext().getAppComponent());
         initView();
-        initDate();
+        initData();
         initNet();
     }
 
@@ -66,7 +66,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     protected abstract void initView();
 
-    protected abstract void initDate();
+    protected abstract void initData();
 
     protected abstract void initNet();
 

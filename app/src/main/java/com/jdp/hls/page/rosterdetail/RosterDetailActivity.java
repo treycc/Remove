@@ -111,7 +111,6 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     TextView tvRosterCompanyName;
     @BindView(R.id.ll_roster_location)
     LinearLayout llRosterLocation;
-    private static final int REQUEST_CODE_LOCATION = 1;
     private List<ImgInfo> imgInfos = new ArrayList<>();
     private Roster roster;
     private LngLatFragment lngLatFragment;
@@ -160,7 +159,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                 ModifyActivity.goActivityInActivity(this, Constants.ModifyCode.MODIFY_REMARK, "备注", remark);
                 break;
             case R.id.ll_roster_location:
-                GoUtil.goActivityForResult(this, LocationActivity.class, REQUEST_CODE_LOCATION);
+                GoUtil.goActivityForResult(this, LocationActivity.class, Constants.RequestCode.REQUEST_CODE_LOCATION);
                 break;
 
         }
@@ -195,7 +194,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                     setRosterRemark.setText(newVaule);
                     modifyMap.setRemark(newVaule);
                     break;
-                case REQUEST_CODE_LOCATION:
+                case Constants.RequestCode.REQUEST_CODE_LOCATION:
                     lng = data.getDoubleExtra("lng", -1);
                     lat = data.getDoubleExtra("lat", -1);
                     setLocation(lng, lat);

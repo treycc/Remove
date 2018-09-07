@@ -7,6 +7,7 @@ import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
+import com.jdp.hls.model.entiy.Task;
 
 import java.util.List;
 
@@ -112,4 +113,9 @@ public interface ApiService {
     @Multipart
     @POST("api/user/postUserPhoto")
     Observable<HttpResult<String>> uploadHeadImg(@Part MultipartBody.Part headImg);
+
+    /*获取任务数*/
+    @FormUrlEncoded
+    @POST("api/workflow/getTaskCount")
+    Observable<HttpResult<List<Task>>> getTask(@Field("projectId") String projectId);
 }

@@ -1,7 +1,10 @@
 package com.jdp.hls.base;
 
 
+import com.jdp.hls.page.businesslist.BusinessListActivity;
+import com.jdp.hls.page.businesslist.BusinessListFragment;
 import com.jdp.hls.page.crash.CrashActivity;
+import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.page.mine.MineFragment;
 import com.jdp.hls.page.setting.SettingActivity;
 import com.jdp.hls.injector.annotation.PerActivity;
@@ -36,4 +39,7 @@ public interface BaseCompnent {
     void inject(SettingActivity target);
     void inject(CrashActivity target);
     void inject(MineFragment target);
+    void inject(RosterActivity target);
+    void inject(BusinessListActivity target);
+    void inject(BusinessListFragment target);
 }

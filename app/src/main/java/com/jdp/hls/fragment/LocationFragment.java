@@ -102,7 +102,7 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     }
 
     @Override
-    protected void initDate() {
+    protected void initData() {
 
     }
 

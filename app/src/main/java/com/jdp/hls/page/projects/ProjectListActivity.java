@@ -6,13 +6,11 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.activity.HomeActivity;
+import com.jdp.hls.page.home.HomeActivity;
 import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
-import com.jdp.hls.callback.ErrorCallback;
-import com.jdp.hls.callback.LoadingCallback;
 import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Project;
@@ -22,9 +20,6 @@ import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
-import com.kingja.loadsir.callback.Callback;
-import com.kingja.loadsir.core.LoadService;
-import com.kingja.loadsir.core.LoadSir;
 
 import org.greenrobot.eventbus.EventBus;
 

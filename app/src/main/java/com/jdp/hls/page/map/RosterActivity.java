@@ -6,9 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,7 +27,7 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.jdp.hls.R;
 import com.jdp.hls.activity.RosterListActivity;
-import com.jdp.hls.base.BaseFragment;
+import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.RefreshRostersEvent;
@@ -56,7 +54,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -66,7 +63,7 @@ import butterknife.Unbinder;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MapFragment extends BaseFragment implements LocationSource, AMapLocationListener, GetRosterContract
+public class RosterActivity extends BaseTitleActivity implements LocationSource, AMapLocationListener, GetRosterContract
         .View, AMap.OnMarkerClickListener, AMap.OnInfoWindowClickListener, AMap.OnMapClickListener, TextView
         .OnEditorActionListener {
     @BindView(R.id.tv_title)
@@ -81,7 +78,6 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     ImageView ivMapShowall;
     @BindView(R.id.iv_map_refresh)
     ImageView ivMapRefresh;
-    Unbinder unbinder;
     @BindView(R.id.iv_search)
     ImageView ivSearch;
     Unbinder unbinder1;
@@ -89,7 +85,6 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     EditText etKeyword;
     @BindView(R.id.iv_clear)
     ImageView ivClear;
-    Unbinder unbinder2;
     private AMap mAMap;
     public AMapLocationClient mLocationClient;
     private OnLocationChangedListener mListener;
@@ -104,19 +99,19 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
         switch (view.getId()) {
             case R.id.tv_roster_list:
                 if (rosters != null) {
-                    RosterListActivity.goActivity(getActivity(), rosters);
+                    RosterListActivity.goActivity(this, rosters);
                 } else {
                     ToastUtil.showText("没有花名册信息");
                 }
                 break;
             case R.id.tv_roster_add:
-                GoUtil.goActivity(getActivity(), RosterAddActivity.class);
+                GoUtil.goActivity(this, RosterAddActivity.class);
                 break;
             case R.id.iv_map_refresh:
                 initNet();
                 break;
             case R.id.iv_search:
-                SoftKeyboardUtil.hideSoftKeyboard(getActivity());
+                SoftKeyboardUtil.hideSoftKeyboard(this);
                 String keyword = etKeyword.getText().toString().trim();
                 checkData(keyword);
                 break;
@@ -134,8 +129,8 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mMapView.onCreate(savedInstanceState);
         if (mAMap == null) {
             mAMap = mMapView.getMap();
@@ -148,24 +143,18 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
             mAMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
             mAMap.setOnInfoWindowClickListener(this);// 设置点击InfoWindow事件监听器
             mAMap.setOnMapClickListener(this);
-            mAMap.setInfoWindowAdapter(new KMapInfoWindowAdapter(getActivity()));
+            mAMap.setInfoWindowAdapter(new KMapInfoWindowAdapter(this));
         }
-    }
-
-    public static MapFragment newInstance() {
-        MapFragment fragment = new MapFragment();
-        Bundle args = new Bundle();
-        args.putString("param", null);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
-    protected void initVariable() {
+    public void initVariable() {
         EventBus.getDefault().register(this);
-        if (getArguments() != null) {
-            String param = getArguments().getString("param");
-        }
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_map;
     }
 
 
@@ -175,6 +164,11 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    protected String getContentTitle() {
+        return SpSir.getInstance().getProjectName();
     }
 
     @Override
@@ -194,14 +188,10 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
         tvTitle.setText(SpSir.getInstance().getProjectName());
     }
 
+
     @Override
     protected void initNet() {
         getRosterPresenter.getRosterList(SpSir.getInstance().getProjectId(), SpSir.getInstance().getEmployeeId());
-    }
-
-    @Override
-    protected int getContentId() {
-        return R.layout.fragment_map;
     }
 
     /**
@@ -240,6 +230,11 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
         super.onDestroy();
     }
 
+    @Override
+    protected boolean ifHideTitle() {
+        return true;
+    }
+
     /**
      * 激活定位
      */
@@ -268,7 +263,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
 
     private void initLocation() {
         //初始化定位
-        mLocationClient = new AMapLocationClient(getActivity());
+        mLocationClient = new AMapLocationClient(this);
         //设置定位回调监听
         mLocationClient.setLocationListener(this);
         //初始化AMapLocationClientOption对象
@@ -382,7 +377,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     @Override
     public void onInfoWindowClick(Marker marker) {
         Roster roster = (Roster) marker.getObject();
-        RosterDetailActivity.goActivity(getActivity(), roster);
+        RosterDetailActivity.goActivity(this, roster);
     }
 
     @Override
@@ -414,17 +409,4 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
         refreshRostersOnMap(selectRosters);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder2 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder2.unbind();
-    }
 }

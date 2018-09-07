@@ -21,6 +21,8 @@ import com.jdp.hls.activity.LocationActivity;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.page.rosteradd.RosterAddActivity;
+import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.ToastUtil;
 
@@ -101,7 +103,7 @@ public class LngLatFragment extends BaseFragment implements AMap.OnMapClickListe
     }
 
     @Override
-    protected void initDate() {
+    protected void initData() {
 
     }
 
@@ -158,6 +160,6 @@ public class LngLatFragment extends BaseFragment implements AMap.OnMapClickListe
 
     @Override
     public void onMapClick(LatLng latLng) {
-        startActivity(new Intent(getActivity(), LocationActivity.class));
+        GoUtil.goActivityForResult(getActivity(), LocationActivity.class, Constants.RequestCode.REQUEST_CODE_LOCATION);
     }
 }

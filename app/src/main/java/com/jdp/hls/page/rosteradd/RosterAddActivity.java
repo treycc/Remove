@@ -128,7 +128,6 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     private List<Uri> photoUris = new ArrayList<>();
     private ImgUriAdapter imgUriAdapter;
     List<Uri> mSelectedUris;
-    private static final int REQUEST_CODE_LOCATION = 1;
     private LngLatFragment lngLatFragment;
     @Inject
     RosterAddPresenter rosterAddPresenter;
@@ -139,14 +138,14 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     private boolean isMeasured = false;
     private boolean isEvaluated = false;
     private String personId;
-    private static final int REQUEST_CODE_PERSON = 2;
+    public static final int REQUEST_CODE_PERSON = 2;
 
     @OnClick({R.id.ll_roster_location, R.id.fragment_lnglat, R.id.set_roster_import})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.ll_roster_location:
             case R.id.fragment_lnglat:
-                GoUtil.goActivityForResult(this, LocationActivity.class, REQUEST_CODE_LOCATION);
+                GoUtil.goActivityForResult(this, LocationActivity.class, Constants.RequestCode.REQUEST_CODE_LOCATION);
                 break;
             case R.id.set_roster_import:
                 GoUtil.goActivityForResult(this, PersonSearchActivity.class, REQUEST_CODE_PERSON);
@@ -292,7 +291,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
                     mSelectedUris = Matisse.obtainResult(data);
                     imgUriAdapter.addData(mSelectedUris);
                     break;
-                case REQUEST_CODE_LOCATION:
+                case Constants.RequestCode.REQUEST_CODE_LOCATION:
                     lng = data.getDoubleExtra("lng", -1);
                     lat = data.getDoubleExtra("lat", -1);
                     setLocation(lng, lat);

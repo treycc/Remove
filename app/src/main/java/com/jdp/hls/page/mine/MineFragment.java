@@ -182,7 +182,7 @@ public class MineFragment extends BaseFragment implements MineContract.View {
     }
 
     @Override
-    protected void initDate() {
+    protected void initData() {
         tvMineRealName.setText(SpSir.getInstance().getRealName());
         tvMineCompanyName.setText(SpSir.getInstance().getCompanyName());
         tvMinePhone.setText(SpSir.getInstance().getMobilePhone());
