@@ -1,12 +1,14 @@
 package com.jdp.hls.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.imgaeloader.ImageLoader;
+import com.jdp.hls.model.entiy.DTOImgInfo;
 import com.jdp.hls.model.entiy.ImgInfo;
 
 import java.util.ArrayList;
@@ -67,7 +69,7 @@ public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
         }
     }
 
-    public interface OnImgDeletedListener{
+    public interface OnImgDeletedListener {
         void onImgDeleted();
     }
 
@@ -87,6 +89,34 @@ public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
 
     public List<ImgInfo> getDate() {
         return list;
+    }
+
+    public List<DTOImgInfo> getDTOData() {
+        List<DTOImgInfo> dtoImgInfos = new ArrayList<>();
+        for (ImgInfo imgInfo : list) {
+            DTOImgInfo dtoImgInfo = new DTOImgInfo();
+            if (imgInfo.getUri() == null) {
+                dtoImgInfo.setUrl(imgInfo.getFileUrl());
+            } else {
+                dtoImgInfo.setUriStr(imgInfo.getUri().toString());
+            }
+            dtoImgInfos.add(dtoImgInfo);
+        }
+        return dtoImgInfos;
+    }
+
+    public void addUris(List<Uri> uris) {
+        addData(getImgInfoFromUri(uris));
+    }
+
+    public static List<ImgInfo> getImgInfoFromUri(List<Uri> uris) {
+        List<ImgInfo> imgInfos = new ArrayList<>();
+        for (Uri uri : uris) {
+            ImgInfo imgInfo = new ImgInfo();
+            imgInfo.setUri(uri);
+            imgInfos.add(imgInfo);
+        }
+        return imgInfos;
     }
 
     public String getDeleteImgIds() {

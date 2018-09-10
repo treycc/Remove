@@ -22,7 +22,12 @@
     <style name="div_hor_gray">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
-        <item name="android:background">@color/gray_hi</item>
+        <item name="android:background">@color/div_hi</item>
+    </style>
+    <style name="div_hor_gray_light">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/div_hi</item>
     </style>
     <style name="div_hor_bg">
         <item name="android:layout_width">match_parent</item>
@@ -90,7 +95,15 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/c_9</item>
     </style>
-
+    <style name="font_9_15_eet">
+        <item name="android:background">@null</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/c_9</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
     <style name="font_9_20">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/c_9</item>
@@ -155,4 +168,19 @@
         <item name="listPopupWindowStyle">@style/Popup.Zhihu</item>
         <item name="capture.color">@color/zhihu_capture</item>
     </style>-->
+
+    <style name="EditTextLineSingle" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/gray_hi</item>
+        <item name="colorControlActivated">@color/main</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Title_Main">
+        <item name="android:padding">12dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/main</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/bg_hi</item>
+    </style>
 </resources>

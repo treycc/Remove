@@ -4,19 +4,18 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#13A4F9</color>
 
-
     <color name="c_3">#333333</color>
     <color name="c_6">#666666</color>
     <color name="c_9">#999999</color>
 
     <color name="gray_hi">#CCCCCC</color>
+    <color name="div_hi">#efefef</color>
     <color name="bg_hi">#F8F8F8</color>
     <color name="red_hi">#EA1022</color>
     <color name="white_hi">#ffffff</color>
     <color name="half_hi">#33ffffff</color>
     <color name="main">#13A4F9</color>
     <color name="transparent">#00ffffff</color>
-
 
     <color name="pie_red">#F18F72</color>
     <color name="pie_yellow">#F1EE6B</color>
