@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical">
+
+
+    <ListView
+        tools:listitem="@layout/item_decoration"
+        android:id="@+id/lv_decoration"
+        android:dividerHeight="1px"
+        android:divider="@color/bg_hi"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/bg_hi"/>
+
+    <View style="@style/div_hor_gray"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:paddingBottom="12dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:layout_centerVertical="true"
+            style="@style/font_3_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="内装饰装修补偿金额(¥)"/>
+
+        <TextView
+            android:layout_centerVertical="true"
+            style="@style/font_9_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="30000"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

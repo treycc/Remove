@@ -1,4 +1,4 @@
-package com.jdp.hls.page.home;
+package com.jdp.hls.page.levy;
 
 
 import com.jdp.hls.base.BasePresenter;
@@ -19,6 +19,6 @@ public interface TaskContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getTask(String projectId);
+        void getTask(String projectId,int buildingType);
     }
 }

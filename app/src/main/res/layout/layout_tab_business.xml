@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="horizontal"
+              android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_marginRight="4dp"
+        android:background="@mipmap/ic_personal_nor"
+        android:layout_width="14dp"
+        android:layout_height="14dp"/>
+    <TextView
+        android:id="@+id/tv_businessType"
+        android:textSize="13sp"
+        android:textColor="@drawable/selector_tab_txt_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="个人业务"/>
+    <TextView
+        android:textColor="@drawable/selector_tab_txt_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="("/>
+    <TextView
+        android:id="@+id/tv_businessCount"
+        android:textColor="@drawable/selector_tab_txt_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"/>
+    <TextView
+        android:textColor="@drawable/selector_tab_txt_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=")"/>
+</LinearLayout>

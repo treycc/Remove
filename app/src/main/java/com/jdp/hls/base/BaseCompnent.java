@@ -4,6 +4,7 @@ package com.jdp.hls.base;
 import com.jdp.hls.page.businesslist.BusinessListActivity;
 import com.jdp.hls.page.businesslist.BusinessListFragment;
 import com.jdp.hls.page.crash.CrashActivity;
+import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.page.mine.MineFragment;
 import com.jdp.hls.page.setting.SettingActivity;
@@ -42,4 +43,5 @@ public interface BaseCompnent {
     void inject(RosterActivity target);
     void inject(BusinessListActivity target);
     void inject(BusinessListFragment target);
+    void inject(LevyActivity target);
 }

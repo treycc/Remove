@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <com.jdp.hls.view.SquareSuperShapeTextView
+        android:id="@+id/stv_taskCount"
+        style="@style/font_main_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="15"
+        app:super_cornerRadius="50dp"
+        app:super_strokeColor="@color/main"
+        app:super_strokeWidth="2dp"/>
+
+    <TextView
+        android:id="@+id/tv_taskName"
+        android:gravity="center"
+        style="@style/font_6_12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="待办业务"/>
+
+
+
+</LinearLayout>

@@ -44,22 +44,24 @@ import butterknife.OnItemClick;
  * Email:kingjavip@gmail.com
  */
 public class BusinessListFragment extends BaseFragment implements GetRostersByTypeContract.View, SwipeRefreshLayout
-        .OnRefreshListener {
+        .OnRefreshListener, BussinessContract.View {
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
     RefreshSwipeRefreshLayout srl;
-    private List<Roster> rosters = new ArrayList<>();
-    private RosterListAdapter adapter;
-    private int isEnterprise;
+    private List<Business> business = new ArrayList<>();
+    private BusinessListAdapter adapter;
+    private int buildingType;
     @Inject
-    GetRostersByTypePresenter getRostersByTypePresenter;
+    BusinessPresenter businessPresenter;
+    private int taskType;
 
-    public static BusinessListFragment newInstance(List<Business> rosters, int isEnterprise) {
+    public static BusinessListFragment newInstance(List<Business> business, int taskType, int buildingType) {
         BusinessListFragment fragment = new BusinessListFragment();
         Bundle args = new Bundle();
-        args.putSerializable("rosters", (Serializable) rosters);
-        args.putInt("isEnterprise", isEnterprise);
+        args.putSerializable("business", (Serializable) business);
+        args.putInt("taskType", taskType);
+        args.putInt("buildingType", buildingType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,8 +76,9 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     protected void initVariable() {
         EventBus.getDefault().register(this);
         if (getArguments() != null) {
-            rosters = (List<Roster>) getArguments().getSerializable("rosters");
-            isEnterprise = getArguments().getInt("isEnterprise", 0);
+            business = (List<Business>) getArguments().getSerializable("business");
+            buildingType = getArguments().getInt("buildingType", 0);
+            taskType = getArguments().getInt("taskType", 0);
         }
     }
 
@@ -95,46 +98,52 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
     @Override
     protected void initView() {
-        getRostersByTypePresenter.attachView(this);
-        adapter = new RosterListAdapter(getActivity(), rosters, R.layout.item_roster);
+        businessPresenter.attachView(this);
+        adapter = new BusinessListAdapter(getActivity(), business, R.layout.item_business);
         plv.setAdapter(adapter);
     }
 
-    class RosterListAdapter extends CommonAdapter<Roster> {
-        public RosterListAdapter(Context context, List<Roster> datas, int itemLayoutId) {
+    @Override
+    public void onGetBusinessSuccess(List<Business> businesses) {
+
+    }
+
+    class BusinessListAdapter extends CommonAdapter<Business> {
+        public BusinessListAdapter(Context context, List<Business> datas, int itemLayoutId) {
             super(context, datas, itemLayoutId);
         }
 
         @Override
-        public void convert(ViewHolder helper, Roster item) {
-            helper.setText(R.id.tv_roster_address, item.getHouseAddress());
-            helper.setText(R.id.tv_roster_name, item.getRealName());
-            helper.setText(R.id.tv_roster_phone, item.getMobilePhone());
-            helper.setBackgroundResource(R.id.iv_roster_hasLocation, (item.getLatitude() == 0 || item.getLongitude()
-                    == 0) ? R.mipmap
-                    .ic_has_location_nor : R.mipmap
-                    .ic_has_location_sel);
-            helper.setBackgroundResource(R.id.iv_roster_isMeasure, item.isMeasured() ? R.mipmap
-                    .ic_measure_action : R.mipmap
-                    .ic_measure_nor);
-            helper.setBackgroundResource(R.id.iv_roster_isEvaluated, item.isEvaluated() ? R.mipmap
-                    .ic_evaluate_action : R.mipmap
-                    .ic_evaluate_nor);
+        public void convert(ViewHolder helper, Business item) {
+            helper.setText(R.id.tv_business_address, item.getHouseAddress());
+            helper.setText(R.id.tv_business_number, item.getSysCode());
+            helper.setText(R.id.tv_business_name, item.getRealName());
+            helper.setText(R.id.tv_business_mobile, item.getMobilePhone());
+//            helper.setBackgroundResource(R.id.iv_roster_hasLocation, (item.getLatitude() == 0 || item.getLongitude()
+//                    == 0) ? R.mipmap
+//                    .ic_has_location_nor : R.mipmap
+//                    .ic_has_location_sel);
+//            helper.setBackgroundResource(R.id.iv_roster_isMeasure, item.isMeasured() ? R.mipmap
+//                    .ic_measure_action : R.mipmap
+//                    .ic_measure_nor);
+//            helper.setBackgroundResource(R.id.iv_roster_isEvaluated, item.isEvaluated() ? R.mipmap
+//                    .ic_evaluate_action : R.mipmap
+//                    .ic_evaluate_nor);
         }
 
         public void modifyData(Roster roster) {
-            for (Roster mData : this.mDatas) {
-                if (mData.getHouseId().equals(roster.getHouseId())) {
-                    mData.setLongitude(roster.getLongitude());
-                    mData.setLatitude(roster.getLatitude());
-                    mData.setEnterprise(roster.isEnterprise());
-                    mData.setEvaluated(roster.isEvaluated());
-                    mData.setMeasured(roster.isMeasured());
-                    mData.setRealName(roster.getRealName());
-                    mData.setMobilePhone(roster.getMobilePhone());
-                    mData.setHouseAddress(roster.getHouseAddress());
-                }
-            }
+//            for (Roster mData : this.mDatas) {
+//                if (mData.getHouseId().equals(roster.getHouseId())) {
+//                    mData.setLongitude(roster.getLongitude());
+//                    mData.setLatitude(roster.getLatitude());
+//                    mData.setEnterprise(roster.isEnterprise());
+//                    mData.setEvaluated(roster.isEvaluated());
+//                    mData.setMeasured(roster.isMeasured());
+//                    mData.setRealName(roster.getRealName());
+//                    mData.setMobilePhone(roster.getMobilePhone());
+//                    mData.setHouseAddress(roster.getHouseAddress());
+//                }
+//            }
             notifyDataSetChanged();
         }
     }
@@ -156,11 +165,11 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
     @Override
     public void onGetRosterListByTypeSuccess(List<Roster> rosters) {
-        adapter.setData(rosters);
+//        adapter.setData(business);
     }
 
     public void refreshData(List<Roster> rosters) {
-        adapter.setData(rosters);
+//        adapter.setData(business);
     }
 
     @Override
@@ -175,24 +184,23 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
     @Override
     public void onRefresh() {
-        getRostersByTypePresenter.getRosterListByType(SpSir.getInstance().getProjectId(), SpSir.getInstance()
-                .getEmployeeId(), isEnterprise);
+        businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(),buildingType,taskType);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshRosters(AddRostersEvent event) {
         int enterprise = event.getRoster().isEnterprise() ? 1 : 0;
-        if (enterprise == isEnterprise) {
-            adapter.addData(event.getRoster());
+        if (enterprise == buildingType) {
+//            adapter.addData(event.getRoster());
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void modifyRosters(ModifyRostersEvent event) {
         int enterprise = event.getRoster().isEnterprise() ? 1 : 0;
-        LogUtil.e(TAG, "enterprise:" + enterprise + " isEnterprise:" + isEnterprise);
-        if (enterprise == isEnterprise) {
-            adapter.modifyData(event.getRoster());
+        LogUtil.e(TAG, "enterprise:" + enterprise + " buildingType:" + buildingType);
+        if (enterprise == buildingType) {
+//            adapter.modifyData(event.getRoster());
         }
     }
 }

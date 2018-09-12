@@ -31,7 +31,7 @@
 
             <ImageView
                 android:id="@+id/iv_tab_map"
-                android:background="@mipmap/ic_tab_map_sel"
+                android:background="@mipmap/ic_tab_home_sel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -40,7 +40,7 @@
                 style="@style/font_main_13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="地图"/>
+                android:text="首页"/>
 
         </LinearLayout>
 

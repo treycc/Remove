@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_hi"
@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
             android:background="#7F82D3">
 
             <LinearLayout
@@ -42,7 +43,7 @@
                     android:text="改变，是为了更好地生活"/>
 
                 <TextView
-                    style="@style/font_f_13"
+                    style="@style/font_f_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="V1.0功能手册 >"/>
@@ -63,164 +64,20 @@
 
         </RelativeLayout>
 
+        <View style="@style/div_hor_gray"/>
 
-        <LinearLayout
+        <GridView
+            android:listSelector="@android:color/transparent"
+            android:id="@+id/gv_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-
-
-            <LinearLayout
-                android:id="@+id/ll_business_todo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.jdp.hls.view.SquareSuperShapeTextView
-                    style="@style/font_main_15"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center"
-                    android:text="15"
-                    app:super_cornerRadius="50dp"
-                    app:super_strokeColor="@color/main"
-                    app:super_strokeWidth="2dp"/>
-
-                <TextView
-                    style="@style/font_6_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="待办业务"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_business_done"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.jdp.hls.view.SquareSuperShapeTextView
-                    style="@style/font_main_15"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center"
-                    android:text="15"
-                    app:super_cornerRadius="50dp"
-                    app:super_strokeColor="@color/main"
-                    app:super_strokeWidth="2dp"/>
-
-                <TextView
-                    style="@style/font_6_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="已办业务"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_business_finish"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.jdp.hls.view.SquareSuperShapeTextView
-                    style="@style/font_main_15"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center"
-                    android:text="15"
-                    app:super_cornerRadius="50dp"
-                    app:super_strokeColor="@color/main"
-                    app:super_strokeWidth="2dp"/>
-
-                <TextView
-                    style="@style/font_6_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="办结业务"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_business_back"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.jdp.hls.view.SquareSuperShapeTextView
-                    style="@style/font_main_15"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center"
-                    android:text="15"
-                    app:super_cornerRadius="50dp"
-                    app:super_strokeColor="@color/main"
-                    app:super_strokeWidth="2dp"/>
-
-                <TextView
-                    style="@style/font_6_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="退回业务"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_business_discard"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.jdp.hls.view.SquareSuperShapeTextView
-                    style="@style/font_main_15"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center"
-                    android:text="15"
-                    app:super_cornerRadius="50dp"
-                    app:super_strokeColor="@color/main"
-                    app:super_strokeWidth="2dp"/>
-
-                <TextView
-                    style="@style/font_6_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="废弃业务"/>
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
+            android:horizontalSpacing="20dp"
+            android:numColumns="5"
+            tools:listitem="@layout/item_task"/>
 
         <View style="@style/div_hor_gray"/>
 
@@ -229,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="24dp"
+            android:paddingBottom="12dp"
             android:paddingTop="12dp">
 
             <TextView
@@ -260,11 +117,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_nav_roster"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="花名册"/>
@@ -283,11 +140,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_publicity_manage"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="公示管理"/>
@@ -304,11 +161,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_aerial_photograph"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="航拍复查"/>
@@ -327,11 +184,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_list_table"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="一览表"/>
@@ -352,7 +209,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="24dp"
+            android:paddingBottom="12dp"
             android:paddingTop="12dp">
 
             <TextView
@@ -367,7 +224,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:orientation="horizontal">
@@ -384,11 +241,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_contract_count"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="签约统计"/>
@@ -407,11 +264,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_surveying"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="入户丈量"/>
@@ -430,11 +287,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_mapping"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="测量出图"/>
@@ -453,11 +310,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_agelimit_appraisal"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="年限鉴定"/>
@@ -487,11 +344,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_nav_evaluate"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="入户评估"/>
@@ -510,11 +367,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_protocol_generation"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="协议生成"/>
@@ -533,11 +390,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_aerial_photograph_count"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="航拍统计"/>
@@ -556,11 +413,11 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/ic_publicity_count"/>
 
                     <TextView
-                        style="@style/font_6_13"
+                        style="@style/font_3_13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="公示统计"/>

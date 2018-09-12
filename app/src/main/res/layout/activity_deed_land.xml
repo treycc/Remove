@@ -137,10 +137,11 @@
             android:text="土地性质"/>
 
         <org.angmarch.views.NiceSpinner
-            android:id="@+id/nice_spinner"
+            android:id="@+id/spinner_landType"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:padding="0dp"
             app:textTint="@color/c_9"/>
     </LinearLayout>
 
@@ -162,15 +163,18 @@
             android:text="土地用途"/>
 
         <org.angmarch.views.NiceSpinner
+            android:id="@+id/spinner_landUse"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            app:hideArrow="true"
             app:textTint="@color/c_9"/>
     </LinearLayout>
 
     <TextView
         style="@style/Title_Main"
         android:text="土地证照片"/>
+
     <com.jdp.hls.view.ImgRecyclerView
         android:id="@+id/rv_img"
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 
 import com.jdp.hls.R;
-import com.jdp.hls.activity.LevyActivity;
+import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.util.GoUtil;

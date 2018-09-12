@@ -3,9 +3,9 @@ package com.jdp.hls.page.businesslist;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.Business;
+import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
-import com.jdp.hls.model.entiy.Roster;
-import com.jdp.hls.page.rosterlist.GetRostersByTypeContract;
 
 import java.util.List;
 
@@ -21,30 +21,30 @@ import io.reactivex.schedulers.Schedulers;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class GetBusinessByTypePresenter implements GetRostersByTypeContract.Presenter {
+public class BusinessPresenter implements BussinessContract.Presenter {
     private UserApi mApi;
-    private GetRostersByTypeContract.View mView;
+    private BussinessContract.View mView;
 
     @Inject
-    public GetBusinessByTypePresenter(UserApi mApi) {
+    public BusinessPresenter(UserApi mApi) {
         this.mApi = mApi;
     }
 
     @Override
-    public void getRosterListByType(String projectId, int employeeId,int isEnterprise) {
-        mApi.getApiService().getRosterListByType(projectId, employeeId,isEnterprise).subscribeOn(Schedulers.io())
+    public void getBusinessList(String projectId, int buildingType, int taskType) {
+        mApi.getApiService().getTaskList(projectId, buildingType,taskType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<List<Roster>>(mView) {
+                (new LoadSirObserver<List<Business>>(mView) {
                     @Override
-                    protected void onSuccess(List<Roster> rosters) {
-                        mView.onGetRosterListByTypeSuccess(rosters);
+                    protected void onSuccess(List<Business> rosters) {
+                        mView.onGetBusinessSuccess(rosters);
                     }
                 });
     }
 
 
     @Override
-    public void attachView(@NonNull GetRostersByTypeContract.View view) {
+    public void attachView(@NonNull BussinessContract.View view) {
         this.mView = view;
     }
 

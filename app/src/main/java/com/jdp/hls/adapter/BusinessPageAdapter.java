@@ -33,8 +33,6 @@ public class BusinessPageAdapter extends FragmentPagerAdapter {
         this.rosterCountArr = rosterCountArr;
         this.imgArr = imgArr;
     }
-
-
     @Override
     public Fragment getItem(int position) {
         return fragments[position];
@@ -51,13 +49,13 @@ public class BusinessPageAdapter extends FragmentPagerAdapter {
     }
 
     public View getTabView(int position) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_tab_roster, null);
-        TextView tv_rosterType = view.findViewById(R.id.tv_rosterType);
-        TextView tv_rosterCount = view.findViewById(R.id.tv_rosterCount);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_tab_business, null);
+        TextView tv_businessType = view.findViewById(R.id.tv_businessType);
+        TextView tv_businessCount = view.findViewById(R.id.tv_businessCount);
         ImageView iv_icon = view.findViewById(R.id.iv_icon);
         iv_icon.setBackgroundResource(imgArr[position]);
-        tv_rosterType.setText(titles[position]);
-        tv_rosterCount.setText(rosterCountArr[position]);
+        tv_businessType.setText(titles[position]);
+        tv_businessCount.setText(rosterCountArr[position]);
         return view;
     }
 

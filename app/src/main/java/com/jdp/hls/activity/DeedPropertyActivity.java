@@ -1,19 +1,15 @@
 package com.jdp.hls.activity;
 
-import android.view.View;
-
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
 
 /**
- * Description:TODO
- * Create Time:2018/9/10 0010 上午 8:45
+ * Description:产权证
+ * Create Time:2018/9/11 0011 下午 3:20
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class BusinessDetailActivity extends BaseTitleActivity {
+public class DeedPropertyActivity extends BaseTitleActivity{
     @Override
     public void initVariable() {
 
@@ -31,7 +27,7 @@ public class BusinessDetailActivity extends BaseTitleActivity {
 
     @Override
     protected String getContentTitle() {
-        return "高二路";
+        return "产权证";
     }
 
     @Override
@@ -41,12 +37,7 @@ public class BusinessDetailActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        setRightClick("流程", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                ToastUtil.showText("流程");
-            }
-        });
+
     }
 
     @Override

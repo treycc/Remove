@@ -1,12 +1,11 @@
-package com.jdp.hls.page.home;
+package com.jdp.hls.page.levy;
 
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
-import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.Task;
-import com.jdp.hls.page.rosterlist.GetRostersByTypeContract;
 
 import java.util.List;
 
@@ -32,10 +31,10 @@ public class TaskPresenter implements TaskContract.Presenter {
     }
 
     @Override
-    public void getTask(String projectId) {
-        mApi.getApiService().getTask(projectId).subscribeOn(Schedulers.io())
+    public void getTask(String projectId, int buildingType) {
+        mApi.getApiService().getTask(projectId, buildingType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<List<Task>>(mView) {
+                (new LoadSirObserver<List<Task>>(mView) {
                     @Override
                     protected void onSuccess(List<Task> tasks) {
                         mView.onGetTaskSuccess(tasks);

@@ -34,23 +34,30 @@
             android:layout_height="wrap_content"
             android:background="@color/white_hi"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingRight="12dp"
+            android:paddingLeft="12dp">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/gray_hi"/>
+                android:layout_height="116dp"
+                android:background="@mipmap/banner_company"/>
 
-            <TextView
-                style="@style/font_3_16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"
-                android:text="应用系统"/>
 
 
         </LinearLayout>
+
+<View style="@style/div_hor_gray"/>
+        <TextView
+            style="@style/font_3_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="应用系统"/>
         <!--CardView container-->
         <LinearLayout
             android:orientation="vertical"
@@ -81,12 +88,12 @@
 
                         <TextView
                             android:layout_marginBottom="12dp"
-                            style="@style/font_3_15"
+                            style="@style/font_3_16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="征收业务系统"/>
                         <TextView
-                            style="@style/font_9_13"
+                            style="@style/font_6_12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="系统介绍系统介绍系统介绍"/>
@@ -95,16 +102,16 @@
 
 
                     <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@mipmap/ic_levy_system"/>
 
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView
                 android:id="@+id/cardv_system_monitor"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:contentPadding="12dp"
@@ -125,12 +132,12 @@
 
                         <TextView
                             android:layout_marginBottom="12dp"
-                            style="@style/font_3_15"
+                            style="@style/font_3_16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="项目监管系统"/>
                         <TextView
-                            style="@style/font_9_13"
+                            style="@style/font_6_12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="系统介绍系统介绍系统介绍系统介绍系统介绍"/>
@@ -139,16 +146,16 @@
 
 
                     <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@mipmap/ic_surveying"/>
 
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView
                 android:id="@+id/cardv_system_geography"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:contentPadding="12dp"
@@ -169,12 +176,12 @@
 
                         <TextView
                             android:layout_marginBottom="12dp"
-                            style="@style/font_3_15"
+                            style="@style/font_3_16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="地理信息系统"/>
                         <TextView
-                            style="@style/font_9_13"
+                            style="@style/font_6_12"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="系统介绍系统介绍系统介绍系统介绍系统介绍"/>
@@ -183,9 +190,9 @@
 
 
                     <ImageView
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@color/gray_hi"/>
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@mipmap/ic_geographyinfo_system"/>
 
 
                 </LinearLayout>

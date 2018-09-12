@@ -1,6 +1,7 @@
 package com.jdp.hls.model.service;
 
 
+import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.HttpResult;
 import com.jdp.hls.model.entiy.Login;
 import com.jdp.hls.model.entiy.Person;
@@ -115,7 +116,12 @@ public interface ApiService {
     Observable<HttpResult<String>> uploadHeadImg(@Part MultipartBody.Part headImg);
 
     /*获取任务数*/
-    @FormUrlEncoded
-    @POST("api/workflow/getTaskCount")
-    Observable<HttpResult<List<Task>>> getTask(@Field("projectId") String projectId);
+    @GET("api/workflow/getTaskCount")
+    Observable<HttpResult<List<Task>>> getTask(@Query("projectId") String projectId, @Query("buildingType") int
+            buildingType);
+
+    /*获取任务列表*/
+    @GET("api/workflow/GetTaskList")
+    Observable<HttpResult<List<Business>>> getTaskList(@Query("projectId") String projectId, @Query("buildingType") int
+            buildingType, @Query("taskType") int taskType);
 }

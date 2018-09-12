@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_hi"
+              android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:text="项目(¥/m²)"/>
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/spinner_project"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:padding="0dp"
+            android:text="请选择项目"
+            app:textTint="@color/c_9"/>
+    </LinearLayout>
+
+    <View
+        style="@style/div_hor_gray"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:text="等级"/>
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/spinner_landType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:padding="0dp"
+            android:text="请选择等级"
+            app:textTint="@color/c_9"/>
+    </LinearLayout>
+
+    <View
+        style="@style/div_hor_gray"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="6dp">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:text="数量"/>
+
+        <com.jdp.hls.view.EnableEditText
+            style="@style/font_9_15_eet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="请输入数量"/>
+    </LinearLayout>
+
+    <View
+        style="@style/div_hor_gray"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="6dp">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:text="总金额"/>
+
+        <com.jdp.hls.view.EnableEditText
+            style="@style/font_9_15_eet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="请输入总金额"/>
+    </LinearLayout>
+
+    <View
+        style="@style/div_hor_gray"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:paddingBottom="6dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="6dp">
+
+        <TextView
+            android:gravity="start"
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:text="不动产证号"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:gravity="start"
+            style="@style/font_9_15_eet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:lines="3"
+            android:text="请输入备注"/>
+    </LinearLayout>
+
+    <View
+        style="@style/div_hor_gray"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"/>
+</LinearLayout>

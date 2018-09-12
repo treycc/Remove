@@ -34,7 +34,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <!--.page.login.LoginActivity-->
         <activity
-            android:name=".activity.DeedLandActivity"
+            android:name=".page.login.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -43,9 +43,9 @@
             </intent-filter>
         </activity>
         <!--登录页-->
-        <activity
+      <!--  <activity
             android:name=".page.login.LoginActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"/>-->
         <!--项目列表-->
         <activity
             android:name=".page.projects.ProjectListActivity"
@@ -124,7 +124,7 @@
             android:screenOrientation="portrait"/>
         <!--征收业务-->
         <activity
-            android:name=".activity.LevyActivity"
+            android:name=".page.levy.LevyActivity"
             android:screenOrientation="portrait"/>
         <!--统计-->
         <activity
@@ -138,6 +138,31 @@
         <!--业务列表-->
         <activity
             android:name=".page.businesslist.BusinessListActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--年限鉴定-->
+        <activity
+            android:name=".activity.NodeAgeActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--测绘出图-->
+        <activity
+            android:name=".activity.NodeMappingActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--入户评估-->
+        <activity
+            android:name=".activity.NodeEvaluateActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--入户丈量-->
+        <activity
+            android:name=".activity.NodeMeasureActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--协议生成-->
+        <activity
+            android:name=".activity.NodeProtocolActivity"
             android:screenOrientation="portrait"/>
        <!--土地证-->
     <!--    <activity

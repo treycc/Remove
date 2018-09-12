@@ -7,23 +7,23 @@ package com.jdp.hls.model.entiy;
  * Email:kingjavip@gmail.com
  */
 public class Task {
-    private String TaskName;
-    private String TaskType;
+    private String TaskTypeName;
+    private int TaskType;
     private int Count;
 
-    public String getTaskName() {
-        return TaskName;
+    public String getTaskTypeName() {
+        return TaskTypeName;
     }
 
-    public void setTaskName(String taskName) {
-        TaskName = taskName;
+    public void setTaskTypeName(String taskTypeName) {
+        TaskTypeName = taskTypeName;
     }
 
-    public String getTaskType() {
+    public int getTaskType() {
         return TaskType;
     }
 
-    public void setTaskType(String taskType) {
+    public void setTaskType(int taskType) {
         TaskType = taskType;
     }
 

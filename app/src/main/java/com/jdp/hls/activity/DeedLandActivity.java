@@ -2,7 +2,7 @@ package com.jdp.hls.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -13,9 +13,13 @@ import com.jdp.hls.util.PermissionsUtil;
 import com.jdp.hls.view.ImgRecyclerView;
 import com.zhihu.matisse.Matisse;
 
+import org.angmarch.views.NiceSpinner;
+
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Description:土地证
@@ -26,6 +30,10 @@ import butterknife.BindView;
 public class DeedLandActivity extends BaseTitleActivity {
     @BindView(R.id.rv_img)
     ImgRecyclerView rvImg;
+    @BindView(R.id.spinner_landType)
+    NiceSpinner spinnerLandType;
+    @BindView(R.id.spinner_landUse)
+    NiceSpinner spinnerLandUse;
 
     @Override
     public void initVariable() {
@@ -62,9 +70,12 @@ public class DeedLandActivity extends BaseTitleActivity {
 
             @Override
             public void onOpenBigImg(List<DTOImgInfo> dtoImgInfos, int position) {
-                BigImgActivity.goActivity(DeedLandActivity.this,dtoImgInfos, position);
+                BigImgActivity.goActivity(DeedLandActivity.this, dtoImgInfos, position);
             }
         });
+        spinnerLandType.attachDataSource(Arrays.asList("A", "BBBBBB", "CCCCC", "DDDDD"));
+        spinnerLandUse.attachDataSource(Arrays.asList("111111", "222222", "333333", "444444"));
+        spinnerLandUse.setEnabled(false);
     }
 
     @Override
@@ -84,5 +95,12 @@ public class DeedLandActivity extends BaseTitleActivity {
 
             }
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

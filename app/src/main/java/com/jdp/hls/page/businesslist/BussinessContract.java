@@ -13,12 +13,12 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public interface GetBusinessByTypeContract {
+public interface BussinessContract {
     interface View extends BaseView {
-        void onGetBusinessByTypeSuccess(List<Business> businesses);
+        void onGetBusinessSuccess(List<Business> businesses);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getBusinessListByType(String projectId, int buildingType, int taskType);
+        void getBusinessList(String projectId, int buildingType, int taskType);
     }
 }

@@ -6,7 +6,6 @@ import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.RosterDetail;
 
 import okhttp3.RequestBody;
-import retrofit2.http.Query;
 
 /**
  * Description：TODO

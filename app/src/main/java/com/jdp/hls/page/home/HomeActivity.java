@@ -159,7 +159,7 @@ public class HomeActivity extends BaseTitleActivity {
                         .getColor(this, R.color.c_9));
         tvTabMine.setTextColor(fragmentId == FRAGMENT_MINE ? ContextCompat.getColor(this, R.color.main) : ContextCompat
                 .getColor(this, R.color.c_9));
-        ivTabMap.setBackgroundResource(fragmentId == FRAGMENT_HOME ? R.mipmap.ic_tab_map_sel : R.mipmap.ic_tab_map_nor);
+        ivTabMap.setBackgroundResource(fragmentId == FRAGMENT_HOME ? R.mipmap.ic_tab_home_sel : R.mipmap.ic_tab_home_nor);
         ivTabMessage.setBackgroundResource(fragmentId == FRAGMENT_MESSAGE ? R.mipmap.ic_tab_msg_sel : R.mipmap
                 .ic_tab_msg_nor);
         ivTabMine.setBackgroundResource(fragmentId == FRAGMENT_MINE ? R.mipmap.ic_tab_mine_sel : R.mipmap
