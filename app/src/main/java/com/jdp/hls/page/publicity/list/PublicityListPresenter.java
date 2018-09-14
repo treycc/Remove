@@ -1,11 +1,10 @@
-package com.jdp.hls.page.businesslist;
+package com.jdp.hls.page.publicity.list;
 
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
-import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.LoadSirObserver;
-import com.jdp.hls.model.entiy.ResultObserver;
+import com.jdp.hls.model.entiy.PublicityItem;
 
 import java.util.List;
 
@@ -21,30 +20,30 @@ import io.reactivex.schedulers.Schedulers;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class BusinessPresenter implements BussinessContract.Presenter {
+public class PublicityListPresenter implements PublicityListContract.Presenter {
     private UserApi mApi;
-    private BussinessContract.View mView;
+    private PublicityListContract.View mView;
 
     @Inject
-    public BusinessPresenter(UserApi mApi) {
+    public PublicityListPresenter(UserApi mApi) {
         this.mApi = mApi;
     }
 
     @Override
-    public void getBusinessList(String projectId, int buildingType, int taskType) {
-        mApi.getApiService().getTaskList(projectId, buildingType,taskType).subscribeOn(Schedulers.io())
+    public void getPublicityList(String projectId, int type) {
+        mApi.getApiService().getPublicityList(projectId, type).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<List<Business>>(mView) {
+                (new LoadSirObserver<List<PublicityItem>>(mView) {
                     @Override
-                    protected void onSuccess(List<Business> rosters) {
-                        mView.onGetBusinessSuccess(rosters);
+                    protected void onSuccess(List<PublicityItem> publicityItems) {
+                        mView.onGetPublicityListSuccess(publicityItems);
                     }
                 });
     }
 
 
     @Override
-    public void attachView(@NonNull BussinessContract.View view) {
+    public void attachView(@NonNull PublicityListContract.View view) {
         this.mView = view;
     }
 

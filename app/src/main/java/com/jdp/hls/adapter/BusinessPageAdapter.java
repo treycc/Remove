@@ -22,16 +22,16 @@ public class BusinessPageAdapter extends FragmentPagerAdapter {
     private final Context context;
     private Fragment[] fragments;
     private String[] titles;
-    private  String[] rosterCountArr;
-    private int[] imgArr;
+    private  String[] counts;
+    private int[] icons;
 
-    public BusinessPageAdapter(Context context, FragmentManager fm, Fragment[] fragments, String[] titles, String[] rosterCountArr, int[] imgArr) {
+    public BusinessPageAdapter(Context context, FragmentManager fm, Fragment[] fragments, String[] titles, String[] counts, int[] icons) {
         super(fm);
         this.context = context;
         this.fragments = fragments;
         this.titles = titles;
-        this.rosterCountArr = rosterCountArr;
-        this.imgArr = imgArr;
+        this.counts = counts;
+        this.icons = icons;
     }
     @Override
     public Fragment getItem(int position) {
@@ -53,14 +53,14 @@ public class BusinessPageAdapter extends FragmentPagerAdapter {
         TextView tv_businessType = view.findViewById(R.id.tv_businessType);
         TextView tv_businessCount = view.findViewById(R.id.tv_businessCount);
         ImageView iv_icon = view.findViewById(R.id.iv_icon);
-        iv_icon.setBackgroundResource(imgArr[position]);
+        iv_icon.setBackgroundResource(icons[position]);
         tv_businessType.setText(titles[position]);
-        tv_businessCount.setText(rosterCountArr[position]);
+        tv_businessCount.setText(counts[position]);
         return view;
     }
 
     public void refreshrosterCount(String[] rosterCountArr) {
-        this.rosterCountArr=rosterCountArr;
+        this.counts =rosterCountArr;
         notifyDataSetChanged();
     }
 }

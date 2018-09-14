@@ -1,11 +1,11 @@
 package com.jdp.hls.page.levy;
 
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
+import com.jdp.hls.activity.AirphotoListActivity;
 import com.jdp.hls.activity.StatisticsActivity;
 import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
@@ -13,7 +13,7 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Task;
-import com.jdp.hls.page.businesslist.BusinessListActivity;
+import com.jdp.hls.page.business.list.BusinessListActivity;
 import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
@@ -81,6 +81,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
                 break;
             case R.id.ll_operate_plane:
                 /*航拍复查*/
+                GoUtil.goActivity(this, AirphotoListActivity.class);
                 break;
             case R.id.ll_operate_detail:
                 /*一览表*/
@@ -153,7 +154,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
         });
         gvTask.setOnItemClickListener((parent, view, position, id) -> {
             Task task = (Task) parent.getItemAtPosition(position);
-            BusinessListActivity.GoActivity(LevyActivity.this,task.getTaskType(),task.getTaskTypeName());
+            BusinessListActivity.GoActivity(LevyActivity.this, task.getTaskType(), task.getTaskTypeName());
         });
     }
 
@@ -168,6 +169,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
             adapter.setData(tasks);
         }
     }
+
     @Override
     protected boolean ifRegisterLoadSir() {
         return true;

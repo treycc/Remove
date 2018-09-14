@@ -1,9 +1,9 @@
-package com.jdp.hls.page.businesslist;
+package com.jdp.hls.page.publicity.list;
 
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
-import com.jdp.hls.model.entiy.Business;
+import com.jdp.hls.model.entiy.PublicityItem;
 
 import java.util.List;
 
@@ -13,12 +13,12 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public interface BussinessContract {
+public interface PublicityListContract {
     interface View extends BaseView {
-        void onGetBusinessSuccess(List<Business> businesses);
+        void onGetPublicityListSuccess(List<PublicityItem> publicityItems);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getBusinessList(String projectId, int buildingType, int taskType);
+        void  getPublicityList(String projectId, int type);
     }
 }

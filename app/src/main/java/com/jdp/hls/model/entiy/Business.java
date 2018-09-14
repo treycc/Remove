@@ -1,12 +1,14 @@
 package com.jdp.hls.model.entiy;
 
+import java.io.Serializable;
+
 /**
  * Description:TODO
  * Create Time:2018/9/7 0007 上午 11:51
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class Business {
+public class Business implements Serializable{
     private String HouseId;
     private String SysCode;
     private int BuildingType;

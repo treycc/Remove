@@ -79,6 +79,12 @@ public class ViewHolder {
         return this;
     }
 
+    public ViewHolder setVisibility(int viewId, boolean visibility) {
+        ImageView view = getView(viewId);
+        view.setVisibility(visibility?View.VISIBLE:View.GONE);
+        return this;
+    }
+
     public ViewHolder setImageByUrl(int viewId, String url) {
 //        ImageLoader.getInstance(3, Type.LIFO).loadImage(url,
 //                (ImageView) getView(viewId));

@@ -1,12 +1,15 @@
 package com.jdp.hls.base;
 
 
-import com.jdp.hls.page.businesslist.BusinessListActivity;
-import com.jdp.hls.page.businesslist.BusinessListFragment;
+import com.jdp.hls.page.airphoto.list.AirPhotoListFragment;
+import com.jdp.hls.page.airphoto.person.AirPhotoPersonActivity;
+import com.jdp.hls.page.business.list.BusinessListActivity;
+import com.jdp.hls.page.business.list.BusinessListFragment;
 import com.jdp.hls.page.crash.CrashActivity;
 import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.page.mine.MineFragment;
+import com.jdp.hls.page.publicity.list.PublicityListFragment;
 import com.jdp.hls.page.setting.SettingActivity;
 import com.jdp.hls.injector.annotation.PerActivity;
 import com.jdp.hls.injector.component.AppComponent;
@@ -44,4 +47,7 @@ public interface BaseCompnent {
     void inject(BusinessListActivity target);
     void inject(BusinessListFragment target);
     void inject(LevyActivity target);
+    void inject(AirPhotoListFragment target);
+    void inject(AirPhotoPersonActivity target);
+    void inject(PublicityListFragment target);
 }

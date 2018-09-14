@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_hi"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="姓名"/>
+
+        <com.jdp.hls.view.EnableEditText
+            style="@style/Content_ET_W2_5"
+            android:hint="请输入户主姓名"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin12"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="身份证号"/>
+
+        <com.jdp.hls.view.EnableEditText
+            style="@style/Content_ET_W2_5"
+            android:hint="请输入身份证号"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin12"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T0">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="称谓"/>
+
+        <com.jdp.hls.view.KSpinner
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:hint="请选择称谓"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin12"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T0">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="性别"/>
+
+        <com.jdp.hls.view.KSpinner
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:hint="请选择性别"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin12"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T0">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="农业/非农业"/>
+
+        <com.jdp.hls.view.KSpinner
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:hint="请选择户籍类型"/>
+    </LinearLayout>
+
+
+</LinearLayout>

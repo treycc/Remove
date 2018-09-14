@@ -101,7 +101,6 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
 
     @Override
     protected void initView() {
-
         projectsPresenter.attachView(this);
         plv.setAdapter(adapter = new CommonAdapter<Project>(this, projects, R.layout.item_project) {
             @Override

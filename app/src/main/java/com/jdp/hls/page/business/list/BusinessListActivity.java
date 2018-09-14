@@ -1,4 +1,4 @@
-package com.jdp.hls.page.businesslist;
+package com.jdp.hls.page.business.list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +39,7 @@ public class BusinessListActivity extends BaseTitleActivity implements Bussiness
     ViewPager vpBusiness;
     private String[] tabBusinessTitles = {"个人业务", "企业业务"};
     private String[] tabBusinessCounts = {"0", "0"};
-    private int[] tabBusinessIcons = {R.mipmap.ic_personal_sel, R.mipmap.ic_company_sel};
+    private int[] tabBusinessIcons = {R.drawable.selector_tab_personal, R.drawable.selector_tab_company};
     private BusinessListFragment mFragmentArr[] = new BusinessListFragment[2];
     private List<Business> personalBusiness = new ArrayList<>();
     private List<Business> companyBusiness = new ArrayList<>();
@@ -75,7 +75,6 @@ public class BusinessListActivity extends BaseTitleActivity implements Bussiness
     @Override
     protected void initView() {
         businessPresenter.attachView(this);
-
     }
 
     @Override
@@ -99,14 +98,14 @@ public class BusinessListActivity extends BaseTitleActivity implements Bussiness
                 personalBusiness.add(business);
             }
         }
-        tabBusinessCounts[0]=String.valueOf(personalBusiness.size());
-        tabBusinessCounts[1]=String.valueOf(companyBusiness.size());
+        tabBusinessCounts[0] = String.valueOf(personalBusiness.size());
+        tabBusinessCounts[1] = String.valueOf(companyBusiness.size());
 
         tabBusiness.setTabMode(TabLayout.MODE_FIXED);
         tabBusiness.addTab(tabBusiness.newTab().setText(tabBusinessTitles[0]));
         tabBusiness.addTab(tabBusiness.newTab().setText(tabBusinessTitles[1]));
-        mFragmentArr[0] = BusinessListFragment.newInstance(personalBusiness, taskType,0);
-        mFragmentArr[1] = BusinessListFragment.newInstance(companyBusiness, taskType,1);
+        mFragmentArr[0] = BusinessListFragment.newInstance(personalBusiness, taskType, 0);
+        mFragmentArr[1] = BusinessListFragment.newInstance(companyBusiness, taskType, 1);
         BusinessPageAdapter mBusinessPageAdapter = new BusinessPageAdapter(this, getSupportFragmentManager(),
                 mFragmentArr, tabBusinessTitles, tabBusinessCounts, tabBusinessIcons);
         vpBusiness.setAdapter(mBusinessPageAdapter);

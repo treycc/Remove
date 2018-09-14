@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/Content_LL_T12"
+        android:background="@color/white_hi">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="户号"/>
+
+        <TextView
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="526566"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        style="@style/Title_Main"
+        android:text="户口列表"/>
+
+    <ListView
+        android:scrollbarFadeDuration="0"
+        android:id="@+id/lv_family_relation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white_hi"
+        android:divider="@color/div_hi"
+        android:dividerHeight="1px"
+        tools:listitem="@layout/item_family_relation"/>
+
+    <TextView
+        style="@style/Title_Main"
+        android:text="证件照片"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:paddingBottom="20dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="20dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@mipmap/bg_no_img"/>
+
+        <ImageView
+            style="@style/Arrow_Right"/>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

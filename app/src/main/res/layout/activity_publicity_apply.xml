@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_hi"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+
+            <TextView
+                style="@style/Title_Main"
+                android:text="基本信息"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="center_vertical"
+                android:paddingBottom="6dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="6dp">
+
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="公示批次"/>
+
+                <com.jdp.hls.view.EnableEditText
+                    style="@style/font_9_15_eet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:hint="请输入批次"/>
+            </LinearLayout>
+
+
+            <View style="@style/div_hor_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="center_vertical"
+                android:paddingBottom="6dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="6dp">
+
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="公示户数"/>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3">
+
+                    <TextView
+                        style="@style/font_9_15_eet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:hint="请选择公示对象"/>
+
+                    <ImageView
+                        android:layout_width="9dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/arrow_right"/>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="center_vertical"
+                android:paddingBottom="6dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="6dp">
+
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="公示人"/>
+
+                <TextView
+                    style="@style/font_9_15_eet"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="经办人"/>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="center_vertical"
+                android:paddingBottom="12dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="12dp">
+
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="公示时间"/>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="12dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            style="@style/font_9_15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:text="2018-10-10"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/ic_date_selector"/>
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        style="@style/font_9_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="~"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            style="@style/font_9_15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="2dp"
+                            android:text="2018-10-10"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/ic_date_selector"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray"/>
+
+            <TextView
+                style="@style/Title_Main"
+                android:text="照片"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_img"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/white_hi"
+                android:paddingBottom="12dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="12dp"/>
+
+            <TextView
+                style="@style/Title_Main"
+                android:text="备注"/>
+
+            <EditText
+                style="@style/font_9_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="start"
+                android:hint="描述"
+                android:lines="3"
+                android:paddingBottom="12dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="12dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/white_hi">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginRight="6dp"
+                android:background="@mipmap/ic_send_node"/>
+
+            <TextView
+                style="@style/font_main_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginRight="6dp"
+                android:background="@mipmap/ic_return_node"/>
+
+            <TextView
+                style="@style/font_main_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退回"
+                android:textColor="#fca637"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginRight="6dp"
+                android:background="@mipmap/ic_send_node"/>
+
+            <TextView
+                style="@style/font_main_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="复查"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginRight="4dp"
+                android:background="@mipmap/ic_delete_node"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="废弃"
+                android:textColor="#f48080"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

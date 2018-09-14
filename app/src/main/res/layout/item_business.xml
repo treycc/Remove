@@ -126,6 +126,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/iv_business_hasLocation"
             android:layout_width="16dp"
             android:layout_height="22dp"
             android:background="@mipmap/ic_location_sel"/>

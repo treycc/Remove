@@ -43,9 +43,9 @@
             </intent-filter>
         </activity>
         <!--登录页-->
-      <!--  <activity
-            android:name=".page.login.LoginActivity"
-            android:screenOrientation="portrait"/>-->
+        <!--  <activity
+              android:name=".page.login.LoginActivity"
+              android:screenOrientation="portrait"/>-->
         <!--项目列表-->
         <activity
             android:name=".page.projects.ProjectListActivity"
@@ -137,7 +137,7 @@
             android:screenOrientation="portrait"/>
         <!--业务列表-->
         <activity
-            android:name=".page.businesslist.BusinessListActivity"
+            android:name=".page.business.list.BusinessListActivity"
             android:screenOrientation="portrait"/>
 
         <!--年限鉴定-->
@@ -164,10 +164,56 @@
         <activity
             android:name=".activity.NodeProtocolActivity"
             android:screenOrientation="portrait"/>
-       <!--土地证-->
-    <!--    <activity
+        <!--航拍复查-->
+        <activity
+            android:name=".activity.AirphotoListActivity"
+            android:screenOrientation="portrait"/>
+        <!--航拍初审-->
+        <activity
+            android:name=".activity.AirPhotoDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--选择复查对象-->
+        <activity
+            android:name=".page.airphoto.person.AirPhotoPersonActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--公示管理-->
+        <activity
+            android:name=".page.publicity.PublicityListActivity"
+            android:screenOrientation="portrait"/>
+        <!--公示申请-->
+        <activity
+            android:name=".page.publicity.apply.PublicityApplyActivity"
+            android:screenOrientation="portrait"/>
+        <!--个人业务首页-->
+        <activity
+            android:name=".page.business.main.BusinessMainPersonalActivity"
+            android:screenOrientation="portrait"/>
+        <!--个人业务详情-->
+        <activity
+            android:name=".page.business.detail.personal.BusinessDetailPersonalActivity"
+            android:screenOrientation="portrait"/>
+        <!--家庭关系-->
+        <activity
+            android:name=".activity.FamilyRelationActivity"
+            android:screenOrientation="portrait"/>
+        <!--产权证-->
+        <activity
+            android:name=".activity.DeedPropertyActivity"
+            android:screenOrientation="portrait"/>
+        <!--土地证-->
+        <activity
             android:name=".activity.DeedLandActivity"
-            android:screenOrientation="portrait"/>-->
+            android:screenOrientation="portrait"/>
+        <!--不动产证-->
+        <activity
+            android:name=".activity.DeedImmovableActivity"
+            android:screenOrientation="portrait"/>
+        <!--成员详情-->
+        <activity
+            android:name=".activity.FamilyRememberActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.amap.api.v2.apikey"

@@ -1,5 +1,6 @@
 package com.jdp.hls.activity;
 
+import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
 
@@ -17,7 +18,7 @@ public class DeedImmovableActivity extends BaseTitleActivity{
 
     @Override
     protected int getContentView() {
-        return 0;
+        return R.layout.activity_deed_immovable;
     }
 
     @Override

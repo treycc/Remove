@@ -77,7 +77,7 @@
             android:layout_marginRight="48dp"
             android:layout_marginTop="10dp"
             android:paddingLeft="12dp"
-            android:button="@drawable/selector_cb_remember"
+            android:button="@drawable/selector_cb_light"
             android:text="记住密码"/>
 
         <com.kingja.supershapeview.view.SuperShapeTextView

@@ -1,11 +1,14 @@
 package com.jdp.hls.model.service;
 
 
+import com.jdp.hls.model.entiy.AirPhotoItem;
+import com.jdp.hls.model.entiy.AirPhotoPerson;
 import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.HttpResult;
 import com.jdp.hls.model.entiy.Login;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
+import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.Task;
@@ -124,4 +127,18 @@ public interface ApiService {
     @GET("api/workflow/GetTaskList")
     Observable<HttpResult<List<Business>>> getTaskList(@Query("projectId") String projectId, @Query("buildingType") int
             buildingType, @Query("taskType") int taskType);
+
+    /*获取航拍复查列表*/
+    @GET("api/house/getAirPhotoList")
+    Observable<HttpResult<List<AirPhotoItem>>> getAirPhotoList(@Query("projectId") String projectId, @Query
+            ("airCurrentNodeType") int airCurrentNodeType);
+
+    /*获取复查对象*/
+    @GET("api/house/getAirPhotoList")
+    Observable<HttpResult<List<AirPhotoPerson>>> getAirPhotoPersons(@Query("projectId") String projectId);
+
+    /*获取公示列表*/
+    @GET("api/house/getPublicityList")
+    Observable<HttpResult<List<PublicityItem>>> getPublicityList(@Query("projectId") String projectId, @Query("type")
+            int type);
 }

@@ -1,4 +1,4 @@
-package com.jdp.hls.page.businesslist;
+package com.jdp.hls.page.business.list;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,9 +16,10 @@ import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.Roster;
+import com.jdp.hls.page.business.main.BusinessMainPersonalActivity;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.page.rosterlist.GetRostersByTypeContract;
-import com.jdp.hls.page.rosterlist.GetRostersByTypePresenter;
+import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
@@ -68,8 +69,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Roster roster = (Roster) adapterView.getItemAtPosition(position);
-        RosterDetailActivity.goActivity(getActivity(), roster);
+        GoUtil.goActivity(getActivity(), BusinessMainPersonalActivity.class);
     }
 
     @Override
@@ -119,16 +119,10 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
             helper.setText(R.id.tv_business_number, item.getSysCode());
             helper.setText(R.id.tv_business_name, item.getRealName());
             helper.setText(R.id.tv_business_mobile, item.getMobilePhone());
-//            helper.setBackgroundResource(R.id.iv_roster_hasLocation, (item.getLatitude() == 0 || item.getLongitude()
-//                    == 0) ? R.mipmap
-//                    .ic_has_location_nor : R.mipmap
-//                    .ic_has_location_sel);
-//            helper.setBackgroundResource(R.id.iv_roster_isMeasure, item.isMeasured() ? R.mipmap
-//                    .ic_measure_action : R.mipmap
-//                    .ic_measure_nor);
-//            helper.setBackgroundResource(R.id.iv_roster_isEvaluated, item.isEvaluated() ? R.mipmap
-//                    .ic_evaluate_action : R.mipmap
-//                    .ic_evaluate_nor);
+            helper.setBackgroundResource(R.id.iv_business_hasLocation, (item.isHasLongitudeAndLatitude() ? R.mipmap
+                    .ic_location_sel : R.mipmap.ic_location_nor));
+            helper.setVisibility(R.id.iv_business_isBack, item.isFlowBack());
+
         }
 
         public void modifyData(Roster roster) {
@@ -184,7 +178,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
     @Override
     public void onRefresh() {
-        businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(),buildingType,taskType);
+        businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(), buildingType, taskType);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

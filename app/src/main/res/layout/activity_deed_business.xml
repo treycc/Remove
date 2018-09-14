@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white_hi"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical">
+
+    <TextView
+        style="@style/Title_Main"
+        android:text="基本信息"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="法人姓名"/>
+
+        <com.jdp.hls.view.EnableEditText
+            style="@style/Content_ET_W2"
+            android:text="温集用2014第"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="法人身份证"/>
+
+        <com.jdp.hls.view.EnableEditText
+            style="@style/Content_ET_W2"
+            android:text="330398885555455555"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="法人联系号码"/>
+
+        <com.jdp.hls.view.EnableEditText
+            style="@style/Content_ET_W2"
+            android:text="18888555566"/>
+    </LinearLayout>
+
+    <TextView
+        style="@style/Title_Main"
+        android:text="土地证照片"/>
+
+    <com.jdp.hls.view.ImgRecyclerView
+        android:id="@+id/rv_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"/>
+</LinearLayout>

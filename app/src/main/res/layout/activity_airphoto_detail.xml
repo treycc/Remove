@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_hi"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="基本信息"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="6dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="档案编号"/>
+
+            <com.jdp.hls.view.EnableEditText
+                style="@style/font_9_15_eet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="5465656"/>
+        </LinearLayout>
+
+        <View
+            style="@style/div_hor_gray"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="6dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="户主姓名"/>
+
+            <com.jdp.hls.view.EnableEditText
+                style="@style/font_9_15_eet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="王小虎"/>
+        </LinearLayout>
+
+        <View
+            style="@style/div_hor_gray"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="6dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="具体地址"/>
+
+            <com.jdp.hls.view.EnableEditText
+                style="@style/font_9_15_eet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="高二路22号"/>
+        </LinearLayout>
+
+        <View
+            style="@style/div_hor_gray"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="房屋用途"/>
+
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/spinner_landType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:padding="0dp"
+                android:text="住宅用地"
+                app:textTint="@color/c_9"/>
+        </LinearLayout>
+
+        <View
+            style="@style/div_hor_gray"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="房屋结构"/>
+
+            <org.angmarch.views.NiceSpinner
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:padding="0dp"
+                android:text="砖混结构"
+                app:textTint="@color/c_9"/>
+        </LinearLayout>
+
+        <View
+            style="@style/div_hor_gray"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="6dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="层次"/>
+
+            <com.jdp.hls.view.EnableEditText
+                style="@style/font_9_15_eet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="2层"/>
+        </LinearLayout>
+
+        <View
+            style="@style/div_hor_gray"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"/>
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="未登记建筑基本情况"/>
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="查阅理由"/>
+        <EditText
+            style="@style/font_9_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:gravity="start"
+            android:hint="请输入查阅理由"
+            android:lines="3"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp"/>
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="资料上传说明"/>
+        <EditText
+            style="@style/font_9_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:gravity="start"
+            android:hint="请输入资料上传说明"
+            android:lines="3"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp"/>
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="申请表照片"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="12dp"/>
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="年限鉴定照片"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="12dp"/>
+    </LinearLayout>
+</ScrollView>
