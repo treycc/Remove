@@ -207,7 +207,6 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                     break;
                 default:
                     break;
-
             }
             checkHasModified();
         }

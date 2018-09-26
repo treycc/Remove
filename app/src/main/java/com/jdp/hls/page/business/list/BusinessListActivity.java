@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.BusinessPageAdapter;
+import com.jdp.hls.adapter.CountPageAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
@@ -106,14 +106,14 @@ public class BusinessListActivity extends BaseTitleActivity implements Bussiness
         tabBusiness.addTab(tabBusiness.newTab().setText(tabBusinessTitles[1]));
         mFragmentArr[0] = BusinessListFragment.newInstance(personalBusiness, taskType, 0);
         mFragmentArr[1] = BusinessListFragment.newInstance(companyBusiness, taskType, 1);
-        BusinessPageAdapter mBusinessPageAdapter = new BusinessPageAdapter(this, getSupportFragmentManager(),
+        CountPageAdapter mCountPageAdapter = new CountPageAdapter(this, getSupportFragmentManager(),
                 mFragmentArr, tabBusinessTitles, tabBusinessCounts, tabBusinessIcons);
-        vpBusiness.setAdapter(mBusinessPageAdapter);
+        vpBusiness.setAdapter(mCountPageAdapter);
         vpBusiness.setOffscreenPageLimit(2);
         tabBusiness.setupWithViewPager(vpBusiness);
         for (int i = 0; i < tabBusiness.getTabCount(); i++) {
             TabLayout.Tab tab = tabBusiness.getTabAt(i);
-            tab.setCustomView(mBusinessPageAdapter.getTabView(i));
+            tab.setCustomView(mCountPageAdapter.getTabView(i));
         }
     }
 

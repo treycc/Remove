@@ -1,5 +1,7 @@
 package com.jdp.hls.model.entiy;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 /**
@@ -9,8 +11,35 @@ import java.io.Serializable;
  * Email:kingjavip@gmail.com
  */
 public class DTOImgInfo implements Serializable {
+    private String Id;
     private String url;
+    private String smallUrl;
     private String uriStr;
+    private boolean checked;
+
+    public String getSmallUrl() {
+        return smallUrl;
+    }
+
+    public void setSmallUrl(String smallUrl) {
+        this.smallUrl = smallUrl;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 
     public String getUrl() {
         return url;
@@ -26,5 +55,27 @@ public class DTOImgInfo implements Serializable {
 
     public void setUriStr(String uriStr) {
         this.uriStr = uriStr;
+    }
+
+    @Override
+    public int hashCode() {
+        if (!TextUtils.isEmpty(uriStr)) {
+            return uriStr.hashCode();
+        }else{
+            return url.hashCode();
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof DTOImgInfo)) {
+            return false;
+        }
+        DTOImgInfo imgInfo = (DTOImgInfo) obj;
+        if (!TextUtils.isEmpty(uriStr)) {
+            return uriStr.equals(imgInfo.getUriStr());
+        }else{
+            return url.equals(imgInfo.getUrl());
+        }
     }
 }

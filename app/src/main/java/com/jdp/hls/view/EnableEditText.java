@@ -51,6 +51,7 @@ public class EnableEditText extends AppCompatEditText implements View.OnFocusCha
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
+        setHint("");
         invalidate();
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -28,6 +29,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 /**
  * Description:选择复查对象
@@ -57,6 +59,10 @@ public class AirPhotoPersonActivity extends BaseTitleActivity implements AirPhot
                 etAirphotoKeyword.setText("");
                 break;
         }
+    }
+    @OnItemClick({R.id.plv})
+    public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        GoUtil.goActivityAndFinish(AirPhotoPersonActivity.this, AirPhotoDetailActivity.class);
     }
 
     @Override
@@ -100,12 +106,6 @@ public class AirPhotoPersonActivity extends BaseTitleActivity implements AirPhot
             @Override
             public void afterTextChanged(Editable s) {
 
-            }
-        });
-        setRightClick("确定", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                GoUtil.goActivity(AirPhotoPersonActivity.this, AirPhotoDetailActivity.class);
             }
         });
     }

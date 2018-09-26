@@ -67,6 +67,7 @@
         <View style="@style/div_hor_gray"/>
 
         <GridView
+            android:scrollbars="none"
             android:listSelector="@android:color/transparent"
             android:id="@+id/gv_task"
             android:layout_width="match_parent"

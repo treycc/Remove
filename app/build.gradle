@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
+
 
 android {
     compileSdkVersion 27
@@ -10,7 +13,7 @@ android {
         versionCode VERSION_CODE as int
         versionName VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
         ndk {
 //            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
 //            abiFilters "armeabi"
@@ -47,6 +50,12 @@ android {
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    greendao {
+        targetGenDir 'src/main/java'
+        schemaVersion 1
+        daoPackage 'com.jdp.hls.dao'
     }
 
 }
@@ -100,7 +109,6 @@ dependencies {
 
     /*pulltofresh*/
     implementation 'com.zhihu.android:matisse:0.5.1'
-    implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 
     /*material-dialogs*/
@@ -129,6 +137,13 @@ dependencies {
 
     /*图表*/
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
+    /*时间选择*/
+    implementation 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+    /*下拉框*/
+    implementation 'com.kingja.popwindowsir:popwindowsir:1.0.2'
+    /*数据库*/
+    implementation 'org.greenrobot:greendao:3.2.2'
 }
 
 def buildApkBy() {

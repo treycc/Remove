@@ -17,4 +17,30 @@ public class Status {
         //身份证存在
         int ERROR_IDCARD_EXIST = 1011;
     }
+
+    public interface BuildingType {
+        int PERSONAL = 0;
+        int COMPANY = 1;
+    }
+
+    public interface ConfigType {
+        int LAND_USE = 1;//土地用途
+        int LAND_TYPE = 2;//土地性质
+        int PROPERTY_STRUCTURE = 3;//产权结构
+        int PROPERTY_USE = 4;//产权用途
+        int FLOW_NODE = 7;//节点
+        int SOCIAL_RELATION = 8;//社会关系
+    }
+
+    public interface BuildingId {
+        int PERSONAL = 0;
+        int COMPANY = 1;
+    }
+
+    public interface UIPermission {
+        int VIEW = 0;
+        int MODIFY = 1;
+        int ADD = 2;
+    }
+
 }

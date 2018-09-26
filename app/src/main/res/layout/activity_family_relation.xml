@@ -60,7 +60,7 @@
             android:background="@mipmap/bg_no_img"/>
 
         <ImageView
-            style="@style/Arrow_Right"/>
+            style="@style/BG_ARROW"/>
 
 
     </RelativeLayout>

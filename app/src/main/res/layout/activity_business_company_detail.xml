@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_hi">
@@ -9,6 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <TextView
@@ -23,14 +24,12 @@
                 android:text="档案编号"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_detail_cusCode"
                 style="@style/Content_ET_W2"
-                android:text="J012"/>
+                android:hint="请输入档案编号"/>
         </LinearLayout>
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
@@ -40,36 +39,29 @@
                 android:text="企业名称"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_detail_EnterpriseName"
                 style="@style/Content_ET_W2"
-                android:text="浙江健德普科技"/>
+                android:hint="请输入企业名称"/>
         </LinearLayout>
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="现状门牌号"/>
+                android:text="现住地址"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_detail_address"
                 style="@style/Content_ET_W2"
-                android:text="333"/>
+                android:hint="请输入现状门牌号"/>
         </LinearLayout>
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
@@ -79,14 +71,12 @@
                 android:text="负责人姓名"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_detail_RealName"
                 style="@style/Content_ET_W2"
-                android:text="王大虎"/>
+                android:hint="请输入负责人姓名"/>
         </LinearLayout>
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
@@ -96,14 +86,13 @@
                 android:text="负责人电话"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_detail_MobilePhone"
                 style="@style/Content_ET_W2"
-                android:text="188888888888"/>
+                android:hint="请输入负责人电话"/>
         </LinearLayout>
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+        <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -112,14 +101,13 @@
                 android:text="企业经营情况"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_detail_bizInfo"
                 style="@style/Content_ET_W2"
-                android:text="良好"/>
+                android:hint="请输入企业经营情况"/>
         </LinearLayout>
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+        <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -128,206 +116,130 @@
                 android:text="出租情况"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_detail_rentInfo"
                 style="@style/Content_ET_W2"
-                android:text="已出租"/>
+                android:hint="请输入出租情况"/>
         </LinearLayout>
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="其它"/>
-
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W2"
-                android:text="有电梯"/>
-        </LinearLayout>
-
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp">
-
-            <TextView
-                style="@style/font_6_15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="家庭关系"/>
-
-            <ImageView
-                android:layout_width="9dp"
-                android:layout_height="16dp"
-                android:layout_alignParentRight="true"
-                android:background="@mipmap/arrow_right"/>
-        </RelativeLayout>
-
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
-
+        <View style="@style/div_hor_gray_margin24"/>
 
 
         <TextView
             style="@style/Title_Main"
             android:text="房产信息"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp">
+
+        <LinearLayout
+            android:id="@+id/ll_detail_licenseDeed"
+            style="@style/Content_LL_T12">
 
             <TextView
-                style="@style/font_6_15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Title_Sub"
                 android:text="营业执照"/>
 
-            <ImageView
-                android:layout_width="9dp"
-                android:layout_height="16dp"
-                android:layout_alignParentRight="true"
-                android:background="@mipmap/arrow_right"/>
-        </RelativeLayout>
+            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+                <TextView
+                    android:id="@+id/tv_detail_businessDeed"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="1"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp">
+                <ImageView style="@style/BG_ARROW"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_detail_propertyDeed"
+            style="@style/Content_LL_T12">
 
             <TextView
-                style="@style/font_6_15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Title_Sub"
                 android:text="产权证"/>
 
-            <ImageView
-                android:layout_width="9dp"
-                android:layout_height="16dp"
-                android:layout_alignParentRight="true"
-                android:background="@mipmap/arrow_right"/>
-        </RelativeLayout>
+            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+                <TextView
+                    android:id="@+id/tv_detail_propertyDeed"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="1"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp">
+                <ImageView style="@style/BG_ARROW"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_detail_landDeed"
+            style="@style/Content_LL_T12">
 
             <TextView
-                style="@style/font_6_15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Title_Sub"
                 android:text="土地证"/>
 
-            <ImageView
-                android:layout_width="9dp"
-                android:layout_height="16dp"
-                android:layout_alignParentRight="true"
-                android:background="@mipmap/arrow_right"/>
-        </RelativeLayout>
+            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+                <TextView
+                    android:id="@+id/tv_detail_landDeed"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="1"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp">
+                <ImageView style="@style/BG_ARROW"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_detail_immovableDeed"
+            style="@style/Content_LL_T12">
 
             <TextView
-                style="@style/font_6_15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Title_Sub"
                 android:text="不动产证"/>
 
-            <ImageView
-                android:layout_width="9dp"
-                android:layout_height="16dp"
-                android:layout_alignParentRight="true"
-                android:background="@mipmap/arrow_right"/>
-        </RelativeLayout>
+            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
 
+                <TextView
+                    android:id="@+id/tv_detail_immovableDeed"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="1"/>
 
+                <ImageView style="@style/BG_ARROW"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
 
         <TextView
-            style="@style/font_6_15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp"
+            style="@style/Title_Normal"
             android:text="房屋现状图"/>
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp"/>
+        <include layout="@layout/layout_photo_preview"/>
 
-        <View
-            style="@style/div_hor_gray"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
         <TextView
-            style="@style/font_6_15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp"
+            style="@style/Title_Normal"
             android:text="备注"/>
 
         <EditText
+            android:id="@+id/et_detail_remark"
             style="@style/font_9_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

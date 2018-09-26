@@ -19,7 +19,7 @@
             android:hint="请输入户主姓名"/>
     </LinearLayout>
 
-    <View style="@style/div_hor_gray_margin12"/>
+    <View style="@style/div_hor_gray_margin24"/>
 
     <LinearLayout
         style="@style/Content_LL_T6">
@@ -33,7 +33,7 @@
             android:hint="请输入身份证号"/>
     </LinearLayout>
 
-    <View style="@style/div_hor_gray_margin12"/>
+    <View style="@style/div_hor_gray_margin24"/>
 
     <LinearLayout
         style="@style/Content_LL_T0">
@@ -50,7 +50,7 @@
             android:hint="请选择称谓"/>
     </LinearLayout>
 
-    <View style="@style/div_hor_gray_margin12"/>
+    <View style="@style/div_hor_gray_margin24"/>
 
     <LinearLayout
         style="@style/Content_LL_T0">
@@ -67,7 +67,7 @@
             android:hint="请选择性别"/>
     </LinearLayout>
 
-    <View style="@style/div_hor_gray_margin12"/>
+    <View style="@style/div_hor_gray_margin24"/>
 
     <LinearLayout
         style="@style/Content_LL_T0">

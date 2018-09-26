@@ -12,6 +12,8 @@ import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.PublicityItem;
+import com.jdp.hls.page.publicity.detail.PublicityDetailActivity;
+import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
@@ -52,6 +54,7 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        GoUtil.goActivity(getActivity(), PublicityDetailActivity.class);
     }
 
     @Override

@@ -14,11 +14,13 @@
     <color name="red_hi">#EA1022</color>
     <color name="white_hi">#ffffff</color>
     <color name="half_hi">#33ffffff</color>
+    <color name="half_t">#77000000</color>
     <color name="main">#13A4F9</color>
     <color name="transparent">#00ffffff</color>
-
     <color name="pie_red">#F18F72</color>
-    <color name="pie_yellow">#F1EE6B</color>
+    <color name="pie_yellow">#f2e174</color>
     <color name="pie_cyan">#76DDDC</color>
     <color name="pie_green">#8FC320</color>
+
+    <color name="pie_orange">#f0ad71</color>
 </resources>

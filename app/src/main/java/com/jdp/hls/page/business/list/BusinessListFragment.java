@@ -11,15 +11,15 @@ import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.AddRostersEvent;
 import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.Roster;
-import com.jdp.hls.page.business.main.BusinessMainPersonalActivity;
-import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
+import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
+import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.page.rosterlist.GetRostersByTypeContract;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
@@ -69,7 +69,13 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        GoUtil.goActivity(getActivity(), BusinessMainPersonalActivity.class);
+        Business business = (Business) adapterView.getItemAtPosition(position);
+        String buildingId = business.getBuildingId();
+        if (business.getBuildingType() == Status.BuildingId.PERSONAL) {
+            BasicPersonalActivity.goActivity(getActivity(),buildingId);
+        } else {
+            BasicCompanyActivity.goActivity(getActivity(),buildingId);
+        }
     }
 
     @Override
@@ -115,7 +121,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
         @Override
         public void convert(ViewHolder helper, Business item) {
-            helper.setText(R.id.tv_business_address, item.getHouseAddress());
+            helper.setText(R.id.tv_business_address, item.getAddress());
             helper.setText(R.id.tv_business_number, item.getSysCode());
             helper.setText(R.id.tv_business_name, item.getRealName());
             helper.setText(R.id.tv_business_mobile, item.getMobilePhone());

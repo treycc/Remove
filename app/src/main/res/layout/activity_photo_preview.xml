@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                android:background="@color/bg_hi"
+                android:orientation="vertical">
+
+    <GridView
+        android:id="@+id/gv_photo_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_hi"
+        android:horizontalSpacing="6dp"
+        android:numColumns="4"
+        android:padding="12dp"
+        android:scrollbars="none"
+        android:verticalSpacing="6dp"
+        tools:listitem="@layout/item_gv_preview"/>
+
+    <LinearLayout
+        android:id="@+id/ll_photo_operateBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white_hi"
+        android:visibility="visible">
+
+        <CheckBox
+            android:id="@+id/cb_photo_select"
+            style="@style/font_3_16"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="全选"/>
+
+        <View style="@style/div_ver_gray"/>
+
+        <TextView
+            android:id="@+id/tv_photo_delete"
+            style="@style/font_3_16"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="删除"/>
+    </LinearLayout>
+
+</RelativeLayout>

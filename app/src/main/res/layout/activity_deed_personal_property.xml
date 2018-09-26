@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_hi"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="基本信息"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="产权证号"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_property_num"
+                style="@style/Content_ET_W2"
+                android:hint="请输入产权证号"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="建筑面积(m²)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_property_totalArea"
+                style="@style/Content_ET_W2"
+                android:hint="请输入建筑面积"
+                android:inputType="numberDecimal"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="公摊面积(m²)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_property_shareArea"
+                style="@style/Content_ET_W2"
+                android:hint="请输入公摊面积"
+                android:inputType="numberDecimal"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T0">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="产权结构"/>
+
+            <com.jdp.hls.view.KSpinner
+                android:id="@+id/spinner_property_structure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:hint="请选择产权结构"
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+
+        <LinearLayout
+            style="@style/Content_LL_T0">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="产权用途"/>
+
+            <com.jdp.hls.view.KSpinner
+                android:id="@+id/spinner_property_use"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:hint="请选择产权用途"
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="坐落地址"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_property_address"
+                style="@style/Content_ET_W2"
+                android:hint="请输入地址"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="产权证照片"/>
+
+
+        <LinearLayout
+            android:id="@+id/ll_photo_preview"
+            style="@style/Content_LL_T12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.jdp.hls.view.PreviewRecyclerView
+                android:id="@+id/rv_photo_preview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                style="@style/BG_ARROW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

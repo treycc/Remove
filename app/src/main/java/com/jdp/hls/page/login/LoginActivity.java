@@ -1,6 +1,7 @@
 package com.jdp.hls.page.login;
 
 import android.Manifest;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -14,6 +15,7 @@ import com.jdp.hls.model.entiy.Login;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.UserInfo;
 import com.jdp.hls.page.projects.ProjectListActivity;
+import com.jdp.hls.service.initialize.InitializeService;
 import com.jdp.hls.util.AesUtil;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.EncryptUtil;
@@ -146,6 +148,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
     @Override
     public void onLoginSuccess(Login account) {
         saveUserInfo(account);
+        startService(new Intent(this, InitializeService.class));
         if (cbRememberPasswrod.isChecked()) {
             SpSir.getInstance().setIfRememberBaby(true);
             SpSir.getInstance().setComeOnBaby(AesUtil.encrypt(password));

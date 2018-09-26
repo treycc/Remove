@@ -76,18 +76,22 @@ public abstract class BaseTitleActivity extends BaseActivity {
     public void showLoadingCallback() {
         mBaseLoadService.showCallback(LoadingCallback.class);
     }
+
     @Override
-    public void showEmptyCallback(){
+    public void showEmptyCallback() {
         mBaseLoadService.showCallback(EmptyCallback.class);
     }
+
     @Override
-    public void showErrorCallback(){
+    public void showErrorCallback() {
         mBaseLoadService.showCallback(ErrorCallback.class);
     }
+
     @Override
-    public void showSuccessCallback(){
+    public void showSuccessCallback() {
         mBaseLoadService.showSuccess();
     }
+
     private void onNetReload(View v) {
         initNet();
     }
@@ -132,6 +136,12 @@ public abstract class BaseTitleActivity extends BaseActivity {
         tv_right_text.setOnClickListener(onClickListener);
     }
 
+    public void setRightText(String rightText) {
+        TextView tv_right_text = rootView.findViewById(R.id.tv_right_text);
+        tv_right_text.setText(rightText);
+        tv_right_text.setVisibility(View.VISIBLE);
+    }
+
     public void hideRightClick() {
         TextView tv_right_text = rootView.findViewById(R.id.tv_right_text);
         tv_right_text.setVisibility(View.GONE);
@@ -140,7 +150,8 @@ public abstract class BaseTitleActivity extends BaseActivity {
     public void setRightClickable(boolean clickable) {
         TextView tv_right_text = rootView.findViewById(R.id.tv_right_text);
         tv_right_text.setEnabled(clickable);
-        tv_right_text.setTextColor(clickable?ContextCompat.getColor(this,R.color.main):ContextCompat.getColor(this,R.color.c_9));
+        tv_right_text.setTextColor(clickable ? ContextCompat.getColor(this, R.color.main) : ContextCompat.getColor
+                (this, R.color.c_9));
     }
 
     @Override

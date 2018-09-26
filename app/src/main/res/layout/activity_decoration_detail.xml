@@ -34,10 +34,7 @@
             app:textTint="@color/c_9"/>
     </LinearLayout>
 
-    <View
-        style="@style/div_hor_gray"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"/>
+     <View style="@style/div_hor_gray_margin24"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,10 +62,7 @@
             app:textTint="@color/c_9"/>
     </LinearLayout>
 
-    <View
-        style="@style/div_hor_gray"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"/>
+     <View style="@style/div_hor_gray_margin24"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,10 +90,7 @@
             android:text="请输入数量"/>
     </LinearLayout>
 
-    <View
-        style="@style/div_hor_gray"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"/>
+     <View style="@style/div_hor_gray_margin24"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -127,10 +118,7 @@
             android:text="请输入总金额"/>
     </LinearLayout>
 
-    <View
-        style="@style/div_hor_gray"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"/>
+     <View style="@style/div_hor_gray_margin24"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -159,8 +147,5 @@
             android:text="请输入备注"/>
     </LinearLayout>
 
-    <View
-        style="@style/div_hor_gray"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"/>
+     <View style="@style/div_hor_gray_margin24"/>
 </LinearLayout>

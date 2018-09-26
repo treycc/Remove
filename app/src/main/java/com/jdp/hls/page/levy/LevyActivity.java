@@ -15,6 +15,8 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Task;
 import com.jdp.hls.page.business.list.BusinessListActivity;
 import com.jdp.hls.page.map.RosterActivity;
+import com.jdp.hls.page.publicity.PublicityListActivity;
+import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
 
@@ -78,6 +80,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
                 break;
             case R.id.ll_operate_publicity:
                 /*公示管理*/
+                GoUtil.goActivity(this, PublicityListActivity.class);
                 break;
             case R.id.ll_operate_plane:
                 /*航拍复查*/
@@ -85,6 +88,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
                 break;
             case R.id.ll_operate_detail:
                 /*一览表*/
+                GoUtil.goActivity(this, TableListActivity.class);
                 break;
             case R.id.ll_statistics_sign:
                 /*签约统计*/

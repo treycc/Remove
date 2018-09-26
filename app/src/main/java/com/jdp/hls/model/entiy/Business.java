@@ -9,23 +9,24 @@ import java.io.Serializable;
  * Email:kingjavip@gmail.com
  */
 public class Business implements Serializable{
-    private String HouseId;
+
+    private String BuildingId;
     private String SysCode;
     private int BuildingType;
     private String RealName;
-    private String HouseAddress;
     private String MobilePhone;
+    private String Address;
     private int StatusId;
     private String StatusDesc;
     private boolean IsFlowBack;
     private boolean HasLongitudeAndLatitude;
 
-    public String getHouseId() {
-        return HouseId;
+    public String getAddress() {
+        return Address;
     }
 
-    public void setHouseId(String houseId) {
-        HouseId = houseId;
+    public void setAddress(String address) {
+        Address = address;
     }
 
     public String getSysCode() {
@@ -34,6 +35,14 @@ public class Business implements Serializable{
 
     public void setSysCode(String sysCode) {
         SysCode = sysCode;
+    }
+
+    public String getBuildingId() {
+        return BuildingId;
+    }
+
+    public void setBuildingId(String buildingId) {
+        BuildingId = buildingId;
     }
 
     public int getBuildingType() {
@@ -52,13 +61,6 @@ public class Business implements Serializable{
         RealName = realName;
     }
 
-    public String getHouseAddress() {
-        return HouseAddress;
-    }
-
-    public void setHouseAddress(String houseAddress) {
-        HouseAddress = houseAddress;
-    }
 
     public String getMobilePhone() {
         return MobilePhone;

@@ -42,6 +42,7 @@ public class Constants {
 
     public interface RequestCode {
         int REQUEST_CODE_LOCATION = 10;
+        int REQUEST_CODE_PHOTO_PREVIEW = 11;
     }
     public interface MapSetting {
         double Lat = 27.965626136017267;
@@ -53,6 +54,19 @@ public class Constants {
         int CONNECTTIMEOUT = 30;
         int WRITETIMEOUT = 40;
         int READTIMEOUT = 40;
+    }
+
+    public interface BusinessNode {
+        int MEASURE = 0;
+        int MAPPING = 1;
+        int AGE = 2;
+        int EVALUATE = 3;
+        int PROTOCOL = 4;
+    }
+
+    public interface Extra {
+        String DELETE_IDS = "DELETE_IDS";
+        String DTO_IMGS = "DTO_IMGS";
     }
 
 }

@@ -1,5 +1,6 @@
 package com.jdp.hls.page.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +21,7 @@ import com.jdp.hls.fragment.MessageFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.page.mine.MineFragment;
+import com.jdp.hls.service.initialize.InitializeService;
 import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;

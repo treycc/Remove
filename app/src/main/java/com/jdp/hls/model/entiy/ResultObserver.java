@@ -66,10 +66,10 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
 
     protected void onError(int code, String message) {
         ToastUtil.showText(message);
-
     }
 
     protected void onServerError(int code, String message) {
+
     }
 
     protected void onLoginFail() {

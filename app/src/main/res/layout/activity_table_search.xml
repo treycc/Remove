@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_hi"
+              android:orientation="vertical"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
+
+    <com.kingja.supershapeview.view.SuperShapeLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:gravity="center_vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="6dp"
+        app:super_cornerRadius="4dp"
+        app:super_solidColor="@color/white_hi">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginRight="12dp"
+            android:background="@mipmap/ic_search"/>
+
+        <EditText
+            android:id="@+id/et_keyword"
+            style="@style/font_9_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请输入户主/地址/手机号/档案编号"
+            android:singleLine="true"/>
+
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@mipmap/ic_input_clear"
+            android:visibility="gone"/>
+
+
+    </com.kingja.supershapeview.view.SuperShapeLinearLayout>
+
+    <LinearLayout
+        android:background="@color/white_hi"
+        android:padding="6dp"
+        android:id="@+id/ll_spinner_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.kingja.popwindowsir.PopSpinner
+            android:id="@+id/spiner_buildingType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            app:spinner_indicatorNorColor="@color/c_9"
+            app:spinner_indicatorSelColor="@color/main"
+            app:spinner_indicatorSzie="6dp"
+            app:spinner_indicatorText="选择类型"
+            app:spinner_marginIndicator="24dp"
+            app:spinner_textNorColor="@color/c_9"
+            app:spinner_textSelColor="@color/main"
+            app:spinner_textSize="12sp"/>
+
+        <com.kingja.popwindowsir.PopSpinner
+            android:id="@+id/spiner_node"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            app:spinner_indicatorNorColor="@color/c_9"
+            app:spinner_indicatorSelColor="@color/main"
+            app:spinner_indicatorSzie="6dp"
+            app:spinner_indicatorText="选择节点"
+            app:spinner_marginIndicator="24dp"
+            app:spinner_textNorColor="@color/c_9"
+            app:spinner_textSelColor="@color/main"
+            app:spinner_textSize="12sp"/>
+
+        <com.kingja.popwindowsir.PopSpinner
+            android:id="@+id/spiner_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            app:spinner_indicatorNorColor="@color/c_9"
+            app:spinner_indicatorSelColor="@color/main"
+            app:spinner_indicatorSzie="6dp"
+            app:spinner_indicatorText="选择日期"
+            app:spinner_marginIndicator="24dp"
+            app:spinner_textNorColor="@color/c_9"
+            app:spinner_textSelColor="@color/main"
+            app:spinner_textSize="12sp"/>
+
+    </LinearLayout>
+    <View style="@style/div_hor_gray"/>
+
+    <com.jdp.hls.view.RefreshSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.jdp.hls.view.PullToBottomListView
+            android:id="@+id/plv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/div_hi"
+            android:dividerHeight="1px"
+            tools:listitem="@layout/item_project"/>
+    </com.jdp.hls.view.RefreshSwipeRefreshLayout>
+</LinearLayout>

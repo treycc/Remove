@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_hi">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="公示批次"/>
+
+            <com.jdp.hls.view.EnableEditText
+                style="@style/Content_ET_W3"
+                android:hint="请输入公示批次"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_publicity_select"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="公示户数"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+
+                <TextView
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="请选择公示对象"
+                    android:paddingLeft="12dp"/>
+
+                <ImageView style="@style/BG_ARROW"/>
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="公示人"/>
+
+            <TextView
+                style="@style/Content_ET_W3"
+                android:hint="公示人"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_publicity_startDate"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="开始时间"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:paddingLeft="12dp">
+
+                <TextView
+                    android:id="@+id/tv_publicity_startDate"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="请选择开始时间"/>
+
+                <ImageView
+                    style="@style/BG_DATE_SELECTOR"/>
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_publicity_endDate"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="结束时间"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:paddingLeft="12dp">
+
+                <TextView
+                    android:id="@+id/tv_publicity_endDate"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="请选择结束时间"/>
+
+                <ImageView
+                    style="@style/BG_DATE_SELECTOR"/>
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <TextView
+            style="@style/Title_Normal"
+            android:text="照片"/>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp"/>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <TextView
+            style="@style/Title_Normal"
+            android:text="描述"/>
+
+        <EditText
+            style="@style/font_9_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="请输入备注"
+            android:lines="4"/>
+
+    </LinearLayout>
+
+
+</ScrollView>

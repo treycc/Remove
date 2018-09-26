@@ -9,15 +9,10 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
-import com.jdp.hls.activity.BigImgActivity;
 import com.jdp.hls.adapter.BaseRvPositionAdapter;
 import com.jdp.hls.adapter.ImgAdapter;
 import com.jdp.hls.model.entiy.DTOImgInfo;
 import com.jdp.hls.model.entiy.ImgInfo;
-import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
-import com.jdp.hls.util.MatisseUtil;
-import com.jdp.hls.util.PermissionsUtil;
-import com.jdp.hls.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;

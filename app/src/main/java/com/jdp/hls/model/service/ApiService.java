@@ -4,13 +4,27 @@ package com.jdp.hls.model.service;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.AirPhotoPerson;
 import com.jdp.hls.model.entiy.Business;
+import com.jdp.hls.model.entiy.BaiscCompany;
+import com.jdp.hls.model.entiy.BaiscPersonal;
+import com.jdp.hls.model.entiy.DeedCompanyImmovable;
+import com.jdp.hls.model.entiy.DeedCompanyLand;
+import com.jdp.hls.model.entiy.DeedCompanyLicense;
+import com.jdp.hls.model.entiy.DeedCompanyProperty;
+import com.jdp.hls.model.entiy.DeedPersonalImmovable;
+import com.jdp.hls.model.entiy.DeedPersonalLand;
+import com.jdp.hls.model.entiy.DeedPersonalProperty;
+import com.jdp.hls.model.entiy.DetailCompany;
+import com.jdp.hls.model.entiy.DetailPersonal;
+import com.jdp.hls.model.entiy.Dict;
 import com.jdp.hls.model.entiy.HttpResult;
 import com.jdp.hls.model.entiy.Login;
+import com.jdp.hls.model.entiy.NodePersonalMeasure;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
+import com.jdp.hls.model.entiy.Table;
 import com.jdp.hls.model.entiy.Task;
 
 import java.util.List;
@@ -141,4 +155,129 @@ public interface ApiService {
     @GET("api/house/getPublicityList")
     Observable<HttpResult<List<PublicityItem>>> getPublicityList(@Query("projectId") String projectId, @Query("type")
             int type);
+
+    /*获取一览表列表*/
+    @GET("api/workflow/GetLevyList")
+    Observable<HttpResult<List<Table>>> getTables(@Query("projectId") String projectId, @Query("buildingType") int
+            buildingType);
+
+    /*获取字典表*/
+    @GET("api/SystemSevice/GetAllConfigList")
+    Observable<HttpResult<List<Dict>>> getDicts();
+
+    /*个人基本信息*/
+    @GET("api/Workflow/GetHouseTaskBasicInfo")
+    Observable<HttpResult<BaiscPersonal>> getPersonalBasic(@Query("buildingId") String buildingId);
+
+    /*企业基本信息*/
+    @GET("api/workflow/GetEnterpriseTaskBasicInfo")
+    Observable<HttpResult<BaiscCompany>> getCompanyBasic(@Query("buildingId") String buildingId);
+
+    /*个人信息详情*/
+    @GET("api/workflow/GetHouseTaskDetail")
+    Observable<HttpResult<DetailPersonal>> getPersonalDetail(@Query("buildingId") String buildingId);
+
+    /*企业-信息详情*/
+    @GET("api/workflow/GetEnterpriseTaskDetail")
+    Observable<HttpResult<DetailCompany>> getCompanyDetail(@Query("buildingId") String buildingId);
+
+    /*======================个人证件======================*/
+    /*个人产权证-获取*/
+    @GET("api/cert/GetHousePropertyCert")
+    Observable<HttpResult<DeedPersonalProperty>> getDeedPersonalProperty(@Query("houseId") String houseId);
+
+    /*个人产权证-修改*/
+    @POST("api/cert/UpdateHousePropertyCert")
+    Observable<HttpResult<Object>> modifyDeedPersonalProperty(@Body RequestBody rosterBody);
+
+    /*个人产权证-创建*/
+    @POST("api/cert/AddHousePropertyCert")
+    Observable<HttpResult<Object>> addDeedPersonalProperty(@Body RequestBody rosterBody);
+
+    /*个人土地证-获取*/
+    @GET("api/cert/GetHouseLandCert")
+    Observable<HttpResult<DeedPersonalLand>> getDeedPersonalLand(@Query("houseId") String houseId);
+
+    /*个人土地证-修改*/
+    @POST("api/cert/UpdateHouseLandCert")
+    Observable<HttpResult<Object>> modifyDeedPersonalLand(@Body RequestBody rosterBody);
+
+    /*个人土地证-创建*/
+    @POST("api/cert/AddHouseLandCert")
+    Observable<HttpResult<Object>> addDeedPersonalLand(@Body RequestBody rosterBody);
+
+
+    /*个人不动产证-获取*/
+    @GET("api/cert/GetHouseEstateCert")
+    Observable<HttpResult<DeedPersonalImmovable>> getDeedPersonalImmovable(@Query("houseId") String houseId);
+
+    /*个人不动产证-修改*/
+    @POST("api/cert/UpdateHouseEstateCert")
+    Observable<HttpResult<Object>> modifyDeedPersonalImmovable(@Body RequestBody rosterBody);
+
+    /*个人不动产证-创建*/
+    @POST("api/cert/AddHouseEstateCert")
+    Observable<HttpResult<Object>> addDeedPersonalImmovable(@Body RequestBody rosterBody);
+
+    /*个人-入户丈量-获取*/
+    @GET("api/Workflow/GetHouseMeasurement")
+    Observable<HttpResult<NodePersonalMeasure>> getPersonalMeasure(@Query("houseId") String houseId);
+
+    /*个人-入户丈量-修改*/
+    @POST("api/workflow/UpdateHouseMeasurement")
+    Observable<HttpResult<Object>> modifyPersonalMeasure(@Body RequestBody rosterBody);
+
+
+    /*======================企业证件======================*/
+    /*企业产权证-获取*/
+    @GET("api/cert/GetEnterprisePropertyCert")
+    Observable<HttpResult<DeedCompanyProperty>> getDeedCompanyProperty(@Query("enterpriseId") String enterpriseId);
+
+    /*企业产权证-修改*/
+    @POST("api/cert/UpdateEnterprisePropertyCert")
+    Observable<HttpResult<Object>> modifyDeedCompanyProperty(@Body RequestBody rosterBody);
+
+    /*企业产权证-创建*/
+    @POST("api/cert/AddEnterprisePropertyCert")
+    Observable<HttpResult<Object>> addDeedCompanyProperty(@Body RequestBody rosterBody);
+
+    /*企业土地证-获取*/
+    @GET("api/cert/GetEnterpriseLandCert")
+    Observable<HttpResult<DeedCompanyLand>> getDeedCompanyLand(@Query("enterpriseId") String enterpriseId);
+
+    /*企业土地证-修改*/
+    @POST("api/cert/UpdateEnterpriseLandCert")
+    Observable<HttpResult<Object>> modifyDeedCompanyLand(@Body RequestBody rosterBody);
+
+    /*企业土地证-创建*/
+    @POST("api/cert/AddEnterpriseLandCert")
+    Observable<HttpResult<Object>> addDeedCompanyLand(@Body RequestBody rosterBody);
+
+
+    /*企业不动产证-获取*/
+    @GET("api/cert/GetEnterpriseEstateCert")
+    Observable<HttpResult<DeedCompanyImmovable>> getDeedCompanyImmovable(@Query("enterpriseId") String enterpriseId);
+
+    /*企业不动产证-修改*/
+    @POST("api/cert/UpdateEnterpriseEstateCert")
+    Observable<HttpResult<Object>> modifyDeedCompanyImmovable(@Body RequestBody rosterBody);
+
+    /*企业不动产证-创建*/
+    @POST("api/cert/AddEnterpriseEstateCert")
+    Observable<HttpResult<Object>> addDeedCompanyImmovable(@Body RequestBody rosterBody);
+
+    /*企业营业执照-获取*/
+    @GET("api/cert/GetEnterpriseLicense")
+    Observable<HttpResult<DeedCompanyLicense>> getDeedCompanyLicense(@Query("enterpriseId") String enterpriseId);
+
+    /*企业营业执照-修改*/
+    @POST("api/cert/UpdateEnterpriseLicense")
+    Observable<HttpResult<Object>> modifyDeedCompanyLicense(@Body RequestBody rosterBody);
+
+    /*企业营业执照-创建*/
+    @POST("api/cert/AddEnterpriseLicense")
+    Observable<HttpResult<Object>> addDeedCompanyLicense(@Body RequestBody rosterBody);
+
+
+
 }

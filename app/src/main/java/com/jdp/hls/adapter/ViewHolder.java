@@ -80,7 +80,7 @@ public class ViewHolder {
     }
 
     public ViewHolder setVisibility(int viewId, boolean visibility) {
-        ImageView view = getView(viewId);
+        View view = getView(viewId);
         view.setVisibility(visibility?View.VISIBLE:View.GONE);
         return this;
     }

@@ -7,13 +7,6 @@ package com.jdp.hls.model.entiy;
  * Email:kingjavip@gmail.com
  */
 public class Dict {
-
-    //"RowNum": 7,
-    //"ConfigType": 1,
-    //"TypeId": 7,
-    //"TypeName": "其他",
-    //"ConfigTypeDesc": "土地用途类型"
-
     private int RowNum;
     private int ConfigType;
     private int TypeId;

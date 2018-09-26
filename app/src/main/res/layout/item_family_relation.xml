@@ -72,6 +72,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView style="@style/Arrow_Right"/>
+    <ImageView style="@style/BG_ARROW"/>
 
 </RelativeLayout>

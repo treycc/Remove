@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white_hi"
+              android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:id="@+id/tv_node_des"
+            style="@style/font_6_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="节点名称"/>
+
+        <ImageView
+            android:id="@+id/iv_arrow_right"
+            android:layout_width="9dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/arrow_right"/>
+    </RelativeLayout>
+
+    <!-- <View style="@style/div_hor_gray_margin24"/>-->
+
+
+</LinearLayout>

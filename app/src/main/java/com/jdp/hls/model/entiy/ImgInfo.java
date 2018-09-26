@@ -11,10 +11,37 @@ import java.io.Serializable;
  * Email:kingjavip@gmail.com
  */
 public class ImgInfo implements Serializable{
+    private boolean checked;
+    private boolean deleted;
+    private boolean added;
     private String Id;
     private String FileUrl;
     private String SmallImgUrl;
     private Uri uri;
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public boolean isAdded() {
+        return added;
+    }
+
+    public void setAdded(boolean added) {
+        this.added = added;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 
     public String getId() {
         return Id;
@@ -68,7 +95,6 @@ public class ImgInfo implements Serializable{
         }else{
             return FileUrl.equals(imgInfo.getFileUrl());
         }
-
     }
 
 }
