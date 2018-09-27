@@ -33,7 +33,6 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
-import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.FileUtil;
@@ -159,7 +158,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                 ModifyActivity.goActivityInActivity(this, Constants.ModifyCode.MODIFY_REMARK, "备注", remark);
                 break;
             case R.id.ll_roster_location:
-                GoUtil.goActivityForResult(this, LocationActivity.class, Constants.RequestCode.REQUEST_CODE_LOCATION);
+                GoUtil.goActivityForResult(this, LocationActivity.class, Constants.RequestCode.LOCATION);
                 break;
 
         }
@@ -194,7 +193,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                     setRosterRemark.setText(newVaule);
                     modifyMap.setRemark(newVaule);
                     break;
-                case Constants.RequestCode.REQUEST_CODE_LOCATION:
+                case Constants.RequestCode.LOCATION:
                     lng = data.getDoubleExtra("lng", -1);
                     lat = data.getDoubleExtra("lat", -1);
                     setLocation(lng, lat);

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.LoadSirObserver;
+import com.jdp.hls.model.entiy.TaskInfo;
 
 import java.util.List;
 
@@ -33,10 +34,10 @@ public class BusinessPresenter implements BussinessContract.Presenter {
     public void getBusinessList(String projectId, int buildingType, int taskType) {
         mApi.getApiService().getTaskList(projectId, buildingType,taskType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<List<Business>>(mView) {
+                (new LoadSirObserver<TaskInfo>(mView) {
                     @Override
-                    protected void onSuccess(List<Business> rosters) {
-                        mView.onGetBusinessSuccess(rosters);
+                    protected void onSuccess(TaskInfo taskInfo) {
+                        mView.onGetBusinessSuccess(taskInfo);
                     }
                 });
     }

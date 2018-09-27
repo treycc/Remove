@@ -21,7 +21,6 @@ import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.DTOImgInfo;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.util.FileUtil;
-import com.jdp.hls.util.MatisseUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -129,7 +128,7 @@ public class PreviewRecyclerView extends RecyclerView {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.RequestCode.REQUEST_CODE_PHOTO_PREVIEW && data != null) {
+        if (requestCode == Constants.RequestCode.PHOTO_PREVIEW && data != null) {
             ArrayList<String> deleteIds = data.getStringArrayListExtra(Constants.Extra.DELETE_IDS);
             List<DTOImgInfo> dtoImgInfos = (List<DTOImgInfo>) data.getSerializableExtra(Constants.Extra.DTO_IMGS);
             Iterator<DTOImgInfo> it = previewImgAdapter.getDate().iterator();
@@ -147,7 +146,7 @@ public class PreviewRecyclerView extends RecyclerView {
     }
 
     public void onActivityResult(Intent data) {
-        onActivityResult(Constants.RequestCode.REQUEST_CODE_PHOTO_PREVIEW, Activity.RESULT_OK, data);
+        onActivityResult(Constants.RequestCode.PHOTO_PREVIEW, Activity.RESULT_OK, data);
     }
 
 

@@ -9,19 +9,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.BusinessNodeAdapter;
+import com.jdp.hls.adapter.FlowNodeAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.BusinessNode;
+import com.jdp.hls.model.entiy.FlowNode;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
-import com.jdp.hls.page.business.node.personal.NodePersonalAgeActivity;
-import com.jdp.hls.page.business.node.personal.NodePersonalEvaluateActivity;
-import com.jdp.hls.page.business.node.personal.NodePersonalMappingActivity;
-import com.jdp.hls.page.business.node.personal.NodePersonalProtocolActivity;
+import com.jdp.hls.page.node.age.personal.NodePersonalAgeActivity;
+import com.jdp.hls.page.node.evaluate.personal.NodePersonalEvaluateActivity;
+import com.jdp.hls.page.node.mapping.personal.NodePersonalMappingActivity;
+import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
@@ -52,35 +52,32 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
     TextView tvBasicName;
     @BindView(R.id.tv_basic_address)
     TextView tvBasicAddress;
-    private List<BusinessNode> businessNodes = new ArrayList<>();
-    private int roleCode = 3;
-
+    private List<FlowNode> flowNodes = new ArrayList<>();
     @Inject
     BasicPersonalPresenter basicPersonalPresenter;
     private String buildingId;
+    private FlowNodeAdapter flowNodeAdapter;
 
 
     @OnItemClick({R.id.lv_business_node})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        BusinessNode businessNode = (BusinessNode) adapterView.getItemAtPosition(position);
-        if (roleCode >= businessNode.getNodeCode()) {
-            switch (businessNode.getNodeCode()) {
-                case Constants.BusinessNode.MEASURE:
-                    GoUtil.goActivity(this, NodePersonalMeasureActivity.class);
-                    break;
-                case Constants.BusinessNode.MAPPING:
-                    GoUtil.goActivity(this, NodePersonalMappingActivity.class);
-                    break;
-                case Constants.BusinessNode.AGE:
-                    GoUtil.goActivity(this, NodePersonalAgeActivity.class);
-                    break;
-                case Constants.BusinessNode.EVALUATE:
-                    GoUtil.goActivity(this, NodePersonalEvaluateActivity.class);
-                    break;
-                case Constants.BusinessNode.PROTOCOL:
-                    GoUtil.goActivity(this, NodePersonalProtocolActivity.class);
-                    break;
-            }
+        FlowNode flowNode = (FlowNode) adapterView.getItemAtPosition(position);
+        switch (flowNode.getNodeStatusId()) {
+            case Constants.BusinessNode.MEASURE:
+                NodePersonalMeasureActivity.goActivity(this, NodePersonalMeasureActivity.class, buildingId);
+                break;
+            case Constants.BusinessNode.MAPPING:
+                GoUtil.goActivity(this, NodePersonalMappingActivity.class);
+                break;
+            case Constants.BusinessNode.AGE:
+                GoUtil.goActivity(this, NodePersonalAgeActivity.class);
+                break;
+            case Constants.BusinessNode.EVALUATE:
+                GoUtil.goActivity(this, NodePersonalEvaluateActivity.class);
+                break;
+            case Constants.BusinessNode.PROTOCOL:
+                GoUtil.goActivity(this, NodePersonalProtocolActivity.class);
+                break;
         }
 
     }
@@ -89,7 +86,7 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_business_detail:
-                DetailPersonalActivity.goActivity(this,buildingId);
+                DetailPersonalActivity.goActivity(this, buildingId);
                 break;
         }
     }
@@ -97,10 +94,6 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
     @Override
     public void initVariable() {
         buildingId = getIntent().getStringExtra("buildingId");
-        String[] businessDes = getResources().getStringArray(R.array.business_nodes);
-        for (int i = 0; i < businessDes.length; i++) {
-            businessNodes.add(new BusinessNode(i, businessDes[i]));
-        }
     }
 
     @Override
@@ -124,9 +117,8 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
     @Override
     protected void initView() {
         basicPersonalPresenter.attachView(this);
-        BusinessNodeAdapter businessNodeAdapter = new BusinessNodeAdapter(this, businessNodes, R.layout
-                .item_business_node, roleCode);
-        lvBusinessNode.setAdapter(businessNodeAdapter);
+        flowNodeAdapter = new FlowNodeAdapter(this, flowNodes, R.layout.item_business_node);
+        lvBusinessNode.setAdapter(flowNodeAdapter);
 
     }
 
@@ -156,6 +148,10 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
         tvBasicSyscode.setText(baiscPersonal.getSysCode());
         tvBasicName.setText(baiscPersonal.getRealName());
         tvBasicAddress.setText(baiscPersonal.getAddress());
+        List<FlowNode> flowNodes = baiscPersonal.getFlowNodes();
+        if (flowNodes != null && flowNodes.size() > 0) {
+            flowNodeAdapter.setData(flowNodes);
+        }
     }
 
     @Override

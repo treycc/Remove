@@ -1,16 +1,16 @@
-package com.jdp.hls.page.business.node.company;
+package com.jdp.hls.page.node.age.personal;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
 
 /**
- * Description:协议生成-企业
+ * Description:年限鉴定-个人
  * Create Time:2018/9/11 0011 下午 3:20
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodeCompanyProtocolActivity extends BaseTitleActivity {
+public class NodePersonalAgeActivity extends BaseTitleActivity{
     @Override
     public void initVariable() {
 
@@ -18,7 +18,7 @@ public class NodeCompanyProtocolActivity extends BaseTitleActivity {
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_node_company_protocol;
+        return R.layout.activity_node_personal_age;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class NodeCompanyProtocolActivity extends BaseTitleActivity {
 
     @Override
     protected String getContentTitle() {
-        return "协议生成";
+        return "年限鉴定";
     }
 
     @Override

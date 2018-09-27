@@ -12,6 +12,7 @@ import com.jdp.hls.page.business.list.BusinessListFragment;
 import com.jdp.hls.page.crash.CrashActivity;
 import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
+import com.jdp.hls.page.deed.company.license.DeedCompanyLicenseActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
@@ -19,6 +20,7 @@ import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
 import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.page.mine.MineFragment;
+import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.publicity.list.PublicityListFragment;
 import com.jdp.hls.page.setting.SettingActivity;
 import com.jdp.hls.injector.annotation.PerActivity;
@@ -108,4 +110,8 @@ public interface BaseCompnent {
     void inject(DeedCompanyImmovableActivity target);
 
     void inject(DetailCompanyActivity target);
+
+    void inject(DeedCompanyLicenseActivity target);
+
+    void inject(NodePersonalMeasureActivity target);
 }

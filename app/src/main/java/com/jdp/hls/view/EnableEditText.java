@@ -38,8 +38,8 @@ public class EnableEditText extends AppCompatEditText implements View.OnFocusCha
     }
 
     private void initEnableEditText() {
-        setBackgroundColor(0x00000000);
-        setBackground(null);
+        setBackgroundColor(0xffffffff);
+//        setBackground(null);
         setOnFocusChangeListener(this);
         mPaint = new Paint();
         // mPaint.setStyle(Paint.Style.FILL);

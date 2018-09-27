@@ -1,16 +1,17 @@
-package com.jdp.hls.page.business.node.company;
+package com.jdp.hls.page.node.mapping.personal;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.page.node.BaseNodeActivity;
 
 /**
- * Description:测绘出图-企业
+ * Description:测绘出图-个人
  * Create Time:2018/9/11 0011 下午 3:20
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodeCompanyMappingActivity extends BaseTitleActivity {
+public class NodePersonalMappingActivity extends BaseNodeActivity {
     @Override
     public void initVariable() {
 
@@ -18,7 +19,7 @@ public class NodeCompanyMappingActivity extends BaseTitleActivity {
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_node_company_mapping;
+        return R.layout.activity_node_personal_mapping;
     }
 
     @Override
@@ -43,6 +44,16 @@ public class NodeCompanyMappingActivity extends BaseTitleActivity {
 
     @Override
     protected void initNet() {
+
+    }
+
+    @Override
+    protected void onUiEditable(boolean allowEdit) {
+
+    }
+
+    @Override
+    protected void onSaveDate() {
 
     }
 }

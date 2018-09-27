@@ -1,16 +1,16 @@
-package com.jdp.hls.page.business.node.company;
+package com.jdp.hls.page.node.protocol.company;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
 
 /**
- * Description:入户评估-企业
+ * Description:协议生成-企业
  * Create Time:2018/9/11 0011 下午 3:20
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodeCompanyEvaluateActivity extends BaseTitleActivity {
+public class NodeCompanyProtocolActivity extends BaseTitleActivity {
     @Override
     public void initVariable() {
 
@@ -18,7 +18,7 @@ public class NodeCompanyEvaluateActivity extends BaseTitleActivity {
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_node_company_evaluate;
+        return R.layout.activity_node_company_protocol;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class NodeCompanyEvaluateActivity extends BaseTitleActivity {
 
     @Override
     protected String getContentTitle() {
-        return "入户评估";
+        return "协议生成";
     }
 
     @Override

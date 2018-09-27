@@ -17,6 +17,7 @@ import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.Roster;
+import com.jdp.hls.model.entiy.TaskInfo;
 import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
 import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.page.rosterlist.GetRostersByTypeContract;
@@ -110,7 +111,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     }
 
     @Override
-    public void onGetBusinessSuccess(List<Business> businesses) {
+    public void onGetBusinessSuccess(TaskInfo taskInfo) {
 
     }
 

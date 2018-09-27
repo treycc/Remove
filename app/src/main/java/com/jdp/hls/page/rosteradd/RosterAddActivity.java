@@ -1,9 +1,7 @@
 package com.jdp.hls.page.rosteradd;
 
-import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,8 +44,6 @@ import com.jdp.hls.view.RequiredTextView;
 import com.jdp.hls.view.RvItemDecoration;
 import com.kingja.supershapeview.view.SuperShapeEditText;
 import com.kingja.supershapeview.view.SuperShapeTextView;
-import com.tbruyelle.rxpermissions2.Permission;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
 
 import org.greenrobot.eventbus.EventBus;
@@ -61,8 +56,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import lib.kingja.switchbutton.SwitchMultiButton;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -145,7 +138,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
         switch (view.getId()) {
             case R.id.ll_roster_location:
             case R.id.fragment_lnglat:
-                GoUtil.goActivityForResult(this, LocationActivity.class, Constants.RequestCode.REQUEST_CODE_LOCATION);
+                GoUtil.goActivityForResult(this, LocationActivity.class, Constants.RequestCode.LOCATION);
                 break;
             case R.id.set_roster_import:
                 GoUtil.goActivityForResult(this, PersonSearchActivity.class, REQUEST_CODE_PERSON);
@@ -291,7 +284,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
                     mSelectedUris = Matisse.obtainResult(data);
                     imgUriAdapter.addData(mSelectedUris);
                     break;
-                case Constants.RequestCode.REQUEST_CODE_LOCATION:
+                case Constants.RequestCode.LOCATION:
                     lng = data.getDoubleExtra("lng", -1);
                     lat = data.getDoubleExtra("lat", -1);
                     setLocation(lng, lat);

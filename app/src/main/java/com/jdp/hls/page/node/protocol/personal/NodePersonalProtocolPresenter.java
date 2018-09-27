@@ -1,10 +1,10 @@
-package com.jdp.hls.page.node.measure.personal;
+package com.jdp.hls.page.node.protocol.personal;
 
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LoadSirObserver;
-import com.jdp.hls.model.entiy.NodePersonalMeasure;
+import com.jdp.hls.model.entiy.NodePersonalProtocol;
 import com.jdp.hls.model.entiy.ResultObserver;
 
 import javax.inject.Inject;
@@ -20,43 +20,43 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodePersonalMeasurePresenter implements NodePersonalMeasureContract.Presenter {
+public class NodePersonalProtocolPresenter implements NodePersonalProtocolContract.Presenter {
     private UserApi mApi;
-    private NodePersonalMeasureContract.View mView;
+    private NodePersonalProtocolContract.View mView;
 
     @Inject
-    public NodePersonalMeasurePresenter(UserApi mApi) {
+    public NodePersonalProtocolPresenter(UserApi mApi) {
         this.mApi = mApi;
     }
 
     @Override
-    public void getPersonalMeasure(String houseId) {
-        mApi.getApiService().getPersonalMeasure(houseId).subscribeOn(Schedulers.io())
+    public void getPersonalProtocol(String houseId) {
+        mApi.getApiService().getPersonalProtocol(houseId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<NodePersonalMeasure>(mView) {
+                (new LoadSirObserver<NodePersonalProtocol>(mView) {
                     @Override
-                    protected void onSuccess(NodePersonalMeasure nodePersonalMeasure) {
-                        mView.onGetPersonalMeasureSuccess(nodePersonalMeasure);
+                    protected void onSuccess(NodePersonalProtocol nodePersonalProtocol) {
+                        mView.onGetPersonalProtocolSuccess(nodePersonalProtocol);
                     }
                 });
     }
 
 
     @Override
-    public void modifyPersonalMeasure(RequestBody rosterBody) {
-        mApi.getApiService().modifyPersonalMeasure(rosterBody).subscribeOn(Schedulers.io())
+    public void modifyPersonalProtocol(RequestBody rosterBody) {
+        mApi.getApiService().modifyPersonalProtocol(rosterBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<Object>(mView) {
                     @Override
                     protected void onSuccess(Object object) {
-                        mView.onModifyPersonalMeasureSuccess();
+                        mView.onModifyPersonalProtocolSuccess();
                     }
                 });
     }
 
 
     @Override
-    public void attachView(@NonNull NodePersonalMeasureContract.View view) {
+    public void attachView(@NonNull NodePersonalProtocolContract.View view) {
         this.mView = view;
     }
 

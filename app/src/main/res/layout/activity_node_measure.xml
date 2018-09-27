@@ -22,13 +22,12 @@
             style="@style/Content_LL_T6">
 
             <TextView
-                android:id="@+id/tv_measure_name"
                 style="@style/Title_Sub"
                 android:text="丈量人"/>
 
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W2_5"
-                android:hint="请输入丈量人"/>
+            <TextView
+                android:id="@+id/tv_measure_name"
+                style="@style/Content_ET_W2_5"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -49,6 +48,7 @@
         <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
+
             android:id="@+id/ll_measure_dateSelector"
             style="@style/Content_LL_T6">
 
@@ -70,8 +70,9 @@
                     android:hint="请选择丈量日期"/>
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:id="@+id/iv_dateSelector"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="@mipmap/ic_date_selector"/>
@@ -115,19 +116,28 @@
             style="@style/Title_Main"
             android:text="备注"/>
 
-        <EditText
-            android:id="@+id/et_measure_remark"
-            style="@style/font_9_15"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white_hi"
-            android:gravity="start"
-            android:hint="请输入备注"
-            android:lines="3"
             android:paddingBottom="12dp"
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
-            android:paddingTop="12dp"/>
+            android:paddingTop="12dp">
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_measure_remark"
+                style="@style/font_9_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="start"
+                android:hint="请输入备注"
+                android:lines="3"/>
+        </LinearLayout>
+
+
     </LinearLayout>
+
 </ScrollView>
 

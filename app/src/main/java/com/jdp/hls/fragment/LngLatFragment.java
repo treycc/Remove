@@ -1,6 +1,5 @@
 package com.jdp.hls.fragment;
 
-import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,10 +20,8 @@ import com.jdp.hls.activity.LocationActivity;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
-import com.jdp.hls.util.ToastUtil;
 
 import butterknife.BindView;
 
@@ -160,6 +157,6 @@ public class LngLatFragment extends BaseFragment implements AMap.OnMapClickListe
 
     @Override
     public void onMapClick(LatLng latLng) {
-        GoUtil.goActivityForResult(getActivity(), LocationActivity.class, Constants.RequestCode.REQUEST_CODE_LOCATION);
+        GoUtil.goActivityForResult(getActivity(), LocationActivity.class, Constants.RequestCode.LOCATION);
     }
 }

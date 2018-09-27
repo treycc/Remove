@@ -1,4 +1,4 @@
-package com.jdp.hls.page.business.node.personal;
+package com.jdp.hls.page.node.evaluate.personal;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;

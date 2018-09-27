@@ -2,7 +2,6 @@ package com.jdp.hls.page.deed.company.immovable;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -27,7 +26,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -180,6 +178,7 @@ public class DeedCompanyImmovableActivity extends BaseTitleActivity implements D
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
     }
 
     public static void goActivity(Context context, String enterpriseId, boolean isAdd) {

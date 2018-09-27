@@ -9,19 +9,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.BusinessNodeAdapter;
+import com.jdp.hls.adapter.FlowNodeAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BaiscCompany;
-import com.jdp.hls.model.entiy.BusinessNode;
+import com.jdp.hls.model.entiy.FlowNode;
 import com.jdp.hls.page.business.detail.company.DetailCompanyActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
-import com.jdp.hls.page.business.node.company.NodeCompanyAgeActivity;
-import com.jdp.hls.page.business.node.company.NodeCompanyEvaluateActivity;
-import com.jdp.hls.page.business.node.company.NodeCompanyMappingActivity;
-import com.jdp.hls.page.business.node.company.NodeCompanyProtocolActivity;
+import com.jdp.hls.page.node.age.company.NodeCompanyAgeActivity;
+import com.jdp.hls.page.node.evaluate.company.NodeCompanyEvaluateActivity;
+import com.jdp.hls.page.node.mapping.company.NodeCompanyMappingActivity;
+import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
@@ -52,17 +52,18 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
     TextView tvBasicName;
     @BindView(R.id.tv_basic_address)
     TextView tvBasicAddress;
-    private List<BusinessNode> businessNodes = new ArrayList<>();
+    private List<FlowNode> flowNodes = new ArrayList<>();
     private int roleCode = 3;
     @Inject
     BasicCompanyPresenter basicCompanyPresenter;
     private String buildingId;
+    private FlowNodeAdapter flowNodeAdapter;
 
     @OnItemClick({R.id.lv_business_node})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        BusinessNode businessNode = (BusinessNode) adapterView.getItemAtPosition(position);
-        if (roleCode >= businessNode.getNodeCode()) {
-            switch (businessNode.getNodeCode()) {
+        FlowNode flowNode = (FlowNode) adapterView.getItemAtPosition(position);
+        if (roleCode >= flowNode.getNodeStatusId()) {
+            switch (flowNode.getNodeStatusId()) {
                 case Constants.BusinessNode.MEASURE:
                     GoUtil.goActivity(this, NodePersonalMeasureActivity.class);
                     break;
@@ -87,7 +88,7 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_business_detail:
-                DetailCompanyActivity.goActivity(this,buildingId);
+                DetailCompanyActivity.goActivity(this, buildingId);
                 break;
         }
     }
@@ -97,7 +98,7 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
         buildingId = getIntent().getStringExtra("buildingId");
         String[] businessDes = getResources().getStringArray(R.array.business_nodes);
         for (int i = 0; i < businessDes.length; i++) {
-            businessNodes.add(new BusinessNode(i, businessDes[i]));
+            flowNodes.add(new FlowNode(i, businessDes[i]));
         }
     }
 
@@ -122,9 +123,8 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
     @Override
     protected void initView() {
         basicCompanyPresenter.attachView(this);
-        BusinessNodeAdapter businessNodeAdapter = new BusinessNodeAdapter(this, businessNodes, R.layout
-                .item_business_node, roleCode);
-        lvBusinessNode.setAdapter(businessNodeAdapter);
+        flowNodeAdapter = new FlowNodeAdapter(this, flowNodes, R.layout.item_business_node);
+        lvBusinessNode.setAdapter(flowNodeAdapter);
 
     }
 
@@ -154,7 +154,12 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
         tvBasicSyscode.setText(baiscCompany.getSysCode());
         tvBasicName.setText(baiscCompany.getEnterpriseName());
         tvBasicAddress.setText(baiscCompany.getAddress());
+        List<FlowNode> flowNodes = baiscCompany.getFlowNodes();
+        if (flowNodes != null && flowNodes.size() > 0) {
+            flowNodeAdapter.setData(flowNodes);
+        }
     }
+
     @Override
     protected boolean ifRegisterLoadSir() {
         return true;

@@ -1,10 +1,10 @@
-package com.jdp.hls.page.node.measure.personal;
+package com.jdp.hls.page.node.evaluate.personal;
 
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LoadSirObserver;
-import com.jdp.hls.model.entiy.NodePersonalMeasure;
+import com.jdp.hls.model.entiy.NodePersonalEvaluate;
 import com.jdp.hls.model.entiy.ResultObserver;
 
 import javax.inject.Inject;
@@ -20,43 +20,43 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodePersonalMeasurePresenter implements NodePersonalMeasureContract.Presenter {
+public class NodePersonalEvaluatePresenter implements NodePersonalEvaluateContract.Presenter {
     private UserApi mApi;
-    private NodePersonalMeasureContract.View mView;
+    private NodePersonalEvaluateContract.View mView;
 
     @Inject
-    public NodePersonalMeasurePresenter(UserApi mApi) {
+    public NodePersonalEvaluatePresenter(UserApi mApi) {
         this.mApi = mApi;
     }
 
     @Override
-    public void getPersonalMeasure(String houseId) {
-        mApi.getApiService().getPersonalMeasure(houseId).subscribeOn(Schedulers.io())
+    public void getPersonalEvaluate(String houseId) {
+        mApi.getApiService().getPersonalEvaluate(houseId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<NodePersonalMeasure>(mView) {
+                (new LoadSirObserver<NodePersonalEvaluate>(mView) {
                     @Override
-                    protected void onSuccess(NodePersonalMeasure nodePersonalMeasure) {
-                        mView.onGetPersonalMeasureSuccess(nodePersonalMeasure);
+                    protected void onSuccess(NodePersonalEvaluate nodePersonalEvaluate) {
+                        mView.onGetPersonalEvaluateSuccess(nodePersonalEvaluate);
                     }
                 });
     }
 
 
     @Override
-    public void modifyPersonalMeasure(RequestBody rosterBody) {
-        mApi.getApiService().modifyPersonalMeasure(rosterBody).subscribeOn(Schedulers.io())
+    public void modifyPersonalEvaluate(RequestBody rosterBody) {
+        mApi.getApiService().modifyPersonalEvaluate(rosterBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<Object>(mView) {
                     @Override
                     protected void onSuccess(Object object) {
-                        mView.onModifyPersonalMeasureSuccess();
+                        mView.onModifyPersonalEvaluateSuccess();
                     }
                 });
     }
 
 
     @Override
-    public void attachView(@NonNull NodePersonalMeasureContract.View view) {
+    public void attachView(@NonNull NodePersonalEvaluateContract.View view) {
         this.mView = view;
     }
 

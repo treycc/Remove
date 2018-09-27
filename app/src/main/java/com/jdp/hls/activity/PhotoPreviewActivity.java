@@ -17,9 +17,7 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DTOImgInfo;
-import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.util.LogUtil;
-import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.PermissionsUtil;
 import com.zhihu.matisse.Matisse;
@@ -146,7 +144,7 @@ public class PhotoPreviewActivity extends BaseTitleActivity {
     public static void goActivity(Activity activity, List<DTOImgInfo> imgInfos) {
         Intent intent = new Intent(activity, PhotoPreviewActivity.class);
         intent.putExtra(Constants.Extra.DTO_IMGS, (Serializable) imgInfos);
-        activity.startActivityForResult(intent, Constants.RequestCode.REQUEST_CODE_PHOTO_PREVIEW);
+        activity.startActivityForResult(intent, Constants.RequestCode.PHOTO_PREVIEW);
     }
 
     @Override

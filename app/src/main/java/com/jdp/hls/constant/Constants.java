@@ -41,8 +41,9 @@ public class Constants {
     }
 
     public interface RequestCode {
-        int REQUEST_CODE_LOCATION = 10;
-        int REQUEST_CODE_PHOTO_PREVIEW = 11;
+        int LOCATION = 10;
+        int PHOTO_PREVIEW = 11;
+        int IMPORT_PERSON = 12;
     }
     public interface MapSetting {
         double Lat = 27.965626136017267;
@@ -57,16 +58,17 @@ public class Constants {
     }
 
     public interface BusinessNode {
-        int MEASURE = 0;
-        int MAPPING = 1;
-        int AGE = 2;
-        int EVALUATE = 3;
-        int PROTOCOL = 4;
+        int MEASURE = 1;
+        int MAPPING = 2;
+        int AGE = 3;
+        int EVALUATE = 4;
+        int PROTOCOL = 5;
     }
 
     public interface Extra {
         String DELETE_IDS = "DELETE_IDS";
         String DTO_IMGS = "DTO_IMGS";
+        String BUILDINGID = "BUILDINGID";
     }
 
 }

@@ -18,7 +18,11 @@ import com.jdp.hls.model.entiy.DetailPersonal;
 import com.jdp.hls.model.entiy.Dict;
 import com.jdp.hls.model.entiy.HttpResult;
 import com.jdp.hls.model.entiy.Login;
+import com.jdp.hls.model.entiy.NodePersonalAge;
+import com.jdp.hls.model.entiy.NodePersonalEvaluate;
+import com.jdp.hls.model.entiy.NodePersonalMapping;
 import com.jdp.hls.model.entiy.NodePersonalMeasure;
+import com.jdp.hls.model.entiy.NodePersonalProtocol;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.PublicityItem;
@@ -26,6 +30,7 @@ import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.Table;
 import com.jdp.hls.model.entiy.Task;
+import com.jdp.hls.model.entiy.TaskInfo;
 
 import java.util.List;
 
@@ -139,7 +144,7 @@ public interface ApiService {
 
     /*获取任务列表*/
     @GET("api/workflow/GetTaskList")
-    Observable<HttpResult<List<Business>>> getTaskList(@Query("projectId") String projectId, @Query("buildingType") int
+    Observable<HttpResult<TaskInfo>> getTaskList(@Query("projectId") String projectId, @Query("buildingType") int
             buildingType, @Query("taskType") int taskType);
 
     /*获取航拍复查列表*/
@@ -219,14 +224,6 @@ public interface ApiService {
     @POST("api/cert/AddHouseEstateCert")
     Observable<HttpResult<Object>> addDeedPersonalImmovable(@Body RequestBody rosterBody);
 
-    /*个人-入户丈量-获取*/
-    @GET("api/Workflow/GetHouseMeasurement")
-    Observable<HttpResult<NodePersonalMeasure>> getPersonalMeasure(@Query("houseId") String houseId);
-
-    /*个人-入户丈量-修改*/
-    @POST("api/workflow/UpdateHouseMeasurement")
-    Observable<HttpResult<Object>> modifyPersonalMeasure(@Body RequestBody rosterBody);
-
 
     /*======================企业证件======================*/
     /*企业产权证-获取*/
@@ -278,6 +275,45 @@ public interface ApiService {
     @POST("api/cert/AddEnterpriseLicense")
     Observable<HttpResult<Object>> addDeedCompanyLicense(@Body RequestBody rosterBody);
 
+    /*======================个人节点======================*/
 
+    /*个人-入户丈量-获取*/
+    @GET("api/Workflow/GetHouseMeasurement")
+    Observable<HttpResult<NodePersonalMeasure>> getPersonalMeasure(@Query("houseId") String houseId);
 
+    /*个人-入户丈量-修改*/
+    @POST("api/workflow/UpdateHouseMeasurement")
+    Observable<HttpResult<Object>> modifyPersonalMeasure(@Body RequestBody rosterBody);
+
+    /*个人-测绘出图-获取*/
+    @GET("api/workflow/GetHouseMapOut")
+    Observable<HttpResult<NodePersonalMapping>> getPersonalMapping(@Query("houseId") String houseId);
+
+    /*个人-测绘出图-修改*/
+    @POST("api/workflow/UpdateHouseMapOut")
+    Observable<HttpResult<Object>> modifyPersonalMapping(@Body RequestBody rosterBody);
+
+    /*个人-年限审核-获取*/
+    @GET("api/workflow/UpdateHouseAppraise")
+    Observable<HttpResult<NodePersonalAge>> getPersonalAge(@Query("houseId") String houseId);
+
+    /*个人-年限审核-修改*/
+    @POST("api/workflow/UpdateHouseAppraise")
+    Observable<HttpResult<Object>> modifyPersonalAge(@Body RequestBody rosterBody);
+
+    /*个人-入户评估-获取*/
+    @GET("api/workflow/GetHouseEvaluation")
+    Observable<HttpResult<NodePersonalEvaluate>> getPersonalEvaluate(@Query("houseId") String houseId);
+
+    /*个人-入户评估-修改*/
+    @POST("api/workflow/UpdateHouseEvaluation")
+    Observable<HttpResult<Object>> modifyPersonalEvaluate(@Body RequestBody rosterBody);
+
+    /*个人-协议生成-获取*/
+    @GET("api/workflow/GetHouseProtocolCheck")
+    Observable<HttpResult<NodePersonalProtocol>> getPersonalProtocol(@Query("houseId") String houseId);
+
+    /*个人-协议生成-修改*/
+    @POST("api/workflow/UpdateHouseProtocolCheck")
+    Observable<HttpResult<Object>> modifyPersonalProtocol(@Body RequestBody rosterBody);
 }

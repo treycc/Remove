@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white_hi"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical">
+
+    <TextView
+        style="@style/Title_Main"
+        android:text="基本信息"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="证件号"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_license_certNum"
+            style="@style/Content_ET_W2"
+            android:hint="请输入证件号"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="法人姓名"/>
+
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <com.jdp.hls.view.EnableEditText
+                android:layout_marginRight="4dp"
+                android:id="@+id/et_license_realName"
+                style="@style/Content_ET"
+                android:hint="请输入法人姓名"/>
+
+            <com.kingja.supershapeview.view.SuperShapeTextView
+                android:id="@+id/set_person_import"
+                style="@style/font_f_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                android:text="导入"
+                app:super_cornerRadius="3dp"
+                app:super_solidColor="@color/main"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="法人身份证"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_license_idcard"
+            style="@style/Content_ET_W2"
+            android:hint="请输入法人身份证"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="联系号码"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_license_mobilePhone"
+            style="@style/Content_ET_W2"
+            android:hint="请输入联系号码"/>
+    </LinearLayout>
+
+    <TextView
+        style="@style/Title_Main"
+        android:text="营业执照照片"/>
+
+    <include layout="@layout/layout_photo_preview"/>
+</LinearLayout>

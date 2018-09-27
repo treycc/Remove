@@ -1,16 +1,16 @@
 package com.jdp.hls.page.node.measure.personal;
 
-import android.support.annotation.NonNull;
-import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodePersonalMeasure;
-import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.page.node.BaseNodeActivity;
+import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
 
@@ -18,7 +18,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 /**
  * Description:入户丈量-个人
@@ -26,7 +25,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodePersonalMeasureActivity extends BaseTitleActivity implements NodePersonalMeasureContract.View {
+public class NodePersonalMeasureActivity extends BaseNodeActivity implements NodePersonalMeasureContract.View {
     @BindView(R.id.tv_measure_name)
     TextView tvMeasureName;
     @BindView(R.id.et_measure_address)
@@ -43,11 +42,14 @@ public class NodePersonalMeasureActivity extends BaseTitleActivity implements No
     NodePersonalMeasurePresenter nodePersonalMeasurePresenter;
     @BindView(R.id.ll_measure_dateSelector)
     LinearLayout llMeasureDateSelector;
-    private boolean allowEdit;
+    @BindView(R.id.iv_dateSelector)
+    ImageView ivDateSelector;
+    private String measureDate;
+    private int measurerId;
 
     @Override
     public void initVariable() {
-
+        super.initVariable();
     }
 
     @Override
@@ -57,7 +59,10 @@ public class NodePersonalMeasureActivity extends BaseTitleActivity implements No
 
     @Override
     protected void initComponent(AppComponent appComponent) {
-
+        DaggerBaseCompnent.builder()
+                .appComponent(appComponent)
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -72,58 +77,48 @@ public class NodePersonalMeasureActivity extends BaseTitleActivity implements No
 
     @Override
     protected void initData() {
-
+        rvPhotoPreview.create();
     }
 
     @Override
     protected void initNet() {
-
+        nodePersonalMeasurePresenter.getPersonalMeasure(mBuildingId);
     }
-
 
     @Override
     public void onGetPersonalMeasureSuccess(NodePersonalMeasure nodePersonalMeasure) {
+        setEditable(nodePersonalMeasure.isAllowEdit());
         tvMeasureName.setText(nodePersonalMeasure.getRealName());
+        etMeasureRemark.setText(nodePersonalMeasure.getRemark());
         etMeasureAddress.setText(nodePersonalMeasure.getAddress());
-        tvMeasureDate.setText(nodePersonalMeasure.getMeaDate());
+        tvMeasureDate.setText(DateUtil.getShortDate(nodePersonalMeasure.getMeaDate()));
         allowEdit = nodePersonalMeasure.isAllowEdit();
         measurerId = nodePersonalMeasure.getMeasurerId();
-        setEditable();
-    }
 
-    private void setEditable() {
-        if (allowEdit) {
-            setRightClick("保存", new NoDoubleClickListener() {
-                @Override
-                public void onNoDoubleClick(View v) {
-                    RequestBody requestBody = getRequestBody();
-                    nodePersonalMeasurePresenter.modifyPersonalMeasure(requestBody);
-                }
-            });
-        } else {
-            //全部禁用
-        }
-    }
-
-    private String measureDate;
-    private String houseId;
-    private int measurerId;
-
-    @NonNull
-    private RequestBody getRequestBody() {
-        String remark = etMeasureRemark.getText().toString().trim();
-        String address = etMeasureAddress.getText().toString().trim();
-        return new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("HouseId", houseId)
-                .addFormDataPart("MeasurerId", String.valueOf(measurerId))
-                .addFormDataPart("MeaDate", measureDate)
-                .addFormDataPart("Address", address)
-                .addFormDataPart("Remark", remark).build();
     }
 
     @Override
     public void onModifyPersonalMeasureSuccess() {
+        showSaveSuccess();
+    }
 
+    @Override
+    protected void onUiEditable(boolean allowEdit) {
+        etMeasureAddress.setEnabled(allowEdit);
+        etMeasureRemark.setEnabled(allowEdit);
+        createDateSelector(ivDateSelector, tvMeasureDate, allowEdit);
+    }
+
+    @Override
+    protected void onSaveDate() {
+        String remark = etMeasureRemark.getText().toString().trim();
+        String address = etMeasureAddress.getText().toString().trim();
+        nodePersonalMeasurePresenter.modifyPersonalMeasure(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("HouseId", mBuildingId)
+                .addFormDataPart("MeasurerId", String.valueOf(measurerId))
+                .addFormDataPart("MeaDate", measureDate)
+                .addFormDataPart("Address", address)
+                .addFormDataPart("Remark", remark).build());
     }
 
 }

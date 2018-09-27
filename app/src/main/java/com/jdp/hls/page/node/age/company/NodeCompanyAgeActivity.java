@@ -1,4 +1,4 @@
-package com.jdp.hls.page.business.node.company;
+package com.jdp.hls.page.node.age.company;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;

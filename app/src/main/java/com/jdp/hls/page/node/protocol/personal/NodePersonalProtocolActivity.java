@@ -1,4 +1,4 @@
-package com.jdp.hls.page.business.node.personal;
+package com.jdp.hls.page.node.protocol.personal;
 
 import android.os.Bundle;
 import android.view.View;

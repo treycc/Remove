@@ -13,6 +13,7 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Business;
+import com.jdp.hls.model.entiy.TaskInfo;
 import com.jdp.hls.util.SpSir;
 
 import java.util.ArrayList;
@@ -88,9 +89,13 @@ public class BusinessListActivity extends BaseTitleActivity implements Bussiness
     }
 
     @Override
-    public void onGetBusinessSuccess(List<Business> businesses) {
+    public void onGetBusinessSuccess(TaskInfo taskInfo) {
+        List<Business> businesses = taskInfo.getMyTaskList();
         personalBusiness.clear();
         companyBusiness.clear();
+        if (businesses == null) {
+            return;
+        }
         for (Business business : businesses) {
             if (business.getBuildingType() == 1) {
                 companyBusiness.add(business);
