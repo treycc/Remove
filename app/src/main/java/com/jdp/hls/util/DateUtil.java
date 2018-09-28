@@ -1,5 +1,7 @@
 package com.jdp.hls.util;
 
+import android.text.TextUtils;
+
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +33,9 @@ public class DateUtil {
     }
 
     public static String getShortDate(String longDate) {
+        if (TextUtils.isEmpty(longDate)) {
+            return "";
+        }
         return date2Str(str2Date(longDate));
     }
 }

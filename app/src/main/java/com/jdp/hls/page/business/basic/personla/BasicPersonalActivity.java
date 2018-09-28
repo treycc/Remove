@@ -67,16 +67,16 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
                 NodePersonalMeasureActivity.goActivity(this, NodePersonalMeasureActivity.class, buildingId);
                 break;
             case Constants.BusinessNode.MAPPING:
-                GoUtil.goActivity(this, NodePersonalMappingActivity.class);
+                NodePersonalMappingActivity.goActivity(this, NodePersonalMappingActivity.class, buildingId);
                 break;
             case Constants.BusinessNode.AGE:
-                GoUtil.goActivity(this, NodePersonalAgeActivity.class);
+                NodePersonalAgeActivity.goActivity(this, NodePersonalAgeActivity.class, buildingId);
                 break;
             case Constants.BusinessNode.EVALUATE:
-                GoUtil.goActivity(this, NodePersonalEvaluateActivity.class);
+                NodePersonalEvaluateActivity.goActivity(this, NodePersonalEvaluateActivity.class, buildingId);
                 break;
             case Constants.BusinessNode.PROTOCOL:
-                GoUtil.goActivity(this, NodePersonalProtocolActivity.class);
+                NodePersonalProtocolActivity.goActivity(this, NodePersonalProtocolActivity.class, buildingId);
                 break;
         }
 

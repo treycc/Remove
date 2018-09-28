@@ -1,6 +1,5 @@
 package com.jdp.hls.page.node;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -12,12 +11,15 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.view.PreviewRecyclerView;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
+
+import java.util.List;
 
 /**
  * Description:TODO
@@ -73,7 +75,7 @@ public abstract class BaseNodeActivity extends BaseTitleActivity {
     }
 
 
-    protected void createDateSelector(ImageView ivDate, TextView tvDate, boolean allowEdit) {
+    protected void setDateSelector(ImageView ivDate, TextView tvDate, boolean allowEdit) {
         ivDate.setVisibility(allowEdit ? View.VISIBLE : View.GONE);
         if (!allowEdit) {
             return;
@@ -89,9 +91,15 @@ public abstract class BaseNodeActivity extends BaseTitleActivity {
                         .setCallBack((timePickerView, millseconds) -> {
                             tvDate.setText(DateUtil.getDateString(millseconds));
                         })
-                        .build().show(getSupportFragmentManager(),String.valueOf(ivDate.hashCode()));
+                        .build().show(getSupportFragmentManager(), String.valueOf(ivDate.hashCode()));
             }
         });
+    }
+
+    public void setPhotoPreview(List<ImgInfo> photos, PreviewRecyclerView previewRecyclerView) {
+        if (photos != null && photos.size() > 0) {
+            previewRecyclerView.setData(photos);
+        }
     }
 
     public void showSaveSuccess() {

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -70,6 +71,16 @@ public class EnableEditText extends AppCompatEditText implements View.OnFocusCha
     public void onFocusChange(View v, boolean hasFocus) {
         this.hasFocus = hasFocus;
         invalidate();
+    }
+
+    public void setString(double value) {
+        setText(String.valueOf(value));
+    }
+    public void setString(long value) {
+        setText(String.valueOf(value));
+    }
+    public void setString(String value) {
+        setText(TextUtils.isEmpty(value)?"":value);
     }
 
 

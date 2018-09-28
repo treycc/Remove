@@ -30,8 +30,8 @@ public class PublicityListPresenter implements PublicityListContract.Presenter {
     }
 
     @Override
-    public void getPublicityList(String projectId, int type) {
-        mApi.getApiService().getPublicityList(projectId, type).subscribeOn(Schedulers.io())
+    public void getPublicityList(String projectId, int publicityType) {
+        mApi.getApiService().getPublicityList(projectId, publicityType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<List<PublicityItem>>(mView) {
                     @Override

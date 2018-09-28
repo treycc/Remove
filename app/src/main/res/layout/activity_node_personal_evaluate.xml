@@ -1,318 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fillViewport="true">
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
+        android:layout_height="match_parent"
+        android:background="@color/bg_hi"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
+        <TextView
+            style="@style/Title_Main"
+            android:text="基本信息"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="评估人"/>
+
+            <TextView
+                android:id="@+id/tv_evaluate_realName"
+                style="@style/Content_ET_W1"
+                android:hint="请输入评估人"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="房屋重置补偿价(¥)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:inputType="number"
+                android:id="@+id/et_evaluate_houseResetMoney"
+                style="@style/Content_ET_W1"
+                android:hint="请输入金额"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="内装饰装修价(¥)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:inputType="number"
+                android:id="@+id/et_evaluate_innerDecorateMoney"
+                style="@style/Content_ET_W1"
+                android:hint="请输入金额"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="附属物补偿(¥)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:inputType="number"
+                android:id="@+id/et_evaluate_appurtenancePay"
+                style="@style/Content_ET_W1"
+                android:hint="请输入金额"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="旧房市场单价(¥)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:inputType="number"
+                android:id="@+id/et_evaluate_oldHouseMarketMoney"
+                style="@style/Content_ET_W1"
+                android:hint="请输入金额"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="旧房市场总价(¥)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:inputType="number"
+                android:id="@+id/et_evaluate_oldHouseMarketTotalMoney"
+                style="@style/Content_ET_W1"
+                android:hint="请输入金额"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="坐落地址"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_evaluate_address"
+                style="@style/Content_ET_W1"
+                android:hint="请输入地址"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bg_hi"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
-
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp">
 
             <TextView
-                style="@style/Title_Main"
-                android:text="基本信息"/>
+                style="@style/Title_Sub"
+                android:text="评估日期"/>
 
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="评估人"/>
-
-                <com.jdp.hls.view.EnableEditText
-                   style="@style/Content_ET_W1"
-                    android:hint="请输入评估人"/>
-            </LinearLayout>
-
-             <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="房屋重置补偿价(¥)"/>
-
-                <com.jdp.hls.view.EnableEditText
-                   style="@style/Content_ET_W1"
-                   android:hint="请输入金额"/>
-            </LinearLayout>
-
-             <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="内装饰装修价(¥)"/>
-
-                <com.jdp.hls.view.EnableEditText
-                   style="@style/Content_ET_W1"
-                   android:hint="请输入金额"/>
-            </LinearLayout>
-
-             <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="附属物补偿(¥)"/>
-
-                <com.jdp.hls.view.EnableEditText
-                   style="@style/Content_ET_W1"
-                   android:hint="请输入金额"/>
-            </LinearLayout>
-
-             <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="旧房市场单价(¥)"/>
-
-                <com.jdp.hls.view.EnableEditText
-                   style="@style/Content_ET_W1"
-                   android:hint="请输入金额"/>
-            </LinearLayout>
-
-             <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="旧房市场总价(¥)"/>
-
-                <com.jdp.hls.view.EnableEditText
-                   style="@style/Content_ET_W1"
-                   android:hint="请输入金额"/>
-            </LinearLayout>
-
-             <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="坐落地址"/>
-
-                <com.jdp.hls.view.EnableEditText
-                   style="@style/Content_ET_W1"
-                    android:hint="请输入地址"/>
-            </LinearLayout>
-
-             <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/white_hi"
-                android:gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:paddingTop="12dp">
+                android:layout_weight="1">
 
                 <TextView
-                    style="@style/Title_Sub"
-                    android:text="评估日期"/>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <TextView
-                        style="@style/font_9_15_eet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="请选择时间"/>
-
-                    <ImageView
-                       style="@style/BG_DATE_SELECTOR"/>
-
-
-                </RelativeLayout>
-
-
-            </LinearLayout>
-
-             <View style="@style/div_hor_gray_margin24"/>
-
-            <TextView
-                style="@style/Title_Main"
-                android:text="房屋装修及附属物补偿"/>
-
-            <RelativeLayout style="@style/Content_LL_T12">
-
-                <TextView
-                    style="@style/font_6_15"
+                    android:id="@+id/tv_evaluate_date"
+                    style="@style/font_9_15_eet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="内装修装饰明细表"/>
+                    android:layout_centerVertical="true"
+                    android:text=""/>
 
-                <ImageView style="@style/BG_ARROW"/>
+                <ImageView
+                    android:id="@+id/iv_dateSelector"
+                    style="@style/BG_DATE_SELECTOR"/>
+
+
             </RelativeLayout>
 
-             <View style="@style/div_hor_gray_margin24"/>
 
-            <RelativeLayout style="@style/Content_LL_T12">
+        </LinearLayout>
 
-                <TextView
-                    style="@style/font_6_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="附属物及其他构筑物明细表"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
-                <ImageView style="@style/BG_ARROW"/>
-            </RelativeLayout>
+        <TextView
+            style="@style/Title_Main"
+            android:text="房屋装修及附属物补偿"/>
 
-            <TextView
-                style="@style/Title_Main"
-                android:text="评估资料"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_photo_preview"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/white_hi"
-                android:paddingBottom="12dp"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:paddingTop="12dp"/>
+        <RelativeLayout
+            android:id="@+id/rl_evaluate_innerDecoratedDetail"
+            style="@style/Content_LL_T12">
 
             <TextView
-                style="@style/Title_Main"
-                android:text="备注"/>
+                style="@style/font_6_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="内装修装饰明细表"/>
 
-            <EditText
+            <ImageView style="@style/BG_ARROW"/>
+        </RelativeLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_evaluate_appurtenanceDetail"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="附属物及其他构筑物明细表"/>
+
+            <ImageView style="@style/BG_ARROW"/>
+        </RelativeLayout>
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="评估资料"/>
+
+        <include layout="@layout/layout_photo_preview"/>
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="备注"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp">
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_age_remark"
                 style="@style/font_9_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white_hi"
                 android:gravity="start"
                 android:hint="请输入备注"
-                android:lines="3"
-                android:paddingBottom="12dp"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:paddingTop="12dp"/>
-        </LinearLayout>
-    </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/white_hi">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginRight="6dp"
-                android:background="@mipmap/ic_send_node"/>
-
-            <TextView
-                style="@style/font_main_13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="发送"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginRight="6dp"
-                android:background="@mipmap/ic_return_node"/>
-
-            <TextView
-                style="@style/font_main_13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="退回"
-                android:textColor="#fca637"
-                android:textSize="13sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginRight="6dp"
-                android:background="@mipmap/ic_send_node"/>
-
-            <TextView
-                style="@style/font_main_13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="复查"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginRight="4dp"
-                android:background="@mipmap/ic_delete_node"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="废弃"
-                android:textColor="#f48080"
-                android:textSize="13sp"/>
-
+                android:lines="3"/>
         </LinearLayout>
     </LinearLayout>
+</ScrollView>
 
-</LinearLayout>

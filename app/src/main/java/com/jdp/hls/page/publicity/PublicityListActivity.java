@@ -55,8 +55,8 @@ public class PublicityListActivity extends BaseTitleActivity {
     @Override
     protected void initView() {
         tabPublicity.setTabMode(TabLayout.MODE_FIXED);
-        tabFragmetns[0] = new PublicityListFragment();
-        tabFragmetns[1] = new PublicityListFragment();
+        tabFragmetns[0] = PublicityListFragment.newInstance(0);
+        tabFragmetns[1] = PublicityListFragment.newInstance(1);
         for (String tabTitle : tabTitles) {
             tabPublicity.addTab(tabPublicity.newTab().setText(tabTitle));
         }

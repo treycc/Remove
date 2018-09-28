@@ -29,9 +29,10 @@
                 style="@style/Title_Sub"
                 android:text="测绘人"/>
 
-            <com.jdp.hls.view.EnableEditText
+            <TextView
+                android:id="@+id/tv_mapping_realName"
                 style="@style/Content_ET_W1"
-                android:hint="请输入测绘人"/>
+                android:text=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -41,27 +42,43 @@
                 style="@style/Title_Sub"
                 android:text="总建筑面积(m²)"/>
 
-            <com.jdp.hls.view.EnableEditText
+            <TextView
+                android:id="@+id/tv_mapping_totalArea"
                 style="@style/Content_ET_W1"
-                android:hint="请输入"/>
+                android:inputType="numberDecimal"
+                android:hint="自动计算"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
-
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_propertyCertTotalArea"
+                style="@style/Content_ET_W1"
+                android:hint="请输入"/>
             <TextView
                 style="@style/Title_Sub"
                 android:text="房产记载面积(m²)"/>
 
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint="请输入"/>
+
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            style="@style/Content_LL_T6">
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_totalNotRecordArea"
+                style="@style/Content_ET_W1"
+                android:hint="请输入"/>
+            <TextView
+                style="@style/Title_Sub"
+                android:text="总未登记面积(m²)"/>
 
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -70,34 +87,7 @@
                 android:text="土地记载面积(m²)"/>
 
             <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint="请输入"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="不动产证面积(m²)"/>
-
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint="请输入"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="总未登记面积(m²)"/>
-
-            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_landCertTotalArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入"/>
         </LinearLayout>
@@ -112,6 +102,7 @@
                 android:text="简易房面积(m²)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_simpleHouseArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入"/>
         </LinearLayout>
@@ -126,6 +117,7 @@
                 android:text="坦面积(m²)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_tanArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入"/>
         </LinearLayout>
@@ -140,6 +132,7 @@
                 android:text="棚面积(m²)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_shedArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入"/>
         </LinearLayout>
@@ -154,6 +147,7 @@
                 android:text="坐落地址"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_address"
                 style="@style/Content_ET_W1"
                 android:hint="请输入"/>
         </LinearLayout>
@@ -180,13 +174,14 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:id="@+id/tv_mapping_date"
                     style="@style/font_9_15_eet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="请选择日期"/>
+                    android:layout_centerVertical="true"/>
 
                 <ImageView
+                    android:id="@+id/iv_dateSelector"
                     style="@style/BG_DATE_SELECTOR"/>
 
 
@@ -217,7 +212,7 @@
             android:paddingTop="12dp">
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_measure_remark"
+                android:id="@+id/et_age_remark"
                 style="@style/font_9_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

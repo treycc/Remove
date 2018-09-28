@@ -20,6 +20,9 @@ import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
 import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.page.mine.MineFragment;
+import com.jdp.hls.page.node.age.personal.NodePersonalAgeActivity;
+import com.jdp.hls.page.node.evaluate.personal.NodePersonalEvaluateActivity;
+import com.jdp.hls.page.node.mapping.personal.NodePersonalMappingActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.publicity.list.PublicityListFragment;
 import com.jdp.hls.page.setting.SettingActivity;
@@ -114,4 +117,10 @@ public interface BaseCompnent {
     void inject(DeedCompanyLicenseActivity target);
 
     void inject(NodePersonalMeasureActivity target);
+
+    void inject(NodePersonalAgeActivity target);
+
+    void inject(NodePersonalMappingActivity target);
+
+    void inject(NodePersonalEvaluateActivity target);
 }

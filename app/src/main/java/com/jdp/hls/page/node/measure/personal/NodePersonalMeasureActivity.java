@@ -36,7 +36,7 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
     PreviewRecyclerView rvPhotoPreview;
     @BindView(R.id.ll_photo_preview)
     LinearLayout llPhotoPreview;
-    @BindView(R.id.et_measure_remark)
+    @BindView(R.id.et_age_remark)
     EditText etMeasureRemark;
     @Inject
     NodePersonalMeasurePresenter nodePersonalMeasurePresenter;
@@ -106,7 +106,7 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
     protected void onUiEditable(boolean allowEdit) {
         etMeasureAddress.setEnabled(allowEdit);
         etMeasureRemark.setEnabled(allowEdit);
-        createDateSelector(ivDateSelector, tvMeasureDate, allowEdit);
+        setDateSelector(ivDateSelector, tvMeasureDate, allowEdit);
     }
 
     @Override

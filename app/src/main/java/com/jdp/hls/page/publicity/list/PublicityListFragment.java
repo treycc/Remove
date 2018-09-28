@@ -40,14 +40,14 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
     RefreshSwipeRefreshLayout srl;
     private List<PublicityItem> publicityItems = new ArrayList<>();
     private CommonAdapter adapter;
-    private int airCurrentNodeType;
+    private int publicityType;
     @Inject
     PublicityListPresenter publicityListPresenter;
 
-    public static PublicityListFragment newInstance(int airCurrentNodeType) {
+    public static PublicityListFragment newInstance(int publicityType) {
         PublicityListFragment fragment = new PublicityListFragment();
         Bundle args = new Bundle();
-        args.putInt("airCurrentNodeType", airCurrentNodeType);
+        args.putInt("publicityType", publicityType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,11 +61,7 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
     protected void initVariable() {
 //        EventBus.getDefault().register(this);
         if (getArguments() != null) {
-            airCurrentNodeType = getArguments().getInt("airCurrentNodeType", 0);
-        }
-
-        for (int i = 0; i < 10; i++) {
-            publicityItems.add(new PublicityItem());
+            publicityType = getArguments().getInt("publicityType", 0);
         }
     }
 
@@ -90,18 +86,22 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
                 .item_publicity) {
             @Override
             public void convert(ViewHolder helper, PublicityItem item) {
-//                helper.setText(R.id.tv_publicity_number, item.getProjectName());
-//                helper.setText(R.id.tv_publicity_count, String.valueOf(item.getYear()));
-//                helper.setText(R.id.tv_publicity_operater, item.getAddress());
-//                helper.setText(R.id.tv_publicity_date, item.getRealName());
-//                helper.setText(R.id.tv_publicity_des, item.getRealName());
-//                helper.setBackgroundResource(iv_publicity_hasImg,)
+                helper.setText(R.id.tv_publicity_number, item.getBatchName());
+                helper.setText(R.id.tv_publicity_count, String.valueOf(item.getBuildingCount()));
+                helper.setText(R.id.tv_publicity_operater, item.getOperatorId());
+                helper.setText(R.id.tv_publicity_startDate, item.getStartDate());
+                helper.setText(R.id.tv_publicity_endDate, item.getEndDate());
+                helper.setText(R.id.tv_publicity_des, item.getDescriptiton());
+                helper.setVisibility(R.id.iv_publicity_hasImg,false);
             }
         });
     }
 
     @Override
     public void onGetPublicityListSuccess(List<PublicityItem> publicityItems) {
+        if (publicityItems != null && publicityItems.size() > 0) {
+            adapter.setData(publicityItems);
+        }
 
     }
 
@@ -112,7 +112,7 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
 
     @Override
     protected void initNet() {
-        publicityListPresenter.getPublicityList(SpSir.getInstance().getProjectId(), 1);
+        publicityListPresenter.getPublicityList(SpSir.getInstance().getProjectId(), publicityType);
     }
 
     @Override

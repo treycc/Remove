@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.page.otherarea.OtherAreaListActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.EncryptUtil;
@@ -22,7 +23,7 @@ import butterknife.OnClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodePersonalProtocolActivity extends BaseTitleActivity {
+public class NodePersonalProtocolActivity extends BaseNodeActivity {
     @BindView(R.id.rl_protocol_otherArea)
     RelativeLayout rlProtocolOtherArea;
 
@@ -69,6 +70,16 @@ public class NodePersonalProtocolActivity extends BaseTitleActivity {
 
     @Override
     protected void initNet() {
+
+    }
+
+    @Override
+    protected void onUiEditable(boolean allowEdit) {
+
+    }
+
+    @Override
+    protected void onSaveDate() {
 
     }
 

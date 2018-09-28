@@ -25,6 +25,7 @@ import com.jdp.hls.model.entiy.NodePersonalMeasure;
 import com.jdp.hls.model.entiy.NodePersonalProtocol;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
+import com.jdp.hls.model.entiy.PublicityDetail;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
@@ -156,10 +157,24 @@ public interface ApiService {
     @GET("api/house/getAirPhotoList")
     Observable<HttpResult<List<AirPhotoPerson>>> getAirPhotoPersons(@Query("projectId") String projectId);
 
+    /*======================公示======================*/
     /*获取公示列表*/
-    @GET("api/house/getPublicityList")
-    Observable<HttpResult<List<PublicityItem>>> getPublicityList(@Query("projectId") String projectId, @Query("type")
-            int type);
+    @GET("api/Publicity/GetPublicityList")
+    Observable<HttpResult<List<PublicityItem>>> getPublicityList(@Query("projectId") String projectId, @Query
+            ("publicityType")
+            int publicityType);
+
+    /*获取公示详情*/
+    @GET("api/Publicity/GetPublicity")
+    Observable<HttpResult<List<PublicityDetail>>> getPublicityDetail(@Query("pubId") int pubId);
+
+    /*申请公示*/
+    @POST("api/Publicity/AddPublicity")
+    Observable<HttpResult<Object>> applyPublicity(@Body RequestBody rosterBody);
+
+    /*修改公示*/
+    @POST("api/Publicity/UpdatePublicity")
+    Observable<HttpResult<Object>> modifyPublicity(@Body RequestBody rosterBody);
 
     /*获取一览表列表*/
     @GET("api/workflow/GetLevyList")
@@ -294,7 +309,7 @@ public interface ApiService {
     Observable<HttpResult<Object>> modifyPersonalMapping(@Body RequestBody rosterBody);
 
     /*个人-年限审核-获取*/
-    @GET("api/workflow/UpdateHouseAppraise")
+    @GET("api/workflow/getHouseAppraise")
     Observable<HttpResult<NodePersonalAge>> getPersonalAge(@Query("houseId") String houseId);
 
     /*个人-年限审核-修改*/

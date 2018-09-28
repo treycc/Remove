@@ -21,7 +21,10 @@ import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -169,7 +172,17 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
 
     @Override
     public void onGetTaskSuccess(List<Task> tasks) {
-        if (tasks != null) {
+        Map<Integer,Integer>sortMap= new HashMap<>();
+        sortMap.put(1,1);
+        sortMap.put(3,5);
+        sortMap.put(4,2);
+        sortMap.put(2,4);
+        sortMap.put(5,3);
+        if (tasks != null && tasks.size()>0) {
+            for (Task task : tasks) {
+                task.setSortNo(sortMap.get(task.getTaskType()));
+            }
+            Collections.sort(tasks);
             adapter.setData(tasks);
         }
     }

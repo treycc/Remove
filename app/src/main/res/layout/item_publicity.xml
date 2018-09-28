@@ -88,11 +88,22 @@
                     android:text="公示时间:"/>
 
                 <TextView
-                    android:id="@+id/tv_publicity_date"
+                    android:id="@+id/tv_publicity_startDate"
                     style="@style/font_9_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2018-05-20至2018-06-10"/>
+                    android:text="2018-05-20"/>
+                <TextView
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="至"/>
+                <TextView
+                    android:id="@+id/tv_publicity_endDate"
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2018-06-10"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
