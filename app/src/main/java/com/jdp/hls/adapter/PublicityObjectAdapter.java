@@ -45,6 +45,11 @@ public class PublicityObjectAdapter extends BaseLvAdapter<PublicityObject> {
             notifyDataSetChanged();
 
         });
+        viewHolder.tv_publicityNumber.setText(list.get(position).getSysCode());
+        viewHolder.tv_publicity_realName.setText(list.get(position).getRealName());
+        viewHolder.tv_publicity_mobile.setText(list.get(position).getMobilePhone());
+        viewHolder.tv_publicity_idcard.setText(list.get(position).getIdcard());
+        viewHolder.tv_publicity_address.setText(list.get(position).getAddress());
         return convertView;
     }
 
@@ -55,25 +60,36 @@ public class PublicityObjectAdapter extends BaseLvAdapter<PublicityObject> {
         notifyDataSetChanged();
     }
 
-    public List<PublicityObject> getSelectedObjects() {
-        List<PublicityObject> checkedList = new ArrayList<>();
-        for (PublicityObject publicityObject : list) {
-            if (publicityObject.isChecked()) {
-                checkedList.add(publicityObject);
-
+    public String getSelectedBuildingIds() {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).isChecked()) {
+                sb.append(list.get(i).getBuildingId());
+                if (i != list.size() - 1) {
+                    sb.append("#");
+                }
             }
         }
-        System.out.println("checked:"+checkedList.size());
-        return checkedList;
+        return sb.toString();
     }
 
     public class ViewHolder {
         public final View root;
         CheckBox cb_check;
+        TextView tv_publicityNumber;
+        TextView tv_publicity_realName;
+        TextView tv_publicity_mobile;
+        TextView tv_publicity_idcard;
+        TextView tv_publicity_address;
 
         public ViewHolder(View root) {
             this.root = root;
             cb_check = root.findViewById(R.id.cb_check);
+            tv_publicityNumber = root.findViewById(R.id.tv_publicityNumber);
+            tv_publicity_realName = root.findViewById(R.id.tv_publicity_realName);
+            tv_publicity_mobile = root.findViewById(R.id.tv_publicity_mobile);
+            tv_publicity_idcard = root.findViewById(R.id.tv_publicity_idcard);
+            tv_publicity_address = root.findViewById(R.id.tv_publicity_address);
         }
     }
 }

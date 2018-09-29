@@ -76,7 +76,7 @@ public class PublicityListActivity extends BaseTitleActivity {
         setRightClick("申请", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                GoUtil.goActivity(PublicityListActivity.this,PublicityApplyActivity.class);
+                GoUtil.goActivity(PublicityListActivity.this, PublicityApplyActivity.class);
             }
         });
 

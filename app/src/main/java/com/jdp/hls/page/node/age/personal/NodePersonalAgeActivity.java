@@ -227,7 +227,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
 
     @Override
     public void onModifyPersonalAgeSuccess() {
-        showSaveSuccess();
+        showSuccessAndFinish();
     }
 
 }

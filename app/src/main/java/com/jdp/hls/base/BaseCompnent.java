@@ -24,7 +24,10 @@ import com.jdp.hls.page.node.age.personal.NodePersonalAgeActivity;
 import com.jdp.hls.page.node.evaluate.personal.NodePersonalEvaluateActivity;
 import com.jdp.hls.page.node.mapping.personal.NodePersonalMappingActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
+import com.jdp.hls.page.publicity.apply.PublicityApplyActivity;
+import com.jdp.hls.page.publicity.detail.PublicityDetailActivity;
 import com.jdp.hls.page.publicity.list.PublicityListFragment;
+import com.jdp.hls.page.publicity.object.PublicityObjectActivity;
 import com.jdp.hls.page.setting.SettingActivity;
 import com.jdp.hls.injector.annotation.PerActivity;
 import com.jdp.hls.injector.component.AppComponent;
@@ -123,4 +126,10 @@ public interface BaseCompnent {
     void inject(NodePersonalMappingActivity target);
 
     void inject(NodePersonalEvaluateActivity target);
+
+    void inject(PublicityDetailActivity target);
+
+    void inject(PublicityApplyActivity target);
+
+    void inject(PublicityObjectActivity target);
 }

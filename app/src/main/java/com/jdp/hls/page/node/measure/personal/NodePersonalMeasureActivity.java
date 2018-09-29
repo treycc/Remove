@@ -99,7 +99,7 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
 
     @Override
     public void onModifyPersonalMeasureSuccess() {
-        showSaveSuccess();
+        showSuccessAndFinish();
     }
 
     @Override

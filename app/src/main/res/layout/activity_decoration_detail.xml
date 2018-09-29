@@ -31,7 +31,7 @@
             android:layout_weight="3"
             android:padding="0dp"
             android:text="请选择项目"
-            app:textTint="@color/c_9"/>
+            app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
     </LinearLayout>
 
      <View style="@style/div_hor_gray_margin24"/>
@@ -59,7 +59,7 @@
             android:layout_weight="3"
             android:padding="0dp"
             android:text="请选择等级"
-            app:textTint="@color/c_9"/>
+            app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
     </LinearLayout>
 
      <View style="@style/div_hor_gray_margin24"/>

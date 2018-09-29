@@ -44,6 +44,8 @@ public class Constants {
         int LOCATION = 10;
         int PHOTO_PREVIEW = 11;
         int IMPORT_PERSON = 12;
+        int PUBLICITY_DETAIL = 13;
+        int PUBLICITY_OBJECT = 14;
     }
     public interface MapSetting {
         double Lat = 27.965626136017267;
@@ -69,6 +71,14 @@ public class Constants {
         String DELETE_IDS = "DELETE_IDS";
         String DTO_IMGS = "DTO_IMGS";
         String BUILDINGID = "BUILDINGID";
+        String PUBID = "PUBID";
+        String PUB_STATUS = "PUB_STATUS";
+        String POSITION = "POSITION";
+        String BATCH_NAME = "BATCH_NAME";
+        String PUBLICITY_DES = "PUBLICITY_DES";
+        String PUBLICITY_TYPE = "PUBLICITY_TYPE";
+        String BUILDING_TYPE = "BUILDING_TYPE";
+        String BUILDINGIDS = "BUILDINGIDS";
     }
 
 }

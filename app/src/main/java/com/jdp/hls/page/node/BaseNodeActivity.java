@@ -102,9 +102,7 @@ public abstract class BaseNodeActivity extends BaseTitleActivity {
         }
     }
 
-    public void showSaveSuccess() {
-        DialogUtil.showQuitDialog(this, "保存成功");
-    }
+
 
     protected abstract void onUiEditable(boolean allowEdit);
 

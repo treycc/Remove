@@ -19,7 +19,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_publicity_number"
+                android:id="@+id/tv_publicityNumber"
                 style="@style/font_3_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,11 +54,11 @@
                 android:text="户主:"/>
 
             <TextView
-                android:id="@+id/tv_publicity_count"
+                android:id="@+id/tv_publicity_realName"
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="王小虎"/>
+                android:text=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -75,12 +75,12 @@
                 android:text="手机号:"/>
 
             <TextView
-                android:id="@+id/tv_publicity_operater"
+                android:id="@+id/tv_publicity_mobile"
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                android:text="18866666666"/>
+                android:text=""/>
 
         </LinearLayout>
 
@@ -98,11 +98,11 @@
                 android:text="身份证号:"/>
 
             <TextView
-                android:id="@+id/tv_publicity_date"
+                android:id="@+id/tv_publicity_idcard"
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="33223333222251111"/>
+                android:text=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -118,11 +118,11 @@
                 android:text="地址:"/>
 
             <TextView
-                android:id="@+id/tv_publicity_des"
+                android:id="@+id/tv_publicity_address"
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="温州龙湾"/>
+                android:text=""/>
         </LinearLayout>
 
     </LinearLayout>

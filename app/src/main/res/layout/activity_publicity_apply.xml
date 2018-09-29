@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_hi">
@@ -20,6 +21,7 @@
                 android:text="公示批次"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_publicityNumber"
                 style="@style/Content_ET_W3"
                 android:hint="请输入公示批次"/>
         </LinearLayout>
@@ -66,8 +68,49 @@
                 android:text="公示人"/>
 
             <TextView
+                android:id="@+id/tv_publicity_realName"
                 style="@style/Content_ET_W3"
-                android:hint="公示人"/>
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T0">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="公示类型"/>
+
+            <com.jdp.hls.view.KSpinner
+                android:id="@+id/spinner_publicityType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="请选择公示类型"
+                android:padding="0dp"
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T0">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="建筑类型"/>
+
+            <com.jdp.hls.view.KSpinner
+                android:id="@+id/spinner_buildingType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="请选择建筑类型"
+                android:padding="0dp"
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -91,7 +134,7 @@
                     style="@style/font_9_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="请选择开始时间"/>
+                    android:hint=""/>
 
                 <ImageView
                     style="@style/BG_DATE_SELECTOR"/>
@@ -123,7 +166,7 @@
                     style="@style/font_9_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="请选择结束时间"/>
+                    android:hint=""/>
 
                 <ImageView
                     style="@style/BG_DATE_SELECTOR"/>
@@ -142,13 +185,7 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp"/>
+        <include layout="@layout/layout_photo_preview"/>
 
         <View style="@style/div_hor_gray_margin24"/>
 
@@ -156,16 +193,25 @@
             style="@style/Title_Normal"
             android:text="描述"/>
 
-        <EditText
-            style="@style/font_9_15"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:background="@null"
-            android:gravity="start"
-            android:hint="请输入备注"
-            android:lines="4"/>
+            android:background="@color/white_hi"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp">
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_des"
+                style="@style/font_9_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="start"
+                android:hint="请输入描述"
+                android:lines="3"/>
+        </LinearLayout>
 
     </LinearLayout>
 

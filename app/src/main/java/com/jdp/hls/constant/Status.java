@@ -23,6 +23,11 @@ public class Status {
         int COMPANY = 1;
     }
 
+    public interface PublicityType {
+        int SURVEY = 0;
+        int AFFIRM = 1;
+    }
+
     public interface ConfigType {
         int LAND_USE = 1;//土地用途
         int LAND_TYPE = 2;//土地性质

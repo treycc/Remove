@@ -1,19 +1,33 @@
 package com.jdp.hls.page.publicity.detail;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.PublicityDetail;
 import com.jdp.hls.page.publicity.object.PublicityObjectActivity;
+import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
+import com.jdp.hls.view.StringTextView;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MultipartBody;
 
 /**
  * Description:公示详情
@@ -21,30 +35,39 @@ import butterknife.OnClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class PublicityDetailActivity extends BaseTitleActivity {
+public class PublicityDetailActivity extends BaseTitleActivity implements PublicityDetailContract.View {
 
     @BindView(R.id.et_publicity_number)
     EnableEditText etPublicityNumber;
-    @BindView(R.id.et_publicity_count)
-    TextView etPublicityCount;
+    @BindView(R.id.tv_publicity_count)
+    StringTextView tvPublicityCount;
     @BindView(R.id.ll_publicity_select)
     LinearLayout llPublicitySelect;
     @BindView(R.id.tv_publicity_realName)
-    TextView tvPublicityRealName;
+    StringTextView tvPublicityRealName;
     @BindView(R.id.tv_publicity_startDate)
-    TextView tvPublicityStartDate;
+    StringTextView tvPublicityStartDate;
     @BindView(R.id.ll_publicity_startDate)
     LinearLayout llPublicityStartDate;
     @BindView(R.id.tv_publicity_endDate)
-    TextView tvPublicityEndDate;
+    StringTextView tvPublicityEndDate;
     @BindView(R.id.ll_publicity_endDate)
     LinearLayout llPublicityEndDate;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
     @BindView(R.id.ll_photo_preview)
     LinearLayout llPhotoPreview;
-    @BindView(R.id.et_remark)
-    EnableEditText etRemark;
+    @BindView(R.id.et_des)
+    EnableEditText etDes;
+    @BindView(R.id.tv_publicity_type)
+    StringTextView tvPublicityType;
+    private int pubId;
+    @Inject
+    PublicityDetailPresenter publicityDetailPresenter;
+    private int pubStatus;
+    private int position;
+    private String batchName;
+    private String des;
 
     @OnClick({R.id.ll_publicity_select, R.id.ll_publicity_startDate, R.id.ll_publicity_endDate})
     public void onViewClicked(View view) {
@@ -59,6 +82,9 @@ public class PublicityDetailActivity extends BaseTitleActivity {
 
     @Override
     public void initVariable() {
+        pubId = getIntent().getIntExtra(Constants.Extra.PUBID, 0);
+        pubStatus = getIntent().getIntExtra(Constants.Extra.PUB_STATUS, 0);
+        position = getIntent().getIntExtra(Constants.Extra.POSITION, 0);
 
     }
 
@@ -69,7 +95,10 @@ public class PublicityDetailActivity extends BaseTitleActivity {
 
     @Override
     protected void initComponent(AppComponent appComponent) {
-
+        DaggerBaseCompnent.builder()
+                .appComponent(appComponent)
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -79,16 +108,66 @@ public class PublicityDetailActivity extends BaseTitleActivity {
 
     @Override
     protected void initView() {
-
+        publicityDetailPresenter.attachView(this);
     }
 
     @Override
     protected void initData() {
+        rvPhotoPreview.create();
+        tvPublicityRealName.setString(SpSir.getInstance().getRealName());
+        setRightClick("保存", new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                batchName = etPublicityNumber.getText().toString().trim();
+                des = etDes.getText().toString().trim();
+                publicityDetailPresenter.modifyPublicity(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                        .addFormDataPart("PubId", String.valueOf(pubId))
+                        .addFormDataPart("BatchName", batchName)
+                        .addFormDataPart("Descriptiton", des)
+                        .addFormDataPart("PubStatus", String.valueOf(pubStatus))
+                        .build());
+            }
+        });
+
     }
 
     @Override
     protected void initNet() {
+        publicityDetailPresenter.getPublicityDetail(pubId);
+    }
 
+    public static void goActivity(Fragment context, int pubId, int pubStatus, int position) {
+        Intent intent = new Intent(context.getActivity(), PublicityDetailActivity.class);
+        intent.putExtra(Constants.Extra.PUBID, pubId);
+        intent.putExtra(Constants.Extra.PUB_STATUS, pubStatus);
+        intent.putExtra(Constants.Extra.POSITION, position);
+        context.startActivityForResult(intent,Constants.RequestCode.PUBLICITY_DETAIL);
+    }
+
+
+    @Override
+    public void onGetPublicityDetailSuccess(PublicityDetail publicityDetail) {
+        etPublicityNumber.setString(publicityDetail.getBatchName());
+        tvPublicityCount.setString(publicityDetail.getBuildingCount());
+        tvPublicityStartDate.setString(DateUtil.getShortDate(publicityDetail.getStartDate()));
+        tvPublicityEndDate.setString(DateUtil.getShortDate(publicityDetail.getEndDate()));
+        tvPublicityType.setString(publicityDetail.getBuildingType() == Status.BuildingType.PERSONAL ? "个人" : "企业");
+        etDes.setString(publicityDetail.getDescriptiton());
+    }
+
+    @Override
+    public void onModifyPublicitySuccess() {
+        Intent intent = new Intent();
+        intent.putExtra(Constants.Extra.PUBLICITY_DES,des);
+        intent.putExtra(Constants.Extra.BATCH_NAME,batchName);
+        intent.putExtra(Constants.Extra.POSITION,position);
+        setResult(Activity.RESULT_OK,intent);
+        showSuccessAndFinish();
+    }
+
+    @Override
+    protected boolean ifRegisterLoadSir() {
+        return true;
     }
 
 }

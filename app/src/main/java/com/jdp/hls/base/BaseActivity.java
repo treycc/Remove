@@ -11,6 +11,7 @@ import com.jdp.hls.injector.module.ActivityModule;
 import com.jdp.hls.injector.module.AppModule;
 import com.jdp.hls.rx.RxRe;
 import com.jdp.hls.util.AppManager;
+import com.jdp.hls.util.DialogUtil;
 
 import butterknife.ButterKnife;
 
@@ -105,6 +106,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
             mDialogProgress = null;
         }
         AppManager.getAppManager().finishActivity(this);
+    }
+
+    public void showSuccessAndFinish() {
+        showSuccessAndFinish("保存成功");
+    }
+
+    public void showSuccessAndFinish(String tip) {
+        DialogUtil.showQuitDialog(this, tip);
     }
 
     @Override

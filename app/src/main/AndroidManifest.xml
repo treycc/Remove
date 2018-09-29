@@ -189,7 +189,8 @@
         <!--公示申请-->
         <activity
             android:name=".page.publicity.apply.PublicityApplyActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <!--个人业务首页-->
         <activity
             android:name=".page.business.basic.personla.BasicPersonalActivity"
@@ -257,7 +258,8 @@
         <!--公示详情-->
         <activity
             android:name=".page.publicity.detail.PublicityDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <!--一览表搜索-->
         <activity
             android:name=".page.table.TableSearchActivity"

@@ -143,6 +143,6 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
 
     @Override
     public void onModifyPersonalEvaluateSuccess() {
-        showSaveSuccess();
+        showSuccessAndFinish();
     }
 }

@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="住宅"
-            app:textTint="@color/c_9"/>
+            app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
     </LinearLayout>
 
     <View style="@style/div_hor_gray_margin24"/>
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="砖混结构"
-            app:textTint="@color/c_9"/>
+            app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
     </LinearLayout>
 
     <View style="@style/div_hor_gray_margin24"/>

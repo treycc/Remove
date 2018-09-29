@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:hint="请选择土地用途"
-            app:textTint="@color/c_9"/>
+            app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
     </LinearLayout>
 
      <View style="@style/div_hor_gray_margin24"/>
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:hint="请选择土地性质"
-            app:textTint="@color/c_9"/>
+            app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
     </LinearLayout>
 
      <View style="@style/div_hor_gray_margin24"/>
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:hint="请选择产权用途"
-            app:textTint="@color/c_9"/>
+            app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
     </LinearLayout>
 
      <View style="@style/div_hor_gray_margin24"/>
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:hint="请选择产权结构"
-            app:textTint="@color/c_9"/>
+            app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
     </LinearLayout>
 
      <View style="@style/div_hor_gray_margin24"/>

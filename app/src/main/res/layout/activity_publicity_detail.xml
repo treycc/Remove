@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_hi">
@@ -40,8 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3">
 
-                <TextView
-                    android:id="@+id/et_publicity_count"
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_publicity_count"
                     style="@style/font_9_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -49,7 +50,7 @@
                     android:hint="请选择公示对象"
                     android:paddingLeft="12dp"/>
 
-                <ImageView style="@style/BG_ARROW"/>
+                <ImageView style="@style/BG_ARROW" android:visibility="gone"/>
 
 
             </RelativeLayout>
@@ -57,7 +58,7 @@
 
         </LinearLayout>
 
-        <View style="@style/div_hor_gray"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
@@ -66,10 +67,25 @@
                 style="@style/Title_Sub"
                 android:text="公示人"/>
 
-            <TextView
+            <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_publicity_realName"
                 style="@style/Content_ET_W3"
                 android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="类型"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_publicity_type"
+                style="@style/Content_ET_W3"
+                android:text=""/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -88,7 +104,7 @@
                 android:layout_weight="3"
                 android:paddingLeft="12dp">
 
-                <TextView
+                <com.jdp.hls.view.StringTextView
                     android:id="@+id/tv_publicity_startDate"
                     style="@style/font_9_15"
                     android:layout_width="wrap_content"
@@ -96,6 +112,7 @@
                     android:hint=""/>
 
                 <ImageView
+                    android:visibility="gone"
                     style="@style/BG_DATE_SELECTOR"/>
 
 
@@ -120,7 +137,7 @@
                 android:layout_weight="3"
                 android:paddingLeft="12dp">
 
-                <TextView
+                <com.jdp.hls.view.StringTextView
                     android:id="@+id/tv_publicity_endDate"
                     style="@style/font_9_15"
                     android:layout_width="wrap_content"
@@ -128,6 +145,7 @@
                     android:hint=""/>
 
                 <ImageView
+                    android:visibility="gone"
                     style="@style/BG_DATE_SELECTOR"/>
 
 
@@ -162,13 +180,13 @@
             android:paddingTop="12dp">
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_remark"
+                android:id="@+id/et_des"
                 style="@style/font_9_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white_hi"
                 android:gravity="start"
-                android:hint="请输入备注"
+                android:hint="请输入描述"
                 android:lines="3"/>
         </LinearLayout>
     </LinearLayout>

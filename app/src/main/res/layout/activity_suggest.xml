@@ -35,7 +35,7 @@
             android:id="@+id/nice_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:textTint="@color/c_9"/>
+            app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
     </LinearLayout>
 
 

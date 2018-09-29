@@ -1,5 +1,7 @@
 package com.jdp.hls.page.publicity.list;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -10,10 +12,12 @@ import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.page.publicity.detail.PublicityDetailActivity;
-import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
@@ -54,7 +58,22 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        GoUtil.goActivity(getActivity(), PublicityDetailActivity.class);
+        PublicityItem publicityItem = (PublicityItem) adapterView.getItemAtPosition(position);
+        PublicityDetailActivity.goActivity(this, publicityItem.getPubId(), publicityItem.getPubStatus(), position);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == Constants.RequestCode.PUBLICITY_DETAIL) {
+                int position = data.getIntExtra(Constants.Extra.POSITION, 0);
+                String batchName = data.getStringExtra(Constants.Extra.BATCH_NAME);
+                String publicityDes = data.getStringExtra(Constants.Extra.PUBLICITY_DES);
+                publicityItems.get(position).setBatchName(batchName);
+                publicityItems.get(position).setDescriptiton(publicityDes);
+                adapter.setData(publicityItems);
+            }
+        }
     }
 
     @Override
@@ -89,16 +108,19 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
                 helper.setText(R.id.tv_publicity_number, item.getBatchName());
                 helper.setText(R.id.tv_publicity_count, String.valueOf(item.getBuildingCount()));
                 helper.setText(R.id.tv_publicity_operater, item.getOperatorId());
-                helper.setText(R.id.tv_publicity_startDate, item.getStartDate());
-                helper.setText(R.id.tv_publicity_endDate, item.getEndDate());
+                helper.setText(R.id.tv_publicity_startDate, DateUtil.getShortDate(item.getStartDate()));
+                helper.setText(R.id.tv_publicity_endDate, DateUtil.getShortDate(item.getEndDate()));
                 helper.setText(R.id.tv_publicity_des, item.getDescriptiton());
-                helper.setVisibility(R.id.iv_publicity_hasImg,false);
+                helper.setVisibility(R.id.iv_publicity_hasImg, false);
+                helper.setBackgroundResource(R.id.iv_publicity_buildingType, (item.getBuildingType() == Status
+                        .BuildingType.PERSONAL) ? R.mipmap.ic_buildingtype_personal : R.mipmap.ic_buildingtype_company);
             }
         });
     }
 
     @Override
     public void onGetPublicityListSuccess(List<PublicityItem> publicityItems) {
+        this.publicityItems = publicityItems;
         if (publicityItems != null && publicityItems.size() > 0) {
             adapter.setData(publicityItems);
         }

@@ -27,6 +27,7 @@ import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.PublicityDetail;
 import com.jdp.hls.model.entiy.PublicityItem;
+import com.jdp.hls.model.entiy.PublicityObject;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.Table;
@@ -165,8 +166,8 @@ public interface ApiService {
             int publicityType);
 
     /*获取公示详情*/
-    @GET("api/Publicity/GetPublicity")
-    Observable<HttpResult<List<PublicityDetail>>> getPublicityDetail(@Query("pubId") int pubId);
+    @GET("api/Publicity/GetPublicityDetail")
+    Observable<HttpResult<PublicityDetail>> getPublicityDetail(@Query("pubId") int pubId);
 
     /*申请公示*/
     @POST("api/Publicity/AddPublicity")
@@ -175,6 +176,11 @@ public interface ApiService {
     /*修改公示*/
     @POST("api/Publicity/UpdatePublicity")
     Observable<HttpResult<Object>> modifyPublicity(@Body RequestBody rosterBody);
+
+    /*获取公示对象列表*/
+    @GET("api/publicity/GetNeedPublicityBuildingList")
+    Observable<HttpResult<List<PublicityObject>>> getPublicityObject(@Query("buildingType") int buildingType, @Query
+            ("publicityType") int publicityType);
 
     /*获取一览表列表*/
     @GET("api/workflow/GetLevyList")
