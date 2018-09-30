@@ -224,17 +224,8 @@
             android:screenOrientation="portrait"/>
 
         <!--企业年限鉴定-->
-        <activity
-            android:name=".page.node.age.company.NodeCompanyAgeActivity"
-            android:screenOrientation="portrait"/>
         <!--企业入户评估-->
-        <activity
-            android:name=".page.node.evaluate.company.NodeCompanyEvaluateActivity"
-            android:screenOrientation="portrait"/>
         <!--企业协议生成-->
-        <activity
-            android:name=".page.node.protocol.company.NodeCompanyProtocolActivity"
-            android:screenOrientation="portrait"/>
         <!--其它面积列表-->
         <activity
             android:name=".page.otherarea.OtherAreaListActivity"
@@ -244,9 +235,6 @@
             android:name=".page.business.basic.company.BasicCompanyActivity"
             android:screenOrientation="portrait"/>
         <!--企业测绘出图-->
-        <activity
-            android:name=".page.node.mapping.company.NodeCompanyMappingActivity"
-            android:screenOrientation="portrait"/>
         <!--企业业务详情-->
         <activity
             android:name=".page.business.detail.company.DetailCompanyActivity"
@@ -288,9 +276,35 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
         <!--不动产证 企业-->
-        <activity android:name=".page.deed.company.immovable.DeedCompanyImmovableActivity"
-                  android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".page.deed.company.immovable.DeedCompanyImmovableActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <!--入户丈量 企业-->
+        <activity
+            android:name=".page.node.measure.company.NodeCompanyMeasureActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <!--测绘出图 企业-->
+        <activity
+            android:name=".page.node.mapping.company.NodeCompanyMappingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <!--入户评估 企业-->
+        <activity
+            android:name=".page.node.evaluate.company.NodeCompanyEvaluateActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <!--年限鉴定 企业-->
+        <activity
+            android:name=".page.node.age.company.NodeCompanyAgeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <!--协议生成 企业-->
+        <activity
+            android:name=".page.node.protocol.company.NodeCompanyProtocolActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
 
 
         <service android:name=".service.initialize.InitializeService"/>

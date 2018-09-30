@@ -18,6 +18,11 @@ import com.jdp.hls.model.entiy.DetailPersonal;
 import com.jdp.hls.model.entiy.Dict;
 import com.jdp.hls.model.entiy.HttpResult;
 import com.jdp.hls.model.entiy.Login;
+import com.jdp.hls.model.entiy.NodeCompanyAge;
+import com.jdp.hls.model.entiy.NodeCompanyEvaluate;
+import com.jdp.hls.model.entiy.NodeCompanyMapping;
+import com.jdp.hls.model.entiy.NodeCompanyMeasure;
+import com.jdp.hls.model.entiy.NodeCompanyProtocol;
 import com.jdp.hls.model.entiy.NodePersonalAge;
 import com.jdp.hls.model.entiy.NodePersonalEvaluate;
 import com.jdp.hls.model.entiy.NodePersonalMapping;
@@ -337,4 +342,49 @@ public interface ApiService {
     /*个人-协议生成-修改*/
     @POST("api/workflow/UpdateHouseProtocolCheck")
     Observable<HttpResult<Object>> modifyPersonalProtocol(@Body RequestBody rosterBody);
+
+
+
+
+    /*======================企业节点======================*/
+
+    /*个人-入户丈量-获取*/
+    @GET("api/Workflow/GetEnterpriseMeasurement")
+    Observable<HttpResult<NodeCompanyMeasure>> getCompanyMeasure(@Query("enterpriseId") String enterpriseId);
+
+    /*个人-入户丈量-修改*/
+    @POST("api/workflow/UpdateEnterpriseMeasurement")
+    Observable<HttpResult<Object>> modifyCompanyMeasure(@Body RequestBody rosterBody);
+
+    /*个人-测绘出图-获取*/
+    @GET("api/workflow/GetEnterpriseMapOut")
+    Observable<HttpResult<NodeCompanyMapping>> getCompanyMapping(@Query("enterpriseId") String enterpriseId);
+
+    /*个人-测绘出图-修改*/
+    @POST("api/workflow/UpdateEnterpriseMapOut")
+    Observable<HttpResult<Object>> modifyCompanyMapping(@Body RequestBody rosterBody);
+
+    /*个人-年限审核-获取*/
+    @GET("api/workflow/getEnterpriseAppraise")
+    Observable<HttpResult<NodeCompanyAge>> getCompanyAge(@Query("enterpriseId") String enterpriseId);
+
+    /*个人-年限审核-修改*/
+    @POST("api/workflow/UpdateEnterpriseAppraise")
+    Observable<HttpResult<Object>> modifyCompanyAge(@Body RequestBody rosterBody);
+
+    /*个人-入户评估-获取*/
+    @GET("api/workflow/GetEnterpriseEvaluation")
+    Observable<HttpResult<NodeCompanyEvaluate>> getCompanyEvaluate(@Query("enterpriseId") String enterpriseId);
+
+    /*个人-入户评估-修改*/
+    @POST("api/workflow/UpdateEnterpriseEvaluation")
+    Observable<HttpResult<Object>> modifyCompanyEvaluate(@Body RequestBody rosterBody);
+
+    /*个人-协议生成-获取*/
+    @GET("api/workflow/GetEnterpriseProtocolCheck")
+    Observable<HttpResult<NodeCompanyProtocol>> getCompanyProtocol(@Query("enterpriseId") String enterpriseId);
+
+    /*个人-协议生成-修改*/
+    @POST("api/workflow/UpdateEnterpriseProtocolCheck")
+    Observable<HttpResult<Object>> modifyCompanyProtocol(@Body RequestBody rosterBody);
 }

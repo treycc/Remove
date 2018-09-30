@@ -13,6 +13,7 @@ import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
+import com.jdp.hls.view.StringTextView;
 
 import javax.inject.Inject;
 
@@ -38,8 +39,8 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
     EnableEditText etEvaluateOldHouseMarketMoney;
     @BindView(R.id.et_evaluate_oldHouseMarketTotalMoney)
     EnableEditText etEvaluateOldHouseMarketTotalMoney;
-    @BindView(R.id.et_evaluate_address)
-    EnableEditText etEvaluateAddress;
+    @BindView(R.id.tv_evaluate_address)
+    StringTextView tvEvaluateAddress;
     @BindView(R.id.tv_evaluate_date)
     TextView tvEvaluateDate;
     @BindView(R.id.iv_dateSelector)
@@ -52,7 +53,7 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
     PreviewRecyclerView rvPhotoPreview;
     @BindView(R.id.ll_photo_preview)
     LinearLayout llPhotoPreview;
-    @BindView(R.id.et_age_remark)
+    @BindView(R.id.et_remark)
     EnableEditText etAgeRemark;
     @Inject
     NodePersonalEvaluatePresenter nodePersonalEvaluatePresenter;
@@ -98,7 +99,7 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
         etEvaluateAppurtenancePay.setEnabled(allowEdit);
         etEvaluateOldHouseMarketMoney.setEnabled(allowEdit);
         etEvaluateOldHouseMarketTotalMoney.setEnabled(allowEdit);
-        etEvaluateAddress.setEnabled(allowEdit);
+        tvEvaluateAddress.setEnabled(allowEdit);
         etAgeRemark.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvEvaluateDate, allowEdit);
     }
@@ -129,7 +130,7 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
 
     @Override
     public void onGetPersonalEvaluateSuccess(NodePersonalEvaluate nodePersonalEvaluate) {
-        setEditable(false);
+        setEditable(true);
         evaluatorId = nodePersonalEvaluate.getEvaluatorId();
         tvEvaluateRealName.setText(nodePersonalEvaluate.getRealName());
         etEvaluateHouseResetMoney.setString(nodePersonalEvaluate.getHouseResetMoney());
@@ -137,7 +138,8 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
         etEvaluateAppurtenancePay.setString(nodePersonalEvaluate.getAppurtenancePay());
         etEvaluateOldHouseMarketMoney.setString(nodePersonalEvaluate.getOldHouseMarketMoney());
         etEvaluateOldHouseMarketTotalMoney.setString(nodePersonalEvaluate.getOldHouseMarketTotalMoney());
-        etEvaluateAddress.setString(nodePersonalEvaluate.getAddress());
+        tvEvaluateAddress.setString(nodePersonalEvaluate.getAddress());
+        etAgeRemark.setString(nodePersonalEvaluate.getRemark());
         tvEvaluateDate.setText(DateUtil.getShortDate(nodePersonalEvaluate.getEvalDate()));
     }
 

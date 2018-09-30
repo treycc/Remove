@@ -1,314 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fillViewport="true">
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
+        android:layout_height="match_parent"
+        android:background="@color/bg_hi"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="基本信息"/>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="测绘人"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_mapping_realName"
+                style="@style/Content_ET_W1"
+                android:hint=""/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="总未登记面积(m²)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_totalNotRecordArea"
+                style="@style/Content_ET_W1"
+                android:hint="请输入"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="简易房面积(m²)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_simpleHouseArea"
+                style="@style/Content_ET_W1"
+                android:hint="请输入"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
 
 
         <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="棚面积(m²)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_shedArea"
+                style="@style/Content_ET_W1"
+                android:hint="请输入"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="总建筑面积(m²)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_totalBuildingArea"
+                style="@style/Content_ET_W1"
+                android:hint="请输入"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="附属面积(m²)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_appurtenanceArea"
+                style="@style/Content_ET_W1"
+                android:hint="请输入"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="总合法土地面积(m²)"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_mapping_totalLegalArea"
+                style="@style/Content_ET_W1"
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="现状占地面积(m²)"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_mapping_currentOccupyArea"
+                style="@style/Content_ET_W1"
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="测绘单位"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_mapping_companyName"
+                style="@style/Content_ET_W1_LINES"
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="坐落地址"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_mapping_address"
+                style="@style/Content_ET_W1_LINES"
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bg_hi"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
-
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp">
 
             <TextView
-                style="@style/Title_Main"
-                android:text="基本信息"/>
+                style="@style/Title_Sub"
+                android:text="测绘日期"/>
 
-            <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="测绘人"/>
-
-                <com.jdp.hls.view.EnableEditText
-                    style="@style/Content_ET_W1"
-                    android:hint="请输入测绘人"/>
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="总未登记面积(m²)"/>
-
-                <com.jdp.hls.view.EnableEditText
-                    style="@style/Content_ET_W1"
-                    android:hint="请输入"/>
-            </LinearLayout>
-
-            <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="简易房面积(m²)"/>
-
-                <com.jdp.hls.view.EnableEditText
-                    style="@style/Content_ET_W1"
-                    android:hint="请输入"/>
-            </LinearLayout>
-
-            <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="坦面积(m²)"/>
-
-                <com.jdp.hls.view.EnableEditText
-                    style="@style/Content_ET_W1"
-                    android:hint="请输入"/>
-            </LinearLayout>
-
-            <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="棚面积(m²)"/>
-
-                <com.jdp.hls.view.EnableEditText
-                    style="@style/Content_ET_W1"
-                    android:hint="请输入"/>
-            </LinearLayout>
-
-            <View style="@style/div_hor_gray_margin24"/>
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="现状占地面积(m²)"/>
-
-                <com.jdp.hls.view.EnableEditText
-                    style="@style/Content_ET_W1"
-                    android:hint="请输入"/>
-            </LinearLayout>
-
-            <View style="@style/div_hor_gray_margin24"/>
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="附属物补偿(元)"/>
-
-                <com.jdp.hls.view.EnableEditText
-                    style="@style/Content_ET_W1"
-                    android:hint="请输入"/>
-            </LinearLayout>
-
-            <View style="@style/div_hor_gray_margin24"/>
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="测绘单位"/>
-
-                <com.jdp.hls.view.EnableEditText
-                    style="@style/Content_ET_W1"
-                    android:hint="请输入"/>
-            </LinearLayout>
-
-            <View style="@style/div_hor_gray_margin24"/>
-            <LinearLayout
-                style="@style/Content_LL_T6">
-
-                <TextView
-                    style="@style/Title_Sub"
-                    android:text="坐落地址"/>
-
-                <com.jdp.hls.view.EnableEditText
-                    style="@style/Content_ET_W1"
-                    android:hint="请输入"/>
-            </LinearLayout>
-
-            <View style="@style/div_hor_gray_margin24"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/white_hi"
-                android:gravity="center_vertical"
-                android:paddingBottom="12dp"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:paddingTop="12dp">
+                android:layout_weight="1">
 
                 <TextView
-                    style="@style/Title_Sub"
-                    android:text="测绘日期"/>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
+                    android:id="@+id/tv_mapping_date"
+                    style="@style/font_9_15_eet"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_centerVertical="true"
+                    android:text="请选择日期"/>
 
-                    <TextView
-                        style="@style/font_9_15_eet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="请选择日期"/>
-
-                    <ImageView
-                        style="@style/BG_DATE_SELECTOR"/>
+                <ImageView
+                    android:id="@+id/iv_dateSelector"
+                    style="@style/BG_DATE_SELECTOR"/>
 
 
-                </RelativeLayout>
+            </RelativeLayout>
 
 
-            </LinearLayout>
+        </LinearLayout>
 
-            <View style="@style/div_hor_gray_margin24"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
-            <TextView
-                style="@style/Title_Main"
-                android:text="测绘资料"/>
+        <TextView
+            style="@style/Title_Main"
+            android:text="测绘资料"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_photo_preview"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/white_hi"
-                android:paddingBottom="12dp"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:paddingTop="12dp"/>
+        <include layout="@layout/layout_photo_preview"/>
 
-            <TextView
-                style="@style/Title_Main"
-                android:text="备注"/>
+        <TextView
+            style="@style/Title_Main"
+            android:text="备注"/>
 
-            <EditText
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp">
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_remark"
                 style="@style/font_9_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white_hi"
                 android:gravity="start"
                 android:hint="请输入备注"
-                android:lines="3"
-                android:paddingBottom="12dp"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:paddingTop="12dp"/>
-        </LinearLayout>
-    </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/white_hi">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginRight="6dp"
-                android:background="@mipmap/ic_send_node"/>
-
-            <TextView
-                style="@style/font_main_13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="发送"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginRight="6dp"
-                android:background="@mipmap/ic_return_node"/>
-
-            <TextView
-                style="@style/font_main_13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="退回"
-                android:textColor="#fca637"
-                android:textSize="13sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginRight="6dp"
-                android:background="@mipmap/ic_send_node"/>
-
-            <TextView
-                style="@style/font_main_13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="复查"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginRight="4dp"
-                android:background="@mipmap/ic_delete_node"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="废弃"
-                android:textColor="#f48080"
-                android:textSize="13sp"/>
-
+                android:lines="3"/>
         </LinearLayout>
     </LinearLayout>
+</ScrollView>
 
-</LinearLayout>

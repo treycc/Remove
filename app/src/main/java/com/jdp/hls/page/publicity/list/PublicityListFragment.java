@@ -107,7 +107,7 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
             public void convert(ViewHolder helper, PublicityItem item) {
                 helper.setText(R.id.tv_publicity_number, item.getBatchName());
                 helper.setText(R.id.tv_publicity_count, String.valueOf(item.getBuildingCount()));
-                helper.setText(R.id.tv_publicity_operater, item.getOperatorId());
+                helper.setText(R.id.tv_publicity_operater, SpSir.getInstance().getRealName());
                 helper.setText(R.id.tv_publicity_startDate, DateUtil.getShortDate(item.getStartDate()));
                 helper.setText(R.id.tv_publicity_endDate, DateUtil.getShortDate(item.getEndDate()));
                 helper.setText(R.id.tv_publicity_des, item.getDescriptiton());

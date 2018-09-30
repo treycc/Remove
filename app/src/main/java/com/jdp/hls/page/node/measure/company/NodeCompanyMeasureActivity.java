@@ -1,4 +1,4 @@
-package com.jdp.hls.page.node.measure.personal;
+package com.jdp.hls.page.node.measure.company;
 
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.jdp.hls.R;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.NodePersonalMeasure;
+import com.jdp.hls.model.entiy.NodeCompanyMeasure;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.view.PreviewRecyclerView;
@@ -25,7 +25,7 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodePersonalMeasureActivity extends BaseNodeActivity implements NodePersonalMeasureContract.View {
+public class NodeCompanyMeasureActivity extends BaseNodeActivity implements NodeCompanyMeasureContract.View {
     @BindView(R.id.tv_measure_name)
     TextView tvMeasureName;
     @BindView(R.id.tv_measure_address)
@@ -39,7 +39,7 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
     @BindView(R.id.et_remark)
     EditText etMeasureRemark;
     @Inject
-    NodePersonalMeasurePresenter nodePersonalMeasurePresenter;
+    NodeCompanyMeasurePresenter nodeCompanyMeasurePresenter;
     @BindView(R.id.ll_measure_dateSelector)
     LinearLayout llMeasureDateSelector;
     @BindView(R.id.iv_dateSelector)
@@ -70,7 +70,7 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
 
     @Override
     protected void initView() {
-        nodePersonalMeasurePresenter.attachView(this);
+        nodeCompanyMeasurePresenter.attachView(this);
     }
 
     @Override
@@ -80,22 +80,22 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
 
     @Override
     protected void initNet() {
-        nodePersonalMeasurePresenter.getPersonalMeasure(mBuildingId);
+        nodeCompanyMeasurePresenter.getCompanyMeasure(mBuildingId);
     }
 
     @Override
-    public void onGetPersonalMeasureSuccess(NodePersonalMeasure nodePersonalMeasure) {
+    public void onGetCompanyMeasureSuccess(NodeCompanyMeasure nodeCompanyMeasure) {
         setEditable(true);
-        tvMeasureName.setText(nodePersonalMeasure.getRealName());
-        etMeasureRemark.setText(nodePersonalMeasure.getRemark());
-        tvMeasureAddress.setText(nodePersonalMeasure.getAddress());
-        tvMeasureDate.setText(DateUtil.getShortDate(nodePersonalMeasure.getMeaDate()));
-        allowEdit = nodePersonalMeasure.isAllowEdit();
+        tvMeasureName.setText(nodeCompanyMeasure.getRealName());
+        etMeasureRemark.setText(nodeCompanyMeasure.getRemark());
+        tvMeasureAddress.setText(nodeCompanyMeasure.getAddress());
+        tvMeasureDate.setText(DateUtil.getShortDate(nodeCompanyMeasure.getMeaDate()));
+        allowEdit = nodeCompanyMeasure.isAllowEdit();
 
     }
 
     @Override
-    public void onModifyPersonalMeasureSuccess() {
+    public void onModifyCompanyMeasureSuccess() {
         showSuccessAndFinish();
     }
 
@@ -110,7 +110,7 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
     protected void onSaveDate() {
         String remark = etMeasureRemark.getText().toString().trim();
         String measureDate = tvMeasureDate.getText().toString().trim();
-        nodePersonalMeasurePresenter.modifyPersonalMeasure(new MultipartBody.Builder().setType(MultipartBody.FORM)
+        nodeCompanyMeasurePresenter.modifyCompanyMeasure(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("MeaDate", measureDate)
                 .addFormDataPart("Remark", remark)

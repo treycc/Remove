@@ -1,16 +1,38 @@
 package com.jdp.hls.page.node.protocol.company;
 
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.page.node.BaseNodeActivity;
+import com.jdp.hls.page.otherarea.OtherAreaListActivity;
+import com.jdp.hls.util.GoUtil;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
- * Description:协议生成-企业
+ * Description:协议生成-个人
  * Create Time:2018/9/11 0011 下午 3:20
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodeCompanyProtocolActivity extends BaseTitleActivity {
+public class NodeCompanyProtocolActivity extends BaseNodeActivity {
+    @BindView(R.id.rl_protocol_otherArea)
+    RelativeLayout rlProtocolOtherArea;
+
+    @OnClick({R.id.stv_login_confirm})
+    public void rl_protocol_otherArea(View view) {
+        switch (view.getId()) {
+            case R.id.rl_protocol_otherArea:
+                GoUtil.goActivity(this, OtherAreaListActivity.class);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void initVariable() {
 
@@ -18,7 +40,7 @@ public class NodeCompanyProtocolActivity extends BaseTitleActivity {
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_node_company_protocol;
+        return R.layout.activity_node_personal_protocol;
     }
 
     @Override
@@ -45,4 +67,15 @@ public class NodeCompanyProtocolActivity extends BaseTitleActivity {
     protected void initNet() {
 
     }
+
+    @Override
+    protected void onUiEditable(boolean allowEdit) {
+
+    }
+
+    @Override
+    protected void onSaveDate() {
+
+    }
+
 }

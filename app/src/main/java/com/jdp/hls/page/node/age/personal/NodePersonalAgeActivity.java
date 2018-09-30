@@ -75,7 +75,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
     PreviewRecyclerView rvPhotoPreview;
     @BindView(R.id.ll_photo_preview)
     LinearLayout llPhotoPreview;
-    @BindView(R.id.et_age_remark)
+    @BindView(R.id.et_remark)
     EnableEditText etAgeRemark;
     @Inject
     NodePersonalAgePresenter nodePersonalAgePresenter;
@@ -193,12 +193,13 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
                 .addFormDataPart("SimpleHouse", simpleHouseAge)
                 .addFormDataPart("TotalLegitimateArea", totalLegitimateArea)
                 .addFormDataPart("TotalIllegalArea", totalIllegalArea)
-                .addFormDataPart("Remark", remark).build());
+                .addFormDataPart("Remark", remark)
+                .build());
     }
 
     @Override
     public void onGetPersonalAgeSuccess(NodePersonalAge nodePersonalAge) {
-        setEditable(false);
+        setEditable(true);
         identifierId = nodePersonalAge.getIdentifierId();
         tvAgeRealName.setText(nodePersonalAge.getRealName());
         etAgeTotalNotRecordArea.setString(nodePersonalAge.getTotalNotRecordArea());

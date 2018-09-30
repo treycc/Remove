@@ -1,8 +1,8 @@
 package com.jdp.hls.page.publicity.detail;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,6 +26,7 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -59,8 +60,10 @@ public class PublicityDetailActivity extends BaseTitleActivity implements Public
     LinearLayout llPhotoPreview;
     @BindView(R.id.et_des)
     EnableEditText etDes;
-    @BindView(R.id.tv_publicity_type)
+    @BindView(R.id.tv_publicityType)
     StringTextView tvPublicityType;
+    @BindView(R.id.tv_buildingType)
+    StringTextView tvBuildingType;
     private int pubId;
     @Inject
     PublicityDetailPresenter publicityDetailPresenter;
@@ -141,7 +144,7 @@ public class PublicityDetailActivity extends BaseTitleActivity implements Public
         intent.putExtra(Constants.Extra.PUBID, pubId);
         intent.putExtra(Constants.Extra.PUB_STATUS, pubStatus);
         intent.putExtra(Constants.Extra.POSITION, position);
-        context.startActivityForResult(intent,Constants.RequestCode.PUBLICITY_DETAIL);
+        context.startActivityForResult(intent, Constants.RequestCode.PUBLICITY_DETAIL);
     }
 
 
@@ -151,17 +154,18 @@ public class PublicityDetailActivity extends BaseTitleActivity implements Public
         tvPublicityCount.setString(publicityDetail.getBuildingCount());
         tvPublicityStartDate.setString(DateUtil.getShortDate(publicityDetail.getStartDate()));
         tvPublicityEndDate.setString(DateUtil.getShortDate(publicityDetail.getEndDate()));
-        tvPublicityType.setString(publicityDetail.getBuildingType() == Status.BuildingType.PERSONAL ? "个人" : "企业");
+        tvBuildingType.setString(publicityDetail.getBuildingType() == Status.BuildingType.PERSONAL ? "个人" : "企业");
+        tvPublicityType.setString(publicityDetail.getPubType() == Status.PublicityType.SURVEY ? "调查公示" : "认定公示");
         etDes.setString(publicityDetail.getDescriptiton());
     }
 
     @Override
     public void onModifyPublicitySuccess() {
         Intent intent = new Intent();
-        intent.putExtra(Constants.Extra.PUBLICITY_DES,des);
-        intent.putExtra(Constants.Extra.BATCH_NAME,batchName);
-        intent.putExtra(Constants.Extra.POSITION,position);
-        setResult(Activity.RESULT_OK,intent);
+        intent.putExtra(Constants.Extra.PUBLICITY_DES, des);
+        intent.putExtra(Constants.Extra.BATCH_NAME, batchName);
+        intent.putExtra(Constants.Extra.POSITION, position);
+        setResult(Activity.RESULT_OK, intent);
         showSuccessAndFinish();
     }
 

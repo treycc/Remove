@@ -74,16 +74,30 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="公示类型"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_publicityType"
+                style="@style/Content_ET_W3"
+                android:text=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="类型"/>
+                android:text="建筑类型"/>
 
             <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_publicity_type"
+                android:id="@+id/tv_buildingType"
                 style="@style/Content_ET_W3"
                 android:text=""/>
         </LinearLayout>

@@ -20,10 +20,15 @@ import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
 import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.page.mine.MineFragment;
+import com.jdp.hls.page.node.age.company.NodeCompanyAgeActivity;
 import com.jdp.hls.page.node.age.personal.NodePersonalAgeActivity;
+import com.jdp.hls.page.node.evaluate.company.NodeCompanyEvaluateActivity;
 import com.jdp.hls.page.node.evaluate.personal.NodePersonalEvaluateActivity;
+import com.jdp.hls.page.node.mapping.company.NodeCompanyMappingActivity;
 import com.jdp.hls.page.node.mapping.personal.NodePersonalMappingActivity;
+import com.jdp.hls.page.node.measure.company.NodeCompanyMeasureActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
+import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
 import com.jdp.hls.page.publicity.apply.PublicityApplyActivity;
 import com.jdp.hls.page.publicity.detail.PublicityDetailActivity;
 import com.jdp.hls.page.publicity.list.PublicityListFragment;
@@ -132,4 +137,14 @@ public interface BaseCompnent {
     void inject(PublicityApplyActivity target);
 
     void inject(PublicityObjectActivity target);
+
+    void inject(NodeCompanyMeasureActivity target);
+
+    void inject(NodeCompanyMappingActivity target);
+
+    void inject(NodeCompanyAgeActivity target);
+
+    void inject(NodeCompanyEvaluateActivity target);
+
+    void inject(NodeCompanyProtocolActivity target);
 }

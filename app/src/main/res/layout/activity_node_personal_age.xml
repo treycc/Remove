@@ -27,6 +27,7 @@
                 android:text="未登记面积(m²)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_totalNotRecordArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -42,6 +43,7 @@
                 android:text="土地证面积(m²)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_landCertTotalArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -57,6 +59,7 @@
                 android:text="土地占地面积(m²)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_buildOccupyArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -72,6 +75,7 @@
                 android:text="简易房面积(m²)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_simpleHouseMeasure"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -87,6 +91,7 @@
                 android:text="坦面积(m²)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_tanArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -428,7 +433,7 @@
             android:paddingTop="12dp">
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_age_remark"
+                android:id="@+id/et_remark"
                 style="@style/font_9_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

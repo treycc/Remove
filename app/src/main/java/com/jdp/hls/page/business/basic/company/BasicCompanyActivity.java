@@ -17,12 +17,11 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BaiscCompany;
 import com.jdp.hls.model.entiy.FlowNode;
 import com.jdp.hls.page.business.detail.company.DetailCompanyActivity;
-import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.node.age.company.NodeCompanyAgeActivity;
 import com.jdp.hls.page.node.evaluate.company.NodeCompanyEvaluateActivity;
 import com.jdp.hls.page.node.mapping.company.NodeCompanyMappingActivity;
+import com.jdp.hls.page.node.measure.company.NodeCompanyMeasureActivity;
 import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 
@@ -65,19 +64,19 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
         if (roleCode >= flowNode.getNodeStatusId()) {
             switch (flowNode.getNodeStatusId()) {
                 case Constants.BusinessNode.MEASURE:
-                    GoUtil.goActivity(this, NodePersonalMeasureActivity.class);
+                    NodeCompanyMeasureActivity.goActivity(this, NodeCompanyMeasureActivity.class, buildingId);
                     break;
                 case Constants.BusinessNode.MAPPING:
-                    GoUtil.goActivity(this, NodeCompanyMappingActivity.class);
+                    NodeCompanyMappingActivity.goActivity(this, NodeCompanyMappingActivity.class, buildingId);
                     break;
                 case Constants.BusinessNode.AGE:
-                    GoUtil.goActivity(this, NodeCompanyAgeActivity.class);
+                    NodeCompanyAgeActivity.goActivity(this, NodeCompanyAgeActivity.class, buildingId);
                     break;
                 case Constants.BusinessNode.EVALUATE:
-                    GoUtil.goActivity(this, NodeCompanyEvaluateActivity.class);
+                    NodeCompanyEvaluateActivity.goActivity(this, NodeCompanyEvaluateActivity.class, buildingId);
                     break;
                 case Constants.BusinessNode.PROTOCOL:
-                    GoUtil.goActivity(this, NodeCompanyProtocolActivity.class);
+                    NodeCompanyProtocolActivity.goActivity(this, NodeCompanyProtocolActivity.class, buildingId);
                     break;
             }
         }
@@ -96,10 +95,6 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
     @Override
     public void initVariable() {
         buildingId = getIntent().getStringExtra("buildingId");
-        String[] businessDes = getResources().getStringArray(R.array.business_nodes);
-        for (int i = 0; i < businessDes.length; i++) {
-            flowNodes.add(new FlowNode(i, businessDes[i]));
-        }
     }
 
     @Override

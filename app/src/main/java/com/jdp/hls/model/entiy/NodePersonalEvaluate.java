@@ -13,16 +13,25 @@ public class NodePersonalEvaluate {
     private String HouseId;
     private String CompanyName;
     private int EvaluatorId;
-    private int HouseResetMoney;
-    private int InnerDecorateMoney;
-    private int AppurtenancePay;
-    private int OldHouseMarketMoney;
-    private int OldHouseMarketTotalMoney;
+    private double HouseResetMoney;
+    private double InnerDecorateMoney;
+    private double AppurtenancePay;
+    private double OldHouseMarketMoney;
+    private double OldHouseMarketTotalMoney;
     private String EvalDate;
     private String Address;
     private String RealName;
+    private String Remark;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
+    }
 
     public int getEvalId() {
         return EvalId;
@@ -56,43 +65,43 @@ public class NodePersonalEvaluate {
         EvaluatorId = evaluatorId;
     }
 
-    public int getHouseResetMoney() {
+    public double getHouseResetMoney() {
         return HouseResetMoney;
     }
 
-    public void setHouseResetMoney(int houseResetMoney) {
+    public void setHouseResetMoney(double houseResetMoney) {
         HouseResetMoney = houseResetMoney;
     }
 
-    public int getInnerDecorateMoney() {
+    public double getInnerDecorateMoney() {
         return InnerDecorateMoney;
     }
 
-    public void setInnerDecorateMoney(int innerDecorateMoney) {
+    public void setInnerDecorateMoney(double innerDecorateMoney) {
         InnerDecorateMoney = innerDecorateMoney;
     }
 
-    public int getAppurtenancePay() {
+    public double getAppurtenancePay() {
         return AppurtenancePay;
     }
 
-    public void setAppurtenancePay(int appurtenancePay) {
+    public void setAppurtenancePay(double appurtenancePay) {
         AppurtenancePay = appurtenancePay;
     }
 
-    public int getOldHouseMarketMoney() {
+    public double getOldHouseMarketMoney() {
         return OldHouseMarketMoney;
     }
 
-    public void setOldHouseMarketMoney(int oldHouseMarketMoney) {
+    public void setOldHouseMarketMoney(double oldHouseMarketMoney) {
         OldHouseMarketMoney = oldHouseMarketMoney;
     }
 
-    public int getOldHouseMarketTotalMoney() {
+    public double getOldHouseMarketTotalMoney() {
         return OldHouseMarketTotalMoney;
     }
 
-    public void setOldHouseMarketTotalMoney(int oldHouseMarketTotalMoney) {
+    public void setOldHouseMarketTotalMoney(double oldHouseMarketTotalMoney) {
         OldHouseMarketTotalMoney = oldHouseMarketTotalMoney;
     }
 

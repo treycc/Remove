@@ -1,0 +1,224 @@
+package com.jdp.hls.model.entiy;
+
+import java.util.List;
+
+/**
+ * Description:TODO
+ * Create Time:2018/9/30 0030 上午 11:01
+ * Author:KingJA
+ * Email:kingjavip@gmail.com
+ */
+public class NodeCompanyProtocol {
+
+    /**
+     * PCId : 1
+     * EnterpriseId : b41d2663-f3b4-406b-a566-0655ca4437cd
+     * CheckerId : 1
+     * RealName : 杰森
+     * CompanyName : 特兰普微信朋友圈
+     * PayType : 产权置换
+     * PayTypeName :
+     * TotalPurchasePrice : 1
+     * TotalPay : 1
+     * Rate : 1
+     * RemoveFee : 1.00
+     * TempPlacementFee : 1.00
+     * OtherFee : 1.00
+     * PCDate : 2018/6/6 星期三 上午 12:00:00
+     * Remark : 12
+     * SimpleHouseArea :
+     * TotalNotRecordArea : 0.00
+     * TotalBuildingArea :
+     * Address : 不动产证，地址改了22
+     * IsAllowEdit : false
+     */
+
+    private int PCId;
+    private String EnterpriseId;
+    private int CheckerId;
+    private String RealName;
+    private String CompanyName;
+    private String PayType;
+    private String PayTypeName;
+    private int TotalPurchasePrice;
+    private int TotalPay;
+    private int Rate;
+    private String RemoveFee;
+    private String TempPlacementFee;
+    private String OtherFee;
+    private String PCDate;
+    private String Remark;
+    private String SimpleHouseArea;
+    private String TotalNotRecordArea;
+    private String TotalBuildingArea;
+    private String Address;
+    private boolean IsAllowEdit;
+    private List<ImgInfo> Files;
+    public int getPCId() {
+        return PCId;
+    }
+
+    public void setPCId(int PCId) {
+        this.PCId = PCId;
+    }
+
+    public String getEnterpriseId() {
+        return EnterpriseId;
+    }
+
+    public void setEnterpriseId(String EnterpriseId) {
+        this.EnterpriseId = EnterpriseId;
+    }
+
+    public int getCheckerId() {
+        return CheckerId;
+    }
+
+    public void setCheckerId(int CheckerId) {
+        this.CheckerId = CheckerId;
+    }
+
+    public String getRealName() {
+        return RealName;
+    }
+
+    public void setRealName(String RealName) {
+        this.RealName = RealName;
+    }
+
+    public String getCompanyName() {
+        return CompanyName;
+    }
+
+    public void setCompanyName(String CompanyName) {
+        this.CompanyName = CompanyName;
+    }
+
+    public String getPayType() {
+        return PayType;
+    }
+
+    public void setPayType(String PayType) {
+        this.PayType = PayType;
+    }
+
+    public String getPayTypeName() {
+        return PayTypeName;
+    }
+
+    public void setPayTypeName(String PayTypeName) {
+        this.PayTypeName = PayTypeName;
+    }
+
+    public int getTotalPurchasePrice() {
+        return TotalPurchasePrice;
+    }
+
+    public void setTotalPurchasePrice(int TotalPurchasePrice) {
+        this.TotalPurchasePrice = TotalPurchasePrice;
+    }
+
+    public int getTotalPay() {
+        return TotalPay;
+    }
+
+    public void setTotalPay(int TotalPay) {
+        this.TotalPay = TotalPay;
+    }
+
+    public int getRate() {
+        return Rate;
+    }
+
+    public void setRate(int Rate) {
+        this.Rate = Rate;
+    }
+
+    public String getRemoveFee() {
+        return RemoveFee;
+    }
+
+    public void setRemoveFee(String RemoveFee) {
+        this.RemoveFee = RemoveFee;
+    }
+
+    public String getTempPlacementFee() {
+        return TempPlacementFee;
+    }
+
+    public void setTempPlacementFee(String TempPlacementFee) {
+        this.TempPlacementFee = TempPlacementFee;
+    }
+
+    public String getOtherFee() {
+        return OtherFee;
+    }
+
+    public void setOtherFee(String OtherFee) {
+        this.OtherFee = OtherFee;
+    }
+
+    public String getPCDate() {
+        return PCDate;
+    }
+
+    public void setPCDate(String PCDate) {
+        this.PCDate = PCDate;
+    }
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String Remark) {
+        this.Remark = Remark;
+    }
+
+    public String getSimpleHouseArea() {
+        return SimpleHouseArea;
+    }
+
+    public void setSimpleHouseArea(String SimpleHouseArea) {
+        this.SimpleHouseArea = SimpleHouseArea;
+    }
+
+    public String getTotalNotRecordArea() {
+        return TotalNotRecordArea;
+    }
+
+    public void setTotalNotRecordArea(String TotalNotRecordArea) {
+        this.TotalNotRecordArea = TotalNotRecordArea;
+    }
+
+    public String getTotalBuildingArea() {
+        return TotalBuildingArea;
+    }
+
+    public void setTotalBuildingArea(String TotalBuildingArea) {
+        this.TotalBuildingArea = TotalBuildingArea;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String Address) {
+        this.Address = Address;
+    }
+
+    public boolean isAllowEdit() {
+        return IsAllowEdit;
+    }
+
+    public void setAllowEdit(boolean allowEdit) {
+        IsAllowEdit = allowEdit;
+    }
+
+    public List<ImgInfo> getFiles() {
+        return Files;
+    }
+
+    public void setFiles(List<ImgInfo> files) {
+        Files = files;
+    }
+}

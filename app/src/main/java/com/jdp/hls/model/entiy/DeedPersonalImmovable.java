@@ -18,7 +18,7 @@ public class DeedPersonalImmovable {
     private int StructureTypeId;
     private double HouseTotalArea;
     private double HouseShareArea;
-    private String LandTotalArea;
+    private double LandTotalArea;
     private double BuildOccupyArea;
     private String Address;
     private String LandNatureTypeName;
@@ -101,11 +101,11 @@ public class DeedPersonalImmovable {
         HouseShareArea = houseShareArea;
     }
 
-    public String getLandTotalArea() {
+    public double getLandTotalArea() {
         return LandTotalArea;
     }
 
-    public void setLandTotalArea(String landTotalArea) {
+    public void setLandTotalArea(double landTotalArea) {
         LandTotalArea = landTotalArea;
     }
 

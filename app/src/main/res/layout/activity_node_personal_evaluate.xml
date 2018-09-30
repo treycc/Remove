@@ -120,10 +120,10 @@
                 style="@style/Title_Sub"
                 android:text="坐落地址"/>
 
-            <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_evaluate_address"
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_evaluate_address"
                 style="@style/Content_ET_W1"
-                android:hint="请输入地址"/>
+                android:hint=""/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -219,7 +219,7 @@
             android:paddingTop="12dp">
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_age_remark"
+                android:id="@+id/et_remark"
                 style="@style/font_9_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
