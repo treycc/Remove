@@ -38,12 +38,13 @@ public class NodeCompanyProtocol {
     private int CheckerId;
     private String RealName;
     private String CompanyName;
-    private String PayType;
+    private int PayType;
     private String PayTypeName;
     private int TotalPurchasePrice;
     private int TotalPay;
     private int Rate;
     private String RemoveFee;
+    private String CusCode;
     private String TempPlacementFee;
     private String OtherFee;
     private String PCDate;
@@ -51,11 +52,47 @@ public class NodeCompanyProtocol {
     private String SimpleHouseArea;
     private String TotalNotRecordArea;
     private String TotalBuildingArea;
+    private String TotalLandAZArea;
+    private String ClearObstaclePay;
     private String Address;
+    private String LandCertArea;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getCusCode() {
+        return CusCode;
+    }
+
+    public String getClearObstaclePay() {
+        return ClearObstaclePay;
+    }
+
+    public void setClearObstaclePay(String clearObstaclePay) {
+        ClearObstaclePay = clearObstaclePay;
+    }
+
+    public void setCusCode(String cusCode) {
+        CusCode = cusCode;
+    }
+
+    public String getTotalLandAZArea() {
+        return TotalLandAZArea;
+    }
+
+    public void setTotalLandAZArea(String totalLandAZArea) {
+        TotalLandAZArea = totalLandAZArea;
+    }
+
     public int getPCId() {
         return PCId;
+    }
+
+    public String getLandCertArea() {
+        return LandCertArea;
+    }
+
+    public void setLandCertArea(String landCertArea) {
+        LandCertArea = landCertArea;
     }
 
     public void setPCId(int PCId) {
@@ -94,12 +131,12 @@ public class NodeCompanyProtocol {
         this.CompanyName = CompanyName;
     }
 
-    public String getPayType() {
+    public int getPayType() {
         return PayType;
     }
 
-    public void setPayType(String PayType) {
-        this.PayType = PayType;
+    public void setPayType(int payType) {
+        PayType = payType;
     }
 
     public String getPayTypeName() {

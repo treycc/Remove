@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 
 
 /**
@@ -35,6 +36,18 @@ public class DetailCompanyPresenter implements DetailCompanyContract.Presenter {
                     @Override
                     protected void onSuccess(DetailCompany detailCompany) {
                         mView.onGetCompanyDetailSuccess(detailCompany);
+                    }
+                });
+    }
+
+    @Override
+    public void modifyCompanyDetail(RequestBody rosterBody) {
+        mApi.getApiService().modifyCompanyDetail(rosterBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new LoadSirObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onModifyCompanyDetailSuccess();
                     }
                 });
     }

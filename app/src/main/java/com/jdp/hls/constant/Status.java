@@ -35,6 +35,7 @@ public class Status {
         int PROPERTY_USE = 4;//产权用途
         int FLOW_NODE = 7;//节点
         int SOCIAL_RELATION = 8;//社会关系
+        int PAY_TYPE = 9;//补偿方式
     }
 
     public interface BuildingId {

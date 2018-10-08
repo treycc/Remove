@@ -29,6 +29,7 @@ import com.jdp.hls.page.node.mapping.personal.NodePersonalMappingActivity;
 import com.jdp.hls.page.node.measure.company.NodeCompanyMeasureActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
+import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
 import com.jdp.hls.page.publicity.apply.PublicityApplyActivity;
 import com.jdp.hls.page.publicity.detail.PublicityDetailActivity;
 import com.jdp.hls.page.publicity.list.PublicityListFragment;
@@ -147,4 +148,6 @@ public interface BaseCompnent {
     void inject(NodeCompanyEvaluateActivity target);
 
     void inject(NodeCompanyProtocolActivity target);
+
+    void inject(NodePersonalProtocolActivity target);
 }

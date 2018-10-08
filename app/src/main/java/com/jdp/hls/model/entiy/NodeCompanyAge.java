@@ -38,10 +38,19 @@ public class NodeCompanyAge {
     private String Address;
     private String SimpleHouseArea;
     private String ShedArea;
+    private String TotalNotRecordArea;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
     public int getIdenId() {
         return IdenId;
+    }
+
+    public String getTotalNotRecordArea() {
+        return TotalNotRecordArea;
+    }
+
+    public void setTotalNotRecordArea(String totalNotRecordArea) {
+        TotalNotRecordArea = totalNotRecordArea;
     }
 
     public void setIdenId(int IdenId) {

@@ -62,13 +62,40 @@ public class DetailPersonal {
     private double Latitude;
     private boolean IsAllowPublicity;
     private double BizUseArea;
+    private boolean IsAllowEdit;
     private String PropertyCertNum;
     private String LandCertNum;
     private String EstateCertNum;
     private String Remark;
     private int StatusId;
     private String StatusDesc;
+    private String PersonId;
+    private String BookletId;
     private List<ImgInfo> HouseFiles;
+
+    public String getBookletId() {
+        return BookletId;
+    }
+
+    public void setBookletId(String bookletId) {
+        BookletId = bookletId;
+    }
+
+    public String getPersonId() {
+        return PersonId;
+    }
+
+    public void setPersonId(String personId) {
+        PersonId = personId;
+    }
+
+    public boolean isAllowEdit() {
+        return IsAllowEdit;
+    }
+
+    public void setAllowEdit(boolean allowEdit) {
+        IsAllowEdit = allowEdit;
+    }
 
     public String getHouseId() {
         return HouseId;
@@ -92,38 +119,6 @@ public class DetailPersonal {
 
     public void setCusCode(String CusCode) {
         this.CusCode = CusCode;
-    }
-
-    public boolean isIsBanned() {
-        return IsBanned;
-    }
-
-    public void setIsBanned(boolean IsBanned) {
-        this.IsBanned = IsBanned;
-    }
-
-    public boolean isIsFlowBack() {
-        return IsFlowBack;
-    }
-
-    public void setIsFlowBack(boolean IsFlowBack) {
-        this.IsFlowBack = IsFlowBack;
-    }
-
-    public boolean isIsEvaluated() {
-        return IsEvaluated;
-    }
-
-    public void setIsEvaluated(boolean IsEvaluated) {
-        this.IsEvaluated = IsEvaluated;
-    }
-
-    public boolean isIsMeasured() {
-        return IsMeasured;
-    }
-
-    public void setIsMeasured(boolean IsMeasured) {
-        this.IsMeasured = IsMeasured;
     }
 
     public String getCreateDatetime() {
@@ -198,9 +193,6 @@ public class DetailPersonal {
         this.Address = Address;
     }
 
-    public boolean isIsShop() {
-        return IsShop;
-    }
 
     public void setIsShop(boolean IsShop) {
         this.IsShop = IsShop;
@@ -220,14 +212,6 @@ public class DetailPersonal {
 
     public void setLatitude(double Latitude) {
         this.Latitude = Latitude;
-    }
-
-    public boolean isIsAllowPublicity() {
-        return IsAllowPublicity;
-    }
-
-    public void setIsAllowPublicity(boolean IsAllowPublicity) {
-        this.IsAllowPublicity = IsAllowPublicity;
     }
 
     public double getBizUseArea() {
@@ -292,5 +276,53 @@ public class DetailPersonal {
 
     public void setHouseFiles(List<ImgInfo> HouseFiles) {
         this.HouseFiles = HouseFiles;
+    }
+
+    public boolean isBanned() {
+        return IsBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        IsBanned = banned;
+    }
+
+    public boolean isFlowBack() {
+        return IsFlowBack;
+    }
+
+    public void setFlowBack(boolean flowBack) {
+        IsFlowBack = flowBack;
+    }
+
+    public boolean isEvaluated() {
+        return IsEvaluated;
+    }
+
+    public void setEvaluated(boolean evaluated) {
+        IsEvaluated = evaluated;
+    }
+
+    public boolean isMeasured() {
+        return IsMeasured;
+    }
+
+    public void setMeasured(boolean measured) {
+        IsMeasured = measured;
+    }
+
+    public boolean isShop() {
+        return IsShop;
+    }
+
+    public void setShop(boolean shop) {
+        IsShop = shop;
+    }
+
+    public boolean isAllowPublicity() {
+        return IsAllowPublicity;
+    }
+
+    public void setAllowPublicity(boolean allowPublicity) {
+        IsAllowPublicity = allowPublicity;
     }
 }

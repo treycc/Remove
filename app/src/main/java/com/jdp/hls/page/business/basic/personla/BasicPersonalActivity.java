@@ -62,6 +62,9 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
     @OnItemClick({R.id.lv_business_node})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         FlowNode flowNode = (FlowNode) adapterView.getItemAtPosition(position);
+        if (!flowNode.isAvailable()) {
+            return;
+        }
         switch (flowNode.getNodeStatusId()) {
             case Constants.BusinessNode.MEASURE:
                 NodePersonalMeasureActivity.goActivity(this, NodePersonalMeasureActivity.class, buildingId);

@@ -208,9 +208,17 @@ public interface ApiService {
     @GET("api/workflow/GetHouseTaskDetail")
     Observable<HttpResult<DetailPersonal>> getPersonalDetail(@Query("buildingId") String buildingId);
 
+    /*个人信息详情-修改*/
+    @POST("api/workflow/SaveHouseTask")
+    Observable<HttpResult<Object>> modifyPersonalDetail(@Body RequestBody rosterBody);
+
     /*企业-信息详情*/
     @GET("api/workflow/GetEnterpriseTaskDetail")
     Observable<HttpResult<DetailCompany>> getCompanyDetail(@Query("buildingId") String buildingId);
+
+    /*企业信息详情-修改*/
+    @POST("api/workflow/SaveEnterpriseTask")
+    Observable<HttpResult<Object>> modifyCompanyDetail(@Body RequestBody rosterBody);
 
     /*======================个人证件======================*/
     /*个人产权证-获取*/

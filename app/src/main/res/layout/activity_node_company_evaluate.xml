@@ -57,6 +57,7 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_evaluate_nonMobileDevicePay"
                 style="@style/Content_ET_W1"
+                android:inputType="numberDecimal"
                 android:hint="请输入金额"/>
 
             <TextView
@@ -78,6 +79,7 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_evaluate_mobileDevicePay"
                 style="@style/Content_ET_W1"
+                android:inputType="numberDecimal"
                 android:hint="请输入金额"/>
 
             <TextView
@@ -119,6 +121,7 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_evaluate_legalLandPay"
                 style="@style/Content_ET_W1"
+                android:inputType="numberDecimal"
                 android:hint="请输入金额"/>
 
             <TextView
@@ -143,6 +146,7 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_evaluate_legalBuildingPay"
                 style="@style/Content_ET_W1"
+                android:inputType="numberDecimal"
                 android:hint="请输入金额"/>
 
             <TextView
@@ -167,6 +171,7 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_evaluate_legalDecorationPay"
                 style="@style/Content_ET_W1"
+                android:inputType="numberDecimal"
                 android:hint="请输入金额"/>
 
             <TextView
@@ -191,6 +196,7 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_evaluate_appurtenancePay"
                 style="@style/Content_ET_W1"
+                android:inputType="numberDecimal"
                 android:hint="请输入金额"/>
 
             <TextView
@@ -218,7 +224,7 @@
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_evaluate_address"
                 style="@style/Content_ET_W1"
-                android:hint="请输入地址"/>
+                android:hint=""/>
         </LinearLayout>
 
         <View
@@ -236,7 +242,7 @@
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_evaluate_companyName"
                 style="@style/Content_ET_W1"
-                android:hint="请输入地址"/>
+                android:hint=""/>
         </LinearLayout>
 
         <View

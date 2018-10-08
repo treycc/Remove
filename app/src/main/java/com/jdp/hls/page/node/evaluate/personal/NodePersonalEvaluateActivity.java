@@ -57,7 +57,6 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
     EnableEditText etAgeRemark;
     @Inject
     NodePersonalEvaluatePresenter nodePersonalEvaluatePresenter;
-    private int evaluatorId;
 
     @Override
     protected int getContentView() {
@@ -116,7 +115,6 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
 
         nodePersonalEvaluatePresenter.modifyPersonalEvaluate(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
-                .addFormDataPart("EvaluatorId", String.valueOf(evaluatorId))
                 .addFormDataPart("HouseResetMoney", houseResetMoney)
                 .addFormDataPart("InnerDecorateMoney", innerDecorateMoney)
                 .addFormDataPart("AppurtenancePay", appurtenancePay)
@@ -131,7 +129,6 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
     @Override
     public void onGetPersonalEvaluateSuccess(NodePersonalEvaluate nodePersonalEvaluate) {
         setEditable(true);
-        evaluatorId = nodePersonalEvaluate.getEvaluatorId();
         tvEvaluateRealName.setText(nodePersonalEvaluate.getRealName());
         etEvaluateHouseResetMoney.setString(nodePersonalEvaluate.getHouseResetMoney());
         etEvaluateInnerDecorateMoney.setString(nodePersonalEvaluate.getInnerDecorateMoney());

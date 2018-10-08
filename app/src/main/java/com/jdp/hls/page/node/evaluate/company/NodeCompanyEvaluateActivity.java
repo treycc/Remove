@@ -1,5 +1,8 @@
 package com.jdp.hls.page.node.evaluate.company;
 
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -10,6 +13,7 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodeCompanyEvaluate;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
+import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
 import com.jdp.hls.view.StringTextView;
@@ -91,6 +95,49 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
     @Override
     protected void initData() {
         rvPhotoPreview.create();
+        etEvaluateNonMobileDevicePay.addTextChangedListener(calculateTotalMoneyWatcher);
+        etEvaluateMobileDevicePay.addTextChangedListener(calculateTotalMoneyWatcher);
+        etEvaluateLegalLandPay.addTextChangedListener(calculateTotalPropertyWatcher);
+        etEvaluateLegalBuildingPay.addTextChangedListener(calculateTotalPropertyWatcher);
+        etEvaluateLegalDecorationPay.addTextChangedListener(calculateTotalPropertyWatcher);
+        etEvaluateAppurtenancePay.addTextChangedListener(calculateTotalPropertyWatcher);
+
+    }
+
+    private TextWatcher calculateTotalPropertyWatcher = new SimpleTextWatcher() {
+        @Override
+        public void afterTextChanged(Editable s) {
+            calculateTotalProperty();
+        }
+    };
+
+    private TextWatcher calculateTotalMoneyWatcher = new SimpleTextWatcher() {
+        @Override
+        public void afterTextChanged(Editable s) {
+            calculateTotalMoney();
+        }
+    };
+
+    private void calculateTotalProperty() {
+        String legalLandPayStr = etEvaluateLegalLandPay.getText().toString().trim();
+        String legalBuildingPayStr = etEvaluateLegalBuildingPay.getText().toString().trim();
+        String legalDecorationPayStr = etEvaluateLegalDecorationPay.getText().toString().trim();
+        String appurtenancePayStr = etEvaluateAppurtenancePay.getText().toString().trim();
+        double before90Area = TextUtils.isEmpty(legalLandPayStr) ? 0d : Double.valueOf(legalLandPayStr);
+        double legalBuildingPay = TextUtils.isEmpty(legalBuildingPayStr) ? 0d : Double.valueOf(legalBuildingPayStr);
+        double legalDecorationPay = TextUtils.isEmpty(legalDecorationPayStr) ? 0d : Double.valueOf
+                (legalDecorationPayStr);
+        double appurtenancePay = TextUtils.isEmpty(appurtenancePayStr) ? 0d : Double.valueOf(appurtenancePayStr);
+        tvTotalProperty.setText(String.valueOf(before90Area + legalBuildingPay + legalDecorationPay + appurtenancePay));
+    }
+
+    private void calculateTotalMoney() {
+        String nonMobileDevicePayStr = etEvaluateNonMobileDevicePay.getText().toString().trim();
+        String mobileDevicePayStr = etEvaluateMobileDevicePay.getText().toString().trim();
+        double nonMobileDevicePay = TextUtils.isEmpty(nonMobileDevicePayStr) ? 0d : Double.valueOf
+                (nonMobileDevicePayStr);
+        double mobileDevicePay = TextUtils.isEmpty(mobileDevicePayStr) ? 0d : Double.valueOf(mobileDevicePayStr);
+        tvTotalMoney.setText(String.valueOf(nonMobileDevicePay + mobileDevicePay));
     }
 
     @Override
@@ -147,6 +194,8 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
         tvEvaluateCompanyName.setString(nodeCompanyEvaluate.getCompanyName());
         tvEvaluateAddress.setString(nodeCompanyEvaluate.getAddress());
         tvEvaluateDate.setText(DateUtil.getShortDate(nodeCompanyEvaluate.getEvalDate()));
+        calculateTotalMoney();
+        calculateTotalProperty();
     }
 
     @Override

@@ -2,14 +2,15 @@ package com.jdp.hls.page.business.detail.company;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.activity.FamilyRelationActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
@@ -19,10 +20,6 @@ import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
 import com.jdp.hls.page.deed.company.license.DeedCompanyLicenseActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
-import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
-import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
-import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
@@ -33,7 +30,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MultipartBody;
 
 /**
  * Description:公司业务详情
@@ -79,14 +78,18 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     LinearLayout llPhotoPreview;
     @BindView(R.id.et_detail_remark)
     EditText etDetailRemark;
+    @BindView(R.id.switch_detail_publicity)
+    Switch switchDetailPublicity;
     private String buildingId;
-
+    private boolean ifPublicity;
     @Inject
     DetailCompanyPresenter detailCompanyPresenter;
     private String estateCertNum;
     private String licenseNo;
     private String landCertNum;
     private String propertyCertNum;
+    private double longitude;
+    private double latitude;
 
     @Override
     public void initVariable() {
@@ -138,11 +141,8 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     @Override
     protected void initData() {
         rvPhotoPreview.create();
-        setRightClick("保存", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                ToastUtil.showText("保存");
-            }
+        switchDetailPublicity.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            ifPublicity = isChecked;
         });
     }
 
@@ -163,7 +163,6 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         licenseNo = detailCompany.getLicenseNo();
         landCertNum = detailCompany.getLandCertNum();
         propertyCertNum = detailCompany.getPropertyCertNum();
-
         etDetailCusCode.setText(detailCompany.getCusCode());
         etDetailEnterpriseName.setText(detailCompany.getEnterpriseName());
         etDetailAddress.setText(detailCompany.getAddress());
@@ -180,10 +179,63 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         if (houseFiles != null && houseFiles.size() > 0) {
             rvPhotoPreview.setData(houseFiles);
         }
+        longitude = detailCompany.getLongitude();
+        latitude = detailCompany.getLatitude();
+        boolean allowEdit = detailCompany.isAllowEdit();
+        if (allowEdit) {
+            setRightClick("保存", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    String cusCode = etDetailCusCode.getText().toString().trim();
+                    String enterpriseName = etDetailEnterpriseName.getText().toString().trim();
+                    String address = etDetailAddress.getText().toString().trim();
+                    String mobile = etDetailMobilePhone.getText().toString().trim();
+                    String realName = etDetailRealName.getText().toString().trim();
+                    String remark = etDetailRemark.getText().toString().trim();
+                    String rentInfo = etDetailRentInfo.getText().toString().trim();
+                    String bizInfo = etDetailBizInfo.getText().toString().trim();
+                    detailCompanyPresenter.modifyCompanyDetail(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                            .addFormDataPart("EnterpriseId", buildingId)
+                            .addFormDataPart("EnterpriseName", enterpriseName)
+                            .addFormDataPart("CusCode", cusCode)
+                            .addFormDataPart("Address", address)
+                            .addFormDataPart("Remark", remark)
+                            .addFormDataPart("IsAllowPublicity", String.valueOf(ifPublicity))
+                            .addFormDataPart("Longitude", String.valueOf(longitude))
+                            .addFormDataPart("Latitude", String.valueOf(latitude))
+                            .addFormDataPart("RentInfo", rentInfo)
+                            .addFormDataPart("BizInfo", bizInfo)
+                            .addFormDataPart("RealName", realName)
+                            .addFormDataPart("MobilePhone", mobile)
+                            .build());
+                }
+            });
+        } else {
+            etDetailCusCode.setEnabled(false);
+            etDetailEnterpriseName.setEnabled(false);
+            etDetailAddress.setEnabled(false);
+            etDetailRealName.setEnabled(false);
+            etDetailMobilePhone.setEnabled(false);
+            etDetailBizInfo.setEnabled(false);
+            etDetailRentInfo.setEnabled(false);
+            etDetailRemark.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void onModifyCompanyDetailSuccess() {
+
     }
 
     @Override
     protected boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

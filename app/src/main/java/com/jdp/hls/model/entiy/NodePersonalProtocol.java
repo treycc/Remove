@@ -11,15 +11,15 @@ public class NodePersonalProtocol {
     private int PCId;
     private String HouseId;
     private int CheckerId;
-    private int TotalPurchasePrice;
-    private int TotalPay;
-    private int Rate;
+    private double TotalPurchasePrice;
+    private double TotalPay;
+    private double Rate;
     private int PayType;
-    private int OtherArea;
-    private int OverAuditArea;
-    private int RemoveFee;
-    private int TempPlacementFee;
-    private int OtherFee;
+    private double OtherArea;
+    private double OverAuditArea;
+    private double RemoveFee;
+    private double TempPlacementFee;
+    private double OtherFee;
     private String PCDate;
     private String CompanyName;
     private String Address;
@@ -30,8 +30,12 @@ public class NodePersonalProtocol {
     private String TotalLandArea;
     private String TotalNotRecordArea;
     private String SysCode;
+    private String CusCode;
     private String RealName;
     private String LandCertTotalArea;
+    private String LandCertArea;
+    private String TotalLandAZArea;
+    private String Remark;
     private boolean IsAllowEdit;
 
     public int getPCId() {
@@ -46,88 +50,81 @@ public class NodePersonalProtocol {
         return HouseId;
     }
 
-    public void setHouseId(String HouseId) {
-        this.HouseId = HouseId;
+    public void setHouseId(String houseId) {
+        HouseId = houseId;
     }
 
     public int getCheckerId() {
         return CheckerId;
     }
 
-    public void setCheckerId(int CheckerId) {
-        this.CheckerId = CheckerId;
+    public void setCheckerId(int checkerId) {
+        CheckerId = checkerId;
     }
 
-    public int getTotalPurchasePrice() {
+    public double getTotalPurchasePrice() {
         return TotalPurchasePrice;
     }
 
-    public void setTotalPurchasePrice(int TotalPurchasePrice) {
-        this.TotalPurchasePrice = TotalPurchasePrice;
+    public void setTotalPurchasePrice(double totalPurchasePrice) {
+        TotalPurchasePrice = totalPurchasePrice;
     }
 
-    public int getTotalPay() {
+    public double getTotalPay() {
         return TotalPay;
     }
 
-    public void setTotalPay(int TotalPay) {
-        this.TotalPay = TotalPay;
+    public void setTotalPay(double totalPay) {
+        TotalPay = totalPay;
     }
 
-    public int getRate() {
+    public double getRate() {
         return Rate;
     }
 
-    public void setRate(int Rate) {
-        this.Rate = Rate;
+    public void setRate(double rate) {
+        Rate = rate;
     }
 
-    public int getPayType() {
-        return PayType;
-    }
 
-    public void setPayType(int PayType) {
-        this.PayType = PayType;
-    }
-
-    public int getOtherArea() {
+    public double getOtherArea() {
         return OtherArea;
     }
 
-    public void setOtherArea(int OtherArea) {
-        this.OtherArea = OtherArea;
+    public void setOtherArea(double otherArea) {
+        OtherArea = otherArea;
     }
 
-    public int getOverAuditArea() {
+    public double getOverAuditArea() {
         return OverAuditArea;
     }
 
-    public void setOverAuditArea(int OverAuditArea) {
-        this.OverAuditArea = OverAuditArea;
+    public void setOverAuditArea(double overAuditArea) {
+        OverAuditArea = overAuditArea;
     }
 
-    public int getRemoveFee() {
+    public double getRemoveFee() {
         return RemoveFee;
     }
 
-    public void setRemoveFee(int RemoveFee) {
-        this.RemoveFee = RemoveFee;
+    public void setRemoveFee(double removeFee) {
+        RemoveFee = removeFee;
     }
 
-    public int getTempPlacementFee() {
+    public double getTempPlacementFee() {
         return TempPlacementFee;
     }
 
-    public void setTempPlacementFee(int TempPlacementFee) {
-        this.TempPlacementFee = TempPlacementFee;
+    public void setTempPlacementFee(double tempPlacementFee) {
+        TempPlacementFee = tempPlacementFee;
     }
 
-    public int getOtherFee() {
+    public double getOtherFee() {
         return OtherFee;
     }
 
-    public void setOtherFee(int OtherFee) {
-        this.OtherFee = OtherFee;
+    public void setOtherFee(double otherFee) {
+        OtherFee = otherFee;
     }
 
     public String getPCDate() {
@@ -142,88 +139,120 @@ public class NodePersonalProtocol {
         return CompanyName;
     }
 
-    public void setCompanyName(String CompanyName) {
-        this.CompanyName = CompanyName;
+    public void setCompanyName(String companyName) {
+        CompanyName = companyName;
     }
 
     public String getAddress() {
         return Address;
     }
 
-    public void setAddress(String Address) {
-        this.Address = Address;
+    public void setAddress(String address) {
+        Address = address;
     }
 
     public String getPayTypeName() {
         return PayTypeName;
     }
 
-    public void setPayTypeName(String PayTypeName) {
-        this.PayTypeName = PayTypeName;
+    public void setPayTypeName(String payTypeName) {
+        PayTypeName = payTypeName;
     }
 
     public String getOwnerName() {
         return OwnerName;
     }
 
-    public void setOwnerName(String OwnerName) {
-        this.OwnerName = OwnerName;
+    public void setOwnerName(String ownerName) {
+        OwnerName = ownerName;
     }
 
     public String getTotalArea() {
         return TotalArea;
     }
 
-    public void setTotalArea(String TotalArea) {
-        this.TotalArea = TotalArea;
+    public void setTotalArea(String totalArea) {
+        TotalArea = totalArea;
     }
 
     public String getBuildOccupyArea() {
         return BuildOccupyArea;
     }
 
-    public void setBuildOccupyArea(String BuildOccupyArea) {
-        this.BuildOccupyArea = BuildOccupyArea;
+    public void setBuildOccupyArea(String buildOccupyArea) {
+        BuildOccupyArea = buildOccupyArea;
     }
 
     public String getTotalLandArea() {
         return TotalLandArea;
     }
 
-    public void setTotalLandArea(String TotalLandArea) {
-        this.TotalLandArea = TotalLandArea;
+    public void setTotalLandArea(String totalLandArea) {
+        TotalLandArea = totalLandArea;
     }
 
     public String getTotalNotRecordArea() {
         return TotalNotRecordArea;
     }
 
-    public void setTotalNotRecordArea(String TotalNotRecordArea) {
-        this.TotalNotRecordArea = TotalNotRecordArea;
+    public void setTotalNotRecordArea(String totalNotRecordArea) {
+        TotalNotRecordArea = totalNotRecordArea;
     }
 
     public String getSysCode() {
         return SysCode;
     }
 
-    public void setSysCode(String SysCode) {
-        this.SysCode = SysCode;
+    public void setSysCode(String sysCode) {
+        SysCode = sysCode;
+    }
+
+    public String getCusCode() {
+        return CusCode;
+    }
+
+    public void setCusCode(String cusCode) {
+        CusCode = cusCode;
     }
 
     public String getRealName() {
         return RealName;
     }
 
-    public void setRealName(String RealName) {
-        this.RealName = RealName;
+    public void setRealName(String realName) {
+        RealName = realName;
     }
 
     public String getLandCertTotalArea() {
         return LandCertTotalArea;
     }
 
-    public void setLandCertTotalArea(String LandCertTotalArea) {
-        this.LandCertTotalArea = LandCertTotalArea;
+    public void setLandCertTotalArea(String landCertTotalArea) {
+        LandCertTotalArea = landCertTotalArea;
+    }
+
+    public String getLandCertArea() {
+        return LandCertArea;
+    }
+
+    public void setLandCertArea(String landCertArea) {
+        LandCertArea = landCertArea;
+    }
+
+    public String getTotalLandAZArea() {
+        return TotalLandAZArea;
+    }
+
+    public void setTotalLandAZArea(String totalLandAZArea) {
+        TotalLandAZArea = totalLandAZArea;
+    }
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
     }
 
     public boolean isAllowEdit() {
@@ -233,4 +262,13 @@ public class NodePersonalProtocol {
     public void setAllowEdit(boolean allowEdit) {
         IsAllowEdit = allowEdit;
     }
+
+    public int getPayType() {
+        return PayType;
+    }
+
+    public void setPayType(int payType) {
+        PayType = payType;
+    }
 }
+

@@ -29,7 +29,16 @@ public class DetailCompany {
     private double Longitude;
     private double Latitude;
     private boolean IsAllowPublicity;
+    private boolean IsAllowEdit;
     private List<ImgInfo> HouseFiles;
+
+    public boolean isAllowEdit() {
+        return IsAllowEdit;
+    }
+
+    public void setAllowEdit(boolean allowEdit) {
+        IsAllowEdit = allowEdit;
+    }
 
     public String getBizInfo() {
         return BizInfo;

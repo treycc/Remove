@@ -24,7 +24,6 @@ import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 
@@ -34,6 +33,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MultipartBody;
 
 /**
  * Description:个人业务详情
@@ -43,8 +43,8 @@ import butterknife.OnClick;
  */
 public class DetailPersonalActivity extends BaseTitleActivity implements DetailPersonalContract.View {
 
-    @BindView(R.id.et_detail_syscode)
-    EnableEditText etDetailSyscode;
+    @BindView(R.id.et_detail_cusCode)
+    EnableEditText etDetailcusCode;
     @BindView(R.id.et_detail_realName)
     EnableEditText etDetailRealName;
     @BindView(R.id.et_detail_mobile)
@@ -63,8 +63,8 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     LinearLayout llDetailTempHouse;
     @BindView(R.id.ll_detail_hasShop)
     LinearLayout llDetailHasShop;
-    @BindView(R.id.et_detail_shopArea)
-    EnableEditText etDetailShopArea;
+    @BindView(R.id.et_detail_bizUseArea)
+    EnableEditText etDetailBizUseArea;
     @BindView(R.id.tv_detail_propertyDeed)
     TextView tvDetailPropertyDeed;
     @BindView(R.id.ll_detail_propertyDeed)
@@ -78,7 +78,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     @BindView(R.id.ll_detail_immovableDeed)
     LinearLayout llDetailImmovableDeed;
     @BindView(R.id.et_detail_remark)
-    EditText etDetailRemark;
+    EnableEditText etDetailRemark;
     @BindView(R.id.switch_detail_needHouse)
     Switch switchDetailNeedHouse;
     @BindView(R.id.switch_detail_publicity)
@@ -88,7 +88,8 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private String buildingId;
     @Inject
     DetailPersonalPresenter detailPersonalPresenter;
-
+    private double longitude;
+    private double latitude;
     private boolean hasShop;
     private boolean needHouse;
     private boolean ifPublicity;
@@ -103,13 +104,16 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                 GoUtil.goActivity(this, FamilyRelationActivity.class);
                 break;
             case R.id.ll_detail_propertyDeed:
-                DeedPersonalPropertyActivity.goActivity(this,detailPersonal.getHouseId(),TextUtils.isEmpty(detailPersonal.getPropertyCertNum()));
+                DeedPersonalPropertyActivity.goActivity(this, detailPersonal.getHouseId(), TextUtils.isEmpty
+                        (detailPersonal.getPropertyCertNum()));
                 break;
             case R.id.ll_detail_landDeed:
-                DeedPersonalLandActivity.goActivity(this,detailPersonal.getHouseId(),TextUtils.isEmpty(detailPersonal.getLandCertNum()));
+                DeedPersonalLandActivity.goActivity(this, detailPersonal.getHouseId(), TextUtils.isEmpty
+                        (detailPersonal.getLandCertNum()));
                 break;
             case R.id.ll_detail_immovableDeed:
-                DeedPersonalImmovableActivity.goActivity(this,detailPersonal.getHouseId(),TextUtils.isEmpty(detailPersonal.getEstateCertNum()));
+                DeedPersonalImmovableActivity.goActivity(this, detailPersonal.getHouseId(), TextUtils.isEmpty
+                        (detailPersonal.getEstateCertNum()));
                 break;
         }
     }
@@ -144,12 +148,6 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
 
     @Override
     protected void initData() {
-        setRightClick("保存", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                ToastUtil.showText("保存");
-            }
-        });
         initSpinners();
     }
 
@@ -178,15 +176,68 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     @Override
     public void onGetPersonalDetailSuccess(DetailPersonal detailPersonal) {
         this.detailPersonal = detailPersonal;
-        etDetailSyscode.setText(detailPersonal.getSysCode());
+        etDetailcusCode.setText(detailPersonal.getSysCode());
         etDetailRealName.setText(detailPersonal.getRealName());
         etDetailMobile.setText(detailPersonal.getMobilePhone());
         etDetailAddress.setText(detailPersonal.getAddress());
-        etDetailShopArea.setText(String.valueOf(detailPersonal.getBizUseArea()));
+        etDetailBizUseArea.setText(String.valueOf(detailPersonal.getBizUseArea()));
         tvDetailPropertyDeed.setText(detailPersonal.getPropertyCertNum());
         tvDetailLandDeed.setText(detailPersonal.getLandCertNum());
         tvDetailImmovableDeed.setText(detailPersonal.getEstateCertNum());
         etDetailRemark.setText(detailPersonal.getRemark());
+        switchDetailHasShop.setChecked(detailPersonal.isShop());
+        switchDetailNeedHouse.setChecked(detailPersonal.isNeedTempHouse());
+        switchDetailPublicity.setChecked(detailPersonal.isAllowPublicity());
+        spinnerDetailSocialRelation.setSelectItem(detailPersonal.getPoliticalTitle());
+        longitude = detailPersonal.getLongitude();
+        latitude = detailPersonal.getLatitude();
+        boolean allowEdit = detailPersonal.isAllowEdit();
+        if (allowEdit) {
+            setRightClick("保存", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    String cusCode = etDetailcusCode.getText().toString().trim();
+                    String address = etDetailAddress.getText().toString().trim();
+                    String idcard = etDetailIdcard.getText().toString().trim();
+                    String mobile = etDetailMobile.getText().toString().trim();
+                    String realName = etDetailRealName.getText().toString().trim();
+                    String remark = etDetailRemark.getText().toString().trim();
+                    String bizUseArea = etDetailBizUseArea.getText().toString().trim();
+                    detailPersonalPresenter.modifyPersonalDetail(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                            .addFormDataPart("HouseId", buildingId)
+                            .addFormDataPart("CusCode", cusCode)
+                            .addFormDataPart("IsShop", String.valueOf(hasShop))
+                            .addFormDataPart("NeedTempHouse", String.valueOf(needHouse))
+                            .addFormDataPart("BizUseArea", bizUseArea)
+                            .addFormDataPart("Address", address)
+                            .addFormDataPart("Remark", remark)
+                            .addFormDataPart("IsAllowPublicity", String.valueOf(ifPublicity))
+                            .addFormDataPart("Longitude", String.valueOf(longitude))
+                            .addFormDataPart("Latitude", String.valueOf(latitude))
+                            .addFormDataPart("RealName", realName)
+                            .addFormDataPart("PoliticalTitle", String.valueOf(socialRelation))
+                            .addFormDataPart("Idcard", idcard)
+                            .addFormDataPart("MobilePhone", mobile)
+                            .build());
+                }
+            });
+        } else {
+            etDetailcusCode.setEnabled(false);
+            etDetailRealName.setEnabled(false);
+            etDetailMobile.setEnabled(false);
+            etDetailAddress.setEnabled(false);
+            etDetailBizUseArea.setEnabled(false);
+            etDetailRemark.setEnabled(false);
+            switchDetailHasShop.setEnabled(false);
+            switchDetailNeedHouse.setEnabled(false);
+            switchDetailPublicity.setEnabled(false);
+        }
+    }
+
+
+    @Override
+    public void onModifyPersonalDetailSuccess() {
+
     }
 
     public static void goActivity(Context context, String buildingId) {

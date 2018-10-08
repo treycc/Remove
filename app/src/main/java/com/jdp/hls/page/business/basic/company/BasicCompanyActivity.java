@@ -52,7 +52,6 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
     @BindView(R.id.tv_basic_address)
     TextView tvBasicAddress;
     private List<FlowNode> flowNodes = new ArrayList<>();
-    private int roleCode = 3;
     @Inject
     BasicCompanyPresenter basicCompanyPresenter;
     private String buildingId;
@@ -61,21 +60,26 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
     @OnItemClick({R.id.lv_business_node})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         FlowNode flowNode = (FlowNode) adapterView.getItemAtPosition(position);
-        if (roleCode >= flowNode.getNodeStatusId()) {
+        if (flowNode.isAvailable()) {
             switch (flowNode.getNodeStatusId()) {
                 case Constants.BusinessNode.MEASURE:
+                    //入户丈量
                     NodeCompanyMeasureActivity.goActivity(this, NodeCompanyMeasureActivity.class, buildingId);
                     break;
                 case Constants.BusinessNode.MAPPING:
+                    //测绘出图
                     NodeCompanyMappingActivity.goActivity(this, NodeCompanyMappingActivity.class, buildingId);
                     break;
                 case Constants.BusinessNode.AGE:
+                    //年限鉴定
                     NodeCompanyAgeActivity.goActivity(this, NodeCompanyAgeActivity.class, buildingId);
                     break;
                 case Constants.BusinessNode.EVALUATE:
+                    //入户评估
                     NodeCompanyEvaluateActivity.goActivity(this, NodeCompanyEvaluateActivity.class, buildingId);
                     break;
                 case Constants.BusinessNode.PROTOCOL:
+                    //协议生成
                     NodeCompanyProtocolActivity.goActivity(this, NodeCompanyProtocolActivity.class, buildingId);
                     break;
             }

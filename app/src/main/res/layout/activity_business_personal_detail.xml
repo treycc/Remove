@@ -25,7 +25,7 @@
                 android:text="档案编号"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_detail_syscode"
+                android:id="@+id/et_detail_cusCode"
                 style="@style/Content_ET_W2"
                 android:hint="请输入档案编号"/>
         </LinearLayout>
@@ -52,12 +52,12 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="联系方式"/>
+                android:text="手机号码"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_detail_mobile"
                 style="@style/Content_ET_W2"
-                android:hint="请输入联系方式"/>
+                android:hint="请输入手机号码"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -178,8 +178,6 @@
                     style="@style/KSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:enabled="false"
                     android:textOff="否"
                     android:textOn="是"/>
             </LinearLayout>
@@ -225,7 +223,7 @@
                 android:text="营业用房(m²)"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_detail_shopArea"
+                android:id="@+id/et_detail_bizUseArea"
                 style="@style/Content_ET_W2"
                 android:text="请输入营业用房面积"/>
         </LinearLayout>
@@ -311,13 +309,7 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp"/>
+     <include layout="@layout/layout_photo_preview"/>
 
         <View style="@style/div_hor_gray_margin24"/>
 
@@ -325,17 +317,26 @@
             style="@style/Title_Normal"
             android:text="备注"/>
 
-        <EditText
-            android:id="@+id/et_detail_remark"
-            style="@style/font_9_15"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:background="@null"
-            android:gravity="start"
-            android:hint="请输入备注"
-            android:lines="4"/>
+            android:background="@color/white_hi"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp">
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_detail_remark"
+                style="@style/font_9_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="start"
+                android:hint="请输入备注"
+                android:lines="3"/>
+        </LinearLayout>
 
         <TextView
             style="@style/Title_Main"
