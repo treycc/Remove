@@ -37,6 +37,60 @@ public class NodePersonalProtocol {
     private String TotalLandAZArea;
     private String Remark;
     private boolean IsAllowEdit;
+    private double HZArea;
+    private double AZBuildingArea;
+    private double AZTNArea;
+    private String TaoTypeName;
+    private double DamagesAmount;
+    private double NeedPayAmount;
+
+    public double getHZArea() {
+        return HZArea;
+    }
+
+    public void setHZArea(double HZArea) {
+        this.HZArea = HZArea;
+    }
+
+    public double getAZBuildingArea() {
+        return AZBuildingArea;
+    }
+
+    public void setAZBuildingArea(double AZBuildingArea) {
+        this.AZBuildingArea = AZBuildingArea;
+    }
+
+    public double getAZTNArea() {
+        return AZTNArea;
+    }
+
+    public void setAZTNArea(double AZTNArea) {
+        this.AZTNArea = AZTNArea;
+    }
+
+    public String getTaoTypeName() {
+        return TaoTypeName;
+    }
+
+    public void setTaoTypeName(String taoTypeName) {
+        TaoTypeName = taoTypeName;
+    }
+
+    public double getDamagesAmount() {
+        return DamagesAmount;
+    }
+
+    public void setDamagesAmount(double damagesAmount) {
+        DamagesAmount = damagesAmount;
+    }
+
+    public double getNeedPayAmount() {
+        return NeedPayAmount;
+    }
+
+    public void setNeedPayAmount(double needPayAmount) {
+        NeedPayAmount = needPayAmount;
+    }
 
     public int getPCId() {
         return PCId;

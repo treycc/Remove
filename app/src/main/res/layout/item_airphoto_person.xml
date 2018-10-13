@@ -11,7 +11,7 @@
 
 
     <TextView
-        android:id="@+id/tv_airphoto_number"
+        android:id="@+id/tv_airphoto_sysCode"
         style="@style/font_3_15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:text="户主/手机号:"/>
 
         <TextView
-            android:id="@+id/tv_airphoto_name"
+            android:id="@+id/tv_airphoto_realName"
             style="@style/font_9_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:text="/"/>
 
         <TextView
-            android:id="@+id/tv_airphoto_mobile"
+            android:id="@+id/tv_airphoto_mobilePhone"
             style="@style/font_9_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

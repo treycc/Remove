@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jdp.hls.view.DrawHelperLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawHelperLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_hi">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="12dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/ll_root"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+
+                    <TextView
+                        style="@style/font_6_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="部位"/>
+
+                    <com.jdp.hls.view.StringTextView
+                        android:id="@+id/tv_unrecord_position"
+                        style="@style/font_9_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="走廊"/>
+
+                    <TextView
+                        style="@style/font_6_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="层次"/>
+
+                    <com.jdp.hls.view.StringTextView
+                        android:id="@+id/tv_unrecord_layer"
+                        style="@style/font_9_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="走廊"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+
+                    <TextView
+                        style="@style/font_6_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="建筑面积"/>
+
+                    <com.jdp.hls.view.StringTextView
+                        android:id="@+id/tv_unrecord_area"
+                        style="@style/font_9_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="走廊"/>
+
+                    <TextView
+                        style="@style/font_6_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="84段"/>
+
+                    <com.jdp.hls.view.StringTextView
+                        android:id="@+id/tv_unrecord_pic84"
+                        style="@style/font_9_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="走廊"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+
+                    <TextView
+                        style="@style/font_6_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="94段"/>
+
+                    <com.jdp.hls.view.StringTextView
+                        android:id="@+id/tv_unrecord_pic94"
+                        style="@style/font_9_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="走廊"/>
+
+                    <TextView
+                        style="@style/font_6_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="2000段"/>
+
+                    <com.jdp.hls.view.StringTextView
+                        android:id="@+id/tv_unrecord_pic2000"
+                        style="@style/font_9_15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="走廊"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            style="@style/BG_ARROW"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/red_hi">
+        <TextView
+            android:id="@+id/tv_delete"
+            style="@style/font_f_15"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="删除"/>
+
+    </LinearLayout>
+</com.jdp.hls.view.DrawHelperLayout>

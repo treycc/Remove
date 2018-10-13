@@ -46,6 +46,16 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="删除"/>
+        <View style="@style/div_ver_gray"/>
+
+        <TextView
+            android:id="@+id/tv_photo_save"
+            style="@style/font_3_16"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="保存"/>
     </LinearLayout>
 
 </RelativeLayout>

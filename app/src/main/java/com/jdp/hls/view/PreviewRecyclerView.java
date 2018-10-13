@@ -3,28 +3,23 @@ package com.jdp.hls.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.activity.PhotoPreviewActivity;
 import com.jdp.hls.adapter.BaseRvPositionAdapter;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.imgaeloader.ImageLoader;
-import com.jdp.hls.model.entiy.DTOImgInfo;
 import com.jdp.hls.model.entiy.ImgInfo;
-import com.jdp.hls.util.FileUtil;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -36,7 +31,7 @@ import java.util.List;
  */
 
 public class PreviewRecyclerView extends RecyclerView {
-    private List<DTOImgInfo> imgInfos = new ArrayList<>();
+    private List<ImgInfo> photos = new ArrayList<>();
     private ArrayList<String> deleteIds = new ArrayList<>();
     private PreviewImgAdapter previewImgAdapter;
 
@@ -53,31 +48,17 @@ public class PreviewRecyclerView extends RecyclerView {
     }
 
     public void create() {
-        initView(imgInfos);
+//        initView(imgInfos);
     }
 
     public void create(List<ImgInfo> imgInfos) {
-        initView(getDTOFromImgInfo(imgInfos));
+//        initView(getDTOFromImgInfo(imgInfos));
     }
 
-    public static List<DTOImgInfo> getDTOFromImgInfo(List<ImgInfo> imgInfos) {
-        List<DTOImgInfo> dtoImgInfos = new ArrayList<>();
-        for (ImgInfo imgInfo : imgInfos) {
-            DTOImgInfo dtoImgInfo = new DTOImgInfo();
-            dtoImgInfo.setId(imgInfo.getId());
-            if (imgInfo.getUri() == null) {
-                dtoImgInfo.setUrl(imgInfo.getFileUrl());
-                dtoImgInfo.setSmallUrl(imgInfo.getSmallImgUrl());
-            } else {
-                dtoImgInfo.setUriStr(imgInfo.getUri().toString());
-            }
-            dtoImgInfos.add(dtoImgInfo);
-        }
-        return dtoImgInfos;
-    }
 
-    public void initView(List<DTOImgInfo> imgInfos) {
-        previewImgAdapter = new PreviewImgAdapter(getContext(), imgInfos);
+    public void initPhotos(List<ImgInfo> photos) {
+        this.photos = photos;
+        previewImgAdapter = new PreviewImgAdapter(getContext(), photos == null ? new ArrayList<>() : photos);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(OrientationHelper.HORIZONTAL);
         setLayoutManager(layoutManager);
@@ -89,17 +70,11 @@ public class PreviewRecyclerView extends RecyclerView {
         });
     }
 
+
     public void setData(List<ImgInfo> imgInfos) {
-        previewImgAdapter.setData(getDTOFromImgInfo(imgInfos));
+        previewImgAdapter.setData(imgInfos);
     }
 
-    public void addDeleteIds(ArrayList<String> deleteIds) {
-        deleteIds.addAll(deleteIds);
-    }
-
-    public List<DTOImgInfo> getDTOImgInfo() {
-        return previewImgAdapter.getDate();
-    }
 
     public String getDeleteIds() {
         StringBuilder sb = new StringBuilder();
@@ -114,35 +89,16 @@ public class PreviewRecyclerView extends RecyclerView {
         return sb.toString();
     }
 
-    public List<File> getAddedFiles() {
-        List<DTOImgInfo> dates = previewImgAdapter.getDate();
-        List<File> addedFiles =new ArrayList<>();
-        for (DTOImgInfo dtoImgInfo : dates) {
-            String uriStr = dtoImgInfo.getUriStr();
-            if (!TextUtils.isEmpty(uriStr)) {
-                File photoFile = FileUtil.getFileByUri(Uri.parse(uriStr), getContext());
-                addedFiles.add(photoFile);
-            }
-        }
-        return addedFiles;
-    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.RequestCode.PHOTO_PREVIEW && data != null) {
-            ArrayList<String> deleteIds = data.getStringArrayListExtra(Constants.Extra.DELETE_IDS);
-            List<DTOImgInfo> dtoImgInfos = (List<DTOImgInfo>) data.getSerializableExtra(Constants.Extra.DTO_IMGS);
-            Iterator<DTOImgInfo> it = previewImgAdapter.getDate().iterator();
-            while (it.hasNext()) {
-                DTOImgInfo next = it.next();
-                for (String deleteId : deleteIds) {
-                    if (next.getId().equals(deleteId)) {
-                        it.remove();
-                    }
-                }
-            }
-            previewImgAdapter.addData(dtoImgInfos);
-            this.deleteIds.addAll(deleteIds);
+            photos = (List<ImgInfo>) data.getSerializableExtra(Constants.Extra.DTO_IMGS);
+            previewImgAdapter.setData(photos);
         }
+    }
+
+    public void goPhotoPreviewActivity(Activity context) {
+        PhotoPreviewActivity.goActivity(context, photos);
     }
 
     public void onActivityResult(Intent data) {
@@ -150,10 +106,10 @@ public class PreviewRecyclerView extends RecyclerView {
     }
 
 
-    public class PreviewImgAdapter extends BaseRvPositionAdapter<DTOImgInfo> {
+    public class PreviewImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
         protected final String TAG = getClass().getSimpleName();
 
-        PreviewImgAdapter(Context context, List<DTOImgInfo> list) {
+        PreviewImgAdapter(Context context, List<ImgInfo> list) {
             super(context, list);
         }
 
@@ -168,32 +124,26 @@ public class PreviewRecyclerView extends RecyclerView {
         }
 
         @Override
-        protected void bindHolder(ViewHolder baseHolder, List<DTOImgInfo> list, int position) {
+        protected void bindHolder(ViewHolder baseHolder, List<ImgInfo> list, int position) {
             ImgInfoViewHolder holder = (ImgInfoViewHolder) baseHolder;
             if (list.size() == 0) {
                 holder.iv_img.setImageResource(R.mipmap.pic_stay_uploaded);
             } else {
-                String url = list.get(position).getSmallUrl();
-                if (TextUtils.isEmpty(url)) {
-                    ImageLoader.getInstance().loadImage(context, Uri.parse(list.get(position).getUriStr()), holder
-                            .iv_img);
-                } else {
-                    ImageLoader.getInstance().loadImage(context, url, holder.iv_img);
-                }
+                ImageLoader.getInstance().loadImage(context, list.get(position).getSmallImgUrl(), holder.iv_img);
             }
         }
 
         @Override
-        public void addData(List<DTOImgInfo> dtoImgInfos) {
-            list.addAll(dtoImgInfos);
-            LinkedHashSet<DTOImgInfo> set = new LinkedHashSet<>(list.size());
+        public void addData(List<ImgInfo> photos) {
+            list.addAll(photos);
+            LinkedHashSet<ImgInfo> set = new LinkedHashSet<>(list.size());
             set.addAll(list);
             list.clear();
             list.addAll(set);
             notifyDataSetChanged();
         }
 
-        public List<DTOImgInfo> getDate() {
+        public List<ImgInfo> getDate() {
             return list;
         }
 

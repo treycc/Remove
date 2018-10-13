@@ -13,7 +13,6 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.util.DateUtil;
-import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.PreviewRecyclerView;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -71,7 +70,6 @@ public abstract class BaseNodeActivity extends BaseTitleActivity {
                 }
             });
         }
-
     }
 
 

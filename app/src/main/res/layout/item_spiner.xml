@@ -12,8 +12,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="12dp"
         android:layout_toLeftOf="@id/tv_spiner"
-        android:background="@mipmap/ic_arrow"
-        android:visibility="gone"/>
+        android:background="@mipmap/ic_arrow"/>
 
     <TextView
         android:id="@+id/tv_spiner"

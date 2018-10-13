@@ -129,12 +129,12 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
 
     @Override
     protected void initData() {
-        setRightClick("流程", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                ToastUtil.showText("流程");
-            }
-        });
+//        setRightClick("流程", new NoDoubleClickListener() {
+//            @Override
+//            public void onNoDoubleClick(View v) {
+//                ToastUtil.showText("流程");
+//            }
+//        });
     }
 
     @Override

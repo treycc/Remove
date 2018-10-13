@@ -1,5 +1,8 @@
 package com.jdp.hls.page.node.protocol.company;
 
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,8 +17,10 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodeCompanyProtocol;
 import com.jdp.hls.page.node.BaseNodeActivity;
-import com.jdp.hls.page.otherarea.OtherAreaListActivity;
+import com.jdp.hls.page.otherarea.list.OtherAreaListActivity;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.MathUtil;
+import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.PreviewRecyclerView;
@@ -46,8 +51,8 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
     StringTextView tvProtocolTotalNotRecordArea;
     @BindView(R.id.tv_protocol_landCertArea)
     StringTextView tvProtocolLandCertArea;
-    @BindView(R.id.tv_protocol_totalLandAZArea)
-    StringTextView tvProtocolTotalLandAZArea;
+    @BindView(R.id.et_protocol_totalLandAZArea)
+    EnableEditText etProtocolTotalLandAZArea;
     @BindView(R.id.spinner_payType)
     KSpinner spinnerPayType;
     @BindView(R.id.et_protocol_totalPurchasePrice)
@@ -56,8 +61,6 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
     EnableEditText etProtocolClearObstaclePay;
     @BindView(R.id.et_protocol_totalPay)
     EnableEditText etProtocolTotalPay;
-    @BindView(R.id.et_protocol_rate)
-    EnableEditText etProtocolRate;
     @BindView(R.id.et_protocol_removeFee)
     EnableEditText etProtocolRemoveFee;
     @BindView(R.id.et_protocol_tempPlacementFee)
@@ -76,17 +79,25 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
     LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
+    @BindView(R.id.et_protocol_changeArea)
+    EnableEditText etProtocolChangeArea;
+    @BindView(R.id.tv_protocol_needPayAmount)
+    StringTextView tvProtocolNeedPayAmount;
+    @BindView(R.id.et_protocol_damagesAmount)
+    EnableEditText etProtocolDamagesAmount;
     private int payType;
 
     @Inject
     NodeCompanyProtocolPresenter nodeCompanyProtocolPresenter;
     private List<TDict> payTypeList;
+    private int pcId;
 
     @OnClick({R.id.rl_protocol_otherArea})
     public void rl_protocol_otherArea(View view) {
         switch (view.getId()) {
             case R.id.rl_protocol_otherArea:
-                GoUtil.goActivity(this, OtherAreaListActivity.class);
+                OtherAreaListActivity.goActivity(this, String.valueOf(pcId), String.valueOf(Status.BuildingType
+                        .COMPANY));
                 break;
             default:
                 break;
@@ -128,6 +139,25 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
         spinnerPayType.setDicts(payTypeList, typeId -> {
             payType = typeId;
         });
+
+        etProtocolTotalPurchasePrice.addTextChangedListener(calculateTotalMoneyWatcher);
+        etProtocolTotalPay.addTextChangedListener(calculateTotalMoneyWatcher);
+    }
+
+    private TextWatcher calculateTotalMoneyWatcher = new SimpleTextWatcher() {
+        @Override
+        public void afterTextChanged(Editable s) {
+            calculateTotalMoney();
+        }
+    };
+
+    private void calculateTotalMoney() {
+        String totalPurchasePriceStr = etProtocolTotalPurchasePrice.getText().toString().trim();
+        String totalPayStr = etProtocolTotalPay.getText().toString().trim();
+        double totalPurchasePrice = TextUtils.isEmpty(totalPurchasePriceStr) ? 0d : Double.valueOf
+                (totalPurchasePriceStr);
+        double totalPay = TextUtils.isEmpty(totalPayStr) ? 0d : Double.valueOf(totalPayStr);
+        tvProtocolNeedPayAmount.setText(String.valueOf(MathUtil.sub(totalPurchasePrice, totalPay)));
     }
 
     @Override
@@ -141,12 +171,14 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
         etProtocolTotalPurchasePrice.setEnabled(allowEdit);
         etProtocolClearObstaclePay.setEnabled(allowEdit);
         etProtocolTotalPay.setEnabled(allowEdit);
-        etProtocolRate.setEnabled(allowEdit);
         etProtocolRemoveFee.setEnabled(allowEdit);
         etProtocolTempPlacementFee.setEnabled(allowEdit);
         etProtocolOtherFee.setEnabled(allowEdit);
+        etProtocolTotalLandAZArea.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvProtocolDate, allowEdit);
         etRemark.setEnabled(allowEdit);
+        etProtocolTotalPurchasePrice.setEnabled(allowEdit);
+        etProtocolTotalPay.setEnabled(allowEdit);
     }
 
     @Override
@@ -154,23 +186,25 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
         String remark = etRemark.getText().toString().trim();
         String totalPurchasePrice = etProtocolTotalPurchasePrice.getText().toString().trim();
         String totalPay = etProtocolTotalPay.getText().toString().trim();
-        String rate = etProtocolRate.getText().toString().trim();
         String removeFee = etProtocolRemoveFee.getText().toString().trim();
         String tempPlacementFee = etProtocolTempPlacementFee.getText().toString().trim();
         String otherFee = etProtocolOtherFee.getText().toString().trim();
         String clearObstaclePay = etProtocolClearObstaclePay.getText().toString().trim();
+        String changeArea = etProtocolChangeArea.getText().toString().trim();
+        String damagesAmount = etProtocolDamagesAmount.getText().toString().trim();
         String pCDate = tvProtocolDate.getText().toString().trim();
         nodeCompanyProtocolPresenter.modifyCompanyProtocol(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("PayType", String.valueOf(payType))
                 .addFormDataPart("TotalPurchasePrice", totalPurchasePrice)
                 .addFormDataPart("TotalPay", totalPay)
-                .addFormDataPart("Rate", rate)
                 .addFormDataPart("RemoveFee", removeFee)
                 .addFormDataPart("TempPlacementFee", tempPlacementFee)
                 .addFormDataPart("OtherFee", otherFee)
                 .addFormDataPart("PCDate", pCDate)
                 .addFormDataPart("Remark", remark)
+                .addFormDataPart("ChangeArea", changeArea)
+                .addFormDataPart("DamagesAmount", damagesAmount)
                 .addFormDataPart("ClearObstaclePay", clearObstaclePay)
                 .build());
     }
@@ -178,27 +212,31 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
     @Override
     public void onGetCompanyProtocolSuccess(NodeCompanyProtocol nodeCompanyProtocol) {
         setEditable(true);
+        pcId = nodeCompanyProtocol.getPCId();
         payType = nodeCompanyProtocol.getPayType();
         spinnerPayType.setSelectItem(payType);
         tvProtocolCusCode.setString(nodeCompanyProtocol.getCusCode());
         tvProtocolTotalBuildingArea.setString(nodeCompanyProtocol.getTotalBuildingArea());
         tvProtocolTotalNotRecordArea.setString(nodeCompanyProtocol.getTotalNotRecordArea());
         tvProtocolLandCertArea.setString(nodeCompanyProtocol.getLandCertArea());
-        tvProtocolTotalLandAZArea.setString(nodeCompanyProtocol.getTotalLandAZArea());
+        etProtocolTotalLandAZArea.setString(nodeCompanyProtocol.getTotalLandAZArea());
         etProtocolTotalPurchasePrice.setString(nodeCompanyProtocol.getTotalPurchasePrice());
         etProtocolClearObstaclePay.setString(nodeCompanyProtocol.getClearObstaclePay());
         etProtocolTotalPay.setString(nodeCompanyProtocol.getTotalPay());
-        etProtocolRate.setString(nodeCompanyProtocol.getRate());
         etProtocolRemoveFee.setString(nodeCompanyProtocol.getRemoveFee());
         etProtocolTempPlacementFee.setString(nodeCompanyProtocol.getTempPlacementFee());
         etProtocolOtherFee.setString(nodeCompanyProtocol.getOtherFee());
         tvProtocolAddress.setString(nodeCompanyProtocol.getAddress());
         tvProtocolDate.setText(nodeCompanyProtocol.getPCDate());
-        etRemark.setText(nodeCompanyProtocol.getRemark());
+        etRemark.setString(nodeCompanyProtocol.getRemark());
+        etProtocolDamagesAmount.setString(nodeCompanyProtocol.getDamagesAmount());
+        etProtocolChangeArea.setString(nodeCompanyProtocol.getChangeArea());
+        calculateTotalMoney();
     }
 
     @Override
     public void onModifyCompanyProtocolSuccess() {
         showSuccessAndFinish();
     }
+
 }

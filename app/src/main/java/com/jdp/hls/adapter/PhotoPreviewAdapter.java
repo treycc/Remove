@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.DTOImgInfo;
 import com.jdp.hls.model.entiy.ImgInfo;
-import com.jdp.hls.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,11 +27,11 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class PhotoPreviewAdapter extends BaseLvAdapter<DTOImgInfo> {
+public class PhotoPreviewAdapter extends BaseLvAdapter<ImgInfo> {
     private boolean showCheckbox;
     private ArrayList<String> deleteIds = new ArrayList<>();
 
-    public PhotoPreviewAdapter(Context context, List<DTOImgInfo> list) {
+    public PhotoPreviewAdapter(Context context, List<ImgInfo> list) {
         super(context, list);
     }
 
@@ -61,13 +61,13 @@ public class PhotoPreviewAdapter extends BaseLvAdapter<DTOImgInfo> {
             viewHolder.iv_img.setImageResource(R.mipmap.bg_add_photo);
             viewHolder.cb_check.setVisibility(View.GONE);
         } else {
-            String url = list.get(position).getSmallUrl();
+            String url = list.get(position).getSmallImgUrl();
             if (TextUtils.isEmpty(url)) {
-                ImageLoader.getInstance().loadImage(context, Uri.parse(list.get(position).getUriStr()), viewHolder
-                        .iv_img);
-            } else {
+                ImageLoader.getInstance().loadImage(context, list.get(position).getUri(), viewHolder.iv_img);
+            }else{
                 ImageLoader.getInstance().loadImage(context, url, viewHolder.iv_img);
             }
+
             viewHolder.iv_img.setColorFilter(list.get(position).isChecked() ? ContextCompat.getColor(context, R.color
                     .half_t) : Color.TRANSPARENT);
             viewHolder.cb_check.setVisibility(showCheckbox ? View.VISIBLE : View.GONE);
@@ -83,9 +83,9 @@ public class PhotoPreviewAdapter extends BaseLvAdapter<DTOImgInfo> {
     }
 
     public void deleteImgs() {
-        Iterator<DTOImgInfo> it = list.iterator();
+        Iterator<ImgInfo> it = list.iterator();
         while (it.hasNext()) {
-            DTOImgInfo next = it.next();
+            ImgInfo next = it.next();
             if (next.isChecked()) {
                 deleteIds.add(next.getId());
                 it.remove();
@@ -98,19 +98,44 @@ public class PhotoPreviewAdapter extends BaseLvAdapter<DTOImgInfo> {
         return deleteIds;
     }
 
-    public List<DTOImgInfo> getAddImgs() {
-        List<DTOImgInfo> addImgs = new ArrayList<>();
-        for (DTOImgInfo imgInfo : list) {
-            if (!TextUtils.isEmpty(imgInfo.getUriStr())) {
-                addImgs.add(imgInfo);
-            }
-        }
-        return addImgs;
+    @Override
+    public void addData(List<ImgInfo> photos) {
+        list.addAll(photos);
+        LinkedHashSet<ImgInfo> set = new LinkedHashSet<>(list.size());
+        set.addAll(list);
+        list.clear();
+        list.addAll(set);
+        notifyDataSetChanged();
     }
 
-    public static List<DTOImgInfo> getDTOImgInfoFromImgInfo(List<ImgInfo> imgInfos) {
+    public void addUris(List<Uri> uris) {
+        addData(getPhotoFromUri(uris));
+    }
+
+    public List<ImgInfo> getPhotoFromUri(List<Uri> uris) {
+        List<ImgInfo> imgInfos = new ArrayList<>();
+        for (Uri uri : uris) {
+            ImgInfo dtoImgInfo = new ImgInfo();
+            dtoImgInfo.setUri(uri);
+            imgInfos.add(dtoImgInfo);
+        }
+        return imgInfos;
+    }
+
+    public void setCheckedAll(boolean checked) {
+        for (ImgInfo imgInfo : list) {
+            imgInfo.setChecked(checked);
+        }
+        notifyDataSetChanged();
+    }
+
+    public List<ImgInfo> getDate() {
+        return list;
+    }
+
+    public List<DTOImgInfo> getDTOData() {
         List<DTOImgInfo> dtoImgInfos = new ArrayList<>();
-        for (ImgInfo imgInfo : imgInfos) {
+        for (ImgInfo imgInfo : list) {
             DTOImgInfo dtoImgInfo = new DTOImgInfo();
             if (imgInfo.getUri() == null) {
                 dtoImgInfo.setUrl(imgInfo.getFileUrl());
@@ -120,41 +145,6 @@ public class PhotoPreviewAdapter extends BaseLvAdapter<DTOImgInfo> {
             dtoImgInfos.add(dtoImgInfo);
         }
         return dtoImgInfos;
-    }
-
-    @Override
-    public void addData(List<DTOImgInfo> dtoImgInfos) {
-        list.addAll(dtoImgInfos);
-        LinkedHashSet<DTOImgInfo> set = new LinkedHashSet<>(list.size());
-        set.addAll(list);
-        list.clear();
-        list.addAll(set);
-        notifyDataSetChanged();
-    }
-
-    public void addUris(List<Uri> uris) {
-        addData(getDTODataFromUri(uris));
-    }
-
-    public List<DTOImgInfo> getDTODataFromUri(List<Uri> uris) {
-        List<DTOImgInfo> dtoImgInfos = new ArrayList<>();
-        for (Uri uri : uris) {
-            DTOImgInfo dtoImgInfo = new DTOImgInfo();
-            dtoImgInfo.setUriStr(uri.toString());
-            dtoImgInfos.add(dtoImgInfo);
-        }
-        return dtoImgInfos;
-    }
-
-    public void setCheckedAll(boolean checked) {
-        for (DTOImgInfo imgInfo : list) {
-            imgInfo.setChecked(checked);
-        }
-        notifyDataSetChanged();
-    }
-
-    public List<DTOImgInfo> getDate() {
-        return list;
     }
 
     public boolean isLastItem(int position) {

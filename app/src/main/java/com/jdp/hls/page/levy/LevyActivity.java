@@ -5,8 +5,8 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
-import com.jdp.hls.activity.AirphotoListActivity;
-import com.jdp.hls.activity.StatisticsActivity;
+import com.jdp.hls.page.airphoto.list.AirphotoListActivity;
+import com.jdp.hls.page.statistics.StatisticsActivity;
 import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -95,28 +95,35 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
                 break;
             case R.id.ll_statistics_sign:
                 /*签约统计*/
-                GoUtil.goActivity(this, StatisticsActivity.class);
+                StatisticsActivity.goActivity(this,"5");
                 break;
             case R.id.ll_statistics_measure:
                 /*入户丈量*/
+                StatisticsActivity.goActivity(this,"0");
                 break;
             case R.id.ll_statistics_measureImg:
                 /*测绘出图*/
+                StatisticsActivity.goActivity(this,"1");
                 break;
             case R.id.ll_statistics_age:
                 /*年限鉴定*/
+                StatisticsActivity.goActivity(this,"2");
                 break;
             case R.id.ll_statistics_evaluate:
                 /*入户评估*/
+                StatisticsActivity.goActivity(this,"3");
                 break;
             case R.id.ll_statistics_protocol:
                 /*协议生成*/
+                StatisticsActivity.goActivity(this,"4");
                 break;
             case R.id.ll_statistics_plane:
                 /*航拍统计*/
+                StatisticsActivity.goActivity(this,"7");
                 break;
             case R.id.ll_statistics_publicity:
                 /*公示统计*/
+                StatisticsActivity.goActivity(this,"6");
                 break;
         }
     }

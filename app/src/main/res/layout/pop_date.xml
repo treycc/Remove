@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:background="@color/white_hi"
+              android:paddingTop="24dp"
+              android:paddingBottom="24dp"
+              android:paddingRight="24dp"
+              android:paddingLeft="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="24dp"
+            android:text="开始时间"/>
+
+        <TextView
+            android:id="@+id/tv_pop_startDate"
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="无限制"/>
+
+        <ImageView
+            android:id="@+id/iv_pop_startDate"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="24dp"
+            android:background="@mipmap/ic_date_selector"/>
+
+        <ImageView
+            android:id="@+id/iv_pop_startDateLimit"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@mipmap/ic_no_limit"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="24dp"
+            android:text="结束时间"/>
+
+        <TextView
+            android:id="@+id/tv_pop_endDate"
+            style="@style/font_9_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="无限制"/>
+
+        <ImageView
+            android:id="@+id/iv_pop_endDate"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="24dp"
+            android:background="@mipmap/ic_date_selector"/>
+
+        <ImageView
+            android:id="@+id/iv_pop_endDateLimit"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@mipmap/ic_no_limit"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -12,6 +12,24 @@ public class Dict {
     private int TypeId;
     private String TypeName;
     private String ConfigTypeDesc;
+    private int ParentId;
+    private double ClassValue;
+
+    public int getParentId() {
+        return ParentId;
+    }
+
+    public void setParentId(int parentId) {
+        ParentId = parentId;
+    }
+
+    public double getClassValue() {
+        return ClassValue;
+    }
+
+    public void setClassValue(double classValue) {
+        ClassValue = classValue;
+    }
 
     public int getRowNum() {
         return RowNum;

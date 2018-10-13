@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.activity.FamilyRelationActivity;
+import com.jdp.hls.page.familyrelation.list.FamilyRelationActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
@@ -19,6 +18,7 @@ import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailPersonal;
+import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
@@ -26,7 +26,9 @@ import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
+import com.jdp.hls.view.PreviewRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -53,7 +55,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     EnableEditText etDetailIdcard;
     @BindView(R.id.et_detail_address)
     EnableEditText etDetailAddress;
-    @BindView(R.id.rl_familyRelation)
+    @BindView(R.id.rl_unrecordBuilding)
     RelativeLayout rlFamilyRelation;
     @BindView(R.id.spinner_detail_socialRelation)
     KSpinner spinnerDetailSocialRelation;
@@ -85,6 +87,10 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     Switch switchDetailPublicity;
     @BindView(R.id.switch_detail_hasShop)
     Switch switchDetailHasShop;
+    @BindView(R.id.rv_photo_preview)
+    PreviewRecyclerView rvPhotoPreview;
+    @BindView(R.id.ll_photo_preview)
+    LinearLayout llPhotoPreview;
     private String buildingId;
     @Inject
     DetailPersonalPresenter detailPersonalPresenter;
@@ -95,13 +101,14 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private boolean ifPublicity;
     private int socialRelation;
     private DetailPersonal detailPersonal;
+    private List<ImgInfo> houseFiles = new ArrayList<>();
 
-    @OnClick({R.id.rl_familyRelation, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
-            .ll_detail_immovableDeed})
+    @OnClick({R.id.rl_unrecordBuilding, R.id.ll_photo_preview, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed,
+            R.id.ll_detail_immovableDeed})
     public void click(View view) {
         switch (view.getId()) {
-            case R.id.rl_familyRelation:
-                GoUtil.goActivity(this, FamilyRelationActivity.class);
+            case R.id.rl_unrecordBuilding:
+                FamilyRelationActivity.goActivity(this, detailPersonal.getBookletId());
                 break;
             case R.id.ll_detail_propertyDeed:
                 DeedPersonalPropertyActivity.goActivity(this, detailPersonal.getHouseId(), TextUtils.isEmpty
@@ -114,6 +121,9 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
             case R.id.ll_detail_immovableDeed:
                 DeedPersonalImmovableActivity.goActivity(this, detailPersonal.getHouseId(), TextUtils.isEmpty
                         (detailPersonal.getEstateCertNum()));
+                break;
+            case R.id.ll_photo_preview:
+//                rvPhotoPreview.goPhotoPreviewActivity(this,buildingId,);
                 break;
         }
     }
@@ -149,6 +159,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     @Override
     protected void initData() {
         initSpinners();
+        rvPhotoPreview.create();
     }
 
     private void initSpinners() {
@@ -176,6 +187,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     @Override
     public void onGetPersonalDetailSuccess(DetailPersonal detailPersonal) {
         this.detailPersonal = detailPersonal;
+        houseFiles = detailPersonal.getHouseFiles();
         etDetailcusCode.setText(detailPersonal.getSysCode());
         etDetailRealName.setText(detailPersonal.getRealName());
         etDetailMobile.setText(detailPersonal.getMobilePhone());
@@ -191,6 +203,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         spinnerDetailSocialRelation.setSelectItem(detailPersonal.getPoliticalTitle());
         longitude = detailPersonal.getLongitude();
         latitude = detailPersonal.getLatitude();
+        rvPhotoPreview.initPhotos(houseFiles);
         boolean allowEdit = detailPersonal.isAllowEdit();
         if (allowEdit) {
             setRightClick("保存", new NoDoubleClickListener() {
@@ -251,4 +264,8 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        rvPhotoPreview.onActivityResult(data);
+    }
 }

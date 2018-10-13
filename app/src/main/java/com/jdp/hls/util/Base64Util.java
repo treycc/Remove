@@ -39,6 +39,10 @@ public class Base64Util {
         return new String(encode(data.getBytes()));
     }
 
+
+    public static void main(String[] args) {
+    }
+
     /**
      * 功能：解码字符串
      *

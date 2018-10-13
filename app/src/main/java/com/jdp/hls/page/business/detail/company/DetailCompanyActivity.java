@@ -21,7 +21,6 @@ import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
 import com.jdp.hls.page.deed.company.license.DeedCompanyLicenseActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
 
@@ -80,6 +79,8 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     EditText etDetailRemark;
     @BindView(R.id.switch_detail_publicity)
     Switch switchDetailPublicity;
+    @BindView(R.id.et_mapping_currentOccupyArea)
+    EnableEditText etDetailCurrentOccupyArea;
     private String buildingId;
     private boolean ifPublicity;
     @Inject
@@ -163,6 +164,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         licenseNo = detailCompany.getLicenseNo();
         landCertNum = detailCompany.getLandCertNum();
         propertyCertNum = detailCompany.getPropertyCertNum();
+        etDetailCurrentOccupyArea.setText(detailCompany.getCurrentOccupyArea());
         etDetailCusCode.setText(detailCompany.getCusCode());
         etDetailEnterpriseName.setText(detailCompany.getEnterpriseName());
         etDetailAddress.setText(detailCompany.getAddress());
@@ -194,6 +196,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                     String remark = etDetailRemark.getText().toString().trim();
                     String rentInfo = etDetailRentInfo.getText().toString().trim();
                     String bizInfo = etDetailBizInfo.getText().toString().trim();
+                    String currentOccupyArea = etDetailCurrentOccupyArea.getText().toString().trim();
                     detailCompanyPresenter.modifyCompanyDetail(new MultipartBody.Builder().setType(MultipartBody.FORM)
                             .addFormDataPart("EnterpriseId", buildingId)
                             .addFormDataPart("EnterpriseName", enterpriseName)
@@ -207,6 +210,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                             .addFormDataPart("BizInfo", bizInfo)
                             .addFormDataPart("RealName", realName)
                             .addFormDataPart("MobilePhone", mobile)
+                            .addFormDataPart("CurrentOccupyArea", currentOccupyArea)
                             .build());
                 }
             });
@@ -219,6 +223,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
             etDetailBizInfo.setEnabled(false);
             etDetailRentInfo.setEnabled(false);
             etDetailRemark.setEnabled(false);
+            etDetailCurrentOccupyArea.setEnabled(false);
         }
     }
 

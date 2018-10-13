@@ -9,7 +9,7 @@ package com.jdp.hls.constant;
  */
 public class Constants {
     public static final String BASE_URL = "http://192.168.0.2:8080/";
-//        public static final String BASE_URL = "http://192.168.0.5:8081/";
+    //        public static final String BASE_URL = "http://192.168.0.5:8081/";
     public static final int PAGE_SIZE = 20;
     public static final int PAGE_FIRST = 1;
     public static final int PAGE_SIZE_100 = 100;
@@ -46,6 +46,7 @@ public class Constants {
         int IMPORT_PERSON = 12;
         int PUBLICITY_DETAIL = 13;
         int PUBLICITY_OBJECT = 14;
+        int UNRECORDBUILDING = 15;
     }
 
     public interface MapSetting {
@@ -80,6 +81,49 @@ public class Constants {
         String PUBLICITY_TYPE = "PUBLICITY_TYPE";
         String BUILDING_TYPE = "BUILDING_TYPE";
         String BUILDINGIDS = "BUILDINGIDS";
+        String ID = "ID";
+        String OTHER_AREA = "OTHER_AREA";
+        String AIRCHECK_ID = "AIRCHECK_ID";
+        String AIRCHECKPRO_ID = "AIRCHECKPRO_ID";
+        String AIRPHOTO_BUILDING = "AirPhotoBuilding";
+        String UNRECORD_BUILDING_LIST = "unRecordBuildingList";
+        String UNRECORD_BUILDING = "UnRecordBuilding";
+        String DELETEIDS = "deleteIds";
+        String EDITEDBASE64 = "editedBase64";
+        String BOOKLETID = "bookletId";
+        String FAMILYMEMBER = "familyMember";
+        String COMPENSATION_TYPE = "compensationType";
+        String DECORATION_ITEM = "decorationItem";
+        String ITEM_TYPE = "itemType";
+        String STATIS_TYPE = "statisType";
     }
 
+    public interface AirPhotoType {
+        /*待办*/
+        String TODO = "0";
+        /*已办*/
+        String DONE = "1";
+        /*办结*/
+        String FINISH = "2";
+    }
+
+    public interface FileType {
+        String BUILD = "2";
+        String DTO_IMGS = "DTO_IMGS";
+        String BUILDINGID = "BUILDINGID";
+        String PUBID = "PUBID";
+        String PUB_STATUS = "PUB_STATUS";
+        String POSITION = "POSITION";
+        String BATCH_NAME = "BATCH_NAME";
+        String PUBLICITY_DES = "PUBLICITY_DES";
+        String PUBLICITY_TYPE = "PUBLICITY_TYPE";
+        String BUILDING_TYPE = "BUILDING_TYPE";
+        String BUILDINGIDS = "BUILDINGIDS";
+        String ID = "ID";
+        String OTHER_AREA = "OTHER_AREA";
+    }
+
+//    文件类型 基础 = 0, 不动产证 = 1, 房屋现状 = 2, 个人土地证 = 3, 个人房产证 = 4, 企业证件 = 5, 企业现状 = 6, 企业不动产证 = 7, 企业土地证 = 8, 企业房产证 = 9,
+//            意见和建议文件 = 10, 赔偿案例 = 11, 赔偿 = 12, 入户丈量 = 13, 测绘出图 = 14, 年限鉴定 = 15, 入户评估 = 16, 协议生成 = 17, 协议签约 = 18, 公示 =
+//            30, 航拍复查 = 31, 其它 = 100
 }

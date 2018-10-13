@@ -13,6 +13,8 @@ import com.jdp.hls.rx.RxRe;
 import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.DialogUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 
 
@@ -101,6 +103,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     protected void onDestroy() {
         super.onDestroy();
         RxRe.getInstance().cancle(this);
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
         if (mDialogProgress != null && mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
             mDialogProgress = null;

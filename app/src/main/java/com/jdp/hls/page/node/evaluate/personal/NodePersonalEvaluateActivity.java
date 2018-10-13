@@ -1,5 +1,6 @@
 package com.jdp.hls.page.node.evaluate.personal;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -7,8 +8,10 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodePersonalEvaluate;
+import com.jdp.hls.page.innerdecoration.list.DecorationListActivity;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.view.EnableEditText;
@@ -18,6 +21,7 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
 /**
@@ -57,6 +61,21 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
     EnableEditText etAgeRemark;
     @Inject
     NodePersonalEvaluatePresenter nodePersonalEvaluatePresenter;
+    private int evalId;
+
+    @OnClick({R.id.rl_evaluate_innerDecoratedDetail, R.id.rl_evaluate_appurtenanceDetail})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.rl_evaluate_innerDecoratedDetail:
+                DecorationListActivity.goActivity(this, String.valueOf(evalId), String.valueOf(Status.BuildingType
+                        .PERSONAL),Status.CompensationType.DECORATION);
+                break;
+            case R.id.rl_evaluate_appurtenanceDetail:
+                DecorationListActivity.goActivity(this, String.valueOf(evalId), String.valueOf(Status.BuildingType
+                        .PERSONAL),Status.CompensationType.APPENDANT);
+                break;
+        }
+    }
 
     @Override
     protected int getContentView() {
@@ -129,6 +148,7 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
     @Override
     public void onGetPersonalEvaluateSuccess(NodePersonalEvaluate nodePersonalEvaluate) {
         setEditable(true);
+        evalId = nodePersonalEvaluate.getEvalId();
         tvEvaluateRealName.setText(nodePersonalEvaluate.getRealName());
         etEvaluateHouseResetMoney.setString(nodePersonalEvaluate.getHouseResetMoney());
         etEvaluateInnerDecorateMoney.setString(nodePersonalEvaluate.getInnerDecorateMoney());

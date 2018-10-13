@@ -1,100 +1,243 @@
 package com.jdp.hls.model.entiy;
 
+import java.util.List;
+
 /**
  * Description:TODO
- * Create Time:2018/9/13 0013 上午 11:46
+ * Create Time:2018/10/10 0010 下午 3:10
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
 public class AirPhotoItem {
-    private String HouseId;
-    private String address;
-    private int BuildingType;
-    private String RealName;
-    private String MobilePhone;
-    private int StatusId;
-    private String StatusDesc;
-    private String LandUseTypeName;
-    private int StructureTypeName;
+
+
+    /**
+     * AirCheckId : 3
+     * BuildingId : 83faf037-6ee7-4a1f-9c0e-039948b90f26
+     * BuilldingType : 0
+     * BuildingStructureType : 1
+     * Layer : 3
+     * AirCheckProId : 2
+     * Reason : 123
+     * ResultType : 0
+     * CusCode :
+     * Address : 测试地址
+     * EnterpriseName :
+     * MobilePhone : 18888888888
+     * RealName : Bob
+     * PropertyUseTypeId : 0
+     * ProjectName : 三垟湿地二期
+     * ProjectAddress : 浙江省温州市龙湾区三垟湿地，大龙街道200号-354号
+     * PropertyUseTypeName :
+     * BuildingStructureTypeName : 钢筋混凝土
+     * IsAllowEdit : false
+     */
+
+    private int AirCheckId;
+    private String BuildingId;
+    private int BuilldingType;
+    private int BuildingStructureType;
     private int Layer;
+    private int AirCheckProId;
+    private String Reason;
+    private int ResultType;
+    private String CusCode;
+    private String Address;
+    private String EnterpriseName;
+    private String MobilePhone;
+    private String RealName;
+    private String Remark;
+    private int PropertyUseType;
+    private String ProjectName;
+    private String ProjectAddress;
+    private String PropertyUseTypeName;
+    private String BuildingStructureTypeName;
+    private boolean IsAllowEdit;
+    private List<ImgInfo> AppraiseFiles;
+    private List<ImgInfo> Files;
+    private List<UnRecordBuilding> Items;
 
-    public String getAddress() {
-        return address;
+    public int getPropertyUseType() {
+        return PropertyUseType;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPropertyUseType(int propertyUseType) {
+        PropertyUseType = propertyUseType;
     }
 
-    public String getHouseId() {
-        return HouseId;
+    public String getRemark() {
+        return Remark;
     }
 
-    public void setHouseId(String houseId) {
-        HouseId = houseId;
+    public void setRemark(String remark) {
+        Remark = remark;
     }
 
-    public int getBuildingType() {
-        return BuildingType;
+    public List<UnRecordBuilding> getItems() {
+        return Items;
     }
 
-    public void setBuildingType(int buildingType) {
-        BuildingType = buildingType;
+    public void setItems(List<UnRecordBuilding> items) {
+        Items = items;
     }
 
-    public String getRealName() {
-        return RealName;
+    public int getAirCheckId() {
+        return AirCheckId;
     }
 
-    public void setRealName(String realName) {
-        RealName = realName;
+    public void setAirCheckId(int AirCheckId) {
+        this.AirCheckId = AirCheckId;
     }
 
-    public String getMobilePhone() {
-        return MobilePhone;
+    public String getBuildingId() {
+        return BuildingId;
     }
 
-    public void setMobilePhone(String mobilePhone) {
-        MobilePhone = mobilePhone;
+    public void setBuildingId(String BuildingId) {
+        this.BuildingId = BuildingId;
     }
 
-    public int getStatusId() {
-        return StatusId;
+    public int getBuilldingType() {
+        return BuilldingType;
     }
 
-    public void setStatusId(int statusId) {
-        StatusId = statusId;
+    public void setBuilldingType(int BuilldingType) {
+        this.BuilldingType = BuilldingType;
     }
 
-    public String getStatusDesc() {
-        return StatusDesc;
+    public int getBuildingStructureType() {
+        return BuildingStructureType;
     }
 
-    public void setStatusDesc(String statusDesc) {
-        StatusDesc = statusDesc;
-    }
-
-    public String getLandUseTypeName() {
-        return LandUseTypeName;
-    }
-
-    public void setLandUseTypeName(String landUseTypeName) {
-        LandUseTypeName = landUseTypeName;
-    }
-
-    public int getStructureTypeName() {
-        return StructureTypeName;
-    }
-
-    public void setStructureTypeName(int structureTypeName) {
-        StructureTypeName = structureTypeName;
+    public void setBuildingStructureType(int BuildingStructureType) {
+        this.BuildingStructureType = BuildingStructureType;
     }
 
     public int getLayer() {
         return Layer;
     }
 
-    public void setLayer(int layer) {
-        Layer = layer;
+    public void setLayer(int Layer) {
+        this.Layer = Layer;
+    }
+
+    public int getAirCheckProId() {
+        return AirCheckProId;
+    }
+
+    public void setAirCheckProId(int AirCheckProId) {
+        this.AirCheckProId = AirCheckProId;
+    }
+
+    public String getReason() {
+        return Reason;
+    }
+
+    public void setReason(String Reason) {
+        this.Reason = Reason;
+    }
+
+    public int getResultType() {
+        return ResultType;
+    }
+
+    public void setResultType(int ResultType) {
+        this.ResultType = ResultType;
+    }
+
+    public String getCusCode() {
+        return CusCode;
+    }
+
+    public void setCusCode(String CusCode) {
+        this.CusCode = CusCode;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String Address) {
+        this.Address = Address;
+    }
+
+    public String getEnterpriseName() {
+        return EnterpriseName;
+    }
+
+    public void setEnterpriseName(String EnterpriseName) {
+        this.EnterpriseName = EnterpriseName;
+    }
+
+    public String getMobilePhone() {
+        return MobilePhone;
+    }
+
+    public void setMobilePhone(String MobilePhone) {
+        this.MobilePhone = MobilePhone;
+    }
+
+    public String getRealName() {
+        return RealName;
+    }
+
+    public void setRealName(String RealName) {
+        this.RealName = RealName;
+    }
+
+    public String getProjectName() {
+        return ProjectName;
+    }
+
+    public void setProjectName(String ProjectName) {
+        this.ProjectName = ProjectName;
+    }
+
+    public String getProjectAddress() {
+        return ProjectAddress;
+    }
+
+    public void setProjectAddress(String ProjectAddress) {
+        this.ProjectAddress = ProjectAddress;
+    }
+
+    public String getPropertyUseTypeName() {
+        return PropertyUseTypeName;
+    }
+
+    public void setPropertyUseTypeName(String PropertyUseTypeName) {
+        this.PropertyUseTypeName = PropertyUseTypeName;
+    }
+
+    public String getBuildingStructureTypeName() {
+        return BuildingStructureTypeName;
+    }
+
+    public void setBuildingStructureTypeName(String BuildingStructureTypeName) {
+        this.BuildingStructureTypeName = BuildingStructureTypeName;
+    }
+
+    public boolean isAllowEdit() {
+        return IsAllowEdit;
+    }
+
+    public void setAllowEdit(boolean allowEdit) {
+        IsAllowEdit = allowEdit;
+    }
+
+    public List<ImgInfo> getAppraiseFiles() {
+        return AppraiseFiles;
+    }
+
+    public void setAppraiseFiles(List<ImgInfo> appraiseFiles) {
+        AppraiseFiles = appraiseFiles;
+    }
+
+    public List<ImgInfo> getFiles() {
+        return Files;
+    }
+
+    public void setFiles(List<ImgInfo> files) {
+        Files = files;
     }
 }

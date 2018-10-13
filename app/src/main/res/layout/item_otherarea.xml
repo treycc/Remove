@@ -1,82 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:paddingBottom="12dp"
-              android:paddingLeft="24dp"
-              android:paddingRight="24dp"
-              android:paddingTop="12dp">
 
-    <LinearLayout
+<com.jdp.hls.view.DrawHelperLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawHelperLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_hi">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp">
+        android:paddingBottom="12dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="12dp">
 
-
-        <TextView
-            style="@style/font_6_15"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="名称"/>
+            android:orientation="vertical">
 
-        <TextView
-            style="@style/font_9_15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="走廊"/>
-    </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="名称"/>
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_otherArea_name"
+                    style="@style/font_9_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="走廊"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+
+                <TextView
+                    style="@style/font_6_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="面积"/>
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_otherArea_area"
+                    style="@style/font_9_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="200"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+
+                <TextView
+                    style="@style/font_6_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="单价"/>
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_otherArea_price"
+                    style="@style/font_9_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="2"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            style="@style/BG_ARROW"/>
+    </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/red_hi">
+        <TextView
+            android:id="@+id/tv_delete"
+            style="@style/font_f_15"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="删除"/>
 
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-                style="@style/font_6_12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="单价(¥)"/>
-
-            <TextView
-                style="@style/font_9_12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="200"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-
-            <TextView
-                style="@style/font_6_12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="面积(m²)"/>
-
-            <TextView
-                style="@style/font_9_12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="50"/>
-        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</com.jdp.hls.view.DrawHelperLayout>

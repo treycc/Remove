@@ -19,15 +19,19 @@ public class TDict {
     private int TypeId;
     private String TypeName;
     private String ConfigTypeDesc;
-    @Generated(hash = 1280870269)
+    private int ParentId;
+    private double ClassValue;
+    @Generated(hash = 306383593)
     public TDict(Long id, int RowNum, int ConfigType, int TypeId, String TypeName,
-            String ConfigTypeDesc) {
+            String ConfigTypeDesc, int ParentId, double ClassValue) {
         this.id = id;
         this.RowNum = RowNum;
         this.ConfigType = ConfigType;
         this.TypeId = TypeId;
         this.TypeName = TypeName;
         this.ConfigTypeDesc = ConfigTypeDesc;
+        this.ParentId = ParentId;
+        this.ClassValue = ClassValue;
     }
     @Generated(hash = 1108334303)
     public TDict() {
@@ -68,4 +72,17 @@ public class TDict {
     public void setConfigTypeDesc(String ConfigTypeDesc) {
         this.ConfigTypeDesc = ConfigTypeDesc;
     }
+    public int getParentId() {
+        return this.ParentId;
+    }
+    public void setParentId(int ParentId) {
+        this.ParentId = ParentId;
+    }
+    public double getClassValue() {
+        return this.ClassValue;
+    }
+    public void setClassValue(double ClassValue) {
+        this.ClassValue = ClassValue;
+    }
+
 }

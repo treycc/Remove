@@ -7,16 +7,25 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.adapter.AirPhotoListAdapter;
 import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.AddOtherEvent;
+import com.jdp.hls.event.ModifyOtherEvent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.AddAirPhotoEvent;
 import com.jdp.hls.model.entiy.AirPhotoItem;
-import com.jdp.hls.model.entiy.Roster;
-import com.jdp.hls.util.SpSir;
+import com.jdp.hls.model.entiy.ModifyAirPhotoEvent;
+import com.jdp.hls.page.airphoto.detail.AirPhotoDetailActivity;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,38 +49,37 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     RefreshSwipeRefreshLayout srl;
     private List<AirPhotoItem> airPhotoItems = new ArrayList<>();
     private AirPhotoListAdapter adapter;
-    private int airCurrentNodeType;
+    private String taskType;
     @Inject
     AirPhotoListPresenter airPhotoListPresenter;
 
-    public static AirPhotoListFragment newInstance(int airCurrentNodeType) {
+    public static AirPhotoListFragment newInstance(String taskType) {
         AirPhotoListFragment fragment = new AirPhotoListFragment();
         Bundle args = new Bundle();
-        args.putInt("airCurrentNodeType", airCurrentNodeType);
+        args.putString("taskType", taskType);
         fragment.setArguments(args);
         return fragment;
     }
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        AirPhotoItem AirPhotoItem = (AirPhotoItem) adapterView.getItemAtPosition(position);
+        AirPhotoDetailActivity.goActivity(getActivity(), String.valueOf(AirPhotoItem.getAirCheckProId()));
+
     }
 
     @Override
     protected void initVariable() {
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
-            airCurrentNodeType = getArguments().getInt("airCurrentNodeType", 0);
-        }
-
-        for (int i = 0; i < 10; i++) {
-            airPhotoItems.add(new AirPhotoItem());
+            taskType = getArguments().getString("taskType");
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -91,40 +99,8 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
 
     @Override
     public void onGetAirPhotoListSuccess(List<AirPhotoItem> airPhotoItems) {
-
-    }
-
-
-    class AirPhotoListAdapter extends CommonAdapter<AirPhotoItem> {
-        public AirPhotoListAdapter(Context context, List<AirPhotoItem> datas, int itemLayoutId) {
-            super(context, datas, itemLayoutId);
-        }
-
-
-        @Override
-        public void convert(ViewHolder helper, AirPhotoItem item) {
-//            helper.setText(R.id.tv_airphoto_address, item.getAddress());
-//            helper.setText(R.id.tv_airphoto_use, item.getLandUseTypeName());
-//            helper.setText(R.id.tv_airphoto_structure, item.getStructureTypeName());
-//            helper.setText(R.id.tv_airphoto_name, item.getRealName());
-//            helper.setText(R.id.tv_airphoto_mobile, item.getMobilePhone());
-
-        }
-
-        public void modifyData(Roster roster) {
-//            for (Roster mData : this.mDatas) {
-//                if (mData.getHouseId().equals(roster.getHouseId())) {
-//                    mData.setLongitude(roster.getLongitude());
-//                    mData.setLatitude(roster.getLatitude());
-//                    mData.setEnterprise(roster.isEnterprise());
-//                    mData.setEvaluated(roster.isEvaluated());
-//                    mData.setMeasured(roster.isMeasured());
-//                    mData.setRealName(roster.getRealName());
-//                    mData.setMobilePhone(roster.getMobilePhone());
-//                    mData.setHouseAddress(roster.getHouseAddress());
-//                }
-//            }
-            notifyDataSetChanged();
+        if (airPhotoItems != null && airPhotoItems.size() > 0) {
+            adapter.setData(airPhotoItems);
         }
     }
 
@@ -135,17 +111,12 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
 
     @Override
     protected void initNet() {
-        airPhotoListPresenter.getAirPhotoList(SpSir.getInstance().getProjectId(), airCurrentNodeType);
+        airPhotoListPresenter.getAirPhotoList("-1", taskType);
     }
 
     @Override
     protected int getContentId() {
         return R.layout.common_lv;
-    }
-
-
-    public void refreshData(List<Roster> rosters) {
-//        adapter.setData(airPhotoItems);
     }
 
     @Override
@@ -161,5 +132,19 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     @Override
     public void onRefresh() {
         initNet();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void addAirPhoto(AddAirPhotoEvent event) {
+        if (taskType.equals(Constants.AirPhotoType.TODO)) {
+            adapter.addFirst(event.getAirPhotoItem());
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modifyAirPhoto(ModifyAirPhotoEvent event) {
+        if (taskType.equals(Constants.AirPhotoType.TODO)) {
+            adapter.modify(event.getAirPhotoItem());
+        }
     }
 }

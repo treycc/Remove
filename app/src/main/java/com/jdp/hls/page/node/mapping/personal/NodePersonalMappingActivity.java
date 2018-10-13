@@ -88,7 +88,6 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
         tvMappingPropertyCertTotalArea.addTextChangedListener(calculateTextWatcher);
         etMappingTotalNotRecordArea.addTextChangedListener(calculateTextWatcher);
     }
@@ -155,7 +154,6 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
     @Override
     public void onGetPersonalMappingSuccess(NodePersonalMapping nodePersonalMapping) {
         setEditable(true);
-        setPhotoPreview(nodePersonalMapping.getFiles(), rvPhotoPreview);
         mapperId = nodePersonalMapping.getMapperId();
         tvMappingRealName.setText(nodePersonalMapping.getRealName());
         tvMappingPropertyCertTotalArea.setString(nodePersonalMapping.getPropertyCertTotalArea());

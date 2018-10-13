@@ -3,14 +3,17 @@ package com.jdp.hls.page.node.evaluate.company;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodeCompanyEvaluate;
+import com.jdp.hls.page.innerdecoration.list.DecorationListActivity;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
@@ -21,6 +24,7 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
 /**
@@ -68,7 +72,21 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
     LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
+    private int evalId;
 
+    @OnClick({R.id.rl_evaluate_innerDecoratedDetail, R.id.rl_evaluate_appurtenanceDetail})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.rl_evaluate_innerDecoratedDetail:
+                DecorationListActivity.goActivity(this, String.valueOf(evalId), String.valueOf(Status.BuildingType
+                        .COMPANY),Status.CompensationType.DECORATION);
+                break;
+            case R.id.rl_evaluate_appurtenanceDetail:
+                DecorationListActivity.goActivity(this, String.valueOf(evalId), String.valueOf(Status.BuildingType
+                        .COMPANY),Status.CompensationType.APPENDANT);
+                break;
+        }
+    }
     @Override
     protected int getContentView() {
         return R.layout.activity_node_company_evaluate;
@@ -184,6 +202,7 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
     @Override
     public void onGetCompanyEvaluateSuccess(NodeCompanyEvaluate nodeCompanyEvaluate) {
         setEditable(true);
+        evalId = nodeCompanyEvaluate.getEvalId();
         tvMappingRealName.setText(nodeCompanyEvaluate.getRealName());
         etEvaluateNonMobileDevicePay.setString(nodeCompanyEvaluate.getNonMobileDevicePay());
         etEvaluateMobileDevicePay.setString(nodeCompanyEvaluate.getMobileDevicePay());

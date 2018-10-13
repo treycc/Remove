@@ -3,17 +3,25 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@color/white_hi"
-              android:orientation="vertical"
+              android:orientation="horizontal"
               android:paddingBottom="12dp"
-              android:paddingLeft="24dp"
+              android:paddingLeft="12dp"
               android:paddingRight="24dp"
               android:paddingTop="12dp">
 
+    <CheckBox
+        android:id="@+id/cb_business"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:button="@drawable/selector_cb_dark"
+        android:focusable="false"/>
+
 
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -87,11 +95,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="张三"/>
+
                 <TextView
                     style="@style/font_9_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="/"/>
+
                 <TextView
                     android:id="@+id/tv_business_mobile"
                     style="@style/font_9_12"

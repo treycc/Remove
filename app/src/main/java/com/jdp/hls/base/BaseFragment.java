@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.rx.RxRe;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -86,6 +88,9 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     public void onDestroyView() {
         super.onDestroyView();
         RxRe.getInstance().cancle(this);
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
         if (mDialogProgress != null && mDialogProgress.isShowing()) {
             mDialogProgress.dismiss();
             mDialogProgress = null;

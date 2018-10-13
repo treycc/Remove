@@ -1,5 +1,9 @@
 package com.jdp.hls.page.node.protocol.personal;
 
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,8 +18,9 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodePersonalProtocol;
 import com.jdp.hls.page.node.BaseNodeActivity;
-import com.jdp.hls.page.otherarea.OtherAreaListActivity;
-import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.page.otherarea.list.OtherAreaListActivity;
+import com.jdp.hls.util.MathUtil;
+import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.PreviewRecyclerView;
@@ -26,6 +31,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -36,8 +42,6 @@ import okhttp3.MultipartBody;
  * Email:kingjavip@gmail.com
  */
 public class NodePersonalProtocolActivity extends BaseNodeActivity implements NodePersonalProtocolContract.View {
-    @BindView(R.id.rl_protocol_otherArea)
-    RelativeLayout rlProtocolOtherArea;
     @BindView(R.id.tv_protocol_cusCode)
     StringTextView tvProtocolCusCode;
     @BindView(R.id.tv_protocol_ownerName)
@@ -50,20 +54,30 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
     StringTextView tvProtocolBuildOccupyArea;
     @BindView(R.id.tv_protocol_landCertArea)
     StringTextView tvProtocolLandCertArea;
-    @BindView(R.id.tv_protocol_totalLandAZArea)
-    StringTextView tvProtocolTotalLandAZArea;
     @BindView(R.id.tv_address)
     StringTextView tvAddress;
     @BindView(R.id.tv_protocol_date)
     TextView tvProtocolDate;
     @BindView(R.id.iv_dateSelector)
     ImageView ivDateSelector;
+    @BindView(R.id.et_protocol_hzArea)
+    EnableEditText etProtocolHzArea;
+    @BindView(R.id.et_protocol_azBuildingArea)
+    EnableEditText etProtocolAzBuildingArea;
+    @BindView(R.id.et_protocol_azntArea)
+    EnableEditText etProtocolAzntArea;
+    @BindView(R.id.et_protocol_taoTypeName)
+    EnableEditText etProtocolTaoTypeName;
+    @BindView(R.id.et_protocol_damagesAmount)
+    EnableEditText etProtocolDamagesAmount;
+    @BindView(R.id.spinner_protocol_payType)
+    KSpinner spinnerProtocolPayType;
+    @BindView(R.id.tv_protocol_needPayBuildingAmount)
+    StringTextView tvProtocolNeedPayBuildingAmount;
     @BindView(R.id.et_protocol_totalPurchasePrice)
     EnableEditText etProtocolTotalPurchasePrice;
     @BindView(R.id.et_protocol_totalPay)
     EnableEditText etProtocolTotalPay;
-    @BindView(R.id.spinner_protocol_payType)
-    KSpinner spinnerProtocolPayType;
     @BindView(R.id.et_protocol_otherArea)
     EnableEditText etProtocolOtherArea;
     @BindView(R.id.et_protocol_overAuditArea)
@@ -74,6 +88,8 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
     EnableEditText etProtocolTempPlacementFee;
     @BindView(R.id.et_protocol_otherFee)
     EnableEditText etProtocolOtherFee;
+    @BindView(R.id.rl_protocol_otherArea)
+    RelativeLayout rlProtocolOtherArea;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
     @BindView(R.id.ll_photo_preview)
@@ -84,12 +100,14 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
     @Inject
     NodePersonalProtocolPresenter nodePersonalProtocolPresenter;
     private List<TDict> payTypeList;
+    private int pcId;
 
     @OnClick({R.id.rl_protocol_otherArea})
     public void rl_protocol_otherArea(View view) {
         switch (view.getId()) {
             case R.id.rl_protocol_otherArea:
-                GoUtil.goActivity(this, OtherAreaListActivity.class);
+                OtherAreaListActivity.goActivity(this, String.valueOf(pcId), String.valueOf(Status.BuildingType
+                        .PERSONAL));
                 break;
             default:
                 break;
@@ -131,6 +149,24 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
         spinnerProtocolPayType.setDicts(payTypeList, typeId -> {
             payType = typeId;
         });
+        etProtocolTotalPurchasePrice.addTextChangedListener(calculateTotalMoneyWatcher);
+        etProtocolTotalPay.addTextChangedListener(calculateTotalMoneyWatcher);
+    }
+
+    private TextWatcher calculateTotalMoneyWatcher = new SimpleTextWatcher() {
+        @Override
+        public void afterTextChanged(Editable s) {
+            calculateTotalMoney();
+        }
+    };
+
+    private void calculateTotalMoney() {
+        String totalPurchasePriceStr = etProtocolTotalPurchasePrice.getText().toString().trim();
+        String totalPayStr = etProtocolTotalPay.getText().toString().trim();
+        double totalPurchasePrice = TextUtils.isEmpty(totalPurchasePriceStr) ? 0d : Double.valueOf
+                (totalPurchasePriceStr);
+        double totalPay = TextUtils.isEmpty(totalPayStr) ? 0d : Double.valueOf(totalPayStr);
+        tvProtocolNeedPayBuildingAmount.setText(String.valueOf(MathUtil.sub(totalPurchasePrice, totalPay)));
     }
 
     @Override
@@ -150,6 +186,11 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
         etRemark.setEnabled(allowEdit);
         spinnerProtocolPayType.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvProtocolDate, allowEdit);
+        etProtocolHzArea.setEnabled(allowEdit);
+        etProtocolAzBuildingArea.setEnabled(allowEdit);
+        etProtocolAzntArea.setEnabled(allowEdit);
+        etProtocolTaoTypeName.setEnabled(allowEdit);
+        etProtocolDamagesAmount.setEnabled(allowEdit);
     }
 
     @Override
@@ -163,6 +204,12 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
         String otherArea = etProtocolOtherArea.getText().toString().trim();
         String overAuditArea = etProtocolOverAuditArea.getText().toString().trim();
         String pCDate = tvProtocolDate.getText().toString().trim();
+
+        String hzArea = etProtocolHzArea.getText().toString().trim();
+        String azBuildingArea = etProtocolAzBuildingArea.getText().toString().trim();
+        String azntArea = etProtocolAzntArea.getText().toString().trim();
+        String taoTypeName = etProtocolTaoTypeName.getText().toString().trim();
+        String damagesAmount = etProtocolDamagesAmount.getText().toString().trim();
         nodePersonalProtocolPresenter.modifyPersonalProtocol(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("TotalPurchasePrice", totalPurchasePrice)
@@ -175,19 +222,24 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
                 .addFormDataPart("OtherFee", otherFee)
                 .addFormDataPart("PCDate", pCDate)
                 .addFormDataPart("Remark", remark)
+                .addFormDataPart("HZArea", hzArea)
+                .addFormDataPart("AZBuildingArea", azBuildingArea)
+                .addFormDataPart("AZTNArea", azntArea)
+                .addFormDataPart("TaoTypeName", taoTypeName)
+                .addFormDataPart("DamagesAmount", damagesAmount)
                 .build());
     }
 
     @Override
     public void onGetPersonalProtocolSuccess(NodePersonalProtocol nodePersonalProtocol) {
         setEditable(true);
+        pcId = nodePersonalProtocol.getPCId();
         tvProtocolCusCode.setText(nodePersonalProtocol.getCusCode());
         tvProtocolOwnerName.setText(nodePersonalProtocol.getOwnerName());
         tvProtocolTotalArea.setText(nodePersonalProtocol.getTotalArea());
         tvProtocolTotalNotRecordArea.setText(nodePersonalProtocol.getTotalNotRecordArea());
         tvProtocolBuildOccupyArea.setText(nodePersonalProtocol.getBuildOccupyArea());
         tvProtocolLandCertArea.setText(nodePersonalProtocol.getLandCertArea());
-        tvProtocolTotalLandAZArea.setText(nodePersonalProtocol.getTotalLandAZArea());
         tvProtocolDate.setText(nodePersonalProtocol.getPCDate());
         etProtocolTotalPurchasePrice.setString(nodePersonalProtocol.getTotalPurchasePrice());
         etProtocolTotalPay.setString(nodePersonalProtocol.getTotalPay());
@@ -199,10 +251,20 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
         etRemark.setString(nodePersonalProtocol.getRemark());
         payType = nodePersonalProtocol.getPayType();
         spinnerProtocolPayType.setSelectItem(payType);
+
+        etProtocolHzArea.setString(nodePersonalProtocol.getHZArea());
+        etProtocolAzBuildingArea.setString(nodePersonalProtocol.getAZBuildingArea());
+        etProtocolAzntArea.setString(nodePersonalProtocol.getAZTNArea());
+        etProtocolTaoTypeName.setString(nodePersonalProtocol.getTaoTypeName());
+        etProtocolDamagesAmount.setString(nodePersonalProtocol.getDamagesAmount());
+        calculateTotalMoney();
+
+
     }
 
     @Override
     public void onModifyPersonalProtocolSuccess() {
         showSuccessAndFinish();
     }
+
 }

@@ -14,17 +14,14 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.FlowNode;
 import com.jdp.hls.model.entiy.BaiscPersonal;
+import com.jdp.hls.model.entiy.FlowNode;
 import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
-import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.node.age.personal.NodePersonalAgeActivity;
 import com.jdp.hls.page.node.evaluate.personal.NodePersonalEvaluateActivity;
 import com.jdp.hls.page.node.mapping.personal.NodePersonalMappingActivity;
+import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
-import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,12 +124,12 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
 
     @Override
     protected void initData() {
-        setRightClick("流程", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                ToastUtil.showText("流程");
-            }
-        });
+//        setRightClick("流程", new NoDoubleClickListener() {
+//            @Override
+//            public void onNoDoubleClick(View v) {
+//                ToastUtil.showText("流程");
+//            }
+//        });
     }
 
     @Override

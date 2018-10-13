@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_hi"
+              android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="6dp">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:text="部位"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_unrecording_position"
+            style="@style/font_9_15_eet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="请输入部门"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="6dp">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:text="层次"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:inputType="number"
+            android:id="@+id/et_unrecording_layer"
+            style="@style/font_9_15_eet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="请输入层次"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="6dp">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:text="建筑面积"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:inputType="numberDecimal"
+            android:id="@+id/et_unrecording_area"
+            style="@style/font_9_15_eet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="请输入建筑面积"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="6dp">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:text="84段"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:inputType="numberDecimal"
+            android:id="@+id/et_unrecording_pic84"
+            style="@style/font_9_15_eet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="请输入84段面积"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="6dp">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:text="94段"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:inputType="numberDecimal"
+            android:id="@+id/et_unrecording_pic94"
+            style="@style/font_9_15_eet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="请输入94段面积"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="6dp">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:text="2000段"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:inputType="numberDecimal"
+            android:id="@+id/et_unrecording_pic2000"
+            style="@style/font_9_15_eet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="请输入2000段面积"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+</LinearLayout>

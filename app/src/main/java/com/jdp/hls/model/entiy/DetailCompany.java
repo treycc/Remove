@@ -26,11 +26,20 @@ public class DetailCompany {
     private String Remark;
     private int StatusId;
     private String StatusDesc;
+    private String CurrentOccupyArea;
     private double Longitude;
     private double Latitude;
     private boolean IsAllowPublicity;
     private boolean IsAllowEdit;
     private List<ImgInfo> HouseFiles;
+
+    public String getCurrentOccupyArea() {
+        return CurrentOccupyArea;
+    }
+
+    public void setCurrentOccupyArea(String currentOccupyArea) {
+        CurrentOccupyArea = currentOccupyArea;
+    }
 
     public boolean isAllowEdit() {
         return IsAllowEdit;

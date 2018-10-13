@@ -2,10 +2,10 @@ package com.jdp.hls.model.service;
 
 
 import com.jdp.hls.model.entiy.AirPhotoItem;
-import com.jdp.hls.model.entiy.AirPhotoPerson;
-import com.jdp.hls.model.entiy.Business;
+import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.BaiscCompany;
 import com.jdp.hls.model.entiy.BaiscPersonal;
+import com.jdp.hls.model.entiy.DecorationItem;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
 import com.jdp.hls.model.entiy.DeedCompanyLicense;
@@ -16,7 +16,9 @@ import com.jdp.hls.model.entiy.DeedPersonalProperty;
 import com.jdp.hls.model.entiy.DetailCompany;
 import com.jdp.hls.model.entiy.DetailPersonal;
 import com.jdp.hls.model.entiy.Dict;
+import com.jdp.hls.model.entiy.FamilyRelation;
 import com.jdp.hls.model.entiy.HttpResult;
+import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.Login;
 import com.jdp.hls.model.entiy.NodeCompanyAge;
 import com.jdp.hls.model.entiy.NodeCompanyEvaluate;
@@ -28,6 +30,7 @@ import com.jdp.hls.model.entiy.NodePersonalEvaluate;
 import com.jdp.hls.model.entiy.NodePersonalMapping;
 import com.jdp.hls.model.entiy.NodePersonalMeasure;
 import com.jdp.hls.model.entiy.NodePersonalProtocol;
+import com.jdp.hls.model.entiy.OtherArea;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.PublicityDetail;
@@ -35,6 +38,7 @@ import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.model.entiy.PublicityObject;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
+import com.jdp.hls.model.entiy.StatisticsDetail;
 import com.jdp.hls.model.entiy.Table;
 import com.jdp.hls.model.entiy.Task;
 import com.jdp.hls.model.entiy.TaskInfo;
@@ -154,14 +158,28 @@ public interface ApiService {
     Observable<HttpResult<TaskInfo>> getTaskList(@Query("projectId") String projectId, @Query("buildingType") int
             buildingType, @Query("taskType") int taskType);
 
-    /*获取航拍复查列表*/
-    @GET("api/house/getAirPhotoList")
-    Observable<HttpResult<List<AirPhotoItem>>> getAirPhotoList(@Query("projectId") String projectId, @Query
-            ("airCurrentNodeType") int airCurrentNodeType);
+    /*======================航拍复查======================*/
+    /*航拍复查-列表*/
+    @GET("api/AirCheck/GetList")
+    Observable<HttpResult<List<AirPhotoItem>>> getAirPhotoList(@Query("buildingType") String buildingType, @Query
+            ("taskType") String taskType);
 
-    /*获取复查对象*/
-    @GET("api/house/getAirPhotoList")
-    Observable<HttpResult<List<AirPhotoPerson>>> getAirPhotoPersons(@Query("projectId") String projectId);
+    /*可航拍房产列表-获取*/
+    @GET("api/AirCheck/GetListForAirCheck")
+    Observable<HttpResult<List<AirPhotoBuilding>>> getAirPhotoBuildings(@Query("buildingType") String buildingType);
+
+    /*航拍复查-详情*/
+    @GET("api/AirCheck/GetDetailProcessing")
+    Observable<HttpResult<AirPhotoItem>> getAirPhotoDetail(@Query("airCheckProId") String airCheckProId);
+
+    /*航拍-发起*/
+    @POST("api/AirCheck/Add")
+    Observable<HttpResult<Object>> applyAirPhoto(@Body RequestBody rosterBody);
+
+    /*航拍-修改*/
+    @POST("api/AirCheck/Update")
+    Observable<HttpResult<AirPhotoItem>> modifyAirPhotoDetail(@Body RequestBody rosterBody);
+
 
     /*======================公示======================*/
     /*获取公示列表*/
@@ -351,40 +369,37 @@ public interface ApiService {
     @POST("api/workflow/UpdateHouseProtocolCheck")
     Observable<HttpResult<Object>> modifyPersonalProtocol(@Body RequestBody rosterBody);
 
-
-
-
     /*======================企业节点======================*/
 
-    /*个人-入户丈量-获取*/
+    /*企业-入户丈量-获取*/
     @GET("api/Workflow/GetEnterpriseMeasurement")
     Observable<HttpResult<NodeCompanyMeasure>> getCompanyMeasure(@Query("enterpriseId") String enterpriseId);
 
-    /*个人-入户丈量-修改*/
+    /*企业-入户丈量-修改*/
     @POST("api/workflow/UpdateEnterpriseMeasurement")
     Observable<HttpResult<Object>> modifyCompanyMeasure(@Body RequestBody rosterBody);
 
-    /*个人-测绘出图-获取*/
+    /*企业-测绘出图-获取*/
     @GET("api/workflow/GetEnterpriseMapOut")
     Observable<HttpResult<NodeCompanyMapping>> getCompanyMapping(@Query("enterpriseId") String enterpriseId);
 
-    /*个人-测绘出图-修改*/
+    /*企业-测绘出图-修改*/
     @POST("api/workflow/UpdateEnterpriseMapOut")
     Observable<HttpResult<Object>> modifyCompanyMapping(@Body RequestBody rosterBody);
 
-    /*个人-年限审核-获取*/
+    /*企业-年限审核-获取*/
     @GET("api/workflow/getEnterpriseAppraise")
     Observable<HttpResult<NodeCompanyAge>> getCompanyAge(@Query("enterpriseId") String enterpriseId);
 
-    /*个人-年限审核-修改*/
+    /*企业-年限审核-修改*/
     @POST("api/workflow/UpdateEnterpriseAppraise")
     Observable<HttpResult<Object>> modifyCompanyAge(@Body RequestBody rosterBody);
 
-    /*个人-入户评估-获取*/
+    /*企业-入户评估-获取*/
     @GET("api/workflow/GetEnterpriseEvaluation")
     Observable<HttpResult<NodeCompanyEvaluate>> getCompanyEvaluate(@Query("enterpriseId") String enterpriseId);
 
-    /*个人-入户评估-修改*/
+    /*企业-入户评估-修改*/
     @POST("api/workflow/UpdateEnterpriseEvaluation")
     Observable<HttpResult<Object>> modifyCompanyEvaluate(@Body RequestBody rosterBody);
 
@@ -395,4 +410,74 @@ public interface ApiService {
     /*个人-协议生成-修改*/
     @POST("api/workflow/UpdateEnterpriseProtocolCheck")
     Observable<HttpResult<Object>> modifyCompanyProtocol(@Body RequestBody rosterBody);
+
+    /*======================协议生成-其它面积======================*/
+
+    /*协议生成-其它面积-详情*/
+    @GET("api/workflow/GetProtocolCheckItems")
+    Observable<HttpResult<OtherArea>> getOtherAreaDetail(@Query("id") String id, @Query("buildingType")
+            String buildingType);
+
+    /*协议生成-其它面积-列表*/
+    @GET("api/workflow/GetProtocolCheckItemsList")
+    Observable<HttpResult<List<OtherArea>>> getOtherAreaList(@Query("pCId") String pCId, @Query("buildingType")
+            String buildingType);
+
+    /*协议生成-其它面积-新增*/
+    @POST("api/workflow/AddProtocolCheckItems")
+    Observable<HttpResult<Integer>> addOtherArea(@Body RequestBody requestBody);
+
+    /*协议生成-其它面积-修改*/
+    @POST("api/workflow/UpdateProtocolCheckItems")
+    Observable<HttpResult<Object>> modifyOtherArea(@Body RequestBody requestBody);
+
+    /*协议生成-其它面积-删除*/
+    @POST("api/workflow/DeleteProtocolCheckItems")
+    Observable<HttpResult<Object>> deleteOtherArea(@Body RequestBody requestBody);
+
+    /*图片修改*/
+    @POST("api/files/UpLoadFiles")
+    Observable<HttpResult<List<ImgInfo>>> modifyPhotos(@Body RequestBody requestBody);
+
+
+    /*家庭关系*/
+    @GET("api/person/GetPersonListByBookId")
+    Observable<HttpResult<FamilyRelation>> getFamilyRelation(@Query("bookletId") String bookletId);
+
+    /*家庭成员-修改*/
+    @POST("api/person/SavePersonForApp")
+    Observable<HttpResult<Object>> saveFamilyRemember(@Body RequestBody requestBody);
+
+    /*家庭成员-删除*/
+    @POST("api/person/DeletePerson")
+    Observable<HttpResult<Object>> deleteFamilyRemember(@Body RequestBody requestBody);
+
+
+    /*内装饰明细-详情*/
+    @GET("api/workflow/GetEvaluationItems")
+    Observable<HttpResult<FamilyRelation>> getDecorationDetail(@Query("id") String id, @Query("buildingType")
+            String buildingType);
+
+    /*内装饰明细-列表*/
+    @GET("api/workflow/GetEvaluationItemsList")
+    Observable<HttpResult<List<DecorationItem>>> getDecorationList(@Query("evalId") String evalId, @Query
+            ("buildingType")
+            String buildingType, @Query("itemType") String itemType);
+
+    /*内装饰明细-增加*/
+    @POST("api/workflow/AddEvaluationItems")
+    Observable<HttpResult<DecorationItem>> addDecoration(@Body RequestBody requestBody);
+
+    /*内装饰明细-修改*/
+    @POST("api/workflow/UpdateEvaluationItems")
+    Observable<HttpResult<DecorationItem>> modifyDecoration(@Body RequestBody requestBody);
+
+    /*内装饰明细-删除*/
+    @POST("api/workflow/DeleteEvaluationItems")
+    Observable<HttpResult<Object>> deleteDecoration(@Body RequestBody requestBody);
+
+    /*饼图*/
+    @GET("api/Project/Get8Statis")
+    Observable<HttpResult<StatisticsDetail>> getStatistics(@Query("ProjectId") String ProjectId, @Query("StatisType")
+            String StatisType, @Query("BuildingType") String BuildingType);
 }

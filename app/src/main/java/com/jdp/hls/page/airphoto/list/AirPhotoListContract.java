@@ -19,6 +19,6 @@ public interface AirPhotoListContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getAirPhotoList(String projectId, int airCurrentNodeType);
+        void getAirPhotoList(String buildingType, String taskType);
     }
 }

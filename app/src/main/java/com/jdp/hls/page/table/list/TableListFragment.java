@@ -60,9 +60,9 @@ public class TableListFragment extends BaseFragment implements SwipeRefreshLayou
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Table table = (Table) adapterView.getItemAtPosition(position);
         if (table.getBuildingType() == Status.BuildingType.PERSONAL) {
-            GoUtil.goActivity(getActivity(), BasicPersonalActivity.class);
+            BasicPersonalActivity.goActivity(getActivity(),table.getBuildingId());
         } else {
-            GoUtil.goActivity(getActivity(), BasicCompanyActivity.class);
+            BasicCompanyActivity.goActivity(getActivity(),table.getBuildingId());
         }
     }
 

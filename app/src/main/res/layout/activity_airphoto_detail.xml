@@ -36,15 +36,16 @@
                 android:layout_weight="1"
                 android:text="档案编号"/>
 
-            <com.jdp.hls.view.EnableEditText
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_airphoto_cusCode"
                 style="@style/font_9_15_eet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="5465656"/>
+                android:text=""/>
         </LinearLayout>
 
-         <View style="@style/div_hor_gray_margin24"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,15 +64,16 @@
                 android:layout_weight="1"
                 android:text="户主姓名"/>
 
-            <com.jdp.hls.view.EnableEditText
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_airphoto_realName"
                 style="@style/font_9_15_eet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="王小虎"/>
+                android:hint=""/>
         </LinearLayout>
 
-         <View style="@style/div_hor_gray_margin24"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,17 +90,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
                 android:layout_weight="1"
-                android:text="具体地址"/>
+                android:text="地址"/>
 
-            <com.jdp.hls.view.EnableEditText
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_airphoto_address"
                 style="@style/font_9_15_eet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="高二路22号"/>
+                android:hint=""/>
         </LinearLayout>
 
-         <View style="@style/div_hor_gray_margin24"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,17 +118,18 @@
                 android:layout_weight="1"
                 android:text="房屋用途"/>
 
-            <org.angmarch.views.NiceSpinner
-                android:id="@+id/spinner_landType"
+            <com.jdp.hls.view.KSpinner
+                android:id="@+id/spinner_propertyUse"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:padding="0dp"
                 android:text="住宅用地"
-                app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
         </LinearLayout>
 
-         <View style="@style/div_hor_gray_margin24"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -142,17 +146,21 @@
                 android:layout_weight="1"
                 android:text="房屋结构"/>
 
-            <org.angmarch.views.NiceSpinner
+            <com.jdp.hls.view.KSpinner
+                android:id="@+id/spinner_structureType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:padding="0dp"
                 android:text="砖混结构"
-                app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
         </LinearLayout>
 
-         <View style="@style/div_hor_gray_margin24"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
+
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -172,75 +180,131 @@
                 android:text="层次"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_airphoto_layer"
                 style="@style/font_9_15_eet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="2层"/>
+                android:text="请输入层次"/>
         </LinearLayout>
+        <View style="@style/div_hor_gray_margin24"/>
+        <RelativeLayout
+            android:id="@+id/rl_unrecordBuilding"
+            style="@style/Content_LL_T12">
 
-         <View style="@style/div_hor_gray_margin24"/>
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="未登记建筑基本情况"/>
 
-        <TextView
-            style="@style/Title_Main"
-            android:text="未登记建筑基本情况"/>
+            <ImageView
+                android:layout_width="9dp"
+                android:layout_height="16dp"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/arrow_right"/>
+        </RelativeLayout>
+
 
         <TextView
             style="@style/Title_Main"
             android:text="查阅理由"/>
-        <EditText
-            style="@style/font_9_15"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white_hi"
-            android:gravity="start"
-            android:hint="请输入查阅理由"
-            android:lines="3"
             android:paddingBottom="12dp"
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
-            android:paddingTop="12dp"/>
+            android:paddingTop="12dp">
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_airphoto_reason"
+                style="@style/font_9_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="start"
+                android:hint="请输入查阅理由"
+                android:lines="3"/>
+        </LinearLayout>
 
         <TextView
             style="@style/Title_Main"
             android:text="资料上传说明"/>
-        <EditText
-            style="@style/font_9_15"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white_hi"
-            android:gravity="start"
-            android:hint="请输入资料上传说明"
-            android:lines="3"
             android:paddingBottom="12dp"
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
-            android:paddingTop="12dp"/>
+            android:paddingTop="12dp">
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_airphoto_remark"
+                style="@style/font_9_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="start"
+                android:hint="请输入资料上传说明"
+                android:lines="3"/>
+        </LinearLayout>
 
         <TextView
             style="@style/Title_Main"
             android:text="申请表照片"/>
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_photo_preview"
+        <LinearLayout
+            android:id="@+id/ll_photo_apply"
+            style="@style/Content_LL_T12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="12dp"/>
+            android:background="@color/white_hi"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
+            <com.jdp.hls.view.PreviewRecyclerView
+                android:id="@+id/rv_photo_apply"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                style="@style/BG_ARROW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
         <TextView
             style="@style/Title_Main"
             android:text="年限鉴定照片"/>
 
-        <android.support.v7.widget.RecyclerView
+        <LinearLayout
+            android:id="@+id/ll_photo_age"
+            style="@style/Content_LL_T12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="12dp"/>
+            android:background="@color/white_hi"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.jdp.hls.view.PreviewRecyclerView
+                android:id="@+id/rv_photo_age"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                style="@style/BG_ARROW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

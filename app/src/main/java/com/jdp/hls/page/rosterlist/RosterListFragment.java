@@ -14,7 +14,6 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.event.AddRostersEvent;
 import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.Task;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.util.LogUtil;

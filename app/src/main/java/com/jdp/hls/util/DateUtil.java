@@ -2,6 +2,7 @@ package com.jdp.hls.util;
 
 import android.text.TextUtils;
 
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,5 +38,16 @@ public class DateUtil {
             return "";
         }
         return date2Str(str2Date(longDate));
+    }
+
+    public static long getMillSeconds(String strDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = formatter.parse( strDate );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date.getTime();
     }
 }

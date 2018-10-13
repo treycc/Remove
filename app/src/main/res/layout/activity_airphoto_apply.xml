@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_hi"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="基本信息"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="6dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="档案编号"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_airphoto_cusCode"
+                style="@style/font_9_15_eet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="6dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:id="@+id/tv_airphoto_realNameTip"
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="户主姓名"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_airphoto_realName"
+                style="@style/font_9_15_eet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="6dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="地址"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_airphoto_address"
+                style="@style/font_9_15_eet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="房屋用途"/>
+
+            <com.jdp.hls.view.KSpinner
+                android:id="@+id/spinner_propertyUse"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:padding="0dp"
+                android:text="住宅用地"
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="房屋结构"/>
+
+            <com.jdp.hls.view.KSpinner
+                android:id="@+id/spinner_structureType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:padding="0dp"
+                android:text="砖混结构"
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="6dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="6dp">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="层次"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_airphoto_layer"
+                style="@style/font_9_15_eet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="请输入层次"/>
+        </LinearLayout>
+        <View style="@style/div_hor_gray_margin24"/>
+        <RelativeLayout
+            android:id="@+id/rl_unrecordBuilding"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="未登记建筑基本情况"/>
+
+            <ImageView
+                android:layout_width="9dp"
+                android:layout_height="16dp"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/arrow_right"/>
+        </RelativeLayout>
+
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="查阅理由"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp">
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_airphoto_reason"
+                style="@style/font_9_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="start"
+                android:hint="请输入查阅理由"
+                android:lines="3"/>
+        </LinearLayout>
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="资料上传说明"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp">
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_airphoto_remark"
+                style="@style/font_9_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="start"
+                android:hint="请输入资料上传说明"
+                android:lines="3"/>
+        </LinearLayout>
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="申请表照片"/>
+
+        <LinearLayout
+            android:id="@+id/ll_photo_apply"
+            style="@style/Content_LL_T12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.jdp.hls.view.PreviewRecyclerView
+                android:id="@+id/rv_photo_apply"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                style="@style/BG_ARROW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

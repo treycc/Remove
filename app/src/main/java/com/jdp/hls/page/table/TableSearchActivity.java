@@ -2,39 +2,32 @@ package com.jdp.hls.page.table;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+import android.text.Editable;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
-import com.jdp.hls.activity.RosterListActivity;
-import com.jdp.hls.adapter.SpinnerAdapter;
+import com.jdp.hls.adapter.BaseSpinnerAdapter;
 import com.jdp.hls.adapter.TableAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.Table;
-import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.util.SimpleTextWatcher;
+import com.jdp.hls.view.DatePop;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 import com.kingja.popwindowsir.PopHelper;
 import com.kingja.popwindowsir.PopSpinner;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:一览表搜索
@@ -57,16 +50,13 @@ public class TableSearchActivity extends BaseTitleActivity {
     LinearLayout llSpinnerRoot;
     @BindView(R.id.plv)
     PullToBottomListView plv;
-    @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
-    private List<Table> tables=new ArrayList<>();
+    private List<Table> tables = new ArrayList<>();
     private TableAdapter adapter;
+    private DatePop datePop;
 
     @Override
     public void initVariable() {
         tables = (List<Table>) getIntent().getSerializableExtra("tables");
-
-
     }
 
     @Override
@@ -91,27 +81,26 @@ public class TableSearchActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        setRightClick("搜索", new NoDoubleClickListener() {
+        initFlowNodePop();
+        initFlowTypePop();
+        initDatePop();
+        etKeyword.addTextChangedListener(new SimpleTextWatcher() {
             @Override
-            public void onNoDoubleClick(View v) {
-
+            public void afterTextChanged(Editable s) {
+                adapter.searchPerson(s.toString());
             }
         });
-        initFlowNodePop();
-
+        datePop.setOnDateSelectedListener((startDate, endDate) -> {
+            adapter.filterDate(startDate, endDate);
+        });
     }
+
 
     @Override
     protected void initNet() {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     public static void goActivity(Activity activity, List<Table> tables) {
         Intent intent = new Intent(activity, TableSearchActivity.class);
@@ -121,18 +110,62 @@ public class TableSearchActivity extends BaseTitleActivity {
 
     private void initFlowNodePop() {
         List<TDict> flowNodes = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.FLOW_NODE);
-
         if (flowNodes != null && flowNodes.size() > 0) {
-            SpinnerAdapter spinnerAdapter = new SpinnerAdapter(this, flowNodes);
+            TDict firstDict = new TDict();
+            firstDict.setTypeId(-1);
+            firstDict.setTypeName("不限");
+            flowNodes.add(0, firstDict);
+            BaseSpinnerAdapter<TDict> flowNodeAdapter = new BaseSpinnerAdapter<TDict>(this, flowNodes) {
+                @Override
+                protected String setSpinnerText(TDict item) {
+                    return item.getTypeName();
+                }
+            };
             new PopHelper.Builder(this)
                     .setPopSpinner(spinerNode)
-                    .setAdapter(spinnerAdapter)
+                    .setAdapter(flowNodeAdapter)
                     .setOnItemClickListener((PopHelper.OnItemClickListener<TDict>) (item, position, popSpinner)
                             -> {
-                        spinnerAdapter.selectItem(position);
+                        flowNodeAdapter.selectItem(position);
                         spinerNode.setSelectText(item.getTypeName());
+                        adapter.filterStatusId(item.getTypeId());
                     })
                     .build();
         }
     }
+
+    private void initFlowTypePop() {
+        BaseSpinnerAdapter<String> buildingTypeAdapter = new BaseSpinnerAdapter<String>(this, Arrays.asList("不限",
+                "个人", "企业")) {
+            @Override
+            protected String setSpinnerText(String item) {
+                return item;
+            }
+        };
+        new PopHelper.Builder(this)
+                .setPopSpinner(spinerBuildingType)
+                .setAdapter(buildingTypeAdapter)
+                .setOnItemClickListener((PopHelper.OnItemClickListener<String>) (item, position, popSpinner)
+                        -> {
+                    adapter.filterStatusId(position - 1);
+                    buildingTypeAdapter.selectItem(position);
+                    spinerBuildingType.setSelectText(item);
+                })
+                .build();
+    }
+
+    private void initDatePop() {
+        datePop = new DatePop(this);
+        datePop.setOnDismissListener(() -> {
+            spinerDate.close();
+        });
+        spinerDate.setOnSpinnerStatusChangedListener(opened -> {
+            if (opened) {
+                datePop.showAsDropDown(llSpinnerRoot);
+            } else {
+                datePop.dismiss();
+            }
+        });
+    }
+
 }

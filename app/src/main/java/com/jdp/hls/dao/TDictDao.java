@@ -30,6 +30,8 @@ public class TDictDao extends AbstractDao<TDict, Long> {
         public final static Property TypeId = new Property(3, int.class, "TypeId", false, "TYPE_ID");
         public final static Property TypeName = new Property(4, String.class, "TypeName", false, "TYPE_NAME");
         public final static Property ConfigTypeDesc = new Property(5, String.class, "ConfigTypeDesc", false, "CONFIG_TYPE_DESC");
+        public final static Property ParentId = new Property(6, int.class, "ParentId", false, "PARENT_ID");
+        public final static Property ClassValue = new Property(7, double.class, "ClassValue", false, "CLASS_VALUE");
     }
 
 
@@ -50,7 +52,9 @@ public class TDictDao extends AbstractDao<TDict, Long> {
                 "\"CONFIG_TYPE\" INTEGER NOT NULL ," + // 2: ConfigType
                 "\"TYPE_ID\" INTEGER NOT NULL ," + // 3: TypeId
                 "\"TYPE_NAME\" TEXT," + // 4: TypeName
-                "\"CONFIG_TYPE_DESC\" TEXT);"); // 5: ConfigTypeDesc
+                "\"CONFIG_TYPE_DESC\" TEXT," + // 5: ConfigTypeDesc
+                "\"PARENT_ID\" INTEGER NOT NULL ," + // 6: ParentId
+                "\"CLASS_VALUE\" REAL NOT NULL );"); // 7: ClassValue
     }
 
     /** Drops the underlying database table. */
@@ -80,6 +84,8 @@ public class TDictDao extends AbstractDao<TDict, Long> {
         if (ConfigTypeDesc != null) {
             stmt.bindString(6, ConfigTypeDesc);
         }
+        stmt.bindLong(7, entity.getParentId());
+        stmt.bindDouble(8, entity.getClassValue());
     }
 
     @Override
@@ -103,6 +109,8 @@ public class TDictDao extends AbstractDao<TDict, Long> {
         if (ConfigTypeDesc != null) {
             stmt.bindString(6, ConfigTypeDesc);
         }
+        stmt.bindLong(7, entity.getParentId());
+        stmt.bindDouble(8, entity.getClassValue());
     }
 
     @Override
@@ -118,7 +126,9 @@ public class TDictDao extends AbstractDao<TDict, Long> {
             cursor.getInt(offset + 2), // ConfigType
             cursor.getInt(offset + 3), // TypeId
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // TypeName
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // ConfigTypeDesc
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // ConfigTypeDesc
+            cursor.getInt(offset + 6), // ParentId
+            cursor.getDouble(offset + 7) // ClassValue
         );
         return entity;
     }
@@ -131,6 +141,8 @@ public class TDictDao extends AbstractDao<TDict, Long> {
         entity.setTypeId(cursor.getInt(offset + 3));
         entity.setTypeName(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setConfigTypeDesc(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setParentId(cursor.getInt(offset + 6));
+        entity.setClassValue(cursor.getDouble(offset + 7));
      }
     
     @Override

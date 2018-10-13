@@ -5,9 +5,9 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/bg_hi"
-              android:orientation="vertical"
-    android:focusableInTouchMode="true"
-    android:focusable="true">
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical">
 
     <com.kingja.supershapeview.view.SuperShapeLinearLayout
         android:layout_width="match_parent"
@@ -49,11 +49,11 @@
     </com.kingja.supershapeview.view.SuperShapeLinearLayout>
 
     <LinearLayout
-        android:background="@color/white_hi"
-        android:padding="6dp"
         android:id="@+id/ll_spinner_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:padding="6dp">
 
         <com.kingja.popwindowsir.PopSpinner
             android:id="@+id/spiner_buildingType"
@@ -101,19 +101,13 @@
             app:spinner_textSize="12sp"/>
 
     </LinearLayout>
+
     <View style="@style/div_hor_gray"/>
-
-    <com.jdp.hls.view.RefreshSwipeRefreshLayout
-        android:id="@+id/srl"
+    <com.jdp.hls.view.PullToBottomListView
+        android:id="@+id/plv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.jdp.hls.view.PullToBottomListView
-            android:id="@+id/plv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/div_hi"
-            android:dividerHeight="1px"
-            tools:listitem="@layout/item_project"/>
-    </com.jdp.hls.view.RefreshSwipeRefreshLayout>
+        android:layout_height="match_parent"
+        android:divider="@color/div_hi"
+        android:dividerHeight="1px"
+        tools:listitem="@layout/item_project"/>
 </LinearLayout>

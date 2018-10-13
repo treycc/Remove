@@ -3,6 +3,8 @@ package com.jdp.hls.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.jdp.hls.adapter.KSpinnerAdapter;
 import com.jdp.hls.greendaobean.TDict;
@@ -50,6 +52,46 @@ public class KSpinner extends NiceSpinner {
                 onSpinnerSelectedListener.onSpinnerSelected(datas.get(position).getTypeId());
             }
         });
+        setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setText(datas.get(position).getTypeName());
+                if (onSpinnerSelectedListener != null) {
+                    onSpinnerSelectedListener.onSpinnerSelected(datas.get(position).getTypeId());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    public void setDictsItem(List<TDict> datas, OnSpinnerItemSelectedListener onSpinnerItemSelectedListener) {
+        this.datas = datas;
+        KSpinnerAdapter kSpinnerAdapter = new KSpinnerAdapter(getContext(), datas);
+        setAdapter(kSpinnerAdapter);
+        addOnItemClickListener((parent, view, position, id) -> {
+            setText(datas.get(position).getTypeName());
+            if (onSpinnerItemSelectedListener != null) {
+                onSpinnerItemSelectedListener.onSpinnerItemSelected(datas.get(position));
+            }
+        });
+        setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setText(datas.get(position).getTypeName());
+                if (onSpinnerItemSelectedListener != null) {
+                    onSpinnerItemSelectedListener.onSpinnerItemSelected(datas.get(position));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public int getDefaultTypeId() {
@@ -61,11 +103,10 @@ public class KSpinner extends NiceSpinner {
     }
 
     public void setBooleanDate(List<String> datas, OnSpinnerBooleanSelectedListener onSpinnerBooleanSelectedListener) {
-
         attachDataSource(datas);
         addOnItemClickListener((parent, view, position, id) -> {
             if (onSpinnerBooleanSelectedListener != null) {
-                onSpinnerBooleanSelectedListener.onBooleanSelected(position != 0);
+                onSpinnerBooleanSelectedListener.onBooleanSelected(position == 0);
             }
         });
     }
@@ -81,6 +122,9 @@ public class KSpinner extends NiceSpinner {
 
     public interface OnSpinnerSelectedListener {
         void onSpinnerSelected(int typeId);
+    }
+    public interface OnSpinnerItemSelectedListener {
+        void onSpinnerItemSelected(TDict dict);
     }
 
     public interface OnSpinnerBooleanSelectedListener {

@@ -83,7 +83,7 @@ public class InitializeService extends IntentService implements InitializeContra
             DBManager.getInstance().deleteAllDicts();
             for (Dict dict : dicts) {
                 DBManager.getInstance().addDict(new TDict(null, dict.getRowNum(), dict.getConfigType
-                        (), dict.getTypeId(), dict.getTypeName(),dict.getConfigTypeDesc()));
+                        (), dict.getTypeId(), dict.getTypeName(),dict.getConfigTypeDesc(),dict.getParentId(),dict.getClassValue()));
             }
         }
         LogUtil.e(TAG, "【数据初始化】数量：" + dicts.size());

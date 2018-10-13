@@ -72,7 +72,7 @@ public class DeedPersonalPropertyActivity extends BaseTitleActivity implements D
     public void click(View view) {
         switch (view.getId()) {
             case R.id.ll_photo_preview:
-                PhotoPreviewActivity.goActivity(this, rvImg.getDTOImgInfo());
+//                PhotoPreviewActivity.goActivityWithDTO(this, rvImg.getDTOImgInfo());
                 break;
         }
     }
@@ -167,14 +167,6 @@ public class DeedPersonalPropertyActivity extends BaseTitleActivity implements D
                 .addFormDataPart("TotalArea", totalArea)
                 .addFormDataPart("ShareArea", shareArea)
                 .addFormDataPart("Address", address);
-        if (allowEdit) {
-            bodyBuilder.addFormDataPart("DeleteFileIDs", rvImg.getDeleteIds());
-        }
-        List<File> files = rvImg.getAddedFiles();
-        for (int i = 0; i < files.size(); i++) {
-            bodyBuilder.addFormDataPart("file" + i, files.get(i).getName(), RequestBody.create(MediaType
-                    .parse("image/*"), files.get(i)));
-        }
         return bodyBuilder.build();
     }
 

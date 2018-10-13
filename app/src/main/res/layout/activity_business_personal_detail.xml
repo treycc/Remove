@@ -95,7 +95,7 @@
         <View style="@style/div_hor_gray_margin24"/>
 
         <RelativeLayout
-            android:id="@+id/rl_familyRelation"
+            android:id="@+id/rl_unrecordBuilding"
             style="@style/Content_LL_T12">
 
             <TextView

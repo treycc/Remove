@@ -33,9 +33,12 @@ public class Status {
         int LAND_TYPE = 2;//土地性质
         int PROPERTY_STRUCTURE = 3;//产权结构
         int PROPERTY_USE = 4;//产权用途
+        int FAMILY_RELATION = 5;//产权用途
         int FLOW_NODE = 7;//节点
         int SOCIAL_RELATION = 8;//社会关系
         int PAY_TYPE = 9;//补偿方式
+        int DECORATION_ITEM = 10;//装饰项目
+        int GRADLE = 11;//等级
     }
 
     public interface BuildingId {
@@ -43,10 +46,17 @@ public class Status {
         int COMPANY = 1;
     }
 
+
     public interface UIPermission {
         int VIEW = 0;
         int MODIFY = 1;
         int ADD = 2;
     }
+
+    public interface CompensationType {
+        String DECORATION = "1";
+        String APPENDANT = "2";
+    }
+
 
 }

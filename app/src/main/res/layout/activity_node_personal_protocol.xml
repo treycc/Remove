@@ -108,20 +108,6 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="总土地安置面积"/>
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_protocol_totalLandAZArea"
-                style="@style/Content_ET_W1"
-                android:hint=""/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
@@ -173,12 +159,26 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="总购房金额(¥)"/>
+                android:text="户增面积"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_protocol_totalPurchasePrice"
+                android:id="@+id/et_protocol_hzArea"
                 style="@style/Content_ET_W1"
-                android:hint="请输入金额"/>
+                android:hint="请输入户增面积"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="总安置建筑面积"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_protocol_azBuildingArea"
+                style="@style/Content_ET_W1"
+                android:hint="请输入总安置建筑面积"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -188,17 +188,44 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="总补偿金额金额(¥)"/>
+                android:text="总安置套内面积"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_protocol_totalPay"
+                android:id="@+id/et_protocol_azntArea"
                 style="@style/Content_ET_W1"
-                android:hint="请输入金额"/>
+                android:hint="请输入总安置套内面积"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
 
+        <LinearLayout
+            style="@style/Content_LL_T6">
 
+            <TextView
+                style="@style/Title_Sub"
+                android:text="套型"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_protocol_taoTypeName"
+                style="@style/Content_ET_W1"
+                android:hint="请输入套型"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="货币补偿总金额"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_protocol_damagesAmount"
+                style="@style/Content_ET_W1"
+                android:hint="请输入货币补偿总金额"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
         <LinearLayout
             style="@style/Content_LL_T0">
 
@@ -215,6 +242,53 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="应交购房款"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_protocol_needPayBuildingAmount"
+                style="@style/Content_ET_W1"
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_protocol_totalPurchasePrice"
+                style="@style/Content_ET_W1"
+                android:hint="请输入总购房金额"/>
+            <TextView
+                style="@style/Title_Sub"
+                android:text="总购房金额"/>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_protocol_totalPay"
+                style="@style/Content_ET_W1"
+                android:hint="请输入总补偿金额"/>
+            <TextView
+                style="@style/Title_Sub"
+                android:text="总补偿金额"/>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+
 
         <LinearLayout
             style="@style/Content_LL_T6">

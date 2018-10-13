@@ -1,8 +1,11 @@
 package com.jdp.hls.base;
 
 
+import com.jdp.hls.page.airphoto.add.AirPhotoApplyActivity;
+import com.jdp.hls.page.airphoto.building.AirPhotoBuildingActivity;
+import com.jdp.hls.page.airphoto.detail.AirPhotoDetailActivity;
 import com.jdp.hls.page.airphoto.list.AirPhotoListFragment;
-import com.jdp.hls.page.airphoto.person.AirPhotoPersonActivity;
+import com.jdp.hls.page.airphoto.unrecordbuilding.UnrecordBuildingListActivity;
 import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
 import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.page.business.detail.company.DetailCompanyActivity;
@@ -17,6 +20,10 @@ import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
+import com.jdp.hls.page.familyrelation.detail.FamilyMememberDetailActivity;
+import com.jdp.hls.page.familyrelation.list.FamilyRelationActivity;
+import com.jdp.hls.page.innerdecoration.detail.DecorationDetailActivity;
+import com.jdp.hls.page.innerdecoration.list.DecorationListActivity;
 import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.page.mine.MineFragment;
@@ -30,6 +37,9 @@ import com.jdp.hls.page.node.measure.company.NodeCompanyMeasureActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
+import com.jdp.hls.page.otherarea.add.OtherAreaAddActivity;
+import com.jdp.hls.page.otherarea.detail.OtherAreaDetailActivity;
+import com.jdp.hls.page.otherarea.list.OtherAreaListActivity;
 import com.jdp.hls.page.publicity.apply.PublicityApplyActivity;
 import com.jdp.hls.page.publicity.detail.PublicityDetailActivity;
 import com.jdp.hls.page.publicity.list.PublicityListFragment;
@@ -47,6 +57,7 @@ import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
+import com.jdp.hls.page.statistics.StatisticsActivity;
 import com.jdp.hls.page.suggest.SuggestActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.page.table.list.TableListFragment;
@@ -93,7 +104,7 @@ public interface BaseCompnent {
 
     void inject(AirPhotoListFragment target);
 
-    void inject(AirPhotoPersonActivity target);
+    void inject(AirPhotoBuildingActivity target);
 
     void inject(PublicityListFragment target);
 
@@ -150,4 +161,26 @@ public interface BaseCompnent {
     void inject(NodeCompanyProtocolActivity target);
 
     void inject(NodePersonalProtocolActivity target);
+
+    void inject(OtherAreaListActivity target);
+
+    void inject(OtherAreaAddActivity target);
+
+    void inject(OtherAreaDetailActivity target);
+
+    void inject(AirPhotoDetailActivity target);
+
+    void inject(AirPhotoApplyActivity target);
+
+    void inject(UnrecordBuildingListActivity target);
+
+    void inject(FamilyRelationActivity target);
+
+    void inject(FamilyMememberDetailActivity target);
+
+    void inject(DecorationListActivity target);
+
+    void inject(DecorationDetailActivity target);
+
+    void inject(StatisticsActivity target);
 }

@@ -1,77 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              style="@style/Container_Normal"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/white_hi"
-              android:gravity="center_vertical"
-              android:orientation="horizontal">
+<com.jdp.hls.view.DrawHelperLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawHelperLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_hi">
 
-    <LinearLayout
+    <RelativeLayout
+        style="@style/Container_Normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:orientation="vertical">
 
-            <TextView
-                style="@style/font_6_15"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="称谓"/>
+                android:layout_marginBottom="10dp">
 
-            <TextView
-                style="@style/font_9_15"
-                android:layout_width="0dp"
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="称谓"/>
+
+                <TextView
+                    android:id="@+id/tv_familyRelation_title"
+                    style="@style/font_9_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="父亲"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="父亲"/>
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    style="@style/font_6_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="姓名"/>
+
+                <TextView
+                    android:id="@+id/tv_familyRelation_name"
+                    style="@style/font_9_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="王小虎"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/font_6_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="身份证号"/>
+
+                <TextView
+                    android:id="@+id/tv_familyRelation_idCard"
+                    style="@style/font_9_13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="330255565522111125"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+        <ImageView style="@style/BG_ARROW"/>
 
-            <TextView
-                style="@style/font_6_12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="姓名"/>
+    </RelativeLayout>
 
-            <TextView
-                style="@style/font_9_12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="王小虎"/>
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/red_hi">
+        <TextView
+            android:id="@+id/tv_delete"
+            style="@style/font_f_15"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="删除"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                style="@style/font_6_12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="身份证号"/>
-
-            <TextView
-                style="@style/font_9_12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:text="330255565522111125"/>
-        </LinearLayout>
     </LinearLayout>
-
-    <ImageView style="@style/BG_ARROW"/>
-
-</RelativeLayout>
+</com.jdp.hls.view.DrawHelperLayout>

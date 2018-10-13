@@ -56,9 +56,11 @@ public class ViewHolder {
         return this;
     }
     public ViewHolder setText(int viewId, int text) {
-        TextView view = getView(viewId);
-        view.setText(String.valueOf(text));
-        return this;
+        return setText( viewId, String.valueOf(text) );
+    }
+
+    public ViewHolder setText(int viewId, double text) {
+        return setText( viewId, String.valueOf(text) );
     }
 
     public ViewHolder setImageResource(int viewId, int drawableId) {

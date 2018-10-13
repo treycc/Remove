@@ -1,6 +1,5 @@
 package com.jdp.hls.page.node.mapping.company;
 
-import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,7 +17,6 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -42,8 +40,6 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
     EnableEditText etMappingTotalBuildingArea;
     @BindView(R.id.tv_mapping_totalLegalArea)
     StringTextView tvMappingTotalLegalArea;
-    @BindView(R.id.tv_mapping_currentOccupyArea)
-    StringTextView tvMappingCurrentOccupyArea;
     @BindView(R.id.et_mapping_appurtenanceArea)
     EnableEditText etMappingAppurtenanceArea;
     @BindView(R.id.tv_mapping_companyName)
@@ -102,7 +98,6 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         etMappingShedArea.setEnabled(allowEdit);
         etMappingTotalBuildingArea.setEnabled(allowEdit);
         tvMappingTotalLegalArea.setEnabled(allowEdit);
-        tvMappingCurrentOccupyArea.setEnabled(allowEdit);
         etMappingAppurtenanceArea.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvMappingDate, allowEdit);
     }
@@ -138,7 +133,6 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         etMappingShedArea.setString(nodeCompanyMapping.getShedArea());
         etMappingTotalBuildingArea.setString(nodeCompanyMapping.getTotalBuildingArea());
         tvMappingTotalLegalArea.setString(nodeCompanyMapping.getTotalLegalArea());
-        tvMappingCurrentOccupyArea.setString(nodeCompanyMapping.getCurrentOccupyArea());
         etMappingAppurtenanceArea.setString(nodeCompanyMapping.getAppurtenanceArea());
         etRemark.setString(nodeCompanyMapping.getRemark());
         tvMappingCompanyName.setText(nodeCompanyMapping.getCompanyName());

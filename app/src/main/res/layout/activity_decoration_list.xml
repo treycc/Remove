@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical">
 
 
     <ListView
-        tools:listitem="@layout/item_decoration"
-        android:id="@+id/lv_decoration"
-        android:dividerHeight="1px"
-        android:divider="@color/bg_hi"
+        android:id="@+id/plv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/bg_hi"/>
+        android:divider="@color/div_hi"
+        android:dividerHeight="1px"
+        android:listSelector="@android:color/transparent"
+        tools:listitem="@layout/item_decoration"/>
 
     <View style="@style/div_hor_gray"/>
 
@@ -29,20 +29,21 @@
         android:paddingTop="12dp">
 
         <TextView
-            android:layout_centerVertical="true"
+            android:id="@+id/tv_payMoney_tip"
             style="@style/font_3_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="内装饰装修补偿金额(¥)"/>
-
-        <TextView
             android:layout_centerVertical="true"
+            android:text="附属物补偿金额"/>
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_payMoney"
             style="@style/font_9_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="30000"/>
+            android:layout_centerVertical="true"
+            android:text=""/>
     </RelativeLayout>
-
 
 </LinearLayout>

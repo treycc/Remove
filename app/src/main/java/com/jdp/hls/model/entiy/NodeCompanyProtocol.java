@@ -40,8 +40,8 @@ public class NodeCompanyProtocol {
     private String CompanyName;
     private int PayType;
     private String PayTypeName;
-    private int TotalPurchasePrice;
-    private int TotalPay;
+    private double TotalPurchasePrice;
+    private double TotalPay;
     private int Rate;
     private String RemoveFee;
     private String CusCode;
@@ -56,11 +56,37 @@ public class NodeCompanyProtocol {
     private String ClearObstaclePay;
     private String Address;
     private String LandCertArea;
+    private String ChangeArea;
+    private String DamagesAmount;
+    private double NeedPayAmount;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
-
     public String getCusCode() {
         return CusCode;
+    }
+
+    public String getChangeArea() {
+        return ChangeArea;
+    }
+
+    public void setChangeArea(String changeArea) {
+        ChangeArea = changeArea;
+    }
+
+    public String getDamagesAmount() {
+        return DamagesAmount;
+    }
+
+    public void setDamagesAmount(String damagesAmount) {
+        DamagesAmount = damagesAmount;
+    }
+
+    public double getNeedPayAmount() {
+        return NeedPayAmount;
+    }
+
+    public void setNeedPayAmount(double needPayAmount) {
+        NeedPayAmount = needPayAmount;
     }
 
     public String getClearObstaclePay() {
@@ -147,19 +173,19 @@ public class NodeCompanyProtocol {
         this.PayTypeName = PayTypeName;
     }
 
-    public int getTotalPurchasePrice() {
+    public double getTotalPurchasePrice() {
         return TotalPurchasePrice;
     }
 
-    public void setTotalPurchasePrice(int TotalPurchasePrice) {
+    public void setTotalPurchasePrice(double TotalPurchasePrice) {
         this.TotalPurchasePrice = TotalPurchasePrice;
     }
 
-    public int getTotalPay() {
+    public double getTotalPay() {
         return TotalPay;
     }
 
-    public void setTotalPay(int TotalPay) {
+    public void setTotalPay(double TotalPay) {
         this.TotalPay = TotalPay;
     }
 

@@ -111,7 +111,7 @@ public class NodeCompanyMeasureActivity extends BaseNodeActivity implements Node
         String remark = etMeasureRemark.getText().toString().trim();
         String measureDate = tvMeasureDate.getText().toString().trim();
         nodeCompanyMeasurePresenter.modifyCompanyMeasure(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("HouseId", mBuildingId)
+                .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("MeaDate", measureDate)
                 .addFormDataPart("Remark", remark)
                 .build());
