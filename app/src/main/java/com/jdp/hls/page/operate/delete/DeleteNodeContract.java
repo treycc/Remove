@@ -1,11 +1,10 @@
-package com.jdp.hls.page.table.list;
+package com.jdp.hls.page.operate.delete;
 
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
-import com.jdp.hls.model.entiy.Table;
 
-import java.util.List;
+import okhttp3.RequestBody;
 
 /**
  * Description：TODO
@@ -13,12 +12,13 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public interface TableListContract {
+public interface DeleteNodeContract {
     interface View extends BaseView {
-        void onGetTablesSuccess(List<Table> tables);
+        void onDeleteNodeSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getTables(String projectId, int buildingType, String StatisId);
+
+        void deleteNode(RequestBody requestBody);
     }
 }

@@ -1,35 +1,32 @@
 package com.jdp.hls.page.levy;
 
-import android.view.View;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
-import com.jdp.hls.page.airphoto.list.AirphotoListActivity;
-import com.jdp.hls.page.statistics.StatisticsActivity;
 import com.jdp.hls.adapter.CommonAdapter;
+import com.jdp.hls.adapter.CommonPositionAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.BusinessAction;
+import com.jdp.hls.model.entiy.LevyInfo;
 import com.jdp.hls.model.entiy.Task;
+import com.jdp.hls.page.airphoto.list.AirphotoListActivity;
 import com.jdp.hls.page.business.list.BusinessListActivity;
 import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.page.publicity.PublicityListActivity;
+import com.jdp.hls.page.statistics.StatisticsActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Description:TODO
@@ -38,95 +35,85 @@ import butterknife.OnClick;
  * Email:kingjavip@gmail.com
  */
 public class LevyActivity extends BaseTitleActivity implements TaskContract.View {
-    @BindView(R.id.ll_operate_roster)
-    LinearLayout llOperateRoster;
-    @BindView(R.id.ll_operate_publicity)
-    LinearLayout llOperatePublicity;
-    @BindView(R.id.ll_operate_plane)
-    LinearLayout llOperatePlane;
-    @BindView(R.id.ll_operate_detail)
-    LinearLayout llOperateDetail;
-    @BindView(R.id.ll_statistics_sign)
-    LinearLayout llStatisticsSign;
-    @BindView(R.id.ll_statistics_measure)
-    LinearLayout llStatisticsMeasure;
-    @BindView(R.id.ll_statistics_measureImg)
-    LinearLayout llStatisticsMeasureImg;
-    @BindView(R.id.ll_statistics_age)
-    LinearLayout llStatisticsAge;
-    @BindView(R.id.ll_statistics_evaluate)
-    LinearLayout llStatisticsEvaluate;
-    @BindView(R.id.ll_statistics_protocol)
-    LinearLayout llStatisticsProtocol;
-    @BindView(R.id.ll_statistics_plane)
-    LinearLayout llStatisticsPlane;
-    @BindView(R.id.ll_statistics_publicity)
-    LinearLayout llStatisticsPublicity;
     @BindView(R.id.gv_task)
     GridView gvTask;
     @Inject
     TaskPresenter taskPresenter;
-
-
-    private CommonAdapter adapter;
+    @BindView(R.id.gv_businessAction)
+    GridView gvBusinessAction;
+    @BindView(R.id.gv_statisticsAction)
+    GridView gvStatisticsAction;
+    private CommonAdapter taskAdapter;
+    private CommonPositionAdapter businessActionAdapter;
+    private CommonPositionAdapter statisticsActionAdapter;
     private List<Task> tasks = new ArrayList<>();
+    private List<BusinessAction> businessActions = new ArrayList<>();
+    private List<BusinessAction> statisticsActions = new ArrayList<>();
+    private int[] businessActionIcons = {R.mipmap.ic_nav_roster, R.mipmap.ic_publicity_manage, R.mipmap
+            .ic_aerial_photograph, R.mipmap.ic_list_table};
+    private int[] statisticsActionsIcons = {R.mipmap.ic_contract_count, R.mipmap.ic_surveying, R.mipmap
+            .ic_mapping, R.mipmap.ic_agelimit_appraisal, R.mipmap.ic_nav_evaluate, R.mipmap.ic_protocol_generation, R
+            .mipmap
+            .ic_aerial_photograph_count, R.mipmap.ic_publicity_count};
 
-    @OnClick({R.id.ll_operate_roster, R.id.ll_operate_publicity, R.id.ll_operate_plane, R.id
-            .ll_operate_detail, R.id.ll_statistics_sign, R.id.ll_statistics_measure, R.id.ll_statistics_measureImg, R.id
-            .ll_statistics_age, R.id.ll_statistics_evaluate, R.id.ll_statistics_protocol, R.id.ll_statistics_plane, R.id
-            .ll_statistics_publicity})
-    public void click(View view) {
-        switch (view.getId()) {
-            case R.id.ll_operate_roster:
-                /*花名册*/
-                GoUtil.goActivity(this, RosterActivity.class);
-                break;
-            case R.id.ll_operate_publicity:
-                /*公示管理*/
-                GoUtil.goActivity(this, PublicityListActivity.class);
-                break;
-            case R.id.ll_operate_plane:
-                /*航拍复查*/
-                GoUtil.goActivity(this, AirphotoListActivity.class);
-                break;
-            case R.id.ll_operate_detail:
-                /*一览表*/
-                GoUtil.goActivity(this, TableListActivity.class);
-                break;
-            case R.id.ll_statistics_sign:
-                /*签约统计*/
-                StatisticsActivity.goActivity(this,"5");
-                break;
-            case R.id.ll_statistics_measure:
-                /*入户丈量*/
-                StatisticsActivity.goActivity(this,"0");
-                break;
-            case R.id.ll_statistics_measureImg:
-                /*测绘出图*/
-                StatisticsActivity.goActivity(this,"1");
-                break;
-            case R.id.ll_statistics_age:
-                /*年限鉴定*/
-                StatisticsActivity.goActivity(this,"2");
-                break;
-            case R.id.ll_statistics_evaluate:
-                /*入户评估*/
-                StatisticsActivity.goActivity(this,"3");
-                break;
-            case R.id.ll_statistics_protocol:
-                /*协议生成*/
-                StatisticsActivity.goActivity(this,"4");
-                break;
-            case R.id.ll_statistics_plane:
-                /*航拍统计*/
-                StatisticsActivity.goActivity(this,"7");
-                break;
-            case R.id.ll_statistics_publicity:
-                /*公示统计*/
-                StatisticsActivity.goActivity(this,"6");
-                break;
-        }
-    }
+//    @OnClick({R.id.ll_operate_roster, R.id.ll_operate_publicity, R.id.ll_operate_plane, R.id
+//            .ll_operate_detail, R.id.ll_statistics_sign, R.id.ll_statistics_measure, R.id.ll_statistics_measureImg,
+// R.id
+//            .ll_statistics_age, R.id.ll_statistics_evaluate, R.id.ll_statistics_protocol, R.id.ll_statistics_plane,
+// R.id
+//            .ll_statistics_publicity})
+//    public void click(View view) {
+//        switch (view.getId()) {
+//            case R.id.ll_operate_roster:
+//                /*花名册*/
+//                GoUtil.goActivity(this, RosterActivity.class);
+//                break;
+//            case R.id.ll_operate_publicity:
+//                /*公示管理*/
+//                GoUtil.goActivity(this, PublicityListActivity.class);
+//                break;
+//            case R.id.ll_operate_plane:
+//                /*航拍复查*/
+//                GoUtil.goActivity(this, AirphotoListActivity.class);
+//                break;
+//            case R.id.ll_operate_detail:
+//                /*一览表*/
+//                GoUtil.goActivity(this, TableListActivity.class);
+//                break;
+//            case R.id.ll_statistics_sign:
+//                /*签约统计*/
+//                StatisticsActivity.goActivity(this,"5");
+//                break;
+//            case R.id.ll_statistics_measure:
+//                /*入户丈量*/
+//                StatisticsActivity.goActivity(this,"0");
+//                break;
+//            case R.id.ll_statistics_measureImg:
+//                /*测绘出图*/
+//                StatisticsActivity.goActivity(this,"1");
+//                break;
+//            case R.id.ll_statistics_age:
+//                /*年限鉴定*/
+//                StatisticsActivity.goActivity(this,"2");
+//                break;
+//            case R.id.ll_statistics_evaluate:
+//                /*入户评估*/
+//                StatisticsActivity.goActivity(this,"3");
+//                break;
+//            case R.id.ll_statistics_protocol:
+//                /*协议生成*/
+//                StatisticsActivity.goActivity(this,"4");
+//                break;
+//            case R.id.ll_statistics_plane:
+//                /*航拍统计*/
+//                StatisticsActivity.goActivity(this,"7");
+//                break;
+//            case R.id.ll_statistics_publicity:
+//                /*公示统计*/
+//                StatisticsActivity.goActivity(this,"6");
+//                break;
+//        }
+//    }
 
     @Override
     public void initVariable() {
@@ -135,7 +122,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
 
     @Override
     protected int getContentView() {
-        return R.layout.levy_activity;
+        return R.layout.activity_levy;
     }
 
     @Override
@@ -159,16 +146,58 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
 
     @Override
     protected void initData() {
-        gvTask.setAdapter(adapter = new CommonAdapter<Task>(this, tasks, R.layout.item_task) {
+        gvTask.setAdapter(taskAdapter = new CommonAdapter<Task>(this, tasks, R.layout.item_task) {
             @Override
             public void convert(ViewHolder helper, Task item) {
                 helper.setText(R.id.stv_taskCount, item.getCount());
                 helper.setText(R.id.tv_taskName, item.getTaskTypeName());
             }
         });
+        gvBusinessAction.setAdapter(businessActionAdapter = new CommonPositionAdapter<BusinessAction>(this,
+                businessActions, R.layout.item_business_action) {
+            @Override
+            public void convert(ViewHolder helper, BusinessAction item, int position) {
+                helper.setBackgroundResource(R.id.iv_businessAction, businessActionIcons[position]);
+                helper.setText(R.id.tv_taskName, item.getActionName());
+            }
+        });
+        gvStatisticsAction.setAdapter(statisticsActionAdapter = new CommonPositionAdapter<BusinessAction>(this,
+                statisticsActions, R.layout.item_business_action) {
+            @Override
+            public void convert(ViewHolder helper, BusinessAction item, int position) {
+                helper.setBackgroundResource(R.id.iv_businessAction, statisticsActionsIcons[position]);
+                helper.setText(R.id.tv_taskName, item.getActionName());
+            }
+        });
         gvTask.setOnItemClickListener((parent, view, position, id) -> {
             Task task = (Task) parent.getItemAtPosition(position);
             BusinessListActivity.GoActivity(LevyActivity.this, task.getTaskType(), task.getTaskTypeName());
+        });
+        gvBusinessAction.setOnItemClickListener((parent, view, position, id) -> {
+            switch (position) {
+                case 0:
+                    /*花名册*/
+                    GoUtil.goActivity(this, RosterActivity.class);
+                    break;
+                case 1:
+                    /*公示管理*/
+                    GoUtil.goActivity(this, PublicityListActivity.class);
+                    break;
+                case 2:
+                    /*航拍复查*/
+                    GoUtil.goActivity(this, AirphotoListActivity.class);
+                    break;
+                case 3:
+                    /*一览表*/
+                    GoUtil.goActivity(this, TableListActivity.class);
+                    break;
+                default:
+                    break;
+            }
+        });
+        gvStatisticsAction.setOnItemClickListener((parent, view, position, id) -> {
+            BusinessAction businessAction = (BusinessAction) parent.getItemAtPosition(position);
+            StatisticsActivity.goActivity(LevyActivity.this, String.valueOf(businessAction.getStatisId()));
         });
     }
 
@@ -178,19 +207,18 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
     }
 
     @Override
-    public void onGetTaskSuccess(List<Task> tasks) {
-        Map<Integer,Integer>sortMap= new HashMap<>();
-        sortMap.put(1,1);
-        sortMap.put(3,5);
-        sortMap.put(4,2);
-        sortMap.put(2,4);
-        sortMap.put(5,3);
-        if (tasks != null && tasks.size()>0) {
-            for (Task task : tasks) {
-                task.setSortNo(sortMap.get(task.getTaskType()));
-            }
-            Collections.sort(tasks);
-            adapter.setData(tasks);
+    public void onGetTaskSuccess(LevyInfo levyInfo) {
+        List<Task> taskList = levyInfo.getLstTaskTypeCount();
+        if (taskList != null && taskList.size() > 0) {
+            taskAdapter.setData(taskList);
+        }
+        List<BusinessAction> businessActionList = levyInfo.getLstAppAction();
+        if (businessActionList != null && businessActionList.size() > 0) {
+            businessActionAdapter.setData(businessActionList);
+        }
+        List<BusinessAction> statisticsActionList = levyInfo.getLstStatisAction();
+        if (statisticsActionList != null && statisticsActionList.size() > 0) {
+            statisticsActionAdapter.setData(statisticsActionList);
         }
     }
 

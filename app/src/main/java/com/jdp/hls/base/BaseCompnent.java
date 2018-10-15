@@ -37,6 +37,7 @@ import com.jdp.hls.page.node.measure.company.NodeCompanyMeasureActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
+import com.jdp.hls.page.operate.send.SendDialog;
 import com.jdp.hls.page.otherarea.add.OtherAreaAddActivity;
 import com.jdp.hls.page.otherarea.detail.OtherAreaDetailActivity;
 import com.jdp.hls.page.otherarea.list.OtherAreaListActivity;
@@ -183,4 +184,6 @@ public interface BaseCompnent {
     void inject(DecorationDetailActivity target);
 
     void inject(StatisticsActivity target);
+
+    void inject(SendDialog target);
 }

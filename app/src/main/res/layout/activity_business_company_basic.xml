@@ -1,99 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_hi">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/Title_Main"
-            android:text="基本信息"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/bg_hi"
+        android:fillViewport="true">
 
         <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="档案编号"/>
-
-            <TextView
-                android:id="@+id/tv_basic_syscode"
-                style="@style/Content_ET_W3"
-                android:text=""/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="企业名称"/>
-
-            <TextView
-                android:id="@+id/tv_basic_name"
-                style="@style/Content_ET_W3"
-                android:text=""/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="地址"/>
-
-            <TextView
-                android:id="@+id/tv_basic_address"
-                style="@style/Content_ET_W3"
-                android:text=""/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <RelativeLayout
-            android:id="@+id/rl_business_detail"
-           style="@style/Content_LL_T12">
-
-            <TextView
-                style="@style/font_6_15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="具体信息"/>
-
-            <ImageView
-                android:layout_width="9dp"
-                android:layout_height="16dp"
-                android:layout_alignParentRight="true"
-                android:background="@mipmap/arrow_right"/>
-        </RelativeLayout>
-
-        <TextView
-            style="@style/Title_Main"
-            android:text="流程节点"/>
-
-        <com.jdp.hls.view.FixedListView
-            android:listSelector="@android:color/transparent"
-            android:background="@color/white_hi"
-            android:paddingRight="24dp"
-            android:paddingLeft="24dp"
-            android:id="@+id/lv_business_node"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@color/div_hi"
-            android:dividerHeight="1px"
-            tools:listitem="@layout/item_business_node"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                style="@style/Title_Main"
+                android:text="基本信息"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <TextView
+                    style="@style/Title_Sub"
+                    android:text="档案编号"/>
+
+                <TextView
+                    android:id="@+id/tv_basic_syscode"
+                    style="@style/Content_ET_W3"
+                    android:text=""/>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <TextView
+                    style="@style/Title_Sub"
+                    android:text="企业名称"/>
+
+                <TextView
+                    android:id="@+id/tv_basic_name"
+                    style="@style/Content_ET_W3"
+                    android:text=""/>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <TextView
+                    style="@style/Title_Sub"
+                    android:text="地址"/>
+
+                <TextView
+                    android:id="@+id/tv_basic_address"
+                    style="@style/Content_ET_W3"
+                    android:text=""/>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_business_detail"
+                style="@style/Content_LL_T12">
+
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="具体信息"/>
+
+                <ImageView
+                    android:layout_width="9dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@mipmap/arrow_right"/>
+            </RelativeLayout>
+
+            <TextView
+                style="@style/Title_Main"
+                android:text="流程节点"/>
+
+            <com.jdp.hls.view.FixedListView
+                android:id="@+id/lv_business_node"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:divider="@color/div_hi"
+                android:dividerHeight="1px"
+                android:listSelector="@android:color/transparent"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                tools:listitem="@layout/item_business_node"/>
+
+        </LinearLayout>
 
 
-</ScrollView>
+    </ScrollView>
+
+    <include layout="@layout/layout_operate_button"/>
+</LinearLayout>

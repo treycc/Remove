@@ -18,16 +18,17 @@
     <color name="main">#13A4F9</color>
     <color name="blue">#27AEFA</color>
     <color name="transparent">#00ffffff</color>
-    <color name="pie_red">#F18F72</color>
-    <color name="pie_yellow">#f2e174</color>
-    <color name="pie_cyan">#76DDDC</color>
-    <color name="pie_green">#8FC320</color>
 
-    <color name="pie_orange">#f0ad71</color>
 
     <color name="node_delete">#f48080</color>
     <color name="node_back">#fca637</color>
     <color name="node_send">#13A4F9</color>
+
+    <color name="pie_red">#F18F72</color>
+    <color name="pie_yellow">#f2e174</color>
+    <color name="pie_cyan">#76DDDC</color>
+    <color name="pie_green">#8FC320</color>
+    <color name="pie_orange">#f0ad71</color>
 
 
 </resources>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical">
+
+    <TextView
+        style="@style/font_3_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="退回"/>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            style="@style/font_6_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="退回节点"/>
+
+        <TextView
+            style="@style/font_3_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="经办人"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="12dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            style="@style/font_6_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="接收人"/>
+
+        <TextView
+            style="@style/font_3_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="王小虎"/>
+    </LinearLayout>
+
+    <com.kingja.supershapeview.view.SuperShapeEditText
+        android:id="@+id/set_reason"
+        style="@style/font_3_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:gravity="start"
+        android:hint="请输入退回理由"
+        android:lines="4"
+        android:padding="12dp"
+        app:super_cornerRadius="4dp"
+        app:super_strokeColor="@color/gray_hi"
+        app:super_strokeWidth="1px"/>
+
+
+    <include layout="@layout/layout_dialog_button"/>
+
+
+</LinearLayout>

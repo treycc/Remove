@@ -96,6 +96,8 @@ public class Constants {
         String DECORATION_ITEM = "decorationItem";
         String ITEM_TYPE = "itemType";
         String STATIS_TYPE = "statisType";
+        String HOUSEID = "houseId";
+        String STATIS_ID = "statisId";
     }
 
     public interface AirPhotoType {

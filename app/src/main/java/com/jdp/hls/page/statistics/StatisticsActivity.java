@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -11,15 +13,19 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jdp.hls.R;
+import com.jdp.hls.adapter.CommonPositionAdapter;
+import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.StatisticsDetail;
 import com.jdp.hls.model.entiy.StatisticsItem;
+import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.SpSir;
+import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.view.FixedListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +33,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnItemClick;
 
 /**
  * Description:TODO
@@ -37,10 +44,20 @@ import butterknife.BindView;
 public class StatisticsActivity extends BaseTitleActivity implements StatisticsContract.View {
     @BindView(R.id.chart_pie)
     PieChart chartPie;
-
     @Inject
     StatisticsPresenter statisticsPresenter;
+    @BindView(R.id.lv_statistics)
+    FixedListView lvStatistics;
     private String statisType;
+    private CommonPositionAdapter statisticsAdapter;
+    private List<StatisticsItem> statisticsItemList = new ArrayList<>();
+    private int[] colorAttr = {R.color.pie_red, R.color.pie_yellow, R.color.pie_cyan, R.color.pie_green};
+
+    @OnItemClick({R.id.lv_statistics})
+    public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        StatisticsItem statisticsItem = (StatisticsItem) adapterView.getItemAtPosition(position);
+        TableListActivity.goActivity(this,String.valueOf(statisticsItem.getStatisItemTypeId()));
+    }
 
     @Override
     public void initVariable() {
@@ -72,20 +89,28 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
 
     @Override
     protected void initData() {
-        //去掉右下角描述
+        initchart();
+        lvStatistics.setAdapter(statisticsAdapter = new CommonPositionAdapter<StatisticsItem>(this,
+                statisticsItemList, R.layout.item_statistics_des) {
+            @Override
+            public void convert(ViewHolder helper, StatisticsItem item, int position) {
+                helper.setBackgroundColor(R.id.v_item_color, ContextCompat.getColor(StatisticsActivity.this,
+                        colorAttr[position]));
+                helper.setText(R.id.tv_statisticsDes, String.format("%s：%d户", item.getStatisItemTypeName(), item
+                        .getQuantity()));
+            }
+        });
+
+    }
+
+    private void initchart() {
+        chartPie.setUsePercentValues(true);
         chartPie.getDescription().setEnabled(false);
         chartPie.setRotationEnabled(false);
         //饼图与边界间隔
         chartPie.setExtraOffsets(10, 10, 10, 10);
         //去掉中间空洞
         chartPie.setDrawHoleEnabled(false);
-        //模拟数据
-//        ArrayList<PieEntry> entries = new ArrayList<>();
-//        entries.add(new PieEntry(50.00f, "已丈量"));
-//        entries.add(new PieEntry(30.00f, "已调查未丈量"));
-//        entries.add(new PieEntry(20.00f, "未调查"));
-//        //设置数据
-//        setData(entries);
         //说明文字
         Legend l = chartPie.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
@@ -104,59 +129,56 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
         l.setEnabled(true);
     }
 
+
     private void setData(ArrayList<PieEntry> entries) {
         PieDataSet dataSet = new PieDataSet(entries, "");
         //分割线宽度
         dataSet.setSliceSpace(0f);
         dataSet.setSelectionShift(12f);
         //数据和颜色
-        ArrayList<Integer> colors = new ArrayList<Integer>();
-        colors.add(ContextCompat.getColor(this, R.color.pie_red));
-        colors.add(ContextCompat.getColor(this, R.color.pie_yellow));
-        colors.add(ContextCompat.getColor(this, R.color.pie_cyan));
-        colors.add(ColorTemplate.getHoloBlue());
-        dataSet.setColors(colors);
-
-//        dataSet.setValueLinePart1OffsetPercentage(80.f);
-//        dataSet.setValueLinePart1Length(0.2f);
-//        dataSet.setValueLinePart2Length(0.4f);
-        //dataSet.setUsingSliceColorAsValueLineColor(true);
-
-        //dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-        //绘制百分比位置
-//        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-//        dataSet.setXValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
-
+        if (entries != null && entries.size() > 0) {
+            ArrayList<Integer> colors = new ArrayList<Integer>();
+            for (int i = 0; i < entries.size(); i++) {
+                colors.add(ContextCompat.getColor(this, colorAttr[i]));
+            }
+            dataSet.setColors(colors);
+        }
         PieData data = new PieData(dataSet);
+        data.setDrawValues(true);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(18f);
         data.setValueTextColor(Color.WHITE);
         chartPie.setData(data);
         chartPie.highlightValues(null);
-        //刷新
         chartPie.invalidate();
     }
 
     @Override
     protected void initNet() {
-        statisticsPresenter.getStatistics(SpSir.getInstance().getProjectId(),statisType,"-1");
+        statisticsPresenter.getStatistics(SpSir.getInstance().getProjectId(), statisType, "-1");
     }
 
     @Override
     public void onGetStatisticsSuccess(StatisticsDetail statisticsDetail) {
         List<StatisticsItem> statisticsItems = statisticsDetail.getLstStatis();
         if (statisticsItems != null && statisticsItems.size() > 0) {
+            statisticsAdapter.setData(statisticsItems);
             ArrayList<PieEntry> entries = new ArrayList<>();
             for (StatisticsItem statisticsItem : statisticsItems) {
-                entries.add(new PieEntry(statisticsItem.getQuantity(), statisticsItem.getStatisTypeName()));
+                entries.add(new PieEntry((float) statisticsItem.getQuantity(), statisticsItem.getStatisItemTypeName()));
             }
             setData(entries);
         }
     }
+
     public static void goActivity(Context context, String statisType) {
         Intent intent = new Intent(context, StatisticsActivity.class);
         intent.putExtra(Constants.Extra.STATIS_TYPE, statisType);
         context.startActivity(intent);
     }
 
+    @Override
+    protected boolean ifRegisterLoadSir() {
+        return true;
+    }
 }

@@ -3,6 +3,8 @@ package com.jdp.hls.page.table;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.Editable;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,6 +18,8 @@ import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Table;
+import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
+import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.DatePop;
 import com.jdp.hls.view.PullToBottomListView;
@@ -28,6 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnItemClick;
 
 /**
  * Description:一览表搜索
@@ -53,6 +58,16 @@ public class TableSearchActivity extends BaseTitleActivity {
     private List<Table> tables = new ArrayList<>();
     private TableAdapter adapter;
     private DatePop datePop;
+
+    @OnItemClick({R.id.plv})
+    public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        Table table = (Table) adapterView.getItemAtPosition(position);
+        if (table.getBuildingType() == Status.BuildingType.PERSONAL) {
+            BasicPersonalActivity.goActivity(this, table.getBuildingId());
+        } else {
+            BasicCompanyActivity.goActivity(this, table.getBuildingId());
+        }
+    }
 
     @Override
     public void initVariable() {

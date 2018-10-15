@@ -3,6 +3,7 @@ package com.jdp.hls.page.statistics;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
 import com.jdp.hls.model.entiy.StatisticsDetail;
 
@@ -31,7 +32,7 @@ public class StatisticsPresenter implements StatisticsContract.Presenter {
     public void getStatistics(String ProjectId, String StatisType, String BuildingType) {
         mApi.getApiService().getStatistics(ProjectId, StatisType, BuildingType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<StatisticsDetail>(mView) {
+                (new LoadSirObserver<StatisticsDetail>(mView) {
                     @Override
                     protected void onSuccess(StatisticsDetail statisticsDetail) {
                         mView.onGetStatisticsSuccess(statisticsDetail);

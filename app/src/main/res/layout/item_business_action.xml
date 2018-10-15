@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center">
+
+    <ImageView
+        android:id="@+id/iv_businessAction"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:background="@mipmap/ic_surveying"/>
+
+    <TextView
+        android:id="@+id/tv_taskName"
+        android:gravity="center"
+        style="@style/font_3_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="待办业务"/>
+
+
+
+</LinearLayout>

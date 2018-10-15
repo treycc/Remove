@@ -17,7 +17,8 @@ public class StatisticsItem {
      */
 
     private int StatisType;
-    private String StatisTypeName;
+    private int StatisItemTypeId;
+    private String StatisItemTypeName;
     private int Quantity;
     private double Percent;
     private String PercentDesc;
@@ -30,12 +31,20 @@ public class StatisticsItem {
         this.StatisType = StatisType;
     }
 
-    public String getStatisTypeName() {
-        return StatisTypeName;
+    public int getStatisItemTypeId() {
+        return StatisItemTypeId;
     }
 
-    public void setStatisTypeName(String StatisTypeName) {
-        this.StatisTypeName = StatisTypeName;
+    public void setStatisItemTypeId(int statisItemTypeId) {
+        StatisItemTypeId = statisItemTypeId;
+    }
+
+    public String getStatisItemTypeName() {
+        return StatisItemTypeName;
+    }
+
+    public void setStatisItemTypeName(String statisItemTypeName) {
+        StatisItemTypeName = statisItemTypeName;
     }
 
     public int getQuantity() {

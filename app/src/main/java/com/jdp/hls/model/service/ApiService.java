@@ -19,6 +19,7 @@ import com.jdp.hls.model.entiy.Dict;
 import com.jdp.hls.model.entiy.FamilyRelation;
 import com.jdp.hls.model.entiy.HttpResult;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.model.entiy.LevyInfo;
 import com.jdp.hls.model.entiy.Login;
 import com.jdp.hls.model.entiy.NodeCompanyAge;
 import com.jdp.hls.model.entiy.NodeCompanyEvaluate;
@@ -150,7 +151,7 @@ public interface ApiService {
 
     /*获取任务数*/
     @GET("api/workflow/getTaskCount")
-    Observable<HttpResult<List<Task>>> getTask(@Query("projectId") String projectId, @Query("buildingType") int
+    Observable<HttpResult<LevyInfo>> getTask(@Query("projectId") String projectId, @Query("buildingType") int
             buildingType);
 
     /*获取任务列表*/
@@ -208,7 +209,7 @@ public interface ApiService {
     /*获取一览表列表*/
     @GET("api/workflow/GetLevyList")
     Observable<HttpResult<List<Table>>> getTables(@Query("projectId") String projectId, @Query("buildingType") int
-            buildingType);
+            buildingType, @Query("StatisId") String StatisId);
 
     /*获取字典表*/
     @GET("api/SystemSevice/GetAllConfigList")
@@ -442,7 +443,7 @@ public interface ApiService {
 
     /*家庭关系*/
     @GET("api/person/GetPersonListByBookId")
-    Observable<HttpResult<FamilyRelation>> getFamilyRelation(@Query("bookletId") String bookletId);
+    Observable<HttpResult<FamilyRelation>> getFamilyRelation(@Query("houseId") String houseId);
 
     /*家庭成员-修改*/
     @POST("api/person/SavePersonForApp")
@@ -480,4 +481,27 @@ public interface ApiService {
     @GET("api/Project/Get8Statis")
     Observable<HttpResult<StatisticsDetail>> getStatistics(@Query("ProjectId") String ProjectId, @Query("StatisType")
             String StatisType, @Query("BuildingType") String BuildingType);
+
+    /*获取下个节点接收人*/
+    @GET("api/workflow/GetReceiveEmployee")
+    Observable<HttpResult<String>> getNextNodePersonName(@Query("buildingId") String buildingId, @Query("buildingType")
+            String buildingType);
+
+    /*发送*/
+    @POST("api/workflow/send")
+    Observable<HttpResult<Object>> sendNode(@Body RequestBody requestBody);
+
+    /*退回*/
+    @POST("api/workflow/FlowBack")
+    Observable<HttpResult<Object>> backNode(@Body RequestBody requestBody);
+
+    /*作废*/
+    @POST("api/workflow/Banned")
+    Observable<HttpResult<Object>> deleteNode(@Body RequestBody requestBody);
+
+    /*复查*/
+    @POST("api/workflow/reviewNode")
+    Observable<HttpResult<Object>> reviewNode(@Body RequestBody requestBody);
+
+
 }

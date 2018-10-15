@@ -30,8 +30,8 @@ public class FamilyRelationPresenter implements FamilyRelationContract.Presenter
     }
 
     @Override
-    public void getFamilyRelation(String bookletId) {
-        mApi.getApiService().getFamilyRelation(bookletId).subscribeOn(Schedulers.io())
+    public void getFamilyRelation(String houseId) {
+        mApi.getApiService().getFamilyRelation(houseId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<FamilyRelation>(mView) {
                     @Override

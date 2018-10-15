@@ -1,5 +1,7 @@
 package com.jdp.hls.page.table.list;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -8,8 +10,10 @@ import com.jdp.hls.R;
 import com.jdp.hls.adapter.CountPageAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Table;
+import com.jdp.hls.page.business.detail.company.DetailCompanyActivity;
 import com.jdp.hls.page.table.TableSearchActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
@@ -43,9 +47,12 @@ public class TableListActivity extends BaseTitleActivity implements TableListCon
     @Inject
     TableListPresenter tableListPresenter;
     private List<Table> tables;
+    private String statisId;
+
 
     @Override
     public void initVariable() {
+        statisId = getIntent().getStringExtra(Constants.Extra.STATIS_ID);
     }
 
     @Override
@@ -76,14 +83,14 @@ public class TableListActivity extends BaseTitleActivity implements TableListCon
         setRightClick("搜索", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                TableSearchActivity.goActivity(TableListActivity.this,tables);
+                TableSearchActivity.goActivity(TableListActivity.this, tables);
             }
         });
     }
 
     @Override
     protected void initNet() {
-        tableListPresenter.getTables(SpSir.getInstance().getProjectId(), -1);
+        tableListPresenter.getTables(SpSir.getInstance().getProjectId(), -1, statisId == null ? "" : statisId);
     }
 
     @Override
@@ -104,9 +111,9 @@ public class TableListActivity extends BaseTitleActivity implements TableListCon
         tabTable.setTabMode(TabLayout.MODE_FIXED);
         tabTable.addTab(tabTable.newTab().setText(tabBusinessTitles[0]));
         tabTable.addTab(tabTable.newTab().setText(tabBusinessTitles[1]));
-        LogUtil.e(TAG,"tables:"+tables.size());
-        LogUtil.e(TAG,"personalTables:"+personalTables.size());
-        LogUtil.e(TAG,"companyTables:"+companyTables.size());
+        LogUtil.e(TAG, "tables:" + tables.size());
+        LogUtil.e(TAG, "personalTables:" + personalTables.size());
+        LogUtil.e(TAG, "companyTables:" + companyTables.size());
         mFragmentArr[0] = TableListFragment.newInstance(personalTables, 0);
         mFragmentArr[1] = TableListFragment.newInstance(companyTables, 1);
         CountPageAdapter mCountPageAdapter = new CountPageAdapter(this, getSupportFragmentManager(),
@@ -119,4 +126,11 @@ public class TableListActivity extends BaseTitleActivity implements TableListCon
             tab.setCustomView(mCountPageAdapter.getTabView(i));
         }
     }
+
+    public static void goActivity(Context context, String statisId) {
+        Intent intent = new Intent(context, TableListActivity.class);
+        intent.putExtra(Constants.Extra.STATIS_ID, statisId);
+        context.startActivity(intent);
+    }
+
 }

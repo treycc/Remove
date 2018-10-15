@@ -108,7 +108,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_unrecordBuilding:
-                FamilyRelationActivity.goActivity(this, detailPersonal.getBookletId());
+                FamilyRelationActivity.goActivity(this, detailPersonal.getHouseId(),detailPersonal.getBookletId());
                 break;
             case R.id.ll_detail_propertyDeed:
                 DeedPersonalPropertyActivity.goActivity(this, detailPersonal.getHouseId(), TextUtils.isEmpty

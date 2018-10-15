@@ -3,6 +3,7 @@ package com.jdp.hls.page.levy;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.LevyInfo;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
 import com.jdp.hls.model.entiy.Task;
@@ -34,10 +35,10 @@ public class TaskPresenter implements TaskContract.Presenter {
     public void getTask(String projectId, int buildingType) {
         mApi.getApiService().getTask(projectId, buildingType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<List<Task>>(mView) {
+                (new LoadSirObserver<LevyInfo>(mView) {
                     @Override
-                    protected void onSuccess(List<Task> tasks) {
-                        mView.onGetTaskSuccess(tasks);
+                    protected void onSuccess(LevyInfo levyInfo) {
+                        mView.onGetTaskSuccess(levyInfo);
                     }
                 });
     }

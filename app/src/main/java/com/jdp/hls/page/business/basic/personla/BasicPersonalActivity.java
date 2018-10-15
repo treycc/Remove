@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,7 +14,9 @@ import com.jdp.hls.adapter.FlowNodeAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.Auth;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.FlowNode;
 import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
@@ -22,6 +25,11 @@ import com.jdp.hls.page.node.evaluate.personal.NodePersonalEvaluateActivity;
 import com.jdp.hls.page.node.mapping.personal.NodePersonalMappingActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
+import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.page.operate.back.BackDialog;
+import com.jdp.hls.page.operate.delete.DeleteDialog;
+import com.jdp.hls.page.operate.review.ReviewDialog;
+import com.jdp.hls.page.operate.send.SendDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +57,16 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
     TextView tvBasicName;
     @BindView(R.id.tv_basic_address)
     TextView tvBasicAddress;
+    @BindView(R.id.ll_node_send)
+    LinearLayout llNodeSend;
+    @BindView(R.id.ll_node_back)
+    LinearLayout llNodeBack;
+    @BindView(R.id.ll_node_review)
+    LinearLayout llNodeReview;
+    @BindView(R.id.ll_node_delete)
+    LinearLayout llNodeDelete;
+    @BindView(R.id.ll_node_operateBar)
+    LinearLayout llNodeOperateBar;
     private List<FlowNode> flowNodes = new ArrayList<>();
     @Inject
     BasicPersonalPresenter basicPersonalPresenter;
@@ -79,7 +97,6 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
                 NodePersonalProtocolActivity.goActivity(this, NodePersonalProtocolActivity.class, buildingId);
                 break;
         }
-
     }
 
     @OnClick({R.id.rl_business_detail})
@@ -152,10 +169,56 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
         if (flowNodes != null && flowNodes.size() > 0) {
             flowNodeAdapter.setData(flowNodes);
         }
+
+        Auth auth = baiscPersonal.getAuth();
+        if (auth.isAllowSend() || auth.isAllowBanned() || auth.isAllowFlowBack() || auth.isAllowReview()) {
+            llNodeOperateBar.setVisibility(View.VISIBLE);
+        } else {
+            llNodeOperateBar.setVisibility(View.GONE);
+        }
+        llNodeSend.setVisibility(auth.isAllowSend() ? View.VISIBLE : View.GONE);
+        llNodeDelete.setVisibility(auth.isAllowBanned() ? View.VISIBLE : View.GONE);
+        llNodeReview.setVisibility(auth.isAllowReview() ? View.VISIBLE : View.GONE);
+        llNodeBack.setVisibility(auth.isAllowFlowBack() ? View.VISIBLE : View.GONE);
+
+        llNodeSend.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                SendDialog sendDialog = new SendDialog(BasicPersonalActivity.this, baiscPersonal.getHouseId(), String
+                        .valueOf(Status.BuildingType.PERSONAL),
+                        String.valueOf(baiscPersonal.getStatusId()), "A节点");
+                sendDialog.show();
+            }
+        });
+
+        llNodeDelete.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                DeleteDialog deleteDialog = new DeleteDialog(BasicPersonalActivity.this);
+                deleteDialog.show();
+            }
+        });
+
+        llNodeBack.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                BackDialog backDialog = new BackDialog(BasicPersonalActivity.this);
+                backDialog.show();
+            }
+        });
+
+        llNodeReview.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                ReviewDialog reviewDialog = new ReviewDialog(BasicPersonalActivity.this);
+                reviewDialog.show();
+            }
+        });
     }
 
     @Override
     protected boolean ifRegisterLoadSir() {
         return true;
     }
+
 }

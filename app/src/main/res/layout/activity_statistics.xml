@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@color/white_hi"
+              android:orientation="vertical">
 
     <com.github.mikephil.charting.charts.PieChart
-        android:layout_weight="1"
+        android:background="@color/white_hi"
         android:id="@+id/chart_pie"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_above="@+id/seekBar1" />
+        android:layout_above="@+id/seekBar1"
+        android:layout_weight="1"/>
 
     <LinearLayout
-        android:background="@color/gray_hi"
         android:layout_width="match_parent"
-        android:layout_height="160dp"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp"
+        android:paddingLeft="32dp"
+        android:paddingTop="24dp">
+
+        <com.jdp.hls.view.FixedListView
+            android:id="@+id/lv_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:divider="@color/transparent"
+            android:dividerHeight="0px"
+            android:listSelector="@android:color/transparent"
+            tools:listitem="@layout/item_statistics_des"/>
+
+
+    </LinearLayout>
 
 </LinearLayout>

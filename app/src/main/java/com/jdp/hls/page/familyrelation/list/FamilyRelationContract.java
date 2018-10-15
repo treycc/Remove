@@ -22,7 +22,7 @@ public interface FamilyRelationContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getFamilyRelation(String bookletId);
+        void getFamilyRelation(String houseId);
 
         void deleteFamilyRemember(@Body RequestBody requestBody, int position);
     }

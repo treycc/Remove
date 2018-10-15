@@ -13,6 +13,15 @@ public class Task implements Comparable<Task>{
     private int TaskType;
     private int sortNo;
     private int Count;
+    private boolean IsAvailable;
+
+    public boolean isAvailable() {
+        return IsAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        IsAvailable = available;
+    }
 
     public int getSortNo() {
         return sortNo;

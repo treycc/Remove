@@ -14,7 +14,6 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Table;
 import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
 import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
@@ -60,9 +59,9 @@ public class TableListFragment extends BaseFragment implements SwipeRefreshLayou
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Table table = (Table) adapterView.getItemAtPosition(position);
         if (table.getBuildingType() == Status.BuildingType.PERSONAL) {
-            BasicPersonalActivity.goActivity(getActivity(),table.getBuildingId());
+            BasicPersonalActivity.goActivity(getActivity(), table.getBuildingId());
         } else {
-            BasicCompanyActivity.goActivity(getActivity(),table.getBuildingId());
+            BasicCompanyActivity.goActivity(getActivity(), table.getBuildingId());
         }
     }
 
@@ -72,7 +71,7 @@ public class TableListFragment extends BaseFragment implements SwipeRefreshLayou
             tables = (List<Table>) getArguments().getSerializable("tables");
             buildingType = getArguments().getInt("buildingType", 0);
         }
-        LogUtil.e(TAG,"fragmetn tables:"+tables.size());
+        LogUtil.e(TAG, "fragmetn tables:" + tables.size());
     }
 
     @Override
@@ -88,6 +87,7 @@ public class TableListFragment extends BaseFragment implements SwipeRefreshLayou
         tableListPresenter.attachView(this);
         plv.setAdapter(adapter = new TableAdapter(getActivity(), tables, R.layout.item_table));
     }
+
     @Override
     protected void initData() {
         srl.setOnRefreshListener(this);
@@ -116,7 +116,7 @@ public class TableListFragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     public void onRefresh() {
-        tableListPresenter.getTables(SpSir.getInstance().getProjectId(), buildingType);
+        tableListPresenter.getTables(SpSir.getInstance().getProjectId(), buildingType, "");
     }
 
 

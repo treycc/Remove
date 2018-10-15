@@ -5,6 +5,10 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <TextView
+        style="@style/Title_Main"
+        android:text="基本信息"/>
+
     <LinearLayout
         style="@style/Content_LL_T12"
         android:background="@color/white_hi">
@@ -29,7 +33,7 @@
 
     <TextView
         style="@style/Title_Main"
-        android:text="户口列表"/>
+        android:text="人员列表"/>
 
     <ListView
         android:id="@+id/lv_familyRelation"
