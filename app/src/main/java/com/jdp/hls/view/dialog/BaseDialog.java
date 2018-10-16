@@ -1,11 +1,17 @@
 package com.jdp.hls.view.dialog;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.Window;
 
 import com.jdp.hls.R;
+import com.jdp.hls.util.LogUtil;
+import com.kingja.supershapeview.view.SuperShapeTextView;
+
+import okhttp3.RequestBody;
 
 /**
  * Description:TODO
@@ -13,18 +19,44 @@ import com.jdp.hls.R;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public abstract class BaseDialog extends AlertDialog implements View.OnClickListener {
+public abstract class BaseDialog extends Dialog implements View.OnClickListener {
     protected Context context;
+    protected SuperShapeTextView stv_confirm;
+    protected SuperShapeTextView stv_cancle;
+    protected String buildingId;
+    protected String buildingType;
+    protected String statusId;
+    private OnOperateConfirmListener onOperateConfirmListener;
 
-    protected BaseDialog(Context context) {
+    public BaseDialog(@NonNull Context context) {
         super(context, R.style.CustomAlertDialog);
-        this.context = context;
     }
 
+    public BaseDialog(Context context, String buildingId, String buildingType, String statusId) {
+        super(context, R.style.CustomAlertDialog);
+        this.buildingId = buildingId;
+        this.buildingType = buildingType;
+        this.statusId = statusId;
+        LogUtil.e("BaseDialog","buildingId:"+buildingId);
+        LogUtil.e("BaseDialog","buildingType:"+buildingType);
+        LogUtil.e("BaseDialog","statusId:"+statusId);
+    }
+
+    public void setData(String buildingId, String buildingType, String statusId) {
+        this.buildingId = buildingId;
+        this.buildingType = buildingType;
+        this.statusId = statusId;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+        setContentView(getContentViewId());
+        stv_confirm = findViewById(R.id.stv_confirm);
+        stv_cancle = findViewById(R.id.stv_cancle);
+        stv_confirm.setOnClickListener(this);
+        stv_cancle.setOnClickListener(this);
         initView();
         initNet();
         initEvent();
@@ -32,20 +64,46 @@ public abstract class BaseDialog extends AlertDialog implements View.OnClickList
 
     }
 
-    public abstract void initView();
+    protected abstract int getContentViewId();
 
-    public abstract void initNet();
+    protected abstract void initView();
 
-    public abstract void initEvent();
+    protected abstract void initNet();
 
-    public abstract void initData();
+    protected abstract void initEvent();
 
-    public abstract void childClick(View v);
+    protected abstract void initData();
+
+    protected void childClick(View v) {
+
+    }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.stv_confirm:
+                if (onOperateConfirmListener != null) {
+                    onOperateConfirmListener.onOperateConfirm(getRequestBody());
+                    dismiss();
+                }
+                break;
+            case R.id.stv_cancle:
+                dismiss();
+                break;
+            default:
+                break;
+        }
         childClick(v);
+    }
 
+    public abstract RequestBody getRequestBody();
+
+    public interface OnOperateConfirmListener {
+        void onOperateConfirm(RequestBody requestBody);
+    }
+
+    public void setOnOperateConfirmListener(OnOperateConfirmListener onOperateConfirmListener) {
+        this.onOperateConfirmListener = onOperateConfirmListener;
     }
 
 }

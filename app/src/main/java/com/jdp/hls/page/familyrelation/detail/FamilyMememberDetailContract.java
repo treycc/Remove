@@ -18,7 +18,7 @@ import retrofit2.http.Body;
  */
 public interface FamilyMememberDetailContract {
     interface View extends BaseView {
-        void onSaveFamilyRememberSuccess();
+        void onSaveFamilyRememberSuccess(String personId);
     }
 
     interface Presenter extends BasePresenter<View> {

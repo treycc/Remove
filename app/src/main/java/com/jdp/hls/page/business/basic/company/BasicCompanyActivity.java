@@ -10,9 +10,10 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.FlowNodeAdapter;
-import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BaiscCompany;
 import com.jdp.hls.model.entiy.FlowNode;
@@ -22,8 +23,8 @@ import com.jdp.hls.page.node.evaluate.company.NodeCompanyEvaluateActivity;
 import com.jdp.hls.page.node.mapping.company.NodeCompanyMappingActivity;
 import com.jdp.hls.page.node.measure.company.NodeCompanyMeasureActivity;
 import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
-import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.page.operate.OperateNodeContract;
+import com.jdp.hls.page.operate.OperateNodePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
+import okhttp3.RequestBody;
 
 /**
  * Description:企业业务首页
@@ -40,7 +42,7 @@ import butterknife.OnItemClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class BasicCompanyActivity extends BaseTitleActivity implements BaiscCompanyContract.View {
+public class BasicCompanyActivity extends BaseBasicActivity implements BaiscCompanyContract.View, OperateNodeContract.View {
     @BindView(R.id.rl_business_detail)
     RelativeLayout rlBusinessDetail;
     @BindView(R.id.lv_business_node)
@@ -54,6 +56,9 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
     private List<FlowNode> flowNodes = new ArrayList<>();
     @Inject
     BasicCompanyPresenter basicCompanyPresenter;
+
+    @Inject
+    OperateNodePresenter operateNodePresenter;
     private String buildingId;
     private FlowNodeAdapter flowNodeAdapter;
 
@@ -122,6 +127,7 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
     @Override
     protected void initView() {
         basicCompanyPresenter.attachView(this);
+        operateNodePresenter.attachView(this);
         flowNodeAdapter = new FlowNodeAdapter(this, flowNodes, R.layout.item_business_node);
         lvBusinessNode.setAdapter(flowNodeAdapter);
 
@@ -129,17 +135,31 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
 
     @Override
     protected void initData() {
-//        setRightClick("流程", new NoDoubleClickListener() {
-//            @Override
-//            public void onNoDoubleClick(View v) {
-//                ToastUtil.showText("流程");
-//            }
-//        });
     }
 
     @Override
     protected void initNet() {
         basicCompanyPresenter.getCompanyBasic(buildingId);
+    }
+
+    @Override
+    protected void onSendNode(RequestBody requestBody) {
+        operateNodePresenter.sendNode(requestBody);
+    }
+
+    @Override
+    protected void onBackNode(RequestBody requestBody) {
+        operateNodePresenter.backNode(requestBody);
+    }
+
+    @Override
+    protected void onReviewNode(RequestBody requestBody) {
+        operateNodePresenter.reviewNode(requestBody);
+    }
+
+    @Override
+    protected void onDeleteNode(RequestBody requestBody) {
+        operateNodePresenter.deleteNode(requestBody);
     }
 
     public static void goActivity(Context context, String buildingId) {
@@ -157,10 +177,32 @@ public class BasicCompanyActivity extends BaseTitleActivity implements BaiscComp
         if (flowNodes != null && flowNodes.size() > 0) {
             flowNodeAdapter.setData(flowNodes);
         }
+        setSingleAuth(baiscCompany.getAuth(), baiscCompany.getHouseId(), String.valueOf(Status.BuildingType.COMPANY),
+                String.valueOf(baiscCompany.getStatusId()));
     }
 
     @Override
     protected boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Override
+    public void onDeleteNodeSuccess() {
+        showSuccessAndFinish("废弃成功");
+    }
+
+    @Override
+    public void onSendNodeSuccess() {
+        showSuccessAndFinish("发送成功");
+    }
+
+    @Override
+    public void onReviewNodeSuccess() {
+        showSuccessAndFinish("复查成功");
+    }
+
+    @Override
+    public void onBackNodeSuccess() {
+        showSuccessAndFinish("退回成功");
     }
 }

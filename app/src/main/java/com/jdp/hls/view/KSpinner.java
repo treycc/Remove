@@ -6,8 +6,10 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.jdp.hls.adapter.ReceiverSpinnerAdapter;
 import com.jdp.hls.adapter.KSpinnerAdapter;
 import com.jdp.hls.greendaobean.TDict;
+import com.jdp.hls.model.entiy.ReceivePerson;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -94,12 +96,36 @@ public class KSpinner extends NiceSpinner {
         });
     }
 
+    public <T> void setItemData(List<ReceivePerson> datas, OnSpinnerItemOperateListener onSpinnerItemOperateListener) {
+        ReceiverSpinnerAdapter receiverSpinnerAdapter = new ReceiverSpinnerAdapter(getContext(), datas);
+        setAdapter(receiverSpinnerAdapter);
+        addOnItemClickListener((parent, view, position, id) -> {
+            T t = (T) parent.getItemAtPosition(position);
+            setText(onSpinnerItemOperateListener.fillDate(t,  position));
+            onSpinnerItemOperateListener.onSelectItem(t,position);
+        });
+
+    }
+
+    public interface OnSpinnerItemOperateListener<S>{
+        String fillDate(S item,int position);
+        void  onSelectItem(S item,int position);
+    }
+
     public int getDefaultTypeId() {
         int typeId = 1;
         if (datas != null && datas.size() > 0) {
             typeId = datas.get(0).getTypeId();
         }
         return typeId;
+    }
+
+    public TDict getDefaultDict() {
+        TDict dict = new TDict();
+        if (datas != null && datas.size() > 0) {
+            dict = datas.get(0);
+        }
+        return dict;
     }
 
     public void setBooleanDate(List<String> datas, OnSpinnerBooleanSelectedListener onSpinnerBooleanSelectedListener) {
@@ -123,6 +149,7 @@ public class KSpinner extends NiceSpinner {
     public interface OnSpinnerSelectedListener {
         void onSpinnerSelected(int typeId);
     }
+
     public interface OnSpinnerItemSelectedListener {
         void onSpinnerItemSelected(TDict dict);
     }

@@ -5,6 +5,7 @@ import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 
 import okhttp3.RequestBody;
+import retrofit2.http.Query;
 
 /**
  * Description：TODO
@@ -15,10 +16,13 @@ import okhttp3.RequestBody;
 public interface BackNodeContract {
     interface View extends BaseView {
         void onBackNodeSuccess();
+        void onGetOperatePersonSuccess(String name);
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void backNode(RequestBody requestBody);
+
+        void getOperatePerson(String buildingId, String buildingType);
     }
 }

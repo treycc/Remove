@@ -23,6 +23,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
 
@@ -33,20 +34,18 @@
             android:layout_weight="1"
             android:text="复查节点"/>
 
-        <com.jdp.hls.view.KSpinner
+        <Spinner
+            android:id="@+id/spinner_dialog_receivePerson"
             style="@style/font_3_13"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:hint="选择复查节点"
-            app:backgroundSelector="@drawable/sel_t2g"
-            app:textTint="@color/c_9"/>
+            android:hint="选择复查节点"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="12dp"
         android:orientation="horizontal">
@@ -60,16 +59,17 @@
             android:text="接收人"/>
 
         <TextView
-            style="@style/font_3_13"
+            android:id="@+id/tv_dialog_receiveName"
+            style="@style/font_9_13"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:paddingLeft="12dp"
-            android:text="王小虎"/>
+            android:text=""/>
     </LinearLayout>
 
     <com.kingja.supershapeview.view.SuperShapeEditText
-        android:id="@+id/set_reason"
+        android:id="@+id/set_dialog_reason"
         style="@style/font_3_13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

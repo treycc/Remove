@@ -327,6 +327,7 @@
         <activity android:name=".page.familyrelation.detail.FamilyMememberDetailActivity"/>
         <activity android:name=".page.innerdecoration.list.DecorationListActivity"/>
         <activity android:name=".page.innerdecoration.detail.DecorationDetailActivity"/>
+        <activity android:name=".base.BaseBasicActivity"/>
 
 
         <service android:name=".service.initialize.InitializeService"/>

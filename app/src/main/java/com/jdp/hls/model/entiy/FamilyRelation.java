@@ -13,6 +13,33 @@ public class FamilyRelation {
     private boolean IsAllowEdit;
     private List<FamilyMember> LstPerons;
     private List<ImgInfo> Files;
+    private int BookletId;
+    private String BookletNum;
+    private String HouseId;
+
+    public int getBookletId() {
+        return BookletId;
+    }
+
+    public void setBookletId(int bookletId) {
+        BookletId = bookletId;
+    }
+
+    public String getBookletNum() {
+        return BookletNum;
+    }
+
+    public void setBookletNum(String bookletNum) {
+        BookletNum = bookletNum;
+    }
+
+    public String getHouseId() {
+        return HouseId;
+    }
+
+    public void setHouseId(String houseId) {
+        HouseId = houseId;
+    }
 
     public boolean isAllowEdit() {
         return IsAllowEdit;

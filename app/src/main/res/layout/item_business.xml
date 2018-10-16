@@ -10,13 +10,13 @@
               android:paddingTop="12dp">
 
     <CheckBox
+        android:paddingRight="12dp"
+        android:paddingBottom="12dp"
         android:id="@+id/cb_business"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="12dp"
         android:button="@drawable/selector_cb_dark"
         android:focusable="false"/>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:text="3456456"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -94,7 +94,7 @@
                     style="@style/font_9_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="张三"/>
+                    android:text=""/>
 
                 <TextView
                     style="@style/font_9_12"
@@ -107,7 +107,7 @@
                     style="@style/font_9_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/13355556665"/>
+                    android:text=""/>
             </LinearLayout>
 
             <LinearLayout
@@ -128,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:text="测绘出图"/>
+                    android:text=""/>
 
             </LinearLayout>
 

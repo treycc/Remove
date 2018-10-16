@@ -37,6 +37,9 @@ import com.jdp.hls.page.node.measure.company.NodeCompanyMeasureActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
+import com.jdp.hls.page.operate.back.BackDialog;
+import com.jdp.hls.page.operate.delete.DeleteDialog;
+import com.jdp.hls.page.operate.review.ReviewDialog;
 import com.jdp.hls.page.operate.send.SendDialog;
 import com.jdp.hls.page.otherarea.add.OtherAreaAddActivity;
 import com.jdp.hls.page.otherarea.detail.OtherAreaDetailActivity;
@@ -65,6 +68,7 @@ import com.jdp.hls.page.table.list.TableListFragment;
 import com.jdp.hls.service.initialize.InitializeService;
 
 import dagger.Component;
+import it.sephiroth.android.library.easing.Back;
 
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
@@ -186,4 +190,10 @@ public interface BaseCompnent {
     void inject(StatisticsActivity target);
 
     void inject(SendDialog target);
+
+    void inject(DeleteDialog target);
+
+    void inject(ReviewDialog target);
+
+    void inject(BackDialog target);
 }

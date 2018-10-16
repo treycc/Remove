@@ -13,9 +13,18 @@ public class BaiscPersonal {
     private String SysCode;
     private String RealName;
     private String Address;
+    private String StatusDesc;
     private int StatusId;
     private List<FlowNode> FlowNodes;
     private Auth Auth;
+
+    public String getStatusDesc() {
+        return StatusDesc;
+    }
+
+    public void setStatusDesc(String statusDesc) {
+        StatusDesc = statusDesc;
+    }
 
     public List<FlowNode> getFlowNodes() {
         return FlowNodes;

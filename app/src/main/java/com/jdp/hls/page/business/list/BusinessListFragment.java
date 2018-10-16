@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.adapter.BusinessAdapter;
 import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
@@ -14,6 +15,9 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.AddRostersEvent;
 import com.jdp.hls.event.ModifyRostersEvent;
+import com.jdp.hls.event.RefreshTaskEvent;
+import com.jdp.hls.i.OnBusinessItemSelectedListener;
+import com.jdp.hls.i.OnBusinessSelectedListener;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.Roster;
@@ -52,18 +56,21 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     @BindView(R.id.srl)
     RefreshSwipeRefreshLayout srl;
     private List<Business> business = new ArrayList<>();
-    private BusinessListAdapter adapter;
+    private BusinessAdapter adapter;
     private int buildingType;
     @Inject
     BusinessPresenter businessPresenter;
     private int taskType;
+    private boolean checkable;
+    private OnBusinessItemSelectedListener onBusinessSelectedListener;
 
-    public static BusinessListFragment newInstance(List<Business> business, int taskType, int buildingType) {
+    public static BusinessListFragment newInstance(List<Business> business, int taskType, int buildingType,boolean checkable) {
         BusinessListFragment fragment = new BusinessListFragment();
         Bundle args = new Bundle();
         args.putSerializable("business", (Serializable) business);
         args.putInt("taskType", taskType);
         args.putInt("buildingType", buildingType);
+        args.putBoolean("getCheckable", checkable);
         fragment.setArguments(args);
         return fragment;
     }
@@ -86,6 +93,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
             business = (List<Business>) getArguments().getSerializable("business");
             buildingType = getArguments().getInt("buildingType", 0);
             taskType = getArguments().getInt("taskType", 0);
+            checkable = getArguments().getBoolean("getCheckable");
         }
     }
 
@@ -106,7 +114,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     @Override
     protected void initView() {
         businessPresenter.attachView(this);
-        adapter = new BusinessListAdapter(getActivity(), business, R.layout.item_business);
+        adapter = new BusinessAdapter(getActivity(), business,checkable);
         plv.setAdapter(adapter);
     }
 
@@ -115,45 +123,14 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
     }
 
-    class BusinessListAdapter extends CommonAdapter<Business> {
-        public BusinessListAdapter(Context context, List<Business> datas, int itemLayoutId) {
-            super(context, datas, itemLayoutId);
-        }
-
-        @Override
-        public void convert(ViewHolder helper, Business item) {
-            helper.setText(R.id.tv_business_address, item.getAddress());
-            helper.setText(R.id.tv_business_number, item.getSysCode());
-            helper.setText(R.id.tv_business_name, item.getRealName());
-            helper.setText(R.id.tv_business_mobile, item.getMobilePhone());
-            helper.setBackgroundResource(R.id.iv_business_hasLocation, (item.isHasLongitudeAndLatitude() ? R.mipmap
-                    .ic_location_sel : R.mipmap.ic_location_nor));
-            helper.setVisibility(R.id.iv_business_isBack, item.isFlowBack());
-
-        }
-
-        public void modifyData(Roster roster) {
-//            for (Roster mData : this.mDatas) {
-//                if (mData.getHouseId().equals(roster.getHouseId())) {
-//                    mData.setLongitude(roster.getLongitude());
-//                    mData.setLatitude(roster.getLatitude());
-//                    mData.setEnterprise(roster.isEnterprise());
-//                    mData.setEvaluated(roster.isEvaluated());
-//                    mData.setMeasured(roster.isMeasured());
-//                    mData.setRealName(roster.getRealName());
-//                    mData.setMobilePhone(roster.getMobilePhone());
-//                    mData.setHouseAddress(roster.getHouseAddress());
-//                }
-//            }
-            notifyDataSetChanged();
-        }
-    }
-
     @Override
     protected void initData() {
         srl.setOnRefreshListener(this);
+        adapter.setOnBusinessSelectedListener(onBusinessSelectedListener);
     }
-
+    public void setOnBusinessSelectedListener(OnBusinessItemSelectedListener onBusinessSelectedListener) {
+        this.onBusinessSelectedListener = onBusinessSelectedListener;
+    }
     @Override
     protected void initNet() {
 
@@ -202,6 +179,14 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
         LogUtil.e(TAG, "enterprise:" + enterprise + " buildingType:" + buildingType);
         if (enterprise == buildingType) {
 //            adapter.modifyData(event.getRoster());
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshTask(RefreshTaskEvent event) {
+//        待办 = 1,退回 = 2,废弃= 3,已办 = 4,完结= 5
+        if (taskType == 1 || taskType == 4) {
+            businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(), buildingType, taskType);
         }
     }
 }

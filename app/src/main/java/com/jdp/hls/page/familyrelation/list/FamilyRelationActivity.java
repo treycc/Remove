@@ -13,6 +13,7 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.AddFamilyMememberEvent;
+import com.jdp.hls.event.ModifyFamilyMememberEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.FamilyMember;
 import com.jdp.hls.model.entiy.FamilyRelation;
@@ -61,7 +62,6 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     public void initVariable() {
         EventBus.getDefault().register(this);
         houseId = getIntent().getStringExtra(Constants.Extra.HOUSEID);
-        bookletId = getIntent().getStringExtra(Constants.Extra.BOOKLETID);
     }
 
 
@@ -92,11 +92,10 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
     @Override
     protected void initData() {
-        tvFamilyRelationNum.setText(houseId);
         setRightClick("增加", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this, houseId);
+                FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this,bookletId, houseId);
             }
         });
         familyMemberAdapter.setOnDeleteFamilyMemberListener(new FamilyMemberAdapter.OnDeleteFamilyMemberListener() {
@@ -112,7 +111,7 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
             @Override
             public void onFamilyMemberClick(FamilyMember familyMember) {
-                FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this, familyMember);
+                FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this, familyMember,houseId);
             }
         });
     }
@@ -129,6 +128,8 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
     @Override
     public void onGetFamilyRelationSuccess(FamilyRelation familyRelation) {
+         bookletId =String.valueOf(familyRelation.getBookletId()) ;
+        tvFamilyRelationNum.setText(familyRelation.getBookletNum());
         List<FamilyMember> familyMemberList = familyRelation.getLstPerons();
         if (familyMemberList != null && familyMemberList.size() > 0) {
             familyMemberAdapter.setData(familyMemberList);
@@ -140,10 +141,9 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
         familyMemberAdapter.removeItem(position);
     }
 
-    public static void goActivity(Context context, String houseId, String bookletId) {
+    public static void goActivity(Context context, String houseId) {
         Intent intent = new Intent(context, FamilyRelationActivity.class);
         intent.putExtra(Constants.Extra.HOUSEID, houseId);
-        intent.putExtra(Constants.Extra.BOOKLETID, bookletId);
         context.startActivity(intent);
     }
 
@@ -153,7 +153,7 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void modifyItem(AddFamilyMememberEvent event) {
+    public void modifyItem(ModifyFamilyMememberEvent event) {
         familyMemberAdapter.modify(event.getFamilyMember());
     }
 }

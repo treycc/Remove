@@ -33,10 +33,10 @@ public class FamilyMememberDetailPresenter implements FamilyMememberDetailContra
     public void saveFamilyRemember(@Body RequestBody requestBody) {
         mApi.getApiService().saveFamilyRemember(requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<String>(mView) {
                     @Override
-                    protected void onSuccess(Object object) {
-                        mView.onSaveFamilyRememberSuccess();
+                    protected void onSuccess(String personId) {
+                        mView.onSaveFamilyRememberSuccess(personId);
                     }
                 });
     }

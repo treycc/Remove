@@ -74,6 +74,7 @@ public class FamilyMemberAdapter extends BaseLvAdapter<FamilyMember> {
                 item.setIdcard(familyMember.getIdcard());
                 item.setIsFarming(familyMember.getIsFarming());
                 item.setTypeId(familyMember.getTypeId());
+                item.setTypeName(familyMember.getTypeName());
             }
         }
         notifyDataSetChanged();

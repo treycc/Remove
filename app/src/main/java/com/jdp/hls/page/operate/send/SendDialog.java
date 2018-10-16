@@ -1,19 +1,20 @@
 package com.jdp.hls.page.operate.send;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.App;
+import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.model.entiy.ReceivePerson;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.dialog.BaseDialog;
-import com.kingja.supershapeview.view.SuperShapeTextView;
 
 import javax.inject.Inject;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:TODO
@@ -22,30 +23,25 @@ import okhttp3.MultipartBody;
  * Email:kingjavip@gmail.com
  */
 public class SendDialog extends BaseDialog implements SendNodeContract.View {
-    private String buildingId;
-    private String buildingType;
-    private String statusId;
-    private String currentNodeName;
-
     @Inject
     SendNodePresenter sendNodePresenter;
     private TextView tv_nodeName;
     private TextView tv_receiveName;
-    private SuperShapeTextView stv_confirm;
-    private SuperShapeTextView stv_cancle;
 
     public SendDialog(Context context) {
         super(context);
     }
 
-    public SendDialog(Context context, String buildingId, String buildingType, String statusId, String
-            currentNodeName) {
-        super(context);
-        this.buildingId = buildingId;
-        this.buildingType = buildingType;
-        this.statusId = statusId;
-        this.currentNodeName = currentNodeName;
+
+    @Override
+    protected int getContentViewId() {
+        return R.layout.dialog_send;
     }
+
+    public SendDialog(Context context, String buildingId, String buildingType, String statusId) {
+        super(context, buildingId, buildingType, statusId);
+    }
+
 
     @Override
     public void initView() {
@@ -54,13 +50,8 @@ public class SendDialog extends BaseDialog implements SendNodeContract.View {
                 .build()
                 .inject(this);
         sendNodePresenter.attachView(this);
-        setContentView(R.layout.dialog_send);
         tv_nodeName = findViewById(R.id.tv_nodeName);
         tv_receiveName = findViewById(R.id.tv_receiveName);
-        tv_receiveName = findViewById(R.id.tv);
-        stv_confirm = findViewById(R.id.stv_confirm);
-        stv_cancle = findViewById(R.id.stv_cancle);
-
     }
 
     @Override
@@ -75,32 +66,22 @@ public class SendDialog extends BaseDialog implements SendNodeContract.View {
 
     @Override
     public void initData() {
-        tv_nodeName.setText(currentNodeName);
-        stv_confirm.setOnClickListener(this);
-        stv_cancle.setOnClickListener(this);
+
     }
 
     @Override
-    public void childClick(View v) {
-        switch (v.getId()) {
-            case R.id.stv_confirm:
-                sendNodePresenter.sendNode(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                        .addFormDataPart("buildingId", buildingId)
-                        .addFormDataPart("buildingType", buildingType)
-                        .addFormDataPart("statusId", statusId)
-                        .build());
-                break;
-            case R.id.stv_cancle:
-                dismiss();
-                break;
-            default:
-                break;
-        }
+    public RequestBody getRequestBody() {
+        return new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("buildingId", buildingId)
+                .addFormDataPart("buildingType", buildingType)
+                .addFormDataPart("statusId", statusId)
+                .build();
     }
 
     @Override
-    public void onGetNextNodePersonNameSuccess(String name) {
-        tv_receiveName.setText(name);
+    public void onGetNextNodePersonNameSuccess(ReceivePerson receivePerson) {
+        tv_receiveName.setText(receivePerson.getRealName());
+        tv_nodeName.setText(receivePerson.getStatusDesc());
     }
 
     @Override

@@ -4,19 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.FlowNodeAdapter;
-import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.Auth;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.FlowNode;
 import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
@@ -25,11 +23,8 @@ import com.jdp.hls.page.node.evaluate.personal.NodePersonalEvaluateActivity;
 import com.jdp.hls.page.node.mapping.personal.NodePersonalMappingActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
-import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.page.operate.back.BackDialog;
-import com.jdp.hls.page.operate.delete.DeleteDialog;
-import com.jdp.hls.page.operate.review.ReviewDialog;
-import com.jdp.hls.page.operate.send.SendDialog;
+import com.jdp.hls.page.operate.OperateNodeContract;
+import com.jdp.hls.page.operate.OperateNodePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +34,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
+import okhttp3.RequestBody;
 
 /**
  * Description:个人业务首页
@@ -46,7 +42,7 @@ import butterknife.OnItemClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPersonalContract.View {
+public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPersonalContract.View, OperateNodeContract.View {
     @BindView(R.id.rl_business_detail)
     RelativeLayout rlBusinessDetail;
     @BindView(R.id.lv_business_node)
@@ -57,19 +53,12 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
     TextView tvBasicName;
     @BindView(R.id.tv_basic_address)
     TextView tvBasicAddress;
-    @BindView(R.id.ll_node_send)
-    LinearLayout llNodeSend;
-    @BindView(R.id.ll_node_back)
-    LinearLayout llNodeBack;
-    @BindView(R.id.ll_node_review)
-    LinearLayout llNodeReview;
-    @BindView(R.id.ll_node_delete)
-    LinearLayout llNodeDelete;
-    @BindView(R.id.ll_node_operateBar)
-    LinearLayout llNodeOperateBar;
+
     private List<FlowNode> flowNodes = new ArrayList<>();
     @Inject
     BasicPersonalPresenter basicPersonalPresenter;
+    @Inject
+    OperateNodePresenter operateNodePresenter;
     private String buildingId;
     private FlowNodeAdapter flowNodeAdapter;
 
@@ -134,6 +123,7 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
     @Override
     protected void initView() {
         basicPersonalPresenter.attachView(this);
+        operateNodePresenter.attachView(this);
         flowNodeAdapter = new FlowNodeAdapter(this, flowNodes, R.layout.item_business_node);
         lvBusinessNode.setAdapter(flowNodeAdapter);
 
@@ -141,17 +131,31 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
 
     @Override
     protected void initData() {
-//        setRightClick("流程", new NoDoubleClickListener() {
-//            @Override
-//            public void onNoDoubleClick(View v) {
-//                ToastUtil.showText("流程");
-//            }
-//        });
     }
 
     @Override
     protected void initNet() {
         basicPersonalPresenter.getPersonalBasic(buildingId);
+    }
+
+    @Override
+    protected void onSendNode(RequestBody requestBody) {
+        operateNodePresenter.sendNode(requestBody);
+    }
+
+    @Override
+    protected void onBackNode(RequestBody requestBody) {
+        operateNodePresenter.backNode(requestBody);
+    }
+
+    @Override
+    protected void onReviewNode(RequestBody requestBody) {
+        operateNodePresenter.reviewNode(requestBody);
+    }
+
+    @Override
+    protected void onDeleteNode(RequestBody requestBody) {
+        operateNodePresenter.deleteNode(requestBody);
     }
 
     public static void goActivity(Context context, String buildingId) {
@@ -170,55 +174,33 @@ public class BasicPersonalActivity extends BaseTitleActivity implements BaiscPer
             flowNodeAdapter.setData(flowNodes);
         }
 
-        Auth auth = baiscPersonal.getAuth();
-        if (auth.isAllowSend() || auth.isAllowBanned() || auth.isAllowFlowBack() || auth.isAllowReview()) {
-            llNodeOperateBar.setVisibility(View.VISIBLE);
-        } else {
-            llNodeOperateBar.setVisibility(View.GONE);
-        }
-        llNodeSend.setVisibility(auth.isAllowSend() ? View.VISIBLE : View.GONE);
-        llNodeDelete.setVisibility(auth.isAllowBanned() ? View.VISIBLE : View.GONE);
-        llNodeReview.setVisibility(auth.isAllowReview() ? View.VISIBLE : View.GONE);
-        llNodeBack.setVisibility(auth.isAllowFlowBack() ? View.VISIBLE : View.GONE);
-
-        llNodeSend.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                SendDialog sendDialog = new SendDialog(BasicPersonalActivity.this, baiscPersonal.getHouseId(), String
-                        .valueOf(Status.BuildingType.PERSONAL),
-                        String.valueOf(baiscPersonal.getStatusId()), "A节点");
-                sendDialog.show();
-            }
-        });
-
-        llNodeDelete.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                DeleteDialog deleteDialog = new DeleteDialog(BasicPersonalActivity.this);
-                deleteDialog.show();
-            }
-        });
-
-        llNodeBack.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                BackDialog backDialog = new BackDialog(BasicPersonalActivity.this);
-                backDialog.show();
-            }
-        });
-
-        llNodeReview.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                ReviewDialog reviewDialog = new ReviewDialog(BasicPersonalActivity.this);
-                reviewDialog.show();
-            }
-        });
+        setSingleAuth(baiscPersonal.getAuth(), baiscPersonal.getHouseId(), String.valueOf(Status.BuildingType.PERSONAL),
+                String.valueOf(baiscPersonal.getStatusId()));
     }
+
 
     @Override
     protected boolean ifRegisterLoadSir() {
         return true;
     }
 
+    @Override
+    public void onDeleteNodeSuccess() {
+        showSuccessAndFinish("废弃成功");
+    }
+
+    @Override
+    public void onSendNodeSuccess() {
+        showSuccessAndFinish("发送成功");
+    }
+
+    @Override
+    public void onReviewNodeSuccess() {
+        showSuccessAndFinish("复查成功");
+    }
+
+    @Override
+    public void onBackNodeSuccess() {
+        showSuccessAndFinish("退回成功");
+    }
 }

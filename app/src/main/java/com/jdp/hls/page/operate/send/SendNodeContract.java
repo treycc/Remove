@@ -3,6 +3,7 @@ package com.jdp.hls.page.operate.send;
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
+import com.jdp.hls.model.entiy.ReceivePerson;
 
 import okhttp3.RequestBody;
 
@@ -14,7 +15,7 @@ import okhttp3.RequestBody;
  */
 public interface SendNodeContract {
     interface View extends BaseView {
-        void onGetNextNodePersonNameSuccess(String name);
+        void onGetNextNodePersonNameSuccess(ReceivePerson receivePerson);
 
         void onSendNodeSuccess();
     }

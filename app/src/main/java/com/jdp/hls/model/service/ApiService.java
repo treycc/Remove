@@ -37,6 +37,7 @@ import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.PublicityDetail;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.model.entiy.PublicityObject;
+import com.jdp.hls.model.entiy.ReceivePerson;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.StatisticsDetail;
@@ -442,12 +443,12 @@ public interface ApiService {
 
 
     /*家庭关系*/
-    @GET("api/person/GetPersonListByBookId")
+    @GET("api/person/GetFamilyPersonList")
     Observable<HttpResult<FamilyRelation>> getFamilyRelation(@Query("houseId") String houseId);
 
     /*家庭成员-修改*/
     @POST("api/person/SavePersonForApp")
-    Observable<HttpResult<Object>> saveFamilyRemember(@Body RequestBody requestBody);
+    Observable<HttpResult<String>> saveFamilyRemember(@Body RequestBody requestBody);
 
     /*家庭成员-删除*/
     @POST("api/person/DeletePerson")
@@ -484,7 +485,8 @@ public interface ApiService {
 
     /*获取下个节点接收人*/
     @GET("api/workflow/GetReceiveEmployee")
-    Observable<HttpResult<String>> getNextNodePersonName(@Query("buildingId") String buildingId, @Query("buildingType")
+    Observable<HttpResult<ReceivePerson>> getNextNodePersonName(@Query("buildingId") String buildingId, @Query
+            ("buildingType")
             String buildingType);
 
     /*发送*/
@@ -500,8 +502,18 @@ public interface ApiService {
     Observable<HttpResult<Object>> deleteNode(@Body RequestBody requestBody);
 
     /*复查*/
-    @POST("api/workflow/reviewNode")
+    @POST("api/workflow/FlowReview")
     Observable<HttpResult<Object>> reviewNode(@Body RequestBody requestBody);
+
+    /*复查*/
+    @GET("api/workflow/GetGroupMemberForReview")
+    Observable<HttpResult<List<ReceivePerson>>> getReviewReceiverList(@Query("buildingId") String buildingId, @Query
+            ("buildingType") String buildingType);
+
+    /*获取经办人*/
+    @GET("api/workflow/GetOperatorName")
+    Observable<HttpResult<String>> getOperatePerson(@Query("buildingId") String buildingId, @Query
+            ("buildingType") String buildingType);
 
 
 }

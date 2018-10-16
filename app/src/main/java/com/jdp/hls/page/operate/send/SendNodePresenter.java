@@ -3,6 +3,7 @@ package com.jdp.hls.page.operate.send;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.ReceivePerson;
 import com.jdp.hls.model.entiy.ResultObserver;
 
 import javax.inject.Inject;
@@ -42,10 +43,10 @@ public class SendNodePresenter implements SendNodeContract.Presenter {
     public void getNextNodePersonName(String buildingId, String buildingType) {
         mApi.getApiService().getNextNodePersonName(buildingId, buildingType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<String>(mView) {
+                (new ResultObserver<ReceivePerson>(mView) {
                     @Override
-                    protected void onSuccess(String name) {
-                        mView.onGetNextNodePersonNameSuccess(name);
+                    protected void onSuccess(ReceivePerson receivePerson) {
+                        mView.onGetNextNodePersonNameSuccess(receivePerson);
                     }
                 });
     }

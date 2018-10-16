@@ -19,7 +19,7 @@
 
     <com.kingja.supershapeview.view.SuperShapeEditText
         android:layout_margin="14dp"
-        android:id="@+id/set_reason"
+        android:id="@+id/set_dialog_reason"
         style="@style/font_3_13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

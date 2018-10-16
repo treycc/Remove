@@ -1,11 +1,8 @@
-package com.jdp.hls.page.operate.review;
+package com.jdp.hls.page.operate;
 
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
-import com.jdp.hls.model.entiy.ReceivePerson;
-
-import java.util.List;
 
 import okhttp3.RequestBody;
 
@@ -15,17 +12,19 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public interface ReviewNodeContract {
+public interface OperateNodeContract {
     interface View extends BaseView {
+        void onDeleteNodeSuccess();
+        void onSendNodeSuccess();
         void onReviewNodeSuccess();
-
-        void onGetReviewReceiverListSuccess(List<ReceivePerson> receivePersonList);
+        void onBackNodeSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
 
+        void deleteNode(RequestBody requestBody);
+        void sendNode(RequestBody requestBody);
         void reviewNode(RequestBody requestBody);
-
-        void getReviewReceiverList(String buildingId, String buildingType);
+        void backNode(RequestBody requestBody);
     }
 }

@@ -1,0 +1,91 @@
+package com.jdp.hls.page.operate;
+
+import android.support.annotation.NonNull;
+
+import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.ResultObserver;
+import com.jdp.hls.page.operate.back.BackNodeContract;
+
+import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
+
+
+/**
+ * Description：TODO
+ * Create Time：2016/10/10 16:05
+ * Author:KingJA
+ * Email:kingjavip@gmail.com
+ */
+public class OperateNodePresenter implements OperateNodeContract.Presenter {
+    private UserApi mApi;
+    private OperateNodeContract.View mView;
+
+    @Inject
+    public OperateNodePresenter(UserApi mApi) {
+        this.mApi = mApi;
+    }
+
+
+    @Override
+    public void attachView(@NonNull OperateNodeContract.View view) {
+        this.mView = view;
+    }
+
+    @Override
+    public void detachView() {
+
+    }
+
+
+    @Override
+    public void deleteNode(RequestBody requestBody) {
+        mApi.getApiService().deleteNode(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onDeleteNodeSuccess();
+                    }
+                });
+    }
+
+    @Override
+    public void sendNode(RequestBody requestBody) {
+        mApi.getApiService().sendNode(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onSendNodeSuccess();
+                    }
+                });
+    }
+
+    @Override
+    public void reviewNode(RequestBody requestBody) {
+        mApi.getApiService().reviewNode(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onReviewNodeSuccess();
+                    }
+                });
+    }
+
+    @Override
+    public void backNode(RequestBody requestBody) {
+        mApi.getApiService().backNode(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onBackNodeSuccess();
+                    }
+                });
+    }
+
+}

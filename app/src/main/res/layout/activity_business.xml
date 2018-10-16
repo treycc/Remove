@@ -68,6 +68,8 @@
         android:layout_weight="1"
         android:background="@color/white_hi"/>
 
+    <include layout="@layout/layout_operate_button"/>
+
 
 
 

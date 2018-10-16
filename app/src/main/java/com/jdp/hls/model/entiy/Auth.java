@@ -11,7 +11,6 @@ public class Auth {
     private boolean IsAllowBanned;
     private boolean IsAllowReview;
     private boolean IsAllowFlowBack;
-
     public boolean isAllowSend() {
         return IsAllowSend;
     }

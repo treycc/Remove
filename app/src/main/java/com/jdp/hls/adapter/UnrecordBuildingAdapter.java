@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jdp.hls.R;
-import com.jdp.hls.model.entiy.OtherArea;
 import com.jdp.hls.model.entiy.UnRecordBuilding;
 import com.jdp.hls.util.Base64Util;
 import com.jdp.hls.util.StringUtil;
@@ -73,7 +72,7 @@ public class UnrecordBuildingAdapter extends BaseLvAdapter<UnRecordBuilding> {
     }
 
     public String getDeleteIds() {
-        return StringUtil.getDeleteIds(deletedUnrecordBuildingList);
+        return StringUtil.getIds(deletedUnrecordBuildingList);
     }
 
     public String getEditedBase64() {

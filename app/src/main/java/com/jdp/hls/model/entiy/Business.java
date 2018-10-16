@@ -20,6 +20,15 @@ public class Business implements Serializable{
     private String StatusDesc;
     private boolean IsFlowBack;
     private boolean HasLongitudeAndLatitude;
+    private boolean selected;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
     public String getAddress() {
         return Address;

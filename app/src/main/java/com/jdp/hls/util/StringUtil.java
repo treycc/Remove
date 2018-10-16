@@ -9,7 +9,7 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class StringUtil {
-    public static String getDeleteIds(List list) {
+    public static String getIds(List list) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             if (i != list.size() - 1) {

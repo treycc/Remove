@@ -43,6 +43,15 @@ public class FamilyMember implements Serializable{
     private String IsHouseOwner;
     private String IsEnterprisePrincipal;
     private String IsLegalPerson;
+    private String BookletNum;
+
+    public String getBookletNum() {
+        return BookletNum;
+    }
+
+    public void setBookletNum(String bookletNum) {
+        BookletNum = bookletNum;
+    }
 
     public String getPersonId() {
         return PersonId;

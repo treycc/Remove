@@ -8,6 +8,7 @@ import com.jdp.hls.adapter.CommonPositionAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.event.RefreshTaskEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BusinessAction;
 import com.jdp.hls.model.entiy.LevyInfo;
@@ -20,6 +21,10 @@ import com.jdp.hls.page.statistics.StatisticsActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,68 +61,10 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
             .mipmap
             .ic_aerial_photograph_count, R.mipmap.ic_publicity_count};
 
-//    @OnClick({R.id.ll_operate_roster, R.id.ll_operate_publicity, R.id.ll_operate_plane, R.id
-//            .ll_operate_detail, R.id.ll_statistics_sign, R.id.ll_statistics_measure, R.id.ll_statistics_measureImg,
-// R.id
-//            .ll_statistics_age, R.id.ll_statistics_evaluate, R.id.ll_statistics_protocol, R.id.ll_statistics_plane,
-// R.id
-//            .ll_statistics_publicity})
-//    public void click(View view) {
-//        switch (view.getId()) {
-//            case R.id.ll_operate_roster:
-//                /*花名册*/
-//                GoUtil.goActivity(this, RosterActivity.class);
-//                break;
-//            case R.id.ll_operate_publicity:
-//                /*公示管理*/
-//                GoUtil.goActivity(this, PublicityListActivity.class);
-//                break;
-//            case R.id.ll_operate_plane:
-//                /*航拍复查*/
-//                GoUtil.goActivity(this, AirphotoListActivity.class);
-//                break;
-//            case R.id.ll_operate_detail:
-//                /*一览表*/
-//                GoUtil.goActivity(this, TableListActivity.class);
-//                break;
-//            case R.id.ll_statistics_sign:
-//                /*签约统计*/
-//                StatisticsActivity.goActivity(this,"5");
-//                break;
-//            case R.id.ll_statistics_measure:
-//                /*入户丈量*/
-//                StatisticsActivity.goActivity(this,"0");
-//                break;
-//            case R.id.ll_statistics_measureImg:
-//                /*测绘出图*/
-//                StatisticsActivity.goActivity(this,"1");
-//                break;
-//            case R.id.ll_statistics_age:
-//                /*年限鉴定*/
-//                StatisticsActivity.goActivity(this,"2");
-//                break;
-//            case R.id.ll_statistics_evaluate:
-//                /*入户评估*/
-//                StatisticsActivity.goActivity(this,"3");
-//                break;
-//            case R.id.ll_statistics_protocol:
-//                /*协议生成*/
-//                StatisticsActivity.goActivity(this,"4");
-//                break;
-//            case R.id.ll_statistics_plane:
-//                /*航拍统计*/
-//                StatisticsActivity.goActivity(this,"7");
-//                break;
-//            case R.id.ll_statistics_publicity:
-//                /*公示统计*/
-//                StatisticsActivity.goActivity(this,"6");
-//                break;
-//        }
-//    }
 
     @Override
     public void initVariable() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -225,5 +172,11 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
     @Override
     protected boolean ifRegisterLoadSir() {
         return true;
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshTaskCount(RefreshTaskEvent event) {
+        initNet();
     }
 }

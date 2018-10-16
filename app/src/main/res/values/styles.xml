@@ -392,7 +392,7 @@
     </style>
 
     <style name="CustomAlertDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowBackground">@drawable/shape_r4_white</item>
+        <item name="android:windowBackground">@drawable/shape_r8_white</item>
         <item name="android:windowNoTitle">true</item>
     </style>
 </resources>

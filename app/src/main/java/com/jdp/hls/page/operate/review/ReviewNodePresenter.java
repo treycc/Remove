@@ -3,8 +3,11 @@ package com.jdp.hls.page.operate.review;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.ReceivePerson;
 import com.jdp.hls.model.entiy.ResultObserver;
 import com.jdp.hls.page.operate.delete.DeleteNodeContract;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -48,6 +51,18 @@ public class ReviewNodePresenter implements ReviewNodeContract.Presenter {
                     @Override
                     protected void onSuccess(Object object) {
                         mView.onReviewNodeSuccess();
+                    }
+                });
+    }
+
+    @Override
+    public void getReviewReceiverList(String buildingId, String buildingType) {
+        mApi.getApiService().getReviewReceiverList(buildingId, buildingType).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<List<ReceivePerson>>(mView) {
+                    @Override
+                    protected void onSuccess(List<ReceivePerson> receivePersonList) {
+                        mView.onGetReviewReceiverListSuccess(receivePersonList);
                     }
                 });
     }

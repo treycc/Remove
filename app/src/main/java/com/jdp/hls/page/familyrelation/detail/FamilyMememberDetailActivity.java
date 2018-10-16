@@ -3,6 +3,7 @@ package com.jdp.hls.page.familyrelation.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -18,7 +19,6 @@ import com.jdp.hls.model.entiy.FamilyMember;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
-import com.jdp.hls.view.StringTextView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -47,6 +47,10 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
     KSpinner spinnerFamilyMememberType;
     @BindView(R.id.et_familyRelation_idcard)
     EnableEditText etFamilyRelationIdcard;
+    @BindView(R.id.et_familyRelation_bookletNum)
+    EnableEditText etFamilyRelationBookletNum;
+    @BindView(R.id.ll_root_bookletNum)
+    LinearLayout llRootBookletNum;
     private FamilyMember familyMember;
     private String bookletId;
     private boolean gender = true;
@@ -58,11 +62,15 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
     private List<TDict> familyRelationTitles;
     private String realName;
     private String idcard;
+    private String houseId;
+    private String typeName;
+    private String bookletNum;
 
     @Override
     public void initVariable() {
         familyMember = (FamilyMember) getIntent().getSerializableExtra(Constants.Extra.FAMILYMEMBER);
         bookletId = getIntent().getStringExtra(Constants.Extra.BOOKLETID);
+        houseId = getIntent().getStringExtra(Constants.Extra.HOUSEID);
         familyRelationTitles = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.FAMILY_RELATION);
     }
 
@@ -103,16 +111,26 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         spinnerFamilyMememberType.setBooleanDate(Arrays.asList("农业", "非农业"), selected -> {
             isFarmer = selected;
         });
-        spinnerFamilyMememberTitle.setDicts(familyRelationTitles, typeId -> {
-            titleTypeId = typeId;
+
+        spinnerFamilyMememberTitle.setDictsItem(familyRelationTitles, dict -> {
+            titleTypeId = dict.getTypeId();
+            typeName = dict.getTypeName();
         });
+        TDict defaultDict = spinnerFamilyMememberTitle.getDefaultDict();
+        titleTypeId = defaultDict.getTypeId();
+        typeName = defaultDict.getTypeName();
+
+
         if (familyMember != null) {
+            llRootBookletNum.setVisibility(View.VISIBLE);
             etFamilyRelationName.setString(familyMember.getRealName());
             etFamilyRelationIdcard.setString(familyMember.getIdcard());
+            etFamilyRelationBookletNum.setString(familyMember.getBookletNum());
             spinnerFamilyMememberGender.setSelectedIndex(familyMember.isGender() ? 0 : 1);
             spinnerFamilyMememberType.setSelectedIndex(familyMember.getIsFarming() ? 0 : 1);
             spinnerFamilyMememberTitle.setSelectItem(familyMember.getTypeId());
             titleTypeId = familyMember.getTypeId();
+            typeName = familyMember.getTypeName();
             gender = familyMember.isGender();
             isFarmer = familyMember.getIsFarming();
         }
@@ -121,15 +139,18 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
     private void modifyOtherArea() {
         realName = etFamilyRelationName.getText().toString().trim();
         idcard = etFamilyRelationIdcard.getText().toString().trim();
+        bookletNum = etFamilyRelationBookletNum.getText().toString().trim();
         familyMememberDetailPresenter.saveFamilyRemember(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("PersonId", familyMember == null ? "" : familyMember.getPersonId())
                 .addFormDataPart("BookletId", familyMember == null ? bookletId : String.valueOf(familyMember
                         .getBookletId()))
+                .addFormDataPart("HouseId", houseId)
                 .addFormDataPart("RealName", realName)
                 .addFormDataPart("TypeId", String.valueOf(titleTypeId))
                 .addFormDataPart("Gender", String.valueOf(gender))
                 .addFormDataPart("IsFarming", String.valueOf(isFarmer))
                 .addFormDataPart("Idcard", idcard)
+                .addFormDataPart("BookletNum", bookletNum)
                 .build());
     }
 
@@ -138,28 +159,32 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
 
     }
 
-    public static void goActivity(Context context, FamilyMember familyMember) {
+    public static void goActivity(Context context, FamilyMember familyMember, String houseId) {
         Intent intent = new Intent(context, FamilyMememberDetailActivity.class);
         intent.putExtra(Constants.Extra.FAMILYMEMBER, familyMember);
+        intent.putExtra(Constants.Extra.HOUSEID, houseId);
         context.startActivity(intent);
     }
 
-    public static void goActivity(Context context, String bookletId) {
+    public static void goActivity(Context context, String bookletId, String houseId) {
         Intent intent = new Intent(context, FamilyMememberDetailActivity.class);
         intent.putExtra(Constants.Extra.BOOKLETID, bookletId);
+        intent.putExtra(Constants.Extra.HOUSEID, houseId);
         context.startActivity(intent);
     }
 
     @Override
-    public void onSaveFamilyRememberSuccess() {
+    public void onSaveFamilyRememberSuccess(String personId) {
         FamilyMember eventObj = new FamilyMember();
-        eventObj.setPersonId(familyMember == null ? "" : familyMember.getPersonId());
+        eventObj.setPersonId(familyMember == null ? personId : familyMember.getPersonId());
         eventObj.setBookletId(familyMember == null ? Integer.valueOf(bookletId) : familyMember.getBookletId());
         eventObj.setRealName(realName);
         eventObj.setIdcard(idcard);
         eventObj.setTypeId(titleTypeId);
+        eventObj.setTypeName(typeName);
         eventObj.setIsFarming(isFarmer);
         eventObj.setGender(gender);
+        eventObj.setBookletNum(bookletNum);
         if (familyMember != null) {
             EventBus.getDefault().post(new ModifyFamilyMememberEvent(eventObj));
         } else {
@@ -167,4 +192,5 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         }
         showSuccessAndFinish();
     }
+
 }
