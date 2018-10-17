@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_airphoto_operateBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white_hi"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/ll_airphoto_send"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="6dp"
+                android:background="@mipmap/ic_send_node"/>
+
+            <TextView
+                style="@style/font_main_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_airphoto_review"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="6dp"
+                android:background="@mipmap/ic_launch_review"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="复查"
+                android:textColor="@color/node_back"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_airphoto_finish"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="6dp"
+                android:background="@mipmap/ic_end"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="完结"
+                android:textColor="@color/node_finish"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

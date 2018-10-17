@@ -1,7 +1,6 @@
 package com.jdp.hls.page.airphoto.unrecordbuilding;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
@@ -17,6 +16,7 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.UnRecordBuilding;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
@@ -40,8 +40,6 @@ import butterknife.BindView;
 public class UnrecordBuildingListActivity extends BaseTitleActivity {
     @BindView(R.id.plv)
     PullToBottomListView plv;
-    @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
     private UnrecordBuildingAdapter unrecordBuildingAdapter;
     private List<UnRecordBuilding> unRecordBuildingList = new ArrayList<>();
 
@@ -78,7 +76,8 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
 
     @Override
     protected void initView() {
-        unrecordBuildingAdapter = new UnrecordBuildingAdapter(this, unRecordBuildingList);
+        unrecordBuildingAdapter = new UnrecordBuildingAdapter(this, unRecordBuildingList == null ? new ArrayList() :
+                unRecordBuildingList);
         plv.setAdapter(unrecordBuildingAdapter);
     }
 
@@ -102,9 +101,6 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
             public void onItemClick(UnRecordBuilding unRecordBuilding) {
                 UnrecordBuildingDetailActivity.goActivity(UnrecordBuildingListActivity.this, unRecordBuilding);
             }
-        });
-        srl.setOnRefreshListener(() -> {
-            srl.setRefreshing(false);
         });
     }
 
@@ -133,17 +129,18 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
     protected void onBack() {
         String deleteIds = unrecordBuildingAdapter.getDeleteIds();
         String editedBase64 = unrecordBuildingAdapter.getEditedBase64();
+        List<UnRecordBuilding> unRecordBuildingList = unrecordBuildingAdapter.getData();
         Intent intent = new Intent();
         intent.putExtra(Constants.Extra.DELETEIDS, deleteIds);
         intent.putExtra(Constants.Extra.EDITEDBASE64, editedBase64);
+        intent.putExtra(Constants.Extra.UNRECORD_BUILDING_LIST, (Serializable) unRecordBuildingList);
         setResult(Activity.RESULT_OK, intent);
-        super.onBack();
-
+        LogUtil.e(TAG, "保存：" + unRecordBuildingList.size());
+        finish();
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         onBack();
     }
 }

@@ -6,6 +6,11 @@
               android:background="@color/white_hi"
               android:orientation="vertical">
 
+    <com.jdp.hls.view.RefreshSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <com.jdp.hls.view.PullToBottomListView
             android:id="@+id/plv"
             android:listSelector="@android:color/transparent"
@@ -14,4 +19,5 @@
             android:divider="@color/div_hi"
             android:dividerHeight="1px"
             tools:listitem="@layout/item_project"/>
+    </com.jdp.hls.view.RefreshSwipeRefreshLayout>
 </LinearLayout>

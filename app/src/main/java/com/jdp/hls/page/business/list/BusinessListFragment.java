@@ -1,6 +1,5 @@
 package com.jdp.hls.page.business.list;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -8,8 +7,6 @@ import android.widget.AdapterView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.BusinessAdapter;
-import com.jdp.hls.adapter.CommonAdapter;
-import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
@@ -17,7 +14,6 @@ import com.jdp.hls.event.AddRostersEvent;
 import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.event.RefreshTaskEvent;
 import com.jdp.hls.i.OnBusinessItemSelectedListener;
-import com.jdp.hls.i.OnBusinessSelectedListener;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.Roster;
@@ -94,6 +90,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
             buildingType = getArguments().getInt("buildingType", 0);
             taskType = getArguments().getInt("taskType", 0);
             checkable = getArguments().getBoolean("getCheckable");
+            LogUtil.e(TAG,"business:"+business.size());
         }
     }
 
@@ -138,7 +135,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
     @Override
     protected int getContentId() {
-        return R.layout.common_lv;
+        return R.layout.common_lv_sl;
     }
 
     @Override

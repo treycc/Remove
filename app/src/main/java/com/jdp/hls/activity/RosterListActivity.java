@@ -20,6 +20,7 @@ import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -134,17 +135,7 @@ public class RosterListActivity extends BaseTitleActivity {
                 GoUtil.goActivity(RosterListActivity.this, RosterAddActivity.class);
             }
         });
-        etRostersKeyword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
+        etRostersKeyword.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 checkData(s.toString());

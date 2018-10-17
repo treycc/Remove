@@ -57,6 +57,7 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     @Inject
     FamilyRelationPresenter familyRelationPresenter;
     private FamilyMemberAdapter familyMemberAdapter;
+    private String bookletNum;
 
     @Override
     public void initVariable() {
@@ -95,7 +96,7 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
         setRightClick("增加", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this,bookletId, houseId);
+                FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this,bookletId,bookletNum, houseId);
             }
         });
         familyMemberAdapter.setOnDeleteFamilyMemberListener(new FamilyMemberAdapter.OnDeleteFamilyMemberListener() {
@@ -129,7 +130,8 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     @Override
     public void onGetFamilyRelationSuccess(FamilyRelation familyRelation) {
          bookletId =String.valueOf(familyRelation.getBookletId()) ;
-        tvFamilyRelationNum.setText(familyRelation.getBookletNum());
+        bookletNum = familyRelation.getBookletNum();
+        tvFamilyRelationNum.setText(bookletNum);
         List<FamilyMember> familyMemberList = familyRelation.getLstPerons();
         if (familyMemberList != null && familyMemberList.size() > 0) {
             familyMemberAdapter.setData(familyMemberList);
@@ -149,11 +151,22 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addItem(AddFamilyMememberEvent event) {
-        familyMemberAdapter.addFirst(event.getFamilyMember());
+        FamilyMember familyMember = event.getFamilyMember();
+        familyMemberAdapter.addFirst(familyMember);
+        modifyBookletNum(familyMember);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void modifyItem(ModifyFamilyMememberEvent event) {
-        familyMemberAdapter.modify(event.getFamilyMember());
+        FamilyMember familyMember = event.getFamilyMember();
+        familyMemberAdapter.modify(familyMember);
+        modifyBookletNum(familyMember);
+
+    }
+
+    private void modifyBookletNum(FamilyMember familyMember) {
+        bookletNum=familyMember.getBookletNum();
+        tvFamilyRelationNum.setText(bookletNum);
+        familyMemberAdapter.modifyBookletNum(familyMember);
     }
 }

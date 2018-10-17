@@ -11,29 +11,20 @@
     <TextView
         style="@style/Title_Main"
         android:text="基本信息"/>
-
     <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/ll_root_bookletNum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            style="@style/Content_LL_T6">
+        style="@style/Content_LL_T6">
 
-            <TextView
-                style="@style/Title_Sub"
-                android:text="户号"/>
+        <TextView
+            style="@style/Title_Sub"
+            android:text="户号"/>
 
-            <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_familyRelation_bookletNum"
-                style="@style/Content_ET_W2"
-                android:hint="请输入户号"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_familyRelation_bookletNum"
+            style="@style/Content_ET_W2"
+            android:hint="请输入户号"/>
     </LinearLayout>
 
+    <View style="@style/div_hor_gray_margin24"/>
     <LinearLayout
         style="@style/Content_LL_T6">
 

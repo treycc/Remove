@@ -1,7 +1,11 @@
 package com.jdp.hls.page.airphoto.add;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -15,19 +19,36 @@ import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.AddAirPhotoEvent;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
+import com.jdp.hls.model.entiy.AirPhotoItem;
+import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.model.entiy.ModifyAirPhotoEvent;
+import com.jdp.hls.model.entiy.UnRecordBuilding;
+import com.jdp.hls.page.airphoto.unrecordbuilding.UnrecordBuildingListActivity;
+import com.jdp.hls.util.FileUtil;
+import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.view.AddableRecyclerView;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
-import com.jdp.hls.view.PreviewRecyclerView;
 import com.jdp.hls.view.StringTextView;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 
 /**
@@ -58,10 +79,10 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
     EnableEditText etAirphotoReason;
     @BindView(R.id.et_airphoto_remark)
     EnableEditText etAirphotoRemark;
-    @BindView(R.id.rv_photo_apply)
-    PreviewRecyclerView rvPhotoApply;
-    @BindView(R.id.ll_photo_apply)
-    LinearLayout llPhotoApply;
+    @BindView(R.id.rv_photo)
+    AddableRecyclerView rvPhoto;
+    @BindView(R.id.ll_airphoto_send)
+    LinearLayout llAirphotoSend;
     private List<TDict> propertyUseList;
     private List<TDict> propertyStructureList;
     @Inject
@@ -69,6 +90,21 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
     private int propertyUse;
     private int propertyStructure;
     private AirPhotoBuilding airPhotoBuilding;
+    private String editedBase64 = "";
+    List<UnRecordBuilding> unRecordBuildingList = new ArrayList<>();
+
+
+    @OnClick({R.id.rl_unrecordBuilding, R.id.ll_airphoto_send})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.rl_unrecordBuilding:
+                UnrecordBuildingListActivity.goActivity(this, unRecordBuildingList);
+                break;
+            case R.id.ll_airphoto_send:
+                airPhotoApplyPresenter.applyAirPhoto(getRequestBody().addFormDataPart("IsSend", "true").build());
+                break;
+        }
+    }
 
     @Override
     public void initVariable() {
@@ -123,10 +159,15 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
     }
 
     private void applyAirPhoto() {
+        airPhotoApplyPresenter.applyAirPhoto(getRequestBody().build());
+    }
+
+    @NonNull
+    private MultipartBody.Builder getRequestBody() {
         String remark = etAirphotoRemark.getText().toString().trim();
         String layer = etAirphotoLayer.getText().toString().trim();
         String reason = etAirphotoReason.getText().toString().trim();
-        airPhotoApplyPresenter.applyAirPhoto(new MultipartBody.Builder().setType(MultipartBody.FORM)
+        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("BuildingId", airPhotoBuilding.getBuildingId())
                 .addFormDataPart("BuildingType", String.valueOf(airPhotoBuilding.getBuilldingType()))
                 .addFormDataPart("BuildingStructureType", String.valueOf(propertyStructure))
@@ -134,13 +175,22 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
                 .addFormDataPart("Layer", layer)
                 .addFormDataPart("Remark", remark)
                 .addFormDataPart("Reason", reason)
-                .addFormDataPart("JsonItems", "")
-                .build());
-
+                .addFormDataPart("JsonItems", editedBase64);
+        List<ImgInfo> imgInfos = rvPhoto.getDate();
+        for (int i = 0; i < imgInfos.size(); i++) {
+            Uri uri = imgInfos.get(i).getUri();
+            if (uri != null) {
+                File photoFile = FileUtil.getFileByUri(uri, this);
+                bodyBuilder.addFormDataPart("Files" + i, photoFile.getName(), RequestBody.create(MediaType
+                        .parse("image/*"), photoFile));
+            }
+        }
+        return bodyBuilder;
     }
 
     @Override
     protected void initNet() {
+
     }
 
 
@@ -151,8 +201,30 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
     }
 
     @Override
-    public void onApplyAirPhotoSuccess() {
-        showSuccessAndFinish();
+    public void onApplyAirPhotoSuccess(AirPhotoItem airPhotoItem) {
+        EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem));
+        showSuccessAndFinish("发起初审成功");
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            switch (requestCode) {
+                case Constants.RequestCode.UNRECORDBUILDING:
+                    editedBase64 = data.getStringExtra(Constants.Extra.EDITEDBASE64);
+                    unRecordBuildingList = (List<UnRecordBuilding>) data.getSerializableExtra(Constants.Extra
+                            .UNRECORD_BUILDING_LIST);
+                    LogUtil.e(TAG, "editedBase64:" + editedBase64);
+                    LogUtil.e(TAG, "unRecordBuildingList:" + unRecordBuildingList.size());
+                    break;
+                case MatisseUtil.REQUEST_CODE_CHOOSE:
+                    rvPhoto.onPhotoCallback(requestCode, resultCode, data);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
 }

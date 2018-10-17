@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.jdp.hls.R;
 import com.jdp.hls.model.entiy.AirPhotoItem;
+import com.jdp.hls.model.entiy.Person;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,10 +16,28 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class AirPhotoListAdapter extends CommonAdapter<AirPhotoItem> {
+    private List<AirPhotoItem> selectDatas = new ArrayList<>();
+
     public AirPhotoListAdapter(Context context, List<AirPhotoItem> datas, int itemLayoutId) {
         super(context, datas, itemLayoutId);
+        selectDatas = datas;
+    }
+    @Override
+    public AirPhotoItem getItem(int position) {
+        return selectDatas.get(position);
     }
 
+    @Override
+    public int getCount() {
+        return selectDatas.size();
+    }
+
+    @Override
+    public void setData(List<AirPhotoItem> list) {
+        selectDatas = list;
+        mDatas = list;
+        notifyDataSetChanged();
+    }
 
     @Override
     public void convert(ViewHolder helper, AirPhotoItem item) {
@@ -44,6 +64,17 @@ public class AirPhotoListAdapter extends CommonAdapter<AirPhotoItem> {
                 item.setRealName(airPhotoItem.getRealName());
                 item.setMobilePhone(airPhotoItem.getMobilePhone());
                 item.setLayer(airPhotoItem.getLayer());
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void search(String keyword) {
+        selectDatas = new ArrayList<>();
+        for (AirPhotoItem person : mDatas) {
+            if (person.getRealName().contains(keyword) || person.getAddress().contains(keyword) || person
+                    .getMobilePhone().contains(keyword) || person.getCusCode().contains(keyword)) {
+                selectDatas.add(person);
             }
         }
         notifyDataSetChanged();

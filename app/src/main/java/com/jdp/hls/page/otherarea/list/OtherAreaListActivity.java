@@ -66,7 +66,7 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
 
     @Override
     protected int getContentView() {
-        return R.layout.common_lv;
+        return R.layout.common_lv_sl;
     }
 
     @Override

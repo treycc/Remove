@@ -176,7 +176,7 @@ public interface ApiService {
 
     /*航拍-发起*/
     @POST("api/AirCheck/Add")
-    Observable<HttpResult<Object>> applyAirPhoto(@Body RequestBody rosterBody);
+    Observable<HttpResult<AirPhotoItem>> applyAirPhoto(@Body RequestBody rosterBody);
 
     /*航拍-修改*/
     @POST("api/AirCheck/Update")
@@ -515,5 +515,19 @@ public interface ApiService {
     Observable<HttpResult<String>> getOperatePerson(@Query("buildingId") String buildingId, @Query
             ("buildingType") String buildingType);
 
+    /*航拍复查-发送*/
+    @POST("api/AirCheck/ReAdd")
+    Observable<HttpResult<Object>> sendAirPhoto(@Body RequestBody requestBody);
 
+    /*航拍复查-完结*/
+    @POST("api/AirCheck/CloseFinished")
+    Observable<HttpResult<Object>> finishAirPhoto(@Body RequestBody requestBody);
+
+    /*航拍复查-复查*/
+    @POST("api/AirCheck/ReAdd")
+    Observable<HttpResult<AirPhotoItem>> reviewAirPhoto(@Body RequestBody requestBody);
+
+    /*航拍复查-年限上传图片*/
+    @POST("api/AirCheck/UpdateByAppraise")
+    Observable<HttpResult<Object>> updateAgePhotos(@Body RequestBody requestBody);
 }

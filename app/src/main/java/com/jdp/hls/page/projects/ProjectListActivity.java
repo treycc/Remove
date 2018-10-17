@@ -82,7 +82,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
 
     @Override
     protected int getContentView() {
-        return R.layout.common_lv;
+        return R.layout.common_lv_sl;
     }
 
     @Override

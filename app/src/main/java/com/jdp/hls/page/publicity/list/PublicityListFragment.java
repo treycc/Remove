@@ -139,7 +139,7 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
 
     @Override
     protected int getContentId() {
-        return R.layout.common_lv;
+        return R.layout.common_lv_sl;
     }
 
     @Override

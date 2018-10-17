@@ -3,6 +3,7 @@ package com.jdp.hls.page.airphoto.add;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
 
@@ -32,10 +33,10 @@ public class AirPhotoApplyPresenter implements AirPhotoApplyContract.Presenter {
     public void applyAirPhoto(RequestBody rosterBody) {
         mApi.getApiService().applyAirPhoto(rosterBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<AirPhotoItem>(mView) {
                     @Override
-                    protected void onSuccess(Object object) {
-                        mView.onApplyAirPhotoSuccess();
+                    protected void onSuccess(AirPhotoItem airPhotoItem) {
+                        mView.onApplyAirPhotoSuccess(airPhotoItem);
                     }
                 });
     }

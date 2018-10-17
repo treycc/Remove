@@ -23,11 +23,17 @@ import java.util.List;
  */
 public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
     protected final String TAG = getClass().getSimpleName();
+    private boolean editable = true;
     private List<String> deleteImgIds = new ArrayList<>();
     private OnImgDeletedListener onImgDeletedListener;
 
     public ImgAdapter(Context context, List<ImgInfo> list) {
         super(context, list);
+    }
+
+    public ImgAdapter(Context context, List<ImgInfo> list, boolean editable) {
+        super(context, list);
+        this.editable = editable;
     }
 
     @Override
@@ -40,10 +46,11 @@ public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
         return R.layout.item_img_clear;
     }
 
+
     @Override
     protected void bindHolder(ViewHolder baseHolder, List<ImgInfo> list, int position) {
         final ImgInfoViewHolder holder = (ImgInfoViewHolder) baseHolder;
-        if (position == getItemCount() - 1) {
+        if (editable && (position == getItemCount() - 1)) {
             holder.iv_img.setImageResource(R.mipmap.bg_add_photo);
             holder.iv_clear.setVisibility(View.GONE);
         } else {
@@ -54,7 +61,7 @@ public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
                 ImageLoader.getInstance().loadImage(context, url, holder.iv_img);
             }
 
-            holder.iv_clear.setVisibility(View.VISIBLE);
+            holder.iv_clear.setVisibility(editable ? View.VISIBLE : View.GONE);
             holder.iv_clear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -75,6 +82,11 @@ public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
 
     public void setOnImgDeletedListener(OnImgDeletedListener onImgDeletedListener) {
         this.onImgDeletedListener = onImgDeletedListener;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -134,7 +146,7 @@ public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
 
     @Override
     public int getItemCount() {
-        return super.getItemCount() + 1;
+        return editable ? super.getItemCount() + 1 : super.getItemCount();
     }
 
     class ImgInfoViewHolder extends ViewHolder {

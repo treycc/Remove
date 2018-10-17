@@ -48,14 +48,50 @@ public class AirPhotoItem {
     private String RealName;
     private String Remark;
     private int PropertyUseType;
+    private int CheckType;
+    private int CurrentNodeType;
     private String ProjectName;
     private String ProjectAddress;
     private String PropertyUseTypeName;
     private String BuildingStructureTypeName;
+    private String CheckTypeName;
     private boolean IsAllowEdit;
     private List<ImgInfo> AppraiseFiles;
     private List<ImgInfo> Files;
     private List<UnRecordBuilding> Items;
+    private AuthAirPhoto Auth;
+
+    public int getCurrentNodeType() {
+        return CurrentNodeType;
+    }
+
+    public void setCurrentNodeType(int currentNodeType) {
+        CurrentNodeType = currentNodeType;
+    }
+
+    public String getCheckTypeName() {
+        return CheckTypeName;
+    }
+
+    public void setCheckTypeName(String checkTypeName) {
+        CheckTypeName = checkTypeName;
+    }
+
+    public int getCheckType() {
+        return CheckType;
+    }
+
+    public void setCheckType(int checkType) {
+        CheckType = checkType;
+    }
+
+    public AuthAirPhoto getAuth() {
+        return Auth;
+    }
+
+    public void setAuth(AuthAirPhoto auth) {
+        Auth = auth;
+    }
 
     public int getPropertyUseType() {
         return PropertyUseType;

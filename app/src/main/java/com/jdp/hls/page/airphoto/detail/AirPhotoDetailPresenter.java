@@ -53,6 +53,54 @@ public class AirPhotoDetailPresenter implements AirPhotoDetailContract.Presenter
                 });
     }
 
+    @Override
+    public void sendAirPhoto(RequestBody requestBody) {
+        mApi.getApiService().modifyAirPhotoDetail(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<AirPhotoItem>(mView) {
+                    @Override
+                    protected void onSuccess(AirPhotoItem airPhotoItem) {
+                        mView.onSendAirPhotoSuccess(airPhotoItem);
+                    }
+                });
+    }
+
+    @Override
+    public void finishAirPhoto(RequestBody requestBody) {
+        mApi.getApiService().finishAirPhoto(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onFinishAirPhotoSuccess();
+                    }
+                });
+    }
+
+    @Override
+    public void reviewAirPhoto(RequestBody requestBody) {
+        mApi.getApiService().reviewAirPhoto(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<AirPhotoItem>(mView) {
+                    @Override
+                    protected void onSuccess(AirPhotoItem airPhotoItem) {
+                        mView.onReviewAirPhotoSuccess(airPhotoItem);
+                    }
+                });
+    }
+
+    @Override
+    public void updateAgePhotos(RequestBody requestBody) {
+        mApi.getApiService().updateAgePhotos(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onUpdateAgePhotosSuccess();
+                    }
+                });
+    }
+
 
     @Override
     public void attachView(@NonNull AirPhotoDetailContract.View view) {

@@ -1,9 +1,8 @@
 package com.jdp.hls.page.airphoto.list;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,9 +15,11 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.airphoto.building.AirPhotoBuildingActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.SimpleTextWatcher;
+import com.jdp.hls.util.SpSir;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Description:航拍复查
@@ -40,8 +41,16 @@ public class AirphotoListActivity extends BaseTitleActivity {
     private String[] tabTitles = {"待办航拍", "已办航拍", "办结航拍"};
     private int[] tabIcons = {R.drawable.selector_tab_airphoto_todo, R.drawable.selector_tab_airphoto_done, R
             .drawable.selector_tab_airphoto_finish};
-    private Fragment mFragmentArr[] = new AirPhotoListFragment[3];
+    private AirPhotoListFragment mFragmentArr[] = new AirPhotoListFragment[3];
 
+    @OnClick({R.id.iv_clear})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.iv_clear:
+                etAirphotoKeyword.setText("");
+                break;
+        }
+    }
     @Override
     public void initVariable() {
 
@@ -83,12 +92,26 @@ public class AirphotoListActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        setRightClick("初审", new NoDoubleClickListener() {
+        if (SpSir.getInstance().isOperate()) {
+            setRightClick("初审", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    GoUtil.goActivity(AirphotoListActivity.this, AirPhotoBuildingActivity.class);
+                }
+            });
+        }
+        etAirphotoKeyword.addTextChangedListener(new SimpleTextWatcher() {
             @Override
-            public void onNoDoubleClick(View v) {
-                GoUtil.goActivity(AirphotoListActivity.this, AirPhotoBuildingActivity.class);
+            public void afterTextChanged(Editable s) {
+                search(s.toString());
+                ivClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
             }
         });
+    }
+    private void search(String keyword) {
+        for (int i = 0; i < mFragmentArr.length; i++) {
+            mFragmentArr[i].search(keyword);
+        }
     }
 
     @Override
@@ -96,10 +119,4 @@ public class AirphotoListActivity extends BaseTitleActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

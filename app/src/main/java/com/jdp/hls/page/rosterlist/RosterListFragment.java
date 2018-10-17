@@ -148,7 +148,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
 
     @Override
     protected int getContentId() {
-        return R.layout.common_lv;
+        return R.layout.common_lv_sl;
     }
 
     @Override

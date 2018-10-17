@@ -3,6 +3,7 @@ package com.jdp.hls.page.airphoto.add;
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
+import com.jdp.hls.model.entiy.AirPhotoItem;
 
 import okhttp3.RequestBody;
 
@@ -14,7 +15,7 @@ import okhttp3.RequestBody;
  */
 public interface AirPhotoApplyContract {
     interface View extends BaseView {
-        void onApplyAirPhotoSuccess();
+        void onApplyAirPhotoSuccess(AirPhotoItem airPhotoItem);
     }
 
     interface Presenter extends BasePresenter<View> {

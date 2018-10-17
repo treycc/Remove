@@ -91,6 +91,7 @@ public class Constants {
         String DELETEIDS = "deleteIds";
         String EDITEDBASE64 = "editedBase64";
         String BOOKLETID = "bookletId";
+        String BOOKLETNUM = "bookletNum";
         String FAMILYMEMBER = "familyMember";
         String COMPENSATION_TYPE = "compensationType";
         String DECORATION_ITEM = "decorationItem";

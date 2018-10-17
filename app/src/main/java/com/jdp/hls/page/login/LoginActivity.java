@@ -186,6 +186,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
         SpSir.getInstance().setAccountAlias(userInfo.getAccountAlias());
         SpSir.getInstance().setServerName(account.getServerName());
         SpSir.getInstance().setProtocolUrl(account.getProtocolUrl());
+        SpSir.getInstance().setAccountType(userInfo.getAccountType());
     }
 
 }

@@ -57,6 +57,20 @@ public class Status {
         String DECORATION = "1";
         String APPENDANT = "2";
     }
+    public interface AccountType {
+        int OPERATEMAN = 10;
+    }
 
+    public interface BusinessActionType {
+        int ROSTER = 1;
+        int PUBLICITY = 2;
+        int AIRPHOTO = 3;
+        int TABLE = 4;
+    }
+    public interface AirPhotoType {
+        int FIRST = 0;
+        int MIDDLE = 1;
+        int LAST = 2;
+    }
 
 }

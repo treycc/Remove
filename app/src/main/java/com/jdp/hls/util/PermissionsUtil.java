@@ -24,21 +24,21 @@ import io.reactivex.disposables.Disposable;
  * Email:kingjavip@gmail.com
  */
 public class PermissionsUtil {
-    public static void checkOpenPhoto(AppCompatActivity context) {
+    public static void checkOpenPhoto(AppCompatActivity context, int requestCode) {
         RxPermissions rxPermission = new RxPermissions(context);
         Disposable disposable = rxPermission
                 .requestEachCombined(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(permission -> {
                     if (permission.granted) {
                         // 用户已经同意该权限
-                        MatisseUtil.openCamera(context, Constants.MAX_IMG_UPLOAD_COUNT);
+                        MatisseUtil.openCamera(context, Constants.MAX_IMG_UPLOAD_COUNT, requestCode);
                     } else if (permission.shouldShowRequestPermissionRationale) {
                         // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
                         DialogUtil.showDoubleDialog(context, "为保证您正常上传图片，需要获取打开相机、读写手机存储权限，请允许", new
                                 MaterialDialog.SingleButtonCallback() {
                                     @Override
                                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        checkOpenPhoto(context);
+                                        checkOpenPhoto(context, requestCode);
                                     }
                                 });
                     } else {
@@ -53,6 +53,10 @@ public class PermissionsUtil {
                                 });
                     }
                 });
+    }
+
+    public static void checkOpenPhoto(AppCompatActivity context) {
+        checkOpenPhoto(context, MatisseUtil.REQUEST_CODE_CHOOSE);
     }
 
     private static void startAppSettings(AppCompatActivity context) {

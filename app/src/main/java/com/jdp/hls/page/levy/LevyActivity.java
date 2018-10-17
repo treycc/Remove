@@ -8,6 +8,7 @@ import com.jdp.hls.adapter.CommonPositionAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.RefreshTaskEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BusinessAction;
@@ -32,6 +33,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.functions.Predicate;
 
 /**
  * Description:TODO
@@ -121,20 +124,21 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
             BusinessListActivity.GoActivity(LevyActivity.this, task.getTaskType(), task.getTaskTypeName());
         });
         gvBusinessAction.setOnItemClickListener((parent, view, position, id) -> {
-            switch (position) {
-                case 0:
+            BusinessAction businessAction = (BusinessAction) parent.getItemAtPosition(position);
+            switch (businessAction.getActionId()) {
+                case Status.BusinessActionType.ROSTER:
                     /*花名册*/
                     GoUtil.goActivity(this, RosterActivity.class);
                     break;
-                case 1:
+                case Status.BusinessActionType.PUBLICITY:
                     /*公示管理*/
                     GoUtil.goActivity(this, PublicityListActivity.class);
                     break;
-                case 2:
+                case Status.BusinessActionType.AIRPHOTO:
                     /*航拍复查*/
                     GoUtil.goActivity(this, AirphotoListActivity.class);
                     break;
-                case 3:
+                case Status.BusinessActionType.TABLE:
                     /*一览表*/
                     GoUtil.goActivity(this, TableListActivity.class);
                     break;
@@ -161,12 +165,22 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
         }
         List<BusinessAction> businessActionList = levyInfo.getLstAppAction();
         if (businessActionList != null && businessActionList.size() > 0) {
-            businessActionAdapter.setData(businessActionList);
+            businessActionAdapter.setData(getAvailableActionList(businessActionList));
         }
         List<BusinessAction> statisticsActionList = levyInfo.getLstStatisAction();
         if (statisticsActionList != null && statisticsActionList.size() > 0) {
             statisticsActionAdapter.setData(statisticsActionList);
         }
+    }
+
+    private List getAvailableActionList(List<BusinessAction> businessActionList) {
+        List<BusinessAction>actionList=new ArrayList<>();
+        for (BusinessAction businessAction : businessActionList) {
+            if (businessAction.isAvailable()) {
+                actionList.add(businessAction);
+            }
+        }
+        return actionList;
     }
 
     @Override

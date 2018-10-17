@@ -72,7 +72,16 @@ public class UnrecordBuildingAdapter extends BaseLvAdapter<UnRecordBuilding> {
     }
 
     public String getDeleteIds() {
-        return StringUtil.getIds(deletedUnrecordBuildingList);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < deletedUnrecordBuildingList.size(); i++) {
+            if (i != deletedUnrecordBuildingList.size() - 1) {
+                sb.append(String.valueOf(deletedUnrecordBuildingList.get(i).getId()));
+                sb.append("#");
+            } else {
+                sb.append(String.valueOf(deletedUnrecordBuildingList.get(i).getId()));
+            }
+        }
+        return sb.toString();
     }
 
     public String getEditedBase64() {
@@ -86,7 +95,7 @@ public class UnrecordBuildingAdapter extends BaseLvAdapter<UnRecordBuilding> {
         if (editedList.size() > 0) {
             result = new Gson().toJson(editedList);
         }
-        return Base64Util.encode(result);
+        return result;
     }
 
     public void addFirst(UnRecordBuilding unRecordBuilding) {

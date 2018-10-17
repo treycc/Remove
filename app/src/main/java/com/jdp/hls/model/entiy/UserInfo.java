@@ -15,9 +15,16 @@ public class UserInfo {
     private String HeadUrl;
     private String MobilePhone;
     private int AccountName;
+    private int AccountType;
     private String AccountAlias;
 
+    public int getAccountType() {
+        return AccountType;
+    }
 
+    public void setAccountType(int accountType) {
+        AccountType = accountType;
+    }
 
     public int getEmployeeId() {
         return EmployeeId;

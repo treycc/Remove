@@ -21,9 +21,13 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class MatisseUtil {
-    public static final int REQUEST_CODE_CHOOSE=888;
+    public static final int REQUEST_CODE_CHOOSE = 888;
 
-    public static void openCamera(Activity context,int maxCount) {
+    public static void openCamera(Activity context, int maxCount) {
+        openCamera(context, maxCount, REQUEST_CODE_CHOOSE);
+    }
+
+    public static void openCamera(Activity context, int maxCount, int requestCode) {
         Matisse.from(context)
                 .choose(MimeType.ofAll(), false)
                 .countable(true)
@@ -35,8 +39,9 @@ public class MatisseUtil {
                 .thumbnailScale(0.85f)
                 .originalEnable(true)
                 .maxOriginalSize(10)
-                .forResult(REQUEST_CODE_CHOOSE);
+                .forResult(requestCode);
     }
+
     public static void openCameraInFragment(Fragment context, int maxCount) {
         Matisse.from(context)
                 .choose(MimeType.ofAll(), false)
@@ -51,6 +56,7 @@ public class MatisseUtil {
                 .maxOriginalSize(10)
                 .forResult(REQUEST_CODE_CHOOSE);
     }
+
     public static List<ImgInfo> getImgInfoFromUri(List<Uri> uris) {
         List<ImgInfo> imgInfos = new ArrayList<>();
         for (Uri uri : uris) {
@@ -77,7 +83,7 @@ public class MatisseUtil {
             DTOImgInfo dtoImgInfo = new DTOImgInfo();
             if (imgInfo.getUri() == null) {
                 dtoImgInfo.setUrl(imgInfo.getFileUrl());
-            }else{
+            } else {
                 dtoImgInfo.setUriStr(imgInfo.getUri().toString());
             }
             dtoImgInfos.add(dtoImgInfo);

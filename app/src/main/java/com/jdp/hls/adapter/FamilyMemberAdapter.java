@@ -68,6 +68,7 @@ public class FamilyMemberAdapter extends BaseLvAdapter<FamilyMember> {
 
     public void modify(FamilyMember familyMember) {
         for (FamilyMember item : list) {
+            item.setBookletNum(familyMember.getBookletNum());
             if (item.getPersonId().equals(familyMember.getPersonId())) {
                 item.setGender(familyMember.isGender());
                 item.setRealName(familyMember.getRealName());
@@ -76,6 +77,13 @@ public class FamilyMemberAdapter extends BaseLvAdapter<FamilyMember> {
                 item.setTypeId(familyMember.getTypeId());
                 item.setTypeName(familyMember.getTypeName());
             }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void modifyBookletNum(FamilyMember familyMember) {
+        for (FamilyMember item : list) {
+            item.setBookletNum(familyMember.getBookletNum());
         }
         notifyDataSetChanged();
     }

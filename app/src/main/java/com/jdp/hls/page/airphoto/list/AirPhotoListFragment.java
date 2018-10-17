@@ -1,6 +1,5 @@
 package com.jdp.hls.page.airphoto.list;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -8,13 +7,9 @@ import android.widget.AdapterView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.AirPhotoListAdapter;
-import com.jdp.hls.adapter.CommonAdapter;
-import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
-import com.jdp.hls.event.AddOtherEvent;
-import com.jdp.hls.event.ModifyOtherEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.AddAirPhotoEvent;
 import com.jdp.hls.model.entiy.AirPhotoItem;
@@ -116,7 +111,7 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
 
     @Override
     protected int getContentId() {
-        return R.layout.common_lv;
+        return R.layout.common_lv_sl;
     }
 
     @Override
@@ -132,6 +127,10 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     @Override
     public void onRefresh() {
         initNet();
+    }
+
+    public void search(String keyword) {
+        adapter.search( keyword);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

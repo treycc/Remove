@@ -144,14 +144,12 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
         tabBusiness.setTabMode(TabLayout.MODE_FIXED);
         tabBusiness.addTab(tabBusiness.newTab().setText(tabBusinessTitles[0]));
         tabBusiness.addTab(tabBusiness.newTab().setText(tabBusinessTitles[1]));
-
         personalListFragment = BusinessListFragment.newInstance(personalBusiness, taskType,
                 Status.BuildingType.PERSONAL, checkable);
-        companyListFragment = BusinessListFragment.newInstance(personalBusiness, taskType,
+        companyListFragment = BusinessListFragment.newInstance(companyBusiness, taskType,
                 Status.BuildingType.COMPANY, checkable);
         personalListFragment.setOnBusinessSelectedListener(this);
         companyListFragment.setOnBusinessSelectedListener(this);
-
 
         mFragmentArr[0] = personalListFragment;
         mFragmentArr[1] = companyListFragment;

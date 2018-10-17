@@ -49,8 +49,6 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
     EnableEditText etFamilyRelationIdcard;
     @BindView(R.id.et_familyRelation_bookletNum)
     EnableEditText etFamilyRelationBookletNum;
-    @BindView(R.id.ll_root_bookletNum)
-    LinearLayout llRootBookletNum;
     private FamilyMember familyMember;
     private String bookletId;
     private boolean gender = true;
@@ -71,6 +69,7 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         familyMember = (FamilyMember) getIntent().getSerializableExtra(Constants.Extra.FAMILYMEMBER);
         bookletId = getIntent().getStringExtra(Constants.Extra.BOOKLETID);
         houseId = getIntent().getStringExtra(Constants.Extra.HOUSEID);
+        bookletNum = getIntent().getStringExtra(Constants.Extra.BOOKLETNUM);
         familyRelationTitles = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.FAMILY_RELATION);
     }
 
@@ -119,10 +118,10 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         TDict defaultDict = spinnerFamilyMememberTitle.getDefaultDict();
         titleTypeId = defaultDict.getTypeId();
         typeName = defaultDict.getTypeName();
-
+        etFamilyRelationBookletNum.setString(bookletNum==null?"":bookletNum);
 
         if (familyMember != null) {
-            llRootBookletNum.setVisibility(View.VISIBLE);
+            etFamilyRelationBookletNum.setString(familyMember.getBookletNum());
             etFamilyRelationName.setString(familyMember.getRealName());
             etFamilyRelationIdcard.setString(familyMember.getIdcard());
             etFamilyRelationBookletNum.setString(familyMember.getBookletNum());
@@ -166,9 +165,10 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         context.startActivity(intent);
     }
 
-    public static void goActivity(Context context, String bookletId, String houseId) {
+    public static void goActivity(Context context, String bookletId,String bookletNum, String houseId) {
         Intent intent = new Intent(context, FamilyMememberDetailActivity.class);
         intent.putExtra(Constants.Extra.BOOKLETID, bookletId);
+        intent.putExtra(Constants.Extra.BOOKLETNUM, bookletNum);
         intent.putExtra(Constants.Extra.HOUSEID, houseId);
         context.startActivity(intent);
     }

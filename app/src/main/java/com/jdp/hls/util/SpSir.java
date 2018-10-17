@@ -3,6 +3,7 @@ package com.jdp.hls.util;
 import android.content.SharedPreferences;
 
 import com.jdp.hls.base.App;
+import com.jdp.hls.constant.Status;
 
 
 /**
@@ -29,6 +30,7 @@ public class SpSir {
     private String ServerName = "ServerName";
     private String ProtocolUrl = "ProtocolUrl";
     private String UserName = "UserName";
+    private String AccountType = "accountType";
     private static final String EMPTY_STRING = "";
     private static final int ZERO_INT = -1;
     private static SpSir mSpSir;
@@ -168,7 +170,9 @@ public class SpSir {
 
     public void setProtocolUrl(String protocolUrl) {
         putString(ProtocolUrl, protocolUrl);
-    }  public String getUserName() {
+    }
+
+    public String getUserName() {
         return getString(UserName);
     }
 
@@ -182,6 +186,18 @@ public class SpSir {
 
     public void setIfRememberBaby(boolean ifRememberBaby) {
         putboolean(IfRememberBaby, ifRememberBaby);
+    }
+
+    public int getAccountType() {
+        return getInt(AccountType);
+    }
+
+    public void setAccountType(int accountType) {
+        putInt(AccountType, accountType);
+    }
+
+    public boolean isOperate() {
+        return getAccountType() == Status.AccountType.OPERATEMAN;
     }
 
     private String getString(String key, String defaultValue) {
