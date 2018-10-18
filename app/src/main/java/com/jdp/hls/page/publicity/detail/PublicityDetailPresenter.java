@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.PublicityDetail;
+import com.jdp.hls.model.entiy.ResultObserver;
 
 import javax.inject.Inject;
 
@@ -44,7 +45,7 @@ public class PublicityDetailPresenter implements PublicityDetailContract.Present
     public void modifyPublicity(RequestBody rosterBody) {
         mApi.getApiService().modifyPublicity(rosterBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<Object>(mView) {
+                (new ResultObserver<Object>(mView) {
                     @Override
                     protected void onSuccess(Object object) {
                         mView.onModifyPublicitySuccess();

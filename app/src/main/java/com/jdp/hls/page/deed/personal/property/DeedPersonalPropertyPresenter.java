@@ -33,7 +33,7 @@ public class DeedPersonalPropertyPresenter implements DeedPersonalPropertyContra
     public void getDeedPersonalProperty(String houseId) {
         mApi.getApiService().getDeedPersonalProperty(houseId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<DeedPersonalProperty>(mView) {
+                (new LoadSirObserver<DeedPersonalProperty>(mView) {
                     @Override
                     protected void onSuccess(DeedPersonalProperty deedPersonalProperty) {
                         mView.onGetDeedPersonalPropertySuccess(deedPersonalProperty);

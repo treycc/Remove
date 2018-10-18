@@ -22,7 +22,10 @@ public class Status {
         int PERSONAL = 0;
         int COMPANY = 1;
     }
-
+    public interface BuildingTypeStr {
+        String PERSONAL = "0";
+        String COMPANY = "1";
+    }
     public interface PublicityType {
         int SURVEY = 0;
         int AFFIRM = 1;
@@ -72,5 +75,32 @@ public class Status {
         int MIDDLE = 1;
         int LAST = 2;
     }
+    public interface FileType {
+        int BASIC = 0;
+        int PERSONAL_CURRENT = 2;
+        int PERSONAL_DEED_IMMOVABLE = 1;
+        int PERSONAL_DEED_LAND = 3;
+        int PERSONAL_DEED_PROPERTY = 4;
+        int COMPANY_DEED_BUSINESS = 5;
+        int COMPANY_CURRENT = 6;
+        int COMPANY_DEED_IMMOVABLE = 7;
+        int COMPANY_DEED_LAND = 8;
+        int COMPANY_DEED_PROPERTY = 9;
+        int SUGGEST = 10;
+        int COMPENSATE_CASE = 11;
+        int COMPENSATE = 12;
+        int NODE_MEASURE = 13;
+        int NODE_MAPPING = 14;
+        int NODE_AGE = 15;
+        int NODE_EVALUATE = 16;
+        int NODE_PROTOCOL = 17;
+        int NODE_PROTOCOL_SIGN = 18;
+        int BUSINESS_PUBLICITY = 30;
+        int BUSINESS_AIRPHOTO = 31;
+        int OTHER = 100;
+    }
 
+//    文件类型 基础 = 0, 个人不动产证 = 1, 个人房屋现状 = 2, 个人土地证 = 3, 个人房产证 = 4, 企业证件 = 5, 企业现状 = 6, 企业不动产证 = 7, 企业土地证 = 8, 企业房产证 = 9,
+//            意见和建议文件 = 10, 赔偿案例 = 11, 赔偿 = 12, 入户丈量 = 13, 测绘出图 = 14, 年限鉴定 = 15, 入户评估 = 16, 协议生成 = 17, 协议签约 = 18, 公示 =
+//            30, 航拍复查 = 31, 其它 = 100
 }

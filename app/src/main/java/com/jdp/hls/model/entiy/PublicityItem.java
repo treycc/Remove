@@ -16,6 +16,7 @@ public class PublicityItem {
     private String PubStatusDesc;
     private int BuildingType;
     private int BuildingCount;
+    private int TotalQuantity;
     private String StartDate;
     private String EndDate;
     private String Descriptiton;
@@ -23,6 +24,14 @@ public class PublicityItem {
     private int groupId;
     private String CreateDatetime;
     private boolean IsAllowEdit;
+
+    public int getTotalQuantity() {
+        return TotalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        TotalQuantity = totalQuantity;
+    }
 
     public int getPubId() {
         return PubId;

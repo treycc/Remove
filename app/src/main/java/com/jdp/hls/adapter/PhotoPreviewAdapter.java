@@ -15,6 +15,7 @@ import com.jdp.hls.R;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.DTOImgInfo;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,11 +29,17 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class PhotoPreviewAdapter extends BaseLvAdapter<ImgInfo> {
+    private boolean editable;
     private boolean showCheckbox;
     private ArrayList<String> deleteIds = new ArrayList<>();
 
     public PhotoPreviewAdapter(Context context, List<ImgInfo> list) {
         super(context, list);
+    }
+
+    public PhotoPreviewAdapter(Context context, List<ImgInfo> list, boolean editable) {
+        super(context, list);
+        this.editable = editable;
     }
 
     public void showCheckbox(boolean showCheckbox) {
@@ -42,7 +49,7 @@ public class PhotoPreviewAdapter extends BaseLvAdapter<ImgInfo> {
 
     @Override
     public int getCount() {
-        return list.size() + 1;
+        return editable ? list.size() + 1 : list.size();
     }
 
 
@@ -57,25 +64,24 @@ public class PhotoPreviewAdapter extends BaseLvAdapter<ImgInfo> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (position == getCount() - 1) {
+        if (editable && position == getCount() - 1) {
             viewHolder.iv_img.setImageResource(R.mipmap.bg_add_photo);
             viewHolder.cb_check.setVisibility(View.GONE);
         } else {
             String url = list.get(position).getSmallImgUrl();
             if (TextUtils.isEmpty(url)) {
                 ImageLoader.getInstance().loadImage(context, list.get(position).getUri(), viewHolder.iv_img);
-            }else{
+            } else {
                 ImageLoader.getInstance().loadImage(context, url, viewHolder.iv_img);
             }
 
-            viewHolder.iv_img.setColorFilter(list.get(position).isChecked() ? ContextCompat.getColor(context, R.color
-                    .half_t) : Color.TRANSPARENT);
+//            viewHolder.iv_img.setColorFilter(list.get(position).isChecked() ? ContextCompat.getColor(context, R.color
+//                    .half_t) : Color.TRANSPARENT);
             viewHolder.cb_check.setVisibility(showCheckbox ? View.VISIBLE : View.GONE);
             viewHolder.cb_check.setChecked(list.get(position).isChecked());
             viewHolder.cb_check.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (buttonView.isPressed()) {
                     list.get(position).setChecked(isChecked);
-                    notifyDataSetChanged();
                 }
             });
         }
@@ -87,15 +93,18 @@ public class PhotoPreviewAdapter extends BaseLvAdapter<ImgInfo> {
         while (it.hasNext()) {
             ImgInfo next = it.next();
             if (next.isChecked()) {
-                deleteIds.add(next.getId());
                 it.remove();
+                String id = next.getId();
+                if (!TextUtils.isEmpty(id)) {
+                    deleteIds.add(id);
+                }
             }
         }
         notifyDataSetChanged();
     }
 
-    public ArrayList<String> getDeleteIds() {
-        return deleteIds;
+    public String getDeleteIds() {
+        return StringUtil.getIds(deleteIds);
     }
 
     @Override
@@ -106,6 +115,16 @@ public class PhotoPreviewAdapter extends BaseLvAdapter<ImgInfo> {
         list.clear();
         list.addAll(set);
         notifyDataSetChanged();
+    }
+
+    public List<ImgInfo> getAddedPhotos() {
+        List<ImgInfo> addedPhotos = new ArrayList<>();
+        for (ImgInfo imgInfo : list) {
+            if (imgInfo.getUri() != null) {
+                addedPhotos.add(imgInfo);
+            }
+        }
+        return addedPhotos;
     }
 
     public void addUris(List<Uri> uris) {

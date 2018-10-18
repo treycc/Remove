@@ -62,12 +62,18 @@ public class PublicityObjectAdapter extends BaseLvAdapter<PublicityObject> {
 
     public String getSelectedBuildingIds() {
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).isChecked()) {
-                sb.append(list.get(i).getBuildingId());
-                if (i != list.size() - 1) {
-                    sb.append("#");
-                }
+        List<PublicityObject> publicityObjectList=new ArrayList<>();
+        for (PublicityObject publicityObject : list) {
+            if (publicityObject.isChecked()) {
+                publicityObjectList.add(publicityObject);
+            }
+        }
+        for (int i = 0; i < publicityObjectList.size(); i++) {
+            if (i != publicityObjectList.size() - 1) {
+                sb.append(publicityObjectList.get(i).getBuildingId());
+                sb.append("#");
+            } else {
+                sb.append(publicityObjectList.get(i).getBuildingId());
             }
         }
         return sb.toString();

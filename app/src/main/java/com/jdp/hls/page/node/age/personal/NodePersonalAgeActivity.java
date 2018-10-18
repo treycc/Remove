@@ -71,10 +71,6 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
     EnableEditText etAgeTotalLegitimateArea;
     @BindView(R.id.et_age_totalIllegalArea)
     EnableEditText etAgeTotalIllegalArea;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etAgeRemark;
     @Inject
@@ -109,7 +105,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
+        super.initData();
     }
 
     @Override
@@ -199,7 +195,8 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
 
     @Override
     public void onGetPersonalAgeSuccess(NodePersonalAge nodePersonalAge) {
-        setEditable(true);
+        allowEdit = nodePersonalAge.isAllowEdit();
+        setEditable(allowEdit);
         identifierId = nodePersonalAge.getIdentifierId();
         tvAgeRealName.setText(nodePersonalAge.getRealName());
         etAgeTotalNotRecordArea.setString(nodePersonalAge.getTotalNotRecordArea());
@@ -224,6 +221,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         etAgeTotalLegitimateArea.setString(nodePersonalAge.getTotalLegitimateArea());
         etAgeTotalIllegalArea.setString(nodePersonalAge.getTotalIllegalArea());
         tvAgeDate.setText(DateUtil.getShortDate(nodePersonalAge.getIdenDate()));
+        rvPhotoPreview.setData(nodePersonalAge.getFiles(), getFileConfig(), allowEdit);
     }
 
     @Override

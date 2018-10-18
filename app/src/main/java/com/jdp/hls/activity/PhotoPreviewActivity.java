@@ -3,7 +3,6 @@ package com.jdp.hls.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -15,16 +14,20 @@ import android.widget.TextView;
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.PhotoPreviewAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DTOImgInfo;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.page.photo.PhotoContract;
 import com.jdp.hls.page.photo.PhotoPresenter;
+import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.PermissionsUtil;
 import com.zhihu.matisse.Matisse;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +35,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:TODO
@@ -59,6 +63,8 @@ public class PhotoPreviewActivity extends BaseTitleActivity implements PhotoCont
     private PhotoPreviewAdapter photoPreviewAdapter;
     @Inject
     PhotoPresenter photoPresenter;
+    private FileConfig fileConfig;
+    private boolean editable;
 
     @OnCheckedChanged({R.id.cb_photo_select})
     public void onChecked(CompoundButton buttonView, boolean isChecked) {
@@ -79,13 +85,24 @@ public class PhotoPreviewActivity extends BaseTitleActivity implements PhotoCont
     }
 
     private void modifyPhotos() {
-        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("FileType", "")
-                .addFormDataPart("BuildingId", String.valueOf(""))
-                .addFormDataPart("BuildingType", String.valueOf(""))
+        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("FileType", fileConfig.getFileType() == null ? "" : fileConfig.getFileType())
+                .addFormDataPart("BuildingId", fileConfig.getBuildingId() == null ? "" : fileConfig.getBuildingId())
+                .addFormDataPart("BuildingType", fileConfig.getBuildingType() == null ? "" : fileConfig
+                        .getBuildingType())
                 .addFormDataPart("MasterId", "")
-                .addFormDataPart("DeleteFileIDs", "");
-        photoPresenter.modifyPhotos(null);
+                .addFormDataPart("DeleteFileIDs", photoPreviewAdapter.getDeleteIds());
+        List<ImgInfo> imgInfos = photoPreviewAdapter.getAddedPhotos();
+        for (int i = 0; i < imgInfos.size(); i++) {
+            Uri uri = imgInfos.get(i).getUri();
+            if (uri != null) {
+                File photoFile = FileUtil.getFileByUri(uri, this);
+                bodyBuilder.addFormDataPart("File" + i, photoFile.getName(), RequestBody.create(MediaType
+                        .parse("image/*"), photoFile));
+            }
+        }
+        RequestBody requestBody = bodyBuilder.build();
+        photoPresenter.modifyPhotos(requestBody);
     }
 
     @OnItemClick({R.id.gv_photo_preview})
@@ -102,12 +119,17 @@ public class PhotoPreviewActivity extends BaseTitleActivity implements PhotoCont
         if (resultCode == Activity.RESULT_OK && data != null) {
             List<Uri> selectedUris = Matisse.obtainResult(data);
             photoPreviewAdapter.addUris(selectedUris);
+            if (selectedUris.size() > 0) {
+                setEditStatus(true);
+            }
         }
     }
 
     @Override
     public void initVariable() {
         photos = (List<ImgInfo>) getIntent().getSerializableExtra(Constants.Extra.DTO_IMGS);
+        fileConfig = (FileConfig) getIntent().getSerializableExtra(Constants.Extra.FILE_CONFIG);
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE, false);
     }
 
     @Override
@@ -117,7 +139,10 @@ public class PhotoPreviewActivity extends BaseTitleActivity implements PhotoCont
 
     @Override
     protected void initComponent(AppComponent appComponent) {
-
+        DaggerBaseCompnent.builder()
+                .appComponent(appComponent)
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -132,9 +157,11 @@ public class PhotoPreviewActivity extends BaseTitleActivity implements PhotoCont
 
     @Override
     protected void initData() {
-        photoPreviewAdapter = new PhotoPreviewAdapter(this, photos == null ? new ArrayList<>() : photos);
+        photoPreviewAdapter = new PhotoPreviewAdapter(this, photos == null ? new ArrayList<>() : photos, editable);
         gvPhotoPreview.setAdapter(photoPreviewAdapter);
-        setEditStatus(false);
+        if (editable) {
+            setEditStatus(false);
+        }
     }
 
     @Override
@@ -169,42 +196,21 @@ public class PhotoPreviewActivity extends BaseTitleActivity implements PhotoCont
         activity.startActivityForResult(intent, Constants.RequestCode.PHOTO_PREVIEW);
     }
 
-    public static void goActivity(Activity activity, List<ImgInfo> photos) {
+    public static void goActivity(Activity activity, List<ImgInfo> photos, FileConfig fileConfig, boolean editable) {
         Intent intent = new Intent(activity, PhotoPreviewActivity.class);
         intent.putExtra(Constants.Extra.DTO_IMGS, (Serializable) photos);
+        intent.putExtra(Constants.Extra.FILE_CONFIG, fileConfig);
+        intent.putExtra(Constants.Extra.EDITABLE, editable);
         activity.startActivityForResult(intent, Constants.RequestCode.PHOTO_PREVIEW);
     }
 
-    @Override
-    public void onBackPressed() {
-        onBack();
-    }
 
     @Override
-    protected void onBack() {
-        setOperateData();
-        super.onBack();
-    }
-
-    private void setOperateData() {
-        ArrayList<String> deleteIds = photoPreviewAdapter.getDeleteIds();
-        List<ImgInfo> photos = photoPreviewAdapter.getDate();
+    public void onModifyPhotosSuccess(List<ImgInfo> photoList) {
         Intent intent = new Intent();
-        intent.putStringArrayListExtra(Constants.Extra.DELETE_IDS, deleteIds);
-        intent.putExtra(Constants.Extra.DTO_IMGS, (Serializable) photos);
+        intent.putExtra(Constants.Extra.PHOTOLIST, (Serializable) photoList);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
 
-    @Override
-    public void onModifyPhotosSuccess(List<ImgInfo> imgInfoList) {
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
+import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
@@ -37,7 +38,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedCompanyPropertyActivity extends BaseTitleActivity implements DeedCompanyPropertyContract.View {
+public class DeedCompanyPropertyActivity extends BaseDeedActivity implements DeedCompanyPropertyContract.View {
     @BindView(R.id.spinner_property_use)
     KSpinner spinnerPropertyUse;
     @BindView(R.id.spinner_property_structure)
@@ -46,27 +47,19 @@ public class DeedCompanyPropertyActivity extends BaseTitleActivity implements De
     EnableEditText etPropertyArea;
     @BindView(R.id.et_property_address)
     EnableEditText etPropertyAddress;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_property_certNum)
     EnableEditText etPropertyCertNum;
-    private boolean isAdd;
-    private String enterpriseId;
     private List<TDict> propertyUseList;
     private List<TDict> propertyStructureList;
     private int propertyUse;
     private int propertyStructure;
     @Inject
     DeedCompanyPropertyPresenter deedCompanyPropertyPresenter;
-    private boolean allowEdit;
+    private String certNum;
 
     @Override
     public void initVariable() {
-        isAdd = getIntent().getBooleanExtra("isAdd", false);
-        enterpriseId = getIntent().getStringExtra("enterpriseId");
-
+        super.initVariable();
         propertyUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_USE);
         propertyStructureList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_STRUCTURE);
     }
@@ -96,7 +89,7 @@ public class DeedCompanyPropertyActivity extends BaseTitleActivity implements De
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
+        super.initData();
         spinnerPropertyUse.setDicts(propertyUseList, typeId -> {
             propertyUse = typeId;
         });
@@ -109,11 +102,10 @@ public class DeedCompanyPropertyActivity extends BaseTitleActivity implements De
 
     @Override
     protected void initNet() {
-        if (isAdd) {
+        if (mIsAdd) {
             setRightClick("保存", addListener);
         } else {
-            //获取接口
-            deedCompanyPropertyPresenter.getDeedCompanyProperty(enterpriseId);
+            deedCompanyPropertyPresenter.getDeedCompanyProperty(mBuildingId);
         }
     }
 
@@ -134,11 +126,11 @@ public class DeedCompanyPropertyActivity extends BaseTitleActivity implements De
 
     @NonNull
     private RequestBody getRequestBody() {
-        String certNum = etPropertyCertNum.getText().toString().trim();
+        certNum = etPropertyCertNum.getText().toString().trim();
         String area = etPropertyArea.getText().toString().trim();
         String address = etPropertyAddress.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("EnterpriseId", enterpriseId)
+                .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("PropertyUseTypeId", String.valueOf(propertyUse))
                 .addFormDataPart("StructureTypeId", String.valueOf(propertyStructure))
                 .addFormDataPart("CertNum", certNum)
@@ -162,37 +154,30 @@ public class DeedCompanyPropertyActivity extends BaseTitleActivity implements De
         propertyStructure = deedCompanyProperty.getStructureTypeId();
         spinnerPropertyUse.setSelectItem(propertyUse);
         spinnerPropertyStructure.setSelectItem(propertyStructure);
-        List<ImgInfo> imgInfos = deedCompanyProperty.getFiles();
-        if (imgInfos != null && imgInfos.size() > 0) {
-            rvPhotoPreview.setData(imgInfos);
-        }
-        allowEdit = deedCompanyProperty.isAllowEdit();
-        setEditable();
+        boolean allowEdit = deedCompanyProperty.isAllowEdit();
+        setEditable(allowEdit);
+        rvPhotoPreview.setData(deedCompanyProperty.getFiles(), getFileConfig(), allowEdit);
     }
 
-    private void setEditable() {
+    private void setEditable(boolean allowEdit) {
         if (allowEdit) {
             setRightClick("保存", editListener);
-        } else {
-            //全部禁用
         }
-    }
-
-    @Override
-    protected boolean ifRegisterLoadSir() {
-        return true;
+        etPropertyCertNum.setEnabled(allowEdit);
+        etPropertyArea.setEnabled(allowEdit);
+        etPropertyAddress.setEnabled(allowEdit);
+        spinnerPropertyUse.setEnabled(allowEdit);
+        spinnerPropertyStructure.setEnabled(allowEdit);
     }
 
     @Override
     public void onAddDeedCompanyPropertySuccess() {
-        ToastUtil.showText("添加成功");
-        finish();
+        setResult(certNum);
     }
 
     @Override
     public void onModifyDeedCompanyPropertySuccess() {
-        ToastUtil.showText("修改成功");
-        finish();
+        setResult(certNum);
 
     }
 

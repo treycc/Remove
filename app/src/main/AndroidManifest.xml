@@ -268,7 +268,7 @@
             android:windowSoftInputMode="adjustPan"/>
         <!--营业执照 企业-->
         <activity
-            android:name=".page.deed.company.license.DeedCompanyLicenseActivity"
+            android:name=".page.deed.company.license.DeedCompanyBusinessActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
         <!--产权证 企业-->

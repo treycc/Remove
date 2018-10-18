@@ -1,5 +1,6 @@
 package com.jdp.hls.page.business.detail.personal;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -10,25 +11,27 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.page.familyrelation.list.FamilyRelationActivity;
+import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
+import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailPersonal;
-import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
-import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.page.familyrelation.list.FamilyRelationActivity;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.PreviewRecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -89,8 +92,6 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     Switch switchDetailHasShop;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     private String buildingId;
     @Inject
     DetailPersonalPresenter detailPersonalPresenter;
@@ -101,31 +102,36 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private boolean ifPublicity;
     private int socialRelation;
     private DetailPersonal detailPersonal;
-    private List<ImgInfo> houseFiles = new ArrayList<>();
+    private LngLatFragment lngLatFragment;
 
-    @OnClick({R.id.rl_unrecordBuilding, R.id.ll_photo_preview, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed,
-            R.id.ll_detail_immovableDeed})
+    @OnClick({R.id.rl_unrecordBuilding, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
+            .ll_detail_immovableDeed})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_unrecordBuilding:
                 FamilyRelationActivity.goActivity(this, detailPersonal.getHouseId());
                 break;
             case R.id.ll_detail_propertyDeed:
-                DeedPersonalPropertyActivity.goActivity(this, detailPersonal.getHouseId(), TextUtils.isEmpty
-                        (detailPersonal.getPropertyCertNum()));
+                String propertyNum = tvDetailPropertyDeed.getText().toString().trim();
+                goDeedActivity(DeedPersonalPropertyActivity.class, Status.FileType.PERSONAL_DEED_PROPERTY, TextUtils
+                        .isEmpty(propertyNum));
                 break;
             case R.id.ll_detail_landDeed:
-                DeedPersonalLandActivity.goActivity(this, detailPersonal.getHouseId(), TextUtils.isEmpty
-                        (detailPersonal.getLandCertNum()));
+                String landNum = tvDetailLandDeed.getText().toString().trim();
+                goDeedActivity(DeedPersonalLandActivity.class, Status.FileType.PERSONAL_DEED_LAND, TextUtils
+                        .isEmpty(landNum));
                 break;
             case R.id.ll_detail_immovableDeed:
-                DeedPersonalImmovableActivity.goActivity(this, detailPersonal.getHouseId(), TextUtils.isEmpty
-                        (detailPersonal.getEstateCertNum()));
-                break;
-            case R.id.ll_photo_preview:
-//                rvPhotoPreview.goPhotoPreviewActivity(this,buildingId,);
+                String immovableNum = tvDetailImmovableDeed.getText().toString().trim();
+                goDeedActivity(DeedPersonalImmovableActivity.class, Status.FileType.PERSONAL_DEED_IMMOVABLE, TextUtils
+                        .isEmpty(immovableNum));
                 break;
         }
+    }
+
+    private void goDeedActivity(Class<? extends BaseDeedActivity> clazz, int fileType, boolean isAdd) {
+        BaseDeedActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
+                .PERSONAL, isAdd);
     }
 
     @Override
@@ -159,7 +165,8 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     @Override
     protected void initData() {
         initSpinners();
-        rvPhotoPreview.create();
+        lngLatFragment = (LngLatFragment) getSupportFragmentManager().findFragmentById(R.id
+                .fragment_lnglat);
     }
 
     private void initSpinners() {
@@ -168,6 +175,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         spinnerDetailSocialRelation.setDicts(societyRelationList, typeId -> {
             socialRelation = typeId;
         });
+        socialRelation = spinnerDetailSocialRelation.getDefaultTypeId();
         switchDetailNeedHouse.setOnCheckedChangeListener((buttonView, isChecked) -> {
             needHouse = isChecked;
         });
@@ -187,7 +195,6 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     @Override
     public void onGetPersonalDetailSuccess(DetailPersonal detailPersonal) {
         this.detailPersonal = detailPersonal;
-        houseFiles = detailPersonal.getHouseFiles();
         etDetailcusCode.setText(detailPersonal.getSysCode());
         etDetailRealName.setText(detailPersonal.getRealName());
         etDetailMobile.setText(detailPersonal.getMobilePhone());
@@ -201,56 +208,70 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         switchDetailNeedHouse.setChecked(detailPersonal.isNeedTempHouse());
         switchDetailPublicity.setChecked(detailPersonal.isAllowPublicity());
         spinnerDetailSocialRelation.setSelectItem(detailPersonal.getPoliticalTitle());
-        longitude = detailPersonal.getLongitude();
-        latitude = detailPersonal.getLatitude();
-        rvPhotoPreview.initPhotos(houseFiles);
+
+        rvPhotoPreview.setData(detailPersonal.getFiles(), new FileConfig(Status.FileType.PERSONAL_CURRENT,
+                this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)));
+        initLngLat(detailPersonal.getLongitude(), detailPersonal.getLatitude());
         boolean allowEdit = detailPersonal.isAllowEdit();
         if (allowEdit) {
             setRightClick("保存", new NoDoubleClickListener() {
                 @Override
                 public void onNoDoubleClick(View v) {
-                    String cusCode = etDetailcusCode.getText().toString().trim();
-                    String address = etDetailAddress.getText().toString().trim();
-                    String idcard = etDetailIdcard.getText().toString().trim();
-                    String mobile = etDetailMobile.getText().toString().trim();
-                    String realName = etDetailRealName.getText().toString().trim();
-                    String remark = etDetailRemark.getText().toString().trim();
-                    String bizUseArea = etDetailBizUseArea.getText().toString().trim();
-                    detailPersonalPresenter.modifyPersonalDetail(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                            .addFormDataPart("HouseId", buildingId)
-                            .addFormDataPart("CusCode", cusCode)
-                            .addFormDataPart("IsShop", String.valueOf(hasShop))
-                            .addFormDataPart("NeedTempHouse", String.valueOf(needHouse))
-                            .addFormDataPart("BizUseArea", bizUseArea)
-                            .addFormDataPart("Address", address)
-                            .addFormDataPart("Remark", remark)
-                            .addFormDataPart("IsAllowPublicity", String.valueOf(ifPublicity))
-                            .addFormDataPart("Longitude", String.valueOf(longitude))
-                            .addFormDataPart("Latitude", String.valueOf(latitude))
-                            .addFormDataPart("RealName", realName)
-                            .addFormDataPart("PoliticalTitle", String.valueOf(socialRelation))
-                            .addFormDataPart("Idcard", idcard)
-                            .addFormDataPart("MobilePhone", mobile)
-                            .build());
+                    modifyData();
                 }
             });
-        } else {
-            etDetailcusCode.setEnabled(false);
-            etDetailRealName.setEnabled(false);
-            etDetailMobile.setEnabled(false);
-            etDetailAddress.setEnabled(false);
-            etDetailBizUseArea.setEnabled(false);
-            etDetailRemark.setEnabled(false);
-            switchDetailHasShop.setEnabled(false);
-            switchDetailNeedHouse.setEnabled(false);
-            switchDetailPublicity.setEnabled(false);
         }
+        lngLatFragment.setEditable(allowEdit);
+        etDetailcusCode.setEnabled(allowEdit);
+        etDetailRealName.setEnabled(allowEdit);
+        etDetailMobile.setEnabled(allowEdit);
+        etDetailAddress.setEnabled(allowEdit);
+        etDetailBizUseArea.setEnabled(allowEdit);
+        etDetailRemark.setEnabled(allowEdit);
+        switchDetailHasShop.setEnabled(allowEdit);
+        switchDetailNeedHouse.setEnabled(allowEdit);
+        switchDetailPublicity.setEnabled(allowEdit);
+
+    }
+
+    private void initLngLat(double lng, double lat) {
+        longitude = lng;
+        latitude = lat;
+        if (longitude != 0 && latitude != 0) {
+            lngLatFragment.setLnglat(longitude, latitude);
+        }
+    }
+
+    private void modifyData() {
+        String cusCode = etDetailcusCode.getText().toString().trim();
+        String address = etDetailAddress.getText().toString().trim();
+        String idcard = etDetailIdcard.getText().toString().trim();
+        String mobile = etDetailMobile.getText().toString().trim();
+        String realName = etDetailRealName.getText().toString().trim();
+        String remark = etDetailRemark.getText().toString().trim();
+        String bizUseArea = etDetailBizUseArea.getText().toString().trim();
+        detailPersonalPresenter.modifyPersonalDetail(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("HouseId", buildingId)
+                .addFormDataPart("CusCode", cusCode)
+                .addFormDataPart("IsShop", String.valueOf(hasShop))
+                .addFormDataPart("NeedTempHouse", String.valueOf(needHouse))
+                .addFormDataPart("BizUseArea", bizUseArea)
+                .addFormDataPart("Address", address)
+                .addFormDataPart("Remark", remark)
+                .addFormDataPart("IsAllowPublicity", String.valueOf(ifPublicity))
+                .addFormDataPart("Longitude", String.valueOf(longitude))
+                .addFormDataPart("Latitude", String.valueOf(latitude))
+                .addFormDataPart("RealName", realName)
+                .addFormDataPart("PoliticalTitle", String.valueOf(socialRelation))
+                .addFormDataPart("Idcard", idcard)
+                .addFormDataPart("MobilePhone", mobile)
+                .build());
     }
 
 
     @Override
     public void onModifyPersonalDetailSuccess() {
-
+        showSuccessAndFinish("保存成功");
     }
 
     public static void goActivity(Context context, String buildingId) {
@@ -266,6 +287,27 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        rvPhotoPreview.onActivityResult(data);
+        rvPhotoPreview.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            switch (requestCode) {
+                case Constants.RequestCode.LOCATION:
+                    longitude = data.getDoubleExtra("lng", -1);
+                    latitude = data.getDoubleExtra("lat", -1);
+                    initLngLat(longitude, latitude);
+                    break;
+                case Status.FileType.PERSONAL_DEED_PROPERTY:
+                    tvDetailPropertyDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
+                    break;
+                case Status.FileType.PERSONAL_DEED_LAND:
+                    tvDetailLandDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
+                    break;
+                case Status.FileType.PERSONAL_DEED_IMMOVABLE:
+                    tvDetailImmovableDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
+                    break;
+                default:
+                    break;
+            }
+        }
     }
+
 }

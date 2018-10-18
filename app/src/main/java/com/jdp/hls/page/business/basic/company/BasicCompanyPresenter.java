@@ -3,7 +3,7 @@ package com.jdp.hls.page.business.basic.company;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
-import com.jdp.hls.model.entiy.BaiscCompany;
+import com.jdp.hls.model.entiy.BasicCompany;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 
 import javax.inject.Inject;
@@ -31,9 +31,9 @@ public class BasicCompanyPresenter implements BaiscCompanyContract.Presenter {
     public void getCompanyBasic(String buildingId) {
         mApi.getApiService().getCompanyBasic(buildingId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<BaiscCompany>(mView) {
+                (new LoadSirObserver<BasicCompany>(mView) {
                     @Override
-                    protected void onSuccess(BaiscCompany bussinessBaiscPersonal) {
+                    protected void onSuccess(BasicCompany bussinessBaiscPersonal) {
                         mView.onGetCompanyBasicSuccess(bussinessBaiscPersonal);
                     }
                 });

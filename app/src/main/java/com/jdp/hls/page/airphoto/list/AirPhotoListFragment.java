@@ -72,12 +72,6 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
     protected void initComponent(AppComponent appComponent) {
         DaggerBaseCompnent.builder()
                 .appComponent(appComponent)

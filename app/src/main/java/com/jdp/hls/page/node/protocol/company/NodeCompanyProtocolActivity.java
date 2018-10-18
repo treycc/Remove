@@ -135,7 +135,7 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
+        super.initData();
         spinnerPayType.setDicts(payTypeList, typeId -> {
             payType = typeId;
         });
@@ -211,7 +211,8 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
 
     @Override
     public void onGetCompanyProtocolSuccess(NodeCompanyProtocol nodeCompanyProtocol) {
-        setEditable(true);
+        allowEdit = nodeCompanyProtocol.isAllowEdit();
+        setEditable(allowEdit);
         pcId = nodeCompanyProtocol.getPCId();
         payType = nodeCompanyProtocol.getPayType();
         spinnerPayType.setSelectItem(payType);
@@ -232,6 +233,7 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
         etProtocolDamagesAmount.setString(nodeCompanyProtocol.getDamagesAmount());
         etProtocolChangeArea.setString(nodeCompanyProtocol.getChangeArea());
         calculateTotalMoney();
+        rvPhotoPreview.setData(nodeCompanyProtocol.getFiles(), getFileConfig(), allowEdit);
     }
 
     @Override

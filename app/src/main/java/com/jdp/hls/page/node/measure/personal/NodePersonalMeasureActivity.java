@@ -11,7 +11,6 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodePersonalMeasure;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
-import com.jdp.hls.view.PreviewRecyclerView;
 import com.jdp.hls.view.StringTextView;
 
 import javax.inject.Inject;
@@ -32,10 +31,6 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
     StringTextView tvMeasureAddress;
     @BindView(R.id.tv_measure_date)
     TextView tvMeasureDate;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EditText etMeasureRemark;
     @Inject
@@ -75,7 +70,7 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
+        super.initData();
     }
 
     @Override
@@ -85,13 +80,13 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
 
     @Override
     public void onGetPersonalMeasureSuccess(NodePersonalMeasure nodePersonalMeasure) {
-        setEditable(true);
+        allowEdit = nodePersonalMeasure.isAllowEdit();
+        setEditable(allowEdit);
         tvMeasureName.setText(nodePersonalMeasure.getRealName());
         etMeasureRemark.setText(nodePersonalMeasure.getRemark());
         tvMeasureAddress.setText(nodePersonalMeasure.getAddress());
         tvMeasureDate.setText(DateUtil.getShortDate(nodePersonalMeasure.getMeaDate()));
-        allowEdit = nodePersonalMeasure.isAllowEdit();
-
+        rvPhotoPreview.setData(nodePersonalMeasure.getFiles(), getFileConfig(), allowEdit);
     }
 
     @Override
@@ -104,6 +99,7 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
         tvMeasureAddress.setEnabled(allowEdit);
         etMeasureRemark.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvMeasureDate, allowEdit);
+
     }
 
     @Override

@@ -8,16 +8,25 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class BaiscCompany {
+public class BasicCompany {
 
     private String HouseId;
     private String SysCode;
     private String EnterpriseName;
     private String Address;
     private String StatusDesc;
+    private String GroupId;
     private int StatusId;
     private List<FlowNode> FlowNodes;
     private Auth Auth;
+
+    public String getGroupId() {
+        return GroupId;
+    }
+
+    public void setGroupId(String groupId) {
+        GroupId = groupId;
+    }
 
     public String getStatusDesc() {
         return StatusDesc;

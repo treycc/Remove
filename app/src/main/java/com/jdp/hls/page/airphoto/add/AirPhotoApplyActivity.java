@@ -193,11 +193,11 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
 
     }
 
-
-    public static void goActivity(Context context, AirPhotoBuilding airPhotoBuilding) {
+    public static void goActivity(Activity context, AirPhotoBuilding airPhotoBuilding) {
         Intent intent = new Intent(context, AirPhotoApplyActivity.class);
         intent.putExtra(Constants.Extra.AIRPHOTO_BUILDING, airPhotoBuilding);
         context.startActivity(intent);
+        context.finish();
     }
 
     @Override

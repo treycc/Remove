@@ -41,7 +41,7 @@ public class Constants {
     }
 
     public interface RequestCode {
-        int LOCATION = 10;
+        int LOCATION = 77;
         int PHOTO_PREVIEW = 11;
         int IMPORT_PERSON = 12;
         int PUBLICITY_DETAIL = 13;
@@ -70,9 +70,15 @@ public class Constants {
     }
 
     public interface Extra {
+        String CERTNUM = "certNum";
+        String FILETYPE = "fileType";
+        String ISADD = "ISADD";
+        String PHOTOLIST = "photoList";
+        String EDITABLE = "editable";
         String DELETE_IDS = "DELETE_IDS";
         String DTO_IMGS = "DTO_IMGS";
-        String BUILDINGID = "BUILDINGID";
+        String FILE_CONFIG = "fileConfig";
+        String BUILDING_ID = "BUILDING_ID";
         String PUBID = "PUBID";
         String PUB_STATUS = "PUB_STATUS";
         String POSITION = "POSITION";
@@ -110,23 +116,5 @@ public class Constants {
         String FINISH = "2";
     }
 
-    public interface FileType {
-        String BUILD = "2";
-        String DTO_IMGS = "DTO_IMGS";
-        String BUILDINGID = "BUILDINGID";
-        String PUBID = "PUBID";
-        String PUB_STATUS = "PUB_STATUS";
-        String POSITION = "POSITION";
-        String BATCH_NAME = "BATCH_NAME";
-        String PUBLICITY_DES = "PUBLICITY_DES";
-        String PUBLICITY_TYPE = "PUBLICITY_TYPE";
-        String BUILDING_TYPE = "BUILDING_TYPE";
-        String BUILDINGIDS = "BUILDINGIDS";
-        String ID = "ID";
-        String OTHER_AREA = "OTHER_AREA";
-    }
 
-//    文件类型 基础 = 0, 不动产证 = 1, 房屋现状 = 2, 个人土地证 = 3, 个人房产证 = 4, 企业证件 = 5, 企业现状 = 6, 企业不动产证 = 7, 企业土地证 = 8, 企业房产证 = 9,
-//            意见和建议文件 = 10, 赔偿案例 = 11, 赔偿 = 12, 入户丈量 = 13, 测绘出图 = 14, 年限鉴定 = 15, 入户评估 = 16, 协议生成 = 17, 协议签约 = 18, 公示 =
-//            30, 航拍复查 = 31, 其它 = 100
 }

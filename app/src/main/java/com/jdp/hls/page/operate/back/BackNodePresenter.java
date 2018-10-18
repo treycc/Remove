@@ -53,8 +53,8 @@ public class BackNodePresenter implements BackNodeContract.Presenter {
     }
 
     @Override
-    public void getOperatePerson(String buildingId, String buildingType) {
-        mApi.getApiService().getOperatePerson(buildingId, buildingType).subscribeOn(Schedulers.io())
+    public void getOperatePerson(String groupId) {
+        mApi.getApiService().getOperatePerson(groupId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<String>(mView) {
                     @Override

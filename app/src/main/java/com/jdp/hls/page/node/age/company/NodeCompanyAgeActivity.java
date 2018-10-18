@@ -48,10 +48,6 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
     StringTextView tvAgeTotalNoLegalArea;
     @BindView(R.id.et_age_after90Area)
     EnableEditText etAgeAfter90Area;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
     @BindView(R.id.tv_age_totalNotRecordArea)
@@ -89,7 +85,7 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
+        super.initData();
         etAgeBefore90Area.addTextChangedListener(calculateTextWatcher);
         etAgeAsLegitimateArea.addTextChangedListener(calculateTextWatcher);
         etAgeAfter90Area.addTextChangedListener(sameTextWatcher);
@@ -127,7 +123,8 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
 
     @Override
     public void onGetCompanyAgeSuccess(NodeCompanyAge nodeCompanyAge) {
-        setEditable(true);
+        allowEdit = nodeCompanyAge.isAllowEdit();
+        setEditable(allowEdit);
         tvAgeTotalNotRecordArea.setString(nodeCompanyAge.getTotalNotRecordArea());
         tvAgeShedArea.setString(nodeCompanyAge.getShedArea());
         tvAgeSimpleHouseArea.setString(nodeCompanyAge.getSimpleHouseArea());
@@ -140,6 +137,7 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         tvAgeTotalNoLegalArea.setText(nodeCompanyAge.getAfter90Area());
         etAgeAfter90Area.setText(nodeCompanyAge.getAfter90Area());
         calculateArea();
+        rvPhotoPreview.setData(nodeCompanyAge.getFiles(), getFileConfig(), allowEdit);
     }
 
     @Override

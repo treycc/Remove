@@ -15,9 +15,10 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.BaiscCompany;
+import com.jdp.hls.model.entiy.BasicCompany;
 import com.jdp.hls.model.entiy.FlowNode;
 import com.jdp.hls.page.business.detail.company.DetailCompanyActivity;
+import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.page.node.age.company.NodeCompanyAgeActivity;
 import com.jdp.hls.page.node.evaluate.company.NodeCompanyEvaluateActivity;
 import com.jdp.hls.page.node.mapping.company.NodeCompanyMappingActivity;
@@ -69,29 +70,36 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
             switch (flowNode.getNodeStatusId()) {
                 case Constants.BusinessNode.MEASURE:
                     //入户丈量
-                    NodeCompanyMeasureActivity.goActivity(this, NodeCompanyMeasureActivity.class, buildingId);
+//                    NodeCompanyMeasureActivity.goActivity(this, NodeCompanyMeasureActivity.class, buildingId);
+                    goNodeActivity(NodeCompanyMeasureActivity.class, Status.FileType.NODE_MEASURE);
                     break;
                 case Constants.BusinessNode.MAPPING:
                     //测绘出图
-                    NodeCompanyMappingActivity.goActivity(this, NodeCompanyMappingActivity.class, buildingId);
+//                    NodeCompanyMappingActivity.goActivity(this, NodeCompanyMappingActivity.class, buildingId);
+                    goNodeActivity(NodeCompanyMappingActivity.class, Status.FileType.NODE_MAPPING);
                     break;
                 case Constants.BusinessNode.AGE:
                     //年限鉴定
-                    NodeCompanyAgeActivity.goActivity(this, NodeCompanyAgeActivity.class, buildingId);
+//                    NodeCompanyAgeActivity.goActivity(this, NodeCompanyAgeActivity.class, buildingId);
+                    goNodeActivity(NodeCompanyAgeActivity.class, Status.FileType.NODE_AGE);
                     break;
                 case Constants.BusinessNode.EVALUATE:
                     //入户评估
-                    NodeCompanyEvaluateActivity.goActivity(this, NodeCompanyEvaluateActivity.class, buildingId);
+//                    NodeCompanyEvaluateActivity.goActivity(this, NodeCompanyEvaluateActivity.class, buildingId);
+                    goNodeActivity(NodeCompanyEvaluateActivity.class, Status.FileType.NODE_EVALUATE);
                     break;
                 case Constants.BusinessNode.PROTOCOL:
                     //协议生成
-                    NodeCompanyProtocolActivity.goActivity(this, NodeCompanyProtocolActivity.class, buildingId);
+//                    NodeCompanyProtocolActivity.goActivity(this, NodeCompanyProtocolActivity.class, buildingId);
+                    goNodeActivity(NodeCompanyProtocolActivity.class, Status.FileType.NODE_PROTOCOL);
                     break;
             }
         }
-
     }
-
+    private void goNodeActivity(Class<? extends BaseNodeActivity> clazz, int fileType) {
+        BaseNodeActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
+                .COMPANY);
+    }
     @OnClick({R.id.rl_business_detail})
     public void click(View view) {
         switch (view.getId()) {
@@ -169,16 +177,16 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
     }
 
     @Override
-    public void onGetCompanyBasicSuccess(BaiscCompany baiscCompany) {
-        tvBasicSyscode.setText(baiscCompany.getSysCode());
-        tvBasicName.setText(baiscCompany.getEnterpriseName());
-        tvBasicAddress.setText(baiscCompany.getAddress());
-        List<FlowNode> flowNodes = baiscCompany.getFlowNodes();
+    public void onGetCompanyBasicSuccess(BasicCompany basicCompany) {
+        tvBasicSyscode.setText(basicCompany.getSysCode());
+        tvBasicName.setText(basicCompany.getEnterpriseName());
+        tvBasicAddress.setText(basicCompany.getAddress());
+        List<FlowNode> flowNodes = basicCompany.getFlowNodes();
         if (flowNodes != null && flowNodes.size() > 0) {
             flowNodeAdapter.setData(flowNodes);
         }
-        setSingleAuth(baiscCompany.getAuth(), baiscCompany.getHouseId(), String.valueOf(Status.BuildingType.COMPANY),
-                String.valueOf(baiscCompany.getStatusId()));
+        setSingleAuth(basicCompany.getAuth(), basicCompany.getHouseId(), String.valueOf(Status.BuildingType.COMPANY),
+                String.valueOf(basicCompany.getStatusId()));
     }
 
     @Override

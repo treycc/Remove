@@ -18,6 +18,7 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.FlowNode;
 import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
+import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.page.node.age.personal.NodePersonalAgeActivity;
 import com.jdp.hls.page.node.evaluate.personal.NodePersonalEvaluateActivity;
 import com.jdp.hls.page.node.mapping.personal.NodePersonalMappingActivity;
@@ -42,7 +43,8 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPersonalContract.View, OperateNodeContract.View {
+public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPersonalContract.View,
+        OperateNodeContract.View {
     @BindView(R.id.rl_business_detail)
     RelativeLayout rlBusinessDetail;
     @BindView(R.id.lv_business_node)
@@ -71,21 +73,30 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         }
         switch (flowNode.getNodeStatusId()) {
             case Constants.BusinessNode.MEASURE:
-                NodePersonalMeasureActivity.goActivity(this, NodePersonalMeasureActivity.class, buildingId);
+                goNodeActivity(NodePersonalMeasureActivity.class, Status.FileType.NODE_MEASURE);
                 break;
             case Constants.BusinessNode.MAPPING:
-                NodePersonalMappingActivity.goActivity(this, NodePersonalMappingActivity.class, buildingId);
+//                NodePersonalMappingActivity.goActivity(this, NodePersonalMappingActivity.class, buildingId);
+                goNodeActivity(NodePersonalMappingActivity.class, Status.FileType.NODE_MAPPING);
                 break;
             case Constants.BusinessNode.AGE:
-                NodePersonalAgeActivity.goActivity(this, NodePersonalAgeActivity.class, buildingId);
+//                NodePersonalAgeActivity.goActivity(this, NodePersonalAgeActivity.class, buildingId);
+                goNodeActivity(NodePersonalAgeActivity.class, Status.FileType.NODE_AGE);
                 break;
             case Constants.BusinessNode.EVALUATE:
-                NodePersonalEvaluateActivity.goActivity(this, NodePersonalEvaluateActivity.class, buildingId);
+//                NodePersonalEvaluateActivity.goActivity(this, NodePersonalEvaluateActivity.class, buildingId);
+                goNodeActivity(NodePersonalEvaluateActivity.class, Status.FileType.NODE_EVALUATE);
                 break;
             case Constants.BusinessNode.PROTOCOL:
-                NodePersonalProtocolActivity.goActivity(this, NodePersonalProtocolActivity.class, buildingId);
+//                NodePersonalProtocolActivity.goActivity(this, NodePersonalProtocolActivity.class, buildingId);
+                goNodeActivity(NodePersonalProtocolActivity.class, Status.FileType.NODE_PROTOCOL);
                 break;
         }
+    }
+
+    private void goNodeActivity(Class<? extends BaseNodeActivity> clazz, int fileType) {
+        BaseNodeActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
+                .PERSONAL);
     }
 
     @OnClick({R.id.rl_business_detail})
@@ -126,7 +137,6 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         operateNodePresenter.attachView(this);
         flowNodeAdapter = new FlowNodeAdapter(this, flowNodes, R.layout.item_business_node);
         lvBusinessNode.setAdapter(flowNodeAdapter);
-
     }
 
     @Override
@@ -173,9 +183,8 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         if (flowNodes != null && flowNodes.size() > 0) {
             flowNodeAdapter.setData(flowNodes);
         }
-
         setSingleAuth(baiscPersonal.getAuth(), baiscPersonal.getHouseId(), String.valueOf(Status.BuildingType.PERSONAL),
-                String.valueOf(baiscPersonal.getStatusId()));
+                String.valueOf(baiscPersonal.getStatusId()),String.valueOf(baiscPersonal.getGroupId()));
     }
 
 

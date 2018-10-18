@@ -7,29 +7,25 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
-import com.jdp.hls.activity.PhotoPreviewActivity;
-import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedPersonalProperty;
-import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.PreviewRecyclerView;
 
-import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -39,7 +35,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedPersonalPropertyActivity extends BaseTitleActivity implements DeedPersonalPropertyContract.View {
+public class DeedPersonalPropertyActivity extends BaseDeedActivity implements DeedPersonalPropertyContract.View {
 
     @BindView(R.id.et_property_num)
     EnableEditText etPropertyNum;
@@ -53,35 +49,21 @@ public class DeedPersonalPropertyActivity extends BaseTitleActivity implements D
     KSpinner spinnerPropertyUse;
     @BindView(R.id.et_property_address)
     EnableEditText etPropertyAddress;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvImg;
     @BindView(R.id.ll_photo_preview)
     LinearLayout llImgPreview;
-    private String houdeId;
-    private boolean isAdd;
     private List<TDict> propertyUseList;
     private List<TDict> propertyStructureList;
     private int propertyUse;
     private int propertyStructure;
-    private List<ImgInfo> imgInfos;
     @Inject
     DeedPersonalPropertyPresenter deedPersonalPropertyPresenter;
     private boolean allowEdit;
+    private String certNum;
 
-    @OnClick({R.id.ll_photo_preview})
-    public void click(View view) {
-        switch (view.getId()) {
-            case R.id.ll_photo_preview:
-//                PhotoPreviewActivity.goActivityWithDTO(this, rvImg.getDTOImgInfo());
-                break;
-        }
-    }
 
     @Override
     public void initVariable() {
-        isAdd = getIntent().getBooleanExtra("isAdd", false);
-        houdeId = getIntent().getStringExtra("houdeId");
-
+        super.initVariable();
         propertyUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_USE);
         propertyStructureList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_STRUCTURE);
     }
@@ -111,18 +93,17 @@ public class DeedPersonalPropertyActivity extends BaseTitleActivity implements D
 
     @Override
     protected void initData() {
-        rvImg.create();
+        super.initData();
         spinnerPropertyUse.setDicts(propertyUseList, typeId -> {
             propertyUse = typeId;
         });
-        propertyUse=spinnerPropertyUse.getDefaultTypeId();
+        propertyUse = spinnerPropertyUse.getDefaultTypeId();
         spinnerPropertyStructure.setDicts(propertyStructureList, typeId -> {
             propertyStructure = typeId;
         });
-        propertyStructure=spinnerPropertyStructure.getDefaultTypeId();
+        propertyStructure = spinnerPropertyStructure.getDefaultTypeId();
 
     }
-
 
 
     @Override
@@ -130,11 +111,12 @@ public class DeedPersonalPropertyActivity extends BaseTitleActivity implements D
         //1.增加 不做任何操作，点保存增加
         //2.修改 先获取接口，然后可编辑，点保存修改
         //3.查看 先获取接口，然后不可编辑，不出现按钮
-        if (isAdd) {
+        if (mIsAdd) {
+            LogUtil.e(TAG,"add:"+mIsAdd);
             setRightClick("保存", addListener);
         } else {
             //获取接口
-            deedPersonalPropertyPresenter.getDeedPersonalProperty(houdeId);
+            deedPersonalPropertyPresenter.getDeedPersonalProperty(mBuildingId);
         }
     }
 
@@ -155,12 +137,12 @@ public class DeedPersonalPropertyActivity extends BaseTitleActivity implements D
 
     @NonNull
     private RequestBody getRequestBody() {
-        String certNum = etPropertyNum.getText().toString().trim();
+        certNum = etPropertyNum.getText().toString().trim();
         String totalArea = etPropertyTotalArea.getText().toString().trim();
         String shareArea = etPropertyShareArea.getText().toString().trim();
         String address = etPropertyAddress.getText().toString().trim();
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("HouseId", houdeId)
+                .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("PropertyUseTypeId", String.valueOf(propertyUse))
                 .addFormDataPart("StructureTypeId", String.valueOf(propertyStructure))
                 .addFormDataPart("CertNum", certNum)
@@ -169,7 +151,6 @@ public class DeedPersonalPropertyActivity extends BaseTitleActivity implements D
                 .addFormDataPart("Address", address);
         return bodyBuilder.build();
     }
-
 
 
     public static void goActivity(Context context, String houdeId, boolean isAdd) {
@@ -189,35 +170,31 @@ public class DeedPersonalPropertyActivity extends BaseTitleActivity implements D
         propertyStructure = deedPersonalProperty.getStructureTypeId();
         spinnerPropertyUse.setSelectItem(propertyUse);
         spinnerPropertyStructure.setSelectItem(propertyStructure);
-        imgInfos = deedPersonalProperty.getFiles();
-        if (imgInfos != null) {
-            rvImg.setData(imgInfos);
-        }
         allowEdit = deedPersonalProperty.isAllowEdit();
         setEditable(allowEdit);
+        rvPhotoPreview.setData(deedPersonalProperty.getFiles(), getFileConfig(), allowEdit);
     }
 
     private void setEditable(boolean allowEdit) {
         if (allowEdit) {
             setRightClick("保存", editListener);
-        } else {
-            //全部禁用
         }
+        etPropertyNum.setEnabled(allowEdit);
+        etPropertyTotalArea.setEnabled(allowEdit);
+        etPropertyShareArea.setEnabled(allowEdit);
+        etPropertyAddress.setEnabled(allowEdit);
+        spinnerPropertyUse.setEnabled(allowEdit);
+        spinnerPropertyStructure.setEnabled(allowEdit);
     }
 
     @Override
     public void onAddDeedPersonalPropertySuccess() {
-        ToastUtil.showText("增加成功");
-
+        setResult(certNum);
     }
 
     @Override
     public void onModifyDeedPersonalPropertySuccess() {
-        ToastUtil.showText("修改成功");
+        setResult(certNum);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        rvImg.onActivityResult(requestCode, resultCode, data);
-    }
 }

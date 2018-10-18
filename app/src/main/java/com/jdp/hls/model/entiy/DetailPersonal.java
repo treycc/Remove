@@ -71,7 +71,15 @@ public class DetailPersonal {
     private String StatusDesc;
     private String PersonId;
     private String BookletId;
-    private List<ImgInfo> HouseFiles;
+    private List<ImgInfo> Files;
+
+    public List<ImgInfo> getFiles() {
+        return Files;
+    }
+
+    public void setFiles(List<ImgInfo> files) {
+        Files = files;
+    }
 
     public String getBookletId() {
         return BookletId;
@@ -268,14 +276,6 @@ public class DetailPersonal {
 
     public void setStatusDesc(String StatusDesc) {
         this.StatusDesc = StatusDesc;
-    }
-
-    public List<ImgInfo> getHouseFiles() {
-        return HouseFiles;
-    }
-
-    public void setHouseFiles(List<ImgInfo> HouseFiles) {
-        this.HouseFiles = HouseFiles;
     }
 
     public boolean isBanned() {

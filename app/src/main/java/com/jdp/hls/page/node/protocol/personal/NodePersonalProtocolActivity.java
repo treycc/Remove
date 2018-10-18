@@ -145,7 +145,7 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
+        super.initData();
         spinnerProtocolPayType.setDicts(payTypeList, typeId -> {
             payType = typeId;
         });
@@ -232,7 +232,8 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
 
     @Override
     public void onGetPersonalProtocolSuccess(NodePersonalProtocol nodePersonalProtocol) {
-        setEditable(true);
+        allowEdit = nodePersonalProtocol.isAllowEdit();
+        setEditable(allowEdit);
         pcId = nodePersonalProtocol.getPCId();
         tvProtocolCusCode.setText(nodePersonalProtocol.getCusCode());
         tvProtocolOwnerName.setText(nodePersonalProtocol.getOwnerName());
@@ -258,7 +259,7 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
         etProtocolTaoTypeName.setString(nodePersonalProtocol.getTaoTypeName());
         etProtocolDamagesAmount.setString(nodePersonalProtocol.getDamagesAmount());
         calculateTotalMoney();
-
+        rvPhotoPreview.setData(nodePersonalProtocol.getFiles(), getFileConfig(), allowEdit);
 
     }
 

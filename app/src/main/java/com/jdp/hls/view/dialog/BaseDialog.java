@@ -26,6 +26,7 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
     protected String buildingId;
     protected String buildingType;
     protected String statusId;
+    protected String groupId;
     private OnOperateConfirmListener onOperateConfirmListener;
 
     public BaseDialog(@NonNull Context context) {
@@ -33,19 +34,30 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
     }
 
     public BaseDialog(Context context, String buildingId, String buildingType, String statusId) {
+        this(context, buildingId, buildingType, statusId, "");
+    }
+
+    public BaseDialog(Context context, String buildingId, String buildingType, String statusId, String groupId) {
         super(context, R.style.CustomAlertDialog);
         this.buildingId = buildingId;
         this.buildingType = buildingType;
         this.statusId = statusId;
-        LogUtil.e("BaseDialog","buildingId:"+buildingId);
-        LogUtil.e("BaseDialog","buildingType:"+buildingType);
-        LogUtil.e("BaseDialog","statusId:"+statusId);
+        this.groupId = groupId;
+        LogUtil.e("BaseDialog", "buildingId:" + buildingId);
+        LogUtil.e("BaseDialog", "buildingType:" + buildingType);
+        LogUtil.e("BaseDialog", "statusId:" + statusId);
+        LogUtil.e("BaseDialog", "groupId:" + groupId);
     }
 
     public void setData(String buildingId, String buildingType, String statusId) {
+        setData(buildingId, buildingType, statusId, "");
+    }
+
+    public void setData(String buildingId, String buildingType, String statusId, String groupId) {
         this.buildingId = buildingId;
         this.buildingType = buildingType;
         this.statusId = statusId;
+        this.groupId = groupId;
     }
 
     @Override
@@ -61,9 +73,7 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
         initNet();
         initEvent();
         initData();
-
     }
-
     protected abstract int getContentViewId();
 
     protected abstract void initView();

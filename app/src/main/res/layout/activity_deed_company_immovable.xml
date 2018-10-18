@@ -115,7 +115,7 @@
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_immovable_address"
-            style="@style/Content_ET_W2"
+            style="@style/Content_ET_W2_Mul_Line"
             android:hint="请输入坐落地址"/>
     </LinearLayout>
 
@@ -126,9 +126,10 @@
 
         <TextView
             style="@style/Title_Sub"
-            android:text="土地面积(m²)"/>
+            android:text="土地面积"/>
 
         <com.jdp.hls.view.EnableEditText
+            android:inputType="numberDecimal"
             android:id="@+id/et_immovable_landArea"
             style="@style/Content_ET_W2"
             android:hint="请输入土地面积"/>
@@ -141,9 +142,10 @@
 
         <TextView
             style="@style/Title_Sub"
-            android:text="产权证面积(m²)"/>
+            android:text="产权证面积"/>
 
         <com.jdp.hls.view.EnableEditText
+            android:inputType="numberDecimal"
             android:id="@+id/et_immovable_propertyArea"
             style="@style/Content_ET_W2"
             android:hint="请输入产权证面积"/>

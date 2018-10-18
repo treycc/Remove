@@ -50,10 +50,6 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
     TextView tvMappingDate;
     @BindView(R.id.iv_dateSelector)
     ImageView ivDateSelector;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
 
@@ -82,7 +78,7 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
+        super.initData();
     }
 
 
@@ -125,8 +121,8 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
 
     @Override
     public void onGetCompanyMappingSuccess(NodeCompanyMapping nodeCompanyMapping) {
-        setEditable(true);
-        setPhotoPreview(nodeCompanyMapping.getFiles(), rvPhotoPreview);
+         allowEdit = nodeCompanyMapping.isAllowEdit();
+        setEditable(allowEdit);
         tvMappingRealName.setText(nodeCompanyMapping.getRealName());
         etMappingTotalNotRecordArea.setString(nodeCompanyMapping.getTotalNotRecordArea());
         etMappingSimpleHouseArea.setString(nodeCompanyMapping.getSimpleHouseArea());
@@ -138,6 +134,7 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         tvMappingCompanyName.setText(nodeCompanyMapping.getCompanyName());
         tvMappingAddress.setText(nodeCompanyMapping.getAddress());
         tvMappingDate.setText(DateUtil.getShortDate(nodeCompanyMapping.getMapDate()));
+        rvPhotoPreview.setData(nodeCompanyMapping.getFiles(), getFileConfig(), this.allowEdit);
     }
 
     @Override

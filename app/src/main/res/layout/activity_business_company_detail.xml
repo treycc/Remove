@@ -55,7 +55,7 @@
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_detail_address"
-                style="@style/Content_ET_W2"
+                style="@style/Content_ET_W2_Mul_Line"
                 android:hint="请输入现状门牌号"/>
         </LinearLayout>
 
@@ -83,12 +83,13 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="负责人电话"/>
+                android:text="负责人手机号"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="number"
                 android:id="@+id/et_detail_MobilePhone"
                 style="@style/Content_ET_W2"
-                android:hint="请输入负责人电话"/>
+                android:hint="请输入负责手机号"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -100,6 +101,7 @@
                 android:text="现状占地面积"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_mapping_currentOccupyArea"
                 style="@style/Content_ET_W2"
                 android:hint="请输入现状占地面积"/>
@@ -288,7 +290,11 @@
         <TextView
             style="@style/Title_Main"
             android:text="定位"/>
-
+        <fragment
+            android:id="@+id/fragment_lnglat"
+            android:name="com.jdp.hls.fragment.LngLatFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
     </LinearLayout>
 
 

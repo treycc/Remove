@@ -140,11 +140,11 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
     @Override
     public void onGetRosterListByTypeSuccess(List<Roster> rosters) {
-//        adapter.setData(business);
+        adapter.setData(business);
     }
 
-    public void refreshData(List<Roster> rosters) {
-//        adapter.setData(business);
+    public void refreshData(List<Business> businesses) {
+        adapter.setData(businesses);
     }
 
     @Override

@@ -185,7 +185,11 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-        <include layout="@layout/layout_photo_preview"/>
+        <com.jdp.hls.view.AddableRecyclerView
+            android:id="@+id/rv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"/>
 
         <View style="@style/div_hor_gray_margin24"/>
 

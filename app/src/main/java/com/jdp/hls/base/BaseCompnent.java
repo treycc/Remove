@@ -1,6 +1,7 @@
 package com.jdp.hls.base;
 
 
+import com.jdp.hls.activity.PhotoPreviewActivity;
 import com.jdp.hls.page.airphoto.add.AirPhotoApplyActivity;
 import com.jdp.hls.page.airphoto.building.AirPhotoBuildingActivity;
 import com.jdp.hls.page.airphoto.detail.AirPhotoDetailActivity;
@@ -15,7 +16,7 @@ import com.jdp.hls.page.business.list.BusinessListFragment;
 import com.jdp.hls.page.crash.CrashActivity;
 import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
-import com.jdp.hls.page.deed.company.license.DeedCompanyLicenseActivity;
+import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
@@ -68,11 +69,12 @@ import com.jdp.hls.page.table.list.TableListFragment;
 import com.jdp.hls.service.initialize.InitializeService;
 
 import dagger.Component;
-import it.sephiroth.android.library.easing.Back;
 
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(PhotoPreviewActivity target);
+
     void inject(LoginActivity target);
 
     void inject(ModifyPasswordActivity target);
@@ -139,7 +141,7 @@ public interface BaseCompnent {
 
     void inject(DetailCompanyActivity target);
 
-    void inject(DeedCompanyLicenseActivity target);
+    void inject(DeedCompanyBusinessActivity target);
 
     void inject(NodePersonalMeasureActivity target);
 

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.jdp.hls.R;
+import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
@@ -14,6 +15,7 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedPersonalLand;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
@@ -34,7 +36,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedPersonalLandActivity extends BaseTitleActivity implements DeedPersonalLandContract.View {
+public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPersonalLandContract.View {
     @BindView(R.id.spinner_landType)
     KSpinner spinnerLandType;
     @BindView(R.id.spinner_landUse)
@@ -47,23 +49,19 @@ public class DeedPersonalLandActivity extends BaseTitleActivity implements DeedP
     EnableEditText etBuildOccupyArea;
     @BindView(R.id.et_land_address)
     EnableEditText etLandAddress;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
 
     @Inject
     DeedPersonalLandPresenter deedPersonalLandPresenter;
-    private boolean isAdd;
-    private String houdeId;
     private List<TDict> landUseList;
     private List<TDict> landTypeList;
     private int landUseId;
     private int landTypeId;
     private boolean allowEdit;
+    private String certNum;
 
     @Override
     public void initVariable() {
-        isAdd = getIntent().getBooleanExtra("isAdd", false);
-        houdeId = getIntent().getStringExtra("houdeId");
+        super.initVariable();
         landUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.LAND_USE);
         landTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.LAND_TYPE);
     }
@@ -93,6 +91,7 @@ public class DeedPersonalLandActivity extends BaseTitleActivity implements DeedP
 
     @Override
     protected void initData() {
+        super.initData();
         rvPhotoPreview.create();
         spinnerLandUse.setDicts(landUseList, typeId -> {
             landUseId = typeId;
@@ -106,22 +105,22 @@ public class DeedPersonalLandActivity extends BaseTitleActivity implements DeedP
 
     @Override
     protected void initNet() {
-        if (isAdd) {
+        if (mIsAdd) {
             setRightClick("保存", addListener);
         } else {
             //获取接口
-            deedPersonalLandPresenter.getDeedPersonalLand(houdeId);
+            deedPersonalLandPresenter.getDeedPersonalLand(mBuildingId);
         }
     }
 
     @NonNull
     private RequestBody getRequestBody() {
-        String certNum = etLandCertNum.getText().toString().trim();
+        certNum = etLandCertNum.getText().toString().trim();
         String certArea = etLandCertArea.getText().toString().trim();
         String buildOccupyArea = etBuildOccupyArea.getText().toString().trim();
         String address = etLandAddress.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("HouseId", houdeId)
+                .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("LandNatureId", String.valueOf(landTypeId))
                 .addFormDataPart("LandUseTypeId", String.valueOf(landUseId))
@@ -133,9 +132,13 @@ public class DeedPersonalLandActivity extends BaseTitleActivity implements DeedP
     private void setEditable(boolean allowEdit) {
         if (allowEdit) {
             setRightClick("保存", editListener);
-        } else {
-            //全部禁用
         }
+        etLandCertNum.setEnabled(allowEdit);
+        etLandCertArea.setEnabled(allowEdit);
+        etBuildOccupyArea.setEnabled(allowEdit);
+        etLandAddress.setEnabled(allowEdit);
+        spinnerLandUse.setEnabled(allowEdit);
+        spinnerLandType.setEnabled(allowEdit);
     }
 
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {
@@ -153,17 +156,6 @@ public class DeedPersonalLandActivity extends BaseTitleActivity implements DeedP
         }
     };
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
-    public static void goActivity(Context context, String houdeId, boolean isAdd) {
-        Intent intent = new Intent(context, DeedPersonalLandActivity.class);
-        intent.putExtra("houdeId", houdeId);
-        intent.putExtra("isAdd", isAdd);
-        context.startActivity(intent);
-    }
 
     @Override
     public void onGetDeedPersonalLandSuccess(DeedPersonalLand deedPersonalLand) {
@@ -175,25 +167,19 @@ public class DeedPersonalLandActivity extends BaseTitleActivity implements DeedP
         landTypeId = deedPersonalLand.getLandNatureId();
         spinnerLandUse.setSelectItem(landUseId);
         spinnerLandType.setSelectItem(landTypeId);
-        List<ImgInfo> photoFiles = deedPersonalLand.getFiles();
-        if (photoFiles != null) {
-            rvPhotoPreview.setData(photoFiles);
-        }
         allowEdit = deedPersonalLand.isAllowEdit();
         setEditable(allowEdit);
+        rvPhotoPreview.setData(deedPersonalLand.getFiles(), getFileConfig(), allowEdit);
     }
 
 
     @Override
     public void onAddDeedPersonalLandSuccess() {
-        ToastUtil.showText("增加成功");
-        finish();
-
+        setResult(certNum);
     }
 
     @Override
     public void onModifyDeedPersonalLandSuccess() {
-        ToastUtil.showText("修改成功");
-        finish();
+        setResult(certNum);
     }
 }

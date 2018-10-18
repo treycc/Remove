@@ -3,7 +3,7 @@ package com.jdp.hls.model.service;
 
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
-import com.jdp.hls.model.entiy.BaiscCompany;
+import com.jdp.hls.model.entiy.BasicCompany;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.DecorationItem;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
@@ -42,7 +42,6 @@ import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.StatisticsDetail;
 import com.jdp.hls.model.entiy.Table;
-import com.jdp.hls.model.entiy.Task;
 import com.jdp.hls.model.entiy.TaskInfo;
 
 import java.util.List;
@@ -196,7 +195,7 @@ public interface ApiService {
 
     /*申请公示*/
     @POST("api/Publicity/AddPublicity")
-    Observable<HttpResult<Object>> applyPublicity(@Body RequestBody rosterBody);
+    Observable<HttpResult<PublicityItem>> applyPublicity(@Body RequestBody rosterBody);
 
     /*修改公示*/
     @POST("api/Publicity/UpdatePublicity")
@@ -222,7 +221,7 @@ public interface ApiService {
 
     /*企业基本信息*/
     @GET("api/workflow/GetEnterpriseTaskBasicInfo")
-    Observable<HttpResult<BaiscCompany>> getCompanyBasic(@Query("buildingId") String buildingId);
+    Observable<HttpResult<BasicCompany>> getCompanyBasic(@Query("buildingId") String buildingId);
 
     /*个人信息详情*/
     @GET("api/workflow/GetHouseTaskDetail")
@@ -505,19 +504,16 @@ public interface ApiService {
     @POST("api/workflow/FlowReview")
     Observable<HttpResult<Object>> reviewNode(@Body RequestBody requestBody);
 
-    /*复查*/
-    @GET("api/workflow/GetGroupMemberForReview")
-    Observable<HttpResult<List<ReceivePerson>>> getReviewReceiverList(@Query("buildingId") String buildingId, @Query
-            ("buildingType") String buildingType);
+    /*复查-获取接受节点列表*/
+    @FormUrlEncoded
+    @POST("api/workflow/PostGroupMemberForReview")
+    Observable<HttpResult<List<ReceivePerson>>> getReviewReceiverList(@Field("buildingId") String buildingId, @Query
+            ("Field") String buildingType);
 
     /*获取经办人*/
-    @GET("api/workflow/GetOperatorName")
-    Observable<HttpResult<String>> getOperatePerson(@Query("buildingId") String buildingId, @Query
-            ("buildingType") String buildingType);
-
-    /*航拍复查-发送*/
-    @POST("api/AirCheck/ReAdd")
-    Observable<HttpResult<Object>> sendAirPhoto(@Body RequestBody requestBody);
+    @FormUrlEncoded
+    @POST("api/workflow/PostOperatorName")
+    Observable<HttpResult<String>> getOperatePerson(@Field("GroupIDs") String groupIDs);
 
     /*航拍复查-完结*/
     @POST("api/AirCheck/CloseFinished")

@@ -23,6 +23,6 @@ public interface BackNodeContract {
 
         void backNode(RequestBody requestBody);
 
-        void getOperatePerson(String buildingId, String buildingType);
+        void getOperatePerson(String groupId);
     }
 }

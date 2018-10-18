@@ -31,7 +31,15 @@ public class DetailCompany {
     private double Latitude;
     private boolean IsAllowPublicity;
     private boolean IsAllowEdit;
-    private List<ImgInfo> HouseFiles;
+    private List<ImgInfo> Files;
+
+    public List<ImgInfo> getFiles() {
+        return Files;
+    }
+
+    public void setFiles(List<ImgInfo> files) {
+        Files = files;
+    }
 
     public String getCurrentOccupyArea() {
         return CurrentOccupyArea;
@@ -207,13 +215,5 @@ public class DetailCompany {
 
     public void setAllowPublicity(boolean allowPublicity) {
         IsAllowPublicity = allowPublicity;
-    }
-
-    public List<ImgInfo> getHouseFiles() {
-        return HouseFiles;
-    }
-
-    public void setHouseFiles(List<ImgInfo> houseFiles) {
-        HouseFiles = houseFiles;
     }
 }

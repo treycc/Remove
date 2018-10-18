@@ -2,10 +2,10 @@ package com.jdp.hls.page.publicity.apply;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,19 +14,23 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.model.entiy.PublicityObject;
 import com.jdp.hls.page.publicity.object.PublicityObjectActivity;
 import com.jdp.hls.util.DateUtil;
-import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.FileUtil;
+import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.view.AddableRecyclerView;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
-import com.jdp.hls.view.PreviewRecyclerView;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,7 +39,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:公示申请
@@ -64,12 +70,10 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
     TextView tvPublicityEndDate;
     @BindView(R.id.ll_publicity_endDate)
     LinearLayout llPublicityEndDate;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_des)
     EnableEditText etDes;
+    @BindView(R.id.rv_photo)
+    AddableRecyclerView rvPhoto;
     private TimePickerDialog startDateSelector;
     private TimePickerDialog endDateSelector;
     private List<PublicityObject> selectedObjects;
@@ -84,7 +88,7 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_publicity_select:
-                PublicityObjectActivity.goActivity(this,publicityType,buildingType);
+                PublicityObjectActivity.goActivity(this, publicityType, buildingType);
                 break;
             case R.id.ll_publicity_startDate:
                 startDateSelector.show(getSupportFragmentManager(), "startDate");
@@ -100,8 +104,16 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
-            buildingIds = data.getStringExtra(Constants.Extra.BUILDINGIDS);
-            tvPublicityCount.setText(buildingIds.split("#").length+ "户");
+            switch (requestCode) {
+                case Constants.RequestCode.PUBLICITY_OBJECT:
+                    buildingIds = data.getStringExtra(Constants.Extra.BUILDINGIDS);
+                    tvPublicityCount.setText(buildingIds.split("#").length + "户");
+                    break;
+                case MatisseUtil.REQUEST_CODE_CHOOSE:
+                    rvPhoto.onPhotoCallback(requestCode, resultCode, data);
+                    break;
+            }
+
         }
     }
 
@@ -135,26 +147,12 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
         tvPublicityRealName.setText(SpSir.getInstance().getRealName());
         setRightClick("保存", new NoDoubleClickListener() {
 
             @Override
             public void onNoDoubleClick(View v) {
-                String batchName = etPublicityNumber.getText().toString().trim();
-                String descriptiton = etDes.getText().toString().trim();
-                String startDate = tvPublicityStartDate.getText().toString().trim();
-                String endDate = tvPublicityEndDate.getText().toString().trim();
-                publicityApplyPresenter.applyPublicity(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                        .addFormDataPart("ProjectId", SpSir.getInstance().getProjectId())
-                        .addFormDataPart("BatchName", batchName)
-                        .addFormDataPart("PubType", String.valueOf(publicityType))
-                        .addFormDataPart("BuildingType", String.valueOf(buildingType))
-                        .addFormDataPart("BuildingIDs", buildingIds)
-                        .addFormDataPart("StartDate", startDate)
-                        .addFormDataPart("EndDate", endDate)
-                        .addFormDataPart("Descriptiton", descriptiton)
-                        .build());
+                saveData();
             }
         });
         startDateSelector = new TimePickerDialog.Builder()
@@ -178,17 +176,43 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
                     tvPublicityEndDate.setText(DateUtil.getDateString(millseconds));
                 })
                 .build();
-        spinnerPublicityType.attachDataSource(Arrays.asList("调查公示","认定公示"));
-        spinnerBuildingType.attachDataSource(Arrays.asList("个人","企业"));
+        spinnerPublicityType.attachDataSource(Arrays.asList("调查公示", "认定公示"));
+        spinnerBuildingType.attachDataSource(Arrays.asList("个人", "企业"));
         spinnerPublicityType.addOnItemClickListener((parent, view, position, id) -> {
-            publicityType=position;
-            ToastUtil.showText("position:"+position);
+            publicityType = position;
+            ToastUtil.showText("position:" + position);
 
         });
         spinnerBuildingType.addOnItemClickListener((parent, view, position, id) -> {
-            buildingType=position;
-            ToastUtil.showText("position:"+position);
+            buildingType = position;
+            ToastUtil.showText("position:" + position);
         });
+    }
+
+    private void saveData() {
+        String batchName = etPublicityNumber.getText().toString().trim();
+        String descriptiton = etDes.getText().toString().trim();
+        String startDate = tvPublicityStartDate.getText().toString().trim();
+        String endDate = tvPublicityEndDate.getText().toString().trim();
+        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("ProjectId", SpSir.getInstance().getProjectId())
+                .addFormDataPart("BatchName", batchName)
+                .addFormDataPart("PubType", String.valueOf(publicityType))
+                .addFormDataPart("BuildingType", String.valueOf(buildingType))
+                .addFormDataPart("BuildingIDs", buildingIds)
+                .addFormDataPart("StartDate", startDate)
+                .addFormDataPart("EndDate", endDate)
+                .addFormDataPart("Descriptiton", descriptiton);
+        List<ImgInfo> imgInfos = rvPhoto.getDate();
+        for (int i = 0; i < imgInfos.size(); i++) {
+            Uri uri = imgInfos.get(i).getUri();
+            if (uri != null) {
+                File photoFile = FileUtil.getFileByUri(uri, this);
+                bodyBuilder.addFormDataPart("Files" + i, photoFile.getName(), RequestBody.create(MediaType
+                        .parse("image/*"), photoFile));
+            }
+        }
+        publicityApplyPresenter.applyPublicity(bodyBuilder.build());
     }
 
     @Override
@@ -197,9 +221,8 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
     }
 
     @Override
-    public void onApplyPublicitySuccess() {
-       showSuccessAndFinish();
-
+    public void onApplyPublicitySuccess(PublicityItem publicityItem) {
+        showSuccessAndFinish();
     }
 
 }

@@ -341,6 +341,11 @@
         <TextView
             style="@style/Title_Main"
             android:text="定位"/>
+        <fragment
+            android:id="@+id/fragment_lnglat"
+            android:name="com.jdp.hls.fragment.LngLatFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
 
     </LinearLayout>
 

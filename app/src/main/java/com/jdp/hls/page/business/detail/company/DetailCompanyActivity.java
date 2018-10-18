@@ -1,8 +1,8 @@
 package com.jdp.hls.page.business.detail.company;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -11,25 +11,26 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
+import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailCompany;
-import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
-import com.jdp.hls.page.deed.company.license.DeedCompanyLicenseActivity;
+import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -73,8 +74,6 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     LinearLayout llDetailImmovableDeed;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_detail_remark)
     EditText etDetailRemark;
     @BindView(R.id.switch_detail_publicity)
@@ -91,6 +90,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     private String propertyCertNum;
     private double longitude;
     private double latitude;
+    private LngLatFragment lngLatFragment;
 
     @Override
     public void initVariable() {
@@ -102,18 +102,31 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     public void click(View view) {
         switch (view.getId()) {
             case R.id.ll_detail_licenseDeed:
-                DeedCompanyLicenseActivity.goActivity(this, buildingId, TextUtils.isEmpty(licenseNo));
+                String businessNum = tvDetailBusinessDeed.getText().toString().trim();
+                goDeedActivity(DeedCompanyBusinessActivity.class, Status.FileType.COMPANY_DEED_BUSINESS, TextUtils
+                        .isEmpty(businessNum));
                 break;
             case R.id.ll_detail_propertyDeed:
-                DeedCompanyPropertyActivity.goActivity(this, buildingId, TextUtils.isEmpty(propertyCertNum));
+                String propertyNum = tvDetailPropertyDeed.getText().toString().trim();
+                goDeedActivity(DeedCompanyPropertyActivity.class, Status.FileType.COMPANY_DEED_PROPERTY, TextUtils
+                        .isEmpty(propertyNum));
                 break;
             case R.id.ll_detail_landDeed:
-                DeedCompanyLandActivity.goActivity(this, buildingId, TextUtils.isEmpty(landCertNum));
+                String landNum = tvDetailLandDeed.getText().toString().trim();
+                goDeedActivity(DeedCompanyLandActivity.class, Status.FileType.COMPANY_DEED_LAND, TextUtils
+                        .isEmpty(landNum));
                 break;
             case R.id.ll_detail_immovableDeed:
-                DeedCompanyImmovableActivity.goActivity(this, buildingId, TextUtils.isEmpty(estateCertNum));
+                String immovableNum = tvDetailImmovableDeed.getText().toString().trim();
+                goDeedActivity(DeedCompanyImmovableActivity.class, Status.FileType.COMPANY_DEED_IMMOVABLE, TextUtils
+                        .isEmpty(immovableNum));
                 break;
         }
+    }
+
+    private void goDeedActivity(Class<? extends BaseDeedActivity> clazz, int fileType, boolean isAdd) {
+        BaseDeedActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
+                .COMPANY, isAdd);
     }
 
     @Override
@@ -145,6 +158,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         switchDetailPublicity.setOnCheckedChangeListener((buttonView, isChecked) -> {
             ifPublicity = isChecked;
         });
+        lngLatFragment = (LngLatFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_lnglat);
     }
 
     @Override
@@ -177,43 +191,19 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         tvDetailLandDeed.setText(landCertNum);
         tvDetailImmovableDeed.setText(estateCertNum);
         tvDetailPropertyDeed.setText(propertyCertNum);
-        List<ImgInfo> houseFiles = detailCompany.getHouseFiles();
-        if (houseFiles != null && houseFiles.size() > 0) {
-            rvPhotoPreview.setData(houseFiles);
-        }
-        longitude = detailCompany.getLongitude();
-        latitude = detailCompany.getLatitude();
+        switchDetailPublicity.setChecked(detailCompany.isAllowPublicity());
+        rvPhotoPreview.setData(detailCompany.getFiles(), new FileConfig(Status.FileType.COMPANY_CURRENT,
+                buildingId, String.valueOf(Status.BuildingType.COMPANY)));
+        initLngLat(detailCompany.getLongitude(), detailCompany.getLatitude());
         boolean allowEdit = detailCompany.isAllowEdit();
         if (allowEdit) {
             setRightClick("保存", new NoDoubleClickListener() {
                 @Override
                 public void onNoDoubleClick(View v) {
-                    String cusCode = etDetailCusCode.getText().toString().trim();
-                    String enterpriseName = etDetailEnterpriseName.getText().toString().trim();
-                    String address = etDetailAddress.getText().toString().trim();
-                    String mobile = etDetailMobilePhone.getText().toString().trim();
-                    String realName = etDetailRealName.getText().toString().trim();
-                    String remark = etDetailRemark.getText().toString().trim();
-                    String rentInfo = etDetailRentInfo.getText().toString().trim();
-                    String bizInfo = etDetailBizInfo.getText().toString().trim();
-                    String currentOccupyArea = etDetailCurrentOccupyArea.getText().toString().trim();
-                    detailCompanyPresenter.modifyCompanyDetail(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                            .addFormDataPart("EnterpriseId", buildingId)
-                            .addFormDataPart("EnterpriseName", enterpriseName)
-                            .addFormDataPart("CusCode", cusCode)
-                            .addFormDataPart("Address", address)
-                            .addFormDataPart("Remark", remark)
-                            .addFormDataPart("IsAllowPublicity", String.valueOf(ifPublicity))
-                            .addFormDataPart("Longitude", String.valueOf(longitude))
-                            .addFormDataPart("Latitude", String.valueOf(latitude))
-                            .addFormDataPart("RentInfo", rentInfo)
-                            .addFormDataPart("BizInfo", bizInfo)
-                            .addFormDataPart("RealName", realName)
-                            .addFormDataPart("MobilePhone", mobile)
-                            .addFormDataPart("CurrentOccupyArea", currentOccupyArea)
-                            .build());
+                    saveData();
                 }
             });
+            lngLatFragment.setEditable(true);
         } else {
             etDetailCusCode.setEnabled(false);
             etDetailEnterpriseName.setEnabled(false);
@@ -227,9 +217,44 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         }
     }
 
+    private void saveData() {
+        String cusCode = etDetailCusCode.getText().toString().trim();
+        String enterpriseName = etDetailEnterpriseName.getText().toString().trim();
+        String address = etDetailAddress.getText().toString().trim();
+        String mobile = etDetailMobilePhone.getText().toString().trim();
+        String realName = etDetailRealName.getText().toString().trim();
+        String remark = etDetailRemark.getText().toString().trim();
+        String rentInfo = etDetailRentInfo.getText().toString().trim();
+        String bizInfo = etDetailBizInfo.getText().toString().trim();
+        String currentOccupyArea = etDetailCurrentOccupyArea.getText().toString().trim();
+        detailCompanyPresenter.modifyCompanyDetail(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("EnterpriseId", buildingId)
+                .addFormDataPart("EnterpriseName", enterpriseName)
+                .addFormDataPart("CusCode", cusCode)
+                .addFormDataPart("Address", address)
+                .addFormDataPart("Remark", remark)
+                .addFormDataPart("IsAllowPublicity", String.valueOf(ifPublicity))
+                .addFormDataPart("Longitude", String.valueOf(longitude))
+                .addFormDataPart("Latitude", String.valueOf(latitude))
+                .addFormDataPart("RentInfo", rentInfo)
+                .addFormDataPart("BizInfo", bizInfo)
+                .addFormDataPart("RealName", realName)
+                .addFormDataPart("MobilePhone", mobile)
+                .addFormDataPart("CurrentOccupyArea", currentOccupyArea)
+                .build());
+    }
+
+    private void initLngLat(double lng, double lat) {
+        longitude = lng;
+        latitude = lat;
+        if (longitude != 0 && latitude != 0) {
+            lngLatFragment.setLnglat(longitude, latitude);
+        }
+    }
+
     @Override
     public void onModifyCompanyDetailSuccess() {
-
+        showSuccessAndFinish("保存成功");
     }
 
     @Override
@@ -238,9 +263,30 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        rvPhotoPreview.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            switch (requestCode) {
+                case Constants.RequestCode.LOCATION:
+                    longitude = data.getDoubleExtra("lng", -1);
+                    latitude = data.getDoubleExtra("lat", -1);
+                    initLngLat(longitude, latitude);
+                    break;
+                case Status.FileType.COMPANY_DEED_PROPERTY:
+                    tvDetailPropertyDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
+                    break;
+                case Status.FileType.COMPANY_DEED_LAND:
+                    tvDetailLandDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
+                    break;
+                case Status.FileType.COMPANY_DEED_IMMOVABLE:
+                    tvDetailImmovableDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
+                    break;
+                case Status.FileType.COMPANY_DEED_BUSINESS:
+                    tvDetailBusinessDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

@@ -63,8 +63,12 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     protected abstract void initNet();
 
     protected void setSingleAuth(Auth auth, String buildingId, String buildingType, String stastusId) {
-        initAuthLayout( auth);
-        fillDialogDate( buildingId, buildingType, stastusId);
+        setSingleAuth(auth, buildingId, buildingType, stastusId, "");
+    }
+
+    protected void setSingleAuth(Auth auth, String buildingId, String buildingType, String stastusId, String groupId) {
+        initAuthLayout(auth);
+        fillDialogDate(buildingId, buildingType, stastusId, groupId);
     }
 
     protected void initAuthLayout(Auth auth) {
@@ -153,23 +157,27 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
         });
     }
 
-    protected void fillDialogDate(String buildingId, String buildingType, String stastusId) {
+    protected void fillDialogDate(String buildingId, String buildingType, String stastusId, String groupId) {
         boolean allowSend = auth.isAllowSend();
         boolean allowBanned = auth.isAllowBanned();
         boolean allowReview = auth.isAllowReview();
         boolean allowFlowBack = auth.isAllowFlowBack();
         if (allowSend) {
-            sendDialog.setData(buildingId, buildingType, stastusId);
+            sendDialog.setData(buildingId, buildingType, stastusId, groupId);
         }
         if (allowBanned) {
-            deleteDialog.setData(buildingId, buildingType, stastusId);
+            deleteDialog.setData(buildingId, buildingType, stastusId, groupId);
         }
         if (allowReview) {
-            reviewDialog.setData(buildingId, buildingType, stastusId);
+            reviewDialog.setData(buildingId, buildingType, stastusId, groupId);
         }
         if (allowFlowBack) {
-            backDialog.setData(buildingId, buildingType, stastusId);
+            backDialog.setData(buildingId, buildingType, stastusId, groupId);
         }
+    }
+
+    protected void fillDialogDate(String buildingId, String buildingType, String stastusId) {
+        fillDialogDate(buildingId, buildingType, stastusId, "");
     }
 
 

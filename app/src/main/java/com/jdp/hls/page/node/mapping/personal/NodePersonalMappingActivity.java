@@ -53,10 +53,6 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
     TextView tvMappingDate;
     @BindView(R.id.iv_dateSelector)
     ImageView ivDateSelector;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etMeasureRemark;
     @Inject
@@ -88,6 +84,7 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
 
     @Override
     protected void initData() {
+        super.initData();
         tvMappingPropertyCertTotalArea.addTextChangedListener(calculateTextWatcher);
         etMappingTotalNotRecordArea.addTextChangedListener(calculateTextWatcher);
     }
@@ -153,7 +150,8 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
 
     @Override
     public void onGetPersonalMappingSuccess(NodePersonalMapping nodePersonalMapping) {
-        setEditable(true);
+        allowEdit = nodePersonalMapping.isAllowEdit();
+        setEditable(allowEdit);
         mapperId = nodePersonalMapping.getMapperId();
         tvMappingRealName.setText(nodePersonalMapping.getRealName());
         tvMappingPropertyCertTotalArea.setString(nodePersonalMapping.getPropertyCertTotalArea());
@@ -166,6 +164,7 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
         etMeasureRemark.setString(nodePersonalMapping.getRemark());
         tvMappingDate.setText(DateUtil.getShortDate(nodePersonalMapping.getMapDate()));
         calculateArea();
+        rvPhotoPreview.setData(nodePersonalMapping.getFiles(), getFileConfig(), allowEdit);
     }
 
     @Override

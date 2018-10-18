@@ -32,10 +32,6 @@ public class NodeCompanyMeasureActivity extends BaseNodeActivity implements Node
     StringTextView tvMeasureAddress;
     @BindView(R.id.tv_measure_date)
     TextView tvMeasureDate;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EditText etMeasureRemark;
     @Inject
@@ -75,7 +71,7 @@ public class NodeCompanyMeasureActivity extends BaseNodeActivity implements Node
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
+        super.initData();
     }
 
     @Override
@@ -85,13 +81,13 @@ public class NodeCompanyMeasureActivity extends BaseNodeActivity implements Node
 
     @Override
     public void onGetCompanyMeasureSuccess(NodeCompanyMeasure nodeCompanyMeasure) {
-        setEditable(true);
+        allowEdit = nodeCompanyMeasure.isAllowEdit();
+        setEditable(allowEdit);
         tvMeasureName.setText(nodeCompanyMeasure.getRealName());
         etMeasureRemark.setText(nodeCompanyMeasure.getRemark());
         tvMeasureAddress.setText(nodeCompanyMeasure.getAddress());
         tvMeasureDate.setText(DateUtil.getShortDate(nodeCompanyMeasure.getMeaDate()));
-        allowEdit = nodeCompanyMeasure.isAllowEdit();
-
+        rvPhotoPreview.setData(nodeCompanyMeasure.getFiles(), getFileConfig(), allowEdit);
     }
 
     @Override

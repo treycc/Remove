@@ -16,11 +16,20 @@ public class Business implements Serializable{
     private String RealName;
     private String MobilePhone;
     private String Address;
+    private String GroupId;
     private int StatusId;
     private String StatusDesc;
     private boolean IsFlowBack;
     private boolean HasLongitudeAndLatitude;
     private boolean selected;
+
+    public String getGroupId() {
+        return GroupId;
+    }
+
+    public void setGroupId(String groupId) {
+        GroupId = groupId;
+    }
 
     public boolean isSelected() {
         return selected;

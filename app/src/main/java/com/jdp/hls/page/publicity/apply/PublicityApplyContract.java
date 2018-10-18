@@ -4,6 +4,7 @@ package com.jdp.hls.page.publicity.apply;
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.PublicityDetail;
+import com.jdp.hls.model.entiy.PublicityItem;
 
 import okhttp3.RequestBody;
 
@@ -15,7 +16,7 @@ import okhttp3.RequestBody;
  */
 public interface PublicityApplyContract {
     interface View extends BaseView {
-        void onApplyPublicitySuccess();
+        void onApplyPublicitySuccess(PublicityItem publicityItem);
     }
 
     interface Presenter extends BasePresenter<View> {

@@ -80,13 +80,6 @@ public class ReviewDialog extends BaseDialog implements ReviewNodeContract.View 
     @Override
     public RequestBody getRequestBody() {
         String reason = set_dialog_reason.getText().toString().trim();
-//        reviewNodePresenter.reviewNode(new MultipartBody.Builder().setType(MultipartBody.FORM)
-//                .addFormDataPart("buildingId", buildingId)
-//                .addFormDataPart("buildingType", buildingType)
-//                .addFormDataPart("statusId", statusId)
-//                .addFormDataPart("Reason", reason)
-//                .build());
-//
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("buildingId", buildingId)
                 .addFormDataPart("buildingType", buildingType)

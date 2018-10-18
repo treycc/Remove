@@ -42,7 +42,6 @@ public class SendDialog extends BaseDialog implements SendNodeContract.View {
         super(context, buildingId, buildingType, statusId);
     }
 
-
     @Override
     public void initView() {
         DaggerBaseCompnent.builder()

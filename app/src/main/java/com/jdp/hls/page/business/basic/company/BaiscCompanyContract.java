@@ -3,7 +3,7 @@ package com.jdp.hls.page.business.basic.company;
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
-import com.jdp.hls.model.entiy.BaiscCompany;
+import com.jdp.hls.model.entiy.BasicCompany;
 
 /**
  * Description：TODO
@@ -13,7 +13,7 @@ import com.jdp.hls.model.entiy.BaiscCompany;
  */
 public interface BaiscCompanyContract {
     interface View extends BaseView {
-        void onGetCompanyBasicSuccess(BaiscCompany baiscCompany);
+        void onGetCompanyBasicSuccess(BasicCompany basicCompany);
     }
 
     interface Presenter extends BasePresenter<View> {

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.jdp.hls.R;
+import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
@@ -14,6 +15,7 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedPersonalImmovable;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
@@ -33,7 +35,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedPersonalImmovableActivity extends BaseTitleActivity implements DeedPersonalImmovableContract.View {
+public class DeedPersonalImmovableActivity extends BaseDeedActivity implements DeedPersonalImmovableContract.View {
     @BindView(R.id.et_immovableNum)
     EnableEditText etImmovableNum;
     @BindView(R.id.spinner_property_use)
@@ -54,8 +56,6 @@ public class DeedPersonalImmovableActivity extends BaseTitleActivity implements 
     EnableEditText etLandBuildOccupyArea;
     @BindView(R.id.et_land_address)
     EnableEditText etLandAddress;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
     @Inject
     DeedPersonalImmovablePresenter deedPersonalImmovablePresenter;
     private List<TDict> landUseList;
@@ -66,14 +66,12 @@ public class DeedPersonalImmovableActivity extends BaseTitleActivity implements 
     private int propertyStructure;
     private int landUseId;
     private int landTypeId;
-    private boolean isAdd;
-    private String houdeId;
     private boolean allowEdit;
+    private String certNum;
 
     @Override
     public void initVariable() {
-        isAdd = getIntent().getBooleanExtra("isAdd", false);
-        houdeId = getIntent().getStringExtra("houdeId");
+        super.initVariable();
         landUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.LAND_USE);
         landTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.LAND_TYPE);
         propertyUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_USE);
@@ -105,7 +103,7 @@ public class DeedPersonalImmovableActivity extends BaseTitleActivity implements 
 
     @Override
     protected void initData() {
-
+        super.initData();
         rvPhotoPreview.create();
         spinnerLandUse.setDicts(landUseList, typeId -> {
             landUseId = typeId;
@@ -118,20 +116,20 @@ public class DeedPersonalImmovableActivity extends BaseTitleActivity implements 
         spinnerPropertyUse.setDicts(propertyUseList, typeId -> {
             propertyUse = typeId;
         });
-        propertyUse=spinnerPropertyUse.getDefaultTypeId();
+        propertyUse = spinnerPropertyUse.getDefaultTypeId();
         spinnerPropertyStructure.setDicts(propertyStructureList, typeId -> {
             propertyStructure = typeId;
         });
-        propertyStructure=spinnerPropertyStructure.getDefaultTypeId();
+        propertyStructure = spinnerPropertyStructure.getDefaultTypeId();
     }
 
     @Override
     protected void initNet() {
-        if (isAdd) {
+        if (mIsAdd) {
             setRightClick("保存", addListener);
         } else {
             //获取接口
-            deedPersonalImmovablePresenter.getDeedPersonalImmovable(houdeId);
+            deedPersonalImmovablePresenter.getDeedPersonalImmovable(mBuildingId);
         }
     }
 
@@ -152,14 +150,14 @@ public class DeedPersonalImmovableActivity extends BaseTitleActivity implements 
 
     @NonNull
     private RequestBody getRequestBody() {
-        String certNum = etImmovableNum.getText().toString().trim();
+        certNum = etImmovableNum.getText().toString().trim();
         String houseTotalArea = etPropertyTotalArea.getText().toString().trim();
         String houseShareArea = etPropertyShareArea.getText().toString().trim();
         String landTotalArea = etLandCertArea.getText().toString().trim();
         String buildOccupyArea = etLandBuildOccupyArea.getText().toString().trim();
         String address = etLandAddress.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("HouseId", houdeId)
+                .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("PropertyUseTypeId", String.valueOf(propertyUse))
                 .addFormDataPart("StructureTypeId", String.valueOf(propertyStructure))
@@ -170,13 +168,6 @@ public class DeedPersonalImmovableActivity extends BaseTitleActivity implements 
                 .addFormDataPart("LandTotalArea", landTotalArea)
                 .addFormDataPart("BuildOccupyArea", buildOccupyArea)
                 .addFormDataPart("Address", address).build();
-    }
-
-    public static void goActivity(Context context, String houdeId, boolean isAdd) {
-        Intent intent = new Intent(context, DeedPersonalImmovableActivity.class);
-        intent.putExtra("houdeId", houdeId);
-        intent.putExtra("isAdd", isAdd);
-        context.startActivity(intent);
     }
 
 
@@ -201,30 +192,34 @@ public class DeedPersonalImmovableActivity extends BaseTitleActivity implements 
         propertyStructure = deedPersonalImmovable.getStructureTypeId();
         spinnerPropertyUse.setSelectItem(propertyUse);
         spinnerPropertyStructure.setSelectItem(propertyStructure);
-
-        List<ImgInfo> photoFiles = deedPersonalImmovable.getFiles();
-        if (photoFiles != null) {
-            rvPhotoPreview.setData(photoFiles);
-        }
         allowEdit = deedPersonalImmovable.isAllowEdit();
         setEditable(allowEdit);
+        rvPhotoPreview.setData(deedPersonalImmovable.getFiles(), getFileConfig(), allowEdit);
     }
 
     private void setEditable(boolean allowEdit) {
         if (allowEdit) {
             setRightClick("保存", editListener);
-        } else {
-            //全部禁用
         }
+        etImmovableNum.setEnabled(allowEdit);
+        etLandCertArea.setEnabled(allowEdit);
+        etLandBuildOccupyArea.setEnabled(allowEdit);
+        etPropertyTotalArea.setEnabled(allowEdit);
+        etPropertyShareArea.setEnabled(allowEdit);
+        etLandAddress.setEnabled(allowEdit);
+        spinnerLandUse.setEnabled(allowEdit);
+        spinnerLandType.setEnabled(allowEdit);
+        spinnerPropertyUse.setEnabled(allowEdit);
+        spinnerPropertyStructure.setEnabled(allowEdit);
     }
 
     @Override
     public void onAddDeedPersonalImmovableSuccess() {
-
+        setResult(certNum);
     }
 
     @Override
     public void onModifyDeedPersonalImmovableSuccess() {
-
+        setResult(certNum);
     }
 }

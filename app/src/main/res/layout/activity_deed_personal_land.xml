@@ -32,7 +32,7 @@
 
         <TextView
             style="@style/Title_Sub"
-            android:text="土地记载面积(m²)"/>
+            android:text="土地记载面积"/>
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_land_certArea"
@@ -48,7 +48,7 @@
 
         <TextView
             style="@style/Title_Sub"
-            android:text="建筑占地面积(m²)"/>
+            android:text="建筑占地面积"/>
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_land_totalArea"
@@ -68,7 +68,7 @@
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_land_address"
-            style="@style/Content_ET_W2"
+            style="@style/Content_ET_W2_Mul_Line"
             android:hint="请输入坐落地址"/>
     </LinearLayout>
 

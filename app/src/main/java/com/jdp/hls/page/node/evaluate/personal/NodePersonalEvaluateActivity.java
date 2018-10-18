@@ -102,7 +102,7 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
+        super.initData();
     }
 
     @Override
@@ -147,7 +147,8 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
 
     @Override
     public void onGetPersonalEvaluateSuccess(NodePersonalEvaluate nodePersonalEvaluate) {
-        setEditable(true);
+        allowEdit = nodePersonalEvaluate.isAllowEdit();
+        setEditable(allowEdit);
         evalId = nodePersonalEvaluate.getEvalId();
         tvEvaluateRealName.setText(nodePersonalEvaluate.getRealName());
         etEvaluateHouseResetMoney.setString(nodePersonalEvaluate.getHouseResetMoney());
@@ -158,6 +159,7 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
         tvEvaluateAddress.setString(nodePersonalEvaluate.getAddress());
         etAgeRemark.setString(nodePersonalEvaluate.getRemark());
         tvEvaluateDate.setText(DateUtil.getShortDate(nodePersonalEvaluate.getEvalDate()));
+        rvPhotoPreview.setData(nodePersonalEvaluate.getFiles(), getFileConfig(), allowEdit);
     }
 
     @Override

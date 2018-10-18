@@ -27,11 +27,13 @@ public class BackDialog extends BaseDialog implements BackNodeContract.View {
     private TextView tv_dialog_receiveName;
 
     public BackDialog(Context context, String buildingId, String buildingType, String statusId) {
-        super(context, buildingId,  buildingType,  statusId);
+        super(context, buildingId, buildingType, statusId);
     }
+
     public BackDialog(Context context) {
         super(context);
     }
+
     @Override
     protected int getContentViewId() {
         return R.layout.dialog_back;
@@ -50,7 +52,7 @@ public class BackDialog extends BaseDialog implements BackNodeContract.View {
 
     @Override
     public void initNet() {
-        backNodePresenter.getOperatePerson(buildingId,buildingType);
+        backNodePresenter.getOperatePerson(groupId);
     }
 
     @Override
@@ -66,13 +68,6 @@ public class BackDialog extends BaseDialog implements BackNodeContract.View {
     @Override
     public RequestBody getRequestBody() {
         String reason = set_dialog_reason.getText().toString().trim();
-//        backNodePresenter.backNode(new MultipartBody.Builder().setType(MultipartBody.FORM)
-//                .addFormDataPart("buildingId", buildingId)
-//                .addFormDataPart("buildingType", buildingType)
-//                .addFormDataPart("statusId", statusId)
-//                .addFormDataPart("Reason", reason)
-//                .build());
-
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("buildingId", buildingId)
                 .addFormDataPart("buildingType", buildingType)

@@ -18,7 +18,9 @@ import com.jdp.hls.adapter.BaseRvPositionAdapter;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.other.file.FileConfig;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -34,6 +36,8 @@ public class PreviewRecyclerView extends RecyclerView {
     private List<ImgInfo> photos = new ArrayList<>();
     private ArrayList<String> deleteIds = new ArrayList<>();
     private PreviewImgAdapter previewImgAdapter;
+    private FileConfig fileConfig;
+    private boolean editable=true;
 
     public PreviewRecyclerView(Context context) {
         this(context, null);
@@ -45,6 +49,21 @@ public class PreviewRecyclerView extends RecyclerView {
 
     public PreviewRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        initPreviewRecyclerView();
+    }
+
+    private void initPreviewRecyclerView() {
+        previewImgAdapter = new PreviewImgAdapter(getContext(), photos);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(OrientationHelper.HORIZONTAL);
+        setLayoutManager(layoutManager);
+        setAdapter(previewImgAdapter);
+        setItemAnimator(new DefaultItemAnimator());
+        addItemDecoration(new RvItemDecoration(getContext(), RvItemDecoration.LayoutStyle.HORIZONTAL_LIST,
+                12, 0x00ffffff));
+        previewImgAdapter.setOnItemClickListener((list, position) -> {
+            goPhotoPreviewActivity((Activity) getContext(), fileConfig,editable);
+        });
     }
 
     public void create() {
@@ -56,23 +75,19 @@ public class PreviewRecyclerView extends RecyclerView {
     }
 
 
-    public void initPhotos(List<ImgInfo> photos) {
-        this.photos = photos;
-        previewImgAdapter = new PreviewImgAdapter(getContext(), photos == null ? new ArrayList<>() : photos);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(OrientationHelper.HORIZONTAL);
-        setLayoutManager(layoutManager);
-        setAdapter(previewImgAdapter);
-        setItemAnimator(new DefaultItemAnimator());
-        addItemDecoration(new RvItemDecoration(getContext(), RvItemDecoration.LayoutStyle.HORIZONTAL_LIST,
-                12, 0x00ffffff));
-        previewImgAdapter.setOnItemClickListener((list, position) -> {
-        });
+    public void setData(List<ImgInfo> photos) {
+        setData(photos, null);
     }
 
+    public void setData(List<ImgInfo> photos, FileConfig fileConfig) {
+        setData( photos,  fileConfig,  true);
+    }
 
-    public void setData(List<ImgInfo> imgInfos) {
-        previewImgAdapter.setData(imgInfos);
+    public void setData(List<ImgInfo> photos, FileConfig fileConfig, boolean editable) {
+        setConfig(fileConfig);
+        this.editable = editable;
+        this.photos = photos;
+        previewImgAdapter.setData(photos == null ? new ArrayList<>() : photos);
     }
 
 
@@ -92,19 +107,22 @@ public class PreviewRecyclerView extends RecyclerView {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.RequestCode.PHOTO_PREVIEW && data != null) {
-            photos = (List<ImgInfo>) data.getSerializableExtra(Constants.Extra.DTO_IMGS);
+            photos = (List<ImgInfo>) data.getSerializableExtra(Constants.Extra.PHOTOLIST);
             previewImgAdapter.setData(photos);
         }
     }
 
-    public void goPhotoPreviewActivity(Activity context) {
-        PhotoPreviewActivity.goActivity(context, photos);
+    public void goPhotoPreviewActivity(Activity context, FileConfig fileConfig,boolean editable) {
+        PhotoPreviewActivity.goActivity(context, photos, fileConfig,editable);
     }
 
     public void onActivityResult(Intent data) {
         onActivityResult(Constants.RequestCode.PHOTO_PREVIEW, Activity.RESULT_OK, data);
     }
 
+    public void setConfig(FileConfig fileConfig) {
+        this.fileConfig = fileConfig;
+    }
 
     public class PreviewImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
         protected final String TAG = getClass().getSimpleName();

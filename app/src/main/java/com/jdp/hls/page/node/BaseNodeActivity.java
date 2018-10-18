@@ -1,5 +1,6 @@
 package com.jdp.hls.page.node;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
@@ -8,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.PreviewRecyclerView;
@@ -20,6 +23,8 @@ import com.jzxiang.pickerview.data.Type;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * Description:TODO
  * Create Time:2018/9/27 0027 上午 11:40
@@ -27,12 +32,28 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public abstract class BaseNodeActivity extends BaseTitleActivity {
-    protected String mBuildingId;
     protected boolean allowEdit;
+    @BindView(R.id.rv_photo_preview)
+    protected PreviewRecyclerView rvPhotoPreview;
+    protected String mBuildingId;
+    protected String mBuildingType;
+    protected String mFileType;
+    public FileConfig getFileConfig() {
+        return mFileConfig;
+    }
+
+    public void setFileConfig(FileConfig mFileConfig) {
+        this.mFileConfig = mFileConfig;
+    }
+
+    private FileConfig mFileConfig;
+
 
     @Override
     public void initVariable() {
-        mBuildingId = getIntent().getStringExtra(Constants.Extra.BUILDINGID);
+        mBuildingId = getIntent().getStringExtra(Constants.Extra.BUILDING_ID);
+        mBuildingType = getIntent().getStringExtra(Constants.Extra.BUILDING_TYPE);
+        mFileType = getIntent().getStringExtra(Constants.Extra.FILETYPE);
     }
 
     @Override
@@ -48,15 +69,27 @@ public abstract class BaseNodeActivity extends BaseTitleActivity {
     protected abstract void initView();
 
     @Override
-    protected abstract void initData();
+    protected  void initData(){
+        setFileConfig(new FileConfig(mFileType, mBuildingId, mBuildingType));
+        rvPhotoPreview.setConfig(getFileConfig());
+    }
 
     @Override
     protected abstract void initNet();
 
     public static void goActivity(Context context, Class<? extends BaseNodeActivity> clazz, String buildingId) {
         Intent intent = new Intent(context, clazz);
-        intent.putExtra(Constants.Extra.BUILDINGID, buildingId);
+        intent.putExtra(Constants.Extra.BUILDING_ID, buildingId);
         context.startActivity(intent);
+    }
+
+    public static void goActivity(Activity context, Class<? extends BaseNodeActivity> clazz, String fileType, String
+            buildingId, String buildingType) {
+        Intent intent = new Intent(context, clazz);
+        intent.putExtra(Constants.Extra.FILETYPE, fileType);
+        intent.putExtra(Constants.Extra.BUILDING_ID, buildingId);
+        intent.putExtra(Constants.Extra.BUILDING_TYPE, buildingType);
+        context.startActivityForResult(intent, Integer.valueOf(fileType));
     }
 
     protected void setEditable(boolean allowEdit) {
@@ -94,14 +127,6 @@ public abstract class BaseNodeActivity extends BaseTitleActivity {
         });
     }
 
-    public void setPhotoPreview(List<ImgInfo> photos, PreviewRecyclerView previewRecyclerView) {
-        if (photos != null && photos.size() > 0) {
-            previewRecyclerView.setData(photos);
-        }
-    }
-
-
-
     protected abstract void onUiEditable(boolean allowEdit);
 
     protected abstract void onSaveDate();
@@ -109,5 +134,10 @@ public abstract class BaseNodeActivity extends BaseTitleActivity {
     @Override
     protected boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        rvPhotoPreview.onActivityResult(requestCode, resultCode, data);
     }
 }

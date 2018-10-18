@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
+import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
@@ -35,7 +36,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedCompanyImmovableActivity extends BaseTitleActivity implements DeedCompanyImmovableContract.View {
+public class DeedCompanyImmovableActivity extends BaseDeedActivity implements DeedCompanyImmovableContract.View {
     @BindView(R.id.et_immovable_certNum)
     EnableEditText etImmovableCertNum;
     @BindView(R.id.spinner_landUse)
@@ -52,12 +53,6 @@ public class DeedCompanyImmovableActivity extends BaseTitleActivity implements D
     EnableEditText etImmovableLandArea;
     @BindView(R.id.et_immovable_propertyArea)
     EnableEditText etImmovablePropertyArea;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
-    private boolean isAdd;
-    private String enterpriseId;
     private List<TDict> landUseList;
     private List<TDict> landTypeList;
     private List<TDict> propertyUseList;
@@ -70,11 +65,11 @@ public class DeedCompanyImmovableActivity extends BaseTitleActivity implements D
 
     @Inject
     DeedCompanyImmovablePresenter deedCompanyImmovablePresenter;
+    private String certNum;
 
     @Override
     public void initVariable() {
-        isAdd = getIntent().getBooleanExtra("isAdd", false);
-        enterpriseId = getIntent().getStringExtra("enterpriseId");
+        super.initVariable();
         landUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.LAND_USE);
         landTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.LAND_TYPE);
         propertyUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_USE);
@@ -106,6 +101,7 @@ public class DeedCompanyImmovableActivity extends BaseTitleActivity implements D
 
     @Override
     protected void initData() {
+        super.initData();
         rvPhotoPreview.create();
         spinnerLandUse.setDicts(landUseList, typeId -> {
             landUseId = typeId;
@@ -127,11 +123,11 @@ public class DeedCompanyImmovableActivity extends BaseTitleActivity implements D
 
     @Override
     protected void initNet() {
-        if (isAdd) {
+        if (mIsAdd) {
             setRightClick("保存", addListener);
         } else {
             //获取接口
-            deedCompanyImmovablePresenter.getDeedCompanyImmovable(enterpriseId);
+            deedCompanyImmovablePresenter.getDeedCompanyImmovable(mBuildingId);
         }
     }
 
@@ -152,12 +148,12 @@ public class DeedCompanyImmovableActivity extends BaseTitleActivity implements D
 
     @NonNull
     private RequestBody getRequestBody() {
-        String certNum = etImmovableCertNum.getText().toString().trim();
+        certNum = etImmovableCertNum.getText().toString().trim();
         String landArea = etImmovableLandArea.getText().toString().trim();
         String propertyArea = etImmovablePropertyArea.getText().toString().trim();
         String address = etImmovableAddress.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("EnterpriseId", enterpriseId)
+                .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("LandNatureTypeId", String.valueOf(landTypeId))
                 .addFormDataPart("LandUseTypeId", String.valueOf(landUseId))
@@ -168,17 +164,18 @@ public class DeedCompanyImmovableActivity extends BaseTitleActivity implements D
                 .addFormDataPart("Address", address).build();
     }
 
-    private void setEditable() {
+    private void setEditable(boolean allowEdit) {
         if (allowEdit) {
             setRightClick("保存", editListener);
-        } else {
-            //全部禁用
         }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        etImmovableCertNum.setEnabled(allowEdit);
+        etImmovableAddress.setEnabled(allowEdit);
+        etImmovableLandArea.setEnabled(allowEdit);
+        etImmovablePropertyArea.setEnabled(allowEdit);
+        spinnerLandUse.setEnabled(allowEdit);
+        spinnerLandType.setEnabled(allowEdit);
+        spinnerPropertyUse.setEnabled(allowEdit);
+        spinnerPropertyStructure.setEnabled(allowEdit);
     }
 
     public static void goActivity(Context context, String enterpriseId, boolean isAdd) {
@@ -188,10 +185,6 @@ public class DeedCompanyImmovableActivity extends BaseTitleActivity implements D
         context.startActivity(intent);
     }
 
-    @Override
-    protected boolean ifRegisterLoadSir() {
-        return true;
-    }
 
     @Override
     public void onGetDeedCompanyImmovableSuccess(DeedCompanyImmovable deedCompanyImmovable) {
@@ -208,24 +201,18 @@ public class DeedCompanyImmovableActivity extends BaseTitleActivity implements D
         propertyStructure = deedCompanyImmovable.getStructureTypeId();
         spinnerPropertyUse.setSelectItem(propertyUse);
         spinnerPropertyStructure.setSelectItem(propertyStructure);
-        List<ImgInfo> photoFiles = deedCompanyImmovable.getFiles();
-        if (photoFiles != null) {
-            rvPhotoPreview.setData(photoFiles);
-        }
         allowEdit = deedCompanyImmovable.isAllowEdit();
-        setEditable();
+        setEditable(allowEdit);
+        rvPhotoPreview.setData(deedCompanyImmovable.getFiles(), getFileConfig(), allowEdit);
     }
 
     @Override
     public void onAddDeedCompanyImmovableSuccess() {
-        ToastUtil.showText("添加成功");
-        finish();
-
+        setResult(certNum);
     }
 
     @Override
     public void onModifyDeedCompanyImmovableSuccess() {
-        ToastUtil.showText("修改成功");
-        finish();
+        setResult(certNum);
     }
 }

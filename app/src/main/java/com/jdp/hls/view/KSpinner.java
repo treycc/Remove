@@ -158,8 +158,11 @@ public class KSpinner extends NiceSpinner {
         void onBooleanSelected(boolean selected);
     }
 
-    public void disable() {
-        hideArrow();
-        setEnabled(false);
+    public void enable(boolean enable) {
+        if (!enable) {
+            hideArrow();
+            setEnabled(false);
+        }
+
     }
 }

@@ -1,5 +1,7 @@
 package com.jdp.hls.model.entiy;
 
+import java.util.List;
+
 /**
  * Description:TODO
  * Create Time:2018/9/27 0027 下午 4:52
@@ -43,6 +45,15 @@ public class NodePersonalProtocol {
     private String TaoTypeName;
     private double DamagesAmount;
     private double NeedPayAmount;
+    private List<ImgInfo> Files;
+
+    public List<ImgInfo> getFiles() {
+        return Files;
+    }
+
+    public void setFiles(List<ImgInfo> files) {
+        Files = files;
+    }
 
     public double getHZArea() {
         return HZArea;

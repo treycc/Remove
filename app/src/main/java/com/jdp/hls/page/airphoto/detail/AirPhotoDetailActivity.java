@@ -174,8 +174,8 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         int checkType = airPhotoItem.getCheckType();
 
         //初审可以改，初审后不能改
-        spinnerPropertyUse.setEnabled(checkType == Status.AirPhotoType.FIRST && allowEdit);
-        spinnerStructureType.setEnabled(checkType == Status.AirPhotoType.FIRST && allowEdit);
+        spinnerPropertyUse.enable(checkType == Status.AirPhotoType.FIRST && allowEdit);
+        spinnerStructureType.enable(checkType == Status.AirPhotoType.FIRST && allowEdit);
         etAirphotoLayer.setEnabled(checkType == Status.AirPhotoType.FIRST && allowEdit);
 
         allowEditAppraise = auth.isAllowEditAppraise();

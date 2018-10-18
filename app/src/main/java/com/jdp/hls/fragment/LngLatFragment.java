@@ -35,6 +35,7 @@ public class LngLatFragment extends BaseFragment implements AMap.OnMapClickListe
     @BindView(R.id.map_fragment)
     TextureMapView mMapView;
     private AMap aMap;
+    private boolean editable;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -146,17 +147,24 @@ public class LngLatFragment extends BaseFragment implements AMap.OnMapClickListe
      */
     @Override
     public void onDestroy() {
-        LogUtil.e(TAG,"消灭onDestroy");
-        LogUtil.e(TAG,"mMapView:"+(mMapView==null));
+        LogUtil.e(TAG, "消灭onDestroy");
+        LogUtil.e(TAG, "mMapView:" + (mMapView == null));
         super.onDestroy();
         if (mMapView != null) {
             mMapView.onDestroy();
-            mMapView=null;
+            mMapView = null;
         }
     }
 
     @Override
     public void onMapClick(LatLng latLng) {
-        GoUtil.goActivityForResult(getActivity(), LocationActivity.class, Constants.RequestCode.LOCATION);
+        if (editable) {
+            GoUtil.goActivityForResult(getActivity(), LocationActivity.class, Constants.RequestCode.LOCATION);
+        }
+
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 }

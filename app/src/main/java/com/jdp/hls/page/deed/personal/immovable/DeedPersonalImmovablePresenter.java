@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.DeedPersonalImmovable;
+import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
 
 import javax.inject.Inject;
@@ -32,7 +33,7 @@ public class DeedPersonalImmovablePresenter implements DeedPersonalImmovableCont
     public void getDeedPersonalImmovable(String houseId) {
         mApi.getApiService().getDeedPersonalImmovable(houseId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<DeedPersonalImmovable>(mView) {
+                (new LoadSirObserver<DeedPersonalImmovable>(mView) {
                     @Override
                     protected void onSuccess(DeedPersonalImmovable deedPersonalImmovable) {
                         mView.onGetDeedPersonalImmovableSuccess(deedPersonalImmovable);

@@ -1,5 +1,7 @@
 package com.jdp.hls.model.entiy;
 
+import java.util.List;
+
 /**
  * Description:TODO
  * Create Time:2018/9/28 0028 下午 8:23
@@ -16,6 +18,7 @@ public class PublicityDetail {
     private String PubStatusDesc;
     private int BuildingType;
     private int BuildingCount;
+    private int TotalQuantity;
     private String StartDate;
     private String EndDate;
     private String Descriptiton;
@@ -23,6 +26,23 @@ public class PublicityDetail {
     private int groupId;
     private String CreateDatetime;
     private boolean IsAllowEdit;
+    private List<ImgInfo> Files;
+
+    public int getTotalQuantity() {
+        return TotalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        TotalQuantity = totalQuantity;
+    }
+
+    public List<ImgInfo> getFiles() {
+        return Files;
+    }
+
+    public void setFiles(List<ImgInfo> files) {
+        Files = files;
+    }
 
     public int getPubId() {
         return PubId;

@@ -317,6 +317,7 @@
 
     <style name="Content_ET_W2_Mul_Line" parent="Content_ET">
         <item name="android:layout_weight">2</item>
+        <item name="android:singleLine">false</item>
     </style>
 
     <style name="Content_LL">

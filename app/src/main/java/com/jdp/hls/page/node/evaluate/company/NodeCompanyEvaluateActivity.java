@@ -112,7 +112,7 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
+       super.initData();
         etEvaluateNonMobileDevicePay.addTextChangedListener(calculateTotalMoneyWatcher);
         etEvaluateMobileDevicePay.addTextChangedListener(calculateTotalMoneyWatcher);
         etEvaluateLegalLandPay.addTextChangedListener(calculateTotalPropertyWatcher);
@@ -201,7 +201,8 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
 
     @Override
     public void onGetCompanyEvaluateSuccess(NodeCompanyEvaluate nodeCompanyEvaluate) {
-        setEditable(true);
+        allowEdit = nodeCompanyEvaluate.isAllowEdit();
+        setEditable(allowEdit);
         evalId = nodeCompanyEvaluate.getEvalId();
         tvMappingRealName.setText(nodeCompanyEvaluate.getRealName());
         etEvaluateNonMobileDevicePay.setString(nodeCompanyEvaluate.getNonMobileDevicePay());
@@ -215,6 +216,7 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
         tvEvaluateDate.setText(DateUtil.getShortDate(nodeCompanyEvaluate.getEvalDate()));
         calculateTotalMoney();
         calculateTotalProperty();
+        rvPhotoPreview.setData(nodeCompanyEvaluate.getFiles(), getFileConfig(), allowEdit);
     }
 
     @Override
