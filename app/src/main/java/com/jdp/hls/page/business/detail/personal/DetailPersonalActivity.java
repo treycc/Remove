@@ -103,13 +103,14 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private int socialRelation;
     private DetailPersonal detailPersonal;
     private LngLatFragment lngLatFragment;
+    private boolean allowEdit;
 
     @OnClick({R.id.rl_unrecordBuilding, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
             .ll_detail_immovableDeed})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_unrecordBuilding:
-                FamilyRelationActivity.goActivity(this, detailPersonal.getHouseId());
+                FamilyRelationActivity.goActivity(this, detailPersonal.getHouseId(),allowEdit);
                 break;
             case R.id.ll_detail_propertyDeed:
                 String propertyNum = tvDetailPropertyDeed.getText().toString().trim();
@@ -198,6 +199,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         etDetailcusCode.setText(detailPersonal.getSysCode());
         etDetailRealName.setText(detailPersonal.getRealName());
         etDetailMobile.setText(detailPersonal.getMobilePhone());
+        etDetailIdcard.setText(detailPersonal.getIdcard());
         etDetailAddress.setText(detailPersonal.getAddress());
         etDetailBizUseArea.setText(String.valueOf(detailPersonal.getBizUseArea()));
         tvDetailPropertyDeed.setText(detailPersonal.getPropertyCertNum());
@@ -209,10 +211,9 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         switchDetailPublicity.setChecked(detailPersonal.isAllowPublicity());
         spinnerDetailSocialRelation.setSelectItem(detailPersonal.getPoliticalTitle());
 
-        rvPhotoPreview.setData(detailPersonal.getFiles(), new FileConfig(Status.FileType.PERSONAL_CURRENT,
-                this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)));
+
         initLngLat(detailPersonal.getLongitude(), detailPersonal.getLatitude());
-        boolean allowEdit = detailPersonal.isAllowEdit();
+        allowEdit = detailPersonal.isAllowEdit();
         if (allowEdit) {
             setRightClick("保存", new NoDoubleClickListener() {
                 @Override
@@ -226,11 +227,16 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         etDetailRealName.setEnabled(allowEdit);
         etDetailMobile.setEnabled(allowEdit);
         etDetailAddress.setEnabled(allowEdit);
+        etDetailIdcard.setEnabled(allowEdit);
         etDetailBizUseArea.setEnabled(allowEdit);
         etDetailRemark.setEnabled(allowEdit);
         switchDetailHasShop.setEnabled(allowEdit);
         switchDetailNeedHouse.setEnabled(allowEdit);
         switchDetailPublicity.setEnabled(allowEdit);
+        spinnerDetailSocialRelation.enable(allowEdit);
+        lngLatFragment.setEditable(allowEdit);
+        rvPhotoPreview.setData(detailPersonal.getFiles(), new FileConfig(Status.FileType.PERSONAL_CURRENT,
+                this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)),allowEdit);
 
     }
 

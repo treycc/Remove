@@ -1,25 +1,19 @@
 package com.jdp.hls.page.deed.personal.immovable;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseDeedActivity;
-import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedPersonalImmovable;
-import com.jdp.hls.model.entiy.ImgInfo;
-import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
-import com.jdp.hls.view.PreviewRecyclerView;
 
 import java.util.List;
 
@@ -207,10 +201,10 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
         etPropertyTotalArea.setEnabled(allowEdit);
         etPropertyShareArea.setEnabled(allowEdit);
         etLandAddress.setEnabled(allowEdit);
-        spinnerLandUse.setEnabled(allowEdit);
-        spinnerLandType.setEnabled(allowEdit);
-        spinnerPropertyUse.setEnabled(allowEdit);
-        spinnerPropertyStructure.setEnabled(allowEdit);
+        spinnerLandUse.enable(allowEdit);
+        spinnerLandType.enable(allowEdit);
+        spinnerPropertyUse.enable(allowEdit);
+        spinnerPropertyStructure.enable(allowEdit);
     }
 
     @Override

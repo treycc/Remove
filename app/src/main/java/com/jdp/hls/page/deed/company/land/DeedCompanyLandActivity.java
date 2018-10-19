@@ -148,8 +148,8 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
         etLandArea.setEnabled(allowEdit);
         etLandMu.setEnabled(allowEdit);
         etLandAddress.setEnabled(allowEdit);
-        spinnerLandUse.setEnabled(allowEdit);
-        spinnerLandType.setEnabled(allowEdit);
+        spinnerLandUse.enable(allowEdit);
+        spinnerLandType.enable(allowEdit);
     }
 
     public static void goActivity(Context context, String enterpriseId, boolean isAdd) {

@@ -95,6 +95,7 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         etMappingTotalBuildingArea.setEnabled(allowEdit);
         tvMappingTotalLegalArea.setEnabled(allowEdit);
         etMappingAppurtenanceArea.setEnabled(allowEdit);
+        etRemark.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvMappingDate, allowEdit);
     }
 

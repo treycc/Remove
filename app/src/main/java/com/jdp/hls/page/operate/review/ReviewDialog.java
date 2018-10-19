@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.ReceiverSpinnerAdapter;
+import com.jdp.hls.adapter.SimpleSpinnerAdapter;
 import com.jdp.hls.base.App;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
@@ -37,10 +38,12 @@ public class ReviewDialog extends BaseDialog implements ReviewNodeContract.View 
     private SuperShapeEditText set_dialog_reason;
     private TextView tv_dialog_receiveName;
     private Spinner spinner_dialog_receivePerson;
+    private int targetStatusId = -1;
 
     public ReviewDialog(Context context, String buildingId, String buildingType, String statusId) {
         super(context, buildingId, buildingType, statusId);
     }
+
     public ReviewDialog(Context context) {
         super(context);
     }
@@ -83,7 +86,7 @@ public class ReviewDialog extends BaseDialog implements ReviewNodeContract.View 
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("buildingId", buildingId)
                 .addFormDataPart("buildingType", buildingType)
-                .addFormDataPart("statusId", statusId)
+                .addFormDataPart("statusId", String.valueOf(targetStatusId))
                 .addFormDataPart("Reason", reason)
                 .build();
     }
@@ -97,13 +100,15 @@ public class ReviewDialog extends BaseDialog implements ReviewNodeContract.View 
     public void onGetReviewReceiverListSuccess(List<ReceivePerson> receivePersonList) {
         if (receivePersonList != null && receivePersonList.size() > 0) {
             tv_dialog_receiveName.setText(receivePersonList.get(0).getRealName());
-            ReceiverSpinnerAdapter receiverSpinnerAdapter = new ReceiverSpinnerAdapter(getContext(), receivePersonList);
+            targetStatusId = receivePersonList.get(0).getStatusId();
+            SimpleSpinnerAdapter receiverSpinnerAdapter = new SimpleSpinnerAdapter(getContext(), receivePersonList);
             spinner_dialog_receivePerson.setAdapter(receiverSpinnerAdapter);
             spinner_dialog_receivePerson.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     ReceivePerson receivePerson = (ReceivePerson) parent.getItemAtPosition(position);
                     tv_dialog_receiveName.setText(receivePerson.getRealName());
+                    targetStatusId = receivePerson.getStatusId();
                 }
 
                 @Override

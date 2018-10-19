@@ -107,7 +107,7 @@ public class PhotoPreviewActivity extends BaseTitleActivity implements PhotoCont
 
     @OnItemClick({R.id.gv_photo_preview})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        if (photoPreviewAdapter.isLastItem(position)) {
+        if (editable&&photoPreviewAdapter.isLastItem(position)) {
             PermissionsUtil.checkOpenPhoto(this);
         } else {
             BigImgActivity.goActivity(this, photoPreviewAdapter.getDTOData(), position);

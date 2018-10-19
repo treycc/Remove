@@ -3,6 +3,7 @@ package com.jdp.hls.page.operate.back;
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
+import com.jdp.hls.model.entiy.ReceivePerson;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Query;
@@ -16,7 +17,7 @@ import retrofit2.http.Query;
 public interface BackNodeContract {
     interface View extends BaseView {
         void onBackNodeSuccess();
-        void onGetOperatePersonSuccess(String name);
+        void onGetOperatePersonSuccess(ReceivePerson receivePerson);
     }
 
     interface Presenter extends BasePresenter<View> {

@@ -6,6 +6,7 @@ import android.widget.TextView;
 import com.jdp.hls.R;
 import com.jdp.hls.base.App;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.model.entiy.ReceivePerson;
 import com.jdp.hls.view.dialog.BaseDialog;
 import com.kingja.supershapeview.view.SuperShapeEditText;
 
@@ -71,18 +72,17 @@ public class BackDialog extends BaseDialog implements BackNodeContract.View {
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("buildingId", buildingId)
                 .addFormDataPart("buildingType", buildingType)
-                .addFormDataPart("statusId", statusId)
+                .addFormDataPart("statusId", "0")
                 .addFormDataPart("Reason", reason)
                 .build();
     }
 
     @Override
     public void onBackNodeSuccess() {
-
     }
 
     @Override
-    public void onGetOperatePersonSuccess(String name) {
-        tv_dialog_receiveName.setText(name);
+    public void onGetOperatePersonSuccess(ReceivePerson receivePerson) {
+        tv_dialog_receiveName.setText(receivePerson.getRealName());
     }
 }

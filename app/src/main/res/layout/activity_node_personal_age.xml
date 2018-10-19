@@ -196,6 +196,7 @@
                 android:text="84/86档"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_area8486"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -211,6 +212,7 @@
                 android:text="94档"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_area94"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -226,6 +228,7 @@
                 android:text="98档"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_area98"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -241,6 +244,7 @@
                 android:text="90有土地证面积"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_area90y"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -256,6 +260,7 @@
                 android:text="90无土地证面积"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_area90n"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -271,6 +276,7 @@
                 android:text="86/90档附属用房"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_area8690"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -286,6 +292,7 @@
                 android:text="98档无土地证"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_area98n"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -301,6 +308,7 @@
                 android:text="98档有土地证"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_area98y"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -316,6 +324,7 @@
                 android:text="视同合法面积"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_asLegitimateArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -331,6 +340,7 @@
                 android:text="牲口房"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_animalHouseArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -346,6 +356,7 @@
                 android:text="地下室"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_basement"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -368,6 +379,7 @@
                 android:text="简易房面积"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_simpleHouseAge"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -391,6 +403,7 @@
                 android:textStyle="bold"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_totalLegitimateArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -407,6 +420,7 @@
                 android:textStyle="bold"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_age_totalIllegalArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>

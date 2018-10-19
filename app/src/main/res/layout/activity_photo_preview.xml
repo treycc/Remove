@@ -25,7 +25,7 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white_hi"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <CheckBox
             android:id="@+id/cb_photo_select"

@@ -39,10 +39,19 @@ public class NodeCompanyAge {
     private String SimpleHouseArea;
     private String ShedArea;
     private String TotalNotRecordArea;
+    private String Remark;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
     public int getIdenId() {
         return IdenId;
+    }
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
     }
 
     public String getTotalNotRecordArea() {

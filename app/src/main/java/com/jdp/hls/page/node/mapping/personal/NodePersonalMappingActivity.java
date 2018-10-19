@@ -110,8 +110,7 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
     }
 
     @Override
-    protected void onUiEditable(boolean allowEdit2) {
-        boolean allowEdit=true;
+    protected void onUiEditable(boolean allowEdit) {
         tvMappingPropertyCertTotalArea.setEnabled(allowEdit);
         etMappingTotalNotRecordArea.setEnabled(allowEdit);
         tvMappingLandCertTotalArea.setEnabled(allowEdit);

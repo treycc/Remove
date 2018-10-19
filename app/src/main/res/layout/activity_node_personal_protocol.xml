@@ -162,6 +162,7 @@
                 android:text="户增面积"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_protocol_hzArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入户增面积"/>
@@ -176,6 +177,7 @@
                 android:text="总安置建筑面积"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_protocol_azBuildingArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入总安置建筑面积"/>
@@ -191,6 +193,7 @@
                 android:text="总安置套内面积"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_protocol_azntArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入总安置套内面积"/>
@@ -220,6 +223,7 @@
                 android:text="货币补偿总金额"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_protocol_damagesAmount"
                 style="@style/Content_ET_W1"
                 android:hint="请输入货币补偿总金额"/>
@@ -261,6 +265,7 @@
         <LinearLayout
             style="@style/Content_LL_T6">
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_protocol_totalPurchasePrice"
                 style="@style/Content_ET_W1"
                 android:hint="请输入总购房金额"/>
@@ -276,6 +281,7 @@
         <LinearLayout
             style="@style/Content_LL_T6">
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_protocol_totalPay"
                 style="@style/Content_ET_W1"
                 android:hint="请输入总补偿金额"/>
@@ -298,6 +304,7 @@
                 android:text="空翻面积"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_protocol_otherArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -313,6 +320,7 @@
                 android:text="超审批占地面积"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_protocol_overAuditArea"
                 style="@style/Content_ET_W1"
                 android:hint="请输入面积"/>
@@ -328,6 +336,7 @@
                 android:text="搬迁费用(¥)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_protocol_removeFee"
                 style="@style/Content_ET_W1"
                 android:hint="请输入金额"/>
@@ -343,6 +352,7 @@
                 android:text="临时安置费(¥)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_protocol_tempPlacementFee"
                 style="@style/Content_ET_W1"
                 android:hint="请输入金额"/>
@@ -358,6 +368,7 @@
                 android:text="其它费用(¥)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_protocol_otherFee"
                 style="@style/Content_ET_W1"
                 android:hint="请输入金额"/>

@@ -3,7 +3,6 @@ package com.jdp.hls.page.familyrelation.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -63,6 +62,7 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
     private String houseId;
     private String typeName;
     private String bookletNum;
+    private boolean editable;
 
     @Override
     public void initVariable() {
@@ -70,6 +70,7 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         bookletId = getIntent().getStringExtra(Constants.Extra.BOOKLETID);
         houseId = getIntent().getStringExtra(Constants.Extra.HOUSEID);
         bookletNum = getIntent().getStringExtra(Constants.Extra.BOOKLETNUM);
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE,true);
         familyRelationTitles = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.FAMILY_RELATION);
     }
 
@@ -98,19 +99,21 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
 
     @Override
     protected void initData() {
-        setRightClick("保存", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                modifyOtherArea();
-            }
-        });
+        if (editable) {
+            setRightClick("保存", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    modifyOtherArea();
+                }
+            });
+        }
+
         spinnerFamilyMememberGender.setBooleanDate(Arrays.asList("男", "女"), selected -> {
             gender = selected;
         });
         spinnerFamilyMememberType.setBooleanDate(Arrays.asList("农业", "非农业"), selected -> {
             isFarmer = selected;
         });
-
         spinnerFamilyMememberTitle.setDictsItem(familyRelationTitles, dict -> {
             titleTypeId = dict.getTypeId();
             typeName = dict.getTypeName();
@@ -119,7 +122,6 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         titleTypeId = defaultDict.getTypeId();
         typeName = defaultDict.getTypeName();
         etFamilyRelationBookletNum.setString(bookletNum==null?"":bookletNum);
-
         if (familyMember != null) {
             etFamilyRelationBookletNum.setString(familyMember.getBookletNum());
             etFamilyRelationName.setString(familyMember.getRealName());
@@ -132,6 +134,15 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
             typeName = familyMember.getTypeName();
             gender = familyMember.isGender();
             isFarmer = familyMember.getIsFarming();
+
+            etFamilyRelationBookletNum.setEnabled(editable);
+            etFamilyRelationName.setEnabled(editable);
+            etFamilyRelationIdcard.setEnabled(editable);
+            etFamilyRelationBookletNum.setEnabled(editable);
+            spinnerFamilyMememberGender.enable(editable);
+            spinnerFamilyMememberType.enable(editable);
+            spinnerFamilyMememberTitle.enable(editable);
+
         }
     }
 
@@ -158,13 +169,13 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
 
     }
 
-    public static void goActivity(Context context, FamilyMember familyMember, String houseId) {
+    public static void goActivity(Context context, FamilyMember familyMember, String houseId,boolean editable) {
         Intent intent = new Intent(context, FamilyMememberDetailActivity.class);
         intent.putExtra(Constants.Extra.FAMILYMEMBER, familyMember);
         intent.putExtra(Constants.Extra.HOUSEID, houseId);
+        intent.putExtra(Constants.Extra.EDITABLE, editable);
         context.startActivity(intent);
     }
-
     public static void goActivity(Context context, String bookletId,String bookletNum, String houseId) {
         Intent intent = new Intent(context, FamilyMememberDetailActivity.class);
         intent.putExtra(Constants.Extra.BOOKLETID, bookletId);

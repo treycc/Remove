@@ -3,8 +3,8 @@ package com.jdp.hls.page.operate.back;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.ReceivePerson;
 import com.jdp.hls.model.entiy.ResultObserver;
-import com.jdp.hls.page.operate.delete.DeleteNodeContract;
 
 import javax.inject.Inject;
 
@@ -39,7 +39,6 @@ public class BackNodePresenter implements BackNodeContract.Presenter {
 
     }
 
-
     @Override
     public void backNode(RequestBody requestBody) {
         mApi.getApiService().backNode(requestBody).subscribeOn(Schedulers.io())
@@ -56,10 +55,10 @@ public class BackNodePresenter implements BackNodeContract.Presenter {
     public void getOperatePerson(String groupId) {
         mApi.getApiService().getOperatePerson(groupId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<String>(mView) {
+                (new ResultObserver<ReceivePerson>(mView) {
                     @Override
-                    protected void onSuccess(String name) {
-                        mView.onGetOperatePersonSuccess(name);
+                    protected void onSuccess(ReceivePerson receivePerson) {
+                        mView.onGetOperatePersonSuccess(receivePerson);
                     }
                 });
     }

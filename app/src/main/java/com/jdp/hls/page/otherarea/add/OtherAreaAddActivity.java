@@ -11,6 +11,7 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.AddOtherEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.OtherArea;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 
@@ -110,6 +111,7 @@ public class OtherAreaAddActivity extends BaseTitleActivity implements OhterArea
         otherArea.setId(id);
         otherArea.setPCId(Integer.valueOf(pcdId));
         EventBus.getDefault().post(new AddOtherEvent(otherArea));
+        LogUtil.e(TAG,"新增其它面积");
         showSuccessAndFinish();
     }
 

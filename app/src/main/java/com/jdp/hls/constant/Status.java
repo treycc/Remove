@@ -22,10 +22,12 @@ public class Status {
         int PERSONAL = 0;
         int COMPANY = 1;
     }
+
     public interface BuildingTypeStr {
         String PERSONAL = "0";
         String COMPANY = "1";
     }
+
     public interface PublicityType {
         int SURVEY = 0;
         int AFFIRM = 1;
@@ -60,6 +62,7 @@ public class Status {
         String DECORATION = "1";
         String APPENDANT = "2";
     }
+
     public interface AccountType {
         int OPERATEMAN = 10;
     }
@@ -70,11 +73,13 @@ public class Status {
         int AIRPHOTO = 3;
         int TABLE = 4;
     }
+
     public interface AirPhotoType {
         int FIRST = 0;
         int MIDDLE = 1;
         int LAST = 2;
     }
+
     public interface FileType {
         int BASIC = 0;
         int PERSONAL_CURRENT = 2;
@@ -97,6 +102,7 @@ public class Status {
         int NODE_PROTOCOL_SIGN = 18;
         int BUSINESS_PUBLICITY = 30;
         int BUSINESS_AIRPHOTO = 31;
+        int BUSINESS_IDCARD = 32;
         int OTHER = 100;
     }
 

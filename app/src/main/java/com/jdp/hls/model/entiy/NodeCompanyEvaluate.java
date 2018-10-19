@@ -42,8 +42,17 @@ public class NodeCompanyEvaluate {
     private String ClearObstaclePay;
     private String EvalDate;
     private String Address;
+    private String Remark;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
+    }
 
     public int getEvalId() {
         return EvalId;

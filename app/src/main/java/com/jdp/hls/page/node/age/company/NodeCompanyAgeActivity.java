@@ -102,6 +102,7 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         etAgeAfter90Area.setEnabled(allowEdit);
         etAgeBefore90Area.setEnabled(allowEdit);
         etAgeAsLegitimateArea.setEnabled(allowEdit);
+        etRemark.setEnabled(allowEdit);
     }
 
     @Override
@@ -136,6 +137,7 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         etAgeAsLegitimateArea.setText(nodeCompanyAge.getAsLegitimateArea());
         tvAgeTotalNoLegalArea.setText(nodeCompanyAge.getAfter90Area());
         etAgeAfter90Area.setText(nodeCompanyAge.getAfter90Area());
+        etRemark.setText(nodeCompanyAge.getRemark());
         calculateArea();
         rvPhotoPreview.setData(nodeCompanyAge.getFiles(), getFileConfig(), allowEdit);
     }

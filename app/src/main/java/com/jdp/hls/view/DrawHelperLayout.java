@@ -42,6 +42,7 @@ public class DrawHelperLayout extends FrameLayout {
     private ViewGroup mControlView;
     private State mState = State.CLOSE;
     private OnDragListener mOnDragListener;
+    private boolean dragable=true;
 
 
     private enum State {
@@ -75,15 +76,19 @@ public class DrawHelperLayout extends FrameLayout {
 
     public DrawHelperLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(dragable);
     }
 
-    private void init() {
+    public void setDragable(boolean dragable) {
+        init( dragable);
+    }
+
+    private void init(boolean dragable) {
         mViewDragHelper = ViewDragHelper.create(this, new ViewDragHelper.Callback() {
             //是否可以拖动,true 可以，flase 不可以
             @Override
             public boolean tryCaptureView(View child, int pointerId) {
-                return true;
+                return dragable;
             }
 
 

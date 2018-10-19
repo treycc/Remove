@@ -142,6 +142,7 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
         etLicenseRealName.setEnabled(allowEdit);
         etLicenseIdcard.setEnabled(allowEdit);
         etLicenseMobilePhone.setEnabled(allowEdit);
+        setPersonImport.setVisibility(allowEdit?View.VISIBLE:View.GONE);
     }
 
     @Override

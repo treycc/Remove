@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class FamilyMemberAdapter extends BaseLvAdapter<FamilyMember> {
     private OnDeleteFamilyMemberListener onDeleteFamilyMemberListener;
+    private boolean editable;
 
     public FamilyMemberAdapter(Context context, List<FamilyMember> list) {
         super(context, list);
@@ -47,6 +48,7 @@ public class FamilyMemberAdapter extends BaseLvAdapter<FamilyMember> {
 
         });
         viewHolder.drawHelperLayout.close(false);
+        viewHolder.drawHelperLayout.setDragable(editable);
         viewHolder.drawHelperLayout.setOnRootClickListener(() -> {
             if (onDeleteFamilyMemberListener != null) {
                 onDeleteFamilyMemberListener.onFamilyMemberClick(list.get(position));
@@ -54,6 +56,11 @@ public class FamilyMemberAdapter extends BaseLvAdapter<FamilyMember> {
         });
 
         return convertView;
+    }
+
+    public void setEditableData(List<FamilyMember> familyMemberList, boolean editable) {
+        this.editable = editable;
+        setData(familyMemberList);
     }
 
     public void remove(int position) {

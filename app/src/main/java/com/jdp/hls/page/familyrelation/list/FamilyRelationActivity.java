@@ -12,11 +12,13 @@ import com.jdp.hls.adapter.FamilyMemberAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.AddFamilyMememberEvent;
 import com.jdp.hls.event.ModifyFamilyMememberEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.FamilyMember;
 import com.jdp.hls.model.entiy.FamilyRelation;
+import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.page.familyrelation.detail.FamilyMememberDetailActivity;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
@@ -47,12 +49,11 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     ListView lvFamilyRelation;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
 
     private List<FamilyMember> familyMembers = new ArrayList<>();
     private String houseId;
     private String bookletId;
+    private boolean editable;
 
     @Inject
     FamilyRelationPresenter familyRelationPresenter;
@@ -63,8 +64,8 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     public void initVariable() {
         EventBus.getDefault().register(this);
         houseId = getIntent().getStringExtra(Constants.Extra.HOUSEID);
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE, false);
     }
-
 
     @Override
     protected int getContentView() {
@@ -93,12 +94,15 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
     @Override
     protected void initData() {
-        setRightClick("增加", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this,bookletId,bookletNum, houseId);
-            }
-        });
+        if (editable) {
+            setRightClick("增加", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this, bookletId, bookletNum,
+                            houseId);
+                }
+            });
+        }
         familyMemberAdapter.setOnDeleteFamilyMemberListener(new FamilyMemberAdapter.OnDeleteFamilyMemberListener() {
             @Override
             public void onDeleteFamilyMember(String personId, String bookletId, int position) {
@@ -112,9 +116,14 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
             @Override
             public void onFamilyMemberClick(FamilyMember familyMember) {
-                FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this, familyMember,houseId);
+                FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this, familyMember, houseId, editable);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        rvPhotoPreview.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -129,13 +138,15 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
     @Override
     public void onGetFamilyRelationSuccess(FamilyRelation familyRelation) {
-         bookletId =String.valueOf(familyRelation.getBookletId()) ;
+        bookletId = String.valueOf(familyRelation.getBookletId());
         bookletNum = familyRelation.getBookletNum();
         tvFamilyRelationNum.setText(bookletNum);
         List<FamilyMember> familyMemberList = familyRelation.getLstPerons();
         if (familyMemberList != null && familyMemberList.size() > 0) {
-            familyMemberAdapter.setData(familyMemberList);
+            familyMemberAdapter.setEditableData(familyMemberList,editable);
         }
+        rvPhotoPreview.setData(familyRelation.getFiles(), new FileConfig(Status.FileType.BUSINESS_IDCARD, houseId,
+                Status.BuildingTypeStr.PERSONAL), editable);
     }
 
     @Override
@@ -143,9 +154,10 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
         familyMemberAdapter.removeItem(position);
     }
 
-    public static void goActivity(Context context, String houseId) {
+    public static void goActivity(Context context, String houseId, boolean editable) {
         Intent intent = new Intent(context, FamilyRelationActivity.class);
         intent.putExtra(Constants.Extra.HOUSEID, houseId);
+        intent.putExtra(Constants.Extra.EDITABLE, editable);
         context.startActivity(intent);
     }
 
@@ -165,7 +177,7 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     }
 
     private void modifyBookletNum(FamilyMember familyMember) {
-        bookletNum=familyMember.getBookletNum();
+        bookletNum = familyMember.getBookletNum();
         tvFamilyRelationNum.setText(bookletNum);
         familyMemberAdapter.modifyBookletNum(familyMember);
     }

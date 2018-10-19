@@ -137,8 +137,8 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
         etLandCertArea.setEnabled(allowEdit);
         etBuildOccupyArea.setEnabled(allowEdit);
         etLandAddress.setEnabled(allowEdit);
-        spinnerLandUse.setEnabled(allowEdit);
-        spinnerLandType.setEnabled(allowEdit);
+        spinnerLandUse.enable(allowEdit);
+        spinnerLandType.enable(allowEdit);
     }
 
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {

@@ -183,8 +183,8 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
         etPropertyTotalArea.setEnabled(allowEdit);
         etPropertyShareArea.setEnabled(allowEdit);
         etPropertyAddress.setEnabled(allowEdit);
-        spinnerPropertyUse.setEnabled(allowEdit);
-        spinnerPropertyStructure.setEnabled(allowEdit);
+        spinnerPropertyUse.enable(allowEdit);
+        spinnerPropertyStructure.enable(allowEdit);
     }
 
     @Override

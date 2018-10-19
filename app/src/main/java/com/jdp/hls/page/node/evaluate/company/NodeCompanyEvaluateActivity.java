@@ -171,6 +171,7 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
         etEvaluateLegalBuildingPay.setEnabled(allowEdit);
         etEvaluateLegalDecorationPay.setEnabled(allowEdit);
         etEvaluateAppurtenancePay.setEnabled(allowEdit);
+        etRemark.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvEvaluateDate, allowEdit);
     }
 
@@ -205,6 +206,7 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
         setEditable(allowEdit);
         evalId = nodeCompanyEvaluate.getEvalId();
         tvMappingRealName.setText(nodeCompanyEvaluate.getRealName());
+        etRemark.setString(nodeCompanyEvaluate.getRemark());
         etEvaluateNonMobileDevicePay.setString(nodeCompanyEvaluate.getNonMobileDevicePay());
         etEvaluateMobileDevicePay.setString(nodeCompanyEvaluate.getMobileDevicePay());
         etEvaluateLegalLandPay.setString(nodeCompanyEvaluate.getLegalLandPay());

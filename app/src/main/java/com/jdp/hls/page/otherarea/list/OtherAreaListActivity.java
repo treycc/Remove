@@ -17,6 +17,7 @@ import com.jdp.hls.model.entiy.OtherArea;
 import com.jdp.hls.page.otherarea.add.OtherAreaAddActivity;
 import com.jdp.hls.page.otherarea.detail.OtherAreaDetailActivity;
 import com.jdp.hls.util.DialogUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
@@ -155,10 +156,11 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addOtherArea(AddOtherEvent event) {
         otherAreaAdapter.addFirst(event.getOtherArea());
+        LogUtil.e(TAG,"刷新新增其它面积");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void addOtherArea(ModifyOtherEvent event) {
+    public void modifyOtherArea(ModifyOtherEvent event) {
         otherAreaAdapter.modify(event.getOtherArea());
     }
 }

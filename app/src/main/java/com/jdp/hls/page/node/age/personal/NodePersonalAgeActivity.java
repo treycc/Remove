@@ -220,6 +220,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         etAgeBasement.setString(nodePersonalAge.getBasement());
         etAgeTotalLegitimateArea.setString(nodePersonalAge.getTotalLegitimateArea());
         etAgeTotalIllegalArea.setString(nodePersonalAge.getTotalIllegalArea());
+        etAgeRemark.setString(nodePersonalAge.getRemark());
         tvAgeDate.setText(DateUtil.getShortDate(nodePersonalAge.getIdenDate()));
         rvPhotoPreview.setData(nodePersonalAge.getFiles(), getFileConfig(), allowEdit);
     }

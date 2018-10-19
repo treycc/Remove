@@ -483,10 +483,10 @@ public interface ApiService {
             String StatisType, @Query("BuildingType") String BuildingType);
 
     /*获取下个节点接收人*/
-    @GET("api/workflow/GetReceiveEmployee")
-    Observable<HttpResult<ReceivePerson>> getNextNodePersonName(@Query("buildingId") String buildingId, @Query
-            ("buildingType")
-            String buildingType);
+    @FormUrlEncoded
+    @POST("api/workflow/PostReceiveEmployee")
+    Observable<HttpResult<ReceivePerson>> getNextNodePersonName(@Field("buildingId") String buildingId, @Field
+            ("buildingType") String buildingType);
 
     /*发送*/
     @POST("api/workflow/send")
@@ -507,13 +507,13 @@ public interface ApiService {
     /*复查-获取接受节点列表*/
     @FormUrlEncoded
     @POST("api/workflow/PostGroupMemberForReview")
-    Observable<HttpResult<List<ReceivePerson>>> getReviewReceiverList(@Field("buildingId") String buildingId, @Query
-            ("Field") String buildingType);
+    Observable<HttpResult<List<ReceivePerson>>> getReviewReceiverList(@Field("buildingId") String buildingId, @Field
+            ("buildingType") String buildingType);
 
     /*获取经办人*/
     @FormUrlEncoded
     @POST("api/workflow/PostOperatorName")
-    Observable<HttpResult<String>> getOperatePerson(@Field("GroupIDs") String groupIDs);
+    Observable<HttpResult<ReceivePerson>> getOperatePerson(@Field("GroupIDs") String groupIDs);
 
     /*航拍复查-完结*/
     @POST("api/AirCheck/CloseFinished")

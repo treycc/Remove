@@ -28,6 +28,7 @@
             android:text="面积"/>
 
         <com.jdp.hls.view.EnableEditText
+            android:inputType="numberDecimal"
             android:id="@+id/et_otherArea_area"
             style="@style/Content_ET_W3"
             android:hint="请输入面积"/>
@@ -44,6 +45,7 @@
             android:text="单价"/>
 
         <com.jdp.hls.view.EnableEditText
+            android:inputType="numberDecimal"
             android:id="@+id/et_otherArea_price"
             style="@style/Content_ET_W3"
             android:hint="请输入单价"/>

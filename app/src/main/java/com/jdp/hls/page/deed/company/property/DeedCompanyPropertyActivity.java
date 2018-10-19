@@ -166,8 +166,8 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
         etPropertyCertNum.setEnabled(allowEdit);
         etPropertyArea.setEnabled(allowEdit);
         etPropertyAddress.setEnabled(allowEdit);
-        spinnerPropertyUse.setEnabled(allowEdit);
-        spinnerPropertyStructure.setEnabled(allowEdit);
+        spinnerPropertyUse.enable(allowEdit);
+        spinnerPropertyStructure.enable(allowEdit);
     }
 
     @Override

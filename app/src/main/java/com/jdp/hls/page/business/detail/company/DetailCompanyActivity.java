@@ -192,10 +192,11 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         tvDetailImmovableDeed.setText(estateCertNum);
         tvDetailPropertyDeed.setText(propertyCertNum);
         switchDetailPublicity.setChecked(detailCompany.isAllowPublicity());
-        rvPhotoPreview.setData(detailCompany.getFiles(), new FileConfig(Status.FileType.COMPANY_CURRENT,
-                buildingId, String.valueOf(Status.BuildingType.COMPANY)));
+
         initLngLat(detailCompany.getLongitude(), detailCompany.getLatitude());
         boolean allowEdit = detailCompany.isAllowEdit();
+        rvPhotoPreview.setData(detailCompany.getFiles(), new FileConfig(Status.FileType.COMPANY_CURRENT,
+                buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
         if (allowEdit) {
             setRightClick("保存", new NoDoubleClickListener() {
                 @Override
@@ -203,18 +204,19 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                     saveData();
                 }
             });
-            lngLatFragment.setEditable(true);
-        } else {
-            etDetailCusCode.setEnabled(false);
-            etDetailEnterpriseName.setEnabled(false);
-            etDetailAddress.setEnabled(false);
-            etDetailRealName.setEnabled(false);
-            etDetailMobilePhone.setEnabled(false);
-            etDetailBizInfo.setEnabled(false);
-            etDetailRentInfo.setEnabled(false);
-            etDetailRemark.setEnabled(false);
-            etDetailCurrentOccupyArea.setEnabled(false);
         }
+        etDetailCusCode.setEnabled(allowEdit);
+        etDetailEnterpriseName.setEnabled(allowEdit);
+        etDetailAddress.setEnabled(allowEdit);
+        etDetailRealName.setEnabled(allowEdit);
+        etDetailMobilePhone.setEnabled(allowEdit);
+        etDetailBizInfo.setEnabled(allowEdit);
+        etDetailRentInfo.setEnabled(allowEdit);
+        etDetailRemark.setEnabled(allowEdit);
+        etDetailCurrentOccupyArea.setEnabled(allowEdit);
+        switchDetailPublicity.setEnabled(allowEdit);
+        lngLatFragment.setEditable(allowEdit);
+
     }
 
     private void saveData() {

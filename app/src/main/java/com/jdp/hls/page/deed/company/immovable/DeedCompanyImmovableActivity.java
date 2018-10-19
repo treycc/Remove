@@ -172,10 +172,10 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
         etImmovableAddress.setEnabled(allowEdit);
         etImmovableLandArea.setEnabled(allowEdit);
         etImmovablePropertyArea.setEnabled(allowEdit);
-        spinnerLandUse.setEnabled(allowEdit);
-        spinnerLandType.setEnabled(allowEdit);
-        spinnerPropertyUse.setEnabled(allowEdit);
-        spinnerPropertyStructure.setEnabled(allowEdit);
+        spinnerLandUse.enable(allowEdit);
+        spinnerLandType.enable(allowEdit);
+        spinnerPropertyUse.enable(allowEdit);
+        spinnerPropertyStructure.enable(allowEdit);
     }
 
     public static void goActivity(Context context, String enterpriseId, boolean isAdd) {
