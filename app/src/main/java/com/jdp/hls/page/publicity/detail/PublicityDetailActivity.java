@@ -3,7 +3,6 @@ package com.jdp.hls.page.publicity.detail;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -16,12 +15,8 @@ import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.PublicityDetail;
-import com.jdp.hls.model.entiy.UnRecordBuilding;
-import com.jdp.hls.page.publicity.object.PublicityObjectActivity;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.FileUtil;
-import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SpSir;
@@ -35,8 +30,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -81,16 +74,6 @@ public class PublicityDetailActivity extends BaseTitleActivity implements Public
     private String batchName;
     private String des;
 
-    @OnClick({R.id.ll_publicity_select, R.id.ll_publicity_startDate, R.id.ll_publicity_endDate})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_publicity_select:
-                GoUtil.goActivity(this, PublicityObjectActivity.class);
-                break;
-            default:
-                break;
-        }
-    }
 
     @Override
     public void initVariable() {

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.jdp.hls.R;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 
 /**
@@ -17,6 +18,7 @@ import com.jdp.hls.util.SpSir;
 public class GlideLoader implements IImageLoader {
     @Override
     public void loadImage(Context context, String url, int resourceId, ImageView view) {
+        LogUtil.e("图片url","图片url："+SpSir.getInstance().getServerName()+ url);
         Glide.with(context)
                 .load(SpSir.getInstance().getServerName()+ url)
                 .centerCrop()

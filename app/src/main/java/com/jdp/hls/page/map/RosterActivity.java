@@ -94,7 +94,8 @@ public class RosterActivity extends BaseTitleActivity implements LocationSource,
     private List<Roster> rosters;
     private Marker currentMarker;
 
-    @OnClick({R.id.tv_roster_list, R.id.tv_roster_add, R.id.iv_map_refresh, R.id.iv_map_showall, R.id.iv_search, R.id.iv_clear})
+    @OnClick({R.id.tv_roster_list, R.id.tv_roster_add, R.id.iv_map_refresh, R.id.iv_map_showall, R.id.iv_search, R.id
+            .iv_clear, R.id.ll_back})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.tv_roster_list:
@@ -122,6 +123,10 @@ public class RosterActivity extends BaseTitleActivity implements LocationSource,
                 break;
             case R.id.iv_clear:
                 etKeyword.setText("");
+                break;
+            case R.id.ll_back:
+                LogUtil.e(TAG,"返回");
+                finish();
                 break;
             default:
                 break;
@@ -182,7 +187,7 @@ public class RosterActivity extends BaseTitleActivity implements LocationSource,
         etKeyword.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                ivClear.setVisibility(s.length()>0?View.VISIBLE:View.GONE);
+                ivClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
             }
         });
         tvTitle.setText(SpSir.getInstance().getProjectName());

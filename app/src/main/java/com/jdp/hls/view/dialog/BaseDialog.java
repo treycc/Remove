@@ -43,10 +43,6 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
         this.buildingType = buildingType;
         this.statusId = statusId;
         this.groupId = groupId;
-        LogUtil.e("BaseDialog", "buildingId:" + buildingId);
-        LogUtil.e("BaseDialog", "buildingType:" + buildingType);
-        LogUtil.e("BaseDialog", "statusId:" + statusId);
-        LogUtil.e("BaseDialog", "groupId:" + groupId);
     }
 
     public void setData(String buildingId, String buildingType, String statusId) {
@@ -58,6 +54,10 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
         this.buildingType = buildingType;
         this.statusId = statusId;
         this.groupId = groupId;
+        LogUtil.e("BaseDialog", "buildingId:" + buildingId);
+        LogUtil.e("BaseDialog", "buildingType:" + buildingType);
+        LogUtil.e("BaseDialog", "statusId:" + statusId);
+        LogUtil.e("BaseDialog", "groupId:" + groupId);
     }
 
     @Override

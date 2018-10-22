@@ -10,6 +10,7 @@ import com.jdp.hls.R;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.DTOImgInfo;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -55,9 +56,11 @@ public class ImgAdapter extends BaseRvPositionAdapter<ImgInfo> {
             holder.iv_clear.setVisibility(View.GONE);
         } else {
             String url = list.get(position).getSmallImgUrl();
+
             if (TextUtils.isEmpty(url)) {
                 ImageLoader.getInstance().loadImage(context, list.get(position).getUri(), holder.iv_img);
             } else {
+
                 ImageLoader.getInstance().loadImage(context, url, holder.iv_img);
             }
 

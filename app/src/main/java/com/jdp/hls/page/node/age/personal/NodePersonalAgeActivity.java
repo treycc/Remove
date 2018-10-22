@@ -1,5 +1,6 @@
 package com.jdp.hls.page.node.age.personal;
 
+import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,11 +12,12 @@ import com.jdp.hls.model.entiy.NodePersonalAge;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.view.EnableEditText;
-import com.jdp.hls.view.PreviewRecyclerView;
+import com.jdp.hls.view.StringTextView;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -25,24 +27,28 @@ import okhttp3.MultipartBody;
  * Email:kingjavip@gmail.com
  */
 public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePersonalAgeContract.View {
+    @Inject
+    NodePersonalAgePresenter nodePersonalAgePresenter;
+    @BindView(R.id.tv_age_totalNotRecordArea)
+    StringTextView tvAgeTotalNotRecordArea;
+    @BindView(R.id.tv_age_landCertTotalArea)
+    StringTextView tvAgeLandCertTotalArea;
+    @BindView(R.id.tv_age_buildOccupyArea)
+    StringTextView tvAgeBuildOccupyArea;
+    @BindView(R.id.tv_age_simpleHouseMeasure)
+    StringTextView tvAgeSimpleHouseMeasure;
+    @BindView(R.id.tv_age_tanArea)
+    StringTextView tvAgeTanArea;
+    @BindView(R.id.tv_age_address)
+    StringTextView tvAgeAddress;
     @BindView(R.id.tv_age_realName)
     TextView tvAgeRealName;
-    @BindView(R.id.et_age_totalNotRecordArea)
-    EnableEditText etAgeTotalNotRecordArea;
-    @BindView(R.id.et_age_landCertTotalArea)
-    EnableEditText etAgeLandCertTotalArea;
-    @BindView(R.id.et_age_buildOccupyArea)
-    EnableEditText etAgeBuildOccupyArea;
-    @BindView(R.id.et_age_simpleHouseMeasure)
-    EnableEditText etAgeSimpleHouseMeasure;
-    @BindView(R.id.et_age_tanArea)
-    EnableEditText etAgeTanArea;
     @BindView(R.id.tv_age_affirmUnit)
     TextView tvAgeAffirmUnit;
-    @BindView(R.id.et_age_address)
-    EnableEditText etAgeAddress;
     @BindView(R.id.tv_age_date)
     TextView tvAgeDate;
+    @BindView(R.id.iv_dateSelector)
+    ImageView ivDateSelector;
     @BindView(R.id.et_age_area8486)
     EnableEditText etAgeArea8486;
     @BindView(R.id.et_age_area94)
@@ -71,12 +77,10 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
     EnableEditText etAgeTotalLegitimateArea;
     @BindView(R.id.et_age_totalIllegalArea)
     EnableEditText etAgeTotalIllegalArea;
+    @BindView(R.id.ll_photo_preview)
+    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
-    EnableEditText etAgeRemark;
-    @Inject
-    NodePersonalAgePresenter nodePersonalAgePresenter;
-    @BindView(R.id.iv_dateSelector)
-    ImageView ivDateSelector;
+    EnableEditText etRemark;
     private String identifierId;
 
 
@@ -116,13 +120,13 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
     @Override
     protected void onUiEditable(boolean allowEdit) {
         setDateSelector(ivDateSelector, tvAgeDate, allowEdit);
-        etAgeTotalNotRecordArea.setEnabled(allowEdit);
-        etAgeLandCertTotalArea.setEnabled(allowEdit);
-        etAgeBuildOccupyArea.setEnabled(allowEdit);
-        etAgeSimpleHouseMeasure.setEnabled(allowEdit);
+        tvAgeTotalNotRecordArea.setEnabled(allowEdit);
+        tvAgeLandCertTotalArea.setEnabled(allowEdit);
+        tvAgeBuildOccupyArea.setEnabled(allowEdit);
+        tvAgeSimpleHouseMeasure.setEnabled(allowEdit);
         etAgeSimpleHouseAge.setEnabled(allowEdit);
-        etAgeTanArea.setEnabled(allowEdit);
-        etAgeAddress.setEnabled(allowEdit);
+        tvAgeTanArea.setEnabled(allowEdit);
+        tvAgeAddress.setEnabled(allowEdit);
         etAgeArea8486.setEnabled(allowEdit);
         etAgeArea94.setEnabled(allowEdit);
         etAgeArea98.setEnabled(allowEdit);
@@ -136,17 +140,16 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         etAgeBasement.setEnabled(allowEdit);
         etAgeTotalLegitimateArea.setEnabled(allowEdit);
         etAgeTotalIllegalArea.setEnabled(allowEdit);
-        etAgeRemark.setEnabled(allowEdit);
+        etRemark.setEnabled(allowEdit);
     }
 
     @Override
     protected void onSaveDate() {
-        String remark = etAgeRemark.getText().toString().trim();
-        String totalNotRecordArea = etAgeTotalNotRecordArea.getText().toString().trim();
-        String landCertTotalArea = etAgeLandCertTotalArea.getText().toString().trim();
-        String buildOccupyArea = etAgeBuildOccupyArea.getText().toString().trim();
-        String address = etAgeAddress.getText().toString().trim();
-        String tanArea = etAgeTanArea.getText().toString().trim();
+//        String totalNotRecordArea = tvAgeTotalNotRecordArea.getText().toString().trim();
+//        String landCertTotalArea = tvAgeLandCertTotalArea.getText().toString().trim();
+//        String buildOccupyArea = tvAgeBuildOccupyArea.getText().toString().trim();
+//        String address = tvAgeAddress.getText().toString().trim();
+//        String tanArea = tvAgeTanArea.getText().toString().trim();
         String idenDate = tvAgeDate.getText().toString().trim();
         String area8486 = etAgeArea8486.getText().toString().trim();
         String area94 = etAgeArea94.getText().toString().trim();
@@ -160,20 +163,21 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         String animalHouseArea = etAgeAnimalHouseArea.getText().toString().trim();
         String basement = etAgeBasement.getText().toString().trim();
         String simpleHouseAge = etAgeSimpleHouseAge.getText().toString().trim();
-        String simpleHouseMeasure = etAgeSimpleHouseMeasure.getText().toString().trim();
+        String simpleHouseMeasure = tvAgeSimpleHouseMeasure.getText().toString().trim();
         String totalLegitimateArea = etAgeTotalLegitimateArea.getText().toString().trim();
         String totalIllegalArea = etAgeTotalIllegalArea.getText().toString().trim();
+        String remark = etRemark.getText().toString().trim();
 
         nodePersonalAgePresenter.modifyPersonalAge(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("IdentifierId", String.valueOf(identifierId))
-                .addFormDataPart("AsLegitimatePos", "")
-                .addFormDataPart("TotalNotRecordArea", totalNotRecordArea)
-                .addFormDataPart("LandCertTotalArea", landCertTotalArea)
-                .addFormDataPart("BuildOccupyArea", buildOccupyArea)
+//                .addFormDataPart("AsLegitimatePos", "")
+//                .addFormDataPart("TotalNotRecordArea", totalNotRecordArea)
+//                .addFormDataPart("LandCertTotalArea", landCertTotalArea)
+//                .addFormDataPart("BuildOccupyArea", buildOccupyArea)
                 .addFormDataPart("SimpleHouseArea", simpleHouseMeasure)
-                .addFormDataPart("TanArea", tanArea)
-                .addFormDataPart("Address", address)
+//                .addFormDataPart("TanArea", tanArea)
+//                .addFormDataPart("Address", address)
                 .addFormDataPart("IdenDate", idenDate)
                 .addFormDataPart("Area84_86", area8486)
                 .addFormDataPart("Area94", area94)
@@ -199,14 +203,14 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         setEditable(allowEdit);
         identifierId = nodePersonalAge.getIdentifierId();
         tvAgeRealName.setText(nodePersonalAge.getRealName());
-        etAgeTotalNotRecordArea.setString(nodePersonalAge.getTotalNotRecordArea());
-        etAgeLandCertTotalArea.setString(nodePersonalAge.getLandCertTotalArea());
-        etAgeBuildOccupyArea.setString(nodePersonalAge.getBuildOccupyArea());
-        etAgeSimpleHouseMeasure.setString(nodePersonalAge.getSimpleHouseArea());
+        tvAgeTotalNotRecordArea.setString(nodePersonalAge.getTotalNotRecordArea());
+        tvAgeLandCertTotalArea.setString(nodePersonalAge.getLandCertTotalArea());
+        tvAgeBuildOccupyArea.setString(nodePersonalAge.getBuildOccupyArea());
+        tvAgeSimpleHouseMeasure.setString(nodePersonalAge.getSimpleHouseArea());
         etAgeSimpleHouseAge.setString(nodePersonalAge.getSimpleHouse());
         tvAgeAffirmUnit.setText(nodePersonalAge.getCompanyName());
-        etAgeTanArea.setString(nodePersonalAge.getTanArea());
-        etAgeAddress.setString(nodePersonalAge.getAddress());
+        tvAgeTanArea.setString(nodePersonalAge.getTanArea());
+        tvAgeAddress.setString(nodePersonalAge.getAddress());
         etAgeArea8486.setString(nodePersonalAge.getArea84_86());
         etAgeArea94.setString(nodePersonalAge.getArea94());
         etAgeArea98.setString(nodePersonalAge.getArea98());
@@ -220,7 +224,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         etAgeBasement.setString(nodePersonalAge.getBasement());
         etAgeTotalLegitimateArea.setString(nodePersonalAge.getTotalLegitimateArea());
         etAgeTotalIllegalArea.setString(nodePersonalAge.getTotalIllegalArea());
-        etAgeRemark.setString(nodePersonalAge.getRemark());
+        etRemark.setString(nodePersonalAge.getRemark());
         tvAgeDate.setText(DateUtil.getShortDate(nodePersonalAge.getIdenDate()));
         rvPhotoPreview.setData(nodePersonalAge.getFiles(), getFileConfig(), allowEdit);
     }

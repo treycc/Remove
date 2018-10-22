@@ -26,8 +26,8 @@ import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
 import com.jdp.hls.page.familyrelation.list.FamilyRelationActivity;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.PreviewRecyclerView;
@@ -131,6 +131,10 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     }
 
     private void goDeedActivity(Class<? extends BaseDeedActivity> clazz, int fileType, boolean isAdd) {
+        if (isAdd && !allowEdit) {
+            ToastUtil.showText("证件还未添加");
+            return;
+        }
         BaseDeedActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
                 .PERSONAL, isAdd);
     }
@@ -210,8 +214,6 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         switchDetailNeedHouse.setChecked(detailPersonal.isNeedTempHouse());
         switchDetailPublicity.setChecked(detailPersonal.isAllowPublicity());
         spinnerDetailSocialRelation.setSelectItem(detailPersonal.getPoliticalTitle());
-
-
         initLngLat(detailPersonal.getLongitude(), detailPersonal.getLatitude());
         allowEdit = detailPersonal.isAllowEdit();
         if (allowEdit) {
@@ -237,7 +239,6 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         lngLatFragment.setEditable(allowEdit);
         rvPhotoPreview.setData(detailPersonal.getFiles(), new FileConfig(Status.FileType.PERSONAL_CURRENT,
                 this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)),allowEdit);
-
     }
 
     private void initLngLat(double lng, double lat) {

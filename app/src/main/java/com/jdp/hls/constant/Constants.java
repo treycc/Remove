@@ -8,8 +8,8 @@ package com.jdp.hls.constant;
  * 修改备注：
  */
 public class Constants {
-//    public static final String BASE_URL = "http://192.168.0.2:8080/";
-            public static final String BASE_URL = "http://192.168.0.5:8081/";
+    public static final String BASE_URL = "http://192.168.0.2:8080/";
+//            public static final String BASE_URL = "http://192.168.0.5:8081/";
     public static final int PAGE_SIZE = 20;
     public static final int PAGE_FIRST = 1;
     public static final int PAGE_SIZE_100 = 100;

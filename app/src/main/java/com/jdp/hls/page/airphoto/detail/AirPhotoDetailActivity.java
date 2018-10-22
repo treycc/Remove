@@ -200,7 +200,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
             setRightClick("保存", new NoDoubleClickListener() {
                 @Override
                 public void onNoDoubleClick(View v) {
-                    airPhotoDetailPresenter.updateAgePhotos(getAgeBody());
+                    airPhotoDetailPresenter.updateAgePhotos(getAgeBody().build());
                 }
             });
         }
@@ -210,13 +210,18 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         boolean showSend = auth.isAllowSend();
         boolean showCheck = auth.isAllowCheck();
         boolean showFinish = auth.isAllowCloseFinished();
+        boolean allowEditAppraise = auth.isAllowEditAppraise();
         llAirphotoOperateBar.setVisibility((showFinish || showSend || showCheck) ? View.VISIBLE : View.GONE);
         llAirphotoSend.setVisibility(showSend ? View.VISIBLE : View.GONE);
         llAirphotoReview.setVisibility(showCheck ? View.VISIBLE : View.GONE);
         llAirphotoFinish.setVisibility(showFinish ? View.VISIBLE : View.GONE);
         if (showSend) {
             llAirphotoSend.setOnClickListener(v -> {
-                airPhotoDetailPresenter.sendAirPhoto(getSaveBody().addFormDataPart("IsSend", "true").build());
+                if (allowEditAppraise) {
+                    airPhotoDetailPresenter.updateAgePhotos(getAgeBody().addFormDataPart("IsSend", "true").build());
+                } else {
+                    airPhotoDetailPresenter.sendAirPhoto(getSaveBody().addFormDataPart("IsSend", "true").build());
+                }
             });
         }
         if (showCheck) {
@@ -259,7 +264,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         return bodyBuilder;
     }
 
-    private RequestBody getAgeBody() {
+    private MultipartBody.Builder getAgeBody() {
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("AirCheckProId", airCheckProId)
                 .addFormDataPart("DeleteFileIDs", rvAirphotoPhoto.getDeleteImgIds());
@@ -272,7 +277,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
                         .parse("image/*"), photoFile));
             }
         }
-        return bodyBuilder.build();
+        return bodyBuilder;
     }
 
     @NonNull
@@ -301,7 +306,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
 
     @Override
     public void onUpdateAgePhotosSuccess() {
-        showSuccessAndFinish("修改成功");
+        showSuccessAndFinish("操作成功");
     }
 
     @Override

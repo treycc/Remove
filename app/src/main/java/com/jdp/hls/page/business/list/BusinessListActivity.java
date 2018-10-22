@@ -30,7 +30,9 @@ import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -97,8 +99,8 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
 
     @OnCheckedChanged({R.id.cb_selectAll})
     public void checkedChanged(CompoundButton buttonView, boolean isChecked) {
-//        publicityObjectAdapter.setAllCheckedStatus(isChecked);
-
+        mFragmentArr[0].checkAll(isChecked);
+        mFragmentArr[1].checkAll(isChecked);
     }
 
     @Override
@@ -219,7 +221,6 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
                 personalBusiness.add(business);
             }
         }
-
         tabBusinessCounts[0] = String.valueOf(personalBusiness.size());
         tabBusinessCounts[1] = String.valueOf(companyBusiness.size());
         tabBusiness.setTabMode(TabLayout.MODE_FIXED);
@@ -281,36 +282,40 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
         showSuccessAndFinish("退回成功");
     }
 
-    private List<Business> selectedBusinessList = new ArrayList<>();
+    private Set<Business> selectedBusinessList = new HashSet<>();
 
-    @Override
-    public void onBusinessAdd(Business business) {
-        selectedBusinessList.add(business);
-        LogUtil.e(TAG, getClass().getSimpleName() + "增加 数量:" + selectedBusinessList.size());
-        setRefreshDialogDate();
-    }
 
     public void setRefreshDialogDate() {
         StringBuilder buildingIdsSb = new StringBuilder();
         StringBuilder buildingTypesSb = new StringBuilder();
         StringBuilder buildingStatusIdsSb = new StringBuilder();
         StringBuilder gruopIdsSb = new StringBuilder();
-        for (int i = 0; i < selectedBusinessList.size(); i++) {
-            if (i != selectedBusinessList.size() - 1) {
-                buildingIdsSb.append(selectedBusinessList.get(i).getBuildingId());
-                buildingIdsSb.append("#");
-                buildingTypesSb.append(selectedBusinessList.get(i).getBuildingType());
-                buildingTypesSb.append("#");
-                buildingStatusIdsSb.append(selectedBusinessList.get(i).getStatusId());
-                buildingStatusIdsSb.append("#");
-                gruopIdsSb.append(selectedBusinessList.get(i).getGroupId());
-                gruopIdsSb.append("#");
-            } else {
-                buildingIdsSb.append(selectedBusinessList.get(i).getBuildingId());
-                buildingTypesSb.append(selectedBusinessList.get(i).getBuildingType());
-                buildingStatusIdsSb.append(selectedBusinessList.get(i).getStatusId());
-                gruopIdsSb.append(selectedBusinessList.get(i).getGroupId());
-            }
+//        for (int i = 0; i < selectedBusinessList.size(); i++) {
+//            if (i != selectedBusinessList.size() - 1) {
+//                buildingIdsSb.append(selectedBusinessList.get(i).getBuildingId());
+//                buildingIdsSb.append("#");
+//                buildingTypesSb.append(selectedBusinessList.get(i).getBuildingType());
+//                buildingTypesSb.append("#");
+//                buildingStatusIdsSb.append(selectedBusinessList.get(i).getStatusId());
+//                buildingStatusIdsSb.append("#");
+//                gruopIdsSb.append(selectedBusinessList.get(i).getGroupId());
+//                gruopIdsSb.append("#");
+//            } else {
+//                buildingIdsSb.append(selectedBusinessList.get(i).getBuildingId());
+//                buildingTypesSb.append(selectedBusinessList.get(i).getBuildingType());
+//                buildingStatusIdsSb.append(selectedBusinessList.get(i).getStatusId());
+//                gruopIdsSb.append(selectedBusinessList.get(i).getGroupId());
+//            }
+//        }
+        for (Business business : selectedBusinessList) {
+            buildingIdsSb.append(business.getBuildingId());
+            buildingIdsSb.append("#");
+            buildingTypesSb.append(business.getBuildingType());
+            buildingTypesSb.append("#");
+            buildingStatusIdsSb.append(business.getStatusId());
+            buildingStatusIdsSb.append("#");
+            gruopIdsSb.append(business.getGroupId());
+            gruopIdsSb.append("#");
         }
         fillDialogDate(buildingIdsSb.toString(), buildingTypesSb.toString(), buildingStatusIdsSb.toString(),
                 gruopIdsSb.toString());
@@ -324,9 +329,10 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void onBusinessAdd(Business business) {
+        selectedBusinessList.add(business);
+        LogUtil.e(TAG, getClass().getSimpleName() + "增加 数量:" + selectedBusinessList.size());
+        setRefreshDialogDate();
     }
+
 }

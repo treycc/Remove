@@ -45,9 +45,8 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.cb_business.setVisibility(checkable ? View.VISIBLE : View.GONE);
-        viewHolder.cb_business.setChecked(list.get(position).isSelected());
         viewHolder.cb_business.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            LogUtil.e(TAG,"isChecked"+position+isChecked);
             if (!buttonView.isPressed()) {
                 return;
             }
@@ -59,8 +58,9 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
                 onBusinessSelectedListener.onBusinessRemove(list.get(position));
                 LogUtil.e(TAG,"删除"+position);
             }
-
         });
+        viewHolder.cb_business.setVisibility(checkable ? View.VISIBLE : View.GONE);
+        viewHolder.cb_business.setChecked(list.get(position).isSelected());
         viewHolder.tv_business_address.setText(list.get(position).getAddress());
         viewHolder.tv_business_number.setText(list.get(position).getSysCode());
         viewHolder.tv_business_name.setText(list.get(position).getRealName());
@@ -70,8 +70,19 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
                 .mipmap
                 .ic_location_sel : R.mipmap.ic_location_nor);
         viewHolder.iv_business_isBack.setVisibility(list.get(position).isFlowBack() ? View.VISIBLE : View.GONE);
-
         return convertView;
+    }
+
+    public void checkAll(boolean checked) {
+        for (Business business : list) {
+            business.setSelected(checked);
+            if (checked) {
+                onBusinessSelectedListener.onBusinessAdd(business);
+            }else{
+                onBusinessSelectedListener.onBusinessRemove(business);
+            }
+        }
+        notifyDataSetChanged();
     }
 
 //    public void remove(int position) {

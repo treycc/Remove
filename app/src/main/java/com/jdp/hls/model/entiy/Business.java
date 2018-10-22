@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class Business implements Serializable{
+public class Business implements Serializable {
 
     private String BuildingId;
     private String SysCode;
@@ -118,5 +118,19 @@ public class Business implements Serializable{
 
     public void setHasLongitudeAndLatitude(boolean hasLongitudeAndLatitude) {
         HasLongitudeAndLatitude = hasLongitudeAndLatitude;
+    }
+
+    @Override
+    public int hashCode() {
+        return getBuildingId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Business)) {
+            return false;
+        }
+        Business business = (Business) obj;
+        return getBuildingId().equals(business.getBuildingId());
     }
 }

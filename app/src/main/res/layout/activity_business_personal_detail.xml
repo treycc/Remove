@@ -223,6 +223,7 @@
                 android:text="营业用房(m²)"/>
 
             <com.jdp.hls.view.EnableEditText
+                android:inputType="numberDecimal"
                 android:id="@+id/et_detail_bizUseArea"
                 style="@style/Content_ET_W2"
                 android:text="请输入营业用房面积"/>

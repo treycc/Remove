@@ -49,17 +49,19 @@
     </com.kingja.supershapeview.view.SuperShapeLinearLayout>
 
     <FrameLayout
-        style="@style/Content_LL_T12"
+        android:background="@color/white_hi"
+        android:paddingLeft="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <CheckBox
+            android:background="@color/white_hi"
             android:id="@+id/cb_selectAll"
             style="@style/font_6_15"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:button="@drawable/selector_cb_dark"
-            android:paddingLeft="12dp"
+            android:padding="12dp"
             android:text="全选"/>
     </FrameLayout>
     <View style="@style/div_hor_gray"/>

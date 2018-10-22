@@ -146,6 +146,9 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     public void refreshData(List<Business> businesses) {
         adapter.setData(businesses);
     }
+    public void checkAll(boolean checked) {
+        adapter.checkAll(checked);
+    }
 
     @Override
     public void showLoading() {
