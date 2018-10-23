@@ -8,63 +8,65 @@
               android:focusableInTouchMode="true"
               android:orientation="vertical">
 
-    <com.kingja.supershapeview.view.SuperShapeLinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
         android:gravity="center_vertical"
-        android:paddingBottom="6dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:paddingTop="6dp"
-        app:super_cornerRadius="4dp"
-        app:super_solidColor="@color/white_hi">
-
-        <ImageView
-            android:id="@+id/iv_business_search"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginRight="12dp"
-            android:background="@mipmap/ic_search"/>
-
-        <EditText
-            android:id="@+id/et_business_keyword"
-            style="@style/font_9_13"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:hint="请输入户主/地址/手机号/档案编号"
-            android:singleLine="true"/>
-
-        <ImageView
-            android:id="@+id/iv_clear"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:background="@mipmap/ic_input_clear"
-            android:visibility="gone"/>
-
-
-    </com.kingja.supershapeview.view.SuperShapeLinearLayout>
-
-    <FrameLayout
-        android:background="@color/white_hi"
-        android:paddingLeft="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
 
         <CheckBox
-            android:background="@color/white_hi"
             android:id="@+id/cb_selectAll"
             style="@style/font_6_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:background="@color/bg_hi"
+            android:button="@drawable/selector_cb_dark"
+            android:padding="6dp"
+            android:text="全选"/>
+
+        <com.kingja.supershapeview.view.SuperShapeLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:button="@drawable/selector_cb_dark"
-            android:padding="12dp"
-            android:text="全选"/>
-    </FrameLayout>
-    <View style="@style/div_hor_gray"/>
+            android:layout_margin="12dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="6dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="6dp"
+            app:super_cornerRadius="4dp"
+            app:super_solidColor="@color/white_hi">
+
+            <ImageView
+                android:id="@+id/iv_business_search"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="12dp"
+                android:background="@mipmap/ic_search"/>
+
+            <EditText
+                android:id="@+id/et_business_keyword"
+                style="@style/font_9_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入户主/地址/手机号/档案编号"
+                android:singleLine="true"/>
+
+            <ImageView
+                android:id="@+id/iv_clear"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@mipmap/ic_input_clear"
+                android:visibility="gone"/>
+
+
+        </com.kingja.supershapeview.view.SuperShapeLinearLayout>
+
+    </LinearLayout>
+
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_business"
@@ -87,8 +89,6 @@
         android:background="@color/white_hi"/>
 
     <include layout="@layout/layout_operate_button"/>
-
-
 
 
 </LinearLayout>

@@ -103,6 +103,7 @@ public class Constants {
         String DECORATION_ITEM = "decorationItem";
         String ITEM_TYPE = "itemType";
         String STATIS_TYPE = "statisType";
+        String TITLE = "title";
         String HOUSEID = "houseId";
         String STATIS_ID = "statisId";
     }

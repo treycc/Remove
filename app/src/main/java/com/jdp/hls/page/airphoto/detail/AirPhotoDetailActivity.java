@@ -322,7 +322,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 

@@ -1,5 +1,6 @@
 package com.jdp.hls.base;
 
+import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -11,11 +12,14 @@ import android.widget.TextView;
 import com.jdp.hls.R;
 import com.jdp.hls.callback.EmptyCallback;
 import com.jdp.hls.callback.ErrorCallback;
+import com.jdp.hls.callback.ErrorMessageCallback;
 import com.jdp.hls.callback.LoadingCallback;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.util.LogUtil;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
+import com.kingja.loadsir.core.Transport;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -68,9 +72,6 @@ public abstract class BaseTitleActivity extends BaseActivity {
         return rootView;
     }
 
-    protected boolean ifRegisterLoadSir() {
-        return false;
-    }
 
     @Override
     public void showLoadingCallback() {
@@ -92,10 +93,25 @@ public abstract class BaseTitleActivity extends BaseActivity {
         mBaseLoadService.showSuccess();
     }
 
-    private void onNetReload(View v) {
-        initNet();
+    @Override
+    public void showErrorMessage(int code, String message) {
+        if (ifRegisterLoadSir()) {
+            mBaseLoadService.setCallBack(ErrorMessageCallback.class, new Transport() {
+                @Override
+                public void order(Context context, View view) {
+                    TextView tvErrorMsg = view.findViewById(R.id.tv_layout_errorMsg);
+                    tvErrorMsg.setText(message);
+                }
+            });
+            mBaseLoadService.showCallback(ErrorMessageCallback.class);
+        } else {
+            super.showErrorMessage(code, message);
+        }
     }
 
+    protected void onNetReload(View v) {
+        initNet();
+    }
 
     protected void onBack() {
         finish();

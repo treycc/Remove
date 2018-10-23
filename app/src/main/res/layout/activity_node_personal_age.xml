@@ -24,7 +24,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="未登记面积(m²)"/>
+                android:text="未登记面积"/>
 
             <com.jdp.hls.view.StringTextView
                 android:inputType="numberDecimal"
@@ -40,7 +40,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="土地证面积(m²)"/>
+                android:text="土地证面积"/>
 
             <com.jdp.hls.view.StringTextView
                 android:inputType="numberDecimal"
@@ -56,7 +56,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="土地占地面积(m²)"/>
+                android:text="土地占地面积"/>
 
             <com.jdp.hls.view.StringTextView
                 android:inputType="numberDecimal"
@@ -72,7 +72,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="简易房面积(m²)"/>
+                android:text="简易房面积"/>
 
             <com.jdp.hls.view.StringTextView
                 android:inputType="numberDecimal"
@@ -88,7 +88,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="坦面积(m²)"/>
+                android:text="坦面积"/>
 
             <com.jdp.hls.view.StringTextView
                 android:inputType="numberDecimal"
@@ -193,7 +193,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="84/86档"/>
+                android:text="84/86档面积"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:inputType="numberDecimal"
@@ -209,7 +209,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="94档"/>
+                android:text="94档面积"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:inputType="numberDecimal"
@@ -225,7 +225,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="98档"/>
+                android:text="98档面积"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:inputType="numberDecimal"
@@ -289,7 +289,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="98档无土地证"/>
+                android:text="98档无土地证面积"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:inputType="numberDecimal"
@@ -305,7 +305,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="98档有土地证"/>
+                android:text="98档有土地证面积"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:inputType="numberDecimal"
@@ -337,7 +337,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="牲口房"/>
+                android:text="牲口房面积"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:inputType="numberDecimal"
@@ -353,7 +353,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="地下室"/>
+                android:text="地下室面积"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:inputType="numberDecimal"

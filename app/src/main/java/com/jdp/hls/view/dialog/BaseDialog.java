@@ -6,10 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.util.LogUtil;
-import com.kingja.supershapeview.view.SuperShapeTextView;
 
 import okhttp3.RequestBody;
 
@@ -21,8 +20,8 @@ import okhttp3.RequestBody;
  */
 public abstract class BaseDialog extends Dialog implements View.OnClickListener {
     protected Context context;
-    protected SuperShapeTextView stv_confirm;
-    protected SuperShapeTextView stv_cancle;
+    protected TextView tv_confirm;
+    protected TextView tv_cancle;
     protected String buildingId;
     protected String buildingType;
     protected String statusId;
@@ -54,10 +53,10 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
         this.buildingType = buildingType;
         this.statusId = statusId;
         this.groupId = groupId;
-        LogUtil.e("BaseDialog", "buildingId:" + buildingId);
-        LogUtil.e("BaseDialog", "buildingType:" + buildingType);
-        LogUtil.e("BaseDialog", "statusId:" + statusId);
-        LogUtil.e("BaseDialog", "groupId:" + groupId);
+    }
+
+    public String getBuildingId() {
+        return buildingId;
     }
 
     @Override
@@ -65,15 +64,16 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
-        stv_confirm = findViewById(R.id.stv_confirm);
-        stv_cancle = findViewById(R.id.stv_cancle);
-        stv_confirm.setOnClickListener(this);
-        stv_cancle.setOnClickListener(this);
+        tv_confirm = findViewById(R.id.tv_confirm);
+        tv_cancle = findViewById(R.id.tv_cancle);
+        tv_confirm.setOnClickListener(this);
+        tv_cancle.setOnClickListener(this);
         initView();
         initNet();
         initEvent();
         initData();
     }
+
     protected abstract int getContentViewId();
 
     protected abstract void initView();
@@ -91,13 +91,13 @@ public abstract class BaseDialog extends Dialog implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.stv_confirm:
+            case R.id.tv_confirm:
                 if (onOperateConfirmListener != null) {
                     onOperateConfirmListener.onOperateConfirm(getRequestBody());
                     dismiss();
                 }
                 break;
-            case R.id.stv_cancle:
+            case R.id.tv_cancle:
                 dismiss();
                 break;
             default:

@@ -10,6 +10,8 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ImageView;
 
 import com.jdp.hls.R;
@@ -19,6 +21,7 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.other.file.FileConfig;
+import com.jdp.hls.util.NoDoubleClickListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -64,6 +67,17 @@ public class PreviewRecyclerView extends RecyclerView {
         previewImgAdapter.setOnItemClickListener((list, position) -> {
             goPhotoPreviewActivity((Activity) getContext(), fileConfig,editable);
         });
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        ViewGroup parentView = (ViewGroup) getParent();
+        if (parentView.getId() == R.id.ll_photo_preview) {
+            parentView.setOnClickListener(v -> {
+                goPhotoPreviewActivity((Activity) getContext(), fileConfig,editable);
+            });
+        }
     }
 
     public void create() {

@@ -31,6 +31,7 @@ public class SpSir {
     private String ProtocolUrl = "ProtocolUrl";
     private String UserName = "UserName";
     private String AccountType = "accountType";
+    private String IsOperatorAccount = "IsOperatorAccount";
     private static final String EMPTY_STRING = "";
     private static final int ZERO_INT = -1;
     private static SpSir mSpSir;
@@ -196,9 +197,19 @@ public class SpSir {
         putInt(AccountType, accountType);
     }
 
-    public boolean isOperate() {
-        return getAccountType() == Status.AccountType.OPERATEMAN;
+
+
+    public boolean isOperatorAccount() {
+        return getBoolean(IsOperatorAccount, false);
     }
+
+    public void setIsOperatorAccount(boolean isOperatorAccount) {
+        putboolean(IsOperatorAccount, isOperatorAccount);
+    }
+
+
+
+
 
     private String getString(String key, String defaultValue) {
         return mSp.getString(key, defaultValue);
@@ -213,6 +224,10 @@ public class SpSir {
             mSp.edit().putString(key, value).apply();
         }
     }
+
+
+
+
 
     private int getInt(String key) {
         return mSp.getInt(key, ZERO_INT);

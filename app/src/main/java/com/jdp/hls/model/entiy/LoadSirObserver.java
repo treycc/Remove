@@ -28,4 +28,10 @@ public abstract class LoadSirObserver<T> extends ResultObserver<T> {
     protected void showError() {
         baseView.showErrorCallback();
     }
+
+    @Override
+    protected void onError(int code, String message) {
+//        super.onError(code, message);
+        baseView.showErrorMessage(code, message);
+    }
 }

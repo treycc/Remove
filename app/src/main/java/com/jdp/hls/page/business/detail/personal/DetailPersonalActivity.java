@@ -3,6 +3,7 @@ package com.jdp.hls.page.business.detail.personal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -92,6 +94,8 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     Switch switchDetailHasShop;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
+    @BindView(R.id.ll_businessArea)
+    LinearLayout llBusinessArea;
     private String buildingId;
     @Inject
     DetailPersonalPresenter detailPersonalPresenter;
@@ -110,7 +114,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_unrecordBuilding:
-                FamilyRelationActivity.goActivity(this, detailPersonal.getHouseId(),allowEdit);
+                FamilyRelationActivity.goActivity(this, detailPersonal.getHouseId(), allowEdit);
                 break;
             case R.id.ll_detail_propertyDeed:
                 String propertyNum = tvDetailPropertyDeed.getText().toString().trim();
@@ -189,6 +193,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         });
         switchDetailHasShop.setOnCheckedChangeListener((buttonView, isChecked) -> {
             hasShop = isChecked;
+            llBusinessArea.setVisibility(hasShop ? View.VISIBLE : View.GONE);
         });
     }
 
@@ -200,6 +205,11 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     @Override
     public void onGetPersonalDetailSuccess(DetailPersonal detailPersonal) {
         this.detailPersonal = detailPersonal;
+        hasShop = detailPersonal.isShop();
+        needHouse = detailPersonal.isNeedTempHouse();
+        ifPublicity = detailPersonal.isAllowPublicity();
+        socialRelation = detailPersonal.getPoliticalTitle();
+
         etDetailcusCode.setText(detailPersonal.getSysCode());
         etDetailRealName.setText(detailPersonal.getRealName());
         etDetailMobile.setText(detailPersonal.getMobilePhone());
@@ -210,10 +220,11 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         tvDetailLandDeed.setText(detailPersonal.getLandCertNum());
         tvDetailImmovableDeed.setText(detailPersonal.getEstateCertNum());
         etDetailRemark.setText(detailPersonal.getRemark());
-        switchDetailHasShop.setChecked(detailPersonal.isShop());
+        switchDetailHasShop.setChecked(hasShop);
         switchDetailNeedHouse.setChecked(detailPersonal.isNeedTempHouse());
         switchDetailPublicity.setChecked(detailPersonal.isAllowPublicity());
         spinnerDetailSocialRelation.setSelectItem(detailPersonal.getPoliticalTitle());
+        llBusinessArea.setVisibility(hasShop ? View.VISIBLE : View.GONE);
         initLngLat(detailPersonal.getLongitude(), detailPersonal.getLatitude());
         allowEdit = detailPersonal.isAllowEdit();
         if (allowEdit) {
@@ -238,7 +249,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         spinnerDetailSocialRelation.enable(allowEdit);
         lngLatFragment.setEditable(allowEdit);
         rvPhotoPreview.setData(detailPersonal.getFiles(), new FileConfig(Status.FileType.PERSONAL_CURRENT,
-                this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)),allowEdit);
+                this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)), allowEdit);
     }
 
     private void initLngLat(double lng, double lat) {
@@ -288,7 +299,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 
@@ -317,4 +328,10 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

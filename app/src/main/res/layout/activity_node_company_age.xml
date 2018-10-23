@@ -24,7 +24,7 @@
 
             <com.jdp.hls.view.StringTextView
                 style="@style/Title_Sub"
-                android:text="总未登记面积(m²)"/>
+                android:text="总未登记面积"/>
 
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_age_totalNotRecordArea"
@@ -39,7 +39,7 @@
 
             <com.jdp.hls.view.StringTextView
                 style="@style/Title_Sub"
-                android:text="棚面积(m²)"/>
+                android:text="棚面积"/>
 
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_age_shedArea"
@@ -54,7 +54,7 @@
 
             <com.jdp.hls.view.StringTextView
                 style="@style/Title_Sub"
-                android:text="简面积(m²)"/>
+                android:text="简面积"/>
 
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_age_simpleHouseArea"
@@ -153,7 +153,7 @@
 
             <com.jdp.hls.view.StringTextView
                 style="@style/Title_Sub"
-                android:text="总认定合法(m²)"/>
+                android:text="总认定合法面积"/>
 
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_age_totalLegalArea"
@@ -179,7 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="90档(m²)"/>
+                android:text="90档面积"/>
 
         </LinearLayout>
 
@@ -201,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="视同合法(m²)"/>
+                android:text="视同合法面积"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -211,7 +211,7 @@
 
             <com.jdp.hls.view.StringTextView
                 style="@style/Title_Sub"
-                android:text="总认定不合法(m²)"/>
+                android:text="总认定不合法面积"/>
 
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_age_totalNoLegalArea"
@@ -237,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="90后(m²)"/>
+                android:text="90后档面积"/>
 
         </LinearLayout>
 

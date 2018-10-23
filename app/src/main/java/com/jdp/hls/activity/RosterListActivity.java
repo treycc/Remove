@@ -53,7 +53,7 @@ public class RosterListActivity extends BaseTitleActivity {
     ImageView ivClear;
     private String[] rosterArr = {"个人", "企业"};
     private String[] rosterCountArr = {"0户", "0家"};
-    private int[] imgArr = {R.mipmap.ic_location_personal, R.mipmap.ic_location_enterprise};
+    private int[] imgArr = {R.drawable.selector_tab_personal, R.drawable.selector_tab_company};
     private RosterListFragment mFragmentArr[] = new RosterListFragment[2];
     private List<Roster> rosters;
     private List<Roster> personalRosters = new ArrayList<>();

@@ -2,10 +2,10 @@ package com.jdp.hls.page.business.list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -17,6 +17,8 @@ import com.jdp.hls.adapter.CountPageAdapter;
 import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
+import com.jdp.hls.event.RefreshBusinessListEvent;
+import com.jdp.hls.event.RefreshTaskEvent;
 import com.jdp.hls.i.OnBusinessItemSelectedListener;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Auth;
@@ -24,20 +26,26 @@ import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.TaskInfo;
 import com.jdp.hls.page.operate.OperateNodeContract;
 import com.jdp.hls.page.operate.OperateNodePresenter;
+import com.jdp.hls.util.CollectionUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import okhttp3.RequestBody;
@@ -76,18 +84,21 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     private BusinessListFragment companyListFragment;
     private List<Business> businesses;
     private CountPageAdapter mCountPageAdapter;
+    private String keyword = "";
 
     @OnClick({R.id.iv_clear})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.iv_clear:
                 etBusinessKeyword.setText("");
+                keyword = "";
                 break;
         }
     }
 
     @Override
     public void initVariable() {
+        EventBus.getDefault().register(this);
         taskTypeName = getIntent().getStringExtra("taskTypeName");
         taskType = getIntent().getIntExtra("taskType", 0);
     }
@@ -138,14 +149,15 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     }
 
     private void doSearch(String keyword) {
+        this.keyword = keyword;
         if (businesses == null && businesses.size() == 0) {
             ToastUtil.showText("暂无信息");
             return;
         }
-        refreshData(keyword);
+        refreshData();
     }
 
-    private void refreshData(String keyword) {
+    private void refreshData() {
         List<Business> selectBusiness = new ArrayList<>();
         for (Business roster : businesses) {
             if (roster.getRealName().contains(keyword) || roster.getAddress().contains(keyword) || roster
@@ -171,7 +183,6 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     private void refreshTitles(int personalRosters, int companyRosters) {
         tabBusinessCounts[0] = personalRosters + "户";
         tabBusinessCounts[1] = companyRosters + "家";
-
         mCountPageAdapter.refreshrosterCount(tabBusinessCounts);
 
         for (int i = 0; i < tabBusiness.getTabCount(); i++) {
@@ -186,29 +197,30 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     }
 
     @Override
-    protected void onSendNode(RequestBody requestBody) {
-        operateNodePresenter.sendNode(requestBody);
+    protected void onSendNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.sendNode(requestBody, buildingIds);
     }
 
     @Override
-    protected void onBackNode(RequestBody requestBody) {
-        operateNodePresenter.backNode(requestBody);
+    protected void onBackNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.backNode(requestBody, buildingIds);
     }
 
     @Override
-    protected void onReviewNode(RequestBody requestBody) {
-        operateNodePresenter.reviewNode(requestBody);
+    protected void onReviewNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.reviewNode(requestBody, buildingIds);
     }
 
     @Override
-    protected void onDeleteNode(RequestBody requestBody) {
-        operateNodePresenter.deleteNode(requestBody);
+    protected void onDeleteNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.deleteNode(requestBody, buildingIds);
     }
 
     @Override
     public void onGetBusinessSuccess(TaskInfo taskInfo) {
         businesses = taskInfo.getMyTaskList();
         boolean checkable = getCheckable(taskInfo.getAuth());
+        cbSelectAll.setVisibility(checkable?View.VISIBLE:View.GONE);
         personalBusiness.clear();
         companyBusiness.clear();
         if (businesses == null) {
@@ -251,7 +263,7 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 
@@ -263,23 +275,30 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     }
 
     @Override
-    public void onDeleteNodeSuccess() {
-        showSuccessAndFinish("废弃成功");
+    public void onDeleteNodeSuccess(String buildingIds) {
+        onOperateSuccess("废弃成功", buildingIds);
     }
 
     @Override
-    public void onSendNodeSuccess() {
-        showSuccessAndFinish("发送成功");
+    public void onSendNodeSuccess(String buildingIds) {
+        onOperateSuccess("发送成功", buildingIds);
     }
 
     @Override
-    public void onReviewNodeSuccess() {
-        showSuccessAndFinish("复查成功");
+    public void onReviewNodeSuccess(String buildingIds) {
+        onOperateSuccess("复查成功", buildingIds);
     }
 
     @Override
-    public void onBackNodeSuccess() {
-        showSuccessAndFinish("退回成功");
+    public void onBackNodeSuccess(String buildingIds) {
+        onOperateSuccess("退回成功", buildingIds);
+    }
+
+    @Override
+    protected void onOperateSuccess(String msg, String buildingIds) {
+        ToastUtil.showText(msg);
+        refreshBusiness(buildingIds);
+        EventBus.getDefault().post(new RefreshTaskEvent());
     }
 
     private Set<Business> selectedBusinessList = new HashSet<>();
@@ -290,23 +309,6 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
         StringBuilder buildingTypesSb = new StringBuilder();
         StringBuilder buildingStatusIdsSb = new StringBuilder();
         StringBuilder gruopIdsSb = new StringBuilder();
-//        for (int i = 0; i < selectedBusinessList.size(); i++) {
-//            if (i != selectedBusinessList.size() - 1) {
-//                buildingIdsSb.append(selectedBusinessList.get(i).getBuildingId());
-//                buildingIdsSb.append("#");
-//                buildingTypesSb.append(selectedBusinessList.get(i).getBuildingType());
-//                buildingTypesSb.append("#");
-//                buildingStatusIdsSb.append(selectedBusinessList.get(i).getStatusId());
-//                buildingStatusIdsSb.append("#");
-//                gruopIdsSb.append(selectedBusinessList.get(i).getGroupId());
-//                gruopIdsSb.append("#");
-//            } else {
-//                buildingIdsSb.append(selectedBusinessList.get(i).getBuildingId());
-//                buildingTypesSb.append(selectedBusinessList.get(i).getBuildingType());
-//                buildingStatusIdsSb.append(selectedBusinessList.get(i).getStatusId());
-//                gruopIdsSb.append(selectedBusinessList.get(i).getGroupId());
-//            }
-//        }
         for (Business business : selectedBusinessList) {
             buildingIdsSb.append(business.getBuildingId());
             buildingIdsSb.append("#");
@@ -333,6 +335,30 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
         selectedBusinessList.add(business);
         LogUtil.e(TAG, getClass().getSimpleName() + "增加 数量:" + selectedBusinessList.size());
         setRefreshDialogDate();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshBusinessEvent(RefreshBusinessListEvent event) {
+        refreshBusiness(event.getBuildingIds());
+    }
+
+    public void refreshBusiness(String buildingIds) {
+        if (TextUtils.isEmpty(buildingIds)) {
+            return;
+        }
+        List<String> buildingIdList = CollectionUtil.getBuildingIdList(buildingIds);
+        if (buildingIdList.size() == 0) {
+            return;
+        }
+        Iterator<Business> it = businesses.iterator();
+        while (it.hasNext()) {
+            Business next = it.next();
+            if (buildingIdList.contains(next.getBuildingId())) {
+                it.remove();
+            }
+        }
+        refreshData();
     }
 
 }

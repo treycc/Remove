@@ -14,17 +14,23 @@ import okhttp3.RequestBody;
  */
 public interface OperateNodeContract {
     interface View extends BaseView {
-        void onDeleteNodeSuccess();
-        void onSendNodeSuccess();
-        void onReviewNodeSuccess();
-        void onBackNodeSuccess();
+        void onDeleteNodeSuccess(String buildingIds);
+
+        void onSendNodeSuccess(String buildingIds);
+
+        void onReviewNodeSuccess(String buildingIds);
+
+        void onBackNodeSuccess(String buildingIds);
     }
 
     interface Presenter extends BasePresenter<View> {
 
-        void deleteNode(RequestBody requestBody);
-        void sendNode(RequestBody requestBody);
-        void reviewNode(RequestBody requestBody);
-        void backNode(RequestBody requestBody);
+        void deleteNode(RequestBody requestBody, String buildingIds);
+
+        void sendNode(RequestBody requestBody, String buildingIds);
+
+        void reviewNode(RequestBody requestBody, String buildingIds);
+
+        void backNode(RequestBody requestBody, String buildingIds);
     }
 }

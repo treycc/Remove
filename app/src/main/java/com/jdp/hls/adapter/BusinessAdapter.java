@@ -46,23 +46,20 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.cb_business.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//            LogUtil.e(TAG,"isChecked"+position+isChecked);
             if (!buttonView.isPressed()) {
                 return;
             }
             list.get(position).setSelected(isChecked);
             if (isChecked) {
-                LogUtil.e(TAG,"添加"+position);
                 onBusinessSelectedListener.onBusinessAdd(list.get(position));
             }else{
                 onBusinessSelectedListener.onBusinessRemove(list.get(position));
-                LogUtil.e(TAG,"删除"+position);
             }
         });
         viewHolder.cb_business.setVisibility(checkable ? View.VISIBLE : View.GONE);
         viewHolder.cb_business.setChecked(list.get(position).isSelected());
         viewHolder.tv_business_address.setText(list.get(position).getAddress());
-        viewHolder.tv_business_number.setText(list.get(position).getSysCode());
+        viewHolder.tv_business_number.setText(list.get(position).getCusCode());
         viewHolder.tv_business_name.setText(list.get(position).getRealName());
         viewHolder.tv_business_mobile.setText(list.get(position).getMobilePhone());
         viewHolder.tv_business_node.setText(list.get(position).getStatusDesc());

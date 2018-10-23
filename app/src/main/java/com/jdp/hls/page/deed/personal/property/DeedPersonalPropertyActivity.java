@@ -49,8 +49,6 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
     KSpinner spinnerPropertyUse;
     @BindView(R.id.et_property_address)
     EnableEditText etPropertyAddress;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llImgPreview;
     private List<TDict> propertyUseList;
     private List<TDict> propertyStructureList;
     private int propertyUse;

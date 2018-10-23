@@ -176,7 +176,7 @@ public class PublicityDetailActivity extends BaseTitleActivity implements Public
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 

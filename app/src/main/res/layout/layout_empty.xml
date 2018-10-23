@@ -7,13 +7,13 @@
               android:orientation="vertical">
 
     <ImageView
-        android:layout_width="160dp"
-        android:layout_height="110dp"
-        android:layout_marginBottom="12dp"
-        android:background="@mipmap/bg_callback_empty"/>
+        android:layout_width="100dp"
+        android:layout_height="82dp"
+        android:layout_marginBottom="16dp"
+        android:background="@mipmap/bg_layout_empty"/>
 
     <TextView
-        style="@style/font_9_13"
+        style="@style/font_9_16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"

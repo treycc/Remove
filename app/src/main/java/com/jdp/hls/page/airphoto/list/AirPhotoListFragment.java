@@ -89,7 +89,10 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     @Override
     public void onGetAirPhotoListSuccess(List<AirPhotoItem> airPhotoItems) {
         if (airPhotoItems != null && airPhotoItems.size() > 0) {
+            showSuccessCallback();
             adapter.setData(airPhotoItems);
+        }else{
+            showEmptyCallback();
         }
     }
 
@@ -139,5 +142,10 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
         if (taskType.equals(Constants.AirPhotoType.TODO)) {
             adapter.modify(event.getAirPhotoItem());
         }
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }

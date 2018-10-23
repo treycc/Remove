@@ -89,7 +89,7 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return !mIsAdd;
     }
 }

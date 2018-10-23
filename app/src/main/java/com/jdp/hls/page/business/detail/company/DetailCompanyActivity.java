@@ -25,6 +25,7 @@ import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
 import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
 
@@ -91,6 +92,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     private double longitude;
     private double latitude;
     private LngLatFragment lngLatFragment;
+    private boolean allowEdit;
 
     @Override
     public void initVariable() {
@@ -125,6 +127,10 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     }
 
     private void goDeedActivity(Class<? extends BaseDeedActivity> clazz, int fileType, boolean isAdd) {
+        if (isAdd && !allowEdit) {
+            ToastUtil.showText("证件还未添加");
+            return;
+        }
         BaseDeedActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
                 .COMPANY, isAdd);
     }
@@ -191,10 +197,11 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         tvDetailLandDeed.setText(landCertNum);
         tvDetailImmovableDeed.setText(estateCertNum);
         tvDetailPropertyDeed.setText(propertyCertNum);
-        switchDetailPublicity.setChecked(detailCompany.isAllowPublicity());
+        ifPublicity = detailCompany.isAllowPublicity();
+        switchDetailPublicity.setChecked(ifPublicity);
 
         initLngLat(detailCompany.getLongitude(), detailCompany.getLatitude());
-        boolean allowEdit = detailCompany.isAllowEdit();
+        allowEdit = detailCompany.isAllowEdit();
         rvPhotoPreview.setData(detailCompany.getFiles(), new FileConfig(Status.FileType.COMPANY_CURRENT,
                 buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
         if (allowEdit) {
@@ -260,7 +267,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 

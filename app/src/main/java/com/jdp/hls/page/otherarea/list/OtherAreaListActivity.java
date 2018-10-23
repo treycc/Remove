@@ -126,19 +126,23 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
 
     @Override
     public void onGetOtherAreaListSuccess(List<OtherArea> otherAreaList) {
-        if (otherAreaList == null) {
-            return;
-        }
-        if (otherAreaList.size() == 0) {
-            mBaseLoadService.showCallback(EmptyCallback.class);
+        this.otherAreas=otherAreaList;
+        checkListsize(otherAreaList);
+    }
+
+    private void checkListsize(List<OtherArea> otherAreaList) {
+        if (otherAreas!= null&&otherAreas.size() > 0) {
+            showSuccessCallback();
+            otherAreaAdapter.setData(otherAreas);
         } else {
-            otherAreaAdapter.setData(otherAreaList);
+            mBaseLoadService.showCallback(EmptyCallback.class);
         }
     }
 
     @Override
     public void onDeleteOtherAreaSuccess(int position) {
         otherAreaAdapter.remove(position);
+        checkListsize(otherAreaAdapter.getData());
     }
 
     public static void goActivity(Context context, String id, String buildingType) {
@@ -149,12 +153,13 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addOtherArea(AddOtherEvent event) {
+        showSuccessCallback();
         otherAreaAdapter.addFirst(event.getOtherArea());
         LogUtil.e(TAG,"刷新新增其它面积");
     }

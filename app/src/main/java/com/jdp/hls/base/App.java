@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.jdp.hls.R;
+import com.jdp.hls.callback.ErrorMessageCallback;
 import com.jdp.hls.page.crash.CrashActivity;
 import com.jdp.hls.callback.EmptyCallback;
 import com.jdp.hls.callback.ErrorCallback;
@@ -61,6 +62,7 @@ public class App extends MultiDexApplication {
     private void initLoadSir() {
         LoadSir.beginBuilder()
                 .addCallback(new EmptyCallback())
+                .addCallback(new ErrorMessageCallback())
                 .addCallback(new ErrorCallback())
                 .addCallback(new LoadingCallback())
                 .commit();

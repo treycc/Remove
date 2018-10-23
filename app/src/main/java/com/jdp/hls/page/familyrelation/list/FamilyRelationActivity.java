@@ -127,7 +127,7 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 

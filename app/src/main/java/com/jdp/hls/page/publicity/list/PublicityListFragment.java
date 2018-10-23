@@ -85,12 +85,6 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-//        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
     protected void initComponent(AppComponent appComponent) {
         DaggerBaseCompnent.builder()
                 .appComponent(appComponent)
@@ -121,10 +115,17 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
     @Override
     public void onGetPublicityListSuccess(List<PublicityItem> publicityItems) {
         this.publicityItems = publicityItems;
-        if (publicityItems != null && publicityItems.size() > 0) {
-            adapter.setData(publicityItems);
-        }
+        checkListSize(publicityItems);
 
+    }
+
+    private void checkListSize(List<PublicityItem> publicityItems) {
+        if (publicityItems != null && publicityItems.size() > 0) {
+            showSuccessCallback();
+            adapter.setData(publicityItems);
+        }else{
+            showEmptyCallback();
+        }
     }
 
     @Override
@@ -155,5 +156,10 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
     @Override
     public void onRefresh() {
         initNet();
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -49,6 +50,7 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
     @BindView(R.id.lv_statistics)
     FixedListView lvStatistics;
     private String statisType;
+    private String title;
     private CommonPositionAdapter statisticsAdapter;
     private List<StatisticsItem> statisticsItemList = new ArrayList<>();
     private int[] colorAttr = {R.color.pie_red, R.color.pie_yellow, R.color.pie_cyan, R.color.pie_green};
@@ -56,12 +58,13 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
     @OnItemClick({R.id.lv_statistics})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         StatisticsItem statisticsItem = (StatisticsItem) adapterView.getItemAtPosition(position);
-        TableListActivity.goActivity(this,String.valueOf(statisticsItem.getStatisItemTypeId()));
+        TableListActivity.goActivity(this, String.valueOf(statisticsItem.getStatisItemTypeId()));
     }
 
     @Override
     public void initVariable() {
         statisType = getIntent().getStringExtra(Constants.Extra.STATIS_TYPE);
+        title = getIntent().getStringExtra(Constants.Extra.TITLE);
     }
 
     @Override
@@ -79,7 +82,7 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
 
     @Override
     protected String getContentTitle() {
-        return "统计";
+        return TextUtils.isEmpty(title) ? "统计" : title;
     }
 
     @Override
@@ -100,7 +103,6 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
                         .getQuantity()));
             }
         });
-
     }
 
     private void initchart() {
@@ -171,14 +173,15 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
         }
     }
 
-    public static void goActivity(Context context, String statisType) {
+    public static void goActivity(Context context, String statisType, String title) {
         Intent intent = new Intent(context, StatisticsActivity.class);
         intent.putExtra(Constants.Extra.STATIS_TYPE, statisType);
+        intent.putExtra(Constants.Extra.TITLE, title);
         context.startActivity(intent);
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 }

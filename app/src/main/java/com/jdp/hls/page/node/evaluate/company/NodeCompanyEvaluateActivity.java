@@ -68,8 +68,6 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
     RelativeLayout rlEvaluateAppurtenanceDetail;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
     private int evalId;

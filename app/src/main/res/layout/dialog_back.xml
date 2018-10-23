@@ -8,7 +8,7 @@
               android:orientation="vertical">
 
     <TextView
-        style="@style/font_3_15"
+        style="@style/font_3_16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -28,14 +28,14 @@
 
 
         <TextView
-            style="@style/font_6_13"
+            style="@style/font_3_12"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="退回节点"/>
 
         <TextView
-            style="@style/font_3_13"
+            style="@style/font_9_12"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -52,7 +52,7 @@
 
 
         <TextView
-            style="@style/font_6_13"
+            style="@style/font_3_12"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -60,7 +60,7 @@
 
         <TextView
             android:id="@+id/tv_dialog_receiveName"
-            style="@style/font_3_13"
+            style="@style/font_9_12"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -81,6 +81,7 @@
         app:super_strokeColor="@color/gray_hi"
         app:super_strokeWidth="1px"/>
 
+    <View style="@style/div_hor_gray"/>
 
     <include layout="@layout/layout_dialog_button"/>
 

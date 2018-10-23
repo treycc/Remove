@@ -17,6 +17,15 @@ public class UserInfo {
     private int AccountName;
     private int AccountType;
     private String AccountAlias;
+    private boolean IsOperatorAccount;
+
+    public boolean isOperatorAccount() {
+        return IsOperatorAccount;
+    }
+
+    public void setOperatorAccount(boolean operatorAccount) {
+        IsOperatorAccount = operatorAccount;
+    }
 
     public int getAccountType() {
         return AccountType;

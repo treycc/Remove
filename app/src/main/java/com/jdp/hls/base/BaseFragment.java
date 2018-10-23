@@ -8,9 +8,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.jdp.hls.R;
+import com.jdp.hls.callback.EmptyCallback;
+import com.jdp.hls.callback.ErrorCallback;
+import com.jdp.hls.callback.ErrorMessageCallback;
+import com.jdp.hls.callback.LoadingCallback;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.rx.RxRe;
+import com.jdp.hls.util.ToastUtil;
+import com.kingja.loadsir.callback.Callback;
+import com.kingja.loadsir.core.LoadService;
+import com.kingja.loadsir.core.LoadSir;
+import com.kingja.loadsir.core.Transport;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,6 +39,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     protected String TAG = getClass().getSimpleName();
     private ProgressDialog mDialogProgress;
     protected Unbinder unbinder;
+    protected LoadService mBaseLoadService;
 
     @Override
     public void onAttach(Context context) {
@@ -78,7 +90,21 @@ public abstract class BaseFragment extends Fragment implements BaseView {
             savedInstanceState) {
         View mRootView = inflater.inflate(getContentId(), container, false);
         unbinder = ButterKnife.bind(this, mRootView);
+        if (ifRegisterLoadSir()) {
+            mBaseLoadService = LoadSir.getDefault().register(mRootView, new Callback.OnReloadListener() {
+                @Override
+                public void onReload(View v) {
+                    onNetReload(v);
+                }
+            });
+            return mBaseLoadService.getLoadLayout();
+        }
         return mRootView;
+
+    }
+
+    protected void onNetReload(View v) {
+        initNet();
     }
 
     protected abstract int getContentId();
@@ -104,6 +130,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
     }
+
     @Override
     public void showLoading() {
         setProgressShow(true);
@@ -113,4 +140,41 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     public void hideLoading() {
         setProgressShow(false);
     }
+
+    @Override
+    public void showLoadingCallback() {
+        mBaseLoadService.showCallback(LoadingCallback.class);
+    }
+
+    @Override
+    public void showEmptyCallback() {
+        mBaseLoadService.showCallback(EmptyCallback.class);
+    }
+
+    @Override
+    public void showErrorCallback() {
+        mBaseLoadService.showCallback(ErrorCallback.class);
+    }
+
+    @Override
+    public void showSuccessCallback() {
+        mBaseLoadService.showSuccess();
+    }
+
+    @Override
+    public void showErrorMessage(int code, String message) {
+        if (ifRegisterLoadSir()) {
+            mBaseLoadService.setCallBack(ErrorMessageCallback.class, new Transport() {
+                @Override
+                public void order(Context context, View view) {
+                    TextView tvErrorMsg = view.findViewById(R.id.tv_layout_errorMsg);
+                    tvErrorMsg.setText(message);
+                }
+            });
+            mBaseLoadService.showCallback(ErrorMessageCallback.class);
+        } else {
+            ToastUtil.showText(message);
+        }
+    }
+
 }

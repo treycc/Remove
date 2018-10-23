@@ -2,7 +2,9 @@ package com.jdp.hls.page.innerdecoration.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -46,6 +49,8 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
     StringTextView tvPayMoney;
     @BindView(R.id.tv_payMoney_tip)
     TextView tvPayMoneyTip;
+    @BindView(R.id.ll_totalMoneyBar)
+    LinearLayout llTotalMoneyBar;
     private String evalId;
     private String buildingType;
     private String compensationType;
@@ -94,7 +99,8 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
         setRightClick("增加", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                DecorationDetailActivity.goActivity(DecorationListActivity.this, evalId, buildingType,Integer.valueOf(compensationType));
+                DecorationDetailActivity.goActivity(DecorationListActivity.this, evalId, buildingType, Integer
+                        .valueOf(compensationType));
             }
         });
         tvPayMoneyTip.setText(compensationType.equals(Status.CompensationType.DECORATION) ? "内装饰装修补偿总金额" : "附属物补偿总金额");
@@ -111,7 +117,8 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
 
             @Override
             public void onItemClick(DecorationItem decorationItem) {
-                DecorationDetailActivity.goActivity(DecorationListActivity.this, decorationItem, buildingType,Integer.valueOf(compensationType));
+                DecorationDetailActivity.goActivity(DecorationListActivity.this, decorationItem, buildingType,
+                        Integer.valueOf(compensationType));
             }
         });
     }
@@ -131,26 +138,37 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
 
     @Override
     public void onGetDecorationListSuccess(List<DecorationItem> decorationItemList) {
+        this.decorationItemList = decorationItemList;
+        checkListSize(decorationItemList);
+    }
+
+    private void checkListSize(List<DecorationItem> decorationItemList) {
         if (decorationItemList != null && decorationItemList.size() > 0) {
+            showSuccessCallback();
             decorationAdapter.setData(decorationItemList);
+            llTotalMoneyBar.setVisibility(View.VISIBLE);
             tvPayMoney.setString(decorationAdapter.getTotalMoney());
+        } else {
+            llTotalMoneyBar.setVisibility(View.GONE);
+            showEmptyCallback();
         }
     }
 
     @Override
     public void onDeleteDecorationSuccess(int position) {
         decorationAdapter.removeItem(position);
-        tvPayMoney.setString(decorationAdapter.getTotalMoney());
+        checkListSize(decorationAdapter.getData());
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addItem(AddDecorationEvent event) {
+        showSuccessCallback();
         decorationAdapter.addFirst(event.getDecorationItem());
         tvPayMoney.setString(decorationAdapter.getTotalMoney());
     }
@@ -160,4 +178,5 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
         decorationAdapter.modify(event.getDecorationItem());
         tvPayMoney.setString(decorationAdapter.getTotalMoney());
     }
+
 }

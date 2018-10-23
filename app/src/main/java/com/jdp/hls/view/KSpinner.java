@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListAdapter;
 
 import com.jdp.hls.adapter.ReceiverSpinnerAdapter;
 import com.jdp.hls.adapter.KSpinnerAdapter;
@@ -12,6 +13,7 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.model.entiy.ReceivePerson;
 
 import org.angmarch.views.NiceSpinner;
+import org.angmarch.views.NiceSpinnerAdapterWrapper;
 
 import java.util.List;
 
@@ -101,15 +103,16 @@ public class KSpinner extends NiceSpinner {
         setAdapter(receiverSpinnerAdapter);
         addOnItemClickListener((parent, view, position, id) -> {
             T t = (T) parent.getItemAtPosition(position);
-            setText(onSpinnerItemOperateListener.fillDate(t,  position));
-            onSpinnerItemOperateListener.onSelectItem(t,position);
+            setText(onSpinnerItemOperateListener.fillDate(t, position));
+            onSpinnerItemOperateListener.onSelectItem(t, position);
         });
 
     }
 
-    public interface OnSpinnerItemOperateListener<S>{
-        String fillDate(S item,int position);
-        void  onSelectItem(S item,int position);
+    public interface OnSpinnerItemOperateListener<S> {
+        String fillDate(S item, int position);
+
+        void onSelectItem(S item, int position);
     }
 
     public int getDefaultTypeId() {
@@ -163,6 +166,5 @@ public class KSpinner extends NiceSpinner {
             hideArrow();
             setEnabled(false);
         }
-
     }
 }

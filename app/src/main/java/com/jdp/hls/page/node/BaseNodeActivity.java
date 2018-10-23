@@ -132,7 +132,7 @@ public abstract class BaseNodeActivity extends BaseTitleActivity {
     protected abstract void onSaveDate();
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 

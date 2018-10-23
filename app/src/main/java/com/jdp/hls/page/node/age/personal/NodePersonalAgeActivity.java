@@ -77,8 +77,6 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
     EnableEditText etAgeTotalLegitimateArea;
     @BindView(R.id.et_age_totalIllegalArea)
     EnableEditText etAgeTotalIllegalArea;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
     private String identifierId;

@@ -183,7 +183,6 @@
             style="@style/Title_Normal"
             android:text="照片"/>
 
-        <View style="@style/div_hor_gray_margin24"/>
 
         <com.jdp.hls.view.AddableRecyclerView
             android:id="@+id/rv_photo"

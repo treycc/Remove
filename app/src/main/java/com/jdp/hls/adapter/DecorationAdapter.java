@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.model.entiy.DecorationItem;
-import com.jdp.hls.model.entiy.UnRecordBuilding;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.MathUtil;
 import com.jdp.hls.view.DrawHelperLayout;
@@ -80,7 +79,7 @@ public class DecorationAdapter extends BaseLvAdapter<DecorationItem> {
             if (item.getId() == decorationItem.getId()) {
                 item.setDPSCId(decorationItem.getDPSCId());
                 item.setDPSId(decorationItem.getDPSId());
-                item.setClassType(decorationItem.getClassType());
+                item.setGradeName(decorationItem.getGradeName());
                 item.setItemType(decorationItem.getItemType());
                 item.setItemTypeName(decorationItem.getItemTypeName());
                 item.setPrice(decorationItem.getPrice());

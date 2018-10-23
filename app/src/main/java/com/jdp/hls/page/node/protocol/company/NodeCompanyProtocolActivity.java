@@ -75,8 +75,6 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
     ImageView ivDateSelector;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
     @BindView(R.id.et_protocol_changeArea)

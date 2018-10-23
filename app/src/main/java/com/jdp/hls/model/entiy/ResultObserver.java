@@ -52,6 +52,9 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
         Logger.json(new Gson().toJson(httpResult));
         hideLoading();
         if (httpResult.getCode() == Status.ResultCode.SUCCESS) {
+            if (baseView.ifRegisterLoadSir()) {
+                baseView.showSuccessCallback();
+            }
             onSuccess(httpResult.getData());
         } else if (httpResult.getCode() == Status.ResultCode.ERROR_SERVER) {
             onServerError(httpResult.getCode(), httpResult.getMessage());

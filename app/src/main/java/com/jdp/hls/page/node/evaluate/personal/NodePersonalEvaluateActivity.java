@@ -55,8 +55,6 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
     RelativeLayout rlEvaluateAppurtenanceDetail;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etAgeRemark;
     @Inject

@@ -55,6 +55,7 @@
             android:hint="请选择称谓"
             android:padding="0dp"
             app:backgroundSelector="@drawable/sel_t2g"
+            app:dropDownListPaddingBottom="100dp"
             app:textTint="@color/c_9"/>
     </LinearLayout>
 

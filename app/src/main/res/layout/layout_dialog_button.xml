@@ -3,53 +3,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="16dp"
     android:gravity="center_horizontal"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_cancle"
+        style="@style/font_3_15"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="取消"/>
 
-        <com.kingja.supershapeview.view.SuperShapeTextView
-            android:id="@+id/stv_cancle"
-            style="@style/font_3_13"
-            app:super_cornerRadius="3dp"
-            app:super_strokeColor="@color/gray_hi"
-            app:super_strokeWidth="1px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="8dp"
-            android:singleLine="true"
-            android:text="取消"/>
+    <View style="@style/div_ver_gray"/>
 
-    </LinearLayout>
-
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_confirm"
+        style="@style/font_3_15"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="确定"/>
 
-        <com.kingja.supershapeview.view.SuperShapeTextView
-            android:id="@+id/stv_confirm"
-            style="@style/font_f_13"
-            app:super_cornerRadius="3dp"
-            app:super_solidColor="@color/main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="8dp"
-            android:singleLine="true"
-            android:text="确定"/>
-    </LinearLayout>
+
 </LinearLayout>

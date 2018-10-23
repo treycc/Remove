@@ -8,12 +8,12 @@ import java.io.Serializable;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DecorationItem implements Serializable{
+public class DecorationItem implements Serializable {
     /**
      * Id : 0
      * EvalId : 1
      * DPSCId : 4
-     * ClassType : 2
+     * GradeName : 2
      * Quantity : 10
      * Price : 30
      * ItemType : 0
@@ -26,7 +26,7 @@ public class DecorationItem implements Serializable{
     private int EvalId;
     private int DPSCId;
     private int DPSId;
-    private int ClassType;
+    private String GradeName;
     private int Quantity;
     private double Price;
     private int ItemType;
@@ -75,12 +75,12 @@ public class DecorationItem implements Serializable{
         this.DPSCId = DPSCId;
     }
 
-    public int getClassType() {
-        return ClassType;
+    public String getGradeName() {
+        return GradeName;
     }
 
-    public void setClassType(int ClassType) {
-        this.ClassType = ClassType;
+    public void setGradeName(String ClassType) {
+        this.GradeName = ClassType;
     }
 
     public int getQuantity() {

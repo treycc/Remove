@@ -92,8 +92,6 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
     RelativeLayout rlProtocolOtherArea;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
-    @BindView(R.id.ll_photo_preview)
-    LinearLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
     private int payType;

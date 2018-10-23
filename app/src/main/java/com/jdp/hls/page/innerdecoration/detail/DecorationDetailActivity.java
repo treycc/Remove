@@ -136,7 +136,7 @@ public class DecorationDetailActivity extends BaseTitleActivity implements Decor
         });
 
         if (decorationItem != null) {
-            dpscId = decorationItem.getClassType();
+            dpscId = decorationItem.getDPSCId();
             setGradleData(getGradleListByItemId(decorationItem.getDPSId()));
             spinnerCompensationItem.setSelectItem(decorationItem.getDPSId());
             spinnerCompensationGrade.setSelectItem(decorationItem.getDPSCId());

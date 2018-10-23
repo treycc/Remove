@@ -8,7 +8,7 @@
               android:focusableInTouchMode="true">
 
     <TextView
-        style="@style/font_3_15"
+        style="@style/font_3_16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -31,6 +31,8 @@
         android:gravity="start"
         app:super_strokeWidth="1px"/>
 
+
+    <View style="@style/div_hor_gray"/>
 
     <include layout="@layout/layout_dialog_button"/>
 

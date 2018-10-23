@@ -1,9 +1,11 @@
 package com.jdp.hls.base;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
+import com.jdp.hls.event.RefreshBusinessListEvent;
 import com.jdp.hls.event.RefreshTaskEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Auth;
@@ -12,6 +14,7 @@ import com.jdp.hls.page.operate.delete.DeleteDialog;
 import com.jdp.hls.page.operate.review.ReviewDialog;
 import com.jdp.hls.page.operate.send.SendDialog;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -102,13 +105,16 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
 
     private void initReviewDialog() {
         reviewDialog = new ReviewDialog(BaseBasicActivity.this);
-
         reviewDialog.setOnOperateConfirmListener(requestBody -> {
-            onReviewNode(requestBody);
+            onReviewNode(requestBody, reviewDialog.getBuildingId());
         });
         llNodeReview.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
+                if (TextUtils.isEmpty(reviewDialog.getBuildingId())) {
+                    ToastUtil.showText("请选择fucha任务");
+                    return;
+                }
                 reviewDialog.show();
             }
         });
@@ -116,13 +122,16 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
 
     private void initBackDialog() {
         backDialog = new BackDialog(BaseBasicActivity.this);
-
         backDialog.setOnOperateConfirmListener(requestBody -> {
-            onBackNode(requestBody);
+            onBackNode(requestBody, backDialog.getBuildingId());
         });
         llNodeBack.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
+                if (TextUtils.isEmpty(backDialog.getBuildingId())) {
+                    ToastUtil.showText("请选择退回任务");
+                    return;
+                }
                 backDialog.show();
             }
         });
@@ -130,28 +139,33 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
 
     private void initDeleteDialog() {
         deleteDialog = new DeleteDialog(BaseBasicActivity.this);
-
-        deleteDialog.setOnOperateConfirmListener(requestBody -> {
-            onDeleteNode(requestBody);
-        });
         llNodeDelete.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
+                if (TextUtils.isEmpty(deleteDialog.getBuildingId())) {
+                    ToastUtil.showText("请选择废弃任务");
+                    return;
+                }
                 deleteDialog.show();
             }
+        });
+        deleteDialog.setOnOperateConfirmListener(requestBody -> {
+            onDeleteNode(requestBody, deleteDialog.getBuildingId());
         });
     }
 
     private void initSendDialog() {
         sendDialog = new SendDialog(BaseBasicActivity.this);
-
         sendDialog.setOnOperateConfirmListener(requestBody -> {
-            onSendNode(requestBody);
+            onSendNode(requestBody, sendDialog.getBuildingId());
         });
-
         llNodeSend.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
+                if (TextUtils.isEmpty(sendDialog.getBuildingId())) {
+                    ToastUtil.showText("请选择发送任务");
+                    return;
+                }
                 sendDialog.show();
             }
         });
@@ -181,17 +195,18 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     }
 
 
-    protected abstract void onSendNode(RequestBody requestBody);
+    protected abstract void onSendNode(RequestBody requestBody, String buildingIds);
 
-    protected abstract void onBackNode(RequestBody requestBody);
+    protected abstract void onBackNode(RequestBody requestBody, String buildingIds);
 
-    protected abstract void onReviewNode(RequestBody requestBody);
+    protected abstract void onReviewNode(RequestBody requestBody, String buildingIds);
 
-    protected abstract void onDeleteNode(RequestBody requestBody);
+    protected abstract void onDeleteNode(RequestBody requestBody, String buildingIds);
 
-    @Override
-    public void showSuccessAndFinish(String tip) {
-        super.showSuccessAndFinish(tip);
+    protected void onOperateSuccess(String msg, String buildingIds) {
+        EventBus.getDefault().post(new RefreshBusinessListEvent(buildingIds));
         EventBus.getDefault().post(new RefreshTaskEvent());
+        super.showSuccessAndFinish(msg);
     }
+
 }

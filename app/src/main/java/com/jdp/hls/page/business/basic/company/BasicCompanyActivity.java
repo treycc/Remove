@@ -43,7 +43,8 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class BasicCompanyActivity extends BaseBasicActivity implements BaiscCompanyContract.View, OperateNodeContract.View {
+public class BasicCompanyActivity extends BaseBasicActivity implements BaiscCompanyContract.View, OperateNodeContract
+        .View {
     @BindView(R.id.rl_business_detail)
     RelativeLayout rlBusinessDetail;
     @BindView(R.id.lv_business_node)
@@ -70,36 +71,33 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
             switch (flowNode.getNodeStatusId()) {
                 case Constants.BusinessNode.MEASURE:
                     //入户丈量
-//                    NodeCompanyMeasureActivity.goActivity(this, NodeCompanyMeasureActivity.class, buildingId);
                     goNodeActivity(NodeCompanyMeasureActivity.class, Status.FileType.NODE_MEASURE);
                     break;
                 case Constants.BusinessNode.MAPPING:
                     //测绘出图
-//                    NodeCompanyMappingActivity.goActivity(this, NodeCompanyMappingActivity.class, buildingId);
                     goNodeActivity(NodeCompanyMappingActivity.class, Status.FileType.NODE_MAPPING);
                     break;
                 case Constants.BusinessNode.AGE:
                     //年限鉴定
-//                    NodeCompanyAgeActivity.goActivity(this, NodeCompanyAgeActivity.class, buildingId);
                     goNodeActivity(NodeCompanyAgeActivity.class, Status.FileType.NODE_AGE);
                     break;
                 case Constants.BusinessNode.EVALUATE:
                     //入户评估
-//                    NodeCompanyEvaluateActivity.goActivity(this, NodeCompanyEvaluateActivity.class, buildingId);
                     goNodeActivity(NodeCompanyEvaluateActivity.class, Status.FileType.NODE_EVALUATE);
                     break;
                 case Constants.BusinessNode.PROTOCOL:
                     //协议生成
-//                    NodeCompanyProtocolActivity.goActivity(this, NodeCompanyProtocolActivity.class, buildingId);
                     goNodeActivity(NodeCompanyProtocolActivity.class, Status.FileType.NODE_PROTOCOL);
                     break;
             }
         }
     }
+
     private void goNodeActivity(Class<? extends BaseNodeActivity> clazz, int fileType) {
         BaseNodeActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
                 .COMPANY);
     }
+
     @OnClick({R.id.rl_business_detail})
     public void click(View view) {
         switch (view.getId()) {
@@ -138,7 +136,6 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
         operateNodePresenter.attachView(this);
         flowNodeAdapter = new FlowNodeAdapter(this, flowNodes, R.layout.item_business_node);
         lvBusinessNode.setAdapter(flowNodeAdapter);
-
     }
 
     @Override
@@ -151,23 +148,23 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
     }
 
     @Override
-    protected void onSendNode(RequestBody requestBody) {
-        operateNodePresenter.sendNode(requestBody);
+    protected void onSendNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.sendNode(requestBody, buildingIds);
     }
 
     @Override
-    protected void onBackNode(RequestBody requestBody) {
-        operateNodePresenter.backNode(requestBody);
+    protected void onBackNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.backNode(requestBody, buildingIds);
     }
 
     @Override
-    protected void onReviewNode(RequestBody requestBody) {
-        operateNodePresenter.reviewNode(requestBody);
+    protected void onReviewNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.reviewNode(requestBody, buildingIds);
     }
 
     @Override
-    protected void onDeleteNode(RequestBody requestBody) {
-        operateNodePresenter.deleteNode(requestBody);
+    protected void onDeleteNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.deleteNode(requestBody, buildingIds);
     }
 
     public static void goActivity(Context context, String buildingId) {
@@ -190,27 +187,27 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 
     @Override
-    public void onDeleteNodeSuccess() {
-        showSuccessAndFinish("废弃成功");
+    public void onDeleteNodeSuccess(String buildingIds) {
+        onOperateSuccess("废弃成功", buildingIds);
     }
 
     @Override
-    public void onSendNodeSuccess() {
+    public void onSendNodeSuccess(String buildingIds) {
         showSuccessAndFinish("发送成功");
     }
 
     @Override
-    public void onReviewNodeSuccess() {
+    public void onReviewNodeSuccess(String buildingIds) {
         showSuccessAndFinish("复查成功");
     }
 
     @Override
-    public void onBackNodeSuccess() {
+    public void onBackNodeSuccess(String buildingIds) {
         showSuccessAndFinish("退回成功");
     }
 }

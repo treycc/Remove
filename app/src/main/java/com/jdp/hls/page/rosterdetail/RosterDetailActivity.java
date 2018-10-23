@@ -479,7 +479,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 }

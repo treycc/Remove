@@ -148,7 +148,8 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
         });
         gvStatisticsAction.setOnItemClickListener((parent, view, position, id) -> {
             BusinessAction businessAction = (BusinessAction) parent.getItemAtPosition(position);
-            StatisticsActivity.goActivity(LevyActivity.this, String.valueOf(businessAction.getStatisId()));
+            StatisticsActivity.goActivity(LevyActivity.this, String.valueOf(businessAction.getStatisId()),
+                    businessAction.getActionName());
         });
     }
 
@@ -165,7 +166,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
         }
         List<BusinessAction> businessActionList = levyInfo.getLstAppAction();
         if (businessActionList != null && businessActionList.size() > 0) {
-            businessActionAdapter.setData(getAvailableActionList(businessActionList));
+            businessActionAdapter.setData(businessActionList);
         }
         List<BusinessAction> statisticsActionList = levyInfo.getLstStatisAction();
         if (statisticsActionList != null && statisticsActionList.size() > 0) {
@@ -174,7 +175,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
     }
 
     private List getAvailableActionList(List<BusinessAction> businessActionList) {
-        List<BusinessAction>actionList=new ArrayList<>();
+        List<BusinessAction> actionList = new ArrayList<>();
         for (BusinessAction businessAction : businessActionList) {
             if (businessAction.isAvailable()) {
                 actionList.add(businessAction);
@@ -184,7 +185,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
     }
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 

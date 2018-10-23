@@ -38,7 +38,7 @@ public class AirphotoListActivity extends BaseTitleActivity {
     TabLayout tabAirphoto;
     @BindView(R.id.vp_airphoto)
     ViewPager vpAirphoto;
-    private String[] tabTitles = {"待办航拍", "已办航拍", "办结航拍"};
+    private String[] tabTitles = {"待办复查", "已办复查", "办结复查"};
     private int[] tabIcons = {R.drawable.selector_tab_airphoto_todo, R.drawable.selector_tab_airphoto_done, R
             .drawable.selector_tab_airphoto_finish};
     private AirPhotoListFragment mFragmentArr[] = new AirPhotoListFragment[3];
@@ -51,6 +51,7 @@ public class AirphotoListActivity extends BaseTitleActivity {
                 break;
         }
     }
+
     @Override
     public void initVariable() {
 
@@ -92,8 +93,8 @@ public class AirphotoListActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        if (SpSir.getInstance().isOperate()) {
-            setRightClick("初审", new NoDoubleClickListener() {
+        if (SpSir.getInstance().isOperatorAccount()) {
+            setRightClick("发起", new NoDoubleClickListener() {
                 @Override
                 public void onNoDoubleClick(View v) {
                     GoUtil.goActivity(AirphotoListActivity.this, AirPhotoBuildingActivity.class);
@@ -108,6 +109,7 @@ public class AirphotoListActivity extends BaseTitleActivity {
             }
         });
     }
+
     private void search(String keyword) {
         for (int i = 0; i < mFragmentArr.length; i++) {
             mFragmentArr[i].search(keyword);

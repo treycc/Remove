@@ -149,23 +149,23 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
     }
 
     @Override
-    protected void onSendNode(RequestBody requestBody) {
-        operateNodePresenter.sendNode(requestBody);
+    protected void onSendNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.sendNode(requestBody, buildingIds);
     }
 
     @Override
-    protected void onBackNode(RequestBody requestBody) {
-        operateNodePresenter.backNode(requestBody);
+    protected void onBackNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.backNode(requestBody, buildingIds);
     }
 
     @Override
-    protected void onReviewNode(RequestBody requestBody) {
-        operateNodePresenter.reviewNode(requestBody);
+    protected void onReviewNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.reviewNode(requestBody, buildingIds);
     }
 
     @Override
-    protected void onDeleteNode(RequestBody requestBody) {
-        operateNodePresenter.deleteNode(requestBody);
+    protected void onDeleteNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.deleteNode(requestBody, buildingIds);
     }
 
     public static void goActivity(Context context, String buildingId) {
@@ -189,27 +189,27 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
 
 
     @Override
-    protected boolean ifRegisterLoadSir() {
+    public boolean ifRegisterLoadSir() {
         return true;
     }
 
     @Override
-    public void onDeleteNodeSuccess() {
-        showSuccessAndFinish("废弃成功");
+    public void onDeleteNodeSuccess(String buildingIds) {
+        onOperateSuccess("废弃成功",buildingIds);
     }
 
     @Override
-    public void onSendNodeSuccess() {
-        showSuccessAndFinish("发送成功");
+    public void onSendNodeSuccess(String buildingIds) {
+        onOperateSuccess("发送成功",buildingIds);
     }
 
     @Override
-    public void onReviewNodeSuccess() {
-        showSuccessAndFinish("复查成功");
+    public void onReviewNodeSuccess(String buildingIds) {
+        onOperateSuccess("复查成功",buildingIds);
     }
 
     @Override
-    public void onBackNodeSuccess() {
-        showSuccessAndFinish("退回成功");
+    public void onBackNodeSuccess(String buildingIds) {
+        onOperateSuccess("退回成功",buildingIds);
     }
 }

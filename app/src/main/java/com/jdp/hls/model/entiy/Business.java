@@ -12,6 +12,7 @@ public class Business implements Serializable {
 
     private String BuildingId;
     private String SysCode;
+    private String CusCode;
     private int BuildingType;
     private String RealName;
     private String MobilePhone;
@@ -22,6 +23,14 @@ public class Business implements Serializable {
     private boolean IsFlowBack;
     private boolean HasLongitudeAndLatitude;
     private boolean selected;
+
+    public String getCusCode() {
+        return CusCode;
+    }
+
+    public void setCusCode(String cusCode) {
+        CusCode = cusCode;
+    }
 
     public String getGroupId() {
         return GroupId;

@@ -16,9 +16,18 @@ public class BasicCompany {
     private String Address;
     private String StatusDesc;
     private String GroupId;
+    private String CusCode;
     private int StatusId;
     private List<FlowNode> FlowNodes;
     private Auth Auth;
+
+    public String getCusCode() {
+        return CusCode;
+    }
+
+    public void setCusCode(String cusCode) {
+        CusCode = cusCode;
+    }
 
     public String getGroupId() {
         return GroupId;
