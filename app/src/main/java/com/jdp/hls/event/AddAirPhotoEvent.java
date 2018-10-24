@@ -1,4 +1,6 @@
-package com.jdp.hls.model.entiy;
+package com.jdp.hls.event;
+
+import com.jdp.hls.model.entiy.AirPhotoItem;
 
 /**
  * Description:TODO
@@ -8,6 +10,7 @@ package com.jdp.hls.model.entiy;
  */
 public class AddAirPhotoEvent {
     private AirPhotoItem airPhotoItem;
+    private String airPhotoType;
 
     public AirPhotoItem getAirPhotoItem() {
         return airPhotoItem;
@@ -17,7 +20,16 @@ public class AddAirPhotoEvent {
         this.airPhotoItem = airPhotoItem;
     }
 
-    public AddAirPhotoEvent(AirPhotoItem airPhotoItem) {
+    public AddAirPhotoEvent(AirPhotoItem airPhotoItem,String airPhotoType) {
         this.airPhotoItem = airPhotoItem;
+        this.airPhotoType = airPhotoType;
+    }
+
+    public String getAirPhotoType() {
+        return airPhotoType;
+    }
+
+    public void setAirPhotoType(String airPhotoType) {
+        this.airPhotoType = airPhotoType;
     }
 }

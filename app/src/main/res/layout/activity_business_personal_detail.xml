@@ -319,7 +319,6 @@
             style="@style/Title_Normal"
             android:text="房屋现状图"/>
 
-        <View style="@style/div_hor_gray_margin24"/>
 
         <include layout="@layout/layout_photo_preview"/>
 

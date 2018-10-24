@@ -5,18 +5,27 @@
               android:background="@color/white_hi"
               android:orientation="vertical"
               android:paddingBottom="12dp"
-              android:paddingLeft="24dp"
+              android:paddingLeft="12dp"
               android:paddingRight="24dp"
               android:paddingTop="12dp">
 
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <CheckBox
+            android:paddingRight="12dp"
+            android:id="@+id/cb_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_cb_dark"/>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_publicityNumber"
@@ -27,105 +36,95 @@
                 android:layout_centerVertical="true"
                 android:text="2018-MD-5412"/>
 
-            <CheckBox
-                android:id="@+id/cb_check"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:button="@drawable/selector_cb_dark"
-                android:padding="4dp"/>
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical">
 
+                <TextView
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="户主:"/>
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_publicity_realName"
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                style="@style/font_9_12"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:text="户主:"/>
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/tv_publicity_realName"
-                style="@style/font_9_12"
-                android:layout_width="wrap_content"
+                <TextView
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="手机号:"/>
+
+                <TextView
+                    android:id="@+id/tv_publicity_mobile"
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text=""/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""/>
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="身份证号:"/>
+
+                <TextView
+                    android:id="@+id/tv_publicity_idcard"
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="8dp"
+                    android:text="地址:"/>
+
+                <TextView
+                    android:id="@+id/tv_publicity_address"
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                style="@style/font_9_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:text="手机号:"/>
-
-            <TextView
-                android:id="@+id/tv_publicity_mobile"
-                style="@style/font_9_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:text=""/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                style="@style/font_9_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:text="身份证号:"/>
-
-            <TextView
-                android:id="@+id/tv_publicity_idcard"
-                style="@style/font_9_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
-
-            <TextView
-                style="@style/font_9_12"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="8dp"
-                android:text="地址:"/>
-
-            <TextView
-                android:id="@+id/tv_publicity_address"
-                style="@style/font_9_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
-        </LinearLayout>
-
     </LinearLayout>
+
+
 
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.jdp.hls.page.familyrelation.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.jdp.hls.R;
@@ -15,6 +16,7 @@ import com.jdp.hls.event.ModifyFamilyMememberEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.FamilyMember;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
@@ -70,7 +72,7 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         bookletId = getIntent().getStringExtra(Constants.Extra.BOOKLETID);
         houseId = getIntent().getStringExtra(Constants.Extra.HOUSEID);
         bookletNum = getIntent().getStringExtra(Constants.Extra.BOOKLETNUM);
-        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE,true);
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE, true);
         familyRelationTitles = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.FAMILY_RELATION);
     }
 
@@ -121,7 +123,7 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         TDict defaultDict = spinnerFamilyMememberTitle.getDefaultDict();
         titleTypeId = defaultDict.getTypeId();
         typeName = defaultDict.getTypeName();
-        etFamilyRelationBookletNum.setString(bookletNum==null?"":bookletNum);
+        etFamilyRelationBookletNum.setString(bookletNum == null ? "" : bookletNum);
         if (familyMember != null) {
             etFamilyRelationBookletNum.setString(familyMember.getBookletNum());
             etFamilyRelationName.setString(familyMember.getRealName());
@@ -150,6 +152,9 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         realName = etFamilyRelationName.getText().toString().trim();
         idcard = etFamilyRelationIdcard.getText().toString().trim();
         bookletNum = etFamilyRelationBookletNum.getText().toString().trim();
+        if (CheckUtil.checkEmpty(realName, "请输入姓名")) {
+            return;
+        }
         familyMememberDetailPresenter.saveFamilyRemember(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("PersonId", familyMember == null ? "" : familyMember.getPersonId())
                 .addFormDataPart("BookletId", familyMember == null ? bookletId : String.valueOf(familyMember
@@ -169,14 +174,15 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
 
     }
 
-    public static void goActivity(Context context, FamilyMember familyMember, String houseId,boolean editable) {
+    public static void goActivity(Context context, FamilyMember familyMember, String houseId, boolean editable) {
         Intent intent = new Intent(context, FamilyMememberDetailActivity.class);
         intent.putExtra(Constants.Extra.FAMILYMEMBER, familyMember);
         intent.putExtra(Constants.Extra.HOUSEID, houseId);
         intent.putExtra(Constants.Extra.EDITABLE, editable);
         context.startActivity(intent);
     }
-    public static void goActivity(Context context, String bookletId,String bookletNum, String houseId) {
+
+    public static void goActivity(Context context, String bookletId, String bookletNum, String houseId) {
         Intent intent = new Intent(context, FamilyMememberDetailActivity.class);
         intent.putExtra(Constants.Extra.BOOKLETID, bookletId);
         intent.putExtra(Constants.Extra.BOOKLETNUM, bookletNum);
@@ -203,5 +209,4 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         }
         showSuccessAndFinish();
     }
-
 }

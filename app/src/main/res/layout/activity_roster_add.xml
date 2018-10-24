@@ -186,7 +186,7 @@
                     android:paddingRight="12dp"
                     android:paddingTop="4dp"
                     android:singleLine="true"
-                    android:text="导入"
+                    android:text="选择"
                     app:super_cornerRadius="3dp"
                     app:super_solidColor="@color/main"/>
 

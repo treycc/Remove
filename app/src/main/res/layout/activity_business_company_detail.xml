@@ -51,7 +51,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="现住地址"/>
+                android:text="地址"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_detail_address"
@@ -264,8 +264,6 @@
         <TextView
             style="@style/Title_Normal"
             android:text="房屋现状图"/>
-
-        <View style="@style/div_hor_gray_margin24"/>
 
         <include layout="@layout/layout_photo_preview"/>
 

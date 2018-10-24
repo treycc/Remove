@@ -21,7 +21,6 @@ import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,6 +132,8 @@ public class PublicityObjectActivity extends BaseTitleActivity implements Public
     public void onGetPublicityObjectSuccess(List<PublicityObject> publicityObjects) {
         if (publicityObjects != null && publicityObjects.size() > 0) {
             publicityObjectAdapter.setData(publicityObjects);
+        } else {
+            showEmptyCallback();
         }
 
     }

@@ -112,7 +112,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
             @Override
             public void onNoDoubleClick(View v) {
                 if (TextUtils.isEmpty(reviewDialog.getBuildingId())) {
-                    ToastUtil.showText("请选择fucha任务");
+                    ToastUtil.showText("请选择复查业务");
                     return;
                 }
                 reviewDialog.show();
@@ -129,7 +129,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
             @Override
             public void onNoDoubleClick(View v) {
                 if (TextUtils.isEmpty(backDialog.getBuildingId())) {
-                    ToastUtil.showText("请选择退回任务");
+                    ToastUtil.showText("请选择退回业务");
                     return;
                 }
                 backDialog.show();
@@ -143,7 +143,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
             @Override
             public void onNoDoubleClick(View v) {
                 if (TextUtils.isEmpty(deleteDialog.getBuildingId())) {
-                    ToastUtil.showText("请选择废弃任务");
+                    ToastUtil.showText("请选择废弃业务");
                     return;
                 }
                 deleteDialog.show();
@@ -163,7 +163,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
             @Override
             public void onNoDoubleClick(View v) {
                 if (TextUtils.isEmpty(sendDialog.getBuildingId())) {
-                    ToastUtil.showText("请选择发送任务");
+                    ToastUtil.showText("请选择发送业务");
                     return;
                 }
                 sendDialog.show();

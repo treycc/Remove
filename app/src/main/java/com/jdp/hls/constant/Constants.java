@@ -90,6 +90,7 @@ public class Constants {
         String ID = "ID";
         String OTHER_AREA = "OTHER_AREA";
         String AIRCHECK_ID = "AIRCHECK_ID";
+        String CHECKTYPE = "CHECKTYPE";
         String AIRCHECKPRO_ID = "AIRCHECKPRO_ID";
         String AIRPHOTO_BUILDING = "AirPhotoBuilding";
         String UNRECORD_BUILDING_LIST = "unRecordBuildingList";

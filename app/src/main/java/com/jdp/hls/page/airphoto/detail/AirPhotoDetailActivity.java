@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -15,6 +17,8 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
+import com.jdp.hls.event.AddAirPhotoEvent;
+import com.jdp.hls.event.RemoveAirPhotoEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.AirPhotoItem;
@@ -23,6 +27,7 @@ import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.ModifyAirPhotoEvent;
 import com.jdp.hls.model.entiy.UnRecordBuilding;
 import com.jdp.hls.page.airphoto.unrecordbuilding.UnrecordBuildingListActivity;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.MatisseUtil;
@@ -36,6 +41,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -84,11 +90,17 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     LinearLayout llAirphotoFinish;
     @BindView(R.id.ll_airphoto_operateBar)
     LinearLayout llAirphotoOperateBar;
+    @BindView(R.id.ll_back)
+    LinearLayout llBack;
+    @BindView(R.id.spinner_checkType)
+    KSpinner spinnerCheckType;
+    @BindView(R.id.tv_save)
+    TextView tvSave;
     private List<TDict> propertyUseList;
     private List<TDict> propertyStructureList;
     @Inject
     AirPhotoDetailPresenter airPhotoDetailPresenter;
-    private String airCheckProId;
+    private String airCheckId;
     private int propertyUse;
     private int propertyStructure;
     private AirPhotoItem airPhotoItem;
@@ -96,20 +108,30 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     private String editedBase64 = "";
     List<UnRecordBuilding> unRecordBuildingList = new ArrayList<>();
     private boolean allowEditAppraise;
+    private String remark;
+    private String layer;
+    private String reason;
+    private int checkType;
+    private String[] checkTypes = {"初审", "复审", "终审",};
+    private int airCheckProId;
+    private boolean ageSend;
 
-    @OnClick({R.id.rl_unrecordBuilding})
+    @OnClick({R.id.rl_unrecordBuilding, R.id.ll_back})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_unrecordBuilding:
                 UnrecordBuildingListActivity.goActivity(this, unRecordBuildingList);
                 break;
+            case R.id.ll_back:
+                finish();
+                break;
         }
     }
 
-
     @Override
     public void initVariable() {
-        airCheckProId = getIntent().getStringExtra(Constants.Extra.AIRCHECKPRO_ID);
+        airCheckId = getIntent().getStringExtra(Constants.Extra.AIRCHECK_ID);
+        checkType = getIntent().getIntExtra(Constants.Extra.CHECKTYPE, 0);
         propertyUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_USE);
         propertyStructureList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_STRUCTURE);
     }
@@ -147,16 +169,42 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
             propertyStructure = typeId;
         });
         propertyStructure = spinnerStructureType.getDefaultTypeId();
+        initCheckTypes();
+    }
+
+    private void initCheckTypes() {
+        String[] currentCheckTypes = Arrays.copyOf(checkTypes, checkType + 1);
+        spinnerCheckType.attachDataSource(Arrays.asList(currentCheckTypes));
+        spinnerCheckType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                airPhotoDetailPresenter.getAirPhotoDetail(airCheckId, String.valueOf(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        if (checkType == 0) {
+            spinnerCheckType.enable(false);
+        }
+    }
+
+    @Override
+    protected boolean ifHideTitle() {
+        return true;
     }
 
     @Override
     protected void initNet() {
-        airPhotoDetailPresenter.getAirPhotoDetail(airCheckProId);
+        airPhotoDetailPresenter.getAirPhotoDetail(airCheckId, String.valueOf(checkType));
     }
 
     @Override
     public void onGetAirPhotoDetailSuccess(AirPhotoItem airPhotoItem) {
         this.airPhotoItem = airPhotoItem;
+        airCheckProId = airPhotoItem.getAirCheckProId();
         setContentTitle(airPhotoItem.getCheckTypeName());
         unRecordBuildingList = airPhotoItem.getItems();
         spinnerPropertyUse.setSelectItem(airPhotoItem.getPropertyUseType());
@@ -171,39 +219,46 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         List<ImgInfo> airPhotos = airPhotoItem.getFiles();
         AuthAirPhoto auth = airPhotoItem.getAuth();
         boolean allowEdit = airPhotoItem.isAllowEdit();
-        int checkType = airPhotoItem.getCheckType();
-
-        //初审可以改，初审后不能改
-        spinnerPropertyUse.enable(checkType == Status.AirPhotoType.FIRST && allowEdit);
-        spinnerStructureType.enable(checkType == Status.AirPhotoType.FIRST && allowEdit);
-        etAirphotoLayer.setEnabled(checkType == Status.AirPhotoType.FIRST && allowEdit);
-
         allowEditAppraise = auth.isAllowEditAppraise();
-        etAirphotoReason.setEnabled(allowEdit);
-        etAirphotoRemark.setEnabled(allowEdit);
-        rvAirphotoPhoto.setDate(airPhotos, allowEdit);
-        rvAgePhoto.setDate(agePhotos, allowEditAppraise);
+        if (allowEditAppraise) {
+            allowEdit = false;
+        }
+        int checkType = airPhotoItem.getCheckType();
         //按钮状态
         initOperate(airPhotoItem.getAuth());
-
         //航拍保存
         if (allowEdit) {
-            setRightClick("保存", new NoDoubleClickListener() {
+            tvSave.setOnClickListener(new NoDoubleClickListener() {
                 @Override
                 public void onNoDoubleClick(View v) {
-                    airPhotoDetailPresenter.modifyAirPhotoDetail(getSaveBody().build());
+                    remark = etAirphotoRemark.getText().toString().trim();
+                    layer = etAirphotoLayer.getText().toString().trim();
+                    reason = etAirphotoReason.getText().toString().trim();
+                    if (CheckUtil.checkEmpty(layer, "请输入层次")) {
+                        airPhotoDetailPresenter.modifyAirPhotoDetail(getSaveBody().build());
+                    }
                 }
             });
         }
         //年限保存
         if (allowEditAppraise) {
-            setRightClick("保存", new NoDoubleClickListener() {
+            ageSend =false;
+            tvSave.setOnClickListener(new NoDoubleClickListener() {
                 @Override
                 public void onNoDoubleClick(View v) {
                     airPhotoDetailPresenter.updateAgePhotos(getAgeBody().build());
                 }
             });
         }
+        //初审可以改，初审后不能改
+        spinnerPropertyUse.enable(checkType == Status.AirPhotoType.FIRST && allowEdit);
+        spinnerStructureType.enable(checkType == Status.AirPhotoType.FIRST && allowEdit);
+        etAirphotoLayer.setEnabled(checkType == Status.AirPhotoType.FIRST && allowEdit);
+
+        etAirphotoReason.setEnabled(allowEdit);
+        etAirphotoRemark.setEnabled(allowEdit);
+        rvAirphotoPhoto.setDate(airPhotos, allowEdit);
+        rvAgePhoto.setDate(agePhotos, allowEditAppraise);
     }
 
     private void initOperate(AuthAirPhoto auth) {
@@ -218,6 +273,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         if (showSend) {
             llAirphotoSend.setOnClickListener(v -> {
                 if (allowEditAppraise) {
+                    ageSend =true;
                     airPhotoDetailPresenter.updateAgePhotos(getAgeBody().addFormDataPart("IsSend", "true").build());
                 } else {
                     airPhotoDetailPresenter.sendAirPhoto(getSaveBody().addFormDataPart("IsSend", "true").build());
@@ -237,11 +293,9 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     }
 
     private MultipartBody.Builder getSaveBody() {
-        String remark = etAirphotoRemark.getText().toString().trim();
-        String layer = etAirphotoLayer.getText().toString().trim();
-        String reason = etAirphotoReason.getText().toString().trim();
+
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("AirCheckProId", airCheckProId)
+                .addFormDataPart("AirCheckProId", String.valueOf(airCheckProId))
                 .addFormDataPart("BuildingId", airPhotoItem.getBuildingId())
                 .addFormDataPart("BuilldingType", String.valueOf(airPhotoItem.getBuilldingType()))
                 .addFormDataPart("BuildingStructureType", String.valueOf(propertyStructure))
@@ -266,7 +320,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
 
     private MultipartBody.Builder getAgeBody() {
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("AirCheckProId", airCheckProId)
+                .addFormDataPart("AirCheckProId", String.valueOf(airCheckProId))
                 .addFormDataPart("DeleteFileIDs", rvAirphotoPhoto.getDeleteImgIds());
         List<ImgInfo> imgInfos = rvAgePhoto.getDate();
         for (int i = 0; i < imgInfos.size(); i++) {
@@ -283,7 +337,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     @NonNull
     private RequestBody getAirProIdBody() {
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("AirCheckProId", String.valueOf(airPhotoItem.getAirCheckProId()))
+                .addFormDataPart("AirCheckProId", String.valueOf(airCheckProId))
                 .build();
     }
 
@@ -295,29 +349,43 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
 
     @Override
     public void onSendAirPhotoSuccess(AirPhotoItem airPhotoItem) {
+        postEvent();
         showSuccessAndFinish("发送成功");
     }
 
     @Override
     public void onReviewAirPhotoSuccess(AirPhotoItem airPhotoItem) {
-        EventBus.getDefault().post(new ModifyAirPhotoEvent(airPhotoItem));
+        postEvent();
         showSuccessAndFinish("复查成功");
     }
 
     @Override
     public void onUpdateAgePhotosSuccess() {
+        if (ageSend) {
+            LogUtil.e(TAG,"发送onUpdateAgePhotosSuccess");
+            postEvent();
+        }
         showSuccessAndFinish("操作成功");
+
+    }
+
+    private void postEvent() {
+        EventBus.getDefault().post(new RemoveAirPhotoEvent(airPhotoItem.getAirCheckId(),Constants.AirPhotoType.TODO));
+        EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem, Constants.AirPhotoType.DONE));
     }
 
     @Override
     public void onFinishAirPhotoSuccess() {
+        EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem,Constants.AirPhotoType.FINISH));
+        EventBus.getDefault().post(new RemoveAirPhotoEvent(airPhotoItem.getAirCheckId(),Constants.AirPhotoType.TODO));
         showSuccessAndFinish("完结成功");
     }
 
 
-    public static void goActivity(Context context, String airCheckProId) {
+    public static void goActivity(Context context, String airCheckId, int checkType) {
         Intent intent = new Intent(context, AirPhotoDetailActivity.class);
-        intent.putExtra(Constants.Extra.AIRCHECKPRO_ID, airCheckProId);
+        intent.putExtra(Constants.Extra.AIRCHECK_ID, airCheckId);
+        intent.putExtra(Constants.Extra.CHECKTYPE, checkType);
         context.startActivity(intent);
     }
 

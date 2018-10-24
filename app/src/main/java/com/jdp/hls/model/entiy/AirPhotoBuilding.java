@@ -26,6 +26,7 @@ public class AirPhotoBuilding implements Serializable{
     private String BuildingId;
     private int BuilldingType;
     private String SysCode;
+    private String CusCode;
     private String RealName;
     private String EnterpriseName;
     private String MobilePhone;
@@ -34,6 +35,14 @@ public class AirPhotoBuilding implements Serializable{
     private String CreateDatetime;
     private String ProjectName;
     private String ProjectAddress;
+
+    public String getCusCode() {
+        return CusCode;
+    }
+
+    public void setCusCode(String cusCode) {
+        CusCode = cusCode;
+    }
 
     public int getBuilldingType() {
         return BuilldingType;

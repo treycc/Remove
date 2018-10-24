@@ -10,11 +10,13 @@ import com.jdp.hls.adapter.AirPhotoListAdapter;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.RemoveAirPhotoEvent;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.AddAirPhotoEvent;
+import com.jdp.hls.event.AddAirPhotoEvent;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.ModifyAirPhotoEvent;
 import com.jdp.hls.page.airphoto.detail.AirPhotoDetailActivity;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
@@ -58,8 +60,9 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        AirPhotoItem AirPhotoItem = (AirPhotoItem) adapterView.getItemAtPosition(position);
-        AirPhotoDetailActivity.goActivity(getActivity(), String.valueOf(AirPhotoItem.getAirCheckProId()));
+        AirPhotoItem airPhotoItem = (AirPhotoItem) adapterView.getItemAtPosition(position);
+        AirPhotoDetailActivity.goActivity(getActivity(), String.valueOf(airPhotoItem.getAirCheckId()), airPhotoItem
+                .getCheckType());
 
     }
 
@@ -91,7 +94,7 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
         if (airPhotoItems != null && airPhotoItems.size() > 0) {
             showSuccessCallback();
             adapter.setData(airPhotoItems);
-        }else{
+        } else {
             showEmptyCallback();
         }
     }
@@ -127,13 +130,24 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     }
 
     public void search(String keyword) {
-        adapter.search( keyword);
+        adapter.search(keyword);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addAirPhoto(AddAirPhotoEvent event) {
-        if (taskType.equals(Constants.AirPhotoType.TODO)) {
+        if (taskType.equals(event.getAirPhotoType())) {
+            LogUtil.e(TAG,"接受到广播，增加"+event.getAirPhotoItem().getAirCheckId()+" Type:"+event.getAirPhotoType());
+            showSuccessCallback();
             adapter.addFirst(event.getAirPhotoItem());
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void removeAirPhoto(RemoveAirPhotoEvent event) {
+        if (taskType.equals(event.getAirPhotoType())) {
+            LogUtil.e(TAG,"接受到广播，删除"+event.getAirCheckId()+" Type:"+event.getAirPhotoType());
+            adapter.remove(event.getAirCheckId());
+
         }
     }
 

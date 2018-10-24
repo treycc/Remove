@@ -3,7 +3,6 @@ package com.jdp.hls.page.publicity.apply;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -16,7 +15,6 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.PublicityItem;
-import com.jdp.hls.model.entiy.PublicityObject;
 import com.jdp.hls.page.publicity.object.PublicityObjectActivity;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.FileUtil;
@@ -37,7 +35,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -76,7 +73,6 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
     AddableRecyclerView rvPhoto;
     private TimePickerDialog startDateSelector;
     private TimePickerDialog endDateSelector;
-    private List<PublicityObject> selectedObjects;
     private long longStartDate;
     private int publicityType;
     private int buildingType;
@@ -113,7 +109,6 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
                     rvPhoto.onPhotoCallback(requestCode, resultCode, data);
                     break;
             }
-
         }
     }
 

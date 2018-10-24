@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white_hi">
+
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/sel_t2g"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="16dp"
+                android:src="@mipmap/ic_back"/>
+        </LinearLayout>
+
+
+        <com.jdp.hls.view.KSpinner
+            android:textSize="16sp"
+            android:layout_centerInParent="true"
+            android:id="@+id/spinner_checkType"
+            style="@style/font_3_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="请选择"
+            app:backgroundSelector="@drawable/sel_t2g"
+            app:textTint="@color/c_3"/>
+
+
+        <TextView
+            android:id="@+id/tv_save"
+            style="@style/font_main_15"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="保存"/>
+    </RelativeLayout>
+
+    <View style="@style/div_hor_bg"/>
+</LinearLayout>
+

@@ -1,10 +1,8 @@
 package com.jdp.hls.page.airphoto.add;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,11 +17,10 @@ import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.AddAirPhotoEvent;
+import com.jdp.hls.event.AddAirPhotoEvent;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.ImgInfo;
-import com.jdp.hls.model.entiy.ModifyAirPhotoEvent;
 import com.jdp.hls.model.entiy.UnRecordBuilding;
 import com.jdp.hls.page.airphoto.unrecordbuilding.UnrecordBuildingListActivity;
 import com.jdp.hls.util.FileUtil;
@@ -44,7 +41,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -156,6 +152,7 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
                 "负责人");
         tvAirphotoRealName.setString(airPhotoBuilding.getRealName());
         tvAirphotoAddress.setString(airPhotoBuilding.getAddress());
+        tvAirphotoCusCode.setString(airPhotoBuilding.getCusCode());
     }
 
     private void applyAirPhoto() {
@@ -202,10 +199,9 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
 
     @Override
     public void onApplyAirPhotoSuccess(AirPhotoItem airPhotoItem) {
-        EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem));
+        EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem,Constants.AirPhotoType.TODO));
         showSuccessAndFinish("发起初审成功");
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

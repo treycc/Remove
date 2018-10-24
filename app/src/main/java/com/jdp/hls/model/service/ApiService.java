@@ -170,8 +170,9 @@ public interface ApiService {
     Observable<HttpResult<List<AirPhotoBuilding>>> getAirPhotoBuildings(@Query("buildingType") String buildingType);
 
     /*航拍复查-详情*/
-    @GET("api/AirCheck/GetDetailProcessing")
-    Observable<HttpResult<AirPhotoItem>> getAirPhotoDetail(@Query("airCheckProId") String airCheckProId);
+    @GET("api/AirCheck/GetDetail")
+    Observable<HttpResult<AirPhotoItem>> getAirPhotoDetail(@Query("id") String id, @Query("checkType") String
+            checkType);
 
     /*航拍-发起*/
     @POST("api/AirCheck/Add")

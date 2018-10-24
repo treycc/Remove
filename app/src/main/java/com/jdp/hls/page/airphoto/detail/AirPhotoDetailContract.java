@@ -7,6 +7,7 @@ import com.jdp.hls.model.entiy.AirPhotoItem;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.Query;
 
 /**
  * Description：TODO
@@ -17,19 +18,29 @@ import retrofit2.http.Body;
 public interface AirPhotoDetailContract {
     interface View extends BaseView {
         void onGetAirPhotoDetailSuccess(AirPhotoItem airPhotoItem);
+
         void onModifyAirPhotoDetailSuccess(AirPhotoItem airPhotoItem);
+
         void onSendAirPhotoSuccess(AirPhotoItem airPhotoItem);
+
         void onFinishAirPhotoSuccess();
+
         void onReviewAirPhotoSuccess(AirPhotoItem airPhotoItem);
+
         void onUpdateAgePhotosSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getAirPhotoDetail(String airCheckProId);
+        void getAirPhotoDetail(String id, String checkType);
+
         void modifyAirPhotoDetail(RequestBody rosterBody);
+
         void sendAirPhoto(RequestBody requestBody);
+
         void finishAirPhoto(RequestBody requestBody);
+
         void reviewAirPhoto(RequestBody requestBody);
+
         void updateAgePhotos(RequestBody requestBody);
     }
 }

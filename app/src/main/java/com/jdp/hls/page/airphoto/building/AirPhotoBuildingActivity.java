@@ -16,8 +16,6 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.page.airphoto.add.AirPhotoApplyActivity;
-import com.jdp.hls.page.airphoto.detail.AirPhotoDetailActivity;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
@@ -134,6 +132,8 @@ public class AirPhotoBuildingActivity extends BaseTitleActivity implements AirPh
     public void onGetAirPhotoBuildingsSuccess(List<AirPhotoBuilding> airPhotoBuildingList) {
         if (airPhotoBuildingList != null && airPhotoBuildingList.size() > 0) {
             airPhotoPersonAdapter.setData(airPhotoBuildingList);
+        }else{
+            showEmptyCallback();
         }
     }
 
@@ -144,11 +144,10 @@ public class AirPhotoBuildingActivity extends BaseTitleActivity implements AirPh
 
         @Override
         public void convert(ViewHolder helper, AirPhotoBuilding item) {
-            helper.setText(R.id.tv_airphoto_sysCode, item.getAddress());
-            helper.setText(R.id.tv_airphoto_realName, item.getSysCode());
-            helper.setText(R.id.tv_airphoto_mobilePhone, item.getRealName());
-            helper.setText(R.id.tv_airphoto_address, item.getMobilePhone());
+            helper.setText(R.id.tv_airphoto_cusCode, item.getCusCode());
+            helper.setText(R.id.tv_airphoto_realName, item.getRealName());
+            helper.setText(R.id.tv_airphoto_mobilePhone, item.getMobilePhone());
+            helper.setText(R.id.tv_airphoto_address, item.getAddress());
         }
     }
-
 }

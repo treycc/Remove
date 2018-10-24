@@ -18,6 +18,8 @@ import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 
+import java.util.Arrays;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -42,6 +44,7 @@ public class AirphotoListActivity extends BaseTitleActivity {
     private int[] tabIcons = {R.drawable.selector_tab_airphoto_todo, R.drawable.selector_tab_airphoto_done, R
             .drawable.selector_tab_airphoto_finish};
     private AirPhotoListFragment mFragmentArr[] = new AirPhotoListFragment[3];
+
 
     @OnClick({R.id.iv_clear})
     public void click(View view) {
@@ -108,7 +111,10 @@ public class AirphotoListActivity extends BaseTitleActivity {
                 ivClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
             }
         });
+
+
     }
+
 
     private void search(String keyword) {
         for (int i = 0; i < mFragmentArr.length; i++) {

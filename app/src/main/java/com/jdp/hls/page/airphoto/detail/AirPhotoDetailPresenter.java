@@ -30,8 +30,8 @@ public class AirPhotoDetailPresenter implements AirPhotoDetailContract.Presenter
     }
 
     @Override
-    public void getAirPhotoDetail(String airCheckProId) {
-        mApi.getApiService().getAirPhotoDetail(airCheckProId).subscribeOn(Schedulers.io())
+    public void getAirPhotoDetail(String id, String checkType) {
+        mApi.getApiService().getAirPhotoDetail(id, checkType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<AirPhotoItem>(mView) {
                     @Override

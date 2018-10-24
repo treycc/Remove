@@ -3,7 +3,6 @@ package com.jdp.hls.page.business.detail.personal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -27,6 +26,7 @@ import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
 import com.jdp.hls.page.familyrelation.list.FamilyRelationActivity;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
@@ -38,7 +38,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -209,8 +208,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         needHouse = detailPersonal.isNeedTempHouse();
         ifPublicity = detailPersonal.isAllowPublicity();
         socialRelation = detailPersonal.getPoliticalTitle();
-
-        etDetailcusCode.setText(detailPersonal.getSysCode());
+        etDetailcusCode.setText(detailPersonal.getCusCode());
         etDetailRealName.setText(detailPersonal.getRealName());
         etDetailMobile.setText(detailPersonal.getMobilePhone());
         etDetailIdcard.setText(detailPersonal.getIdcard());
@@ -268,6 +266,9 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         String realName = etDetailRealName.getText().toString().trim();
         String remark = etDetailRemark.getText().toString().trim();
         String bizUseArea = etDetailBizUseArea.getText().toString().trim();
+        if (!CheckUtil.checkEmpty(realName, "请输入户主名称") || !CheckUtil.checkEmpty(address, "请输入地址")) {
+            return;
+        }
         detailPersonalPresenter.modifyPersonalDetail(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", buildingId)
                 .addFormDataPart("CusCode", cusCode)
@@ -326,12 +327,5 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                     break;
             }
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

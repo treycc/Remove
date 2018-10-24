@@ -4,9 +4,12 @@ import android.content.Context;
 
 import com.jdp.hls.R;
 import com.jdp.hls.model.entiy.AirPhotoItem;
+import com.jdp.hls.model.entiy.Business;
 import com.jdp.hls.model.entiy.Person;
+import com.jdp.hls.util.LogUtil;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,6 +25,7 @@ public class AirPhotoListAdapter extends CommonAdapter<AirPhotoItem> {
         super(context, datas, itemLayoutId);
         selectDatas = datas;
     }
+
     @Override
     public AirPhotoItem getItem(int position) {
         return selectDatas.get(position);
@@ -47,12 +51,24 @@ public class AirPhotoListAdapter extends CommonAdapter<AirPhotoItem> {
         helper.setText(R.id.tv_airphoto_name, item.getRealName());
         helper.setText(R.id.tv_airphoto_mobile, item.getMobilePhone());
         helper.setText(R.id.tv_airphoto_layer, item.getLayer() + "层");
-
+        helper.setText(R.id.tv_airphoto_checkType, item.getCheckTypeName());
     }
 
     public void addFirst(AirPhotoItem airPhotoItem) {
         mDatas.add(0, airPhotoItem);
         notifyDataSetChanged();
+    }
+
+    public void remove(int airCheckId) {
+        Iterator<AirPhotoItem> it = mDatas.iterator();
+        while (it.hasNext()) {
+            AirPhotoItem next = it.next();
+            if (airCheckId == next.getAirCheckId()) {
+                it.remove();
+                notifyDataSetChanged();
+                return;
+            }
+        }
     }
 
     public void modify(AirPhotoItem airPhotoItem) {
