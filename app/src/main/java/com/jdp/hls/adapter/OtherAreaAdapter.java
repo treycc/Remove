@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.model.entiy.FamilyMember;
 import com.jdp.hls.model.entiy.OtherArea;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.DrawHelperLayout;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class OtherAreaAdapter extends BaseLvAdapter<OtherArea> {
     private OnDeleteOtherAreaListener onDeleteOtherAreaListener;
-
+    private boolean editable;
     public OtherAreaAdapter(Context context, List<OtherArea> list) {
         super(context, list);
     }
@@ -47,6 +48,7 @@ public class OtherAreaAdapter extends BaseLvAdapter<OtherArea> {
 
         });
         viewHolder.drawHelperLayout.close(false);
+        viewHolder.drawHelperLayout.setDragable(editable);
         viewHolder.drawHelperLayout.setOnRootClickListener(() -> {
             if (onDeleteOtherAreaListener != null) {
                 onDeleteOtherAreaListener.onOtherAreaClick(list.get(position));
@@ -54,6 +56,11 @@ public class OtherAreaAdapter extends BaseLvAdapter<OtherArea> {
         });
 
         return convertView;
+    }
+
+    public void setEditableData(List<OtherArea> familyMemberList, boolean editable) {
+        this.editable = editable;
+        setData(familyMemberList);
     }
 
     public void remove(int position) {

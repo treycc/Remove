@@ -95,7 +95,7 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
         switch (view.getId()) {
             case R.id.rl_protocol_otherArea:
                 OtherAreaListActivity.goActivity(this, String.valueOf(pcId), String.valueOf(Status.BuildingType
-                        .COMPANY));
+                        .COMPANY),allowEdit);
                 break;
             default:
                 break;

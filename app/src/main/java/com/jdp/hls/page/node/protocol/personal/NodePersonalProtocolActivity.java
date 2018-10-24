@@ -105,7 +105,7 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
         switch (view.getId()) {
             case R.id.rl_protocol_otherArea:
                 OtherAreaListActivity.goActivity(this, String.valueOf(pcId), String.valueOf(Status.BuildingType
-                        .PERSONAL));
+                        .PERSONAL), allowEdit);
                 break;
             default:
                 break;
@@ -189,6 +189,8 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
         etProtocolAzntArea.setEnabled(allowEdit);
         etProtocolTaoTypeName.setEnabled(allowEdit);
         etProtocolDamagesAmount.setEnabled(allowEdit);
+
+
     }
 
     @Override

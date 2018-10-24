@@ -1,6 +1,5 @@
 package com.jdp.hls.page.airphoto.building;
 
-import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
 import android.view.View;
@@ -9,8 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.CommonAdapter;
-import com.jdp.hls.adapter.ViewHolder;
+import com.jdp.hls.adapter.AirPhotoPersonAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
@@ -102,7 +100,7 @@ public class AirPhotoBuildingActivity extends BaseTitleActivity implements AirPh
         etAirphotoKeyword.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-
+                airPhotoPersonAdapter.searchPerson(s.toString());
             }
         });
     }
@@ -134,20 +132,6 @@ public class AirPhotoBuildingActivity extends BaseTitleActivity implements AirPh
             airPhotoPersonAdapter.setData(airPhotoBuildingList);
         }else{
             showEmptyCallback();
-        }
-    }
-
-    class AirPhotoPersonAdapter extends CommonAdapter<AirPhotoBuilding> {
-        public AirPhotoPersonAdapter(Context context, List<AirPhotoBuilding> datas, int itemLayoutId) {
-            super(context, datas, itemLayoutId);
-        }
-
-        @Override
-        public void convert(ViewHolder helper, AirPhotoBuilding item) {
-            helper.setText(R.id.tv_airphoto_cusCode, item.getCusCode());
-            helper.setText(R.id.tv_airphoto_realName, item.getRealName());
-            helper.setText(R.id.tv_airphoto_mobilePhone, item.getMobilePhone());
-            helper.setText(R.id.tv_airphoto_address, item.getAddress());
         }
     }
 }

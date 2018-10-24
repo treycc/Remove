@@ -44,6 +44,7 @@ public class Status {
         int PAY_TYPE = 9;//补偿方式
         int DECORATION_ITEM = 10;//装饰项目
         int GRADLE = 11;//等级
+        int AIRPHOTOTYPE = 12;//航拍阶段
     }
 
     public interface BuildingId {

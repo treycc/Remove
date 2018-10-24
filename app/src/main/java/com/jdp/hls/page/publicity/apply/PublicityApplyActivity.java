@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.adapter.AddPublicityEvent;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
@@ -27,6 +28,8 @@ import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.Arrays;
@@ -217,6 +220,7 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
 
     @Override
     public void onApplyPublicitySuccess(PublicityItem publicityItem) {
+        EventBus.getDefault().post(new AddPublicityEvent(publicityItem));
         showSuccessAndFinish();
     }
 

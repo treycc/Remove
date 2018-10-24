@@ -88,15 +88,17 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
     private AirPhotoBuilding airPhotoBuilding;
     private String editedBase64 = "";
     List<UnRecordBuilding> unRecordBuildingList = new ArrayList<>();
+    private boolean iSaveSend;
 
 
     @OnClick({R.id.rl_unrecordBuilding, R.id.ll_airphoto_send})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_unrecordBuilding:
-                UnrecordBuildingListActivity.goActivity(this, unRecordBuildingList);
+                UnrecordBuildingListActivity.goActivity(this, unRecordBuildingList, true);
                 break;
             case R.id.ll_airphoto_send:
+                iSaveSend = true;
                 airPhotoApplyPresenter.applyAirPhoto(getRequestBody().addFormDataPart("IsSend", "true").build());
                 break;
         }
@@ -156,6 +158,7 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
     }
 
     private void applyAirPhoto() {
+        iSaveSend = false;
         airPhotoApplyPresenter.applyAirPhoto(getRequestBody().build());
     }
 
@@ -199,8 +202,14 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
 
     @Override
     public void onApplyAirPhotoSuccess(AirPhotoItem airPhotoItem) {
-        EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem,Constants.AirPhotoType.TODO));
-        showSuccessAndFinish("发起初审成功");
+        if (iSaveSend) {
+            EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem, Constants.AirPhotoType.DONE));
+            showSuccessAndFinish("发送成功");
+        } else {
+            EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem, Constants.AirPhotoType.TODO));
+            showSuccessAndFinish();
+        }
+
     }
 
     @Override

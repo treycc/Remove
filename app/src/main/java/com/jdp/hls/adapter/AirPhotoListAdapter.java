@@ -69,6 +69,7 @@ public class AirPhotoListAdapter extends CommonAdapter<AirPhotoItem> {
                 return;
             }
         }
+
     }
 
     public void modify(AirPhotoItem airPhotoItem) {

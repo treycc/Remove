@@ -43,18 +43,18 @@ import okhttp3.MultipartBody;
 public class OtherAreaListActivity extends BaseTitleActivity implements OhterAreaContract.View {
     @BindView(R.id.plv)
     PullToBottomListView plv;
-    @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
     private List<OtherArea> otherAreas = new ArrayList<>();
     private OtherAreaAdapter otherAreaAdapter;
     @Inject
     OtherAreaPresenter otherAreaPresenter;
     private String pcdId;
     private String buildingType;
+    private boolean editable;
 
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE,true);
         pcdId = getIntent().getStringExtra(Constants.Extra.ID);
         buildingType = getIntent().getStringExtra(Constants.Extra.BUILDING_TYPE);
     }
@@ -67,7 +67,7 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
 
     @Override
     protected int getContentView() {
-        return R.layout.common_lv_sl;
+        return R.layout.common_lv;
     }
 
     @Override
@@ -92,12 +92,15 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
 
     @Override
     protected void initData() {
-        setRightClick("增加", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                OtherAreaAddActivity.goActivity(OtherAreaListActivity.this, pcdId, buildingType);
-            }
-        });
+        if (editable) {
+            setRightClick("增加", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    OtherAreaAddActivity.goActivity(OtherAreaListActivity.this, pcdId, buildingType);
+                }
+            });
+        }
+
         otherAreaAdapter.setOnDeleteOtherAreaListener(new OtherAreaAdapter.OnDeleteOtherAreaListener() {
             @Override
             public void onDeleteOtherArea(String id, int position) {
@@ -111,11 +114,8 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
 
             @Override
             public void onOtherAreaClick(OtherArea otherArea) {
-                OtherAreaDetailActivity.goActivity(OtherAreaListActivity.this, otherArea, buildingType);
+                OtherAreaDetailActivity.goActivity(OtherAreaListActivity.this, otherArea, buildingType,editable);
             }
-        });
-        srl.setOnRefreshListener(() -> {
-            srl.setRefreshing(false);
         });
     }
 
@@ -131,9 +131,9 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
     }
 
     private void checkListsize(List<OtherArea> otherAreaList) {
-        if (otherAreas!= null&&otherAreas.size() > 0) {
+        if (otherAreaList!= null&&otherAreaList.size() > 0) {
             showSuccessCallback();
-            otherAreaAdapter.setData(otherAreas);
+            otherAreaAdapter.setEditableData(otherAreaList,editable);
         } else {
             mBaseLoadService.showCallback(EmptyCallback.class);
         }
@@ -145,8 +145,9 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
         checkListsize(otherAreaAdapter.getData());
     }
 
-    public static void goActivity(Context context, String id, String buildingType) {
+    public static void goActivity(Context context, String id, String buildingType,boolean editable) {
         Intent intent = new Intent(context, OtherAreaListActivity.class);
+        intent.putExtra(Constants.Extra.EDITABLE, editable);
         intent.putExtra(Constants.Extra.ID, id);
         intent.putExtra(Constants.Extra.BUILDING_TYPE, buildingType);
         context.startActivity(intent);

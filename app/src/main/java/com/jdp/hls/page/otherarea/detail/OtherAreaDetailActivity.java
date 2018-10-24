@@ -42,9 +42,11 @@ public class OtherAreaDetailActivity extends BaseTitleActivity implements OtherA
     private String name;
     private String area;
     private String price;
+    private boolean editable;
 
     @Override
     public void initVariable() {
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE,true);
         buildingType = getIntent().getStringExtra(Constants.Extra.BUILDING_TYPE);
         otherArea = (OtherArea) getIntent().getSerializableExtra(Constants.Extra.OTHER_AREA);
     }
@@ -74,15 +76,22 @@ public class OtherAreaDetailActivity extends BaseTitleActivity implements OtherA
 
     @Override
     protected void initData() {
-        setRightClick("保存", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                modifyOtherArea();
-            }
-        });
+        if (editable) {
+            setRightClick("保存", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    modifyOtherArea();
+                }
+            });
+        }
+
         etOtherAreaName.setString(otherArea.getName());
         etOtherAreaArea.setString(otherArea.getArea());
         etOtherAreaPrice.setString(otherArea.getPrice());
+
+        etOtherAreaName.setEnabled(editable);
+        etOtherAreaArea.setEnabled(editable);
+        etOtherAreaPrice.setEnabled(editable);
     }
 
     private void modifyOtherArea() {
@@ -104,10 +113,11 @@ public class OtherAreaDetailActivity extends BaseTitleActivity implements OtherA
 
     }
 
-    public static void goActivity(Context context, OtherArea otherArea, String buildingType) {
+    public static void goActivity(Context context, OtherArea otherArea, String buildingType, boolean editable) {
         Intent intent = new Intent(context, OtherAreaDetailActivity.class);
         intent.putExtra(Constants.Extra.OTHER_AREA, otherArea);
         intent.putExtra(Constants.Extra.BUILDING_TYPE, buildingType);
+        intent.putExtra(Constants.Extra.EDITABLE, editable);
         context.startActivity(intent);
     }
 

@@ -60,6 +60,15 @@ public class AirPhotoItem {
     private List<ImgInfo> Files;
     private List<UnRecordBuilding> Items;
     private AuthAirPhoto Auth;
+    private List<AirPhotoCheckType> LstAirCheckType;
+
+    public List<AirPhotoCheckType> getLstAirCheckType() {
+        return LstAirCheckType;
+    }
+
+    public void setLstAirCheckType(List<AirPhotoCheckType> lstAirCheckType) {
+        LstAirCheckType = lstAirCheckType;
+    }
 
     public int getCurrentNodeType() {
         return CurrentNodeType;

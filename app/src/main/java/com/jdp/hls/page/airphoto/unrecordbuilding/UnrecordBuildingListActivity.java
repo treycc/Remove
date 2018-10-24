@@ -19,7 +19,6 @@ import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,10 +41,12 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
     PullToBottomListView plv;
     private UnrecordBuildingAdapter unrecordBuildingAdapter;
     private List<UnRecordBuilding> unRecordBuildingList = new ArrayList<>();
+    private boolean editable;
 
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE,true);
         unRecordBuildingList = (List<UnRecordBuilding>) getIntent().getSerializableExtra(Constants.Extra
                 .UNRECORD_BUILDING_LIST);
     }
@@ -83,12 +84,15 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        setRightClick("增加", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                GoUtil.goActivity(UnrecordBuildingListActivity.this, UnrecordBuildingDetailActivity.class);
-            }
-        });
+        if (editable) {
+            setRightClick("增加", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    GoUtil.goActivity(UnrecordBuildingListActivity.this, UnrecordBuildingDetailActivity.class);
+                }
+            });
+        }
+
         unrecordBuildingAdapter.setOnItemOperListener(new UnrecordBuildingAdapter.OnItemOperListener() {
             @Override
             public void onItemDelete(String id, int position) {
@@ -99,7 +103,7 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
 
             @Override
             public void onItemClick(UnRecordBuilding unRecordBuilding) {
-                UnrecordBuildingDetailActivity.goActivity(UnrecordBuildingListActivity.this, unRecordBuilding);
+                UnrecordBuildingDetailActivity.goActivity(UnrecordBuildingListActivity.this, unRecordBuilding,editable);
             }
         });
     }
@@ -109,9 +113,10 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
     }
 
 
-    public static void goActivity(Activity context, List<UnRecordBuilding> unRecordBuildingList) {
+    public static void goActivity(Activity context, List<UnRecordBuilding> unRecordBuildingList, boolean editable) {
         Intent intent = new Intent(context, UnrecordBuildingListActivity.class);
         intent.putExtra(Constants.Extra.UNRECORD_BUILDING_LIST, (Serializable) unRecordBuildingList);
+        intent.putExtra(Constants.Extra.EDITABLE, editable);
         context.startActivityForResult(intent, Constants.RequestCode.UNRECORDBUILDING);
     }
 

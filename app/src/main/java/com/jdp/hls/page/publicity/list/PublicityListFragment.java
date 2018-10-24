@@ -8,19 +8,27 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.adapter.AddPublicityEvent;
 import com.jdp.hls.adapter.CommonAdapter;
+import com.jdp.hls.adapter.PublicityListAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
+import com.jdp.hls.event.RefreshBusinessListEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.page.publicity.detail.PublicityDetailActivity;
 import com.jdp.hls.util.DateUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +51,7 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
     @BindView(R.id.srl)
     RefreshSwipeRefreshLayout srl;
     private List<PublicityItem> publicityItems = new ArrayList<>();
-    private CommonAdapter adapter;
+    private PublicityListAdapter adapter;
     private int publicityType;
     @Inject
     PublicityListPresenter publicityListPresenter;
@@ -78,7 +86,7 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
 
     @Override
     protected void initVariable() {
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             publicityType = getArguments().getInt("publicityType", 0);
         }
@@ -95,21 +103,8 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
     @Override
     protected void initView() {
         publicityListPresenter.attachView(this);
-        plv.setAdapter(adapter = new CommonAdapter<PublicityItem>(getActivity(), publicityItems, R.layout
-                .item_publicity) {
-            @Override
-            public void convert(ViewHolder helper, PublicityItem item) {
-                helper.setText(R.id.tv_publicity_number, item.getBatchName());
-                helper.setText(R.id.tv_publicity_count, String.valueOf(item.getTotalQuantity()));
-                helper.setText(R.id.tv_publicity_operater, SpSir.getInstance().getRealName());
-                helper.setText(R.id.tv_publicity_startDate, DateUtil.getShortDate(item.getStartDate()));
-                helper.setText(R.id.tv_publicity_endDate, DateUtil.getShortDate(item.getEndDate()));
-                helper.setText(R.id.tv_publicity_des, item.getDescriptiton());
-                helper.setVisibility(R.id.iv_publicity_hasImg, false);
-                helper.setBackgroundResource(R.id.iv_publicity_buildingType, (item.getBuildingType() == Status
-                        .BuildingType.PERSONAL) ? R.mipmap.ic_buildingtype_personal : R.mipmap.ic_buildingtype_company);
-            }
-        });
+        plv.setAdapter(adapter = new PublicityListAdapter(getActivity(), publicityItems, R.layout
+                .item_publicity));
     }
 
     @Override
@@ -123,7 +118,7 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
         if (publicityItems != null && publicityItems.size() > 0) {
             showSuccessCallback();
             adapter.setData(publicityItems);
-        }else{
+        } else {
             showEmptyCallback();
         }
     }
@@ -161,5 +156,14 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshPublicityEvent(AddPublicityEvent event) {
+        PublicityItem publicityItem = event.getPublicityItem();
+        if (publicityItem != null && publicityType == publicityItem.getPubType()) {
+            showSuccessCallback();
+            adapter.addFirst(publicityItem);
+        }
     }
 }

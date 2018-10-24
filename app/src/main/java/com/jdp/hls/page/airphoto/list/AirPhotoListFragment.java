@@ -136,7 +136,6 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addAirPhoto(AddAirPhotoEvent event) {
         if (taskType.equals(event.getAirPhotoType())) {
-            LogUtil.e(TAG,"接受到广播，增加"+event.getAirPhotoItem().getAirCheckId()+" Type:"+event.getAirPhotoType());
             showSuccessCallback();
             adapter.addFirst(event.getAirPhotoItem());
         }
@@ -145,7 +144,6 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void removeAirPhoto(RemoveAirPhotoEvent event) {
         if (taskType.equals(event.getAirPhotoType())) {
-            LogUtil.e(TAG,"接受到广播，删除"+event.getAirCheckId()+" Type:"+event.getAirPhotoType());
             adapter.remove(event.getAirCheckId());
 
         }

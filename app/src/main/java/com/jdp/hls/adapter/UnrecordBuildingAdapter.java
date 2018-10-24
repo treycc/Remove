@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.jdp.hls.R;
+import com.jdp.hls.model.entiy.OtherArea;
 import com.jdp.hls.model.entiy.UnRecordBuilding;
 import com.jdp.hls.util.Base64Util;
 import com.jdp.hls.util.StringUtil;
@@ -25,6 +26,7 @@ import java.util.List;
 public class UnrecordBuildingAdapter extends BaseLvAdapter<UnRecordBuilding> {
     private OnItemOperListener onItemOperListener;
     private List<UnRecordBuilding> deletedUnrecordBuildingList = new ArrayList<>();
+    private boolean editable;
 
     public UnrecordBuildingAdapter(Context context, List<UnRecordBuilding> list) {
         super(context, list);
@@ -54,6 +56,7 @@ public class UnrecordBuildingAdapter extends BaseLvAdapter<UnRecordBuilding> {
 
         });
         viewHolder.drawHelperLayout.close(false);
+        viewHolder.drawHelperLayout.setDragable(editable);
         viewHolder.drawHelperLayout.setOnRootClickListener(() -> {
             if (onItemOperListener != null) {
                 onItemOperListener.onItemClick(list.get(position));
@@ -61,7 +64,10 @@ public class UnrecordBuildingAdapter extends BaseLvAdapter<UnRecordBuilding> {
         });
         return convertView;
     }
-
+    public void setEditableData(List<UnRecordBuilding> familyMemberList, boolean editable) {
+        this.editable = editable;
+        setData(familyMemberList);
+    }
     public void remove(int position) {
         UnRecordBuilding unRecordBuilding = list.get(position);
         if (unRecordBuilding.getId() != 0) {

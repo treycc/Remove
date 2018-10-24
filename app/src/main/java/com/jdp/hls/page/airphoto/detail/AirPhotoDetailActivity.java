@@ -21,6 +21,7 @@ import com.jdp.hls.event.AddAirPhotoEvent;
 import com.jdp.hls.event.RemoveAirPhotoEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.AirPhotoCheckType;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.AuthAirPhoto;
 import com.jdp.hls.model.entiy.ImgInfo;
@@ -115,12 +116,13 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     private String[] checkTypes = {"初审", "复审", "终审",};
     private int airCheckProId;
     private boolean ageSend;
+    private boolean allowEdit;
 
     @OnClick({R.id.rl_unrecordBuilding, R.id.ll_back})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_unrecordBuilding:
-                UnrecordBuildingListActivity.goActivity(this, unRecordBuildingList);
+                UnrecordBuildingListActivity.goActivity(this, unRecordBuildingList, allowEdit);
                 break;
             case R.id.ll_back:
                 finish();
@@ -169,7 +171,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
             propertyStructure = typeId;
         });
         propertyStructure = spinnerStructureType.getDefaultTypeId();
-        initCheckTypes();
+//        initCheckTypes();
     }
 
     private void initCheckTypes() {
@@ -218,7 +220,8 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         List<ImgInfo> agePhotos = airPhotoItem.getAppraiseFiles();
         List<ImgInfo> airPhotos = airPhotoItem.getFiles();
         AuthAirPhoto auth = airPhotoItem.getAuth();
-        boolean allowEdit = airPhotoItem.isAllowEdit();
+        allowEdit = airPhotoItem.isAllowEdit();
+        tvSave.setVisibility(allowEdit ? View.VISIBLE : View.GONE);
         allowEditAppraise = auth.isAllowEditAppraise();
         if (allowEditAppraise) {
             allowEdit = false;
@@ -231,9 +234,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
             tvSave.setOnClickListener(new NoDoubleClickListener() {
                 @Override
                 public void onNoDoubleClick(View v) {
-                    remark = etAirphotoRemark.getText().toString().trim();
-                    layer = etAirphotoLayer.getText().toString().trim();
-                    reason = etAirphotoReason.getText().toString().trim();
+
                     if (CheckUtil.checkEmpty(layer, "请输入层次")) {
                         airPhotoDetailPresenter.modifyAirPhotoDetail(getSaveBody().build());
                     }
@@ -242,7 +243,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         }
         //年限保存
         if (allowEditAppraise) {
-            ageSend =false;
+            ageSend = false;
             tvSave.setOnClickListener(new NoDoubleClickListener() {
                 @Override
                 public void onNoDoubleClick(View v) {
@@ -259,6 +260,32 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         etAirphotoRemark.setEnabled(allowEdit);
         rvAirphotoPhoto.setDate(airPhotos, allowEdit);
         rvAgePhoto.setDate(agePhotos, allowEditAppraise);
+
+
+        List<AirPhotoCheckType> airCheckTaskTypes = airPhotoItem.getLstAirCheckType();
+        List<TDict> tDicts = new ArrayList<>();
+        for (AirPhotoCheckType airCheckTaskType : airCheckTaskTypes) {
+            TDict dict = new TDict();
+            dict.setTypeName(airCheckTaskType.getAirCheckTypeName());
+            dict.setTypeId(airCheckTaskType.getAirCheckType());
+            tDicts.add(dict);
+        }
+        spinnerCheckType.setDicts(tDicts, typeId -> {
+            airPhotoDetailPresenter.getAirPhotoDetail(airCheckId, String.valueOf(typeId));
+        });
+        spinnerCheckType.setSelectItem(airPhotoItem.getCheckType());
+
+        if (checkType == 0) {
+            spinnerCheckType.enable(false);
+        }
+
+
+    }
+
+    private void fillData() {
+        remark = etAirphotoRemark.getText().toString().trim();
+        layer = etAirphotoLayer.getText().toString().trim();
+        reason = etAirphotoReason.getText().toString().trim();
     }
 
     private void initOperate(AuthAirPhoto auth) {
@@ -273,7 +300,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         if (showSend) {
             llAirphotoSend.setOnClickListener(v -> {
                 if (allowEditAppraise) {
-                    ageSend =true;
+                    ageSend = true;
                     airPhotoDetailPresenter.updateAgePhotos(getAgeBody().addFormDataPart("IsSend", "true").build());
                 } else {
                     airPhotoDetailPresenter.sendAirPhoto(getSaveBody().addFormDataPart("IsSend", "true").build());
@@ -293,7 +320,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     }
 
     private MultipartBody.Builder getSaveBody() {
-
+        fillData();
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("AirCheckProId", String.valueOf(airCheckProId))
                 .addFormDataPart("BuildingId", airPhotoItem.getBuildingId())
@@ -362,7 +389,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     @Override
     public void onUpdateAgePhotosSuccess() {
         if (ageSend) {
-            LogUtil.e(TAG,"发送onUpdateAgePhotosSuccess");
+            LogUtil.e(TAG, "发送onUpdateAgePhotosSuccess");
             postEvent();
         }
         showSuccessAndFinish("操作成功");
@@ -370,14 +397,14 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     }
 
     private void postEvent() {
-        EventBus.getDefault().post(new RemoveAirPhotoEvent(airPhotoItem.getAirCheckId(),Constants.AirPhotoType.TODO));
+        EventBus.getDefault().post(new RemoveAirPhotoEvent(airPhotoItem.getAirCheckId(), Constants.AirPhotoType.TODO));
         EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem, Constants.AirPhotoType.DONE));
     }
 
     @Override
     public void onFinishAirPhotoSuccess() {
-        EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem,Constants.AirPhotoType.FINISH));
-        EventBus.getDefault().post(new RemoveAirPhotoEvent(airPhotoItem.getAirCheckId(),Constants.AirPhotoType.TODO));
+        EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem, Constants.AirPhotoType.FINISH));
+        EventBus.getDefault().post(new RemoveAirPhotoEvent(airPhotoItem.getAirCheckId(), Constants.AirPhotoType.TODO));
         showSuccessAndFinish("完结成功");
     }
 

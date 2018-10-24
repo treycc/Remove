@@ -39,9 +39,11 @@ public class UnrecordBuildingDetailActivity extends BaseTitleActivity {
     @BindView(R.id.et_unrecording_pic2000)
     EnableEditText etUnrecordingPic2000;
     private UnRecordBuilding unRecordBuilding;
+    private boolean editable;
 
     @Override
     public void initVariable() {
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE,true);
         unRecordBuilding = (UnRecordBuilding) getIntent().getSerializableExtra(Constants.Extra.UNRECORD_BUILDING);
     }
 
@@ -67,12 +69,9 @@ public class UnrecordBuildingDetailActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        setRightClick("保存", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                saveUnrecordBuilding();
-            }
-        });
+
+
+        //修改
         if (unRecordBuilding != null) {
             etUnrecordingPosition.setString(unRecordBuilding.getPosition());
             etUnrecordingLayer.setString(unRecordBuilding.getLayer());
@@ -80,6 +79,21 @@ public class UnrecordBuildingDetailActivity extends BaseTitleActivity {
             etUnrecordingPic84.setString(unRecordBuilding.getPic84());
             etUnrecordingPic94.setString(unRecordBuilding.getPic94());
             etUnrecordingPic2000.setString(unRecordBuilding.getPic2000());
+            if (editable) {
+                setRightClick("保存", new NoDoubleClickListener() {
+                    @Override
+                    public void onNoDoubleClick(View v) {
+                        saveUnrecordBuilding();
+                    }
+                });
+
+            }
+            etUnrecordingPosition.setEnabled(editable);
+            etUnrecordingLayer.setEnabled(editable);
+            etUnrecordingArea.setEnabled(editable);
+            etUnrecordingPic84.setEnabled(editable);
+            etUnrecordingPic94.setEnabled(editable);
+            etUnrecordingPic2000.setEnabled(editable);
         }
     }
 
@@ -117,9 +131,10 @@ public class UnrecordBuildingDetailActivity extends BaseTitleActivity {
 
     }
 
-    public static void goActivity(Context context, UnRecordBuilding unRecordBuilding) {
+    public static void goActivity(Context context, UnRecordBuilding unRecordBuilding, boolean editable) {
         Intent intent = new Intent(context, UnrecordBuildingDetailActivity.class);
         intent.putExtra(Constants.Extra.UNRECORD_BUILDING, unRecordBuilding);
+        intent.putExtra(Constants.Extra.EDITABLE, editable);
         context.startActivity(intent);
     }
 
