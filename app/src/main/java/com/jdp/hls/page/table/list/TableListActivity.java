@@ -13,10 +13,7 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Table;
-import com.jdp.hls.page.business.detail.company.DetailCompanyActivity;
 import com.jdp.hls.page.table.TableSearchActivity;
-import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SpSir;
 
