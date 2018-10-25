@@ -23,6 +23,7 @@ import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.UnRecordBuilding;
 import com.jdp.hls.page.airphoto.unrecordbuilding.UnrecordBuildingListActivity;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.MatisseUtil;
@@ -89,6 +90,9 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
     private String editedBase64 = "";
     List<UnRecordBuilding> unRecordBuildingList = new ArrayList<>();
     private boolean iSaveSend;
+    private String remark;
+    private String layer;
+    private String reason;
 
 
     @OnClick({R.id.rl_unrecordBuilding, R.id.ll_airphoto_send})
@@ -99,7 +103,10 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
                 break;
             case R.id.ll_airphoto_send:
                 iSaveSend = true;
-                airPhotoApplyPresenter.applyAirPhoto(getRequestBody().addFormDataPart("IsSend", "true").build());
+                if (checkDataValidable()) {
+                    airPhotoApplyPresenter.applyAirPhoto(getRequestBody().addFormDataPart("IsSend", "true").build());
+                }
+
                 break;
         }
     }
@@ -159,14 +166,21 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
 
     private void applyAirPhoto() {
         iSaveSend = false;
-        airPhotoApplyPresenter.applyAirPhoto(getRequestBody().build());
+        if (checkDataValidable()) {
+            airPhotoApplyPresenter.applyAirPhoto(getRequestBody().build());
+        }
+
+    }
+
+    private boolean checkDataValidable() {
+        remark = etAirphotoRemark.getText().toString().trim();
+        layer = etAirphotoLayer.getText().toString().trim();
+        reason = etAirphotoReason.getText().toString().trim();
+        return CheckUtil.checkEmpty(layer, "请输入层次");
     }
 
     @NonNull
     private MultipartBody.Builder getRequestBody() {
-        String remark = etAirphotoRemark.getText().toString().trim();
-        String layer = etAirphotoLayer.getText().toString().trim();
-        String reason = etAirphotoReason.getText().toString().trim();
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("BuildingId", airPhotoBuilding.getBuildingId())
                 .addFormDataPart("BuildingType", String.valueOf(airPhotoBuilding.getBuilldingType()))

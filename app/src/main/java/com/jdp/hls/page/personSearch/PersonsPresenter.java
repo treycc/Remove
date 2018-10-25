@@ -3,6 +3,7 @@ package com.jdp.hls.page.personSearch;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.ResultObserver;
 
@@ -44,7 +45,7 @@ public class PersonsPresenter implements PersonsContract.Presenter {
     public void getPersons(String projectId) {
         mApi.getApiService().getPersons(projectId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<List<Person>>(mView) {
+                (new LoadSirObserver<List<Person>>(mView) {
                     @Override
                     protected void onSuccess(List<Person> persons) {
                         mView.onGetPersonsSuccess(persons);

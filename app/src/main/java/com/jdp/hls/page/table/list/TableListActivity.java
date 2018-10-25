@@ -80,12 +80,7 @@ public class TableListActivity extends BaseTitleActivity implements TableListCon
 
     @Override
     protected void initData() {
-        setRightClick("搜索", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                TableSearchActivity.goActivity(TableListActivity.this, tables);
-            }
-        });
+
     }
 
     @Override
@@ -96,6 +91,22 @@ public class TableListActivity extends BaseTitleActivity implements TableListCon
     @Override
     public void onGetTablesSuccess(List<Table> tables) {
         this.tables = tables;
+        if (tables != null && tables.size() > 0) {
+            fillData(tables);
+            setRightClick("搜索", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    TableSearchActivity.goActivity(TableListActivity.this, tables);
+                }
+            });
+        } else {
+            showEmptyCallback();
+        }
+
+    }
+
+    private void fillData(List<Table> tables) {
+
         personalTables.clear();
         companyTables.clear();
         for (Table table : tables) {
@@ -111,9 +122,6 @@ public class TableListActivity extends BaseTitleActivity implements TableListCon
         tabTable.setTabMode(TabLayout.MODE_FIXED);
         tabTable.addTab(tabTable.newTab().setText(tabBusinessTitles[0]));
         tabTable.addTab(tabTable.newTab().setText(tabBusinessTitles[1]));
-        LogUtil.e(TAG, "tables:" + tables.size());
-        LogUtil.e(TAG, "personalTables:" + personalTables.size());
-        LogUtil.e(TAG, "companyTables:" + companyTables.size());
         mFragmentArr[0] = TableListFragment.newInstance(personalTables, 0);
         mFragmentArr[1] = TableListFragment.newInstance(companyTables, 1);
         CountPageAdapter mCountPageAdapter = new CountPageAdapter(this, getSupportFragmentManager(),
@@ -133,4 +141,8 @@ public class TableListActivity extends BaseTitleActivity implements TableListCon
         context.startActivity(intent);
     }
 
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
+    }
 }

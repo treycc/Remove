@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.AirPhotoItem;
+import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class AirPhotoListPresenter implements AirPhotoListContract.Presenter {
     public void getAirPhotoList(String buildingType, String taskType) {
         mApi.getApiService().getAirPhotoList(buildingType, taskType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<List<AirPhotoItem>>(mView) {
+                (new LoadSirObserver<List<AirPhotoItem>>(mView) {
                     @Override
                     protected void onSuccess(List<AirPhotoItem> airPhotoItems) {
                         mView.onGetAirPhotoListSuccess(airPhotoItems);

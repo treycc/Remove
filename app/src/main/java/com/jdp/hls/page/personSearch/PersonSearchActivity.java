@@ -114,6 +114,7 @@ public class PersonSearchActivity extends BaseTitleActivity implements PersonsCo
 
     @Override
     protected void initNet() {
+        srl.setRefreshing(false);
         personsPresenter.getPersons(SpSir.getInstance().getProjectId());
     }
 
@@ -121,11 +122,18 @@ public class PersonSearchActivity extends BaseTitleActivity implements PersonsCo
     public void onGetPersonsSuccess(List<Person> persons) {
         if (persons != null && persons.size() > 0) {
             adapter.setData(persons);
+        }else{
+            showEmptyCallback();
         }
     }
 
     @Override
     public void onRefresh() {
         initNet();
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }

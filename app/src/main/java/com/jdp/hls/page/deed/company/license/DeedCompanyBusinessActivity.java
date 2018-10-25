@@ -14,6 +14,7 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyLicense;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.page.personSearch.PersonSearchActivity;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
@@ -49,6 +50,9 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
     private boolean allowEdit;
     private String personId = "";
     private String certNum;
+    private String realName;
+    private String mobilePhone;
+    private String idcard;
 
 
     @OnClick({R.id.set_person_import})
@@ -106,25 +110,22 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedCompanyLicensePresenter.modifyDeedCompanyLicense(requestBody);
+            if (checkDataVaildable()) {
+                deedCompanyLicensePresenter.modifyDeedCompanyLicense(getRequestBody());
+            }
         }
     };
     private NoDoubleClickListener addListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedCompanyLicensePresenter.addDeedCompanyLicense(requestBody);
+            if (checkDataVaildable()) {
+                deedCompanyLicensePresenter.addDeedCompanyLicense(getRequestBody());
+            }
         }
     };
 
-
     @NonNull
     private RequestBody getRequestBody() {
-        certNum = etLicenseCertNum.getText().toString().trim();
-        String realName = etLicenseRealName.getText().toString().trim();
-        String mobilePhone = etLicenseMobilePhone.getText().toString().trim();
-        String idcard = etLicenseIdcard.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("LicenseNo", certNum)
@@ -132,6 +133,14 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
                 .addFormDataPart("RealName", realName)
                 .addFormDataPart("Idcard", idcard)
                 .addFormDataPart("MobilePhone", mobilePhone).build();
+    }
+
+    public boolean checkDataVaildable() {
+        certNum = etLicenseCertNum.getText().toString().trim();
+        realName = etLicenseRealName.getText().toString().trim();
+        mobilePhone = etLicenseMobilePhone.getText().toString().trim();
+        idcard = etLicenseIdcard.getText().toString().trim();
+        return CheckUtil.checkEmpty(certNum, "请输入证件号");
     }
 
     private void setEditable(boolean allowEdit) {
@@ -142,7 +151,7 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
         etLicenseRealName.setEnabled(allowEdit);
         etLicenseIdcard.setEnabled(allowEdit);
         etLicenseMobilePhone.setEnabled(allowEdit);
-        setPersonImport.setVisibility(allowEdit?View.VISIBLE:View.GONE);
+        setPersonImport.setVisibility(allowEdit ? View.VISIBLE : View.GONE);
     }
 
     @Override

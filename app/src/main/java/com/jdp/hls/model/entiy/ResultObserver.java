@@ -43,9 +43,6 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
         baseView.hideLoading();
     }
 
-    protected void showError() {
-        baseView.hideLoading();
-    }
 
     @Override
     public void onNext(HttpResult<T> httpResult) {
@@ -56,23 +53,17 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
                 baseView.showSuccessCallback();
             }
             onSuccess(httpResult.getData());
-        } else if (httpResult.getCode() == Status.ResultCode.ERROR_SERVER) {
-            onServerError(httpResult.getCode(), httpResult.getMessage());
-        } else if (httpResult.getCode() == Status.ResultCode.ERROR_LOGIN_FAIL) {
+        }  else if (httpResult.getCode() == Status.ResultCode.ERROR_LOGIN_FAIL) {
             onLoginFail();
         } else {
-            onError(httpResult.getCode(), httpResult.getMessage());
+            onResultError(httpResult.getCode(), httpResult.getMessage());
         }
     }
 
     protected abstract void onSuccess(T t);
 
-    protected void onError(int code, String message) {
+    protected void onResultError(int code, String message) {
         ToastUtil.showText(message);
-    }
-
-    protected void onServerError(int code, String message) {
-
     }
 
     protected void onLoginFail() {
@@ -84,10 +75,14 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
     @Override
     public void onError(Throwable e) {
         //记录错误
-        LogUtil.e(TAG, "onError: " + e.toString());
-        showError();
+        LogUtil.e(TAG, "【网络错误onServerError】: " + e.toString());
+        onServerError(e);
     }
 
+    protected void onServerError(Throwable e) {
+        ToastUtil.showText("服务器开小差");
+        baseView.hideLoading();
+    }
     @Override
     public void onComplete() {
         LogUtil.e(TAG, "onComplete: ");

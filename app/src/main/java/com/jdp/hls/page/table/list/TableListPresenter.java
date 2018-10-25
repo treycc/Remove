@@ -34,7 +34,7 @@ public class TableListPresenter implements TableListContract.Presenter {
     public void getTables(String projectId, int buildingType, String statisId) {
         mApi.getApiService().getTables(projectId, buildingType, statisId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<List<Table>>(mView) {
+                (new LoadSirObserver<List<Table>>(mView) {
                     @Override
                     protected void onSuccess(List<Table> tables) {
                         mView.onGetTablesSuccess(tables);

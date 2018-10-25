@@ -110,10 +110,8 @@ public class PublicityObjectActivity extends BaseTitleActivity implements Public
                 } else {
                     ToastUtil.showText("请选择公示对象");
                 }
-
             }
         });
-
     }
 
     @Override
@@ -135,6 +133,10 @@ public class PublicityObjectActivity extends BaseTitleActivity implements Public
         } else {
             showEmptyCallback();
         }
+    }
 
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }

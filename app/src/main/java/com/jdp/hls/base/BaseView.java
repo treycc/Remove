@@ -13,6 +13,16 @@ public interface BaseView {
     public default void hideLoading() {
     }
 
+    public default boolean ifShowCusLoading() {
+        return false;
+    }
+
+    public default void showCusLoading() {
+    }
+
+    public default void hideCusLoading() {
+    }
+
     public default void showError() {
     }
 

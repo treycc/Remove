@@ -23,7 +23,7 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter {
 
     public BaseLvAdapter(Context context, List<T> list) {
         this.context = context;
-        this.list = list;
+        this.list = (list==null?new ArrayList<>():list);
     }
 
     public void setData(List<T> list) {

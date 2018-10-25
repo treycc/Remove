@@ -4,23 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseDeedActivity;
-import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
-import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
-import com.jdp.hls.view.PreviewRecyclerView;
 
 import java.util.List;
 
@@ -57,6 +53,9 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     @Inject
     DeedCompanyLandPresenter deedCompanyLandPresenter;
     private String certNum;
+    private String area;
+    private String mu;
+    private String address;
 
     @Override
     public void initVariable() {
@@ -109,27 +108,34 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
             deedCompanyLandPresenter.getDeedCompanyLand(mBuildingId);
         }
     }
+
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedCompanyLandPresenter.modifyDeedCompanyLand(requestBody);
+            if (checkDataVaildable()) {
+                deedCompanyLandPresenter.modifyDeedCompanyLand(getRequestBody());
+            }
         }
     };
     private NoDoubleClickListener addListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedCompanyLandPresenter.addDeedCompanyLand(requestBody);
+            if (checkDataVaildable()) {
+                deedCompanyLandPresenter.addDeedCompanyLand(getRequestBody());
+            }
         }
     };
 
+    public boolean checkDataVaildable() {
+        certNum = etLandCertNum.getText().toString().trim();
+        area = etLandArea.getText().toString().trim();
+        mu = etLandMu.getText().toString().trim();
+        address = etLandAddress.getText().toString().trim();
+        return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
+    }
+
     @NonNull
     private RequestBody getRequestBody() {
-        certNum = etLandCertNum.getText().toString().trim();
-        String area = etLandArea.getText().toString().trim();
-        String mu = etLandMu.getText().toString().trim();
-        String address = etLandAddress.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("CertNum", certNum)
@@ -178,7 +184,6 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     @Override
     public void onAddDeedCompanyLandSuccess() {
         setResult(certNum);
-
     }
 
     @Override

@@ -18,6 +18,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:text="暂时没有数据"/>
+    <TextView
+        style="@style/font_main_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击刷新"/>
 
 
 </LinearLayout>

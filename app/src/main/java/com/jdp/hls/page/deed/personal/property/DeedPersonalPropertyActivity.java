@@ -14,6 +14,7 @@ import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedPersonalProperty;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
@@ -57,6 +58,9 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
     DeedPersonalPropertyPresenter deedPersonalPropertyPresenter;
     private boolean allowEdit;
     private String certNum;
+    private String totalArea;
+    private String shareArea;
+    private String address;
 
 
     @Override
@@ -121,24 +125,22 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedPersonalPropertyPresenter.modifyDeedPersonalProperty(requestBody);
+            if (checkDataVaildable()) {
+                deedPersonalPropertyPresenter.modifyDeedPersonalProperty(getRequestBody());
+            }
         }
     };
     private NoDoubleClickListener addListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedPersonalPropertyPresenter.addDeedPersonalProperty(requestBody);
+            if (checkDataVaildable()) {
+                deedPersonalPropertyPresenter.addDeedPersonalProperty(getRequestBody());
+            }
         }
     };
 
     @NonNull
     private RequestBody getRequestBody() {
-        certNum = etPropertyNum.getText().toString().trim();
-        String totalArea = etPropertyTotalArea.getText().toString().trim();
-        String shareArea = etPropertyShareArea.getText().toString().trim();
-        String address = etPropertyAddress.getText().toString().trim();
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("PropertyUseTypeId", String.valueOf(propertyUse))
@@ -148,6 +150,14 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
                 .addFormDataPart("ShareArea", shareArea)
                 .addFormDataPart("Address", address);
         return bodyBuilder.build();
+    }
+
+    public boolean checkDataVaildable() {
+        certNum = etPropertyNum.getText().toString().trim();
+        totalArea = etPropertyTotalArea.getText().toString().trim();
+        shareArea = etPropertyShareArea.getText().toString().trim();
+        address = etPropertyAddress.getText().toString().trim();
+        return CheckUtil.checkEmpty(certNum,"请输入证件号")&&CheckUtil.checkEmpty(address,"请输入地址");
     }
 
 

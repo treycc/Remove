@@ -151,7 +151,7 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:background="@mipmap/ic_surveying"/>
+                        android:background="@mipmap/ic_supervise_system"/>
 
 
                 </LinearLayout>

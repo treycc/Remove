@@ -162,7 +162,7 @@ public class TableSearchActivity extends BaseTitleActivity {
                 .setAdapter(buildingTypeAdapter)
                 .setOnItemClickListener((PopHelper.OnItemClickListener<String>) (item, position, popSpinner)
                         -> {
-                    adapter.filterStatusId(position - 1);
+                    adapter.filterBuildingType(position - 1);
                     buildingTypeAdapter.selectItem(position);
                     spinerBuildingType.setSelectText(item);
                 })

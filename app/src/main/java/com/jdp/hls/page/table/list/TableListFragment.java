@@ -38,8 +38,6 @@ public class TableListFragment extends BaseFragment implements SwipeRefreshLayou
         TableListContract.View {
     @BindView(R.id.plv)
     PullToBottomListView plv;
-    @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
     private List<Table> tables = new ArrayList<>();
     private TableAdapter adapter;
     private int buildingType;
@@ -90,7 +88,6 @@ public class TableListFragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     protected void initData() {
-        srl.setOnRefreshListener(this);
     }
 
     @Override
@@ -100,19 +97,9 @@ public class TableListFragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     protected int getContentId() {
-        return R.layout.common_lv_sl;
+        return R.layout.common_lv;
     }
 
-
-    @Override
-    public void showLoading() {
-        srl.setRefreshing(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        srl.setRefreshing(false);
-    }
 
     @Override
     public void onRefresh() {

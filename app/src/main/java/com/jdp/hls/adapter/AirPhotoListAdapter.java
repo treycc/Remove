@@ -43,6 +43,8 @@ public class AirPhotoListAdapter extends CommonAdapter<AirPhotoItem> {
         notifyDataSetChanged();
     }
 
+
+
     @Override
     public void convert(ViewHolder helper, AirPhotoItem item) {
         helper.setText(R.id.tv_airphoto_address, item.getAddress());
@@ -81,6 +83,8 @@ public class AirPhotoListAdapter extends CommonAdapter<AirPhotoItem> {
                 item.setRealName(airPhotoItem.getRealName());
                 item.setMobilePhone(airPhotoItem.getMobilePhone());
                 item.setLayer(airPhotoItem.getLayer());
+                item.setCheckType(airPhotoItem.getCheckType());
+                item.setCheckTypeName(airPhotoItem.getCheckTypeName());
             }
         }
         notifyDataSetChanged();

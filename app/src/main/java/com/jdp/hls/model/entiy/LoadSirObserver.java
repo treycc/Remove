@@ -25,13 +25,13 @@ public abstract class LoadSirObserver<T> extends ResultObserver<T> {
     }
 
     @Override
-    protected void showError() {
+    protected void onServerError(Throwable e) {
         baseView.showErrorCallback();
     }
 
     @Override
-    protected void onError(int code, String message) {
-//        super.onError(code, message);
+    protected void onResultError(int code, String message) {
+//        super.onResultError(code, message);
         baseView.showErrorMessage(code, message);
     }
 }

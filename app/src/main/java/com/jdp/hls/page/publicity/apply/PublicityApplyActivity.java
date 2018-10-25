@@ -17,6 +17,7 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.page.publicity.object.PublicityObjectActivity;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.MatisseUtil;
@@ -192,6 +193,9 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
         String descriptiton = etDes.getText().toString().trim();
         String startDate = tvPublicityStartDate.getText().toString().trim();
         String endDate = tvPublicityEndDate.getText().toString().trim();
+        if (!CheckUtil.checkEmpty(buildingIds, "请选择公示对象")) {
+            return;
+        }
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("ProjectId", SpSir.getInstance().getProjectId())
                 .addFormDataPart("BatchName", batchName)

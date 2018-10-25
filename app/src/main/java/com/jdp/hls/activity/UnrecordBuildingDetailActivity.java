@@ -80,12 +80,7 @@ public class UnrecordBuildingDetailActivity extends BaseTitleActivity {
             etUnrecordingPic94.setString(unRecordBuilding.getPic94());
             etUnrecordingPic2000.setString(unRecordBuilding.getPic2000());
             if (editable) {
-                setRightClick("保存", new NoDoubleClickListener() {
-                    @Override
-                    public void onNoDoubleClick(View v) {
-                        saveUnrecordBuilding();
-                    }
-                });
+                setSaveListener();
 
             }
             etUnrecordingPosition.setEnabled(editable);
@@ -94,7 +89,18 @@ public class UnrecordBuildingDetailActivity extends BaseTitleActivity {
             etUnrecordingPic84.setEnabled(editable);
             etUnrecordingPic94.setEnabled(editable);
             etUnrecordingPic2000.setEnabled(editable);
+        }else{
+            setSaveListener();
         }
+    }
+
+    private void setSaveListener() {
+        setRightClick("保存", new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                saveUnrecordBuilding();
+            }
+        });
     }
 
     private void saveUnrecordBuilding() {

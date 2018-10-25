@@ -17,6 +17,7 @@ import com.jdp.hls.callback.ErrorMessageCallback;
 import com.jdp.hls.callback.LoadingCallback;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.rx.RxRe;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.ToastUtil;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
@@ -104,11 +105,11 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     }
 
     protected void onNetReload(View v) {
+        LogUtil.e(TAG, "onNetReload");
         initNet();
     }
 
     protected abstract int getContentId();
-
 
     @Override
     public void onDestroyView() {
@@ -139,6 +140,21 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     @Override
     public void hideLoading() {
         setProgressShow(false);
+    }
+
+    @Override
+    public void showCusLoading() {
+
+    }
+
+    @Override
+    public void hideCusLoading() {
+
+    }
+
+    @Override
+    public boolean ifShowCusLoading() {
+        return false;
     }
 
     @Override

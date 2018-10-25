@@ -17,6 +17,7 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyProperty;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
@@ -56,6 +57,8 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
     @Inject
     DeedCompanyPropertyPresenter deedCompanyPropertyPresenter;
     private String certNum;
+    private String area;
+    private String address;
 
     @Override
     public void initVariable() {
@@ -112,23 +115,24 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedCompanyPropertyPresenter.modifyDeedCompanyProperty(requestBody);
+            if (checkDataVaildable()) {
+                deedCompanyPropertyPresenter.modifyDeedCompanyProperty(getRequestBody());
+            }
+
         }
     };
     private NoDoubleClickListener addListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedCompanyPropertyPresenter.addDeedCompanyProperty(requestBody);
+            if (checkDataVaildable()) {
+                deedCompanyPropertyPresenter.addDeedCompanyProperty(getRequestBody());
+            }
+
         }
     };
 
     @NonNull
     private RequestBody getRequestBody() {
-        certNum = etPropertyCertNum.getText().toString().trim();
-        String area = etPropertyArea.getText().toString().trim();
-        String address = etPropertyAddress.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("PropertyUseTypeId", String.valueOf(propertyUse))
@@ -137,6 +141,13 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
                 .addFormDataPart("Address", address)
                 .addFormDataPart("Area", area).build();
     }
+    public boolean checkDataVaildable() {
+        certNum = etPropertyCertNum.getText().toString().trim();
+        area = etPropertyArea.getText().toString().trim();
+        address = etPropertyAddress.getText().toString().trim();
+        return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
+    }
+
 
     public static void goActivity(Context context, String enterpriseId, boolean isAdd) {
         Intent intent = new Intent(context, DeedCompanyPropertyActivity.class);

@@ -9,10 +9,11 @@ import com.jdp.hls.R;
 import com.jdp.hls.adapter.AirPhotoListAdapter;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.callback.EmptyCallback;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.AddAirPhotoEvent;
 import com.jdp.hls.event.RemoveAirPhotoEvent;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.event.AddAirPhotoEvent;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.ModifyAirPhotoEvent;
 import com.jdp.hls.page.airphoto.detail.AirPhotoDetailActivity;
@@ -91,11 +92,16 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
 
     @Override
     public void onGetAirPhotoListSuccess(List<AirPhotoItem> airPhotoItems) {
+        this.airPhotoItems = airPhotoItems;
+        checkListsize(airPhotoItems);
+    }
+
+    private void checkListsize(List<AirPhotoItem> airPhotoItems) {
         if (airPhotoItems != null && airPhotoItems.size() > 0) {
             showSuccessCallback();
             adapter.setData(airPhotoItems);
         } else {
-            showEmptyCallback();
+            mBaseLoadService.showCallback(EmptyCallback.class);
         }
     }
 
@@ -106,6 +112,7 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
 
     @Override
     protected void initNet() {
+        LogUtil.e(TAG, "initNet");
         airPhotoListPresenter.getAirPhotoList("-1", taskType);
     }
 
@@ -115,17 +122,8 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     }
 
     @Override
-    public void showLoading() {
-        srl.setRefreshing(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        srl.setRefreshing(false);
-    }
-
-    @Override
     public void onRefresh() {
+        srl.setRefreshing(false);
         initNet();
     }
 
@@ -145,7 +143,7 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     public void removeAirPhoto(RemoveAirPhotoEvent event) {
         if (taskType.equals(event.getAirPhotoType())) {
             adapter.remove(event.getAirCheckId());
-
+            checkListsize(adapter.getData());
         }
     }
 

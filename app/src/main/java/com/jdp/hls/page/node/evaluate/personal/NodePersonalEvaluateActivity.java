@@ -66,11 +66,11 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
         switch (view.getId()) {
             case R.id.rl_evaluate_innerDecoratedDetail:
                 DecorationListActivity.goActivity(this, String.valueOf(evalId), String.valueOf(Status.BuildingType
-                        .PERSONAL),Status.CompensationType.DECORATION);
+                        .PERSONAL),Status.CompensationType.DECORATION,allowEdit);
                 break;
             case R.id.rl_evaluate_appurtenanceDetail:
                 DecorationListActivity.goActivity(this, String.valueOf(evalId), String.valueOf(Status.BuildingType
-                        .PERSONAL),Status.CompensationType.APPENDANT);
+                        .PERSONAL),Status.CompensationType.APPENDANT,allowEdit);
                 break;
         }
     }

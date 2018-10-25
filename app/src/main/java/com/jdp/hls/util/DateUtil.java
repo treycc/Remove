@@ -41,7 +41,8 @@ public class DateUtil {
     }
 
     public static long getMillSeconds(String strDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        yyyy-MM-dd HH:mm:ss
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try {
             date = formatter.parse( strDate );

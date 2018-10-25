@@ -112,7 +112,6 @@ public class AirphotoListActivity extends BaseTitleActivity {
             }
         });
 
-
     }
 
 

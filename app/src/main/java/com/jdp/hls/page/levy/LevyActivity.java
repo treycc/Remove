@@ -162,6 +162,9 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
     public void onGetTaskSuccess(LevyInfo levyInfo) {
         List<Task> taskList = levyInfo.getLstTaskTypeCount();
         if (taskList != null && taskList.size() > 0) {
+            if (taskList.size() == 2) {
+                gvTask.setNumColumns(4);
+            }
             taskAdapter.setData(taskList);
         }
         List<BusinessAction> businessActionList = levyInfo.getLstAppAction();

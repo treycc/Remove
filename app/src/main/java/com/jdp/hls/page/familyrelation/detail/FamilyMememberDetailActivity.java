@@ -152,7 +152,7 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         realName = etFamilyRelationName.getText().toString().trim();
         idcard = etFamilyRelationIdcard.getText().toString().trim();
         bookletNum = etFamilyRelationBookletNum.getText().toString().trim();
-        if (CheckUtil.checkEmpty(realName, "请输入姓名")) {
+        if (!CheckUtil.checkEmpty(realName, "请输入姓名")) {
             return;
         }
         familyMememberDetailPresenter.saveFamilyRemember(new MultipartBody.Builder().setType(MultipartBody.FORM)

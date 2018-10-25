@@ -18,6 +18,11 @@ import java.util.List;
  */
 public class TableAdapter extends CommonAdapter<Table> {
     private List<Table> selectDatas = new ArrayList<>();
+    private int buildingType = -1;
+    private int statusId = -1;
+    private long startDate = 0;
+    private long endDate = Long.MAX_VALUE;
+    private String keyword="";
 
     public TableAdapter(Context context, List<Table> datas, int itemLayoutId) {
         super(context, datas, itemLayoutId);
@@ -39,14 +44,43 @@ public class TableAdapter extends CommonAdapter<Table> {
     }
 
     public void searchPerson(String keyword) {
+        this.keyword = keyword;
+        filterTalbe();
+    }
+
+    public void filterTalbe() {
         selectDatas = new ArrayList<>();
         for (Table table : mDatas) {
-            if (table.getRealName().contains(keyword) || table.getAddress().contains(keyword) || table.getMobilePhone
-                    ().contains(keyword) || table.getSysCode().contains(keyword)) {
+            if (checkKeyword(table)
+                    && checkBuildingType(table.getBuildingType())
+                    && checkStatusId(table.getStatusId())
+                    && checkStartDate(DateUtil.getMillSeconds(table.getCreateDatetime()))
+                    && checkEndDate(DateUtil.getMillSeconds(table.getCreateDatetime()))) {
                 selectDatas.add(table);
             }
         }
         notifyDataSetChanged();
+    }
+
+    private boolean checkKeyword(Table table) {
+        return table.getRealName().contains(keyword) || table.getAddress().contains(keyword) || table.getMobilePhone
+                ().contains(keyword) || table.getSysCode().contains(keyword);
+    }
+
+    private boolean checkBuildingType(int searchBuildingType) {
+        return buildingType == -1 || buildingType == searchBuildingType;
+    }
+
+    private boolean checkStatusId(int searchStatusId) {
+        return statusId == -1 || statusId == searchStatusId;
+    }
+
+    private boolean checkStartDate(long searchStartDate) {
+        return startDate == 0 || searchStartDate >= startDate;
+    }
+
+    private boolean checkEndDate(long searchEndDate) {
+        return endDate == Long.MAX_VALUE || searchEndDate <= endDate;
     }
 
     @Override
@@ -66,50 +100,28 @@ public class TableAdapter extends CommonAdapter<Table> {
         notifyDataSetChanged();
     }
 
+
     public void filterBuildingType(int buildingType) {
-        if (buildingType == -1) {
-            selectDatas = mDatas;
-            return;
-        }
-        selectDatas = new ArrayList<>();
-        for (Table table : mDatas) {
-            if (table.getBuildingType() == buildingType) {
-                selectDatas.add(table);
-            }
-        }
-        notifyDataSetChanged();
+        this.buildingType = buildingType;
+        filterTalbe();
     }
 
     public void filterStatusId(int statusId) {
-        if (statusId == -1) {
-            selectDatas = mDatas;
-            return;
-        }
-        selectDatas = new ArrayList<>();
-        for (Table table : mDatas) {
-            if (table.getStatusId() == statusId) {
-                selectDatas.add(table);
-            }
-        }
-        notifyDataSetChanged();
+        this.statusId = statusId;
+        filterTalbe();
     }
 
     public void filterDate(long startDate, long endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
         selectDatas = new ArrayList<>();
         if (startDate == -1) {
-            startDate = 0;
+            this.startDate = 0;
         }
         if (endDate == -1) {
-            endDate = Long.MAX_VALUE;
+            this.endDate = Long.MAX_VALUE;
         }
-
-        for (Table table : mDatas) {
-            if (DateUtil.getMillSeconds(table.getCreateDatetime()) >= startDate && DateUtil.getMillSeconds(table
-                    .getCreateDatetime()) <= endDate) {
-                selectDatas.add(table);
-            }
-        }
-        notifyDataSetChanged();
+        filterTalbe();
     }
 
 

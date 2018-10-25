@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.jdp.hls.R;
@@ -77,11 +76,11 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
         switch (view.getId()) {
             case R.id.rl_evaluate_innerDecoratedDetail:
                 DecorationListActivity.goActivity(this, String.valueOf(evalId), String.valueOf(Status.BuildingType
-                        .COMPANY),Status.CompensationType.DECORATION);
+                        .COMPANY),Status.CompensationType.DECORATION, allowEdit);
                 break;
             case R.id.rl_evaluate_appurtenanceDetail:
                 DecorationListActivity.goActivity(this, String.valueOf(evalId), String.valueOf(Status.BuildingType
-                        .COMPANY),Status.CompensationType.APPENDANT);
+                        .COMPANY),Status.CompensationType.APPENDANT, allowEdit);
                 break;
         }
     }

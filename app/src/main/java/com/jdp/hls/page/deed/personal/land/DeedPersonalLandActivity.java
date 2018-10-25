@@ -16,6 +16,7 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedPersonalLand;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.other.file.FileConfig;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
@@ -58,6 +59,9 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
     private int landTypeId;
     private boolean allowEdit;
     private String certNum;
+    private String certArea;
+    private String buildOccupyArea;
+    private String address;
 
     @Override
     public void initVariable() {
@@ -115,10 +119,6 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
 
     @NonNull
     private RequestBody getRequestBody() {
-        certNum = etLandCertNum.getText().toString().trim();
-        String certArea = etLandCertArea.getText().toString().trim();
-        String buildOccupyArea = etBuildOccupyArea.getText().toString().trim();
-        String address = etLandAddress.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("CertNum", certNum)
@@ -128,6 +128,15 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
                 .addFormDataPart("BuildOccupyArea", buildOccupyArea)
                 .addFormDataPart("Address", address).build();
     }
+
+    public boolean checkDataVaildable() {
+        certNum = etLandCertNum.getText().toString().trim();
+        certArea = etLandCertArea.getText().toString().trim();
+        buildOccupyArea = etBuildOccupyArea.getText().toString().trim();
+        address = etLandAddress.getText().toString().trim();
+        return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
+    }
+
 
     private void setEditable(boolean allowEdit) {
         if (allowEdit) {
@@ -144,15 +153,18 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedPersonalLandPresenter.modifyDeedPersonalLand(requestBody);
+            if (checkDataVaildable()) {
+                deedPersonalLandPresenter.modifyDeedPersonalLand(getRequestBody());
+            }
+
         }
     };
     private NoDoubleClickListener addListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedPersonalLandPresenter.addDeedPersonalLand(requestBody);
+            if (checkDataVaildable()) {
+                deedPersonalLandPresenter.addDeedPersonalLand(getRequestBody());
+            }
         }
     };
 

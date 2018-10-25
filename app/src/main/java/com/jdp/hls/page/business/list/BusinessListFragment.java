@@ -162,7 +162,8 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
     @Override
     public void onRefresh() {
-        businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(), buildingType, taskType);
+        srl.setRefreshing(false);
+//        businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(), buildingType, taskType);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

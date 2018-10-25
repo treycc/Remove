@@ -16,6 +16,7 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
@@ -66,6 +67,9 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
     @Inject
     DeedCompanyImmovablePresenter deedCompanyImmovablePresenter;
     private String certNum;
+    private String landArea;
+    private String propertyArea;
+    private String address;
 
     @Override
     public void initVariable() {
@@ -134,24 +138,23 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedCompanyImmovablePresenter.modifyDeedCompanyImmovable(requestBody);
+            if (checkDataVaildable()) {
+                deedCompanyImmovablePresenter.modifyDeedCompanyImmovable(getRequestBody());
+            }
+
         }
     };
     private NoDoubleClickListener addListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedCompanyImmovablePresenter.addDeedCompanyImmovable(requestBody);
+            if (checkDataVaildable()) {
+                deedCompanyImmovablePresenter.addDeedCompanyImmovable(getRequestBody());
+            }
         }
     };
 
     @NonNull
     private RequestBody getRequestBody() {
-        certNum = etImmovableCertNum.getText().toString().trim();
-        String landArea = etImmovableLandArea.getText().toString().trim();
-        String propertyArea = etImmovablePropertyArea.getText().toString().trim();
-        String address = etImmovableAddress.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("CertNum", certNum)
@@ -163,6 +166,14 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
                 .addFormDataPart("PropertyArea", propertyArea)
                 .addFormDataPart("Address", address).build();
     }
+    public boolean checkDataVaildable() {
+        certNum = etImmovableCertNum.getText().toString().trim();
+        landArea = etImmovableLandArea.getText().toString().trim();
+        propertyArea = etImmovablePropertyArea.getText().toString().trim();
+        address = etImmovableAddress.getText().toString().trim();
+        return CheckUtil.checkEmpty(certNum,"请输入证件号")&&CheckUtil.checkEmpty(address,"请输入地址");
+    }
+
 
     private void setEditable(boolean allowEdit) {
         if (allowEdit) {

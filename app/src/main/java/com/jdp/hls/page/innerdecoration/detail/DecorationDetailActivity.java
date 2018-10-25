@@ -66,10 +66,12 @@ public class DecorationDetailActivity extends BaseTitleActivity implements Decor
     @Inject
     DecorationDetailPresenter decorationDetailPresenter;
     private DecorationItem decorationItem;
+    private boolean editable;
 
     @Override
     public void initVariable() {
         evalId = getIntent().getStringExtra(Constants.Extra.ID);
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE,false);
         buildingType = getIntent().getStringExtra(Constants.Extra.BUILDING_TYPE);
         decorationItem = (DecorationItem) getIntent().getSerializableExtra(Constants.Extra.DECORATION_ITEM);
         itemType = getIntent().getIntExtra(Constants.Extra.ITEM_TYPE, Integer.valueOf(Status.CompensationType
@@ -116,12 +118,7 @@ public class DecorationDetailActivity extends BaseTitleActivity implements Decor
 
     @Override
     protected void initData() {
-        setRightClick("保存", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                saveData();
-            }
-        });
+
         spinnerCompensationItem.setDictsItem(decorationItemList, dict -> {
             itemId = dict.getTypeId();
             setGradleData(getGradleListByItemId(itemId));
@@ -143,9 +140,30 @@ public class DecorationDetailActivity extends BaseTitleActivity implements Decor
             tvCompensationPrice.setString(decorationItem.getPrice());
             etCompensationQuantity.setString(decorationItem.getQuantity());
             etCompensationRemark.setString(decorationItem.getRemark());
-            calculateTotalMoney();
-        }
 
+            spinnerCompensationItem.enable(editable);
+            spinnerCompensationGrade.enable(editable);
+            etCompensationQuantity.setEnabled(editable);
+            etCompensationRemark.setEnabled(editable);
+
+            calculateTotalMoney();
+            if (editable) {
+                setSaveListener();
+            }
+
+
+        }else{
+            setSaveListener();
+        }
+    }
+
+    private void setSaveListener() {
+        setRightClick("保存", new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                saveData();
+            }
+        });
     }
 
     private void calculateTotalMoney() {
@@ -213,11 +231,13 @@ public class DecorationDetailActivity extends BaseTitleActivity implements Decor
         context.startActivity(intent);
     }
 
-    public static void goActivity(Context context, DecorationItem decorationItem, String buildingType, int itemType) {
+    public static void goActivity(Context context, DecorationItem decorationItem, String buildingType, int itemType,
+                                  boolean editable) {
         Intent intent = new Intent(context, DecorationDetailActivity.class);
         intent.putExtra(Constants.Extra.DECORATION_ITEM, decorationItem);
         intent.putExtra(Constants.Extra.BUILDING_TYPE, buildingType);
         intent.putExtra(Constants.Extra.ITEM_TYPE, itemType);
+        intent.putExtra(Constants.Extra.EDITABLE, editable);
         context.startActivity(intent);
     }
 

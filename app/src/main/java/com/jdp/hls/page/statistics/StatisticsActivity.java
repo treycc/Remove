@@ -24,8 +24,8 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.StatisticsDetail;
 import com.jdp.hls.model.entiy.StatisticsItem;
 import com.jdp.hls.page.table.list.TableListActivity;
+import com.jdp.hls.util.AppUtil;
 import com.jdp.hls.util.SpSir;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.FixedListView;
 
 import java.util.ArrayList;
@@ -54,6 +54,7 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
     private CommonPositionAdapter statisticsAdapter;
     private List<StatisticsItem> statisticsItemList = new ArrayList<>();
     private int[] colorAttr = {R.color.pie_red, R.color.pie_yellow, R.color.pie_cyan, R.color.pie_green};
+    public static final int PADDING = 15;
 
     @OnItemClick({R.id.lv_statistics})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -106,29 +107,33 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
     }
 
     private void initchart() {
-        chartPie.setUsePercentValues(true);
-        chartPie.getDescription().setEnabled(false);
-        chartPie.setRotationEnabled(false);
+        chartPie.setUsePercentValues(true);//自动把数字转换百分比
+        chartPie.getDescription().setEnabled(false);//是否显示备注文字
+        chartPie.setRotationEnabled(false);//是否可转动
+        chartPie.setHighlightPerTapEnabled(false);//是否点击饼图后扩大范围
+        chartPie.setDrawEntryLabels(false);//不显示X轴文字
         //饼图与边界间隔
-        chartPie.setExtraOffsets(10, 10, 10, 10);
+        chartPie.setExtraOffsets(AppUtil.dp2px(PADDING), AppUtil.dp2px(PADDING), AppUtil.dp2px(PADDING), AppUtil
+                .dp2px(PADDING));
         //去掉中间空洞
         chartPie.setDrawHoleEnabled(false);
-        //说明文字
-        Legend l = chartPie.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        //数据块水平
-        l.setXEntrySpace(2f);
-        //数据块垂直间距
-        l.setYEntrySpace(0f);
-        l.setYOffset(0f);
-        l.setXOffset(2f);
-        l.setTextSize(12);
-        //绘制在图标外
-        l.setDrawInside(false);
-        //显示说明文字
-        l.setEnabled(true);
+        chartPie.getLegend().setEnabled(false);//是否显示说明文字，带色块
+        //说明文字，带色块
+//        Legend l = chartPie.getLegend();
+//        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+//        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+//        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+//        //数据块水平
+//        l.setXEntrySpace(2f);
+//        //数据块垂直间距
+//        l.setYEntrySpace(0f);
+//        l.setYOffset(0f);
+//        l.setXOffset(2f);
+//        l.setTextSize(12);
+//        //绘制在图标外
+//        l.setDrawInside(false);
+//        //显示说明文字
+//        l.setEnabled(false);
     }
 
 
@@ -146,10 +151,25 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
             dataSet.setColors(colors);
         }
         PieData data = new PieData(dataSet);
-        data.setDrawValues(true);
+//        data.setDrawValues(true);
         data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(18f);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextSize(15f);
+        data.setValueTextColor(Color.BLACK);
+
+        /*====================*/
+//        dataSet.setValueLinePart1OffsetPercentage(80.f);
+//        dataSet.setValueLinePart1Length(0.5f);
+//        dataSet.setValueLinePart2Length(0.5f);
+        //当值显示在界面外面的时候是否允许改变量行长度
+        dataSet.setValueLineVariableLength(false);
+        //设置线的宽度
+        dataSet.setValueLineWidth(1);
+        //设置项X值拿出去
+        dataSet.setXValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
+        //设置将Y轴的值拿出去
+        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+
+
         chartPie.setData(data);
         chartPie.highlightValues(null);
         chartPie.invalidate();

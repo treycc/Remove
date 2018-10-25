@@ -2,7 +2,6 @@ package com.jdp.hls.page.innerdecoration.list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,7 +32,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -54,15 +52,16 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
     private String evalId;
     private String buildingType;
     private String compensationType;
-
     private List<DecorationItem> decorationItemList = new ArrayList<>();
     @Inject
     DecorationListPresenter decorationListPresenter;
     private DecorationAdapter decorationAdapter;
+    private boolean editable;
 
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE,false);
         evalId = getIntent().getStringExtra(Constants.Extra.ID);
         buildingType = getIntent().getStringExtra(Constants.Extra.BUILDING_TYPE);
         compensationType = getIntent().getStringExtra(Constants.Extra.COMPENSATION_TYPE);
@@ -96,13 +95,15 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
 
     @Override
     protected void initData() {
-        setRightClick("增加", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                DecorationDetailActivity.goActivity(DecorationListActivity.this, evalId, buildingType, Integer
-                        .valueOf(compensationType));
-            }
-        });
+        if (editable) {
+            setRightClick("增加", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    DecorationDetailActivity.goActivity(DecorationListActivity.this, evalId, buildingType, Integer
+                            .valueOf(compensationType));
+                }
+            });
+        }
         tvPayMoneyTip.setText(compensationType.equals(Status.CompensationType.DECORATION) ? "内装饰装修补偿总金额" : "附属物补偿总金额");
         decorationAdapter.setOnItemOperListener(new DecorationAdapter.OnItemOperListener() {
             @Override
@@ -118,7 +119,7 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
             @Override
             public void onItemClick(DecorationItem decorationItem) {
                 DecorationDetailActivity.goActivity(DecorationListActivity.this, decorationItem, buildingType,
-                        Integer.valueOf(compensationType));
+                        Integer.valueOf(compensationType),editable);
             }
         });
     }
@@ -128,9 +129,11 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
         decorationListPresenter.getDecorationList(evalId, buildingType, compensationType);
     }
 
-    public static void goActivity(Context context, String evalId, String buildingType, String compensationType) {
+    public static void goActivity(Context context, String evalId, String buildingType, String compensationType,
+                                  boolean editable) {
         Intent intent = new Intent(context, DecorationListActivity.class);
         intent.putExtra(Constants.Extra.ID, evalId);
+        intent.putExtra(Constants.Extra.EDITABLE, editable);
         intent.putExtra(Constants.Extra.BUILDING_TYPE, buildingType);
         intent.putExtra(Constants.Extra.COMPENSATION_TYPE, compensationType);
         context.startActivity(intent);
@@ -145,7 +148,7 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
     private void checkListSize(List<DecorationItem> decorationItemList) {
         if (decorationItemList != null && decorationItemList.size() > 0) {
             showSuccessCallback();
-            decorationAdapter.setData(decorationItemList);
+            decorationAdapter.setEditableData(decorationItemList,editable);
             llTotalMoneyBar.setVisibility(View.VISIBLE);
             tvPayMoney.setString(decorationAdapter.getTotalMoney());
         } else {

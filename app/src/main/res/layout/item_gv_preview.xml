@@ -10,7 +10,13 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@mipmap/pic_stay_uploaded"/>
-
+    <com.jdp.hls.view.SquareImageView
+        android:visibility="gone"
+        android:id="@+id/iv_img_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_add_photo"/>
     <CheckBox
         android:id="@+id/cb_check"
         android:button="@drawable/selector_cb_white"

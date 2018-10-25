@@ -15,7 +15,9 @@ import com.jdp.hls.R;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.DTOImgInfo;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.StringUtil;
+import com.jdp.hls.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -65,18 +67,18 @@ public class PhotoPreviewAdapter extends BaseLvAdapter<ImgInfo> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         if (editable && position == getCount() - 1) {
-            viewHolder.iv_img.setImageResource(R.mipmap.bg_add_photo);
+            viewHolder.iv_img.setVisibility(View.GONE);
+            viewHolder.iv_img_add.setVisibility(View.VISIBLE);
             viewHolder.cb_check.setVisibility(View.GONE);
         } else {
+            viewHolder.iv_img.setVisibility(View.VISIBLE);
+            viewHolder.iv_img_add.setVisibility(View.GONE);
             String url = list.get(position).getSmallImgUrl();
             if (TextUtils.isEmpty(url)) {
                 ImageLoader.getInstance().loadImage(context, list.get(position).getUri(), viewHolder.iv_img);
             } else {
                 ImageLoader.getInstance().loadImage(context, url, viewHolder.iv_img);
             }
-
-//            viewHolder.iv_img.setColorFilter(list.get(position).isChecked() ? ContextCompat.getColor(context, R.color
-//                    .half_t) : Color.TRANSPARENT);
             viewHolder.cb_check.setVisibility(showCheckbox ? View.VISIBLE : View.GONE);
             viewHolder.cb_check.setChecked(list.get(position).isChecked());
             viewHolder.cb_check.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -173,11 +175,13 @@ public class PhotoPreviewAdapter extends BaseLvAdapter<ImgInfo> {
     public class ViewHolder {
         public final View root;
         public ImageView iv_img;
+        public ImageView iv_img_add;
         public CheckBox cb_check;
 
         public ViewHolder(View root) {
             this.root = root;
             iv_img = root.findViewById(R.id.iv_img);
+            iv_img_add = root.findViewById(R.id.iv_img_add);
             cb_check = root.findViewById(R.id.cb_check);
         }
     }

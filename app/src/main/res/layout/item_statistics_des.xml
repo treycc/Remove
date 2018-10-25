@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center_vertical"
-              android:paddingBottom="6dp"
-              android:paddingTop="6dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:paddingTop="10dp">
 
-
-    <View
-        android:layout_marginRight="16dp"
-        android:id="@+id/v_item_color"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:background="@color/main"/>
-
-    <TextView
-        style="@style/font_6_15"
-        android:text="描述"
-        android:id="@+id/tv_statisticsDes"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <View
+            android:id="@+id/v_item_color"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/main"/>
+
+        <TextView
+            android:id="@+id/tv_statisticsDes"
+            style="@style/font_6_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="描述"/>
+
+    </LinearLayout>
+
+    <ImageView style="@style/BG_ARROW"/>
+
+
+</RelativeLayout>

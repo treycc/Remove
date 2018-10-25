@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.model.entiy.DecorationItem;
+import com.jdp.hls.model.entiy.OtherArea;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.MathUtil;
 import com.jdp.hls.view.DrawHelperLayout;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class DecorationAdapter extends BaseLvAdapter<DecorationItem> {
     private OnItemOperListener onItemOperListener;
-
+    private boolean editable;
     public DecorationAdapter(Context context, List<DecorationItem> list) {
         super(context, list);
     }
@@ -35,10 +36,8 @@ public class DecorationAdapter extends BaseLvAdapter<DecorationItem> {
                     .inflate(context, R.layout.item_decoration, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-            LogUtil.e(TAG,"创建");
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            LogUtil.e(TAG,"复用");
         }
         double price = list.get(position).getPrice();
         int quantity = list.get(position).getQuantity();
@@ -54,6 +53,7 @@ public class DecorationAdapter extends BaseLvAdapter<DecorationItem> {
 
         });
         viewHolder.drawHelperLayout.close(false);
+        viewHolder.drawHelperLayout.setDragable(editable);
         viewHolder.drawHelperLayout.setOnRootClickListener(() -> {
             if (onItemOperListener != null) {
                 onItemOperListener.onItemClick(list.get(position));
@@ -61,7 +61,10 @@ public class DecorationAdapter extends BaseLvAdapter<DecorationItem> {
         });
         return convertView;
     }
-
+    public void setEditableData(List<DecorationItem> decorationItemList, boolean editable) {
+        this.editable = editable;
+        setData(decorationItemList);
+    }
     public double getTotalMoney() {
         double totalMoney = 0;
         for (DecorationItem decorationItem : list) {

@@ -11,6 +11,7 @@ import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedPersonalImmovable;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
@@ -62,6 +63,11 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
     private int landTypeId;
     private boolean allowEdit;
     private String certNum;
+    private String address;
+    private String houseTotalArea;
+    private String houseShareArea;
+    private String landTotalArea;
+    private String buildOccupyArea;
 
     @Override
     public void initVariable() {
@@ -130,26 +136,24 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedPersonalImmovablePresenter.modifyDeedPersonalImmovable(requestBody);
+            if (checkDataVaildable()) {
+                deedPersonalImmovablePresenter.modifyDeedPersonalImmovable(getRequestBody());
+            }
+
         }
     };
     private NoDoubleClickListener addListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
-            RequestBody requestBody = getRequestBody();
-            deedPersonalImmovablePresenter.addDeedPersonalImmovable(requestBody);
+            if (checkDataVaildable()) {
+                deedPersonalImmovablePresenter.addDeedPersonalImmovable(getRequestBody());
+            }
+
         }
     };
 
     @NonNull
     private RequestBody getRequestBody() {
-        certNum = etImmovableNum.getText().toString().trim();
-        String houseTotalArea = etPropertyTotalArea.getText().toString().trim();
-        String houseShareArea = etPropertyShareArea.getText().toString().trim();
-        String landTotalArea = etLandCertArea.getText().toString().trim();
-        String buildOccupyArea = etLandBuildOccupyArea.getText().toString().trim();
-        String address = etLandAddress.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("CertNum", certNum)
@@ -162,6 +166,16 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
                 .addFormDataPart("LandTotalArea", landTotalArea)
                 .addFormDataPart("BuildOccupyArea", buildOccupyArea)
                 .addFormDataPart("Address", address).build();
+    }
+
+    public boolean checkDataVaildable() {
+        certNum = etImmovableNum.getText().toString().trim();
+        houseTotalArea = etPropertyTotalArea.getText().toString().trim();
+        houseShareArea = etPropertyShareArea.getText().toString().trim();
+        landTotalArea = etLandCertArea.getText().toString().trim();
+        buildOccupyArea = etLandBuildOccupyArea.getText().toString().trim();
+        address = etLandAddress.getText().toString().trim();
+        return CheckUtil.checkEmpty(certNum,"请输入证件号")&&CheckUtil.checkEmpty(address,"请输入地址");
     }
 
 

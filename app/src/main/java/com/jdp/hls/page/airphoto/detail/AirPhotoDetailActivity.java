@@ -234,8 +234,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
             tvSave.setOnClickListener(new NoDoubleClickListener() {
                 @Override
                 public void onNoDoubleClick(View v) {
-
-                    if (CheckUtil.checkEmpty(layer, "请输入层次")) {
+                    if (checkDataValidable()) {
                         airPhotoDetailPresenter.modifyAirPhotoDetail(getSaveBody().build());
                     }
                 }
@@ -261,7 +260,6 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         rvAirphotoPhoto.setDate(airPhotos, allowEdit);
         rvAgePhoto.setDate(agePhotos, allowEditAppraise);
 
-
         List<AirPhotoCheckType> airCheckTaskTypes = airPhotoItem.getLstAirCheckType();
         List<TDict> tDicts = new ArrayList<>();
         for (AirPhotoCheckType airCheckTaskType : airCheckTaskTypes) {
@@ -274,19 +272,18 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
             airPhotoDetailPresenter.getAirPhotoDetail(airCheckId, String.valueOf(typeId));
         });
         spinnerCheckType.setSelectItem(airPhotoItem.getCheckType());
-
         if (checkType == 0) {
             spinnerCheckType.enable(false);
         }
-
-
     }
 
-    private void fillData() {
+    private boolean checkDataValidable() {
         remark = etAirphotoRemark.getText().toString().trim();
         layer = etAirphotoLayer.getText().toString().trim();
         reason = etAirphotoReason.getText().toString().trim();
+        return CheckUtil.checkEmpty(layer, "请输入层次");
     }
+
 
     private void initOperate(AuthAirPhoto auth) {
         boolean showSend = auth.isAllowSend();
@@ -303,13 +300,19 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
                     ageSend = true;
                     airPhotoDetailPresenter.updateAgePhotos(getAgeBody().addFormDataPart("IsSend", "true").build());
                 } else {
-                    airPhotoDetailPresenter.sendAirPhoto(getSaveBody().addFormDataPart("IsSend", "true").build());
+                    if (checkDataValidable()) {
+                        airPhotoDetailPresenter.sendAirPhoto(getSaveBody().addFormDataPart("IsSend", "true").build());
+                    }
+
                 }
             });
         }
         if (showCheck) {
             llAirphotoReview.setOnClickListener(v -> {
-                airPhotoDetailPresenter.reviewAirPhoto(getSaveBody().build());
+                if (checkDataValidable()) {
+                    airPhotoDetailPresenter.reviewAirPhoto(getSaveBody().build());
+                }
+
             });
         }
         if (showFinish) {
@@ -320,7 +323,6 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     }
 
     private MultipartBody.Builder getSaveBody() {
-        fillData();
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("AirCheckProId", String.valueOf(airCheckProId))
                 .addFormDataPart("BuildingId", airPhotoItem.getBuildingId())

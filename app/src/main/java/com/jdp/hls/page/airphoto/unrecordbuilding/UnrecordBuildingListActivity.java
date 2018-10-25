@@ -9,10 +9,12 @@ import com.jdp.hls.activity.UnrecordBuildingDetailActivity;
 import com.jdp.hls.adapter.UnrecordBuildingAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.callback.EmptyCallback;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.AddUnrecordBuildingEvent;
 import com.jdp.hls.event.ModifyUnrecordBuildingEvent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.UnRecordBuilding;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.GoUtil;
@@ -46,7 +48,7 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
-        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE,true);
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE, true);
         unRecordBuildingList = (List<UnRecordBuilding>) getIntent().getSerializableExtra(Constants.Extra
                 .UNRECORD_BUILDING_LIST);
     }
@@ -80,6 +82,7 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
         unrecordBuildingAdapter = new UnrecordBuildingAdapter(this, unRecordBuildingList == null ? new ArrayList() :
                 unRecordBuildingList);
         plv.setAdapter(unrecordBuildingAdapter);
+        checkListsize(unRecordBuildingList == null ? new ArrayList() : unRecordBuildingList);
     }
 
     @Override
@@ -98,14 +101,25 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
             public void onItemDelete(String id, int position) {
                 DialogUtil.showDoubleDialog(UnrecordBuildingListActivity.this, "是否确定删除该项?", (dialog, which) -> {
                     unrecordBuildingAdapter.remove(position);
+                    checkListsize(unrecordBuildingAdapter.getData());
                 });
             }
 
             @Override
             public void onItemClick(UnRecordBuilding unRecordBuilding) {
-                UnrecordBuildingDetailActivity.goActivity(UnrecordBuildingListActivity.this, unRecordBuilding,editable);
+                UnrecordBuildingDetailActivity.goActivity(UnrecordBuildingListActivity.this, unRecordBuilding,
+                        editable);
             }
         });
+    }
+
+    private void checkListsize(List<UnRecordBuilding> unRecordBuildingList) {
+        if (unRecordBuildingList != null && unRecordBuildingList.size() > 0) {
+            showSuccessCallback();
+            unrecordBuildingAdapter.setEditableData(unRecordBuildingList,editable);
+        } else {
+            mBaseLoadService.showCallback(EmptyCallback.class);
+        }
     }
 
     @Override
@@ -122,6 +136,7 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addUnrecordBuilding(AddUnrecordBuildingEvent event) {
+        showSuccessCallback();
         unrecordBuildingAdapter.addFirst(event.getUnRecordBuilding());
     }
 
@@ -147,5 +162,10 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
     @Override
     public void onBackPressed() {
         onBack();
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }
