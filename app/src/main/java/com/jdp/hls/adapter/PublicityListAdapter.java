@@ -7,6 +7,7 @@ import com.jdp.hls.constant.Status;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.util.DateUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 
 import java.util.List;
@@ -18,6 +19,8 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class PublicityListAdapter extends CommonAdapter<PublicityItem> {
+
+
     public PublicityListAdapter(Context context, List<PublicityItem> datas, int itemLayoutId) {
         super(context, datas, itemLayoutId);
     }
@@ -40,4 +43,17 @@ public class PublicityListAdapter extends CommonAdapter<PublicityItem> {
         notifyDataSetChanged();
     }
 
+    public void modify(PublicityItem publicityItem) {
+        for (PublicityItem item : mDatas) {
+            if (item.getPubId() == publicityItem.getPubId()) {
+                item.setBatchName(publicityItem.getBatchName());
+                item.setTotalQuantity(publicityItem.getTotalQuantity());
+                item.setStartDate(publicityItem.getStartDate());
+                item.setEndDate(publicityItem.getEndDate());
+                item.setDescriptiton(publicityItem.getDescriptiton());
+                item.setBuildingType(publicityItem.getBuildingType());
+            }
+        }
+        notifyDataSetChanged();
+    }
 }

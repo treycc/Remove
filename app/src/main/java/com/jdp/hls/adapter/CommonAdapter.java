@@ -16,6 +16,7 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public abstract class CommonAdapter<T> extends BaseAdapter {
+    protected  final String TAG = getClass().getSimpleName();
     protected LayoutInflater mInflater;
     protected Context mContext;
     protected List<T> mDatas;

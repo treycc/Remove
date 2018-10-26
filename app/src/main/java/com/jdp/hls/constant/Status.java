@@ -81,6 +81,15 @@ public class Status {
         int LAST = 2;
     }
 
+    public interface AirPhotoFinishType {
+        int TODO = 0;
+        int DONE = 1;
+        int FINISH = 2;
+    }
+ public interface StatisticsType {
+        int AIRPHOTO = 7;
+    }
+
     public interface FileType {
         int BASIC = 0;
         int PERSONAL_CURRENT = 2;

@@ -10,6 +10,8 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
+import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyLicense;
 import com.jdp.hls.model.entiy.Person;
@@ -198,12 +200,14 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
 
     @Override
     public void onAddDeedCompanyLicenseSuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_BUSINESS, Status
+                .BuildingType.COMPANY));
     }
 
     @Override
     public void onModifyDeedCompanyLicenseSuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_BUSINESS, Status
+                .BuildingType.COMPANY));
     }
 
 }

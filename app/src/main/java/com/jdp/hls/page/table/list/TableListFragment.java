@@ -17,7 +17,6 @@ import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
 import java.io.Serializable;
 import java.util.ArrayList;

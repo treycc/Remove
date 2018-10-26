@@ -20,9 +20,11 @@ import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.StatisticsDetail;
 import com.jdp.hls.model.entiy.StatisticsItem;
+import com.jdp.hls.page.airphoto.list.AirphotoListActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.AppUtil;
 import com.jdp.hls.util.SpSir;
@@ -59,7 +61,23 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
     @OnItemClick({R.id.lv_statistics})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         StatisticsItem statisticsItem = (StatisticsItem) adapterView.getItemAtPosition(position);
-        TableListActivity.goActivity(this, String.valueOf(statisticsItem.getStatisItemTypeId()));
+        if (statisticsItem.getStatisType() == Status.StatisticsType.AIRPHOTO) {
+            switch (statisticsItem.getStatisItemTypeId()) {
+                case 22:
+                    AirphotoListActivity.goActivity(this, Status.AirPhotoFinishType.TODO);
+                    break;
+                case 23:
+                    AirphotoListActivity.goActivity(this, Status.AirPhotoFinishType.DONE);
+                    break;
+                case 24:
+                    AirphotoListActivity.goActivity(this, Status.AirPhotoFinishType.FINISH);
+                    break;
+
+            }
+        } else {
+            TableListActivity.goActivity(this, String.valueOf(statisticsItem.getStatisItemTypeId()));
+        }
+
     }
 
     @Override
@@ -111,7 +129,7 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
         chartPie.getDescription().setEnabled(false);//是否显示备注文字
         chartPie.setRotationEnabled(false);//是否可转动
         chartPie.setHighlightPerTapEnabled(false);//是否点击饼图后扩大范围
-        chartPie.setDrawEntryLabels(false);//不显示X轴文字
+        chartPie.setDrawEntryLabels(true);//不显示X轴文字
         //饼图与边界间隔
         chartPie.setExtraOffsets(AppUtil.dp2px(PADDING), AppUtil.dp2px(PADDING), AppUtil.dp2px(PADDING), AppUtil
                 .dp2px(PADDING));

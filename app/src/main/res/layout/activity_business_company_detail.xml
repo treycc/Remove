@@ -83,13 +83,13 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="负责人手机号"/>
+                android:text="联系号码"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:inputType="number"
                 android:id="@+id/et_detail_MobilePhone"
                 style="@style/Content_ET_W2"
-                android:hint="请输入负责手机号"/>
+                android:hint="请输入联系号码"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>

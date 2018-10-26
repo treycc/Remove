@@ -13,6 +13,7 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodePersonalMapping;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
+import com.jdp.hls.util.MathUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
@@ -101,7 +102,8 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
         String totalNotRecordAreaStr = etMappingTotalNotRecordArea.getText().toString().trim();
         double propertyCertTotalArea= TextUtils.isEmpty(propertyCertTotalAreaStr)?0d:Double.valueOf(propertyCertTotalAreaStr);
         double totalNotRecordArea =TextUtils.isEmpty(totalNotRecordAreaStr)?0d:Double.valueOf(totalNotRecordAreaStr);
-        tvMappingTotalArea.setText(String.valueOf(propertyCertTotalArea+totalNotRecordArea));
+//        tvMappingTotalArea.setText(String.valueOf(propertyCertTotalArea+totalNotRecordArea));
+        tvMappingTotalArea.setText(String.valueOf(MathUtil.add(propertyCertTotalArea,totalNotRecordArea)));
     }
 
     @Override

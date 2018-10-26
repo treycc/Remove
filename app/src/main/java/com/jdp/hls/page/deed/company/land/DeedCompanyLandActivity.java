@@ -10,6 +10,7 @@ import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
+import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
@@ -183,11 +184,11 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
 
     @Override
     public void onAddDeedCompanyLandSuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_LAND,Status.BuildingType.COMPANY));
     }
 
     @Override
     public void onModifyDeedCompanyLandSuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_LAND,Status.BuildingType.COMPANY));
     }
 }

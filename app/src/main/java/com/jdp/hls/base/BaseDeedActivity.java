@@ -2,13 +2,17 @@ package com.jdp.hls.base;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 
 import com.jdp.hls.R;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.PreviewRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 
@@ -72,7 +76,7 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
         intent.putExtra(Constants.Extra.BUILDING_ID, buildingId);
         intent.putExtra(Constants.Extra.BUILDING_TYPE, buildingType);
         intent.putExtra(Constants.Extra.ISADD, isAdd);
-        context.startActivityForResult(intent, Integer.valueOf(fileType));
+        context.startActivity(intent);
     }
 
     public void setResult(String certNum) {
@@ -91,5 +95,17 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
     @Override
     public boolean ifRegisterLoadSir() {
         return !mIsAdd;
+    }
+
+    protected void showSaveDeedSuccess(RefreshCertNumEvent refreshCertNumEvent) {
+        EventBus.getDefault().post(refreshCertNumEvent);
+        ToastUtil.showText("保存成功");
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        },100);
+
     }
 }

@@ -1,6 +1,7 @@
 package com.jdp.hls.page.operate.review;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -15,6 +16,7 @@ import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.model.entiy.ReceivePerson;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.dialog.BaseDialog;
 import com.kingja.supershapeview.view.SuperShapeEditText;
@@ -33,11 +35,12 @@ import okhttp3.RequestBody;
  * Email:kingjavip@gmail.com
  */
 public class ReviewDialog extends BaseDialog implements ReviewNodeContract.View {
+
     @Inject
     ReviewNodePresenter reviewNodePresenter;
     private SuperShapeEditText set_dialog_reason;
     private TextView tv_dialog_receiveName;
-    private Spinner spinner_dialog_receivePerson;
+    private AppCompatSpinner spinner_dialog_receivePerson;
     private int targetStatusId = -1;
 
     public ReviewDialog(Context context, String buildingId, String buildingType, String statusId) {
@@ -67,6 +70,7 @@ public class ReviewDialog extends BaseDialog implements ReviewNodeContract.View 
 
     @Override
     public void initNet() {
+        LogUtil.e(TAG, "buildingId:" + buildingId + " buildingType:" + buildingType);
         reviewNodePresenter.getReviewReceiverList(buildingId, buildingType);
     }
 
@@ -83,6 +87,7 @@ public class ReviewDialog extends BaseDialog implements ReviewNodeContract.View 
     @Override
     public RequestBody getRequestBody() {
         String reason = set_dialog_reason.getText().toString().trim();
+        LogUtil.e(TAG, "复查statusId:" + String.valueOf(targetStatusId));
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("buildingId", buildingId)
                 .addFormDataPart("buildingType", buildingType)

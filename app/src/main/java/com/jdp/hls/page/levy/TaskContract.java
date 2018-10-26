@@ -21,5 +21,6 @@ public interface TaskContract {
 
     interface Presenter extends BasePresenter<View> {
         void getTask(String projectId,int buildingType);
+        void refreshTask(String projectId,int buildingType);
     }
 }

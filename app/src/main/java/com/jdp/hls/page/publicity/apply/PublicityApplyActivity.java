@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.AddPublicityEvent;
+import com.jdp.hls.event.AddPublicityEvent;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
@@ -23,7 +23,6 @@ import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SpSir;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.AddableRecyclerView;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
@@ -179,12 +178,10 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
         spinnerBuildingType.attachDataSource(Arrays.asList("个人", "企业"));
         spinnerPublicityType.addOnItemClickListener((parent, view, position, id) -> {
             publicityType = position;
-            ToastUtil.showText("position:" + position);
 
         });
         spinnerBuildingType.addOnItemClickListener((parent, view, position, id) -> {
             buildingType = position;
-            ToastUtil.showText("position:" + position);
         });
     }
 

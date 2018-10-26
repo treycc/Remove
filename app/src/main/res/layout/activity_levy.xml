@@ -1,152 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<com.jdp.hls.view.RefreshSwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/srl"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white_hi"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="6dp"
-            android:background="#7F82D3">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/font_f_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="依法征收，公平公正"/>
-
-                <TextView
-                    style="@style/font_f_10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="改变，是为了更好地生活"/>
-
-                <TextView
-                    style="@style/font_f_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="V1.0功能手册 >"/>
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:background="@mipmap/bg_banner_circle"/>
-
-            <ImageView
-                android:layout_width="96dp"
-                android:layout_height="110dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="24dp"
-                android:background="@mipmap/bg_banner_crane"/>
-
-
-        </RelativeLayout>
-
-        <View style="@style/div_hor_gray"/>
-
-        <com.jdp.hls.view.FixedGridView
-            android:id="@+id/gv_task"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="8dp"
-            android:horizontalSpacing="20dp"
-            android:listSelector="@android:color/transparent"
-            android:numColumns="5"
-            android:scrollbars="none"
-            tools:listitem="@layout/item_task"/>
-
-        <View style="@style/div_hor_gray"/>
+        android:background="@color/white_hi"
+        android:fillViewport="true">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                style="@style/font_3_15"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
                 android:layout_marginLeft="12dp"
-                android:text="业务办理"/>
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="6dp"
+                android:background="#7F82D3">
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/font_f_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="依法征收，公平公正"/>
+
+                    <TextView
+                        style="@style/font_f_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="改变，是为了更好地生活"/>
+
+                    <TextView
+                        style="@style/font_f_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="V1.0功能手册 >"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:background="@mipmap/bg_banner_circle"/>
+
+                <ImageView
+                    android:layout_width="96dp"
+                    android:layout_height="110dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="24dp"
+                    android:background="@mipmap/bg_banner_crane"/>
+
+
+            </RelativeLayout>
+
+            <View style="@style/div_hor_gray"/>
 
             <com.jdp.hls.view.FixedGridView
-                android:id="@+id/gv_businessAction"
+                android:id="@+id/gv_task"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
                 android:layout_marginTop="8dp"
                 android:horizontalSpacing="20dp"
                 android:listSelector="@android:color/transparent"
-                android:numColumns="4"
+                android:numColumns="5"
                 android:scrollbars="none"
-                tools:listitem="@layout/item_business_action"/>
+                tools:listitem="@layout/item_task"/>
+
+            <View style="@style/div_hor_gray"/>
 
 
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray"/>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp">
-
-            <TextView
-                style="@style/font_3_15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:text="业务统计"/>
-
-            <com.jdp.hls.view.FixedGridView
-                android:id="@+id/gv_statisticsAction"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:horizontalSpacing="12dp"
-                android:listSelector="@android:color/transparent"
-                android:numColumns="4"
-                android:scrollbars="none"
-                android:verticalSpacing="8dp"
-                tools:listitem="@layout/item_business_action"/>
-        </LinearLayout>
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:orientation="vertical"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp">
 
-    </LinearLayout>
-</ScrollView>
+                <TextView
+                    style="@style/font_3_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="业务办理"/>
+
+
+                <com.jdp.hls.view.FixedGridView
+                    android:id="@+id/gv_businessAction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:horizontalSpacing="20dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="4"
+                    android:scrollbars="none"
+                    tools:listitem="@layout/item_business_action"/>
+
+
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:orientation="vertical"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp">
+
+                <TextView
+                    style="@style/font_3_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="业务统计"/>
+
+                <com.jdp.hls.view.FixedGridView
+                    android:id="@+id/gv_statisticsAction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:horizontalSpacing="12dp"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="4"
+                    android:scrollbars="none"
+                    android:verticalSpacing="8dp"
+                    tools:listitem="@layout/item_business_action"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</com.jdp.hls.view.RefreshSwipeRefreshLayout>

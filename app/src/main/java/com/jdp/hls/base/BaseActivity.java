@@ -12,6 +12,7 @@ import com.jdp.hls.injector.module.AppModule;
 import com.jdp.hls.rx.RxRe;
 import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.DialogUtil;
+import com.jdp.hls.view.dialog.ConfirmDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -118,7 +119,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     public void showSuccessAndFinish(String tip) {
-        DialogUtil.showQuitDialog(this, tip);
+//        DialogUtil.showQuitDialog(this, tip);
+        DialogUtil.createSingleDialog(this, tip, new ConfirmDialog.OnConfirmListener() {
+            @Override
+            public void onConfirm() {
+                finish();
+            }
+        });
     }
 
     @Override

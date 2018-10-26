@@ -29,6 +29,7 @@ import com.jdp.hls.model.entiy.ModifyAirPhotoEvent;
 import com.jdp.hls.model.entiy.UnRecordBuilding;
 import com.jdp.hls.page.airphoto.unrecordbuilding.UnrecordBuildingListActivity;
 import com.jdp.hls.util.CheckUtil;
+import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.MatisseUtil;
@@ -37,6 +38,7 @@ import com.jdp.hls.view.AddableRecyclerView;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.StringTextView;
+import com.jdp.hls.view.dialog.ConfirmDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -174,25 +176,6 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
 //        initCheckTypes();
     }
 
-    private void initCheckTypes() {
-        String[] currentCheckTypes = Arrays.copyOf(checkTypes, checkType + 1);
-        spinnerCheckType.attachDataSource(Arrays.asList(currentCheckTypes));
-        spinnerCheckType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                airPhotoDetailPresenter.getAirPhotoDetail(airCheckId, String.valueOf(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        if (checkType == 0) {
-            spinnerCheckType.enable(false);
-        }
-    }
-
     @Override
     protected boolean ifHideTitle() {
         return true;
@@ -297,11 +280,18 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         if (showSend) {
             llAirphotoSend.setOnClickListener(v -> {
                 if (allowEditAppraise) {
-                    ageSend = true;
-                    airPhotoDetailPresenter.updateAgePhotos(getAgeBody().addFormDataPart("IsSend", "true").build());
+                    DialogUtil.createDoubleDialog(AirPhotoDetailActivity.this, "是否确定发送", () -> {
+                        ageSend = true;
+                        airPhotoDetailPresenter.updateAgePhotos(getAgeBody().addFormDataPart("IsSend", "true")
+                                .build());
+                    });
+
                 } else {
                     if (checkDataValidable()) {
-                        airPhotoDetailPresenter.sendAirPhoto(getSaveBody().addFormDataPart("IsSend", "true").build());
+                        DialogUtil.createDoubleDialog(AirPhotoDetailActivity.this, "是否确定发送", () ->
+                                airPhotoDetailPresenter.sendAirPhoto(getSaveBody().addFormDataPart("IsSend", "true")
+                                        .build()));
+
                     }
 
                 }
@@ -310,14 +300,18 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
         if (showCheck) {
             llAirphotoReview.setOnClickListener(v -> {
                 if (checkDataValidable()) {
-                    airPhotoDetailPresenter.reviewAirPhoto(getSaveBody().build());
+                    DialogUtil.createDoubleDialog(AirPhotoDetailActivity.this, "是否确定发起", () ->
+                            airPhotoDetailPresenter.reviewAirPhoto(getSaveBody().build()));
+
                 }
 
             });
         }
         if (showFinish) {
             llAirphotoFinish.setOnClickListener(v -> {
-                airPhotoDetailPresenter.finishAirPhoto(getAirProIdBody());
+                DialogUtil.createDoubleDialog(AirPhotoDetailActivity.this, "是否确定完结", () -> airPhotoDetailPresenter
+                        .finishAirPhoto(getAirProIdBody()));
+
             });
         }
     }
@@ -395,7 +389,6 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
             postEvent();
         }
         showSuccessAndFinish("操作成功");
-
     }
 
     private void postEvent() {

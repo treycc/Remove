@@ -34,7 +34,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <!--.page.login.LoginActivity-->
         <activity
-            android:name=".page.login.LoginActivity"
+            android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -43,9 +43,9 @@
             </intent-filter>
         </activity>
         <!--登录页-->
-        <!--    <activity
+            <activity
                 android:name=".page.login.LoginActivity"
-                android:screenOrientation="portrait"/>-->
+                android:screenOrientation="portrait"/>
         <!--项目列表-->
         <activity
             android:name=".page.projects.ProjectListActivity"
@@ -200,7 +200,8 @@
         <!--个人业务详情-->
         <activity
             android:name=".page.business.detail.personal.DetailPersonalActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <!--家庭关系-->
         <activity
             android:name=".page.familyrelation.list.FamilyRelationActivity"
@@ -322,12 +323,26 @@
             android:name=".page.airphoto.add.AirPhotoApplyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".page.airphoto.unrecordbuilding.UnrecordBuildingListActivity"/>
-        <activity android:name=".activity.UnrecordBuildingDetailActivity"/>
-        <activity android:name=".page.familyrelation.detail.FamilyMememberDetailActivity"/>
-        <activity android:name=".page.innerdecoration.list.DecorationListActivity"/>
-        <activity android:name=".page.innerdecoration.detail.DecorationDetailActivity"/>
-        <activity android:name=".base.BaseBasicActivity"/>
+        <activity
+            android:name=".page.airphoto.unrecordbuilding.UnrecordBuildingListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.UnrecordBuildingDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".page.familyrelation.detail.FamilyMememberDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".page.innerdecoration.list.DecorationListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".page.innerdecoration.detail.DecorationDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--<activity-->
+            <!--android:name=".activity.SplashActivity"-->
+            <!--android:screenOrientation="portrait"/>-->
+
 
 
         <service android:name=".service.initialize.InitializeService"/>

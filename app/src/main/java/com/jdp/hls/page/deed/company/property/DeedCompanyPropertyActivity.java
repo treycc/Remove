@@ -13,6 +13,7 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
+import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyProperty;
@@ -183,12 +184,12 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
 
     @Override
     public void onAddDeedCompanyPropertySuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_PROPERTY,Status.BuildingType.COMPANY));
     }
 
     @Override
     public void onModifyDeedCompanyPropertySuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_PROPERTY,Status.BuildingType.COMPANY));
 
     }
 

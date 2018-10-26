@@ -11,6 +11,7 @@ import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.AddRostersEvent;
+import com.jdp.hls.event.ModifyBusinessEvent;
 import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.event.RefreshTaskEvent;
 import com.jdp.hls.i.OnBusinessItemSelectedListener;
@@ -113,6 +114,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
         businessPresenter.attachView(this);
         adapter = new BusinessAdapter(getActivity(), business,checkable);
         plv.setAdapter(adapter);
+        checkListSize(business);
     }
 
     @Override
@@ -144,8 +146,18 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     }
 
     public void refreshData(List<Business> businesses) {
-        adapter.setData(businesses);
+        checkListSize(businesses);
     }
+
+    private void checkListSize(List<Business> businesses) {
+        if (businesses != null && businesses.size() > 0) {
+            showSuccessCallback();
+            adapter.setData(businesses);
+        }else{
+            showEmptyCallback();
+        }
+    }
+
     public void checkAll(boolean checked) {
         adapter.checkAll(checked);
     }
@@ -166,28 +178,25 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 //        businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(), buildingType, taskType);
     }
 
+
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void refreshTask(RefreshTaskEvent event) {
+////        待办 = 1,退回 = 2,废弃= 3,已办 = 4,完结= 5
+//        if (taskType == 1 || taskType == 4) {
+//            businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(), buildingType, taskType);
+//        }
+//    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshRosters(AddRostersEvent event) {
-        int enterprise = event.getRoster().isEnterprise() ? 1 : 0;
-        if (enterprise == buildingType) {
-//            adapter.addData(event.getRoster());
+    public void modifyBusinessEvent(ModifyBusinessEvent event) {
+        if (event.getBuildingType()==buildingType) {
+            adapter.modify(event);
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void modifyRosters(ModifyRostersEvent event) {
-        int enterprise = event.getRoster().isEnterprise() ? 1 : 0;
-        LogUtil.e(TAG, "enterprise:" + enterprise + " buildingType:" + buildingType);
-        if (enterprise == buildingType) {
-//            adapter.modifyData(event.getRoster());
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshTask(RefreshTaskEvent event) {
-//        待办 = 1,退回 = 2,废弃= 3,已办 = 4,完结= 5
-        if (taskType == 1 || taskType == 4) {
-            businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(), buildingType, taskType);
-        }
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }

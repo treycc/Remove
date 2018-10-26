@@ -4,6 +4,7 @@ package com.jdp.hls.page.publicity.detail;
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.PublicityDetail;
+import com.jdp.hls.model.entiy.PublicityItem;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -18,7 +19,7 @@ public interface PublicityDetailContract {
     interface View extends BaseView {
         void onGetPublicityDetailSuccess(PublicityDetail publicityDetail);
 
-        void onModifyPublicitySuccess();
+        void onModifyPublicitySuccess(PublicityItem publicityItem);
     }
 
     interface Presenter extends BasePresenter<View> {

@@ -12,6 +12,7 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
+import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
@@ -219,11 +220,11 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
 
     @Override
     public void onAddDeedCompanyImmovableSuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_IMMOVABLE,Status.BuildingType.COMPANY));
     }
 
     @Override
     public void onModifyDeedCompanyImmovableSuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_IMMOVABLE,Status.BuildingType.COMPANY));
     }
 }

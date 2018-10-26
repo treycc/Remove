@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
                     android:layout_weight="1"
-                    android:hint="请输入名称或者导入现有数据"
+                    android:hint="请输入姓名或选择已有数据"
                     android:paddingBottom="4dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
@@ -209,7 +209,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="手机号"/>
+                android:text="联系号码"/>
 
 
             <com.kingja.supershapeview.view.SuperShapeEditText
@@ -218,7 +218,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.5"
-                android:hint="请输入手机号"
+                android:hint="请输入联系号码"
                 android:inputType="number"
                 android:paddingBottom="4dp"
                 android:paddingLeft="12dp"

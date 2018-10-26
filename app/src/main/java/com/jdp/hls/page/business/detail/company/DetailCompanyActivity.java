@@ -16,6 +16,8 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
+import com.jdp.hls.event.ModifyBusinessEvent;
+import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailCompany;
@@ -28,6 +30,10 @@ import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
@@ -93,6 +99,10 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     private double latitude;
     private LngLatFragment lngLatFragment;
     private boolean allowEdit;
+    private String realName;
+    private String mobile;
+    private String address;
+    private String cusCode;
 
     @Override
     public void initVariable() {
@@ -150,11 +160,12 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
 
     @Override
     protected String getContentTitle() {
-        return "高二路";
+        return "";
     }
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         detailCompanyPresenter.attachView(this);
     }
 
@@ -180,6 +191,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
 
     @Override
     public void onGetCompanyDetailSuccess(DetailCompany detailCompany) {
+        setContentTitle(detailCompany.getAddress());
         estateCertNum = detailCompany.getEstateCertNum();
         licenseNo = detailCompany.getLicenseNo();
         landCertNum = detailCompany.getLandCertNum();
@@ -189,7 +201,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         etDetailEnterpriseName.setText(detailCompany.getEnterpriseName());
         etDetailAddress.setText(detailCompany.getAddress());
         etDetailRealName.setText(detailCompany.getRealName());
-        etDetailMobilePhone.setText(detailCompany.getMobilePhone());
+        etDetailMobilePhone.setText(detailCompany.getMobilePhone().trim());
         etDetailBizInfo.setText(detailCompany.getBizInfo());
         etDetailRentInfo.setText(detailCompany.getRentInfo());
         etDetailRemark.setText(detailCompany.getRemark());
@@ -227,11 +239,11 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     }
 
     private void saveData() {
-        String cusCode = etDetailCusCode.getText().toString().trim();
+        cusCode = etDetailCusCode.getText().toString().trim();
+        address = etDetailAddress.getText().toString().trim();
+        mobile = etDetailMobilePhone.getText().toString().trim();
+        realName = etDetailRealName.getText().toString().trim();
         String enterpriseName = etDetailEnterpriseName.getText().toString().trim();
-        String address = etDetailAddress.getText().toString().trim();
-        String mobile = etDetailMobilePhone.getText().toString().trim();
-        String realName = etDetailRealName.getText().toString().trim();
         String remark = etDetailRemark.getText().toString().trim();
         String rentInfo = etDetailRentInfo.getText().toString().trim();
         String bizInfo = etDetailBizInfo.getText().toString().trim();
@@ -263,6 +275,14 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
 
     @Override
     public void onModifyCompanyDetailSuccess() {
+        ModifyBusinessEvent businessEvent = new ModifyBusinessEvent();
+        businessEvent.setBuildingType(Status.BuildingType.COMPANY);
+        businessEvent.setAddress(address);
+        businessEvent.setCusCode(cusCode);
+        businessEvent.setMobile(mobile);
+        businessEvent.setRealName(realName);
+        businessEvent.setBuildingId(buildingId);
+        EventBus.getDefault().post(businessEvent);
         showSuccessAndFinish("保存成功");
     }
 
@@ -281,21 +301,33 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                     latitude = data.getDoubleExtra("lat", -1);
                     initLngLat(longitude, latitude);
                     break;
+                default:
+                    break;
+            }
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshDeedEvent(RefreshCertNumEvent event) {
+        if (event.getBuildType() == Status.BuildingType.COMPANY) {
+            switch (event.getCertType()) {
                 case Status.FileType.COMPANY_DEED_PROPERTY:
-                    tvDetailPropertyDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
+                    tvDetailPropertyDeed.setText(event.getCertNum());
                     break;
                 case Status.FileType.COMPANY_DEED_LAND:
-                    tvDetailLandDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
+                    tvDetailLandDeed.setText(event.getCertNum());
                     break;
                 case Status.FileType.COMPANY_DEED_IMMOVABLE:
-                    tvDetailImmovableDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
+                    tvDetailImmovableDeed.setText(event.getCertNum());
                     break;
                 case Status.FileType.COMPANY_DEED_BUSINESS:
-                    tvDetailBusinessDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
+                    tvDetailBusinessDeed.setText(event.getCertNum());
                     break;
                 default:
                     break;
             }
         }
+
     }
 }

@@ -19,6 +19,34 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_msgRoot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_msgTitle"
+                    style="@style/Title_Main"
+                    android:text="标题"/>
+
+                <TextView
+                    android:background="@color/white_hi"
+                    android:id="@+id/tv_msgContent"
+                    style="@style/font_9_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="12dp"
+                    android:text="理由"/>
+
+
+            </LinearLayout>
+
+
             <TextView
                 style="@style/Title_Main"
                 android:text="基本信息"/>
@@ -105,5 +133,6 @@
 
 
     </ScrollView>
+
     <include layout="@layout/layout_operate_button"/>
 </LinearLayout>

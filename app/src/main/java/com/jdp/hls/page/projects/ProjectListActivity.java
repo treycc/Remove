@@ -46,16 +46,14 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     private List<Project> projects = new ArrayList<>();
     private CommonAdapter adapter;
     private boolean isFromLocal;
-
     @Inject
     ProjectsPresenter projectsPresenter;
-
 
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Project project = (Project) adapterView.getItemAtPosition(position);
-        LogUtil.e(TAG,"ProjectId:"+project.getProjectId());
+        LogUtil.e(TAG, "ProjectId:" + project.getProjectId());
         if (isFromLocal) {
             SpSir.getInstance().setProjectId(project.getProjectId());
             SpSir.getInstance().setProjectName(project.getProjectName());
@@ -65,8 +63,8 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
             SpSir.getInstance().setProjectName(project.getProjectName());
             EventBus.getDefault().post(new RefreshRostersEvent());
             Intent intent = new Intent();
-            intent.putExtra("projectName",project.getProjectName());
-            setResult(Activity.RESULT_OK,intent);
+            intent.putExtra("projectName", project.getProjectName());
+            setResult(Activity.RESULT_OK, intent);
             finish();
         }
     }
@@ -136,7 +134,6 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
         activity.startActivity(intent);
         activity.finish();
     }
-
 
 
     @Override

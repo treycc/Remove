@@ -2,8 +2,11 @@ package com.jdp.hls.page.business.basic.personla;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,6 +17,7 @@ import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
+import com.jdp.hls.event.ModifyBusinessEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.FlowNode;
@@ -27,12 +31,17 @@ import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
 import com.jdp.hls.page.operate.OperateNodeContract;
 import com.jdp.hls.page.operate.OperateNodePresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import okhttp3.RequestBody;
@@ -55,6 +64,12 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
     TextView tvBasicName;
     @BindView(R.id.tv_basic_address)
     TextView tvBasicAddress;
+    @BindView(R.id.tv_msgTitle)
+    TextView tvMsgTitle;
+    @BindView(R.id.tv_msgContent)
+    TextView tvMsgContent;
+    @BindView(R.id.ll_msgRoot)
+    LinearLayout llMsgRoot;
 
     private List<FlowNode> flowNodes = new ArrayList<>();
     @Inject
@@ -76,19 +91,15 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
                 goNodeActivity(NodePersonalMeasureActivity.class, Status.FileType.NODE_MEASURE);
                 break;
             case Constants.BusinessNode.MAPPING:
-//                NodePersonalMappingActivity.goActivity(this, NodePersonalMappingActivity.class, buildingId);
                 goNodeActivity(NodePersonalMappingActivity.class, Status.FileType.NODE_MAPPING);
                 break;
             case Constants.BusinessNode.AGE:
-//                NodePersonalAgeActivity.goActivity(this, NodePersonalAgeActivity.class, buildingId);
                 goNodeActivity(NodePersonalAgeActivity.class, Status.FileType.NODE_AGE);
                 break;
             case Constants.BusinessNode.EVALUATE:
-//                NodePersonalEvaluateActivity.goActivity(this, NodePersonalEvaluateActivity.class, buildingId);
                 goNodeActivity(NodePersonalEvaluateActivity.class, Status.FileType.NODE_EVALUATE);
                 break;
             case Constants.BusinessNode.PROTOCOL:
-//                NodePersonalProtocolActivity.goActivity(this, NodePersonalProtocolActivity.class, buildingId);
                 goNodeActivity(NodePersonalProtocolActivity.class, Status.FileType.NODE_PROTOCOL);
                 break;
         }
@@ -128,11 +139,12 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
 
     @Override
     protected String getContentTitle() {
-        return "高二路";
+        return "";
     }
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         basicPersonalPresenter.attachView(this);
         operateNodePresenter.attachView(this);
         flowNodeAdapter = new FlowNodeAdapter(this, flowNodes, R.layout.item_business_node);
@@ -179,12 +191,19 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         tvBasicSyscode.setText(baiscPersonal.getSysCode());
         tvBasicName.setText(baiscPersonal.getRealName());
         tvBasicAddress.setText(baiscPersonal.getAddress());
+
+        if (!TextUtils.isEmpty(baiscPersonal.getMsgTitle())) {
+            llMsgRoot.setVisibility(View.VISIBLE);
+            tvMsgTitle.setText(baiscPersonal.getMsgTitle());
+            tvMsgContent.setText(baiscPersonal.getMsgContent());
+        }
+        setContentTitle(baiscPersonal.getAddress());
         List<FlowNode> flowNodes = baiscPersonal.getFlowNodes();
         if (flowNodes != null && flowNodes.size() > 0) {
             flowNodeAdapter.setData(flowNodes);
         }
         setSingleAuth(baiscPersonal.getAuth(), baiscPersonal.getHouseId(), String.valueOf(Status.BuildingType.PERSONAL),
-                String.valueOf(baiscPersonal.getStatusId()),String.valueOf(baiscPersonal.getGroupId()));
+                String.valueOf(baiscPersonal.getStatusId()), String.valueOf(baiscPersonal.getGroupId()));
     }
 
 
@@ -195,21 +214,36 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
 
     @Override
     public void onDeleteNodeSuccess(String buildingIds) {
-        onOperateSuccess("废弃成功",buildingIds);
+        onOperateSuccess("废弃成功", buildingIds);
     }
 
     @Override
     public void onSendNodeSuccess(String buildingIds) {
-        onOperateSuccess("发送成功",buildingIds);
+        onOperateSuccess("发送成功", buildingIds);
     }
 
     @Override
     public void onReviewNodeSuccess(String buildingIds) {
-        onOperateSuccess("复查成功",buildingIds);
+        onOperateSuccess("复查成功", buildingIds);
     }
 
     @Override
     public void onBackNodeSuccess(String buildingIds) {
-        onOperateSuccess("退回成功",buildingIds);
+        onOperateSuccess("退回成功", buildingIds);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modifyBusinessEvent(ModifyBusinessEvent event) {
+        if (event.getBuildingType() == Status.BuildingType.PERSONAL) {
+            tvBasicName.setText(event.getRealName());
+            tvBasicAddress.setText(event.getAddress());
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

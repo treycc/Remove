@@ -11,6 +11,8 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
+import com.jdp.hls.event.RefreshBusinessListEvent;
+import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedPersonalLand;
@@ -22,6 +24,8 @@ import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.PreviewRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -187,11 +191,13 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
 
     @Override
     public void onAddDeedPersonalLandSuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum,Status.FileType.PERSONAL_DEED_LAND,Status.BuildingType.PERSONAL));
     }
 
     @Override
     public void onModifyDeedPersonalLandSuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum,Status.FileType.PERSONAL_DEED_LAND,Status.BuildingType.PERSONAL));
     }
+
+
 }

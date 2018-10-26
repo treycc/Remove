@@ -8,14 +8,16 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.AddPublicityEvent;
+import com.jdp.hls.event.AddPublicityEvent;
 import com.jdp.hls.adapter.PublicityListAdapter;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.ModifyPublicityEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.page.publicity.detail.PublicityDetailActivity;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
@@ -150,6 +152,14 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
         if (publicityItem != null && publicityType == publicityItem.getPubType()) {
             showSuccessCallback();
             adapter.addFirst(publicityItem);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modifyPublicityEvent(ModifyPublicityEvent event) {
+        PublicityItem publicityItem = event.getPublicityItem();
+        if (publicityItem != null && publicityType == publicityItem.getPubType()) {
+            adapter.modify(publicityItem);
         }
     }
 }

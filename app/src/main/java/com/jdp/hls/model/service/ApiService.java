@@ -200,7 +200,7 @@ public interface ApiService {
 
     /*修改公示*/
     @POST("api/Publicity/UpdatePublicity")
-    Observable<HttpResult<Object>> modifyPublicity(@Body RequestBody rosterBody);
+    Observable<HttpResult<PublicityItem>> modifyPublicity(@Body RequestBody rosterBody);
 
     /*获取公示对象列表*/
     @GET("api/publicity/GetNeedPublicityBuildingList")

@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.constant.Status;
+import com.jdp.hls.event.ModifyBusinessEvent;
 import com.jdp.hls.i.OnBusinessItemSelectedListener;
 import com.jdp.hls.i.OnBusinessSelectedListener;
 import com.jdp.hls.model.entiy.Business;
@@ -52,10 +54,11 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
             list.get(position).setSelected(isChecked);
             if (isChecked) {
                 onBusinessSelectedListener.onBusinessAdd(list.get(position));
-            }else{
+            } else {
                 onBusinessSelectedListener.onBusinessRemove(list.get(position));
             }
         });
+        viewHolder.tv_business_nameTip.setText(list.get(position).getBuildingType()== Status.BuildingType.PERSONAL?"户主":"负责人");
         viewHolder.cb_business.setVisibility(checkable ? View.VISIBLE : View.GONE);
         viewHolder.cb_business.setChecked(list.get(position).isSelected());
         viewHolder.tv_business_address.setText(list.get(position).getAddress());
@@ -75,36 +78,28 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
             business.setSelected(checked);
             if (checked) {
                 onBusinessSelectedListener.onBusinessAdd(business);
-            }else{
+            } else {
                 onBusinessSelectedListener.onBusinessRemove(business);
             }
         }
         notifyDataSetChanged();
     }
 
-//    public void remove(int position) {
-//        list.remove(position);
-//        notifyDataSetChanged();
-//    }
-//
-//    public void addFirst(OtherArea otherArea) {
-//        list.add(0, otherArea);
-//        notifyDataSetChanged();
-//    }
-//
-//    public void modify(OtherArea otherArea) {
-//        for (OtherArea area : list) {
-//            if (area.getId() == otherArea.getId()) {
-//                area.setArea(otherArea.getArea());
-//                area.setName(otherArea.getName());
-//                area.setPrice(otherArea.getPrice());
-//            }
-//        }
-//        notifyDataSetChanged();
-//    }
+    public void modify(ModifyBusinessEvent event) {
+        for (Business business : list) {
+            if (business.getBuildingId().equals(event.getBuildingId())) {
+                business.setRealName(event.getRealName());
+                business.setAddress(event.getAddress());
+                business.setMobilePhone(event.getMobile());
+                business.setCusCode(event.getCusCode());
+            }
+        }
+        notifyDataSetChanged();
+    }
 
     public class ViewHolder {
         public final View root;
+        public TextView tv_business_nameTip;
         public TextView tv_business_address;
         public TextView tv_business_number;
         public TextView tv_business_name;
@@ -116,6 +111,7 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
 
         public ViewHolder(View root) {
             this.root = root;
+            tv_business_nameTip = root.findViewById(R.id.tv_business_nameTip);
             tv_business_address = root.findViewById(R.id.tv_business_address);
             tv_business_number = root.findViewById(R.id.tv_business_number);
             tv_business_name = root.findViewById(R.id.tv_business_name);

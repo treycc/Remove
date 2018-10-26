@@ -2,7 +2,6 @@ package com.jdp.hls.page.rosteradd;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jdp.hls.R;
 import com.jdp.hls.activity.BigImgActivity;
 import com.jdp.hls.activity.LocationActivity;
@@ -42,6 +39,7 @@ import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.RequiredTextView;
 import com.jdp.hls.view.RvItemDecoration;
+import com.jdp.hls.view.dialog.ConfirmDialog;
 import com.kingja.supershapeview.view.SuperShapeEditText;
 import com.kingja.supershapeview.view.SuperShapeTextView;
 import com.zhihu.matisse.Matisse;
@@ -229,8 +227,6 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
         if (CheckUtil.checkEmpty(address, "请输入地址")
                 && checkCompanyName(companyName)
                 && CheckUtil.checkEmpty(name, "请输入户主姓名")
-                && CheckUtil.checkPhoneFormatAllowEmpty(phone)
-                && CheckUtil.checkIdCardAllowEmpty(idcard)
                 && CheckUtil.checkLngLat(lng, lat)) {
             MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("isEnterprise", String.valueOf(isEnterprise))
@@ -336,17 +332,29 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     public void onAddRosterSuccess(String houseId) {
         EventBus.getDefault().post(new RefreshRostersEvent());
         EventBus.getDefault().post(getRefreshRostersEvent(houseId));
-        DialogUtil.showDoubleDialog(this, "花名册添加成功，是否继续添加", new MaterialDialog.SingleButtonCallback() {
+//        DialogUtil.showDoubleDialog(this, "花名册添加成功，是否继续添加", new MaterialDialog.SingleButtonCallback() {
+//            @Override
+//            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//
+//            }
+//        }, new MaterialDialog.SingleButtonCallback() {
+//            @Override
+//            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                clearData();
+//            }
+//        });
+        DialogUtil.createDoubleDialog(this, "花名册添加成功，是否继续添加", "继续添加", "返回列表", new ConfirmDialog.OnConfirmListener() {
             @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                RosterAddActivity.this.finish();
-            }
-        }, new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+            public void onConfirm() {
                 clearData();
             }
+        }, new ConfirmDialog.OnCancelListener() {
+            @Override
+            public void onCancel() {
+                RosterAddActivity.this.finish();
+            }
         });
+
     }
 
     private AddRostersEvent getRefreshRostersEvent(String houseId) {

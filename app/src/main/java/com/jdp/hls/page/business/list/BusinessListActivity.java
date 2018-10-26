@@ -150,7 +150,7 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
 
     private void doSearch(String keyword) {
         this.keyword = keyword;
-        if (businesses == null && businesses.size() == 0) {
+        if (businesses == null || businesses.size() == 0) {
             ToastUtil.showText("暂无信息");
             return;
         }
@@ -161,7 +161,7 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
         List<Business> selectBusiness = new ArrayList<>();
         for (Business roster : businesses) {
             if (roster.getRealName().contains(keyword) || roster.getAddress().contains(keyword) || roster
-                    .getMobilePhone().contains(keyword)) {
+                    .getMobilePhone().contains(keyword)|| roster.getCusCode().contains(keyword)) {
                 selectBusiness.add(roster);
             }
         }

@@ -99,11 +99,9 @@ public class TableListActivity extends BaseTitleActivity implements TableListCon
         } else {
             showEmptyCallback();
         }
-
     }
 
     private void fillData(List<Table> tables) {
-
         personalTables.clear();
         companyTables.clear();
         for (Table table : tables) {

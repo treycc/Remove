@@ -1,5 +1,7 @@
 package com.jdp.hls.page.airphoto.list;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
@@ -13,6 +15,7 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.airphoto.building.AirPhotoBuildingActivity;
+import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SimpleTextWatcher;
@@ -44,6 +47,7 @@ public class AirphotoListActivity extends BaseTitleActivity {
     private int[] tabIcons = {R.drawable.selector_tab_airphoto_todo, R.drawable.selector_tab_airphoto_done, R
             .drawable.selector_tab_airphoto_finish};
     private AirPhotoListFragment mFragmentArr[] = new AirPhotoListFragment[3];
+    private int airPhotoType;
 
 
     @OnClick({R.id.iv_clear})
@@ -57,6 +61,7 @@ public class AirphotoListActivity extends BaseTitleActivity {
 
     @Override
     public void initVariable() {
+        airPhotoType = getIntent().getIntExtra(Constants.Extra.AIRPHOTO_TYPE, 0);
 
     }
 
@@ -92,6 +97,7 @@ public class AirphotoListActivity extends BaseTitleActivity {
             TabLayout.Tab tab = tabAirphoto.getTabAt(i);
             tab.setCustomView(normalPageAdapter.getTabView(i));
         }
+        vpAirphoto.setCurrentItem(airPhotoType);
     }
 
     @Override
@@ -124,6 +130,12 @@ public class AirphotoListActivity extends BaseTitleActivity {
     @Override
     protected void initNet() {
 
+    }
+
+    public static void goActivity(Context context, int airPhotoType) {
+        Intent intent = new Intent(context, AirphotoListActivity.class);
+        intent.putExtra(Constants.Extra.AIRPHOTO_TYPE, airPhotoType);
+        context.startActivity(intent);
     }
 
 }

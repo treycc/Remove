@@ -1,4 +1,4 @@
-package com.jdp.hls.adapter;
+package com.jdp.hls.event;
 
 import com.jdp.hls.model.entiy.PublicityItem;
 
@@ -8,10 +8,10 @@ import com.jdp.hls.model.entiy.PublicityItem;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class AddPublicityEvent {
+public class ModifyPublicityEvent {
     private PublicityItem publicityItem;
 
-    public AddPublicityEvent(PublicityItem publicityItem) {
+    public ModifyPublicityEvent(PublicityItem publicityItem) {
         this.publicityItem = publicityItem;
     }
 

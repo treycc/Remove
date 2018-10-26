@@ -16,9 +16,27 @@ public class BaiscPersonal {
     private String StatusDesc;
     private String GroupId;
     private String CusCode;
+    private String MsgTitle;
+    private String MsgContent;
     private int StatusId;
     private List<FlowNode> FlowNodes;
     private Auth Auth;
+
+    public String getMsgTitle() {
+        return MsgTitle;
+    }
+
+    public void setMsgTitle(String msgTitle) {
+        MsgTitle = msgTitle;
+    }
+
+    public String getMsgContent() {
+        return MsgContent;
+    }
+
+    public void setMsgContent(String msgContent) {
+        MsgContent = msgContent;
+    }
 
     public String getCusCode() {
         return CusCode;

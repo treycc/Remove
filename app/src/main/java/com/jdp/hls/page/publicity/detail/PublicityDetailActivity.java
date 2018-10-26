@@ -12,9 +12,11 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
+import com.jdp.hls.event.ModifyPublicityEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.PublicityDetail;
+import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.MatisseUtil;
@@ -23,6 +25,8 @@ import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.AddableRecyclerView;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.List;
@@ -166,12 +170,13 @@ public class PublicityDetailActivity extends BaseTitleActivity implements Public
     }
 
     @Override
-    public void onModifyPublicitySuccess() {
-        Intent intent = new Intent();
-        intent.putExtra(Constants.Extra.PUBLICITY_DES, des);
-        intent.putExtra(Constants.Extra.BATCH_NAME, batchName);
-        intent.putExtra(Constants.Extra.POSITION, position);
-        setResult(Activity.RESULT_OK, intent);
+    public void onModifyPublicitySuccess(PublicityItem publicityItem) {
+//        Intent intent = new Intent();
+//        intent.putExtra(Constants.Extra.PUBLICITY_DES, des);
+//        intent.putExtra(Constants.Extra.BATCH_NAME, batchName);
+//        intent.putExtra(Constants.Extra.POSITION, position);
+//        setResult(Activity.RESULT_OK, intent);
+        EventBus.getDefault().post(new ModifyPublicityEvent(publicityItem));
         showSuccessAndFinish();
     }
 

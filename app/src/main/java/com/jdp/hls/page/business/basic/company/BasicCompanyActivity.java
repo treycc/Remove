@@ -2,8 +2,11 @@ package com.jdp.hls.page.business.basic.company;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,6 +17,7 @@ import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
+import com.jdp.hls.event.ModifyBusinessEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BasicCompany;
 import com.jdp.hls.model.entiy.FlowNode;
@@ -27,12 +31,17 @@ import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
 import com.jdp.hls.page.operate.OperateNodeContract;
 import com.jdp.hls.page.operate.OperateNodePresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import okhttp3.RequestBody;
@@ -55,6 +64,12 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
     TextView tvBasicName;
     @BindView(R.id.tv_basic_address)
     TextView tvBasicAddress;
+    @BindView(R.id.tv_msgTitle)
+    TextView tvMsgTitle;
+    @BindView(R.id.tv_msgContent)
+    TextView tvMsgContent;
+    @BindView(R.id.ll_msgRoot)
+    LinearLayout llMsgRoot;
     private List<FlowNode> flowNodes = new ArrayList<>();
     @Inject
     BasicCompanyPresenter basicCompanyPresenter;
@@ -127,11 +142,12 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
 
     @Override
     protected String getContentTitle() {
-        return "高二路";
+        return "";
     }
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         basicCompanyPresenter.attachView(this);
         operateNodePresenter.attachView(this);
         flowNodeAdapter = new FlowNodeAdapter(this, flowNodes, R.layout.item_business_node);
@@ -178,6 +194,12 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
         tvBasicSyscode.setText(basicCompany.getSysCode());
         tvBasicName.setText(basicCompany.getEnterpriseName());
         tvBasicAddress.setText(basicCompany.getAddress());
+        if (!TextUtils.isEmpty(basicCompany.getMsgTitle())) {
+            llMsgRoot.setVisibility(View.VISIBLE);
+            tvMsgTitle.setText(basicCompany.getMsgTitle());
+            tvMsgContent.setText(basicCompany.getMsgContent());
+        }
+        setContentTitle(basicCompany.getAddress());
         List<FlowNode> flowNodes = basicCompany.getFlowNodes();
         if (flowNodes != null && flowNodes.size() > 0) {
             flowNodeAdapter.setData(flowNodes);
@@ -209,5 +231,20 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
     @Override
     public void onBackNodeSuccess(String buildingIds) {
         showSuccessAndFinish("退回成功");
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modifyBusinessEvent(ModifyBusinessEvent event) {
+        if (event.getBuildingType() == Status.BuildingType.COMPANY) {
+            tvBasicName.setText(event.getRealName());
+            tvBasicAddress.setText(event.getAddress());
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

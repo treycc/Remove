@@ -1,5 +1,6 @@
 package com.jdp.hls.page.levy;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.GridView;
 
 import com.jdp.hls.R;
@@ -22,6 +23,7 @@ import com.jdp.hls.page.statistics.StatisticsActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
+import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,8 +35,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import io.reactivex.Observable;
-import io.reactivex.functions.Predicate;
 
 /**
  * Description:TODO
@@ -42,7 +42,7 @@ import io.reactivex.functions.Predicate;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class LevyActivity extends BaseTitleActivity implements TaskContract.View {
+public class LevyActivity extends BaseTitleActivity implements TaskContract.View, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.gv_task)
     GridView gvTask;
     @Inject
@@ -51,6 +51,8 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
     GridView gvBusinessAction;
     @BindView(R.id.gv_statisticsAction)
     GridView gvStatisticsAction;
+    @BindView(R.id.srl)
+    RefreshSwipeRefreshLayout srl;
     private CommonAdapter taskAdapter;
     private CommonPositionAdapter businessActionAdapter;
     private CommonPositionAdapter statisticsActionAdapter;
@@ -96,6 +98,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
 
     @Override
     protected void initData() {
+        srl.setOnRefreshListener(this);
         gvTask.setAdapter(taskAdapter = new CommonAdapter<Task>(this, tasks, R.layout.item_task) {
             @Override
             public void convert(ViewHolder helper, Task item) {
@@ -196,5 +199,20 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshTaskCount(RefreshTaskEvent event) {
         initNet();
+    }
+
+    @Override
+    public void onRefresh() {
+        taskPresenter.refreshTask(SpSir.getInstance().getProjectId(), -1);
+    }
+
+    @Override
+    public void showLoading() {
+        srl.setRefreshing(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        srl.setRefreshing(false);
     }
 }

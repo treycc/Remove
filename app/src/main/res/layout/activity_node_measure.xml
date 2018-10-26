@@ -89,28 +89,8 @@
             style="@style/Title_Main"
             android:text="丈量资料"/>
 
-        <LinearLayout
-            android:id="@+id/ll_photo_preview"
-            style="@style/Content_LL_T12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
 
-            <com.jdp.hls.view.PreviewRecyclerView
-                android:id="@+id/rv_photo_preview"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:layout_weight="1"/>
-
-            <ImageView
-                style="@style/BG_ARROW"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-
-        </LinearLayout>
+        <include layout="@layout/layout_photo_preview"/>
 
         <TextView
             style="@style/Title_Main"

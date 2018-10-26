@@ -265,8 +265,6 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         if (CheckUtil.checkEmpty(name, "请输入户主姓名")
                 && CheckUtil.checkEmpty(address, "请输入地址")
                 && checkCompanyName(companyName)
-                && CheckUtil.checkPhoneFormatAllowEmpty(phone)
-                && CheckUtil.checkIdCardAllowEmpty(idcard)
                 && CheckUtil.checkLngLat(lng, lat)) {
             MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("isEnterprise", String.valueOf(isEnterprise))

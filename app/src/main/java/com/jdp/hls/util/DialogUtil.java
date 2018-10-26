@@ -9,6 +9,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jdp.hls.R;
 import com.jdp.hls.page.login.LoginActivity;
+import com.jdp.hls.view.dialog.ConfirmDialog;
 
 /**
  * Description:TODO
@@ -67,4 +68,27 @@ public class DialogUtil {
                 .onNegative(negativecallback)
                 .show();
     }
+
+    public static void createDoubleDialog(Context context, String message, String confirmText, String cancelText,
+                                          ConfirmDialog.OnConfirmListener onConfirmListener, ConfirmDialog
+                                                  .OnCancelListener onCancelListener) {
+        new ConfirmDialog(context, message, confirmText, cancelText, onConfirmListener, onCancelListener).show();
+    }
+
+    public static void createSingleDialog(Context context, String message, ConfirmDialog.OnConfirmListener
+            onConfirmListener) {
+        new ConfirmDialog(context, message, "确认", "取消", onConfirmListener, null)
+                .show();
+    }
+
+    public static void createDoubleDialog(Context context, String message, ConfirmDialog.OnConfirmListener
+            onConfirmListener) {
+        new ConfirmDialog(context, message, "确认", "取消", onConfirmListener, new ConfirmDialog.OnCancelListener() {
+            @Override
+            public void onCancel() {
+
+            }
+        }).show();
+    }
+
 }

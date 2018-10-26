@@ -17,10 +17,14 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
+import com.jdp.hls.event.AddPublicityEvent;
+import com.jdp.hls.event.ModifyBusinessEvent;
+import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailPersonal;
+import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
@@ -32,6 +36,10 @@ import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.PreviewRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -107,6 +115,10 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private DetailPersonal detailPersonal;
     private LngLatFragment lngLatFragment;
     private boolean allowEdit;
+    private String address;
+    private String realName;
+    private String mobile;
+    private String cusCode;
 
     @OnClick({R.id.rl_unrecordBuilding, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
             .ll_detail_immovableDeed})
@@ -162,11 +174,12 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
 
     @Override
     protected String getContentTitle() {
-        return "高二路";
+        return "";
     }
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         detailPersonalPresenter.attachView(this);
     }
 
@@ -204,14 +217,16 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     @Override
     public void onGetPersonalDetailSuccess(DetailPersonal detailPersonal) {
         this.detailPersonal = detailPersonal;
+        int politicalTitle = detailPersonal.getPoliticalTitle();
+        setContentTitle(detailPersonal.getAddress());
+        socialRelation = politicalTitle ==0?1:politicalTitle;
         hasShop = detailPersonal.isShop();
         needHouse = detailPersonal.isNeedTempHouse();
         ifPublicity = detailPersonal.isAllowPublicity();
-        socialRelation = detailPersonal.getPoliticalTitle();
         etDetailcusCode.setText(detailPersonal.getCusCode());
         etDetailRealName.setText(detailPersonal.getRealName());
-        etDetailMobile.setText(detailPersonal.getMobilePhone());
-        etDetailIdcard.setText(detailPersonal.getIdcard());
+        etDetailMobile.setText(detailPersonal.getMobilePhone().trim());
+        etDetailIdcard.setText(detailPersonal.getIdcard().trim());
         etDetailAddress.setText(detailPersonal.getAddress());
         etDetailBizUseArea.setText(String.valueOf(detailPersonal.getBizUseArea()));
         tvDetailPropertyDeed.setText(detailPersonal.getPropertyCertNum());
@@ -221,7 +236,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         switchDetailHasShop.setChecked(hasShop);
         switchDetailNeedHouse.setChecked(detailPersonal.isNeedTempHouse());
         switchDetailPublicity.setChecked(detailPersonal.isAllowPublicity());
-        spinnerDetailSocialRelation.setSelectItem(detailPersonal.getPoliticalTitle());
+        spinnerDetailSocialRelation.setSelectItem(politicalTitle);
         llBusinessArea.setVisibility(hasShop ? View.VISIBLE : View.GONE);
         initLngLat(detailPersonal.getLongitude(), detailPersonal.getLatitude());
         allowEdit = detailPersonal.isAllowEdit();
@@ -259,11 +274,11 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     }
 
     private void modifyData() {
-        String cusCode = etDetailcusCode.getText().toString().trim();
-        String address = etDetailAddress.getText().toString().trim();
+        cusCode = etDetailcusCode.getText().toString().trim();
+        address = etDetailAddress.getText().toString().trim();
+        mobile = etDetailMobile.getText().toString().trim();
+        realName = etDetailRealName.getText().toString().trim();
         String idcard = etDetailIdcard.getText().toString().trim();
-        String mobile = etDetailMobile.getText().toString().trim();
-        String realName = etDetailRealName.getText().toString().trim();
         String remark = etDetailRemark.getText().toString().trim();
         String bizUseArea = etDetailBizUseArea.getText().toString().trim();
         if (!CheckUtil.checkEmpty(realName, "请输入户主名称") || !CheckUtil.checkEmpty(address, "请输入地址")) {
@@ -290,6 +305,14 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
 
     @Override
     public void onModifyPersonalDetailSuccess() {
+        ModifyBusinessEvent businessEvent = new ModifyBusinessEvent();
+        businessEvent.setBuildingType(Status.BuildingType.PERSONAL);
+        businessEvent.setAddress(address);
+        businessEvent.setCusCode(cusCode);
+        businessEvent.setMobile(mobile);
+        businessEvent.setRealName(realName);
+        businessEvent.setBuildingId(buildingId);
+        EventBus.getDefault().post(businessEvent);
         showSuccessAndFinish("保存成功");
     }
 
@@ -314,18 +337,29 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                     latitude = data.getDoubleExtra("lat", -1);
                     initLngLat(longitude, latitude);
                     break;
-                case Status.FileType.PERSONAL_DEED_PROPERTY:
-                    tvDetailPropertyDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
-                    break;
-                case Status.FileType.PERSONAL_DEED_LAND:
-                    tvDetailLandDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
-                    break;
-                case Status.FileType.PERSONAL_DEED_IMMOVABLE:
-                    tvDetailImmovableDeed.setText(data.getStringExtra(Constants.Extra.CERTNUM));
-                    break;
                 default:
                     break;
             }
         }
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshDeedEvent(RefreshCertNumEvent event) {
+        if (event.getBuildType() == Status.BuildingType.PERSONAL) {
+            switch (event.getCertType()) {
+                case Status.FileType.PERSONAL_DEED_PROPERTY:
+                    tvDetailPropertyDeed.setText(event.getCertNum());
+                    break;
+                case Status.FileType.PERSONAL_DEED_LAND:
+                    tvDetailLandDeed.setText(event.getCertNum());
+                    break;
+                case Status.FileType.PERSONAL_DEED_IMMOVABLE:
+                    tvDetailImmovableDeed.setText(event.getCertNum());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
 }

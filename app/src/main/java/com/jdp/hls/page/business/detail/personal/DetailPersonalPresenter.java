@@ -53,7 +53,6 @@ public class DetailPersonalPresenter implements DetailPersonalContract.Presenter
                 });
     }
 
-
     @Override
     public void attachView(@NonNull DetailPersonalContract.View view) {
         this.mView = view;

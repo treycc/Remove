@@ -11,6 +11,7 @@ import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
+import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedPersonalProperty;
@@ -21,6 +22,9 @@ import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.PreviewRecyclerView;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -197,12 +201,13 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
 
     @Override
     public void onAddDeedPersonalPropertySuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum,Status.FileType.PERSONAL_DEED_PROPERTY,Status.BuildingType.PERSONAL));
     }
 
     @Override
     public void onModifyDeedPersonalPropertySuccess() {
-        setResult(certNum);
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum,Status.FileType.PERSONAL_DEED_PROPERTY,Status.BuildingType.PERSONAL));
     }
+
 
 }

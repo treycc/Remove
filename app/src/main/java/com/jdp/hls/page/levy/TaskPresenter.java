@@ -6,9 +6,6 @@ import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LevyInfo;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
-import com.jdp.hls.model.entiy.Task;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -36,6 +33,18 @@ public class TaskPresenter implements TaskContract.Presenter {
         mApi.getApiService().getTask(projectId, buildingType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<LevyInfo>(mView) {
+                    @Override
+                    protected void onSuccess(LevyInfo levyInfo) {
+                        mView.onGetTaskSuccess(levyInfo);
+                    }
+                });
+    }
+
+    @Override
+    public void refreshTask(String projectId, int buildingType) {
+        mApi.getApiService().getTask(projectId, buildingType).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<LevyInfo>(mView) {
                     @Override
                     protected void onSuccess(LevyInfo levyInfo) {
                         mView.onGetTaskSuccess(levyInfo);

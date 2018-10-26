@@ -22,6 +22,24 @@ public class Table implements Serializable {
     private String PropertyArea;
     private String PayTypeName;
     private String CreateDatetime;
+    private String CertNum;
+    private String CusCode;
+
+    public String getCusCode() {
+        return CusCode;
+    }
+
+    public void setCusCode(String cusCode) {
+        CusCode = cusCode;
+    }
+
+    public String getCertNum() {
+        return CertNum;
+    }
+
+    public void setCertNum(String certNum) {
+        CertNum = certNum;
+    }
 
     public String getCreateDatetime() {
         return CreateDatetime;

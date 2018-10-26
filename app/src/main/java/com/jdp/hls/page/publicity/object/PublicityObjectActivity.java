@@ -98,20 +98,7 @@ public class PublicityObjectActivity extends BaseTitleActivity implements Public
 
     @Override
     protected void initData() {
-        setRightClick("确定", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                String buildingIds = publicityObjectAdapter.getSelectedBuildingIds();
-                if (!TextUtils.isEmpty(buildingIds)) {
-                    Intent intent = new Intent();
-                    intent.putExtra(Constants.Extra.BUILDINGIDS, buildingIds);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
-                } else {
-                    ToastUtil.showText("请选择公示对象");
-                }
-            }
-        });
+
     }
 
     @Override
@@ -130,6 +117,20 @@ public class PublicityObjectActivity extends BaseTitleActivity implements Public
     public void onGetPublicityObjectSuccess(List<PublicityObject> publicityObjects) {
         if (publicityObjects != null && publicityObjects.size() > 0) {
             publicityObjectAdapter.setData(publicityObjects);
+            setRightClick("确定", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    String buildingIds = publicityObjectAdapter.getSelectedBuildingIds();
+                    if (!TextUtils.isEmpty(buildingIds)) {
+                        Intent intent = new Intent();
+                        intent.putExtra(Constants.Extra.BUILDINGIDS, buildingIds);
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
+                    } else {
+                        ToastUtil.showText("请选择公示对象");
+                    }
+                }
+            });
         } else {
             showEmptyCallback();
         }

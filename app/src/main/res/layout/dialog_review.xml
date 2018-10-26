@@ -34,13 +34,14 @@
             android:layout_weight="1"
             android:text="复查节点"/>
 
-        <Spinner
+        <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinner_dialog_receivePerson"
             style="@style/font_9_12"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:popupBackground="@color/bg_hi"
+            android:spinnerMode="dropdown"
             android:hint="选择复查节点"/>
     </LinearLayout>
 
