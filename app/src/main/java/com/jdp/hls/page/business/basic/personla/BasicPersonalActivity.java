@@ -180,6 +180,11 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         operateNodePresenter.deleteNode(requestBody, buildingIds);
     }
 
+    @Override
+    protected void onRecoverNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.recoverNode(requestBody, buildingIds);
+    }
+
     public static void goActivity(Context context, String buildingId) {
         Intent intent = new Intent(context, BasicPersonalActivity.class);
         intent.putExtra("buildingId", buildingId);
@@ -230,6 +235,11 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
     @Override
     public void onBackNodeSuccess(String buildingIds) {
         onOperateSuccess("退回成功", buildingIds);
+    }
+
+    @Override
+    public void onRecoverNodeSuccess(String buildingIds) {
+        onOperateSuccess("恢复成功", buildingIds);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

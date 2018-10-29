@@ -250,6 +250,10 @@
 # alipay
 -dontwarn android.net.**
 -keep class android.net.SSLCertificateSocketFactory{*;}
+# 数据库greendao
+-dontwarn org.greenrobot.**
+-keep class org.greenrobot.**{*;}
+
 # 注解
 -keep class * extends java.lang.annotation.Annotation { *; }
 -keep interface * extends java.lang.annotation.Annotation { *; }

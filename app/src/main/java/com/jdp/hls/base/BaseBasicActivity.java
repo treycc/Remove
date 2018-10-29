@@ -11,6 +11,7 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Auth;
 import com.jdp.hls.page.operate.back.BackDialog;
 import com.jdp.hls.page.operate.delete.DeleteDialog;
+import com.jdp.hls.page.operate.recover.RecoverDialog;
 import com.jdp.hls.page.operate.review.ReviewDialog;
 import com.jdp.hls.page.operate.send.SendDialog;
 import com.jdp.hls.util.NoDoubleClickListener;
@@ -36,6 +37,8 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     protected LinearLayout llNodeReview;
     @BindView(R.id.ll_node_delete)
     protected LinearLayout llNodeDelete;
+    @BindView(R.id.ll_node_recover)
+    protected LinearLayout llNodeRecover;
     @BindView(R.id.ll_node_operateBar)
     protected LinearLayout llNodeOperateBar;
     private SendDialog sendDialog;
@@ -43,6 +46,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     private BackDialog backDialog;
     private ReviewDialog reviewDialog;
     private Auth auth;
+    private RecoverDialog recoverDialog;
 
     @Override
     public abstract void initVariable();
@@ -80,7 +84,8 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
         boolean allowBanned = auth.isAllowBanned();
         boolean allowReview = auth.isAllowReview();
         boolean allowFlowBack = auth.isAllowFlowBack();
-        if (allowSend || allowBanned || allowFlowBack || allowReview) {
+        boolean allowRecover = auth.isAllowRecover();
+        if (allowSend || allowBanned || allowFlowBack || allowReview || allowRecover) {
             llNodeOperateBar.setVisibility(View.VISIBLE);
         } else {
             llNodeOperateBar.setVisibility(View.GONE);
@@ -89,6 +94,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
         llNodeDelete.setVisibility(allowBanned ? View.VISIBLE : View.GONE);
         llNodeReview.setVisibility(allowReview ? View.VISIBLE : View.GONE);
         llNodeBack.setVisibility(allowFlowBack ? View.VISIBLE : View.GONE);
+        llNodeRecover.setVisibility(allowRecover ? View.VISIBLE : View.GONE);
         if (allowSend) {
             initSendDialog();
         }
@@ -101,12 +107,32 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
         if (allowFlowBack) {
             initBackDialog();
         }
+        if (allowRecover) {
+            initRecoverDialog();
+        }
+    }
+
+    private void initRecoverDialog() {
+        recoverDialog = new RecoverDialog(BaseBasicActivity.this);
+        recoverDialog.setOnOperateConfirmListener(requestBody -> {
+            onReviewNode(requestBody, recoverDialog.getBuildingId());
+        });
+        llNodeRecover.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                if (TextUtils.isEmpty(recoverDialog.getBuildingId())) {
+                    ToastUtil.showText("请选择复查业务");
+                    return;
+                }
+                recoverDialog.show();
+            }
+        });
     }
 
     private void initReviewDialog() {
         reviewDialog = new ReviewDialog(BaseBasicActivity.this);
         reviewDialog.setOnOperateConfirmListener(requestBody -> {
-            onReviewNode(requestBody, reviewDialog.getBuildingId());
+            onRecoverNode(requestBody, reviewDialog.getBuildingId());
         });
         llNodeReview.setOnClickListener(new NoDoubleClickListener() {
             @Override
@@ -119,6 +145,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
             }
         });
     }
+
 
     private void initBackDialog() {
         backDialog = new BackDialog(BaseBasicActivity.this);
@@ -176,6 +203,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
         boolean allowBanned = auth.isAllowBanned();
         boolean allowReview = auth.isAllowReview();
         boolean allowFlowBack = auth.isAllowFlowBack();
+        boolean allowRecover = auth.isAllowRecover();
         if (allowSend) {
             sendDialog.setData(buildingId, buildingType, stastusId, groupId);
         }
@@ -187,6 +215,9 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
         }
         if (allowFlowBack) {
             backDialog.setData(buildingId, buildingType, stastusId, groupId);
+        }
+        if (allowRecover) {
+            recoverDialog.setData(buildingId, buildingType, stastusId, groupId);
         }
     }
 
@@ -202,6 +233,8 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     protected abstract void onReviewNode(RequestBody requestBody, String buildingIds);
 
     protected abstract void onDeleteNode(RequestBody requestBody, String buildingIds);
+
+    protected abstract void onRecoverNode(RequestBody requestBody, String buildingIds);
 
     protected void onOperateSuccess(String msg, String buildingIds) {
         EventBus.getDefault().post(new RefreshBusinessListEvent(buildingIds));

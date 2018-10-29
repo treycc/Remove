@@ -17,14 +17,12 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
-import com.jdp.hls.event.AddPublicityEvent;
 import com.jdp.hls.event.ModifyBusinessEvent;
 import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailPersonal;
-import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
@@ -219,7 +217,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         this.detailPersonal = detailPersonal;
         int politicalTitle = detailPersonal.getPoliticalTitle();
         setContentTitle(detailPersonal.getAddress());
-        socialRelation = politicalTitle ==0?1:politicalTitle;
+        socialRelation = politicalTitle == 0 ? 1 : politicalTitle;
         hasShop = detailPersonal.isShop();
         needHouse = detailPersonal.isNeedTempHouse();
         ifPublicity = detailPersonal.isAllowPublicity();
@@ -342,6 +340,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
             }
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshDeedEvent(RefreshCertNumEvent event) {
         if (event.getBuildType() == Status.BuildingType.PERSONAL) {

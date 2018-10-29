@@ -75,7 +75,7 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
 
     @Override
     protected String getContentTitle() {
-        return "年限鉴定";
+        return getString(R.string.title_node_age);
     }
 
     @Override

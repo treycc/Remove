@@ -1,7 +1,6 @@
 package com.jdp.hls.page.node.mapping.company;
 
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
@@ -11,7 +10,6 @@ import com.jdp.hls.model.entiy.NodeCompanyMapping;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.view.EnableEditText;
-import com.jdp.hls.view.PreviewRecyclerView;
 import com.jdp.hls.view.StringTextView;
 
 import javax.inject.Inject;
@@ -122,7 +120,7 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
 
     @Override
     public void onGetCompanyMappingSuccess(NodeCompanyMapping nodeCompanyMapping) {
-         allowEdit = nodeCompanyMapping.isAllowEdit();
+        allowEdit = nodeCompanyMapping.isAllowEdit();
         setEditable(allowEdit);
         tvMappingRealName.setText(nodeCompanyMapping.getRealName());
         etMappingTotalNotRecordArea.setString(nodeCompanyMapping.getTotalNotRecordArea());

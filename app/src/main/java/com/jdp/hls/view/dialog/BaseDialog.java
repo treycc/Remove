@@ -19,7 +19,7 @@ import okhttp3.RequestBody;
  * Email:kingjavip@gmail.com
  */
 public abstract class BaseDialog extends Dialog implements View.OnClickListener {
-    protected   String TAG =getClass().getSimpleName() ;
+    protected String TAG = getClass().getSimpleName();
     protected Context context;
     protected TextView tv_confirm;
     protected TextView tv_cancle;

@@ -21,6 +21,8 @@ public interface OperateNodeContract {
         void onReviewNodeSuccess(String buildingIds);
 
         void onBackNodeSuccess(String buildingIds);
+
+        void onRecoverNodeSuccess(String buildingIds);
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -32,5 +34,7 @@ public interface OperateNodeContract {
         void reviewNode(RequestBody requestBody, String buildingIds);
 
         void backNode(RequestBody requestBody, String buildingIds);
+
+        void recoverNode(RequestBody requestBody, String buildingIds);
     }
 }

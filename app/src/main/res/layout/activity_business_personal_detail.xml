@@ -53,12 +53,12 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="手机号码"/>
+                android:text="联系号码"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_detail_mobile"
                 style="@style/Content_ET_W2"
-                android:hint="请输入手机号码"/>
+                android:hint="请输入联系有号码"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -70,12 +70,12 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="身份证号"/>
+                android:text="证件号码"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_detail_idcard"
                 style="@style/Content_ET_W2"
-                android:hint="请输入身份证号"/>
+                android:hint="请输入证件号码"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -85,12 +85,12 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="具体地址"/>
+                android:text="地址"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_detail_address"
-                style="@style/Content_ET_W2"
-                android:text="温州龙湾"/>
+                style="@style/Content_ET_W2_Mul_Line"
+                android:text=""/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -167,7 +167,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="是否公示"/>
+                android:text="可公示"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -197,7 +197,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="有无店面"/>
+                android:text="营业房"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -314,6 +314,12 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
+        <TextView
+            style="@style/Title_Normal"
+            android:text="相关审批手续"/>
+
+
+        <include layout="@layout/layout_photo_preview"/>
 
         <TextView
             style="@style/Title_Normal"

@@ -11,6 +11,16 @@ public class Auth {
     private boolean IsAllowBanned;
     private boolean IsAllowReview;
     private boolean IsAllowFlowBack;
+    private boolean IsAllowRecover;
+
+    public boolean isAllowRecover() {
+        return IsAllowRecover;
+    }
+
+    public void setAllowRecover(boolean allowRecover) {
+        IsAllowRecover = allowRecover;
+    }
+
     public boolean isAllowSend() {
         return IsAllowSend;
     }

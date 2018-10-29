@@ -97,7 +97,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
 
     @Override
     protected String getContentTitle() {
-        return "年限鉴定";
+        return getString(R.string.title_node_age);
     }
 
     @Override

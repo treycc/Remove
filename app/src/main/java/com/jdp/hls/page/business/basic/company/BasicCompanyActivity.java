@@ -183,6 +183,11 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
         operateNodePresenter.deleteNode(requestBody, buildingIds);
     }
 
+    @Override
+    protected void onRecoverNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.recoverNode(requestBody, buildingIds);
+    }
+
     public static void goActivity(Context context, String buildingId) {
         Intent intent = new Intent(context, BasicCompanyActivity.class);
         intent.putExtra("buildingId", buildingId);
@@ -231,6 +236,11 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
     @Override
     public void onBackNodeSuccess(String buildingIds) {
         showSuccessAndFinish("退回成功");
+    }
+
+    @Override
+    public void onRecoverNodeSuccess(String buildingIds) {
+        onOperateSuccess("恢复成功", buildingIds);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

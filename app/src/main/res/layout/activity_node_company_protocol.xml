@@ -205,7 +205,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="搬迁费用"/>
+                android:text="搬迁费"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:inputType="numberDecimal"
@@ -221,7 +221,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="临时安置费用"/>
+                android:text="临时安置费"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:inputType="numberDecimal"
@@ -237,7 +237,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="其它费用"/>
+                android:text="其它补偿"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:inputType="numberDecimal"

@@ -61,7 +61,7 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
-        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE,false);
+        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE, false);
         evalId = getIntent().getStringExtra(Constants.Extra.ID);
         buildingType = getIntent().getStringExtra(Constants.Extra.BUILDING_TYPE);
         compensationType = getIntent().getStringExtra(Constants.Extra.COMPENSATION_TYPE);
@@ -83,7 +83,8 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
 
     @Override
     protected String getContentTitle() {
-        return compensationType.equals(Status.CompensationType.DECORATION) ? "内装饰装修明细" : "附属物及其它构筑物明细";
+        return compensationType.equals(Status.CompensationType.DECORATION) ? getString(R.string
+                .title_decoration_detail) : getString(R.string.title_appendant_detail);
     }
 
     @Override
@@ -91,6 +92,7 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
         decorationListPresenter.attachView(this);
         decorationAdapter = new DecorationAdapter(this, decorationItemList);
         plv.setAdapter(decorationAdapter);
+        checkListSize(decorationItemList);
     }
 
     @Override
@@ -104,7 +106,7 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
                 }
             });
         }
-        tvPayMoneyTip.setText(compensationType.equals(Status.CompensationType.DECORATION) ? "内装饰装修补偿总金额" : "附属物补偿总金额");
+        tvPayMoneyTip.setText(compensationType.equals(Status.CompensationType.DECORATION) ? "室内装饰装修补偿总金额" : "附属物补偿总金额");
         decorationAdapter.setOnItemOperListener(new DecorationAdapter.OnItemOperListener() {
             @Override
             public void onItemDelete(String id, int position) {
@@ -119,7 +121,7 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
             @Override
             public void onItemClick(DecorationItem decorationItem) {
                 DecorationDetailActivity.goActivity(DecorationListActivity.this, decorationItem, buildingType,
-                        Integer.valueOf(compensationType),editable);
+                        Integer.valueOf(compensationType), editable);
             }
         });
     }
@@ -148,7 +150,7 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
     private void checkListSize(List<DecorationItem> decorationItemList) {
         if (decorationItemList != null && decorationItemList.size() > 0) {
             showSuccessCallback();
-            decorationAdapter.setEditableData(decorationItemList,editable);
+            decorationAdapter.setEditableData(decorationItemList, editable);
             llTotalMoneyBar.setVisibility(View.VISIBLE);
             tvPayMoney.setString(decorationAdapter.getTotalMoney());
         } else {
@@ -171,9 +173,8 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addItem(AddDecorationEvent event) {
-        showSuccessCallback();
         decorationAdapter.addFirst(event.getDecorationItem());
-        tvPayMoney.setString(decorationAdapter.getTotalMoney());
+        checkListSize(decorationAdapter.getData());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

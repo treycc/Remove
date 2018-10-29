@@ -217,6 +217,11 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     }
 
     @Override
+    protected void onRecoverNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.recoverNode(requestBody, buildingIds);
+    }
+
+    @Override
     public void onGetBusinessSuccess(TaskInfo taskInfo) {
         businesses = taskInfo.getMyTaskList();
         boolean checkable = getCheckable(taskInfo.getAuth());
@@ -292,6 +297,11 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     @Override
     public void onBackNodeSuccess(String buildingIds) {
         onOperateSuccess("退回成功", buildingIds);
+    }
+
+    @Override
+    public void onRecoverNodeSuccess(String buildingIds) {
+        onOperateSuccess("恢复成功", buildingIds);
     }
 
     @Override

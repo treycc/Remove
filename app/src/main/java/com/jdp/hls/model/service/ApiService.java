@@ -505,10 +505,20 @@ public interface ApiService {
     @POST("api/workflow/FlowReview")
     Observable<HttpResult<Object>> reviewNode(@Body RequestBody requestBody);
 
+    /*恢复*/
+    @POST("api/workflow/FlowRecover")
+    Observable<HttpResult<Object>> recoverNode(@Body RequestBody requestBody);
+
     /*复查-获取接受节点列表*/
     @FormUrlEncoded
     @POST("api/workflow/PostGroupMemberForReview")
     Observable<HttpResult<List<ReceivePerson>>> getReviewReceiverList(@Field("buildingId") String buildingId, @Field
+            ("buildingType") String buildingType);
+
+    /*恢复-获取接受节点列表*/
+    @FormUrlEncoded
+    @POST("api/workflow/PostGroupMemberForRecover")
+    Observable<HttpResult<List<ReceivePerson>>> getRecoverReceiverList(@Field("buildingId") String buildingId, @Field
             ("buildingType") String buildingType);
 
     /*获取经办人*/

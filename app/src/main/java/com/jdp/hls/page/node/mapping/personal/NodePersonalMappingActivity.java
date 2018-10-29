@@ -102,7 +102,6 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
         String totalNotRecordAreaStr = etMappingTotalNotRecordArea.getText().toString().trim();
         double propertyCertTotalArea= TextUtils.isEmpty(propertyCertTotalAreaStr)?0d:Double.valueOf(propertyCertTotalAreaStr);
         double totalNotRecordArea =TextUtils.isEmpty(totalNotRecordAreaStr)?0d:Double.valueOf(totalNotRecordAreaStr);
-//        tvMappingTotalArea.setText(String.valueOf(propertyCertTotalArea+totalNotRecordArea));
         tvMappingTotalArea.setText(String.valueOf(MathUtil.add(propertyCertTotalArea,totalNotRecordArea)));
     }
 

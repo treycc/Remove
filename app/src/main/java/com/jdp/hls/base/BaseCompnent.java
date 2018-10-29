@@ -40,6 +40,7 @@ import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
 import com.jdp.hls.page.operate.back.BackDialog;
 import com.jdp.hls.page.operate.delete.DeleteDialog;
+import com.jdp.hls.page.operate.recover.RecoverDialog;
 import com.jdp.hls.page.operate.review.ReviewDialog;
 import com.jdp.hls.page.operate.send.SendDialog;
 import com.jdp.hls.page.otherarea.add.OtherAreaAddActivity;
@@ -198,4 +199,6 @@ public interface BaseCompnent {
     void inject(ReviewDialog target);
 
     void inject(BackDialog target);
+
+    void inject(RecoverDialog target);
 }

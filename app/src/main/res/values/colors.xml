@@ -23,6 +23,7 @@
 
     <color name="node_finish">#FA8639</color>
     <color name="node_delete">#f48080</color>
+    <color name="node_recover">#fd5900</color>
     <color name="node_back">#fca637</color>
     <color name="node_send">#13A4F9</color>
 
