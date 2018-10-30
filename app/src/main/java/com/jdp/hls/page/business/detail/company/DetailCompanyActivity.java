@@ -171,7 +171,6 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
 
     @Override
     protected void initData() {
-        rvPhotoPreview.create();
         switchDetailPublicity.setOnCheckedChangeListener((buttonView, isChecked) -> {
             ifPublicity = isChecked;
         });

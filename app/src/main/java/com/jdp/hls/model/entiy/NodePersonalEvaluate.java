@@ -24,6 +24,33 @@ public class NodePersonalEvaluate {
     private String Remark;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+    private String NewHouseEstimatePrice;
+    private String BuyBackPrice;
+    private String BenchmarkPriceBusinessOccupancy;
+
+    public String getNewHouseEstimatePrice() {
+        return NewHouseEstimatePrice;
+    }
+
+    public void setNewHouseEstimatePrice(String newHouseEstimatePrice) {
+        NewHouseEstimatePrice = newHouseEstimatePrice;
+    }
+
+    public String getBuyBackPrice() {
+        return BuyBackPrice;
+    }
+
+    public void setBuyBackPrice(String buyBackPrice) {
+        BuyBackPrice = buyBackPrice;
+    }
+
+    public String getBenchmarkPriceBusinessOccupancy() {
+        return BenchmarkPriceBusinessOccupancy;
+    }
+
+    public void setBenchmarkPriceBusinessOccupancy(String benchmarkPriceBusinessOccupancy) {
+        BenchmarkPriceBusinessOccupancy = benchmarkPriceBusinessOccupancy;
+    }
 
     public String getRemark() {
         return Remark;

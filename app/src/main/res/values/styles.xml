@@ -254,6 +254,21 @@
         <item name="android:textColor">@color/c_6</item>
     </style>
 
+    <style name="Title_C">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c_c</item>
+    </style>
+    <style name="Title_Sub9">
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/c_9</item>
+    </style>
     <style name="Title_Sub_SingleLine" parent="Title_Sub">
         <item name="android:singleLine">true</item>
     </style>

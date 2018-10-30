@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
- * Description:一览表
+ * Description:一览表首页
  * Create Time:2018/9/6 0006 下午 4:54
  * Author:KingJA
  * Email:kingjavip@gmail.com

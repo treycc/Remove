@@ -38,7 +38,27 @@ public class NodePersonalAge {
     private String LandCertTotalArea;
     private String BuildOccupyArea;
     private String SimpleHouseArea;
-    private List<ImgInfo>Files;
+    private String SubsidiaryHouse;
+    private List<ImgInfo> Files;
+    private boolean IsAllowEdit;
+    private boolean IsShowNotRecordArea;
+
+
+    public boolean isShowNotRecordArea() {
+        return IsShowNotRecordArea;
+    }
+
+    public void setShowNotRecordArea(boolean showNotRecordArea) {
+        IsShowNotRecordArea = showNotRecordArea;
+    }
+
+    public String getSubsidiaryHouse() {
+        return SubsidiaryHouse;
+    }
+
+    public void setSubsidiaryHouse(String subsidiaryHouse) {
+        SubsidiaryHouse = subsidiaryHouse;
+    }
 
     public List<ImgInfo> getFiles() {
         return Files;
@@ -96,7 +116,6 @@ public class NodePersonalAge {
         IsAllowEdit = allowEdit;
     }
 
-    private boolean IsAllowEdit;
 
     public int getIdenId() {
         return IdenId;

@@ -17,7 +17,7 @@ import com.jdp.hls.util.NoDoubleClickListener;
 import butterknife.BindView;
 
 /**
- * Description:公示管理
+ * Description:公示管理首页
  * Create Time:2018/9/13 0013 下午 7:27
  * Author:KingJA
  * Email:kingjavip@gmail.com

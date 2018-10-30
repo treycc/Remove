@@ -37,7 +37,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
- * Description:TODO
+ * Description:征收系统
  * Create Time:2018/9/5 0005 上午 9:54
  * Author:KingJA
  * Email:kingjavip@gmail.com

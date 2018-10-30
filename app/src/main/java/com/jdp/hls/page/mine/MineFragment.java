@@ -119,7 +119,6 @@ public class MineFragment extends BaseFragment implements MineContract.View {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LogUtil.e(TAG, "onActivityResult requestCode:" + requestCode);
         if (resultCode == Activity.RESULT_OK && data != null) {
             String newVaule = data.getStringExtra("newVaule");
             switch (requestCode) {

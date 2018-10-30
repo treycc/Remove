@@ -12,6 +12,22 @@ public class FileConfig implements Serializable {
     private String fileType;
     private String buildingId;
     private String buildingType;
+    private boolean editable;
+
+    public FileConfig(String fileType, String buildingId, String buildingType, boolean editable) {
+        this.fileType = fileType;
+        this.buildingId = buildingId;
+        this.buildingType = buildingType;
+        this.editable = editable;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
 
     public FileConfig(int fileType, String buildingId, String buildingType) {
         this(String.valueOf(fileType),  buildingId,  buildingType);

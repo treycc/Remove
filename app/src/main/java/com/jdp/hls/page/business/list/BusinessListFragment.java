@@ -10,10 +10,7 @@ import com.jdp.hls.adapter.BusinessAdapter;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
-import com.jdp.hls.event.AddRostersEvent;
 import com.jdp.hls.event.ModifyBusinessEvent;
-import com.jdp.hls.event.ModifyRostersEvent;
-import com.jdp.hls.event.RefreshTaskEvent;
 import com.jdp.hls.i.OnBusinessItemSelectedListener;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Business;
@@ -23,7 +20,6 @@ import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
 import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.page.rosterlist.GetRostersByTypeContract;
 import com.jdp.hls.util.LogUtil;
-import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 

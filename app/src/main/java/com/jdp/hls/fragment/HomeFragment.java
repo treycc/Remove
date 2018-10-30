@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * Description:TODO
+ * Description:业务征收平台
  * Create Time:2018/9/5 0005 上午 9:06
  * Author:KingJA
  * Email:kingjavip@gmail.com

@@ -115,13 +115,13 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     private void initRecoverDialog() {
         recoverDialog = new RecoverDialog(BaseBasicActivity.this);
         recoverDialog.setOnOperateConfirmListener(requestBody -> {
-            onReviewNode(requestBody, recoverDialog.getBuildingId());
+            onRecoverNode(requestBody, recoverDialog.getBuildingId());
         });
         llNodeRecover.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
                 if (TextUtils.isEmpty(recoverDialog.getBuildingId())) {
-                    ToastUtil.showText("请选择复查业务");
+                    ToastUtil.showText("请选择恢复业务");
                     return;
                 }
                 recoverDialog.show();

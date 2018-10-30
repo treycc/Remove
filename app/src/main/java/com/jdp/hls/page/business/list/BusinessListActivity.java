@@ -37,7 +37,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -161,7 +160,7 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
         List<Business> selectBusiness = new ArrayList<>();
         for (Business roster : businesses) {
             if (roster.getRealName().contains(keyword) || roster.getAddress().contains(keyword) || roster
-                    .getMobilePhone().contains(keyword)|| roster.getCusCode().contains(keyword)) {
+                    .getMobilePhone().contains(keyword) || roster.getCusCode().contains(keyword)) {
                 selectBusiness.add(roster);
             }
         }
@@ -225,7 +224,7 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     public void onGetBusinessSuccess(TaskInfo taskInfo) {
         businesses = taskInfo.getMyTaskList();
         boolean checkable = getCheckable(taskInfo.getAuth());
-        cbSelectAll.setVisibility(checkable?View.VISIBLE:View.GONE);
+        cbSelectAll.setVisibility(checkable ? View.VISIBLE : View.GONE);
         personalBusiness.clear();
         companyBusiness.clear();
         if (businesses == null) {
@@ -264,7 +263,8 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     }
 
     public boolean getCheckable(Auth auth) {
-        return auth.isAllowReview() || auth.isAllowSend() || auth.isAllowFlowBack() || auth.isAllowBanned();
+        return auth.isAllowReview() || auth.isAllowSend() || auth.isAllowFlowBack() || auth.isAllowBanned() || auth
+                .isAllowRecover();
     }
 
     @Override

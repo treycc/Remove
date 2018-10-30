@@ -105,7 +105,6 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
     @Override
     protected void initData() {
         super.initData();
-        rvPhotoPreview.create();
         spinnerLandUse.setDicts(landUseList, typeId -> {
             landUseId = typeId;
         });

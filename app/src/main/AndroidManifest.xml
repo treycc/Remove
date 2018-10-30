@@ -34,7 +34,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <!--.page.login.LoginActivity-->
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".page.login.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -43,9 +43,9 @@
             </intent-filter>
         </activity>
         <!--登录页-->
-            <activity
+       <!--     <activity
                 android:name=".page.login.LoginActivity"
-                android:screenOrientation="portrait"/>
+                android:screenOrientation="portrait"/>-->
         <!--项目列表-->
         <activity
             android:name=".page.projects.ProjectListActivity"

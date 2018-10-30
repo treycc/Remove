@@ -40,7 +40,7 @@ public class PreviewRecyclerView extends RecyclerView {
     private ArrayList<String> deleteIds = new ArrayList<>();
     private PreviewImgAdapter previewImgAdapter;
     private FileConfig fileConfig;
-    private boolean editable=true;
+    private boolean editable = true;
 
     public PreviewRecyclerView(Context context) {
         this(context, null);
@@ -65,7 +65,7 @@ public class PreviewRecyclerView extends RecyclerView {
         addItemDecoration(new RvItemDecoration(getContext(), RvItemDecoration.LayoutStyle.HORIZONTAL_LIST,
                 12, 0x00ffffff));
         previewImgAdapter.setOnItemClickListener((list, position) -> {
-            goPhotoPreviewActivity((Activity) getContext(), fileConfig,editable);
+            goPhotoPreviewActivity((Activity) getContext(), fileConfig, editable);
         });
     }
 
@@ -75,17 +75,9 @@ public class PreviewRecyclerView extends RecyclerView {
         ViewGroup parentView = (ViewGroup) getParent();
         if (parentView.getId() == R.id.ll_photo_preview) {
             parentView.setOnClickListener(v -> {
-                goPhotoPreviewActivity((Activity) getContext(), fileConfig,editable);
+                goPhotoPreviewActivity((Activity) getContext(), fileConfig, editable);
             });
         }
-    }
-
-    public void create() {
-//        initView(imgInfos);
-    }
-
-    public void create(List<ImgInfo> imgInfos) {
-//        initView(getDTOFromImgInfo(imgInfos));
     }
 
 
@@ -94,7 +86,7 @@ public class PreviewRecyclerView extends RecyclerView {
     }
 
     public void setData(List<ImgInfo> photos, FileConfig fileConfig) {
-        setData( photos,  fileConfig,  true);
+        setData(photos, fileConfig, true);
     }
 
     public void setData(List<ImgInfo> photos, FileConfig fileConfig, boolean editable) {
@@ -126,8 +118,12 @@ public class PreviewRecyclerView extends RecyclerView {
         }
     }
 
-    public void goPhotoPreviewActivity(Activity context, FileConfig fileConfig,boolean editable) {
-        PhotoPreviewActivity.goActivity(context, photos, fileConfig,editable);
+    public interface OnPhotoReturnListener {
+        void onPhotoReturn();
+    }
+
+    public void goPhotoPreviewActivity(Activity context, FileConfig fileConfig, boolean editable) {
+        PhotoPreviewActivity.goActivity(context, photos, fileConfig, editable);
     }
 
     public void onActivityResult(Intent data) {

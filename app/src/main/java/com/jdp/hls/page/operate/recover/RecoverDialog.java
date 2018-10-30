@@ -47,7 +47,7 @@ public class RecoverDialog extends BaseDialog implements RecoverNodeContract.Vie
 
     @Override
     protected int getContentViewId() {
-        return R.layout.dialog_review;
+        return R.layout.dialog_recover;
     }
 
     @Override

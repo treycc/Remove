@@ -1,8 +1,8 @@
 package com.jdp.hls.page.node.evaluate.personal;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +21,7 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -59,6 +60,12 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
     EnableEditText etAgeRemark;
     @Inject
     NodePersonalEvaluatePresenter nodePersonalEvaluatePresenter;
+    @BindView(R.id.et_evaluate_newHouseEstimatePrice)
+    EnableEditText etEvaluateNewHouseEstimatePrice;
+    @BindView(R.id.et_evaluate_buyBackPrice)
+    EnableEditText etEvaluateBuyBackPrice;
+    @BindView(R.id.et_evaluate_benchmarkPriceBusinessOccupancy)
+    EnableEditText etEvaluateBenchmarkPriceBusinessOccupancy;
     private int evalId;
 
     @OnClick({R.id.rl_evaluate_innerDecoratedDetail, R.id.rl_evaluate_appurtenanceDetail})
@@ -66,11 +73,11 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
         switch (view.getId()) {
             case R.id.rl_evaluate_innerDecoratedDetail:
                 DecorationListActivity.goActivity(this, String.valueOf(evalId), String.valueOf(Status.BuildingType
-                        .PERSONAL),Status.CompensationType.DECORATION,allowEdit);
+                        .PERSONAL), Status.CompensationType.DECORATION, allowEdit);
                 break;
             case R.id.rl_evaluate_appurtenanceDetail:
                 DecorationListActivity.goActivity(this, String.valueOf(evalId), String.valueOf(Status.BuildingType
-                        .PERSONAL),Status.CompensationType.APPENDANT,allowEdit);
+                        .PERSONAL), Status.CompensationType.APPENDANT, allowEdit);
                 break;
         }
     }
@@ -117,6 +124,9 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
         etEvaluateOldHouseMarketTotalMoney.setEnabled(allowEdit);
         tvEvaluateAddress.setEnabled(allowEdit);
         etAgeRemark.setEnabled(allowEdit);
+        etEvaluateNewHouseEstimatePrice.setEnabled(allowEdit);
+        etEvaluateBuyBackPrice.setEnabled(allowEdit);
+        etEvaluateBenchmarkPriceBusinessOccupancy.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvEvaluateDate, allowEdit);
     }
 
@@ -130,6 +140,10 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
         String oldHouseMarketTotalMoney = etEvaluateOldHouseMarketTotalMoney.getText().toString().trim();
         String evalDate = tvEvaluateDate.getText().toString().trim();
 
+        String newHouseEstimatePrice = etEvaluateNewHouseEstimatePrice.getText().toString().trim();
+        String buyBackPrice = etEvaluateBuyBackPrice.getText().toString().trim();
+        String benchmarkPriceBusinessOccupancy = etEvaluateBenchmarkPriceBusinessOccupancy.getText().toString().trim();
+
         nodePersonalEvaluatePresenter.modifyPersonalEvaluate(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("HouseResetMoney", houseResetMoney)
@@ -139,6 +153,9 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
                 .addFormDataPart("OldHouseMarketTotalMoney", oldHouseMarketTotalMoney)
                 .addFormDataPart("Remark", remark)
                 .addFormDataPart("EvalDate", evalDate)
+                .addFormDataPart("NewHouseEstimatePrice", newHouseEstimatePrice)
+                .addFormDataPart("BuyBackPrice", buyBackPrice)
+                .addFormDataPart("BenchmarkPriceBusinessOccupancy", benchmarkPriceBusinessOccupancy)
                 .build());
     }
 
@@ -158,10 +175,15 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
         etAgeRemark.setString(nodePersonalEvaluate.getRemark());
         tvEvaluateDate.setText(DateUtil.getShortDate(nodePersonalEvaluate.getEvalDate()));
         rvPhotoPreview.setData(nodePersonalEvaluate.getFiles(), getFileConfig(), allowEdit);
+
+        etEvaluateNewHouseEstimatePrice.setString(nodePersonalEvaluate.getNewHouseEstimatePrice());
+        etEvaluateBuyBackPrice.setString(nodePersonalEvaluate.getBuyBackPrice());
+        etEvaluateBenchmarkPriceBusinessOccupancy.setString(nodePersonalEvaluate.getBenchmarkPriceBusinessOccupancy());
     }
 
     @Override
     public void onModifyPersonalEvaluateSuccess() {
         showSuccessAndFinish();
     }
+
 }

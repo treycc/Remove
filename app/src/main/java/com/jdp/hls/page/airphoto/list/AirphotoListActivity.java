@@ -15,19 +15,16 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.airphoto.building.AirPhotoBuildingActivity;
-import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 
-import java.util.Arrays;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * Description:航拍复查
+ * Description:航拍复查首页
  * Create Time:2018/9/12 0012 上午 9:35
  * Author:KingJA
  * Email:kingjavip@gmail.com

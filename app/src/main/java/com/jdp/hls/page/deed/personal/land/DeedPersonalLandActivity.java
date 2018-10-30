@@ -100,7 +100,6 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
     @Override
     protected void initData() {
         super.initData();
-        rvPhotoPreview.create();
         spinnerLandUse.setDicts(landUseList, typeId -> {
             landUseId = typeId;
         });
