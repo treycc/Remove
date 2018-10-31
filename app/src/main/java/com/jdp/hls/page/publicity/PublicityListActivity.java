@@ -79,7 +79,6 @@ public class PublicityListActivity extends BaseTitleActivity {
                 GoUtil.goActivity(PublicityListActivity.this, PublicityApplyActivity.class);
             }
         });
-
     }
 
     @Override

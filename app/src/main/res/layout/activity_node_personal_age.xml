@@ -348,14 +348,14 @@
 
             <TextView
                 style="@style/Title_Main"
-                android:text="未来登记审批认定资料"/>
+                android:text="未来登记审批认定面积"/>
 
             <LinearLayout
                 style="@style/Content_LL_T6">
 
                 <TextView
                     style="@style/Title_Sub"
-                    android:text="牲口房面积"/>
+                    android:text="牲口房"/>
 
                 <com.jdp.hls.view.EnableEditText
                     android:id="@+id/et_age_animalHouseArea"
@@ -371,7 +371,7 @@
 
                 <TextView
                     style="@style/Title_Sub"
-                    android:text="地下室面积"/>
+                    android:text="地下室"/>
 
                 <com.jdp.hls.view.EnableEditText
                     android:id="@+id/et_age_basement"
@@ -394,7 +394,7 @@
 
                 <TextView
                     style="@style/Title_Sub"
-                    android:text="简易房面积"/>
+                    android:text="简易房"/>
 
                 <com.jdp.hls.view.EnableEditText
                     android:id="@+id/et_age_simpleHouseAge"

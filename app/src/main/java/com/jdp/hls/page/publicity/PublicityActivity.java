@@ -39,7 +39,7 @@ import butterknife.OnItemClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class PublicityActivity extends BaseTitleActivity implements  SwipeRefreshLayout
+public class PublicityActivity extends BaseTitleActivity implements SwipeRefreshLayout
         .OnRefreshListener, PublicityListContract.View {
     @BindView(R.id.et_keyword)
     EditText etKeyword;
@@ -119,9 +119,8 @@ public class PublicityActivity extends BaseTitleActivity implements  SwipeRefres
     @Override
     protected void initNet() {
         srl.setRefreshing(false);
-        publicityListPresenter.getPublicityList(SpSir.getInstance().getProjectId(),-1);
+        publicityListPresenter.getPublicityList(SpSir.getInstance().getProjectId(), -1);
     }
-
 
     @Override
     public void onRefresh() {
