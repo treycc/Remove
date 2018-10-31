@@ -27,7 +27,7 @@ import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Roster;
-import com.jdp.hls.page.personSearch.PersonSearchActivity;
+import com.jdp.hls.page.personsearch.PersonSearchActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.FileUtil;

@@ -107,7 +107,7 @@
             android:screenOrientation="portrait"/>
         <!--选择联系人-->
         <activity
-            android:name=".page.personSearch.PersonSearchActivity"
+            android:name=".page.personsearch.PersonSearchActivity"
             android:screenOrientation="portrait"/>
         <!--编辑页面-->
         <activity
@@ -338,6 +338,7 @@
         <activity
             android:name=".page.innerdecoration.detail.DecorationDetailActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".page.publicity.PublicityActivity"/>
 
         <!--<activity-->
             <!--android:name=".activity.SplashActivity"-->

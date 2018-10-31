@@ -1,11 +1,10 @@
-package com.jdp.hls.page.personSearch;
+package com.jdp.hls.page.personsearch;
 
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.Person;
-import com.jdp.hls.model.entiy.ResultObserver;
 
 import java.util.List;
 

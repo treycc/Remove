@@ -108,6 +108,26 @@
                     android:layout_height="wrap_content"
                     android:text="2018-06-10"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="公示类型:"/>
+
+                <TextView
+                    android:id="@+id/tv_publicity_type"
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="调查公示"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

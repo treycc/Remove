@@ -4,12 +4,11 @@ import android.content.Context;
 
 import com.jdp.hls.R;
 import com.jdp.hls.constant.Status;
-import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.util.DateUtil;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,14 +18,16 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class PublicityListAdapter extends CommonAdapter<PublicityItem> {
-
+    private List<PublicityItem> selectDatas = new ArrayList<>();
 
     public PublicityListAdapter(Context context, List<PublicityItem> datas, int itemLayoutId) {
         super(context, datas, itemLayoutId);
+        selectDatas = datas;
     }
 
     @Override
     public void convert(ViewHolder helper, PublicityItem item) {
+        helper.setText(R.id.tv_publicity_type, item.getPubTypeDesc());
         helper.setText(R.id.tv_publicity_number, item.getBatchName());
         helper.setText(R.id.tv_publicity_count, String.valueOf(item.getTotalQuantity()));
         helper.setText(R.id.tv_publicity_operater, SpSir.getInstance().getRealName());
@@ -54,6 +55,33 @@ public class PublicityListAdapter extends CommonAdapter<PublicityItem> {
                 item.setBuildingType(publicityItem.getBuildingType());
             }
         }
+        notifyDataSetChanged();
+    }
+
+    public void searchPerson(String keyword) {
+        selectDatas = new ArrayList<>();
+        for (PublicityItem person : mDatas) {
+            if (person.getBatchName().contains(keyword) || person.getPubTypeDesc().contains(keyword)) {
+                selectDatas.add(person);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public PublicityItem getItem(int position) {
+        return selectDatas.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return selectDatas.size();
+    }
+
+    @Override
+    public void setData(List<PublicityItem> list) {
+        selectDatas = list;
+        mDatas = list;
         notifyDataSetChanged();
     }
 }

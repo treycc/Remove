@@ -9,10 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.constant.Status;
+import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.event.AddPublicityEvent;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.PublicityItem;
@@ -82,6 +85,7 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
     @Inject
     PublicityApplyPresenter publicityApplyPresenter;
     private String buildingIds;
+    private List<TDict> publicityTypeList;
 
     @OnClick({R.id.ll_publicity_select, R.id.ll_publicity_startDate, R.id.ll_publicity_endDate})
     public void onViewClicked(View view) {
@@ -117,7 +121,7 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
 
     @Override
     public void initVariable() {
-
+        publicityTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PUBLICITYTYPE);
     }
 
     @Override
@@ -174,12 +178,12 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
                     tvPublicityEndDate.setText(DateUtil.getDateString(millseconds));
                 })
                 .build();
-        spinnerPublicityType.attachDataSource(Arrays.asList("调查公示", "认定公示"));
-        spinnerBuildingType.attachDataSource(Arrays.asList("个人", "企业"));
-        spinnerPublicityType.addOnItemClickListener((parent, view, position, id) -> {
-            publicityType = position;
-
+        spinnerPublicityType.setDicts(publicityTypeList, typeId -> {
+            publicityType = typeId;
         });
+        publicityType=spinnerPublicityType.getDefaultTypeId();
+
+        spinnerBuildingType.attachDataSource(Arrays.asList("个人", "企业"));
         spinnerBuildingType.addOnItemClickListener((parent, view, position, id) -> {
             buildingType = position;
         });

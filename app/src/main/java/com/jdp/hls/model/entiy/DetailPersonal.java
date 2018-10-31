@@ -72,6 +72,15 @@ public class DetailPersonal {
     private String PersonId;
     private String BookletId;
     private List<ImgInfo> Files;
+    private List<ImgInfo> HouseApprovalFiles;
+
+    public List<ImgInfo> getHouseApprovalFiles() {
+        return HouseApprovalFiles;
+    }
+
+    public void setHouseApprovalFiles(List<ImgInfo> houseApprovalFiles) {
+        HouseApprovalFiles = houseApprovalFiles;
+    }
 
     public List<ImgInfo> getFiles() {
         return Files;

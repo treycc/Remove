@@ -18,6 +18,7 @@ import com.jdp.hls.model.entiy.Task;
 import com.jdp.hls.page.airphoto.list.AirphotoListActivity;
 import com.jdp.hls.page.business.list.BusinessListActivity;
 import com.jdp.hls.page.map.RosterActivity;
+import com.jdp.hls.page.publicity.PublicityActivity;
 import com.jdp.hls.page.publicity.PublicityListActivity;
 import com.jdp.hls.page.statistics.StatisticsActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
@@ -135,7 +136,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
                     break;
                 case Status.BusinessActionType.PUBLICITY:
                     /*公示管理*/
-                    GoUtil.goActivity(this, PublicityListActivity.class);
+                    GoUtil.goActivity(this, PublicityActivity.class);
                     break;
                 case Status.BusinessActionType.AIRPHOTO:
                     /*航拍复查*/

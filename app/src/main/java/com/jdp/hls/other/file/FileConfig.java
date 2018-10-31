@@ -9,12 +9,12 @@ import java.io.Serializable;
  * Email:kingjavip@gmail.com
  */
 public class FileConfig implements Serializable {
-    private String fileType;
+    private int fileType;
     private String buildingId;
     private String buildingType;
     private boolean editable;
 
-    public FileConfig(String fileType, String buildingId, String buildingType, boolean editable) {
+    public FileConfig(int fileType, String buildingId, String buildingType, boolean editable) {
         this.fileType = fileType;
         this.buildingId = buildingId;
         this.buildingType = buildingType;
@@ -30,19 +30,16 @@ public class FileConfig implements Serializable {
     }
 
     public FileConfig(int fileType, String buildingId, String buildingType) {
-        this(String.valueOf(fileType),  buildingId,  buildingType);
-    }
-    public FileConfig(String fileType, String buildingId, String buildingType) {
-        this.fileType =String.valueOf(fileType) ;
+        this.fileType =fileType ;
         this.buildingId = buildingId;
         this.buildingType = buildingType;
     }
 
-    public String getFileType() {
+    public int getFileType() {
         return fileType;
     }
 
-    public void setFileType(String fileType) {
+    public void setFileType(int fileType) {
         this.fileType = fileType;
     }
 

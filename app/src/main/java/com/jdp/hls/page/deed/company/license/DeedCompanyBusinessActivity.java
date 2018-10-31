@@ -15,7 +15,7 @@ import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyLicense;
 import com.jdp.hls.model.entiy.Person;
-import com.jdp.hls.page.personSearch.PersonSearchActivity;
+import com.jdp.hls.page.personsearch.PersonSearchActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;

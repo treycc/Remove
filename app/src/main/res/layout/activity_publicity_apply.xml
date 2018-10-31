@@ -14,16 +14,56 @@
         android:orientation="vertical">
 
         <LinearLayout
+            style="@style/Content_LL_T0">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="公示类型"/>
+
+            <com.jdp.hls.view.KSpinner
+                android:id="@+id/spinner_publicityType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="请选择公示类型"
+                android:padding="0dp"
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T0">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="建筑类型"/>
+
+            <com.jdp.hls.view.KSpinner
+                android:id="@+id/spinner_buildingType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="请选择建筑类型"
+                android:padding="0dp"
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
             style="@style/Content_LL_T6">
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="公示批次"/>
+                android:text="标题"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_publicityNumber"
                 style="@style/Content_ET_W3"
-                android:hint="请输入公示批次"/>
+                android:hint="请输入标题"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -75,45 +115,6 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-        <LinearLayout
-            style="@style/Content_LL_T0">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="公示类型"/>
-
-            <com.jdp.hls.view.KSpinner
-                android:id="@+id/spinner_publicityType"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:hint="请选择公示类型"
-                android:padding="0dp"
-                app:backgroundSelector="@drawable/sel_t2g"
-                app:textTint="@color/c_9"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T0">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="建筑类型"/>
-
-            <com.jdp.hls.view.KSpinner
-                android:id="@+id/spinner_buildingType"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:hint="请选择建筑类型"
-                android:padding="0dp"
-                app:backgroundSelector="@drawable/sel_t2g"
-                app:textTint="@color/c_9"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             android:id="@+id/ll_publicity_startDate"

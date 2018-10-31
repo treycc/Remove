@@ -3,6 +3,7 @@ package com.jdp.hls.page.business.detail.personal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -44,6 +45,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -97,10 +99,12 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     Switch switchDetailPublicity;
     @BindView(R.id.switch_detail_hasShop)
     Switch switchDetailHasShop;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
     @BindView(R.id.ll_businessArea)
     LinearLayout llBusinessArea;
+    @BindView(R.id.rv_photo_preview_procedure)
+    PreviewRecyclerView rvPhotoPreviewProcedure;
+    @BindView(R.id.rv_photo_preview_house)
+    PreviewRecyclerView rvPhotoPreviewHouse;
     private String buildingId;
     @Inject
     DetailPersonalPresenter detailPersonalPresenter;
@@ -259,8 +263,12 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         switchDetailPublicity.setEnabled(allowEdit);
         spinnerDetailSocialRelation.enable(allowEdit);
         lngLatFragment.setEditable(allowEdit);
-        rvPhotoPreview.setData(detailPersonal.getFiles(), new FileConfig(Status.FileType.PERSONAL_CURRENT,
+        rvPhotoPreviewHouse.setData(detailPersonal.getFiles(), new FileConfig(Status.FileType
+                .PERSONAL_CURRENT,
                 this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)), allowEdit);
+        rvPhotoPreviewProcedure.setData(detailPersonal.getHouseApprovalFiles(), new FileConfig(Status.FileType.PROCEDURE,
+                this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)), allowEdit);
+
     }
 
     private void initLngLat(double lng, double lat) {
@@ -327,13 +335,17 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        rvPhotoPreview.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == Activity.RESULT_OK && data != null) {
             switch (requestCode) {
                 case Constants.RequestCode.LOCATION:
                     longitude = data.getDoubleExtra("lng", -1);
                     latitude = data.getDoubleExtra("lat", -1);
                     initLngLat(longitude, latitude);
+                    break;
+                case Constants.RequestCode.PHOTO_PREVIEW:
+                    rvPhotoPreviewHouse.onActivityResult(requestCode, data);
+                    rvPhotoPreviewProcedure.onActivityResult(requestCode, data);
                     break;
                 default:
                     break;
@@ -361,4 +373,10 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
 
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

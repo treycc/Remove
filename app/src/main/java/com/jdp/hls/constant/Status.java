@@ -45,6 +45,7 @@ public class Status {
         int DECORATION_ITEM = 10;//装饰项目
         int GRADLE = 11;//等级
         int AIRPHOTOTYPE = 12;//航拍阶段
+        int PUBLICITYTYPE = 13;//航拍阶段
     }
 
     public interface BuildingId {
@@ -86,7 +87,8 @@ public class Status {
         int DONE = 1;
         int FINISH = 2;
     }
- public interface StatisticsType {
+
+    public interface StatisticsType {
         int AIRPHOTO = 7;
     }
 

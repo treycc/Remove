@@ -20,7 +20,7 @@ public class PersonAdapter extends CommonAdapter<Person> {
     public PersonAdapter(Context context, List<Person> datas, int itemLayoutId) {
         super(context, datas, itemLayoutId);
         selectDatas = datas;
-    }
+}
 
     @Override
     public void convert(ViewHolder helper, Person person) {

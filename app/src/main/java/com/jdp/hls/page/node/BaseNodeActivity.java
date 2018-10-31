@@ -70,7 +70,7 @@ public abstract class BaseNodeActivity extends BaseTitleActivity {
 
     @Override
     protected  void initData(){
-        setFileConfig(new FileConfig(mFileType, mBuildingId, mBuildingType));
+        setFileConfig(new FileConfig(Integer.valueOf(mFileType), mBuildingId, mBuildingType));
         rvPhotoPreview.setConfig(getFileConfig());
     }
 

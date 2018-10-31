@@ -1,4 +1,4 @@
-package com.jdp.hls.page.personSearch;
+package com.jdp.hls.page.personsearch;
 
 
 import com.jdp.hls.base.BasePresenter;

@@ -155,7 +155,13 @@ public class PublicityDetailActivity extends BaseTitleActivity implements Public
         intent.putExtra(Constants.Extra.POSITION, position);
         context.startActivityForResult(intent, Constants.RequestCode.PUBLICITY_DETAIL);
     }
-
+    public static void goActivity(Activity context, int pubId, int pubStatus, int position) {
+        Intent intent = new Intent(context, PublicityDetailActivity.class);
+        intent.putExtra(Constants.Extra.PUBID, pubId);
+        intent.putExtra(Constants.Extra.PUB_STATUS, pubStatus);
+        intent.putExtra(Constants.Extra.POSITION, position);
+        context.startActivity(intent);
+    }
 
     @Override
     public void onGetPublicityDetailSuccess(PublicityDetail publicityDetail) {
@@ -171,11 +177,6 @@ public class PublicityDetailActivity extends BaseTitleActivity implements Public
 
     @Override
     public void onModifyPublicitySuccess(PublicityItem publicityItem) {
-//        Intent intent = new Intent();
-//        intent.putExtra(Constants.Extra.PUBLICITY_DES, des);
-//        intent.putExtra(Constants.Extra.BATCH_NAME, batchName);
-//        intent.putExtra(Constants.Extra.POSITION, position);
-//        setResult(Activity.RESULT_OK, intent);
         EventBus.getDefault().post(new ModifyPublicityEvent(publicityItem));
         showSuccessAndFinish();
     }

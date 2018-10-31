@@ -18,6 +18,7 @@ import com.jdp.hls.R;
 import com.jdp.hls.activity.PhotoPreviewActivity;
 import com.jdp.hls.adapter.BaseRvPositionAdapter;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.other.file.FileConfig;
@@ -113,13 +114,26 @@ public class PreviewRecyclerView extends RecyclerView {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.RequestCode.PHOTO_PREVIEW && data != null) {
-            photos = (List<ImgInfo>) data.getSerializableExtra(Constants.Extra.PHOTOLIST);
-            previewImgAdapter.setData(photos);
+            int fileType = data.getIntExtra(Constants.Extra.FILETYPE, 0);
+            if (getFileConfig().getFileType() == fileType) {
+                photos = (List<ImgInfo>) data.getSerializableExtra(Constants.Extra.PHOTOLIST);
+                previewImgAdapter.setData(photos);
+            }
+        }
+    }
+    public void onActivityResult(int requestCode, Intent data) {
+        if (requestCode == Constants.RequestCode.PHOTO_PREVIEW && data != null) {
+            int fileType = data.getIntExtra(Constants.Extra.FILETYPE, 0);
+            if (getFileConfig().getFileType() == fileType) {
+                photos = (List<ImgInfo>) data.getSerializableExtra(Constants.Extra.PHOTOLIST);
+                previewImgAdapter.setData(photos);
+            }
+
         }
     }
 
     public interface OnPhotoReturnListener {
-        void onPhotoReturn();
+        void onPhotoReturn(int fileType, List<ImgInfo> photos);
     }
 
     public void goPhotoPreviewActivity(Activity context, FileConfig fileConfig, boolean editable) {
@@ -132,6 +146,10 @@ public class PreviewRecyclerView extends RecyclerView {
 
     public void setConfig(FileConfig fileConfig) {
         this.fileConfig = fileConfig;
+    }
+
+    public FileConfig getFileConfig() {
+        return fileConfig;
     }
 
     public class PreviewImgAdapter extends BaseRvPositionAdapter<ImgInfo> {

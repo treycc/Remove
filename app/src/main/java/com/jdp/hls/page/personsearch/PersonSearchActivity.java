@@ -1,19 +1,16 @@
-package com.jdp.hls.page.personSearch;
+package com.jdp.hls.page.personsearch;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.PersonAdapter;
-import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
@@ -122,7 +119,7 @@ public class PersonSearchActivity extends BaseTitleActivity implements PersonsCo
     public void onGetPersonsSuccess(List<Person> persons) {
         if (persons != null && persons.size() > 0) {
             adapter.setData(persons);
-        }else{
+        } else {
             showEmptyCallback();
         }
     }

@@ -46,6 +46,7 @@ import com.jdp.hls.page.operate.send.SendDialog;
 import com.jdp.hls.page.otherarea.add.OtherAreaAddActivity;
 import com.jdp.hls.page.otherarea.detail.OtherAreaDetailActivity;
 import com.jdp.hls.page.otherarea.list.OtherAreaListActivity;
+import com.jdp.hls.page.publicity.PublicityActivity;
 import com.jdp.hls.page.publicity.apply.PublicityApplyActivity;
 import com.jdp.hls.page.publicity.detail.PublicityDetailActivity;
 import com.jdp.hls.page.publicity.list.PublicityListFragment;
@@ -58,7 +59,7 @@ import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.page.map.MapFragment;
 import com.jdp.hls.page.modify.ModifyAndUploadActivity;
 import com.jdp.hls.page.modifyPassword.ModifyPasswordActivity;
-import com.jdp.hls.page.personSearch.PersonSearchActivity;
+import com.jdp.hls.page.personsearch.PersonSearchActivity;
 import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
@@ -201,4 +202,6 @@ public interface BaseCompnent {
     void inject(BackDialog target);
 
     void inject(RecoverDialog target);
+
+    void inject(PublicityActivity target);
 }

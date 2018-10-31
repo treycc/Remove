@@ -86,7 +86,7 @@ public class PhotoPreviewActivity extends BaseTitleActivity implements PhotoCont
 
     private void modifyPhotos() {
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("FileType", fileConfig.getFileType() == null ? "" : fileConfig.getFileType())
+                .addFormDataPart("FileType",String.valueOf( fileConfig.getFileType()))
                 .addFormDataPart("BuildingId", fileConfig.getBuildingId() == null ? "" : fileConfig.getBuildingId())
                 .addFormDataPart("BuildingType", fileConfig.getBuildingType() == null ? "" : fileConfig
                         .getBuildingType())
@@ -209,6 +209,7 @@ public class PhotoPreviewActivity extends BaseTitleActivity implements PhotoCont
     public void onModifyPhotosSuccess(List<ImgInfo> photoList) {
         Intent intent = new Intent();
         intent.putExtra(Constants.Extra.PHOTOLIST, (Serializable) photoList);
+        intent.putExtra(Constants.Extra.FILETYPE, fileConfig.getFileType());
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
