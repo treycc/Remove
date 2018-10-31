@@ -4,20 +4,14 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.ReceiverSpinnerAdapter;
 import com.jdp.hls.adapter.SimpleSpinnerAdapter;
 import com.jdp.hls.base.App;
 import com.jdp.hls.base.DaggerBaseCompnent;
-import com.jdp.hls.constant.Status;
-import com.jdp.hls.dao.DBManager;
-import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.model.entiy.ReceivePerson;
 import com.jdp.hls.util.LogUtil;
-import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.dialog.BaseDialog;
 import com.kingja.supershapeview.view.SuperShapeEditText;
 
@@ -122,7 +116,6 @@ public class ReviewDialog extends BaseDialog implements ReviewNodeContract.View 
                 }
             });
         }
-
 
     }
 }

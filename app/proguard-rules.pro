@@ -253,6 +253,7 @@
 # 数据库greendao
 -dontwarn org.greenrobot.**
 -keep class org.greenrobot.**{*;}
+-keep class com.jdp.hls.dao.**{*;}
 
 # 注解
 -keep class * extends java.lang.annotation.Annotation { *; }
