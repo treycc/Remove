@@ -247,6 +247,7 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
         etProtocolTempPlacementFee.setString(nodePersonalProtocol.getTempPlacementFee());
         etProtocolOtherFee.setString(nodePersonalProtocol.getOtherFee());
         etRemark.setString(nodePersonalProtocol.getRemark());
+        tvAddress.setString(nodePersonalProtocol.getAddress());
         payType = nodePersonalProtocol.getPayType();
         spinnerProtocolPayType.setSelectItem(payType);
 

@@ -152,7 +152,7 @@ def buildApkBy() {
     android.applicationVariants.all { variant ->
         variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
             def buildType = variant.buildType.name
-            apkData.outputFileName = APP_NAME + "_V" +
+            apkData.outputFileName = APP_NAME + "_" +
                     VERSION_NAME + "_" + VERSION_CODE + "_" + buildType + ".apk"
         }
     }

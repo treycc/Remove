@@ -192,6 +192,8 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
         });
     }
 
+    private String realNameTip = "户主";
+
     @Override
     protected void initData() {
         setRightClick("保存", new NoDoubleClickListener() {
@@ -210,6 +212,9 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
         smbRosterType.setOnSwitchListener((position, tabText) -> {
             isEnterprise = position == 1;
             llRosterCompanyName.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
+            realNameTip = (isEnterprise ? "负责人" : "户主");
+            rtvOwnerType.setText(realNameTip);
+
         });
         smbRosterMeasured.setOnSwitchListener((position, tabText) -> isMeasured = position == 1);
         smbRosterEvaluated.setOnSwitchListener((position, tabText) -> isEvaluated = position == 1);
@@ -226,7 +231,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
 
         if (CheckUtil.checkEmpty(address, "请输入地址")
                 && checkCompanyName(companyName)
-                && CheckUtil.checkEmpty(name, "请输入户主姓名")
+                && CheckUtil.checkEmpty(name, "请输入" + realNameTip)
                 && CheckUtil.checkLngLat(lng, lat)) {
             MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("isEnterprise", String.valueOf(isEnterprise))
@@ -332,17 +337,6 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     public void onAddRosterSuccess(String houseId) {
         EventBus.getDefault().post(new RefreshRostersEvent());
         EventBus.getDefault().post(getRefreshRostersEvent(houseId));
-//        DialogUtil.showDoubleDialog(this, "花名册添加成功，是否继续添加", new MaterialDialog.SingleButtonCallback() {
-//            @Override
-//            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//
-//            }
-//        }, new MaterialDialog.SingleButtonCallback() {
-//            @Override
-//            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//                clearData();
-//            }
-//        });
         DialogUtil.createDoubleDialog(this, "花名册添加成功，是否继续添加", "继续添加", "返回列表", new ConfirmDialog.OnConfirmListener() {
             @Override
             public void onConfirm() {
@@ -375,27 +369,6 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     }
 
     private void clearData() {
-//        lng = 0;
-////        lat = 0;
-////        gender = true;
-////        isEnterprise = false;
-////        isMeasured = false;
-////        isEvaluated = false;
-////        personId = "";
-////        smbRosterType.setSelectedTab(0);
-////        smbRosterGender.setSelectedTab(0);
-////        smbRosterMeasured.setSelectedTab(0);
-////        smbRosterEvaluated.setSelectedTab(0);
-////        setRosterAddress.setText("");
-////        setRosterCompanyName.setText("");
-////        setRosterName.setText("");
-////        setRosterPhone.setText("");
-////        setRosterIdcard.setText("");
-////        setRosterRemark.setText("");
-////        imgUriAdapter.clearDate();
-////        lngLatFragment.setLnglat(Constants.MapSetting.Lat, Constants.MapSetting.Lng);
-////        ivRosterLocation.setBackgroundResource(R.mipmap.ic_confirm_nor);
-////        tvRosterHasLocationed.setText("未定位");
         restartActivity();
     }
 

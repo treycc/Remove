@@ -17,7 +17,37 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="公示批次"/>
+                android:text="公示类型"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_publicityType"
+                style="@style/Content_ET_W3"
+                android:text=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="建筑类型"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_buildingType"
+                style="@style/Content_ET_W3"
+                android:text=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="公示标题"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_publicity_number"
@@ -76,35 +106,6 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="公示类型"/>
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_publicityType"
-                style="@style/Content_ET_W3"
-                android:text=""/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="建筑类型"/>
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_buildingType"
-                style="@style/Content_ET_W3"
-                android:text=""/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             android:id="@+id/ll_publicity_startDate"
@@ -130,8 +131,6 @@
                 <ImageView
                     style="@style/BG_DATE_SELECTOR"
                     android:visibility="gone"/>
-
-
             </RelativeLayout>
 
 

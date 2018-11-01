@@ -4,7 +4,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
@@ -16,7 +15,6 @@ import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.MathUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
-import com.jdp.hls.view.PreviewRecyclerView;
 import com.jdp.hls.view.StringTextView;
 
 import javax.inject.Inject;
@@ -34,8 +32,8 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
 
     @BindView(R.id.tv_mapping_realName)
     TextView tvMappingRealName;
-    @BindView(R.id.tv_mapping_totalArea)
-    TextView tvMappingTotalArea;
+    @BindView(R.id.et_mapping_totalArea)
+    TextView etMappingTotalArea;
     @BindView(R.id.tv_mapping_propertyCertTotalArea)
     StringTextView tvMappingPropertyCertTotalArea;
     @BindView(R.id.et_mapping_totalNotRecordArea)
@@ -86,8 +84,8 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
     @Override
     protected void initData() {
         super.initData();
-        tvMappingPropertyCertTotalArea.addTextChangedListener(calculateTextWatcher);
-        etMappingTotalNotRecordArea.addTextChangedListener(calculateTextWatcher);
+//        tvMappingPropertyCertTotalArea.addTextChangedListener(calculateTextWatcher);
+//        etMappingTotalNotRecordArea.addTextChangedListener(calculateTextWatcher);
     }
 
     private TextWatcher calculateTextWatcher = new SimpleTextWatcher() {
@@ -102,7 +100,7 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
         String totalNotRecordAreaStr = etMappingTotalNotRecordArea.getText().toString().trim();
         double propertyCertTotalArea= TextUtils.isEmpty(propertyCertTotalAreaStr)?0d:Double.valueOf(propertyCertTotalAreaStr);
         double totalNotRecordArea =TextUtils.isEmpty(totalNotRecordAreaStr)?0d:Double.valueOf(totalNotRecordAreaStr);
-        tvMappingTotalArea.setText(String.valueOf(MathUtil.add(propertyCertTotalArea,totalNotRecordArea)));
+        etMappingTotalArea.setText(String.valueOf(MathUtil.add(propertyCertTotalArea,totalNotRecordArea)));
     }
 
     @Override
@@ -118,6 +116,8 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
         etMappingSimpleHouseArea.setEnabled(allowEdit);
         etMappingTanArea.setEnabled(allowEdit);
         etMappingShedArea.setEnabled(allowEdit);
+        etMeasureRemark.setEnabled(allowEdit);
+        etMappingTotalArea.setEnabled(allowEdit);
         tvMappingAddress.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvMappingDate, allowEdit);
     }

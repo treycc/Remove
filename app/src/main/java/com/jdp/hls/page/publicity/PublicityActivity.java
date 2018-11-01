@@ -11,6 +11,8 @@ import com.jdp.hls.R;
 import com.jdp.hls.adapter.PublicityListAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.event.AddPublicityEvent;
+import com.jdp.hls.event.ModifyPublicityEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.page.publicity.apply.PublicityApplyActivity;
@@ -23,6 +25,10 @@ import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +78,7 @@ public class PublicityActivity extends BaseTitleActivity implements SwipeRefresh
 
     @Override
     public void initVariable() {
+        EventBus.getDefault().register(this);
 
     }
 
@@ -138,6 +145,23 @@ public class PublicityActivity extends BaseTitleActivity implements SwipeRefresh
             adapter.setData(publicityItems);
         } else {
             showEmptyCallback();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshPublicityEvent(AddPublicityEvent event) {
+        PublicityItem publicityItem = event.getPublicityItem();
+        if (publicityItem != null) {
+            showSuccessCallback();
+            adapter.addFirst(publicityItem);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modifyPublicityEvent(ModifyPublicityEvent event) {
+        PublicityItem publicityItem = event.getPublicityItem();
+        if (publicityItem != null) {
+            adapter.modify(publicityItem);
         }
     }
 }

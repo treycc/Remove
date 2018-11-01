@@ -2,6 +2,7 @@ package com.jdp.hls.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,7 +37,7 @@ import butterknife.Unbinder;
  * Time: 12:14 AM
  * Desc: BaseFragment
  */
-public abstract class BaseFragment extends Fragment implements BaseView {
+public abstract class BaseFragment extends Fragment implements BaseView, DialogInterface.OnDismissListener {
     protected String TAG = getClass().getSimpleName();
     private ProgressDialog mDialogProgress;
     protected Unbinder unbinder;
@@ -63,8 +64,9 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     private void initCommon() {
         mDialogProgress = new ProgressDialog(getActivity());
-        mDialogProgress.setCancelable(false);
+        mDialogProgress.setCancelable(true);
         mDialogProgress.setCanceledOnTouchOutside(false);
+        mDialogProgress.setOnDismissListener(this);
         mDialogProgress.setMessage("加载中");
     }
 
@@ -193,4 +195,8 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         }
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        RxRe.getInstance().cancle(this);
+    }
 }

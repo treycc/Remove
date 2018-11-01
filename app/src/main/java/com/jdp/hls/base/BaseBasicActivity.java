@@ -132,7 +132,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     private void initReviewDialog() {
         reviewDialog = new ReviewDialog(BaseBasicActivity.this);
         reviewDialog.setOnOperateConfirmListener(requestBody -> {
-            onRecoverNode(requestBody, reviewDialog.getBuildingId());
+            onReviewNode(requestBody, reviewDialog.getBuildingId());
         });
         llNodeReview.setOnClickListener(new NoDoubleClickListener() {
             @Override

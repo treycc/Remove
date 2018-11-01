@@ -40,46 +40,52 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="总建筑面积(m²)"/>
+                android:text="总建筑面积"/>
 
-            <TextView
-                android:id="@+id/tv_mapping_totalArea"
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_totalArea"
                 style="@style/Content_ET_W1"
-                android:inputType="numberDecimal"
-                android:hint="自动计算"/>
+                android:hint="自动计算"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_mapping_propertyCertTotalArea"
-                style="@style/Content_ET_W1"
-                android:hint=""/>
+
             <TextView
                 style="@style/Title_Sub"
                 android:text="房产记载面积"/>
 
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_mapping_propertyCertTotalArea"
+                style="@style/Content_ET_W1"
+                android:hint=""/>
+
 
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
-            <com.jdp.hls.view.EnableEditText
-                android:inputType="numberDecimal"
-                android:id="@+id/et_mapping_totalNotRecordArea"
-                style="@style/Content_ET_W1"
-                android:hint="请输入总未登记面积"/>
+
             <TextView
                 style="@style/Title_Sub"
                 android:text="总未登记面积"/>
 
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_mapping_totalNotRecordArea"
+                style="@style/Content_ET_W1"
+                android:hint="请输入总未登记面积"
+                android:inputType="numberDecimal"/>
+
 
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -103,10 +109,10 @@
                 android:text="简易房面积"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:inputType="numberDecimal"
                 android:id="@+id/et_mapping_simpleHouseArea"
                 style="@style/Content_ET_W1"
-                android:hint="请输入简易房面积"/>
+                android:hint="请输入简易房面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -119,10 +125,10 @@
                 android:text="坦面积"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:inputType="numberDecimal"
                 android:id="@+id/et_mapping_tanArea"
                 style="@style/Content_ET_W1"
-                android:hint="请输入请输入"/>
+                android:hint="请输入请输入"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -135,10 +141,10 @@
                 android:text="棚面积"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:inputType="numberDecimal"
                 android:id="@+id/et_mapping_shedArea"
                 style="@style/Content_ET_W1"
-                android:hint="请输入棚面积"/>
+                android:hint="请输入棚面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -200,7 +206,7 @@
             style="@style/Title_Main"
             android:text="测绘资料"/>
 
-     <include layout="@layout/layout_photo_preview"/>
+        <include layout="@layout/layout_photo_preview"/>
 
         <TextView
             style="@style/Title_Main"

@@ -1,6 +1,7 @@
 package com.jdp.hls.base;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,7 @@ import butterknife.ButterKnife;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public abstract class BaseActivity extends AppCompatActivity implements BaseView {
+public abstract class BaseActivity extends AppCompatActivity implements BaseView, DialogInterface.OnDismissListener {
     protected String TAG = getClass().getSimpleName();
     private ProgressDialog mDialogProgress;
 
@@ -46,8 +47,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     /*初始化公共组件*/
     private void initCommon() {
         mDialogProgress = new ProgressDialog(this);
-        mDialogProgress.setCancelable(false);
+        mDialogProgress.setCancelable(true);
         mDialogProgress.setCanceledOnTouchOutside(false);
+        mDialogProgress.setOnDismissListener(this);
         mDialogProgress.setMessage("加载中");
     }
 
@@ -138,4 +140,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         setProgressShow(false);
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        RxRe.getInstance().cancle(this);
+    }
 }

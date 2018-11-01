@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -129,7 +128,7 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
         chartPie.getDescription().setEnabled(false);//是否显示备注文字
         chartPie.setRotationEnabled(false);//是否可转动
         chartPie.setHighlightPerTapEnabled(false);//是否点击饼图后扩大范围
-        chartPie.setDrawEntryLabels(true);//不显示X轴文字
+        chartPie.setDrawEntryLabels(true);//是否显示X轴文字
         //饼图与边界间隔
         chartPie.setExtraOffsets(AppUtil.dp2px(PADDING), AppUtil.dp2px(PADDING), AppUtil.dp2px(PADDING), AppUtil
                 .dp2px(PADDING));
