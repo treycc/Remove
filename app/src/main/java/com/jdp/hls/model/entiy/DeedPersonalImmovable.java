@@ -26,8 +26,17 @@ public class DeedPersonalImmovable {
     private String PropertyUseTypeName;
     private String StructureTypeName;
     private String DeleteFileIDs;
+    private String Remark;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
+    }
 
     public int getId() {
         return Id;

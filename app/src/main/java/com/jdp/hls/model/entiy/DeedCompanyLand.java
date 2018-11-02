@@ -12,6 +12,7 @@ public class DeedCompanyLand {
     private int Id;
     private String EnterpriseId;
     private String CertNum;
+    private String LandUse;
     private int LandUseTypeId;
     private int LandNatureTypeId;
     private double Area;
@@ -19,8 +20,25 @@ public class DeedCompanyLand {
     private String Address;
     private String LandNatureTypeName;
     private String LandUseTypeName;
+    private String Remark;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getLandUse() {
+        return LandUse;
+    }
+
+    public void setLandUse(String landUse) {
+        LandUse = landUse;
+    }
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
+    }
 
     public List<ImgInfo> getFiles() {
         return Files;

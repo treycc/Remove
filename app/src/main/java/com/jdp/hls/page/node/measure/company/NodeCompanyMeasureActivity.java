@@ -11,8 +11,6 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodeCompanyMeasure;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
-import com.jdp.hls.view.PreviewRecyclerView;
-import com.jdp.hls.view.StringTextView;
 
 import javax.inject.Inject;
 
@@ -28,8 +26,6 @@ import okhttp3.MultipartBody;
 public class NodeCompanyMeasureActivity extends BaseNodeActivity implements NodeCompanyMeasureContract.View {
     @BindView(R.id.tv_measure_name)
     TextView tvMeasureName;
-    @BindView(R.id.tv_measure_address)
-    StringTextView tvMeasureAddress;
     @BindView(R.id.tv_measure_date)
     TextView tvMeasureDate;
     @BindView(R.id.et_remark)
@@ -40,6 +36,8 @@ public class NodeCompanyMeasureActivity extends BaseNodeActivity implements Node
     LinearLayout llMeasureDateSelector;
     @BindView(R.id.iv_dateSelector)
     ImageView ivDateSelector;
+    @BindView(R.id.tv_measure_companyName)
+    TextView tvMeasureCompanyName;
 
     @Override
     public void initVariable() {
@@ -85,7 +83,7 @@ public class NodeCompanyMeasureActivity extends BaseNodeActivity implements Node
         setEditable(allowEdit);
         tvMeasureName.setText(nodeCompanyMeasure.getRealName());
         etMeasureRemark.setText(nodeCompanyMeasure.getRemark());
-        tvMeasureAddress.setText(nodeCompanyMeasure.getAddress());
+        tvMeasureCompanyName.setText(nodeCompanyMeasure.getAddress());
         tvMeasureDate.setText(DateUtil.getShortDate(nodeCompanyMeasure.getMeaDate()));
         rvPhotoPreview.setData(nodeCompanyMeasure.getFiles(), getFileConfig(), allowEdit);
     }
@@ -97,7 +95,6 @@ public class NodeCompanyMeasureActivity extends BaseNodeActivity implements Node
 
     @Override
     protected void onUiEditable(boolean allowEdit) {
-        tvMeasureAddress.setEnabled(allowEdit);
         etMeasureRemark.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvMeasureDate, allowEdit);
     }

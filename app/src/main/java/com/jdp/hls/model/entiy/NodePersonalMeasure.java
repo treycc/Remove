@@ -16,8 +16,17 @@ public class NodePersonalMeasure {
     private String MeaDate;
     private String Remark;
     private String Address;
+    private String CompanyName;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getCompanyName() {
+        return CompanyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        CompanyName = companyName;
+    }
 
     public int getMeaId() {
         return MeaId;

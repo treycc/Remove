@@ -19,9 +19,18 @@ public class DeedPersonalProperty {
     private String Address;
     private String StructureTypeName;
     private String PropertyUseTypeName;
+    private String Remark;
     private List<ImgInfo> Files;
     private String DeleteFileIDs;
     private boolean IsAllowEdit;
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
+    }
 
     public String getDeleteFileIDs() {
         return DeleteFileIDs;

@@ -31,7 +31,9 @@
                 style="@style/Content_ET_W2"
                 android:hint="请输入不动产证号"/>
         </LinearLayout>
+
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -67,7 +69,7 @@
                 app:textTint="@color/c_9"/>
         </LinearLayout>
 
-         <View style="@style/div_hor_gray_margin24"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
 
         <LinearLayout
@@ -87,7 +89,7 @@
                 app:textTint="@color/c_9"/>
         </LinearLayout>
 
-         <View style="@style/div_hor_gray_margin24"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
 
         <LinearLayout
@@ -98,13 +100,13 @@
                 android:text="建筑面积"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:inputType="numberDecimal"
                 android:id="@+id/et_property_totalArea"
                 style="@style/Content_ET_W2"
-                android:hint="请输入建筑面积"/>
+                android:hint="请输入建筑面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
-         <View style="@style/div_hor_gray_margin24"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
@@ -114,11 +116,12 @@
                 android:text="公摊面积"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:inputType="numberDecimal"
                 android:id="@+id/et_property_shareArea"
                 style="@style/Content_ET_W2"
-                android:hint="请输入建筑分摊面积"/>
+                android:hint="请输入建筑分摊面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
+
         <TextView
             style="@style/Title_Main"
             android:text="土地证信息"/>
@@ -136,7 +139,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:hint="请选择土地性质"
-                app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -154,8 +158,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:hint="请选择土地用途"
-                app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
+                app:backgroundSelector="@drawable/sel_t2g"
+                app:textTint="@color/c_9"/>
         </LinearLayout>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -164,13 +170,14 @@
                 android:text="土地记载面积"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:inputType="numberDecimal"
                 android:id="@+id/et_land_certArea"
                 style="@style/Content_ET_W2"
-                android:hint="请输入土地记载面积"/>
+                android:hint="请输入土地记载面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
-         <View style="@style/div_hor_gray_margin24"/>
+        <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -179,18 +186,42 @@
                 android:text="建筑占地面积"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:inputType="numberDecimal"
                 android:id="@+id/et_land_buildOccupyArea"
                 style="@style/Content_ET_W2"
-                android:hint="请输入建筑占地面积"/>
+                android:hint="请输入建筑占地面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
-         <View style="@style/div_hor_gray_margin24"/>
+        <View style="@style/div_hor_gray_margin24"/>
 
+        <TextView
+            style="@style/Title_Main"
+            android:text="备注"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp">
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_remark"
+                style="@style/font_9_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="start"
+                android:hint="请输入备注"
+                android:lines="3"/>
+        </LinearLayout>
 
         <TextView
             style="@style/Title_Main"
             android:text="不动产证照片"/>
+
+
         <LinearLayout
             android:id="@+id/ll_photo_preview"
             style="@style/Content_LL_T12"

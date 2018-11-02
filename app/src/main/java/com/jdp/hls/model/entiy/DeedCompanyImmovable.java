@@ -25,8 +25,35 @@ public class DeedCompanyImmovable {
     private String LandUseTypeName;
     private String PropertyUseTypeName;
     private String StructureTypeName;
+    private String Remark;
+    private String LandUse;
+    private String PropertyUse;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getLandUse() {
+        return LandUse;
+    }
+
+    public void setLandUse(String landUse) {
+        LandUse = landUse;
+    }
+
+    public String getPropertyUse() {
+        return PropertyUse;
+    }
+
+    public void setPropertyUse(String propertyUse) {
+        PropertyUse = propertyUse;
+    }
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
+    }
 
     public List<ImgInfo> getFiles() {
         return Files;

@@ -18,8 +18,26 @@ public class DeedCompanyProperty {
     private String PropertyUseTypeName;
     private String StructureTypeName;
     private String Address;
+    private String Remark;
+    private String PropertyUse;
     private boolean IsAllowEdit;
     private List<ImgInfo>Files;
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
+    }
+
+    public String getPropertyUse() {
+        return PropertyUse;
+    }
+
+    public void setPropertyUse(String propertyUse) {
+        PropertyUse = propertyUse;
+    }
 
     public List<ImgInfo> getFiles() {
         return Files;

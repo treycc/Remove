@@ -123,7 +123,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private String cusCode;
 
     @OnClick({R.id.rl_unrecordBuilding, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
-            .ll_detail_immovableDeed})
+            .ll_detail_immovableDeed, R.id.ll_detail_bankDeed})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_unrecordBuilding:
@@ -143,6 +143,9 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                 String immovableNum = tvDetailImmovableDeed.getText().toString().trim();
                 goDeedActivity(DeedPersonalImmovableActivity.class, Status.FileType.PERSONAL_DEED_IMMOVABLE, TextUtils
                         .isEmpty(immovableNum));
+                break;
+            case R.id.ll_detail_bankDeed:
+                ToastUtil.showText("银行信息");
                 break;
         }
     }
@@ -266,7 +269,8 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         rvPhotoPreviewHouse.setData(detailPersonal.getFiles(), new FileConfig(Status.FileType
                 .PERSONAL_CURRENT,
                 this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)), allowEdit);
-        rvPhotoPreviewProcedure.setData(detailPersonal.getHouseApprovalFiles(), new FileConfig(Status.FileType.PROCEDURE,
+        rvPhotoPreviewProcedure.setData(detailPersonal.getHouseApprovalFiles(), new FileConfig(Status.FileType
+                .PROCEDURE,
                 this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)), allowEdit);
 
     }

@@ -11,6 +11,7 @@
     <TextView
         style="@style/Title_Main"
         android:text="基本信息"/>
+
     <LinearLayout
         style="@style/Content_LL_T6">
 
@@ -25,6 +26,7 @@
     </LinearLayout>
 
     <View style="@style/div_hor_gray_margin24"/>
+
     <LinearLayout
         style="@style/Content_LL_T6">
 
@@ -34,26 +36,24 @@
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_property_area"
-            android:inputType="numberDecimal"
             style="@style/Content_ET_W2"
-            android:hint="请输入产权面积"/>
+            android:hint="请输入产权面积"
+            android:inputType="numberDecimal"/>
     </LinearLayout>
 
     <View style="@style/div_hor_gray_margin24"/>
+
     <LinearLayout
-       style="@style/Content_LL_T0">
+        style="@style/Content_LL_T6">
 
         <TextView
             style="@style/Title_Sub"
             android:text="产权用途"/>
 
-        <com.jdp.hls.view.KSpinner
-            android:id="@+id/spinner_property_use"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="住宅"
-            app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_property_propertyUse"
+            style="@style/Content_ET_W2"
+            android:hint="请输入产权用途"/>
     </LinearLayout>
 
     <View style="@style/div_hor_gray_margin24"/>
@@ -71,7 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="砖混结构"
-            app:backgroundSelector="@drawable/sel_t2g"                app:textTint="@color/c_9"/>
+            app:backgroundSelector="@drawable/sel_t2g"
+            app:textTint="@color/c_9"/>
     </LinearLayout>
 
     <View style="@style/div_hor_gray_margin24"/>
@@ -90,11 +91,11 @@
             android:hint="请输入坐落地址"/>
     </LinearLayout>
 
-    <View style="@style/div_hor_gray_margin24"/>
+    <include layout="@layout/layout_remark"/>
 
     <TextView
         style="@style/Title_Main"
         android:text="产权证照片"/>
 
-   <include layout="@layout/layout_photo_preview"/>
+    <include layout="@layout/layout_photo_preview"/>
 </LinearLayout>

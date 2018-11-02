@@ -3,6 +3,7 @@ package com.jdp.hls.page.business.detail.company;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -38,6 +39,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -79,14 +81,24 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     TextView tvDetailImmovableDeed;
     @BindView(R.id.ll_detail_immovableDeed)
     LinearLayout llDetailImmovableDeed;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
     @BindView(R.id.et_detail_remark)
     EditText etDetailRemark;
     @BindView(R.id.switch_detail_publicity)
     Switch switchDetailPublicity;
     @BindView(R.id.et_mapping_currentOccupyArea)
     EnableEditText etDetailCurrentOccupyArea;
+    @BindView(R.id.tv_detail_juridicalPersonName)
+    TextView tvDetailJuridicalPersonName;
+    @BindView(R.id.tv_detail_juridicalPersonMobile)
+    TextView tvDetailJuridicalPersonMobile;
+    @BindView(R.id.tv_detail_bankDeed)
+    TextView tvDetailBankDeed;
+    @BindView(R.id.ll_detail_bankDeed)
+    LinearLayout llDetailBankDeed;
+    @BindView(R.id.rv_photo_preview_procedure)
+    PreviewRecyclerView rvPhotoPreviewProcedure;
+    @BindView(R.id.rv_photo_preview_house)
+    PreviewRecyclerView rvPhotoPreviewHouse;
     private String buildingId;
     private boolean ifPublicity;
     @Inject
@@ -110,7 +122,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     }
 
     @OnClick({R.id.ll_detail_licenseDeed, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
-            .ll_detail_immovableDeed})
+            .ll_detail_immovableDeed, R.id.ll_detail_bankDeed})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.ll_detail_licenseDeed:
@@ -132,6 +144,9 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                 String immovableNum = tvDetailImmovableDeed.getText().toString().trim();
                 goDeedActivity(DeedCompanyImmovableActivity.class, Status.FileType.COMPANY_DEED_IMMOVABLE, TextUtils
                         .isEmpty(immovableNum));
+                break;
+            case R.id.ll_detail_bankDeed:
+                ToastUtil.showText("开户许可证");
                 break;
         }
     }
@@ -204,17 +219,18 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         etDetailBizInfo.setText(detailCompany.getBizInfo());
         etDetailRentInfo.setText(detailCompany.getRentInfo());
         etDetailRemark.setText(detailCompany.getRemark());
+        tvDetailJuridicalPersonName.setText(detailCompany.getJuridicalPersonName());
+        tvDetailJuridicalPersonMobile.setText(detailCompany.getJuridicalPersonMobile());
         tvDetailBusinessDeed.setText(licenseNo);
         tvDetailLandDeed.setText(landCertNum);
         tvDetailImmovableDeed.setText(estateCertNum);
         tvDetailPropertyDeed.setText(propertyCertNum);
+
         ifPublicity = detailCompany.isAllowPublicity();
         switchDetailPublicity.setChecked(ifPublicity);
 
         initLngLat(detailCompany.getLongitude(), detailCompany.getLatitude());
         allowEdit = detailCompany.isAllowEdit();
-        rvPhotoPreview.setData(detailCompany.getFiles(), new FileConfig(Status.FileType.COMPANY_CURRENT,
-                buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
         if (allowEdit) {
             setRightClick("保存", new NoDoubleClickListener() {
                 @Override
@@ -234,7 +250,12 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         etDetailCurrentOccupyArea.setEnabled(allowEdit);
         switchDetailPublicity.setEnabled(allowEdit);
         lngLatFragment.setEditable(allowEdit);
-
+        rvPhotoPreviewHouse.setData(detailCompany.getFiles(), new FileConfig(Status.FileType
+                .PERSONAL_CURRENT,
+                this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
+        rvPhotoPreviewProcedure.setData(detailCompany.getHouseApprovalFiles(), new FileConfig(Status.FileType
+                .PROCEDURE,
+                this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
     }
 
     private void saveData() {
@@ -292,13 +313,16 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        rvPhotoPreview.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
             switch (requestCode) {
                 case Constants.RequestCode.LOCATION:
                     longitude = data.getDoubleExtra("lng", -1);
                     latitude = data.getDoubleExtra("lat", -1);
                     initLngLat(longitude, latitude);
+                    break;
+                case Constants.RequestCode.PHOTO_PREVIEW:
+                    rvPhotoPreviewHouse.onActivityResult(requestCode, data);
+                    rvPhotoPreviewProcedure.onActivityResult(requestCode, data);
                     break;
                 default:
                     break;
@@ -328,5 +352,12 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
             }
         }
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

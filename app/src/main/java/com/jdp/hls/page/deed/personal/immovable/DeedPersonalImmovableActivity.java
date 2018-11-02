@@ -1,5 +1,6 @@
 package com.jdp.hls.page.deed.personal.immovable;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -22,6 +23,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -54,6 +56,8 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
     EnableEditText etLandAddress;
     @Inject
     DeedPersonalImmovablePresenter deedPersonalImmovablePresenter;
+    @BindView(R.id.et_remark)
+    EnableEditText etRemark;
     private List<TDict> landUseList;
     private List<TDict> landTypeList;
     private List<TDict> propertyUseList;
@@ -62,13 +66,13 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
     private int propertyStructure;
     private int landUseId;
     private int landTypeId;
-    private boolean allowEdit;
     private String certNum;
     private String address;
     private String houseTotalArea;
     private String houseShareArea;
     private String landTotalArea;
     private String buildOccupyArea;
+    private String remark;
 
     @Override
     public void initVariable() {
@@ -165,6 +169,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
                 .addFormDataPart("HouseShareArea", houseShareArea)
                 .addFormDataPart("LandTotalArea", landTotalArea)
                 .addFormDataPart("BuildOccupyArea", buildOccupyArea)
+                .addFormDataPart("Remark", remark)
                 .addFormDataPart("Address", address).build();
     }
 
@@ -175,7 +180,8 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
         landTotalArea = etLandCertArea.getText().toString().trim();
         buildOccupyArea = etLandBuildOccupyArea.getText().toString().trim();
         address = etLandAddress.getText().toString().trim();
-        return CheckUtil.checkEmpty(certNum,"请输入证件号")&&CheckUtil.checkEmpty(address,"请输入地址");
+        remark = etRemark.getText().toString().trim();
+        return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
     }
 
 
@@ -190,6 +196,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
         etPropertyShareArea.setText(String.valueOf(deedPersonalImmovable.getHouseShareArea()));
 
         etLandAddress.setText(deedPersonalImmovable.getAddress());
+        etRemark.setText(deedPersonalImmovable.getRemark());
 
         landUseId = deedPersonalImmovable.getLandUseTypeId();
         landTypeId = deedPersonalImmovable.getLandNatureTypeId();
@@ -200,7 +207,8 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
         propertyStructure = deedPersonalImmovable.getStructureTypeId();
         spinnerPropertyUse.setSelectItem(propertyUse);
         spinnerPropertyStructure.setSelectItem(propertyStructure);
-        allowEdit = deedPersonalImmovable.isAllowEdit();
+
+        boolean allowEdit = deedPersonalImmovable.isAllowEdit();
         setEditable(allowEdit);
         rvPhotoPreview.setData(deedPersonalImmovable.getFiles(), getFileConfig(), allowEdit);
     }
@@ -215,6 +223,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
         etPropertyTotalArea.setEnabled(allowEdit);
         etPropertyShareArea.setEnabled(allowEdit);
         etLandAddress.setEnabled(allowEdit);
+        etRemark.setEnabled(allowEdit);
         spinnerLandUse.enable(allowEdit);
         spinnerLandType.enable(allowEdit);
         spinnerPropertyUse.enable(allowEdit);
@@ -223,11 +232,13 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
 
     @Override
     public void onAddDeedPersonalImmovableSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum,Status.FileType.PERSONAL_DEED_IMMOVABLE,Status.BuildingType.PERSONAL));
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_IMMOVABLE, Status
+                .BuildingType.PERSONAL));
     }
 
     @Override
     public void onModifyDeedPersonalImmovableSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum,Status.FileType.PERSONAL_DEED_IMMOVABLE,Status.BuildingType.PERSONAL));
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_IMMOVABLE, Status
+                .BuildingType.PERSONAL));
     }
 }

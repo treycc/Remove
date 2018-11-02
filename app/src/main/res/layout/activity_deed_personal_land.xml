@@ -112,6 +112,8 @@
             app:textTint="@color/c_9"/>
     </LinearLayout>
 
+    <include layout="@layout/layout_remark"/>
+
     <TextView
         style="@style/Title_Main"
         android:text="土地证照片"/>

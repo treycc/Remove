@@ -13,11 +13,9 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-
         <com.jdp.hls.view.StringTextView
             style="@style/Title_Main"
             android:text="基本信息"/>
-
 
         <LinearLayout
             style="@style/Content_LL_T6">
@@ -39,21 +37,6 @@
 
             <com.jdp.hls.view.StringTextView
                 style="@style/Title_Sub"
-                android:text="棚面积"/>
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_age_shedArea"
-                style="@style/Content_ET_W1"
-                android:hint=""/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <com.jdp.hls.view.StringTextView
-                style="@style/Title_Sub"
                 android:text="简面积"/>
 
             <com.jdp.hls.view.StringTextView
@@ -64,26 +47,23 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-
+        <com.jdp.hls.view.StringTextView
+            style="@style/Title_Main"
+            android:text="鉴定单位"/>
         <LinearLayout
             style="@style/Content_LL_T6">
 
             <com.jdp.hls.view.StringTextView
                 style="@style/Title_Sub"
-                android:text="坐落地址"/>
+                android:text="鉴定单位"/>
 
             <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_age_Address"
+                android:id="@+id/tv_age_companyName"
                 style="@style/Content_ET_W1"
                 android:text=""/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
-
-
-        <com.jdp.hls.view.StringTextView
-            style="@style/Title_Main"
-            android:text="认定单位"/>
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -98,27 +78,15 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
-        <LinearLayout
-            style="@style/Content_LL_T6">
 
-            <com.jdp.hls.view.StringTextView
-                style="@style/Title_Sub"
-                android:text="认定单位"/>
 
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_age_companyName"
-                style="@style/Content_ET_W1"
-                android:text=""/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
 
             <com.jdp.hls.view.StringTextView
                 style="@style/Title_Sub"
-                android:text="认定时间"/>
+                android:text="鉴定时间"/>
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -137,12 +105,16 @@
                     android:id="@+id/iv_dateSelector"
                     style="@style/BG_DATE_SELECTOR"/>
 
-
             </RelativeLayout>
-
 
         </LinearLayout>
 
+
+        <com.jdp.hls.view.StringTextView
+            style="@style/Title_Main"
+            android:text="认定资料"/>
+
+        <include layout="@layout/layout_photo_preview"/>
 
         <com.jdp.hls.view.StringTextView
             style="@style/Title_Main"
@@ -170,8 +142,8 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_age_before90Area"
                 style="@style/Content_ET_W1"
-                android:inputType="numberDecimal"
-                android:hint="请输入面积"/>
+                android:hint="请输入面积"
+                android:inputType="numberDecimal"/>
 
             <com.jdp.hls.view.StringTextView
                 style="@style/font_9_15"
@@ -192,8 +164,8 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_age_asLegitimateArea"
                 style="@style/Content_ET_W1"
-                android:inputType="numberDecimal"
-                android:hint="请输入面积"/>
+                android:hint="请输入面积"
+                android:inputType="numberDecimal"/>
 
             <com.jdp.hls.view.StringTextView
                 style="@style/font_9_15"
@@ -224,12 +196,11 @@
         <LinearLayout
             style="@style/Content_LL_T6">
 
-
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_age_after90Area"
-                android:inputType="numberDecimal"
                 style="@style/Content_ET_W1"
-                android:hint="请输入面积"/>
+                android:hint="请输入面积"
+                android:inputType="numberDecimal"/>
 
             <com.jdp.hls.view.StringTextView
                 style="@style/font_9_15"
@@ -240,14 +211,6 @@
                 android:text="90后档面积"/>
 
         </LinearLayout>
-
-
-        <com.jdp.hls.view.StringTextView
-            style="@style/Title_Main"
-            android:text="认定资料"/>
-
-        <include layout="@layout/layout_photo_preview"/>
-
         <com.jdp.hls.view.StringTextView
             style="@style/Title_Main"
             android:text="备注"/>

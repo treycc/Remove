@@ -61,8 +61,34 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            style="@style/Content_LL_T6">
 
+            <TextView
+                style="@style/Title_Sub"
+                android:text="法人代表"/>
+
+            <TextView
+                android:id="@+id/tv_detail_juridicalPersonName"
+                style="@style/Content_ET_W2"
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="法人联系号码"/>
+
+            <TextView
+                android:id="@+id/tv_detail_juridicalPersonMobile"
+                style="@style/Content_ET_W2"
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -168,80 +194,7 @@
 
         <TextView
             style="@style/Title_Main"
-            android:text="房产信息"/>
-
-        <LinearLayout
-            android:id="@+id/ll_detail_licenseDeed"
-            style="@style/Content_LL_T12">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="营业执照"/>
-
-            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
-
-                <TextView
-                    android:id="@+id/tv_detail_businessDeed"
-                    style="@style/font_9_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text=""/>
-
-                <ImageView style="@style/BG_ARROW"/>
-            </RelativeLayout>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            android:id="@+id/ll_detail_propertyDeed"
-            style="@style/Content_LL_T12">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="产权证"/>
-
-            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
-
-                <TextView
-                    android:id="@+id/tv_detail_propertyDeed"
-                    style="@style/font_9_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text=""/>
-
-                <ImageView style="@style/BG_ARROW"/>
-            </RelativeLayout>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            android:id="@+id/ll_detail_landDeed"
-            style="@style/Content_LL_T12">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="土地证"/>
-
-            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
-
-                <TextView
-                    android:id="@+id/tv_detail_landDeed"
-                    style="@style/font_9_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text=""/>
-
-                <ImageView style="@style/BG_ARROW"/>
-            </RelativeLayout>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
+            android:text="证件信息"/>
         <LinearLayout
             android:id="@+id/ll_detail_immovableDeed"
             style="@style/Content_LL_T12">
@@ -265,18 +218,152 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            android:id="@+id/ll_detail_landDeed"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="土地证"/>
+
+            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
+
+                <TextView
+                    android:id="@+id/tv_detail_landDeed"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text=""/>
+
+                <ImageView style="@style/BG_ARROW"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            android:id="@+id/ll_detail_propertyDeed"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="产权证"/>
+
+            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
+
+                <TextView
+                    android:id="@+id/tv_detail_propertyDeed"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text=""/>
+
+                <ImageView style="@style/BG_ARROW"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            android:id="@+id/ll_detail_licenseDeed"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="营业执照"/>
+
+            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
+
+                <TextView
+                    android:id="@+id/tv_detail_businessDeed"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text=""/>
+
+                <ImageView style="@style/BG_ARROW"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            android:id="@+id/ll_detail_bankDeed"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="开户许可证"/>
+
+            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
+
+                <TextView
+                    android:id="@+id/tv_detail_bankDeed"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text=""/>
+
+                <ImageView style="@style/BG_ARROW"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
 
         <TextView
             style="@style/Title_Normal"
             android:text="相关审批手续"/>
 
 
-        <include layout="@layout/layout_photo_preview"/>
+        <RelativeLayout
+            style="@style/Content_LL_T12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi">
+
+            <com.jdp.hls.view.PreviewRecyclerView
+                android:layout_centerVertical="true"
+                android:id="@+id/rv_photo_preview_procedure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"/>
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                style="@style/BG_ARROW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
         <TextView
             style="@style/Title_Normal"
             android:text="房屋现状图"/>
 
-        <include layout="@layout/layout_photo_preview"/>
+
+        <RelativeLayout
+            style="@style/Content_LL_T12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi">
+
+            <com.jdp.hls.view.PreviewRecyclerView
+                android:layout_centerVertical="true"
+                android:id="@+id/rv_photo_preview_house"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"/>
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                style="@style/BG_ARROW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
 

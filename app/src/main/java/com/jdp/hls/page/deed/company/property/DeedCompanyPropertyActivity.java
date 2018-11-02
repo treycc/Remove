@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseDeedActivity;
-import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
@@ -17,13 +15,10 @@ import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyProperty;
-import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
-import com.jdp.hls.view.PreviewRecyclerView;
 
 import java.util.List;
 
@@ -41,8 +36,6 @@ import okhttp3.RequestBody;
  * Email:kingjavip@gmail.com
  */
 public class DeedCompanyPropertyActivity extends BaseDeedActivity implements DeedCompanyPropertyContract.View {
-    @BindView(R.id.spinner_property_use)
-    KSpinner spinnerPropertyUse;
     @BindView(R.id.spinner_property_structure)
     KSpinner spinnerPropertyStructure;
     @BindView(R.id.et_property_area)
@@ -51,20 +44,23 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
     EnableEditText etPropertyAddress;
     @BindView(R.id.et_property_certNum)
     EnableEditText etPropertyCertNum;
-    private List<TDict> propertyUseList;
+    @BindView(R.id.et_property_propertyUse)
+    EnableEditText etPropertyPropertyUse;
+    @BindView(R.id.et_remark)
+    EnableEditText etRemark;
     private List<TDict> propertyStructureList;
-    private int propertyUse;
     private int propertyStructure;
     @Inject
     DeedCompanyPropertyPresenter deedCompanyPropertyPresenter;
     private String certNum;
     private String area;
     private String address;
+    private String propertyUse;
+    private String remark;
 
     @Override
     public void initVariable() {
         super.initVariable();
-        propertyUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_USE);
         propertyStructureList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_STRUCTURE);
     }
 
@@ -94,10 +90,6 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
     @Override
     protected void initData() {
         super.initData();
-        spinnerPropertyUse.setDicts(propertyUseList, typeId -> {
-            propertyUse = typeId;
-        });
-        propertyUse = spinnerPropertyUse.getDefaultTypeId();
         spinnerPropertyStructure.setDicts(propertyStructureList, typeId -> {
             propertyStructure = typeId;
         });
@@ -140,12 +132,17 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
                 .addFormDataPart("StructureTypeId", String.valueOf(propertyStructure))
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("Address", address)
+                .addFormDataPart("Remark", remark)
+                .addFormDataPart("PropertyUse", propertyUse)
                 .addFormDataPart("Area", area).build();
     }
+
     public boolean checkDataVaildable() {
         certNum = etPropertyCertNum.getText().toString().trim();
         area = etPropertyArea.getText().toString().trim();
         address = etPropertyAddress.getText().toString().trim();
+        remark = etRemark.getText().toString().trim();
+        propertyUse = etPropertyPropertyUse.getText().toString().trim();
         return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
     }
 
@@ -162,9 +159,9 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
         etPropertyCertNum.setText(deedCompanyProperty.getCertNum());
         etPropertyArea.setText(String.valueOf(deedCompanyProperty.getArea()));
         etPropertyAddress.setText(String.valueOf(deedCompanyProperty.getAddress()));
-        propertyUse = deedCompanyProperty.getPropertyUseTypeId();
+        etRemark.setText(deedCompanyProperty.getRemark());
+        etPropertyPropertyUse.setText(deedCompanyProperty.getPropertyUse());
         propertyStructure = deedCompanyProperty.getStructureTypeId();
-        spinnerPropertyUse.setSelectItem(propertyUse);
         spinnerPropertyStructure.setSelectItem(propertyStructure);
         boolean allowEdit = deedCompanyProperty.isAllowEdit();
         setEditable(allowEdit);
@@ -178,20 +175,22 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
         etPropertyCertNum.setEnabled(allowEdit);
         etPropertyArea.setEnabled(allowEdit);
         etPropertyAddress.setEnabled(allowEdit);
-        spinnerPropertyUse.enable(allowEdit);
+        etRemark.setEnabled(allowEdit);
+        etPropertyPropertyUse.setEnabled(allowEdit);
         spinnerPropertyStructure.enable(allowEdit);
     }
 
     @Override
     public void onAddDeedCompanyPropertySuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_PROPERTY,Status.BuildingType.COMPANY));
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_PROPERTY, Status
+                .BuildingType.COMPANY));
     }
 
     @Override
     public void onModifyDeedCompanyPropertySuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_PROPERTY,Status.BuildingType.COMPANY));
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_PROPERTY, Status
+                .BuildingType.COMPANY));
 
     }
-
 
 }

@@ -4,7 +4,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.DaggerBaseCompnent;
@@ -13,7 +12,6 @@ import com.jdp.hls.model.entiy.NodeCompanyAge;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
-import com.jdp.hls.view.PreviewRecyclerView;
 import com.jdp.hls.view.StringTextView;
 
 import javax.inject.Inject;
@@ -52,12 +50,8 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
     EnableEditText etRemark;
     @BindView(R.id.tv_age_totalNotRecordArea)
     StringTextView tvAgeTotalNotRecordArea;
-    @BindView(R.id.tv_age_shedArea)
-    StringTextView tvAgeShedArea;
     @BindView(R.id.tv_age_simpleHouseArea)
     StringTextView tvAgeSimpleHouseArea;
-    @BindView(R.id.tv_age_Address)
-    StringTextView tvAgeAddress;
 
 
     @Override
@@ -127,9 +121,7 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         allowEdit = nodeCompanyAge.isAllowEdit();
         setEditable(allowEdit);
         tvAgeTotalNotRecordArea.setString(nodeCompanyAge.getTotalNotRecordArea());
-        tvAgeShedArea.setString(nodeCompanyAge.getShedArea());
         tvAgeSimpleHouseArea.setString(nodeCompanyAge.getSimpleHouseArea());
-        tvAgeAddress.setString(nodeCompanyAge.getAddress());
         tvAgeRealName.setString(nodeCompanyAge.getRealName());
         tvAgeCompanyName.setString(nodeCompanyAge.getCompanyName());
         tvAgeDate.setString(nodeCompanyAge.getIdenDate());

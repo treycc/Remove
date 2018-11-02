@@ -33,6 +33,7 @@ public class NodeCompanyMeasure {
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
 
+
     public boolean isAllowEdit() {
         return IsAllowEdit;
     }

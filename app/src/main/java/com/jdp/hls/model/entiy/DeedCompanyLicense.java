@@ -16,8 +16,17 @@ public class DeedCompanyLicense {
     private String RealName;
     private String Idcard;
     private String MobilePhone;
+    private String Remark;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
+    }
 
     public String getLicenseId() {
         return LicenseId;

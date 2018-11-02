@@ -189,7 +189,7 @@
 
         <TextView
             style="@style/Title_Main"
-            android:text="房产信息"/>
+            android:text="证件信息"/>
 
         <LinearLayout
             android:id="@+id/ll_detail_hasShop"
@@ -214,7 +214,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <View style="@style/div_hor_gray_margin24"/>
 
 
         <LinearLayout
@@ -241,7 +240,29 @@
 
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_detail_immovableDeed"
+            style="@style/Content_LL_T12">
 
+            <TextView
+                style="@style/Title_Sub"
+                android:text="不动产证"/>
+
+            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
+
+                <TextView
+                    android:id="@+id/tv_detail_immovableDeed"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text=""/>
+
+                <ImageView style="@style/BG_ARROW"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
         <LinearLayout
             android:id="@+id/ll_detail_propertyDeed"
             style="@style/Content_LL_T12">
@@ -291,17 +312,17 @@
         <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
-            android:id="@+id/ll_detail_immovableDeed"
+            android:id="@+id/ll_detail_bankDeed"
             style="@style/Content_LL_T12">
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="不动产证"/>
+                android:text="银行信息"/>
 
             <RelativeLayout style="@style/Rl_Container_Arrow_W2">
 
                 <TextView
-                    android:id="@+id/tv_detail_immovableDeed"
+                    android:id="@+id/tv_detail_bankDeed"
                     style="@style/font_9_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -312,7 +333,6 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <View style="@style/div_hor_gray_margin24"/>
 
         <TextView
             style="@style/Title_Normal"

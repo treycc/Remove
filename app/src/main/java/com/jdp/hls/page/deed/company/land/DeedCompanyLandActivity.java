@@ -2,6 +2,7 @@ package com.jdp.hls.page.deed.company.land;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -24,6 +25,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -36,8 +38,6 @@ import okhttp3.RequestBody;
 public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCompanyLandContract.View {
     @BindView(R.id.spinner_landType)
     KSpinner spinnerLandType;
-    @BindView(R.id.spinner_landUse)
-    KSpinner spinnerLandUse;
     @BindView(R.id.et_land_certNum)
     EnableEditText etLandCertNum;
     @BindView(R.id.et_land_area)
@@ -46,22 +46,24 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     EnableEditText etLandMu;
     @BindView(R.id.et_land_address)
     EnableEditText etLandAddress;
-    private List<TDict> landUseList;
+    @BindView(R.id.et_remark)
+    EnableEditText etRemark;
+    @BindView(R.id.et_land_landUse)
+    EnableEditText etLandLandUse;
     private List<TDict> landTypeList;
-    private int landUseId;
     private int landTypeId;
-    private boolean allowEdit;
     @Inject
     DeedCompanyLandPresenter deedCompanyLandPresenter;
     private String certNum;
     private String area;
     private String mu;
     private String address;
+    private String remark;
+    private String landUse;
 
     @Override
     public void initVariable() {
         super.initVariable();
-        landUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.LAND_USE);
         landTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.LAND_TYPE);
     }
 
@@ -91,10 +93,6 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     @Override
     protected void initData() {
         super.initData();
-        spinnerLandUse.setDicts(landUseList, typeId -> {
-            landUseId = typeId;
-        });
-        landUseId = spinnerLandUse.getDefaultTypeId();
         spinnerLandType.setDicts(landTypeList, typeId -> {
             landTypeId = typeId;
         });
@@ -131,7 +129,9 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
         certNum = etLandCertNum.getText().toString().trim();
         area = etLandArea.getText().toString().trim();
         mu = etLandMu.getText().toString().trim();
+        remark = etRemark.getText().toString().trim();
         address = etLandAddress.getText().toString().trim();
+        landUse = etLandLandUse.getText().toString().trim();
         return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
     }
 
@@ -141,9 +141,10 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
                 .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("LandNatureTypeId", String.valueOf(landTypeId))
-                .addFormDataPart("LandUseTypeId", String.valueOf(landUseId))
+                .addFormDataPart("LandUse", landUse)
                 .addFormDataPart("Area", area)
                 .addFormDataPart("Mu", mu)
+                .addFormDataPart("Remark", remark)
                 .addFormDataPart("Address", address).build();
     }
 
@@ -155,8 +156,9 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
         etLandArea.setEnabled(allowEdit);
         etLandMu.setEnabled(allowEdit);
         etLandAddress.setEnabled(allowEdit);
-        spinnerLandUse.enable(allowEdit);
         spinnerLandType.enable(allowEdit);
+        etRemark.setEnabled(allowEdit);
+        etLandLandUse.setEnabled(allowEdit);
     }
 
     public static void goActivity(Context context, String enterpriseId, boolean isAdd) {
@@ -172,23 +174,25 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
         etLandArea.setText(String.valueOf(deedCompanyLand.getArea()));
         etLandMu.setText(String.valueOf(deedCompanyLand.getMu()));
         etLandAddress.setText(deedCompanyLand.getAddress());
-
-        landUseId = deedCompanyLand.getLandUseTypeId();
+        etRemark.setText(deedCompanyLand.getRemark());
+        etLandLandUse.setText(deedCompanyLand.getLandUse());
         landTypeId = deedCompanyLand.getLandNatureTypeId();
-        spinnerLandUse.setSelectItem(landUseId);
         spinnerLandType.setSelectItem(landTypeId);
-        allowEdit = deedCompanyLand.isAllowEdit();
+        boolean allowEdit = deedCompanyLand.isAllowEdit();
         setEditable(allowEdit);
         rvPhotoPreview.setData(deedCompanyLand.getFiles(), getFileConfig(), allowEdit);
     }
 
     @Override
     public void onAddDeedCompanyLandSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_LAND,Status.BuildingType.COMPANY));
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_LAND, Status.BuildingType
+                .COMPANY));
     }
 
     @Override
     public void onModifyDeedCompanyLandSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_LAND,Status.BuildingType.COMPANY));
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_LAND, Status.BuildingType
+                .COMPANY));
     }
+
 }

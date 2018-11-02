@@ -88,11 +88,13 @@
             android:text="联系号码"/>
 
         <com.jdp.hls.view.EnableEditText
-            android:inputType="number"
             android:id="@+id/et_license_mobilePhone"
             style="@style/Content_ET_W2"
-            android:hint="请输入联系号码"/>
+            android:hint="请输入联系号码"
+            android:inputType="number"/>
     </LinearLayout>
+
+    <include layout="@layout/layout_remark"/>
 
     <TextView
         style="@style/Title_Main"

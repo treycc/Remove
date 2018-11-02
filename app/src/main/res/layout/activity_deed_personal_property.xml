@@ -118,7 +118,7 @@
                 android:hint="请输入地址"/>
         </LinearLayout>
 
-        <View style="@style/div_hor_gray_margin24"/>
+    <include layout="@layout/layout_remark"/>
 
         <TextView
             style="@style/Title_Main"

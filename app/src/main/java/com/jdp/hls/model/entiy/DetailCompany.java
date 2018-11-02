@@ -27,11 +27,38 @@ public class DetailCompany {
     private int StatusId;
     private String StatusDesc;
     private String CurrentOccupyArea;
+    private String JuridicalPersonName;
+    private String JuridicalPersonMobile;
     private double Longitude;
     private double Latitude;
     private boolean IsAllowPublicity;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+    private List<ImgInfo> HouseApprovalFiles;
+
+    public List<ImgInfo> getHouseApprovalFiles() {
+        return HouseApprovalFiles;
+    }
+
+    public void setHouseApprovalFiles(List<ImgInfo> houseApprovalFiles) {
+        HouseApprovalFiles = houseApprovalFiles;
+    }
+
+    public String getJuridicalPersonName() {
+        return JuridicalPersonName;
+    }
+
+    public void setJuridicalPersonName(String juridicalPersonName) {
+        JuridicalPersonName = juridicalPersonName;
+    }
+
+    public String getJuridicalPersonMobile() {
+        return JuridicalPersonMobile;
+    }
+
+    public void setJuridicalPersonMobile(String juridicalPersonMobile) {
+        JuridicalPersonMobile = juridicalPersonMobile;
+    }
 
     public List<ImgInfo> getFiles() {
         return Files;

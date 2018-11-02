@@ -2,9 +2,9 @@ package com.jdp.hls.page.deed.personal.property;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseDeedActivity;
@@ -18,19 +18,15 @@ import com.jdp.hls.model.entiy.DeedPersonalProperty;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
-import com.jdp.hls.view.PreviewRecyclerView;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -54,6 +50,8 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
     KSpinner spinnerPropertyUse;
     @BindView(R.id.et_property_address)
     EnableEditText etPropertyAddress;
+    @BindView(R.id.et_remark)
+    EnableEditText etRemark;
     private List<TDict> propertyUseList;
     private List<TDict> propertyStructureList;
     private int propertyUse;
@@ -65,6 +63,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
     private String totalArea;
     private String shareArea;
     private String address;
+    private String remark;
 
 
     @Override
@@ -108,9 +107,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
             propertyStructure = typeId;
         });
         propertyStructure = spinnerPropertyStructure.getDefaultTypeId();
-
     }
-
 
     @Override
     protected void initNet() {
@@ -118,7 +115,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
         //2.修改 先获取接口，然后可编辑，点保存修改
         //3.查看 先获取接口，然后不可编辑，不出现按钮
         if (mIsAdd) {
-            LogUtil.e(TAG,"add:"+mIsAdd);
+            LogUtil.e(TAG, "add:" + mIsAdd);
             setRightClick("保存", addListener);
         } else {
             //获取接口
@@ -152,6 +149,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("TotalArea", totalArea)
                 .addFormDataPart("ShareArea", shareArea)
+                .addFormDataPart("Remark", remark)
                 .addFormDataPart("Address", address);
         return bodyBuilder.build();
     }
@@ -161,7 +159,8 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
         totalArea = etPropertyTotalArea.getText().toString().trim();
         shareArea = etPropertyShareArea.getText().toString().trim();
         address = etPropertyAddress.getText().toString().trim();
-        return CheckUtil.checkEmpty(certNum,"请输入证件号")&&CheckUtil.checkEmpty(address,"请输入地址");
+        remark = etRemark.getText().toString().trim();
+        return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
     }
 
 
@@ -178,6 +177,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
         etPropertyTotalArea.setText(String.valueOf(deedPersonalProperty.getTotalArea()));
         etPropertyShareArea.setText(String.valueOf(deedPersonalProperty.getShareArea()));
         etPropertyAddress.setText(deedPersonalProperty.getAddress());
+        etRemark.setText(deedPersonalProperty.getRemark());
         propertyUse = deedPersonalProperty.getPropertyUseTypeId();
         propertyStructure = deedPersonalProperty.getStructureTypeId();
         spinnerPropertyUse.setSelectItem(propertyUse);
@@ -195,19 +195,20 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
         etPropertyTotalArea.setEnabled(allowEdit);
         etPropertyShareArea.setEnabled(allowEdit);
         etPropertyAddress.setEnabled(allowEdit);
+        etRemark.setEnabled(allowEdit);
         spinnerPropertyUse.enable(allowEdit);
         spinnerPropertyStructure.enable(allowEdit);
     }
 
     @Override
     public void onAddDeedPersonalPropertySuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum,Status.FileType.PERSONAL_DEED_PROPERTY,Status.BuildingType.PERSONAL));
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_PROPERTY, Status
+                .BuildingType.PERSONAL));
     }
 
     @Override
     public void onModifyDeedPersonalPropertySuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum,Status.FileType.PERSONAL_DEED_PROPERTY,Status.BuildingType.PERSONAL));
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_PROPERTY, Status
+                .BuildingType.PERSONAL));
     }
-
-
 }

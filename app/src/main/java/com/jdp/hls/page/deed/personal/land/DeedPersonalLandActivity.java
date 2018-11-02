@@ -1,37 +1,29 @@
 package com.jdp.hls.page.deed.personal.land;
 
-import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseDeedActivity;
-import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
-import com.jdp.hls.event.RefreshBusinessListEvent;
 import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedPersonalLand;
-import com.jdp.hls.model.entiy.ImgInfo;
-import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
-import com.jdp.hls.view.PreviewRecyclerView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -57,6 +49,8 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
 
     @Inject
     DeedPersonalLandPresenter deedPersonalLandPresenter;
+    @BindView(R.id.et_remark)
+    EnableEditText etRemark;
     private List<TDict> landUseList;
     private List<TDict> landTypeList;
     private int landUseId;
@@ -66,6 +60,7 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
     private String certArea;
     private String buildOccupyArea;
     private String address;
+    private String remark;
 
     @Override
     public void initVariable() {
@@ -129,6 +124,7 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
                 .addFormDataPart("LandUseTypeId", String.valueOf(landUseId))
                 .addFormDataPart("TotalArea", certArea)
                 .addFormDataPart("BuildOccupyArea", buildOccupyArea)
+                .addFormDataPart("Remark", remark)
                 .addFormDataPart("Address", address).build();
     }
 
@@ -137,6 +133,7 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
         certArea = etLandCertArea.getText().toString().trim();
         buildOccupyArea = etBuildOccupyArea.getText().toString().trim();
         address = etLandAddress.getText().toString().trim();
+        remark = etRemark.getText().toString().trim();
         return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
     }
 
@@ -149,8 +146,10 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
         etLandCertArea.setEnabled(allowEdit);
         etBuildOccupyArea.setEnabled(allowEdit);
         etLandAddress.setEnabled(allowEdit);
+        etRemark.setEnabled(allowEdit);
         spinnerLandUse.enable(allowEdit);
         spinnerLandType.enable(allowEdit);
+
     }
 
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {
@@ -178,6 +177,7 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
         etLandCertArea.setText(String.valueOf(deedPersonalLand.getTotalArea()));
         etBuildOccupyArea.setText(String.valueOf(deedPersonalLand.getBuildOccupyArea()));
         etLandAddress.setText(deedPersonalLand.getAddress());
+        etRemark.setText(deedPersonalLand.getRemark());
         landUseId = deedPersonalLand.getLandUseTypeId();
         landTypeId = deedPersonalLand.getLandNatureId();
         spinnerLandUse.setSelectItem(landUseId);
@@ -190,12 +190,14 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
 
     @Override
     public void onAddDeedPersonalLandSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum,Status.FileType.PERSONAL_DEED_LAND,Status.BuildingType.PERSONAL));
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_LAND, Status.BuildingType
+                .PERSONAL));
     }
 
     @Override
     public void onModifyDeedPersonalLandSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum,Status.FileType.PERSONAL_DEED_LAND,Status.BuildingType.PERSONAL));
+        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_LAND, Status.BuildingType
+                .PERSONAL));
     }
 
 

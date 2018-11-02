@@ -49,12 +49,15 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
     DeedCompanyLicensePresenter deedCompanyLicensePresenter;
     @BindView(R.id.set_person_import)
     SuperShapeTextView setPersonImport;
+    @BindView(R.id.et_remark)
+    EnableEditText etRemark;
     private boolean allowEdit;
     private String personId = "";
     private String certNum;
     private String realName;
     private String mobilePhone;
     private String idcard;
+    private String remark;
 
 
     @OnClick({R.id.set_person_import})
@@ -134,6 +137,7 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
                 .addFormDataPart("PersonId", personId)
                 .addFormDataPart("RealName", realName)
                 .addFormDataPart("Idcard", idcard)
+                .addFormDataPart("Remark", remark)
                 .addFormDataPart("MobilePhone", mobilePhone).build();
     }
 
@@ -142,6 +146,7 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
         realName = etLicenseRealName.getText().toString().trim();
         mobilePhone = etLicenseMobilePhone.getText().toString().trim();
         idcard = etLicenseIdcard.getText().toString().trim();
+        remark = etRemark.getText().toString().trim();
         return CheckUtil.checkEmpty(certNum, "请输入证件号");
     }
 
@@ -153,6 +158,7 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
         etLicenseRealName.setEnabled(allowEdit);
         etLicenseIdcard.setEnabled(allowEdit);
         etLicenseMobilePhone.setEnabled(allowEdit);
+        etRemark.setEnabled(allowEdit);
         setPersonImport.setVisibility(allowEdit ? View.VISIBLE : View.GONE);
     }
 
@@ -193,6 +199,7 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
         etLicenseRealName.setText(deedCompanyLicense.getRealName());
         etLicenseIdcard.setText(String.valueOf(deedCompanyLicense.getIdcard()));
         etLicenseMobilePhone.setText(String.valueOf(deedCompanyLicense.getMobilePhone()));
+        etRemark.setText(String.valueOf(deedCompanyLicense.getRemark()));
         allowEdit = deedCompanyLicense.isAllowEdit();
         setEditable(allowEdit);
         rvPhotoPreview.setData(deedCompanyLicense.getFiles(), getFileConfig(), allowEdit);

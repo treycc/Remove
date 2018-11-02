@@ -11,7 +11,6 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodePersonalMeasure;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
-import com.jdp.hls.view.StringTextView;
 
 import javax.inject.Inject;
 
@@ -27,8 +26,6 @@ import okhttp3.MultipartBody;
 public class NodePersonalMeasureActivity extends BaseNodeActivity implements NodePersonalMeasureContract.View {
     @BindView(R.id.tv_measure_name)
     TextView tvMeasureName;
-    @BindView(R.id.tv_measure_address)
-    StringTextView tvMeasureAddress;
     @BindView(R.id.tv_measure_date)
     TextView tvMeasureDate;
     @BindView(R.id.et_remark)
@@ -39,6 +36,8 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
     LinearLayout llMeasureDateSelector;
     @BindView(R.id.iv_dateSelector)
     ImageView ivDateSelector;
+    @BindView(R.id.tv_measure_companyName)
+    TextView tvMeasureCompanyName;
 
     @Override
     public void initVariable() {
@@ -84,7 +83,7 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
         setEditable(allowEdit);
         tvMeasureName.setText(nodePersonalMeasure.getRealName());
         etMeasureRemark.setText(nodePersonalMeasure.getRemark());
-        tvMeasureAddress.setText(nodePersonalMeasure.getAddress());
+        tvMeasureCompanyName.setText(nodePersonalMeasure.getCompanyName());
         tvMeasureDate.setText(DateUtil.getShortDate(nodePersonalMeasure.getMeaDate()));
         rvPhotoPreview.setData(nodePersonalMeasure.getFiles(), getFileConfig(), allowEdit);
     }
@@ -96,10 +95,8 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
 
     @Override
     protected void onUiEditable(boolean allowEdit) {
-        tvMeasureAddress.setEnabled(allowEdit);
         etMeasureRemark.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvMeasureDate, allowEdit);
-
     }
 
     @Override
@@ -112,5 +109,4 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
                 .addFormDataPart("Remark", remark)
                 .build());
     }
-
 }
