@@ -23,6 +23,7 @@ import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailCompany;
 import com.jdp.hls.other.file.FileConfig;
+import com.jdp.hls.page.deed.company.bank.DeedCompanyBankActivity;
 import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
 import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
@@ -91,8 +92,8 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     TextView tvDetailJuridicalPersonName;
     @BindView(R.id.tv_detail_juridicalPersonMobile)
     TextView tvDetailJuridicalPersonMobile;
-    @BindView(R.id.tv_detail_bankDeed)
-    TextView tvDetailBankDeed;
+    @BindView(R.id.tv_detail_bankAccount)
+    TextView tvDetailBankAccount;
     @BindView(R.id.ll_detail_bankDeed)
     LinearLayout llDetailBankDeed;
     @BindView(R.id.rv_photo_preview_procedure)
@@ -146,7 +147,9 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                         .isEmpty(immovableNum));
                 break;
             case R.id.ll_detail_bankDeed:
-                ToastUtil.showText("开户许可证");
+                String openAccountCertNum = tvDetailBankAccount.getText().toString().trim();
+                goDeedActivity(DeedCompanyBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
+                        (openAccountCertNum));
                 break;
         }
     }
@@ -220,7 +223,8 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         etDetailRentInfo.setText(detailCompany.getRentInfo());
         etDetailRemark.setText(detailCompany.getRemark());
         tvDetailJuridicalPersonName.setText(detailCompany.getJuridicalPersonName());
-        tvDetailJuridicalPersonMobile.setText(detailCompany.getJuridicalPersonMobile());
+        tvDetailJuridicalPersonMobile.setText(detailCompany.getJuridicalPersonMobilePhone());
+        tvDetailBankAccount.setText(detailCompany.getBankAccount());
         tvDetailBusinessDeed.setText(licenseNo);
         tvDetailLandDeed.setText(landCertNum);
         tvDetailImmovableDeed.setText(estateCertNum);
@@ -347,17 +351,13 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                 case Status.FileType.COMPANY_DEED_BUSINESS:
                     tvDetailBusinessDeed.setText(event.getCertNum());
                     break;
+                case Status.FileType.BANK:
+                    tvDetailBankAccount.setText(event.getCertNum());
+                    break;
                 default:
                     break;
             }
         }
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

@@ -37,7 +37,7 @@
 
             <com.jdp.hls.view.StringTextView
                 style="@style/Title_Sub"
-                android:text="简面积"/>
+                android:text="简易房面积"/>
 
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_age_simpleHouseArea"
@@ -47,9 +47,23 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <com.jdp.hls.view.StringTextView
+                style="@style/Title_Sub"
+                android:text="其它面积"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_age_otherArea"
+                style="@style/Content_ET_W1"
+                android:hint="请输入其它面积"/>
+        </LinearLayout>
+
         <com.jdp.hls.view.StringTextView
             style="@style/Title_Main"
             android:text="鉴定单位"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -64,6 +78,7 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -78,7 +93,6 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
-
 
 
         <LinearLayout
@@ -116,101 +130,7 @@
 
         <include layout="@layout/layout_photo_preview"/>
 
-        <com.jdp.hls.view.StringTextView
-            style="@style/Title_Main"
-            android:text="认定信息"/>
 
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <com.jdp.hls.view.StringTextView
-                style="@style/Title_Sub"
-                android:text="总认定合法面积"/>
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_age_totalLegalArea"
-                style="@style/Content_ET_W1"
-                android:text="0"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-
-            <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_age_before90Area"
-                style="@style/Content_ET_W1"
-                android:hint="请输入面积"
-                android:inputType="numberDecimal"/>
-
-            <com.jdp.hls.view.StringTextView
-                style="@style/font_9_15"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="90档面积"/>
-
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-
-            <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_age_asLegitimateArea"
-                style="@style/Content_ET_W1"
-                android:hint="请输入面积"
-                android:inputType="numberDecimal"/>
-
-            <com.jdp.hls.view.StringTextView
-                style="@style/font_9_15"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="视同合法面积"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <com.jdp.hls.view.StringTextView
-                style="@style/Title_Sub"
-                android:text="总认定不合法面积"/>
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_age_totalNoLegalArea"
-                style="@style/Content_ET_W1"
-                android:text="0"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_age_after90Area"
-                style="@style/Content_ET_W1"
-                android:hint="请输入面积"
-                android:inputType="numberDecimal"/>
-
-            <com.jdp.hls.view.StringTextView
-                style="@style/font_9_15"
-                android:layout_width="1dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="90后档面积"/>
-
-        </LinearLayout>
         <com.jdp.hls.view.StringTextView
             style="@style/Title_Main"
             android:text="备注"/>
@@ -225,7 +145,7 @@
             android:paddingTop="12dp">
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_remark"
+                android:id="@+id/et_ageRemark"
                 style="@style/font_9_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -234,6 +154,114 @@
                 android:hint="请输入备注"
                 android:lines="3"/>
         </LinearLayout>
+        <!--认定信息-->
+        <LinearLayout
+            android:id="@+id/ll_operateContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.jdp.hls.view.StringTextView
+                style="@style/Title_Main"
+                android:text="认定信息"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <com.jdp.hls.view.StringTextView
+                    style="@style/Title_Sub"
+                    android:text="总认定合法面积"/>
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_age_totalLegalArea"
+                    style="@style/Content_ET_W1"
+                    android:text="0"/>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <com.jdp.hls.view.StringTextView
+                    style="@style/Title_Sub9"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="90档面积"/>
+
+                <com.jdp.hls.view.EnableEditText
+                    android:id="@+id/et_age_before90Area"
+                    style="@style/Content_ET_W1"
+                    android:hint="请输入面积"
+                    android:inputType="numberDecimal"/>
+
+
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <com.jdp.hls.view.StringTextView
+                    style="@style/Title_Sub9"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="视同合法面积"/>
+
+                <com.jdp.hls.view.EnableEditText
+                    android:id="@+id/et_age_asLegitimateArea"
+                    style="@style/Content_ET_W1"
+                    android:hint="请输入面积"
+                    android:inputType="numberDecimal"/>
+
+
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <com.jdp.hls.view.StringTextView
+                    style="@style/Title_Sub"
+                    android:text="总认定不合法面积"/>
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_age_totalNoLegalArea"
+                    style="@style/Content_ET_W1"
+                    android:text="0"/>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <com.jdp.hls.view.StringTextView
+                    style="@style/Title_Sub9"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="90后档面积"/>
+
+                <com.jdp.hls.view.EnableEditText
+                    android:id="@+id/et_age_after90Area"
+                    style="@style/Content_ET_W1"
+                    android:hint="请输入面积"
+                    android:inputType="numberDecimal"/>
+
+
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <include layout="@layout/layout_remark"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
 

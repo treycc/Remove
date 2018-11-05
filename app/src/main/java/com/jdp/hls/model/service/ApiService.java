@@ -9,6 +9,7 @@ import com.jdp.hls.model.entiy.DecorationItem;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
 import com.jdp.hls.model.entiy.DeedCompanyLicense;
+import com.jdp.hls.model.entiy.DeedCompanyOpenAccountCert;
 import com.jdp.hls.model.entiy.DeedCompanyProperty;
 import com.jdp.hls.model.entiy.DeedPersonalImmovable;
 import com.jdp.hls.model.entiy.DeedPersonalLand;
@@ -328,6 +329,19 @@ public interface ApiService {
     /*企业营业执照-创建*/
     @POST("api/cert/AddEnterpriseLicense")
     Observable<HttpResult<Object>> addDeedCompanyLicense(@Body RequestBody rosterBody);
+
+
+    /*企业开户许可证-获取*/
+    @GET("api/cert/GetEnterpriseOpenAccountCert")
+    Observable<HttpResult<DeedCompanyOpenAccountCert>> getDeedCompanyOpenAccountCert(@Query("enterpriseId") String enterpriseId);
+
+    /*企业开户许可证-修改*/
+    @POST("api/cert/UpdateEnterpriseOpenAccountCert")
+    Observable<HttpResult<Object>> modifyDeedCompanyOpenAccountCert(@Body RequestBody rosterBody);
+
+    /*企业开户许可证-创建*/
+    @POST("api/cert/AddEnterpriseOpenAccountCert")
+    Observable<HttpResult<Object>> addDeedCompanyOpenAccountCert(@Body RequestBody rosterBody);
 
     /*======================个人节点======================*/
 

@@ -14,6 +14,7 @@ import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
 import com.jdp.hls.page.business.list.BusinessListActivity;
 import com.jdp.hls.page.business.list.BusinessListFragment;
 import com.jdp.hls.page.crash.CrashActivity;
+import com.jdp.hls.page.deed.company.bank.DeedCompanyBankActivity;
 import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
 import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
@@ -204,4 +205,6 @@ public interface BaseCompnent {
     void inject(RecoverDialog target);
 
     void inject(PublicityActivity target);
+
+    void inject(DeedCompanyBankActivity target);
 }

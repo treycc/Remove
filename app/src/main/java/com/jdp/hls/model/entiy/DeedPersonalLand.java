@@ -21,16 +21,16 @@ public class DeedPersonalLand {
     private String LandUseTypeName;
     private String Address;
     private String DeleteFileIDs;
-    private String remark;
+    private String Remark;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
 
     public String getRemark() {
-        return remark;
+        return Remark;
     }
 
     public void setRemark(String remark) {
-        this.remark = remark;
+        this.Remark = remark;
     }
 
     public String getDeleteFileIDs() {

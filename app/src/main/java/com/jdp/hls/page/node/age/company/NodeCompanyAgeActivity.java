@@ -1,9 +1,12 @@
 package com.jdp.hls.page.node.age.company;
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.DaggerBaseCompnent;
@@ -17,6 +20,7 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -46,12 +50,20 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
     StringTextView tvAgeTotalNoLegalArea;
     @BindView(R.id.et_age_after90Area)
     EnableEditText etAgeAfter90Area;
-    @BindView(R.id.et_remark)
-    EnableEditText etRemark;
+    @BindView(R.id.et_ageRemark)
+    EnableEditText etAgeRemark;
     @BindView(R.id.tv_age_totalNotRecordArea)
     StringTextView tvAgeTotalNotRecordArea;
     @BindView(R.id.tv_age_simpleHouseArea)
     StringTextView tvAgeSimpleHouseArea;
+    @BindView(R.id.et_age_otherArea)
+    EnableEditText etAgeOtherArea;
+    @BindView(R.id.ll_photo_preview)
+    RelativeLayout llPhotoPreview;
+    @BindView(R.id.et_remark)
+    EnableEditText etRemark;
+    @BindView(R.id.ll_operateContent)
+    LinearLayout llOperateContent;
 
 
     @Override
@@ -96,12 +108,12 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         etAgeAfter90Area.setEnabled(allowEdit);
         etAgeBefore90Area.setEnabled(allowEdit);
         etAgeAsLegitimateArea.setEnabled(allowEdit);
-        etRemark.setEnabled(allowEdit);
+        etAgeRemark.setEnabled(allowEdit);
     }
 
     @Override
     protected void onSaveDate() {
-        String remark = etRemark.getText().toString().trim();
+        String remark = etAgeRemark.getText().toString().trim();
         String after90Area = etAgeAfter90Area.getText().toString().trim();
         String before90Area = etAgeBefore90Area.getText().toString().trim();
         String asLegitimateArea = etAgeAsLegitimateArea.getText().toString().trim();
@@ -129,7 +141,7 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         etAgeAsLegitimateArea.setText(nodeCompanyAge.getAsLegitimateArea());
         tvAgeTotalNoLegalArea.setText(nodeCompanyAge.getAfter90Area());
         etAgeAfter90Area.setText(nodeCompanyAge.getAfter90Area());
-        etRemark.setText(nodeCompanyAge.getRemark());
+        etAgeRemark.setText(nodeCompanyAge.getRemark());
         calculateArea();
         rvPhotoPreview.setData(nodeCompanyAge.getFiles(), getFileConfig(), allowEdit);
     }
@@ -161,5 +173,12 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         double before90Area = TextUtils.isEmpty(before90AreaStr) ? 0d : Double.valueOf(before90AreaStr);
         double legitimateArea = TextUtils.isEmpty(legitimateAreaStr) ? 0d : Double.valueOf(legitimateAreaStr);
         tvAgeTotalLegalArea.setText(String.valueOf(before90Area + legitimateArea));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

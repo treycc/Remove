@@ -1,5 +1,6 @@
 package com.jdp.hls.page.node.mapping.company;
 
+import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -32,24 +34,30 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
     EnableEditText etMappingTotalNotRecordArea;
     @BindView(R.id.et_mapping_simpleHouseArea)
     EnableEditText etMappingSimpleHouseArea;
-    @BindView(R.id.et_mapping_shedArea)
-    EnableEditText etMappingShedArea;
     @BindView(R.id.et_mapping_totalBuildingArea)
     EnableEditText etMappingTotalBuildingArea;
-    @BindView(R.id.tv_mapping_totalLegalArea)
-    StringTextView tvMappingTotalLegalArea;
+    @BindView(R.id.et_mapping_totalLegalArea)
+    EnableEditText etMappingTotalLegalArea;
     @BindView(R.id.et_mapping_appurtenanceArea)
     EnableEditText etMappingAppurtenanceArea;
     @BindView(R.id.tv_mapping_companyName)
     StringTextView tvMappingCompanyName;
-    @BindView(R.id.tv_mapping_address)
-    StringTextView tvMappingAddress;
     @BindView(R.id.tv_mapping_date)
     TextView tvMappingDate;
     @BindView(R.id.iv_dateSelector)
     ImageView ivDateSelector;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
+    @BindView(R.id.et_mapping_deedPropertyArea)
+    EnableEditText etMappingDeedPropertyArea;
+    @BindView(R.id.et_mapping_deedLandArea)
+    EnableEditText etMappingDeedLandArea;
+    @BindView(R.id.et_mapping_deedImmovableArea)
+    EnableEditText etMappingDeedImmovableArea;
+    @BindView(R.id.tv_mapping_otherArea)
+    EnableEditText tvMappingOtherArea;
+    @BindView(R.id.tv_mapping_currentOccupyArea)
+    EnableEditText tvMappingCurrentOccupyArea;
 
     @Override
     protected int getContentView() {
@@ -89,9 +97,8 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
     protected void onUiEditable(boolean allowEdit) {
         etMappingTotalNotRecordArea.setEnabled(allowEdit);
         etMappingSimpleHouseArea.setEnabled(allowEdit);
-        etMappingShedArea.setEnabled(allowEdit);
         etMappingTotalBuildingArea.setEnabled(allowEdit);
-        tvMappingTotalLegalArea.setEnabled(allowEdit);
+        etMappingTotalLegalArea.setEnabled(allowEdit);
         etMappingAppurtenanceArea.setEnabled(allowEdit);
         etRemark.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvMappingDate, allowEdit);
@@ -101,7 +108,6 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
     protected void onSaveDate() {
         String totalNotRecordArea = etMappingTotalNotRecordArea.getText().toString().trim();
         String simpleHouseArea = etMappingSimpleHouseArea.getText().toString().trim();
-        String shedArea = etMappingShedArea.getText().toString().trim();
         String appurtenanceArea = etMappingAppurtenanceArea.getText().toString().trim();
         String mapDate = tvMappingDate.getText().toString().trim();
         String totalBuildingArea = etMappingTotalBuildingArea.getText().toString().trim();
@@ -110,7 +116,6 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
                 .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("TotalNotRecordArea", totalNotRecordArea)
                 .addFormDataPart("SimpleHouseArea", simpleHouseArea)
-                .addFormDataPart("ShedArea", shedArea)
                 .addFormDataPart("AppurtenanceArea", appurtenanceArea)
                 .addFormDataPart("MapDate", mapDate)
                 .addFormDataPart("TotalBuildingArea", totalBuildingArea)
@@ -125,13 +130,11 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         tvMappingRealName.setText(nodeCompanyMapping.getRealName());
         etMappingTotalNotRecordArea.setString(nodeCompanyMapping.getTotalNotRecordArea());
         etMappingSimpleHouseArea.setString(nodeCompanyMapping.getSimpleHouseArea());
-        etMappingShedArea.setString(nodeCompanyMapping.getShedArea());
         etMappingTotalBuildingArea.setString(nodeCompanyMapping.getTotalBuildingArea());
-        tvMappingTotalLegalArea.setString(nodeCompanyMapping.getTotalLegalArea());
+        etMappingTotalLegalArea.setString(nodeCompanyMapping.getTotalLegalArea());
         etMappingAppurtenanceArea.setString(nodeCompanyMapping.getAppurtenanceArea());
         etRemark.setString(nodeCompanyMapping.getRemark());
         tvMappingCompanyName.setText(nodeCompanyMapping.getCompanyName());
-        tvMappingAddress.setText(nodeCompanyMapping.getAddress());
         tvMappingDate.setText(DateUtil.getShortDate(nodeCompanyMapping.getMapDate()));
         rvPhotoPreview.setData(nodeCompanyMapping.getFiles(), getFileConfig(), this.allowEdit);
     }
@@ -139,5 +142,12 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
     @Override
     public void onModifyCompanyMappingSuccess() {
         showSuccessAndFinish();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

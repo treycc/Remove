@@ -28,13 +28,31 @@ public class DetailCompany {
     private String StatusDesc;
     private String CurrentOccupyArea;
     private String JuridicalPersonName;
-    private String JuridicalPersonMobile;
+    private String JuridicalPersonMobilePhone;
+    private String BankAccount;
     private double Longitude;
     private double Latitude;
     private boolean IsAllowPublicity;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
     private List<ImgInfo> HouseApprovalFiles;
+    private List<ImgInfo> OtherFiles;
+
+    public List<ImgInfo> getOtherFiles() {
+        return OtherFiles;
+    }
+
+    public void setOtherFiles(List<ImgInfo> otherFiles) {
+        OtherFiles = otherFiles;
+    }
+
+    public String getBankAccount() {
+        return BankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        BankAccount = bankAccount;
+    }
 
     public List<ImgInfo> getHouseApprovalFiles() {
         return HouseApprovalFiles;
@@ -52,12 +70,12 @@ public class DetailCompany {
         JuridicalPersonName = juridicalPersonName;
     }
 
-    public String getJuridicalPersonMobile() {
-        return JuridicalPersonMobile;
+    public String getJuridicalPersonMobilePhone() {
+        return JuridicalPersonMobilePhone;
     }
 
-    public void setJuridicalPersonMobile(String juridicalPersonMobile) {
-        JuridicalPersonMobile = juridicalPersonMobile;
+    public void setJuridicalPersonMobilePhone(String juridicalPersonMobilePhone) {
+        JuridicalPersonMobilePhone = juridicalPersonMobilePhone;
     }
 
     public List<ImgInfo> getFiles() {

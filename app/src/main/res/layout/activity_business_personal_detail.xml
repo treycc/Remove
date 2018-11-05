@@ -322,7 +322,7 @@
             <RelativeLayout style="@style/Rl_Container_Arrow_W2">
 
                 <TextView
-                    android:id="@+id/tv_detail_bankDeed"
+                    android:id="@+id/tv_detail_bankAccount"
                     style="@style/font_9_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

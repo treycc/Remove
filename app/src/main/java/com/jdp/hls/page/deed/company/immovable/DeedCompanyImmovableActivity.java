@@ -54,9 +54,7 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
     EnableEditText etImmovableLandUse;
     @BindView(R.id.et_immovable_propertyUse)
     EnableEditText etImmovablePropertyUse;
-    private List<TDict> landUseList;
     private List<TDict> landTypeList;
-    private List<TDict> propertyUseList;
     private List<TDict> propertyStructureList;
     private int propertyStructure;
     private int landTypeId;
@@ -74,9 +72,7 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
     @Override
     public void initVariable() {
         super.initVariable();
-        landUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.LAND_USE);
         landTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.LAND_TYPE);
-        propertyUseList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_USE);
         propertyStructureList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PROPERTY_STRUCTURE);
     }
 

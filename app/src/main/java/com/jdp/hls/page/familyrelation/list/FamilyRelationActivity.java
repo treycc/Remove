@@ -2,8 +2,8 @@ package com.jdp.hls.page.familyrelation.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +22,7 @@ import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.page.familyrelation.detail.FamilyMememberDetailActivity;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,6 +35,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -49,6 +51,8 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     ListView lvFamilyRelation;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
+    @BindView(R.id.et_remark)
+    EnableEditText etRemark;
 
     private List<FamilyMember> familyMembers = new ArrayList<>();
     private String houseId;
@@ -143,7 +147,7 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
         tvFamilyRelationNum.setText(bookletNum);
         List<FamilyMember> familyMemberList = familyRelation.getLstPerons();
         if (familyMemberList != null && familyMemberList.size() > 0) {
-            familyMemberAdapter.setEditableData(familyMemberList,editable);
+            familyMemberAdapter.setEditableData(familyMemberList, editable);
         }
         rvPhotoPreview.setData(familyRelation.getFiles(), new FileConfig(Status.FileType.BUSINESS_IDCARD, houseId,
                 Status.BuildingTypeStr.PERSONAL), editable);
@@ -180,5 +184,12 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
         bookletNum = familyMember.getBookletNum();
         tvFamilyRelationNum.setText(bookletNum);
         familyMemberAdapter.modifyBookletNum(familyMember);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
