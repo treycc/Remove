@@ -107,10 +107,10 @@
                     android:text="具体信息"/>
 
                 <ImageView
-                    android:layout_width="9dp"
+                    android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_alignParentRight="true"
-                    android:background="@mipmap/arrow_right"/>
+                    android:background="@mipmap/ic_arrow_right"/>
             </RelativeLayout>
 
             <TextView
@@ -127,7 +127,7 @@
                 android:listSelector="@android:color/transparent"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
-                tools:listitem="@layout/item_business_node"/>
+                tools:listitem="@layout/item_node_sub"/>
 
         </LinearLayout>
 

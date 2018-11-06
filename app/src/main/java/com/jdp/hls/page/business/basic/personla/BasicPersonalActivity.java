@@ -12,10 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.FlowNodeAdapter;
+import com.jdp.hls.adapter.NodeAdapter;
+import com.jdp.hls.adapter.SubNodeAdapter;
 import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
-import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
 import com.jdp.hls.injector.component.AppComponent;
@@ -23,13 +23,9 @@ import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.FlowNode;
 import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
 import com.jdp.hls.page.node.BaseNodeActivity;
-import com.jdp.hls.page.node.age.personal.NodePersonalAgeActivity;
-import com.jdp.hls.page.node.evaluate.personal.NodePersonalEvaluateActivity;
-import com.jdp.hls.page.node.mapping.personal.NodePersonalMappingActivity;
-import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
-import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
 import com.jdp.hls.page.operate.OperateNodeContract;
 import com.jdp.hls.page.operate.OperateNodePresenter;
+import com.jdp.hls.util.NodeUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -77,31 +73,16 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
     @Inject
     OperateNodePresenter operateNodePresenter;
     private String buildingId;
-    private FlowNodeAdapter flowNodeAdapter;
+    private NodeAdapter nodeAdapter;
 
 
     @OnItemClick({R.id.lv_business_node})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         FlowNode flowNode = (FlowNode) adapterView.getItemAtPosition(position);
-        if (!flowNode.isAvailable()) {
-            return;
-        }
-        switch (flowNode.getNodeStatusId()) {
-            case Constants.BusinessNode.MEASURE:
-                goNodeActivity(NodePersonalMeasureActivity.class, Status.FileType.NODE_MEASURE);
-                break;
-            case Constants.BusinessNode.MAPPING:
-                goNodeActivity(NodePersonalMappingActivity.class, Status.FileType.NODE_MAPPING);
-                break;
-            case Constants.BusinessNode.AGE:
-                goNodeActivity(NodePersonalAgeActivity.class, Status.FileType.NODE_AGE);
-                break;
-            case Constants.BusinessNode.EVALUATE:
-                goNodeActivity(NodePersonalEvaluateActivity.class, Status.FileType.NODE_EVALUATE);
-                break;
-            case Constants.BusinessNode.PROTOCOL:
-                goNodeActivity(NodePersonalProtocolActivity.class, Status.FileType.NODE_PROTOCOL);
-                break;
+        if (flowNode.isTitle()) {
+            nodeAdapter.setVisibility(position);
+        } else if (flowNode.isAvailable()) {
+            NodeUtil.goNodeActivity(this, flowNode.getId(), buildingId);
         }
     }
 
@@ -147,8 +128,8 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         EventBus.getDefault().register(this);
         basicPersonalPresenter.attachView(this);
         operateNodePresenter.attachView(this);
-        flowNodeAdapter = new FlowNodeAdapter(this, flowNodes, R.layout.item_business_node);
-        lvBusinessNode.setAdapter(flowNodeAdapter);
+        nodeAdapter = new NodeAdapter(this, flowNodes, buildingId);
+        lvBusinessNode.setAdapter(nodeAdapter);
     }
 
     @Override
@@ -205,7 +186,7 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         setContentTitle(baiscPersonal.getAddress());
         List<FlowNode> flowNodes = baiscPersonal.getFlowNodes();
         if (flowNodes != null && flowNodes.size() > 0) {
-            flowNodeAdapter.setData(flowNodes);
+            nodeAdapter.setData(flowNodes);
         }
         setSingleAuth(baiscPersonal.getAuth(), baiscPersonal.getHouseId(), String.valueOf(Status.BuildingType.PERSONAL),
                 String.valueOf(baiscPersonal.getStatusId()), String.valueOf(baiscPersonal.getGroupId()));

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white_hi"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:id="@+id/tv_node_des"
+            style="@style/font_6_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="节点名称"/>
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/ic_arrow_down"/>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v_div"
+        style="@style/div_hor_gray"/>
+
+    <com.jdp.hls.view.FixedListView
+        android:id="@+id/lv_node_sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:listSelector="@android:color/transparent"
+        tools:listitem="@layout/item_node_sub"/>
+
+
+</LinearLayout>

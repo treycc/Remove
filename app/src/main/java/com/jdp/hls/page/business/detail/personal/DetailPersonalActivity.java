@@ -25,6 +25,7 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailPersonal;
 import com.jdp.hls.other.file.FileConfig;
+import com.jdp.hls.page.deed.personal.bank.DeedPersonalBankActivity;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
@@ -105,6 +106,8 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     PreviewRecyclerView rvPhotoPreviewProcedure;
     @BindView(R.id.rv_photo_preview_house)
     PreviewRecyclerView rvPhotoPreviewHouse;
+    @BindView(R.id.tv_detail_bankAccount)
+    TextView tvDetailBankAccount;
     private String buildingId;
     @Inject
     DetailPersonalPresenter detailPersonalPresenter;
@@ -145,7 +148,9 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                         .isEmpty(immovableNum));
                 break;
             case R.id.ll_detail_bankDeed:
-                ToastUtil.showText("银行信息");
+                String bankAccount = tvDetailBankAccount.getText().toString().trim();
+                goDeedActivity(DeedPersonalBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
+                        (bankAccount));
                 break;
         }
     }
@@ -370,17 +375,13 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                 case Status.FileType.PERSONAL_DEED_IMMOVABLE:
                     tvDetailImmovableDeed.setText(event.getCertNum());
                     break;
+                case Status.FileType.BANK:
+                    tvDetailBankAccount.setText(event.getCertNum());
+                    break;
                 default:
                     break;
             }
         }
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

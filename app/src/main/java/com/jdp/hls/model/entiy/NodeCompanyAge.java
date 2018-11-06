@@ -40,10 +40,38 @@ public class NodeCompanyAge {
     private String ShedArea;
     private String TotalNotRecordArea;
     private String Remark;
+    private String RemarkOperator;
+    private String OtherArea;
     private boolean IsAllowEdit;
+    private boolean IsShowNotRecordArea;
     private List<ImgInfo> Files;
+
+    public boolean isShowNotRecordArea() {
+        return IsShowNotRecordArea;
+    }
+
+    public void setShowNotRecordArea(boolean showNotRecordArea) {
+        IsShowNotRecordArea = showNotRecordArea;
+    }
+
     public int getIdenId() {
         return IdenId;
+    }
+
+    public String getRemarkOperator() {
+        return RemarkOperator;
+    }
+
+    public void setRemarkOperator(String remarkOperator) {
+        RemarkOperator = remarkOperator;
+    }
+
+    public String getOtherArea() {
+        return OtherArea;
+    }
+
+    public void setOtherArea(String otherArea) {
+        OtherArea = otherArea;
     }
 
     public String getRemark() {

@@ -11,24 +11,27 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingBottom="12dp"
+        android:paddingLeft="20dp"
         android:paddingTop="12dp">
 
         <TextView
             android:id="@+id/tv_node_des"
-            style="@style/font_6_15"
+            style="@style/font_9_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="节点名称"/>
 
         <ImageView
-            android:id="@+id/iv_arrow_right"
-            android:layout_width="9dp"
+            android:id="@+id/iv_arrow"
+            android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_alignParentRight="true"
-            android:background="@mipmap/arrow_right"/>
+            android:background="@mipmap/ic_arrow_right"/>
     </RelativeLayout>
 
-    <!-- <View style="@style/div_hor_gray_margin24"/>-->
+    <View
+        android:id="@+id/v_div"
+        style="@style/div_hor_gray"/>
 
 
 </LinearLayout>

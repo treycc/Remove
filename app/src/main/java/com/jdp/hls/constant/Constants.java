@@ -8,7 +8,7 @@ package com.jdp.hls.constant;
  * 修改备注：
  */
 public class Constants {
-        public static final String BASE_URL = "http://192.168.0.2:8080/";//本地
+    public static final String BASE_URL = "http://192.168.0.2:8080/";//本地
 //    public static final String BASE_URL = "http://192.168.0.5:8081/";//服务器
 //    public static final String BASE_URL = "http://47.100.213.104:8081/";//外网
 
@@ -62,11 +62,18 @@ public class Constants {
     }
 
     public interface BusinessNode {
-        int MEASURE = 1;
-        int MAPPING = 2;
-        int AGE = 3;
-        int EVALUATE = 4;
-        int PROTOCOL = 5;
+        int PERSONAL_MEASURE = 110;
+        int PERSONAL_MAPPING = 111;
+        int PERSONAL_AGE = 102;
+        int PERSONAL_EVALUATE = 103;
+        int PERSONAL_PROTOCOL = 104;
+
+        int COMPANY_MEASURE = 10;
+        int COMPANY_MAPPING = 11;
+        int COMPANY_AGE = 2;
+        int COMPANY_EVALUATE_MONEY = 31;
+        int COMPANY_EVALUATE_HOUSE = 30;
+        int COMPANY_PROTOCOL = 4;
     }
 
     public interface Extra {

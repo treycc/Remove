@@ -150,9 +150,9 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="9dp"
+            android:layout_width="16dp"
             android:layout_height="16dp"
-            android:background="@mipmap/arrow_right"/>
+            android:background="@mipmap/ic_arrow_right"/>
 
     </LinearLayout>
 

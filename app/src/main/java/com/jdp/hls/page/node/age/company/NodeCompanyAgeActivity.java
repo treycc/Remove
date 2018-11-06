@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -58,12 +59,11 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
     StringTextView tvAgeSimpleHouseArea;
     @BindView(R.id.et_age_otherArea)
     EnableEditText etAgeOtherArea;
-    @BindView(R.id.ll_photo_preview)
-    RelativeLayout llPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
     @BindView(R.id.ll_operateContent)
     LinearLayout llOperateContent;
+    private boolean isShowNotRecordArea;
 
 
     @Override
@@ -109,28 +109,35 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         etAgeBefore90Area.setEnabled(allowEdit);
         etAgeAsLegitimateArea.setEnabled(allowEdit);
         etAgeRemark.setEnabled(allowEdit);
+        etAgeOtherArea.setEnabled(allowEdit);
+        llOperateContent.setVisibility(isShowNotRecordArea ? View.VISIBLE : View.GONE);
     }
 
     @Override
     protected void onSaveDate() {
-        String remark = etAgeRemark.getText().toString().trim();
+        String ageRemark = etAgeRemark.getText().toString().trim();
+        String remark = etRemark.getText().toString().trim();
         String after90Area = etAgeAfter90Area.getText().toString().trim();
         String before90Area = etAgeBefore90Area.getText().toString().trim();
         String asLegitimateArea = etAgeAsLegitimateArea.getText().toString().trim();
         String idenDate = tvAgeDate.getText().toString().trim();
+        String otherArea = etAgeOtherArea.getText().toString().trim();
         nodeCompanyAgePresenter.modifyCompanyAge(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("Before90Area", before90Area)
                 .addFormDataPart("After90Area", after90Area)
                 .addFormDataPart("AsLegitimateArea", asLegitimateArea)
                 .addFormDataPart("IdenDate", idenDate)
-                .addFormDataPart("Remark", remark)
+                .addFormDataPart("OtherArea", otherArea)
+                .addFormDataPart("Remark", ageRemark)
+                .addFormDataPart("RemarkOperator", remark)
                 .build());
     }
 
     @Override
     public void onGetCompanyAgeSuccess(NodeCompanyAge nodeCompanyAge) {
         allowEdit = nodeCompanyAge.isAllowEdit();
+        isShowNotRecordArea = nodeCompanyAge.isShowNotRecordArea();
         setEditable(allowEdit);
         tvAgeTotalNotRecordArea.setString(nodeCompanyAge.getTotalNotRecordArea());
         tvAgeSimpleHouseArea.setString(nodeCompanyAge.getSimpleHouseArea());
@@ -142,6 +149,7 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         tvAgeTotalNoLegalArea.setText(nodeCompanyAge.getAfter90Area());
         etAgeAfter90Area.setText(nodeCompanyAge.getAfter90Area());
         etAgeRemark.setText(nodeCompanyAge.getRemark());
+        etAgeOtherArea.setText(nodeCompanyAge.getOtherArea());
         calculateArea();
         rvPhotoPreview.setData(nodeCompanyAge.getFiles(), getFileConfig(), allowEdit);
     }
@@ -173,12 +181,5 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         double before90Area = TextUtils.isEmpty(before90AreaStr) ? 0d : Double.valueOf(before90AreaStr);
         double legitimateArea = TextUtils.isEmpty(legitimateAreaStr) ? 0d : Double.valueOf(legitimateAreaStr);
         tvAgeTotalLegalArea.setText(String.valueOf(before90Area + legitimateArea));
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

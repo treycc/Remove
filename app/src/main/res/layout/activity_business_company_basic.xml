@@ -17,12 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_msgRoot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_msgTitle"
@@ -30,17 +31,16 @@
                     android:text="标题"/>
 
                 <TextView
-                    android:background="@color/white_hi"
                     android:id="@+id/tv_msgContent"
                     style="@style/font_9_15"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white_hi"
                     android:paddingBottom="12dp"
                     android:paddingLeft="24dp"
                     android:paddingRight="24dp"
                     android:paddingTop="12dp"
                     android:text="理由"/>
-
 
             </LinearLayout>
 
@@ -104,10 +104,10 @@
                     android:text="具体信息"/>
 
                 <ImageView
-                    android:layout_width="9dp"
+                    android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_alignParentRight="true"
-                    android:background="@mipmap/arrow_right"/>
+                    android:background="@mipmap/ic_arrow_right"/>
             </RelativeLayout>
 
             <TextView
@@ -119,12 +119,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white_hi"
-                android:divider="@color/div_hi"
-                android:dividerHeight="1px"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp"
                 android:listSelector="@android:color/transparent"
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
-                tools:listitem="@layout/item_business_node"/>
+                tools:listitem="@layout/item_node_sub"/>
 
         </LinearLayout>
 

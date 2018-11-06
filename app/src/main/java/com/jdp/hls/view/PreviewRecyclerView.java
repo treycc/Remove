@@ -74,7 +74,7 @@ public class PreviewRecyclerView extends RecyclerView {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         ViewGroup parentView = (ViewGroup) getParent();
-        if (parentView.getId() == R.id.ll_photo_preview) {
+        if (parentView.getId() == R.id.rl_photo_preview) {
             parentView.setOnClickListener(v -> {
                 goPhotoPreviewActivity((Activity) getContext(), fileConfig, editable);
             });

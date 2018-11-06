@@ -15,7 +15,7 @@ public class UserInfo {
     private String HeadUrl;
     private String MobilePhone;
     private int AccountName;
-    private int AccountType;
+    private String AccountType;
     private String AccountAlias;
     private boolean IsOperatorAccount;
 
@@ -27,11 +27,11 @@ public class UserInfo {
         IsOperatorAccount = operatorAccount;
     }
 
-    public int getAccountType() {
+    public String getAccountType() {
         return AccountType;
     }
 
-    public void setAccountType(int accountType) {
+    public void setAccountType(String accountType) {
         AccountType = accountType;
     }
 

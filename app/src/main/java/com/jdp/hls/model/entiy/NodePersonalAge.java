@@ -39,10 +39,18 @@ public class NodePersonalAge {
     private String BuildOccupyArea;
     private String SimpleHouseArea;
     private String SubsidiaryHouse;
+    private String RemarkOperator;
     private List<ImgInfo> Files;
     private boolean IsAllowEdit;
     private boolean IsShowNotRecordArea;
 
+    public String getRemarkOperator() {
+        return RemarkOperator;
+    }
+
+    public void setRemarkOperator(String remarkOperator) {
+        RemarkOperator = remarkOperator;
+    }
 
     public boolean isShowNotRecordArea() {
         return IsShowNotRecordArea;

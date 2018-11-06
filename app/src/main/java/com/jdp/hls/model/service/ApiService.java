@@ -1,16 +1,17 @@
 package com.jdp.hls.model.service;
 
 
-import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
-import com.jdp.hls.model.entiy.BasicCompany;
+import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.BaiscPersonal;
+import com.jdp.hls.model.entiy.BasicCompany;
 import com.jdp.hls.model.entiy.DecorationItem;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
 import com.jdp.hls.model.entiy.DeedCompanyLicense;
 import com.jdp.hls.model.entiy.DeedCompanyOpenAccountCert;
 import com.jdp.hls.model.entiy.DeedCompanyProperty;
+import com.jdp.hls.model.entiy.DeedPersonalBank;
 import com.jdp.hls.model.entiy.DeedPersonalImmovable;
 import com.jdp.hls.model.entiy.DeedPersonalLand;
 import com.jdp.hls.model.entiy.DeedPersonalProperty;
@@ -280,6 +281,19 @@ public interface ApiService {
     Observable<HttpResult<Object>> addDeedPersonalImmovable(@Body RequestBody rosterBody);
 
 
+    /*个人银行信息-获取*/
+    @GET("api/cert/GetHouseOpenAccountCert")
+    Observable<HttpResult<DeedPersonalBank>> getDeedPersonalBank(@Query("houseId") String houseId);
+
+    /*个人银行信息-修改*/
+    @POST("api/cert/UpdateHouseOpenAccountCert")
+    Observable<HttpResult<Object>> modifyDeedPersonalBank(@Body RequestBody rosterBody);
+
+    /*个人银行信息-创建*/
+    @POST("api/cert/AddHouseOpenAccountCert")
+    Observable<HttpResult<Object>> addDeedPersonalBank(@Body RequestBody rosterBody);
+
+
     /*======================企业证件======================*/
     /*企业产权证-获取*/
     @GET("api/cert/GetEnterprisePropertyCert")
@@ -333,7 +347,8 @@ public interface ApiService {
 
     /*企业开户许可证-获取*/
     @GET("api/cert/GetEnterpriseOpenAccountCert")
-    Observable<HttpResult<DeedCompanyOpenAccountCert>> getDeedCompanyOpenAccountCert(@Query("enterpriseId") String enterpriseId);
+    Observable<HttpResult<DeedCompanyOpenAccountCert>> getDeedCompanyOpenAccountCert(@Query("enterpriseId") String
+                                                                                             enterpriseId);
 
     /*企业开户许可证-修改*/
     @POST("api/cert/UpdateEnterpriseOpenAccountCert")

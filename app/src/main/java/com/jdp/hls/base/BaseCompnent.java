@@ -19,6 +19,7 @@ import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
 import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
+import com.jdp.hls.page.deed.personal.bank.DeedPersonalBankActivity;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
@@ -207,4 +208,6 @@ public interface BaseCompnent {
     void inject(PublicityActivity target);
 
     void inject(DeedCompanyBankActivity target);
+
+    void inject(DeedPersonalBankActivity target);
 }

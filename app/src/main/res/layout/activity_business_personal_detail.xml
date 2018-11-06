@@ -106,10 +106,10 @@
                 android:text="家庭关系"/>
 
             <ImageView
-                android:layout_width="9dp"
+                android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_alignParentRight="true"
-                android:background="@mipmap/arrow_right"/>
+                android:background="@mipmap/ic_arrow_right"/>
         </RelativeLayout>
 
         <View style="@style/div_hor_gray_margin24"/>

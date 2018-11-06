@@ -48,16 +48,20 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
     ImageView ivDateSelector;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
-    @BindView(R.id.et_mapping_deedPropertyArea)
-    EnableEditText etMappingDeedPropertyArea;
-    @BindView(R.id.et_mapping_deedLandArea)
-    EnableEditText etMappingDeedLandArea;
-    @BindView(R.id.et_mapping_deedImmovableArea)
-    EnableEditText etMappingDeedImmovableArea;
-    @BindView(R.id.tv_mapping_otherArea)
-    EnableEditText tvMappingOtherArea;
-    @BindView(R.id.tv_mapping_currentOccupyArea)
-    EnableEditText tvMappingCurrentOccupyArea;
+    @BindView(R.id.et_mapping_currentOccupyArea)
+    EnableEditText etMappingCurrentOccupyArea;
+    @BindView(R.id.tv_mapping_confirmer)
+    StringTextView tvMappingConfirmer;
+    @BindView(R.id.tv_mapping_propertyCertArea)
+    StringTextView tvMappingPropertyCertArea;
+    @BindView(R.id.tv_mapping_landCertArea)
+    StringTextView tvMappingLandCertArea;
+    @BindView(R.id.tv_mapping_estateCertPropertyArea)
+    StringTextView tvMappingEstateCertPropertyArea;
+    @BindView(R.id.tv_mapping_estateCertLandArea)
+    StringTextView tvMappingEstateCertLandArea;
+    @BindView(R.id.et_mapping_otherLandArea)
+    EnableEditText etMappingOtherLandArea;
 
     @Override
     protected int getContentView() {
@@ -100,6 +104,8 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         etMappingTotalBuildingArea.setEnabled(allowEdit);
         etMappingTotalLegalArea.setEnabled(allowEdit);
         etMappingAppurtenanceArea.setEnabled(allowEdit);
+        etMappingOtherLandArea.setEnabled(allowEdit);
+        etMappingCurrentOccupyArea.setEnabled(allowEdit);
         etRemark.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvMappingDate, allowEdit);
     }
@@ -111,6 +117,9 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         String appurtenanceArea = etMappingAppurtenanceArea.getText().toString().trim();
         String mapDate = tvMappingDate.getText().toString().trim();
         String totalBuildingArea = etMappingTotalBuildingArea.getText().toString().trim();
+        String otherLandArea = etMappingOtherLandArea.getText().toString().trim();
+        String currentOccupyArea = etMappingCurrentOccupyArea.getText().toString().trim();
+        String totalLegalArea = etMappingTotalLegalArea.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
         nodeCompanyMappingPresenter.modifyCompanyMapping(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("EnterpriseId", mBuildingId)
@@ -119,6 +128,9 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
                 .addFormDataPart("AppurtenanceArea", appurtenanceArea)
                 .addFormDataPart("MapDate", mapDate)
                 .addFormDataPart("TotalBuildingArea", totalBuildingArea)
+                .addFormDataPart("TotalLegalArea", totalLegalArea)
+                .addFormDataPart("OtherLandArea", otherLandArea)
+                .addFormDataPart("CurrentOccupyArea", currentOccupyArea)
                 .addFormDataPart("Remark", remark)
                 .build());
     }
@@ -133,6 +145,15 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         etMappingTotalBuildingArea.setString(nodeCompanyMapping.getTotalBuildingArea());
         etMappingTotalLegalArea.setString(nodeCompanyMapping.getTotalLegalArea());
         etMappingAppurtenanceArea.setString(nodeCompanyMapping.getAppurtenanceArea());
+
+        tvMappingConfirmer.setString(nodeCompanyMapping.getConfirmer());
+        tvMappingEstateCertLandArea.setString(nodeCompanyMapping.getEstateCertLandArea());
+        tvMappingEstateCertPropertyArea.setString(nodeCompanyMapping.getEstateCertPropertyArea());
+        tvMappingLandCertArea.setString(nodeCompanyMapping.getLandCertArea());
+        tvMappingPropertyCertArea.setString(nodeCompanyMapping.getPropertyCertArea());
+        etMappingOtherLandArea.setString(nodeCompanyMapping.getOtherLandArea());
+        etMappingCurrentOccupyArea.setString(nodeCompanyMapping.getCurrentOccupyArea());
+
         etRemark.setString(nodeCompanyMapping.getRemark());
         tvMappingCompanyName.setText(nodeCompanyMapping.getCompanyName());
         tvMappingDate.setText(DateUtil.getShortDate(nodeCompanyMapping.getMapDate()));

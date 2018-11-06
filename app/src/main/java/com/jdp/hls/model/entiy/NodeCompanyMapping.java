@@ -43,8 +43,63 @@ public class NodeCompanyMapping {
     private String Address;
     private String CurrentOccupyArea;
     private String TotalLegalArea;
+
+    private String Confirmer;
+    private String EstateCertLandArea;
+    private String EstateCertPropertyArea;
+    private String LandCertArea;
+    private String PropertyCertArea;
+    private String OtherLandArea;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getConfirmer() {
+        return Confirmer;
+    }
+
+    public void setConfirmer(String confirmer) {
+        Confirmer = confirmer;
+    }
+
+    public String getEstateCertLandArea() {
+        return EstateCertLandArea;
+    }
+
+    public void setEstateCertLandArea(String estateCertLandArea) {
+        EstateCertLandArea = estateCertLandArea;
+    }
+
+    public String getEstateCertPropertyArea() {
+        return EstateCertPropertyArea;
+    }
+
+    public void setEstateCertPropertyArea(String estateCertPropertyArea) {
+        EstateCertPropertyArea = estateCertPropertyArea;
+    }
+
+    public String getLandCertArea() {
+        return LandCertArea;
+    }
+
+    public void setLandCertArea(String landCertArea) {
+        LandCertArea = landCertArea;
+    }
+
+    public String getPropertyCertArea() {
+        return PropertyCertArea;
+    }
+
+    public void setPropertyCertArea(String propertyCertArea) {
+        PropertyCertArea = propertyCertArea;
+    }
+
+    public String getOtherLandArea() {
+        return OtherLandArea;
+    }
+
+    public void setOtherLandArea(String otherLandArea) {
+        OtherLandArea = otherLandArea;
+    }
 
     public String getTotalLegalArea() {
         return TotalLegalArea;

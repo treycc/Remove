@@ -80,8 +80,6 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
     EnableEditText etAgeTotalIllegalArea;
     @BindView(R.id.et_ageRemark)
     EnableEditText etAgeRemark;
-    @BindView(R.id.ll_photo_preview)
-    RelativeLayout llPhotoPreview;
     @BindView(R.id.et_age_subsidiaryHouse)
     EnableEditText etAgeSubsidiaryHouse;
     @BindView(R.id.ll_operateContent)
@@ -146,6 +144,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         etAgeAsLegitimateArea.setEnabled(!isOperatorAccount && allowEdit);
         etAgeRemark.setEnabled(!isOperatorAccount && allowEdit);
 
+
         llOperateContent.setVisibility(isShowNotRecordArea ? View.VISIBLE : View.GONE);
         etAgeAnimalHouseArea.setEnabled(allowEdit);
         etAgeBasement.setEnabled(allowEdit);
@@ -153,6 +152,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         etAgeSubsidiaryHouse.setEnabled(allowEdit);
         etAgeTotalIllegalArea.setEnabled(allowEdit);
         etAgeTotalLegitimateArea.setEnabled(allowEdit);
+        etRemark.setEnabled(allowEdit);
     }
 
     @Override
@@ -179,7 +179,8 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         String totalLegitimateArea = etAgeTotalLegitimateArea.getText().toString().trim();
         String totalIllegalArea = etAgeTotalIllegalArea.getText().toString().trim();
         String subsidiaryHouse = etAgeSubsidiaryHouse.getText().toString().trim();
-        String remark = etAgeRemark.getText().toString().trim();
+        String ageRemark = etAgeRemark.getText().toString().trim();
+        String remark = etRemark.getText().toString().trim();
 
         nodePersonalAgePresenter.modifyPersonalAge(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
@@ -207,7 +208,8 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
                 .addFormDataPart("TotalLegitimateArea", totalLegitimateArea)
                 .addFormDataPart("TotalIllegalArea", totalIllegalArea)
                 .addFormDataPart("SubsidiaryHouse", subsidiaryHouse)
-                .addFormDataPart("Remark", remark)
+                .addFormDataPart("Remark", ageRemark)
+                .addFormDataPart("RemarkOperator", remark)
                 .build());
     }
 
@@ -241,6 +243,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         etAgeTotalLegitimateArea.setString(nodePersonalAge.getTotalLegitimateArea());
         etAgeTotalIllegalArea.setString(nodePersonalAge.getTotalIllegalArea());
         etAgeRemark.setString(nodePersonalAge.getRemark());
+        etRemark.setString(nodePersonalAge.getRemarkOperator());
         tvAgeDate.setText(DateUtil.getShortDate(nodePersonalAge.getIdenDate()));
         rvPhotoPreview.setData(nodePersonalAge.getFiles(), getFileConfig(), allowEdit);
     }

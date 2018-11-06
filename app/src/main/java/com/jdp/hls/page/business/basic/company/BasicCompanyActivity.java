@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.FlowNodeAdapter;
+import com.jdp.hls.adapter.NodeAdapter;
 import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
@@ -30,6 +30,8 @@ import com.jdp.hls.page.node.measure.company.NodeCompanyMeasureActivity;
 import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
 import com.jdp.hls.page.operate.OperateNodeContract;
 import com.jdp.hls.page.operate.OperateNodePresenter;
+import com.jdp.hls.util.NodeUtil;
+import com.jdp.hls.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -77,34 +79,15 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
     @Inject
     OperateNodePresenter operateNodePresenter;
     private String buildingId;
-    private FlowNodeAdapter flowNodeAdapter;
+    private NodeAdapter nodeAdapter;
 
     @OnItemClick({R.id.lv_business_node})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         FlowNode flowNode = (FlowNode) adapterView.getItemAtPosition(position);
-        if (flowNode.isAvailable()) {
-            switch (flowNode.getNodeStatusId()) {
-                case Constants.BusinessNode.MEASURE:
-                    //入户丈量
-                    goNodeActivity(NodeCompanyMeasureActivity.class, Status.FileType.NODE_MEASURE);
-                    break;
-                case Constants.BusinessNode.MAPPING:
-                    //测绘出图
-                    goNodeActivity(NodeCompanyMappingActivity.class, Status.FileType.NODE_MAPPING);
-                    break;
-                case Constants.BusinessNode.AGE:
-                    //年限鉴定
-                    goNodeActivity(NodeCompanyAgeActivity.class, Status.FileType.NODE_AGE);
-                    break;
-                case Constants.BusinessNode.EVALUATE:
-                    //入户评估
-                    goNodeActivity(NodeCompanyEvaluateActivity.class, Status.FileType.NODE_EVALUATE);
-                    break;
-                case Constants.BusinessNode.PROTOCOL:
-                    //协议生成
-                    goNodeActivity(NodeCompanyProtocolActivity.class, Status.FileType.NODE_PROTOCOL);
-                    break;
-            }
+        if (flowNode.isTitle()) {
+            nodeAdapter.setVisibility(position);
+        } else if (flowNode.isAvailable()) {
+            NodeUtil.goNodeActivity(this,flowNode.getId(),buildingId);
         }
     }
 
@@ -150,8 +133,8 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
         EventBus.getDefault().register(this);
         basicCompanyPresenter.attachView(this);
         operateNodePresenter.attachView(this);
-        flowNodeAdapter = new FlowNodeAdapter(this, flowNodes, R.layout.item_business_node);
-        lvBusinessNode.setAdapter(flowNodeAdapter);
+        nodeAdapter = new NodeAdapter(this, flowNodes,buildingId);
+        lvBusinessNode.setAdapter(nodeAdapter);
     }
 
     @Override
@@ -207,7 +190,7 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
         setContentTitle(basicCompany.getAddress());
         List<FlowNode> flowNodes = basicCompany.getFlowNodes();
         if (flowNodes != null && flowNodes.size() > 0) {
-            flowNodeAdapter.setData(flowNodes);
+            nodeAdapter.setData(flowNodes);
         }
         setSingleAuth(basicCompany.getAuth(), basicCompany.getHouseId(), String.valueOf(Status.BuildingType.COMPANY),
                 String.valueOf(basicCompany.getStatusId()));

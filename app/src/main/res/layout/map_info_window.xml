@@ -29,7 +29,7 @@
     </LinearLayout>
 
     <ImageView
-        android:background="@mipmap/arrow_right"
-        android:layout_width="9dp"
+        android:background="@mipmap/ic_arrow_right"
+        android:layout_width="16dp"
         android:layout_height="16dp"/>
 </LinearLayout>

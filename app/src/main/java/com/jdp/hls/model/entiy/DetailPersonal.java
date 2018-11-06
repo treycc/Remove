@@ -71,6 +71,7 @@ public class DetailPersonal {
     private String StatusDesc;
     private String PersonId;
     private String BookletId;
+    private String BankAccount;
     private List<ImgInfo> Files;
     private List<ImgInfo> HouseApprovalFiles;
 

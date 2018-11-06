@@ -1,6 +1,5 @@
 package com.jdp.hls.page.node.protocol.company;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -30,7 +29,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -214,6 +212,8 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
         pcId = nodeCompanyProtocol.getPCId();
         payType = nodeCompanyProtocol.getPayType();
         spinnerPayType.setSelectItem(payType);
+        tvProtocolCompanyName.setString(nodeCompanyProtocol.getCompanyName());
+        tvProtocolRealName.setString(nodeCompanyProtocol.getRealName());
         tvProtocolTotalBuildingArea.setString(nodeCompanyProtocol.getTotalBuildingArea());
         tvProtocolTotalNotRecordArea.setString(nodeCompanyProtocol.getTotalNotRecordArea());
         tvProtocolLandCertArea.setString(nodeCompanyProtocol.getLandCertArea());

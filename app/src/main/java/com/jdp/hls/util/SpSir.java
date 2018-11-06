@@ -189,12 +189,12 @@ public class SpSir {
         putboolean(IfRememberBaby, ifRememberBaby);
     }
 
-    public int getAccountType() {
-        return getInt(AccountType);
+    public String getAccountType() {
+        return getString(AccountType);
     }
 
-    public void setAccountType(int accountType) {
-        putInt(AccountType, accountType);
+    public void setAccountType(String accountType) {
+        putString(AccountType, accountType);
     }
 
 
