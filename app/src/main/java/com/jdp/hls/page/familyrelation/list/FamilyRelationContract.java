@@ -19,11 +19,13 @@ public interface FamilyRelationContract {
         void onGetFamilyRelationSuccess(FamilyRelation familyRelation);
 
         void onDeleteFamilyRememberSuccess(int position);
+        void onModifyFamilyRelationSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
         void getFamilyRelation(String houseId);
 
         void deleteFamilyRemember(@Body RequestBody requestBody, int position);
+        void modifyFamilyRelation(@Body RequestBody requestBody);
     }
 }

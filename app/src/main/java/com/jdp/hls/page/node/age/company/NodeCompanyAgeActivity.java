@@ -1,13 +1,11 @@
 package com.jdp.hls.page.node.age.company;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.DaggerBaseCompnent;
@@ -21,7 +19,6 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**

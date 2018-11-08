@@ -3,7 +3,6 @@ package com.jdp.hls.page.business.detail.personal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -46,7 +45,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -242,6 +240,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         tvDetailPropertyDeed.setText(detailPersonal.getPropertyCertNum());
         tvDetailLandDeed.setText(detailPersonal.getLandCertNum());
         tvDetailImmovableDeed.setText(detailPersonal.getEstateCertNum());
+        tvDetailBankAccount.setText(detailPersonal.getBankAccount());
         etDetailRemark.setText(detailPersonal.getRemark());
         switchDetailHasShop.setChecked(hasShop);
         switchDetailNeedHouse.setChecked(detailPersonal.isNeedTempHouse());
@@ -274,7 +273,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         rvPhotoPreviewHouse.setData(detailPersonal.getFiles(), new FileConfig(Status.FileType
                 .PERSONAL_CURRENT,
                 this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)), allowEdit);
-        rvPhotoPreviewProcedure.setData(detailPersonal.getHouseApprovalFiles(), new FileConfig(Status.FileType
+        rvPhotoPreviewProcedure.setData(detailPersonal.getApprovalFiles(), new FileConfig(Status.FileType
                 .PROCEDURE,
                 this.buildingId, String.valueOf(Status.BuildingType.PERSONAL)), allowEdit);
 

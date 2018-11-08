@@ -5,6 +5,8 @@ import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.BasicCompany;
+import com.jdp.hls.model.entiy.NodeCompanyHouseEvaluate;
+import com.jdp.hls.model.entiy.NodeCompanyMoneyEvaluate;
 import com.jdp.hls.model.entiy.DecorationItem;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
@@ -434,13 +436,31 @@ public interface ApiService {
     @POST("api/workflow/UpdateEnterpriseEvaluation")
     Observable<HttpResult<Object>> modifyCompanyEvaluate(@Body RequestBody rosterBody);
 
-    /*个人-协议生成-获取*/
+    /*企业-协议生成-获取*/
     @GET("api/workflow/GetEnterpriseProtocolCheck")
     Observable<HttpResult<NodeCompanyProtocol>> getCompanyProtocol(@Query("enterpriseId") String enterpriseId);
 
-    /*个人-协议生成-修改*/
+    /*企业-协议生成-修改*/
     @POST("api/workflow/UpdateEnterpriseProtocolCheck")
     Observable<HttpResult<Object>> modifyCompanyProtocol(@Body RequestBody rosterBody);
+
+    /*企业-资产评估-获取*/
+    @GET("api/workflow/GetEnterpriseEvaluationAsset")
+    Observable<HttpResult<NodeCompanyMoneyEvaluate>> getCompanyMoneyevaluate(@Query("enterpriseId") String
+                                                                                     enterpriseId);
+
+    /*企业-资产评估-修改*/
+    @POST("api/workflow/UpdateEnterpriseEvaluationAsset")
+    Observable<HttpResult<Object>> modifyCompanyMoneyevaluate(@Body RequestBody rosterBody);
+
+    /*企业-房地产评估-获取*/
+    @GET("api/workflow/GetEnterpriseEvaluationEstate")
+    Observable<HttpResult<NodeCompanyHouseEvaluate>> getCompanyHouseEvaluate(@Query("enterpriseId") String
+                                                                                     enterpriseId);
+
+    /*企业-房地产评估-修改*/
+    @POST("api/workflow/UpdateEnterpriseEvaluationEstate")
+    Observable<HttpResult<Object>> modifyCompanyHouseEvaluate(@Body RequestBody rosterBody);
 
     /*======================协议生成-其它面积======================*/
 
@@ -474,6 +494,10 @@ public interface ApiService {
     /*家庭关系*/
     @GET("api/person/GetFamilyPersonList")
     Observable<HttpResult<FamilyRelation>> getFamilyRelation(@Query("houseId") String houseId);
+
+    /*家庭关系-修改*/
+    @POST("api/person/UpdateFamilyInfo")
+    Observable<HttpResult<Object>> modifyFamilyRelation(@Body RequestBody requestBody);
 
     /*家庭成员-修改*/
     @POST("api/person/SavePersonForApp")

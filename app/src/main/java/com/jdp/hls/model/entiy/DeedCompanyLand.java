@@ -21,8 +21,17 @@ public class DeedCompanyLand {
     private String LandNatureTypeName;
     private String LandUseTypeName;
     private String Remark;
+    private String LandOutExpiryDate;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getLandOutExpiryDate() {
+        return LandOutExpiryDate;
+    }
+
+    public void setLandOutExpiryDate(String landOutExpiryDate) {
+        LandOutExpiryDate = landOutExpiryDate;
+    }
 
     public String getLandUse() {
         return LandUse;

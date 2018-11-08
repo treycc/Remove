@@ -53,6 +53,18 @@ public class FamilyRelationPresenter implements FamilyRelationContract.Presenter
                 });
     }
 
+    @Override
+    public void modifyFamilyRelation(RequestBody requestBody) {
+        mApi.getApiService().modifyFamilyRelation(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onModifyFamilyRelationSuccess();
+                    }
+                });
+    }
+
 
     @Override
     public void attachView(@NonNull FamilyRelationContract.View view) {

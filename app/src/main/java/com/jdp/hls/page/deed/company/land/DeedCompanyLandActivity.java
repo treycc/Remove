@@ -2,9 +2,14 @@ package com.jdp.hls.page.deed.company.land;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseDeedActivity;
@@ -16,16 +21,21 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
 import com.jdp.hls.util.CheckUtil;
+import com.jdp.hls.util.DateUtil;
+import com.jdp.hls.util.MathUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
+import com.jdp.hls.view.StringTextView;
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -42,24 +52,30 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     EnableEditText etLandCertNum;
     @BindView(R.id.et_land_area)
     EnableEditText etLandArea;
-    @BindView(R.id.et_land_mu)
-    EnableEditText etLandMu;
+    @BindView(R.id.tv_land_mu)
+    StringTextView tvLandMu;
     @BindView(R.id.et_land_address)
     EnableEditText etLandAddress;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
     @BindView(R.id.et_land_landUse)
     EnableEditText etLandLandUse;
+    @BindView(R.id.tv_landOutExpiryDate)
+    TextView tvLandOutExpiryDate;
+    @BindView(R.id.iv_dateSelector)
+    ImageView ivDateSelector;
+    @BindView(R.id.rl_photo_preview)
+    RelativeLayout rlPhotoPreview;
     private List<TDict> landTypeList;
     private int landTypeId;
     @Inject
     DeedCompanyLandPresenter deedCompanyLandPresenter;
     private String certNum;
     private String area;
-    private String mu;
     private String address;
     private String remark;
     private String landUse;
+    private String landOutExpiryDate;
 
     @Override
     public void initVariable() {
@@ -97,15 +113,31 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
             landTypeId = typeId;
         });
         landTypeId = spinnerLandType.getDefaultTypeId();
+        etLandArea.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculate();
+
+            }
+        });
+    }
+
+    private void calculate() {
+        area = etLandArea.getText().toString().trim();
+        double areaStr = TextUtils.isEmpty(area) ? 0d : Double.valueOf
+                (area);
+        tvLandMu.setText(String.valueOf(MathUtil.div(areaStr,666.66d)));
     }
 
     @Override
     protected void initNet() {
         if (mIsAdd) {
             setRightClick("保存", addListener);
+            setDateSelector(ivDateSelector, tvLandOutExpiryDate, mIsAdd);
         } else {
             deedCompanyLandPresenter.getDeedCompanyLand(mBuildingId);
         }
+
     }
 
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {
@@ -128,10 +160,10 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     public boolean checkDataVaildable() {
         certNum = etLandCertNum.getText().toString().trim();
         area = etLandArea.getText().toString().trim();
-        mu = etLandMu.getText().toString().trim();
         remark = etRemark.getText().toString().trim();
         address = etLandAddress.getText().toString().trim();
         landUse = etLandLandUse.getText().toString().trim();
+        landOutExpiryDate = tvLandOutExpiryDate.getText().toString().trim();
         return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
     }
 
@@ -143,7 +175,7 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
                 .addFormDataPart("LandNatureTypeId", String.valueOf(landTypeId))
                 .addFormDataPart("LandUse", landUse)
                 .addFormDataPart("Area", area)
-                .addFormDataPart("Mu", mu)
+                .addFormDataPart("LandOutExpiryDate", landOutExpiryDate)
                 .addFormDataPart("Remark", remark)
                 .addFormDataPart("Address", address).build();
     }
@@ -154,11 +186,31 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
         }
         etLandCertNum.setEnabled(allowEdit);
         etLandArea.setEnabled(allowEdit);
-        etLandMu.setEnabled(allowEdit);
         etLandAddress.setEnabled(allowEdit);
         spinnerLandType.enable(allowEdit);
         etRemark.setEnabled(allowEdit);
         etLandLandUse.setEnabled(allowEdit);
+        setDateSelector(ivDateSelector, tvLandOutExpiryDate, allowEdit);
+    }
+    protected void setDateSelector(ImageView ivDate, TextView tvDate, boolean allowEdit) {
+        ivDate.setVisibility(allowEdit ? View.VISIBLE : View.GONE);
+        if (!allowEdit) {
+            return;
+        }
+        ivDate.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                new TimePickerDialog.Builder()
+                        .setType(Type.YEAR_MONTH_DAY)
+                        .setThemeColor(ContextCompat.getColor(DeedCompanyLandActivity.this, R.color.main))
+                        .setWheelItemTextSize(15)
+                        .setTitleStringId("请选择时间")
+                        .setCallBack((timePickerView, millseconds) -> {
+                            tvDate.setText(DateUtil.getDateString(millseconds));
+                        })
+                        .build().show(getSupportFragmentManager(), String.valueOf(ivDate.hashCode()));
+            }
+        });
     }
 
     public static void goActivity(Context context, String enterpriseId, boolean isAdd) {
@@ -172,15 +224,17 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     public void onGetDeedCompanyLandSuccess(DeedCompanyLand deedCompanyLand) {
         etLandCertNum.setText(deedCompanyLand.getCertNum());
         etLandArea.setText(String.valueOf(deedCompanyLand.getArea()));
-        etLandMu.setText(String.valueOf(deedCompanyLand.getMu()));
+        tvLandMu.setText(String.valueOf(deedCompanyLand.getMu()));
         etLandAddress.setText(deedCompanyLand.getAddress());
         etRemark.setText(deedCompanyLand.getRemark());
         etLandLandUse.setText(deedCompanyLand.getLandUse());
+        tvLandOutExpiryDate.setText(deedCompanyLand.getLandOutExpiryDate());
         landTypeId = deedCompanyLand.getLandNatureTypeId();
         spinnerLandType.setSelectItem(landTypeId);
         boolean allowEdit = deedCompanyLand.isAllowEdit();
         setEditable(allowEdit);
         rvPhotoPreview.setData(deedCompanyLand.getFiles(), getFileConfig(), allowEdit);
+        calculate();
     }
 
     @Override

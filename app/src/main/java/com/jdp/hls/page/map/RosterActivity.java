@@ -80,7 +80,6 @@ public class RosterActivity extends BaseTitleActivity implements LocationSource,
     ImageView ivMapRefresh;
     @BindView(R.id.iv_search)
     ImageView ivSearch;
-    Unbinder unbinder1;
     @BindView(R.id.et_keyword)
     EditText etKeyword;
     @BindView(R.id.iv_clear)

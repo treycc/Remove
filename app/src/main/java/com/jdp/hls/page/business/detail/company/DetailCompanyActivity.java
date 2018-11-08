@@ -3,6 +3,7 @@ package com.jdp.hls.page.business.detail.company;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -98,6 +100,8 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     PreviewRecyclerView rvPhotoPreviewProcedure;
     @BindView(R.id.rv_photo_preview_house)
     PreviewRecyclerView rvPhotoPreviewHouse;
+    @BindView(R.id.rv_photo_preview_otherCert)
+    PreviewRecyclerView rvPhotoPreviewOtherCert;
     private String buildingId;
     private boolean ifPublicity;
     @Inject
@@ -253,11 +257,11 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         switchDetailPublicity.setEnabled(allowEdit);
         lngLatFragment.setEditable(allowEdit);
         rvPhotoPreviewHouse.setData(detailCompany.getFiles(), new FileConfig(Status.FileType
-                .PERSONAL_CURRENT,
-                this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
-        rvPhotoPreviewProcedure.setData(detailCompany.getHouseApprovalFiles(), new FileConfig(Status.FileType
-                .PROCEDURE,
-                this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
+                .COMPANY_CURRENT,this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
+        rvPhotoPreviewProcedure.setData(detailCompany.getApprovalFiles(), new FileConfig(Status.FileType
+                .PROCEDURE,this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
+        rvPhotoPreviewOtherCert.setData(detailCompany.getOtherFiles(), new FileConfig(Status.FileType
+                .OTHER,this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
     }
 
     private void saveData() {
@@ -325,6 +329,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                 case Constants.RequestCode.PHOTO_PREVIEW:
                     rvPhotoPreviewHouse.onActivityResult(requestCode, data);
                     rvPhotoPreviewProcedure.onActivityResult(requestCode, data);
+                    rvPhotoPreviewOtherCert.onActivityResult(requestCode, data);
                     break;
                 default:
                     break;

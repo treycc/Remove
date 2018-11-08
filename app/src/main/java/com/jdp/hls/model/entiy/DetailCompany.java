@@ -35,7 +35,7 @@ public class DetailCompany {
     private boolean IsAllowPublicity;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
-    private List<ImgInfo> HouseApprovalFiles;
+    private List<ImgInfo> ApprovalFiles;
     private List<ImgInfo> OtherFiles;
 
     public List<ImgInfo> getOtherFiles() {
@@ -54,12 +54,12 @@ public class DetailCompany {
         BankAccount = bankAccount;
     }
 
-    public List<ImgInfo> getHouseApprovalFiles() {
-        return HouseApprovalFiles;
+    public List<ImgInfo> getApprovalFiles() {
+        return ApprovalFiles;
     }
 
-    public void setHouseApprovalFiles(List<ImgInfo> houseApprovalFiles) {
-        HouseApprovalFiles = houseApprovalFiles;
+    public void setApprovalFiles(List<ImgInfo> approvalFiles) {
+        ApprovalFiles = approvalFiles;
     }
 
     public String getJuridicalPersonName() {

@@ -3,14 +3,70 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
               android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white_hi">
+
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/sel_t2g"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="16dp"
+                android:src="@mipmap/ic_back"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_save"
+            style="@style/font_main_13"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="保存"/>
+
+        <TextView
+            android:id="@+id/tv_add"
+            style="@style/font_main_13"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@id/tv_save"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="增加"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/font_6_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:text="家庭关系"/>
+    </RelativeLayout>
 
     <TextView
         style="@style/Title_Main"
         android:text="基本信息"/>
 
     <LinearLayout
-        style="@style/Content_LL_T12"
+        style="@style/Content_LL_T6"
         android:background="@color/white_hi">
 
         <TextView
@@ -20,8 +76,8 @@
             android:layout_weight="1"
             android:text="户号"/>
 
-        <TextView
-            android:id="@+id/tv_familyRelation_num"
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_familyRelation_num"
             style="@style/font_9_15"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -53,28 +109,6 @@
 
     <include layout="@layout/layout_photo_preview"/>
 
-    <TextView
-        style="@style/Title_Main"
-        android:text="备注"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_hi"
-        android:paddingBottom="12dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:paddingTop="12dp">
-
-        <com.jdp.hls.view.EnableEditText
-            android:id="@+id/et_remark"
-            style="@style/font_9_15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white_hi"
-            android:gravity="start"
-            android:hint="请输入备注"
-            android:lines="3"/>
-    </LinearLayout>
+    <include layout="@layout/layout_remark_title"/>
 
 </LinearLayout>

@@ -2,10 +2,8 @@ package com.jdp.hls.page.familyrelation.list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.FamilyMemberAdapter;
@@ -35,7 +33,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
 /**
@@ -45,8 +43,8 @@ import okhttp3.MultipartBody;
  * Email:kingjavip@gmail.com
  */
 public class FamilyRelationActivity extends BaseTitleActivity implements FamilyRelationContract.View {
-    @BindView(R.id.tv_familyRelation_num)
-    TextView tvFamilyRelationNum;
+    @BindView(R.id.et_familyRelation_num)
+    EnableEditText etFamilyRelationNum;
     @BindView(R.id.lv_familyRelation)
     ListView lvFamilyRelation;
     @BindView(R.id.rv_photo_preview)
@@ -63,6 +61,34 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     FamilyRelationPresenter familyRelationPresenter;
     private FamilyMemberAdapter familyMemberAdapter;
     private String bookletNum;
+
+    @OnClick({R.id.tv_save, R.id.tv_add, R.id.ll_back})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.tv_save:
+                modifyFamilyRelation();
+                break;
+            case R.id.tv_add:
+                FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this, bookletId, bookletNum,
+                        houseId);
+                break;
+            case R.id.ll_back:
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void modifyFamilyRelation() {
+        String bookletNum = etFamilyRelationNum.getText().toString().trim();
+        String remark = etRemark.getText().toString().trim();
+        familyRelationPresenter.modifyFamilyRelation(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("BookletId", bookletId)
+                .addFormDataPart("BookletNum", bookletNum)
+                .addFormDataPart("Remark", remark)
+                .build());
+    }
 
     @Override
     public void initVariable() {
@@ -144,18 +170,27 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     public void onGetFamilyRelationSuccess(FamilyRelation familyRelation) {
         bookletId = String.valueOf(familyRelation.getBookletId());
         bookletNum = familyRelation.getBookletNum();
-        tvFamilyRelationNum.setText(bookletNum);
+        etFamilyRelationNum.setText(bookletNum);
+        etRemark.setText(familyRelation.getRemark());
         List<FamilyMember> familyMemberList = familyRelation.getLstPerons();
         if (familyMemberList != null && familyMemberList.size() > 0) {
             familyMemberAdapter.setEditableData(familyMemberList, editable);
         }
         rvPhotoPreview.setData(familyRelation.getFiles(), new FileConfig(Status.FileType.BUSINESS_IDCARD, houseId,
                 Status.BuildingTypeStr.PERSONAL), editable);
+
+        etFamilyRelationNum.setEnabled(editable);
+        etRemark.setEnabled(editable);
     }
 
     @Override
     public void onDeleteFamilyRememberSuccess(int position) {
         familyMemberAdapter.removeItem(position);
+    }
+
+    @Override
+    public void onModifyFamilyRelationSuccess() {
+        showSuccessAndFinish();
     }
 
     public static void goActivity(Context context, String houseId, boolean editable) {
@@ -182,14 +217,13 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
     private void modifyBookletNum(FamilyMember familyMember) {
         bookletNum = familyMember.getBookletNum();
-        tvFamilyRelationNum.setText(bookletNum);
+        etFamilyRelationNum.setText(bookletNum);
         familyMemberAdapter.modifyBookletNum(familyMember);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    protected boolean ifHideTitle() {
+        return true;
     }
+
 }

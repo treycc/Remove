@@ -15,7 +15,16 @@ public class FamilyRelation {
     private List<ImgInfo> Files;
     private int BookletId;
     private String BookletNum;
+    private String Remark;
     private String HouseId;
+
+    public String getRemark() {
+        return Remark;
+    }
+
+    public void setRemark(String remark) {
+        Remark = remark;
+    }
 
     public int getBookletId() {
         return BookletId;

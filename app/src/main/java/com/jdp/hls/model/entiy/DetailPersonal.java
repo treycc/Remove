@@ -73,14 +73,22 @@ public class DetailPersonal {
     private String BookletId;
     private String BankAccount;
     private List<ImgInfo> Files;
-    private List<ImgInfo> HouseApprovalFiles;
+    private List<ImgInfo> ApprovalFiles;
 
-    public List<ImgInfo> getHouseApprovalFiles() {
-        return HouseApprovalFiles;
+    public String getBankAccount() {
+        return BankAccount;
     }
 
-    public void setHouseApprovalFiles(List<ImgInfo> houseApprovalFiles) {
-        HouseApprovalFiles = houseApprovalFiles;
+    public void setBankAccount(String bankAccount) {
+        BankAccount = bankAccount;
+    }
+
+    public List<ImgInfo> getApprovalFiles() {
+        return ApprovalFiles;
+    }
+
+    public void setApprovalFiles(List<ImgInfo> approvalFiles) {
+        ApprovalFiles = approvalFiles;
     }
 
     public List<ImgInfo> getFiles() {

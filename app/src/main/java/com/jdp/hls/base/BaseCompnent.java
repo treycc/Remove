@@ -33,6 +33,8 @@ import com.jdp.hls.page.mine.MineFragment;
 import com.jdp.hls.page.node.age.company.NodeCompanyAgeActivity;
 import com.jdp.hls.page.node.age.personal.NodePersonalAgeActivity;
 import com.jdp.hls.page.node.evaluate.company.NodeCompanyEvaluateActivity;
+import com.jdp.hls.page.node.evaluate.company.houseevaluate.NodeCompanyHouseEvaluateActivity;
+import com.jdp.hls.page.node.evaluate.company.moneyevaluate.NodeCompanyMoneyEvaluateActivity;
 import com.jdp.hls.page.node.evaluate.personal.NodePersonalEvaluateActivity;
 import com.jdp.hls.page.node.mapping.company.NodeCompanyMappingActivity;
 import com.jdp.hls.page.node.mapping.personal.NodePersonalMappingActivity;
@@ -210,4 +212,7 @@ public interface BaseCompnent {
     void inject(DeedCompanyBankActivity target);
 
     void inject(DeedPersonalBankActivity target);
+
+    void inject(NodeCompanyMoneyEvaluateActivity target);
+    void inject(NodeCompanyHouseEvaluateActivity target);
 }
