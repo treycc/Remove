@@ -1,5 +1,6 @@
 package com.jdp.hls.page.node.mapping.personal;
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -20,6 +21,7 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -32,8 +34,8 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
 
     @BindView(R.id.tv_mapping_realName)
     TextView tvMappingRealName;
-    @BindView(R.id.et_mapping_totalArea)
-    TextView etMappingTotalArea;
+    @BindView(R.id.et_mapping_totalBuildingArea)
+    TextView etTotalBuildingArea;
     @BindView(R.id.tv_mapping_propertyCertTotalArea)
     StringTextView tvMappingPropertyCertTotalArea;
     @BindView(R.id.et_mapping_totalNotRecordArea)
@@ -46,8 +48,6 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
     EnableEditText etMappingTanArea;
     @BindView(R.id.et_mapping_shedArea)
     EnableEditText etMappingShedArea;
-    @BindView(R.id.tv_mapping_address)
-    StringTextView tvMappingAddress;
     @BindView(R.id.tv_mapping_date)
     TextView tvMappingDate;
     @BindView(R.id.iv_dateSelector)
@@ -56,6 +56,10 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
     EnableEditText etMeasureRemark;
     @Inject
     NodePersonalMappingPresenter nodePersonalMappingPresenter;
+    @BindView(R.id.tv_mapping_companyName)
+    StringTextView tvMappingCompanyName;
+    @BindView(R.id.tv_mapping_confirmer)
+    StringTextView tvMappingConfirmer;
     private int mapperId;
 
     @Override
@@ -98,9 +102,13 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
     private void calculateArea() {
         String propertyCertTotalAreaStr = tvMappingPropertyCertTotalArea.getText().toString().trim();
         String totalNotRecordAreaStr = etMappingTotalNotRecordArea.getText().toString().trim();
-        double propertyCertTotalArea= TextUtils.isEmpty(propertyCertTotalAreaStr)?0d:Double.valueOf(propertyCertTotalAreaStr);
-        double totalNotRecordArea =TextUtils.isEmpty(totalNotRecordAreaStr)?0d:Double.valueOf(totalNotRecordAreaStr);
-        etMappingTotalArea.setText(String.valueOf(MathUtil.add(propertyCertTotalArea,totalNotRecordArea)));
+        double propertyCertTotalArea = propertyCertTotalAreaStr.startsWith(".") || TextUtils.isEmpty
+                (propertyCertTotalAreaStr) ? 0d : Double.valueOf
+                (propertyCertTotalAreaStr);
+        double totalNotRecordArea = totalNotRecordAreaStr.startsWith(".") || TextUtils.isEmpty(totalNotRecordAreaStr)
+                ? 0d : Double.valueOf
+                (totalNotRecordAreaStr);
+        etTotalBuildingArea.setText(String.valueOf(MathUtil.add(propertyCertTotalArea, totalNotRecordArea)));
     }
 
     @Override
@@ -117,8 +125,7 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
         etMappingTanArea.setEnabled(allowEdit);
         etMappingShedArea.setEnabled(allowEdit);
         etMeasureRemark.setEnabled(allowEdit);
-        etMappingTotalArea.setEnabled(allowEdit);
-        tvMappingAddress.setEnabled(allowEdit);
+        etTotalBuildingArea.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvMappingDate, allowEdit);
     }
 
@@ -131,8 +138,8 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
         String simpleHouseArea = etMappingSimpleHouseArea.getText().toString().trim();
         String shedArea = etMappingShedArea.getText().toString().trim();
         String tanArea = etMappingTanArea.getText().toString().trim();
-        String address = tvMappingAddress.getText().toString().trim();
         String mapDate = tvMappingDate.getText().toString().trim();
+        String totalBuildingArea = etTotalBuildingArea.getText().toString().trim();
         nodePersonalMappingPresenter.modifyPersonalMapping(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("houseId", mBuildingId)
                 .addFormDataPart("MapperId", String.valueOf(mapperId))
@@ -143,7 +150,7 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
                 .addFormDataPart("ShedArea", shedArea)
                 .addFormDataPart("TanArea", tanArea)
                 .addFormDataPart("MapDate", mapDate)
-                .addFormDataPart("Address", address)
+                .addFormDataPart("TotalBuildingArea", totalBuildingArea)
                 .addFormDataPart("Remark", remark)
                 .build());
     }
@@ -160,8 +167,9 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
         etMappingSimpleHouseArea.setString(nodePersonalMapping.getSimpleHouseArea());
         etMappingTanArea.setString(nodePersonalMapping.getTanArea());
         etMappingShedArea.setString(nodePersonalMapping.getShedArea());
-        tvMappingAddress.setString(nodePersonalMapping.getAddress());
         etMeasureRemark.setString(nodePersonalMapping.getRemark());
+        tvMappingConfirmer.setString(nodePersonalMapping.getConfirmer());
+        tvMappingCompanyName.setString(nodePersonalMapping.getCompanyName());
         tvMappingDate.setText(DateUtil.getShortDate(nodePersonalMapping.getMapDate()));
         calculateArea();
         rvPhotoPreview.setData(nodePersonalMapping.getFiles(), getFileConfig(), allowEdit);
@@ -170,5 +178,12 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
     @Override
     public void onModifyPersonalMappingSuccess() {
         showSuccessAndFinish();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

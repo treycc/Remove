@@ -13,6 +13,7 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodeCompanyAge;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.SimpleTextWatcher;
+import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
 
@@ -101,13 +102,16 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
 
     @Override
     protected void onUiEditable(boolean allowEdit) {
+        boolean isOperatorAccount = SpSir.getInstance().isOperatorAccount();
         setDateSelector(ivDateSelector, tvAgeDate, allowEdit);
+        etAgeRemark.setEnabled(!isOperatorAccount && allowEdit);
+        etAgeOtherArea.setEnabled(!isOperatorAccount && allowEdit);
+        llOperateContent.setVisibility(isShowNotRecordArea ? View.VISIBLE : View.GONE);
+
         etAgeAfter90Area.setEnabled(allowEdit);
         etAgeBefore90Area.setEnabled(allowEdit);
         etAgeAsLegitimateArea.setEnabled(allowEdit);
-        etAgeRemark.setEnabled(allowEdit);
-        etAgeOtherArea.setEnabled(allowEdit);
-        llOperateContent.setVisibility(isShowNotRecordArea ? View.VISIBLE : View.GONE);
+        etRemark.setEnabled(allowEdit);
     }
 
     @Override
@@ -146,6 +150,7 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         tvAgeTotalNoLegalArea.setText(nodeCompanyAge.getAfter90Area());
         etAgeAfter90Area.setText(nodeCompanyAge.getAfter90Area());
         etAgeRemark.setText(nodeCompanyAge.getRemark());
+        etRemark.setText(nodeCompanyAge.getRemarkOperator());
         etAgeOtherArea.setText(nodeCompanyAge.getOtherArea());
         calculateArea();
         rvPhotoPreview.setData(nodeCompanyAge.getFiles(), getFileConfig(), allowEdit);
@@ -167,7 +172,8 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
         @Override
         public void afterTextChanged(Editable s) {
             String after90AreaStr = etAgeAfter90Area.getText().toString().trim();
-            double after90Area = TextUtils.isEmpty(after90AreaStr) ? 0d : Double.valueOf(after90AreaStr);
+            double after90Area = after90AreaStr.startsWith(".") || TextUtils.isEmpty(after90AreaStr) ? 0d : Double
+                    .valueOf(after90AreaStr);
             tvAgeTotalNoLegalArea.setText(String.valueOf(after90Area));
         }
     };
@@ -175,8 +181,10 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
     private void calculateArea() {
         String before90AreaStr = etAgeBefore90Area.getText().toString().trim();
         String legitimateAreaStr = etAgeAsLegitimateArea.getText().toString().trim();
-        double before90Area = TextUtils.isEmpty(before90AreaStr) ? 0d : Double.valueOf(before90AreaStr);
-        double legitimateArea = TextUtils.isEmpty(legitimateAreaStr) ? 0d : Double.valueOf(legitimateAreaStr);
+        double before90Area = before90AreaStr.startsWith(".") || TextUtils.isEmpty(before90AreaStr) ? 0d : Double
+                .valueOf(before90AreaStr);
+        double legitimateArea = legitimateAreaStr.startsWith(".") || TextUtils.isEmpty(legitimateAreaStr) ? 0d :
+                Double.valueOf(legitimateAreaStr);
         tvAgeTotalLegalArea.setText(String.valueOf(before90Area + legitimateArea));
     }
 }

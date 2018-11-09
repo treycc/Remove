@@ -1,7 +1,9 @@
 package com.jdp.hls.page.deed.company.bank;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseDeedActivity;
@@ -18,6 +20,7 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -40,6 +43,8 @@ public class DeedCompanyBankActivity extends BaseDeedActivity implements DeedCom
     EnableEditText etBankAccount;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
+    @BindView(R.id.ll_companyBar)
+    LinearLayout llCompanyBar;
     private String bankAccount;
     private String bankName;
     private String remark;
@@ -82,6 +87,7 @@ public class DeedCompanyBankActivity extends BaseDeedActivity implements DeedCom
         if (mIsAdd) {
             setRightClick("保存", addListener);
         } else {
+            llCompanyBar.setVisibility(View.VISIBLE);
             deedCompanyOpenAccountCertPresenter.getDeedCompanyOpenAccountCert(mBuildingId);
         }
     }
@@ -142,4 +148,10 @@ public class DeedCompanyBankActivity extends BaseDeedActivity implements DeedCom
         showSaveDeedSuccess(new RefreshCertNumEvent(bankAccount, Status.FileType.BANK, Status.BuildingType.COMPANY));
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

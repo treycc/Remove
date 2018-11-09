@@ -121,7 +121,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     public void showSuccessAndFinish(String tip) {
-//        DialogUtil.showQuitDialog(this, tip);
         DialogUtil.createSingleDialog(this, tip, new ConfirmDialog.OnConfirmListener() {
             @Override
             public void onConfirm() {

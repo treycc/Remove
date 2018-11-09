@@ -177,6 +177,8 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
         mFragmentArr[1].refreshData(companyBusiness);
 
         refreshTitles(personalBusiness.size(), companyBusiness.size());
+        LogUtil.e(TAG,"personalBusiness.size:"+personalBusiness.size());
+        LogUtil.e(TAG,"companyBusiness.size:"+companyBusiness.size());
     }
 
     private void refreshTitles(int personalRosters, int companyRosters) {

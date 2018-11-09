@@ -150,9 +150,9 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
     private void calculateTotalMoney() {
         String totalPurchasePriceStr = etProtocolTotalPurchasePrice.getText().toString().trim();
         String totalPayStr = etProtocolTotalPay.getText().toString().trim();
-        double totalPurchasePrice = TextUtils.isEmpty(totalPurchasePriceStr) ? 0d : Double.valueOf
+        double totalPurchasePrice =totalPurchasePriceStr.startsWith(".")|| TextUtils.isEmpty(totalPurchasePriceStr) ? 0d : Double.valueOf
                 (totalPurchasePriceStr);
-        double totalPay = TextUtils.isEmpty(totalPayStr) ? 0d : Double.valueOf(totalPayStr);
+        double totalPay = totalPayStr.startsWith(".")||TextUtils.isEmpty(totalPayStr) ? 0d : Double.valueOf(totalPayStr);
         tvProtocolNeedPayAmount.setText(String.valueOf(MathUtil.sub(totalPurchasePrice, totalPay)));
     }
 
@@ -163,7 +163,7 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
 
     @Override
     protected void onUiEditable(boolean allowEdit) {
-        spinnerPayType.setEnabled(allowEdit);
+        spinnerPayType.enable(allowEdit);
         etProtocolTotalPurchasePrice.setEnabled(allowEdit);
         etProtocolClearObstaclePay.setEnabled(allowEdit);
         etProtocolTotalPay.setEnabled(allowEdit);
@@ -175,6 +175,8 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
         etRemark.setEnabled(allowEdit);
         etProtocolTotalPurchasePrice.setEnabled(allowEdit);
         etProtocolTotalPay.setEnabled(allowEdit);
+        etProtocolChangeArea.setEnabled(allowEdit);
+        etProtocolDamagesAmount.setEnabled(allowEdit);
     }
 
     @Override
@@ -189,6 +191,7 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
         String changeArea = etProtocolChangeArea.getText().toString().trim();
         String damagesAmount = etProtocolDamagesAmount.getText().toString().trim();
         String pCDate = tvProtocolDate.getText().toString().trim();
+        String totalLandAZArea = etProtocolTotalLandAZArea.getText().toString().trim();
         nodeCompanyProtocolPresenter.modifyCompanyProtocol(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("PayType", String.valueOf(payType))
@@ -201,6 +204,7 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
                 .addFormDataPart("Remark", remark)
                 .addFormDataPart("ChangeArea", changeArea)
                 .addFormDataPart("DamagesAmount", damagesAmount)
+                .addFormDataPart("TotalLandAZArea", totalLandAZArea)
                 .addFormDataPart("ClearObstaclePay", clearObstaclePay)
                 .build());
     }

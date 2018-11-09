@@ -32,7 +32,7 @@
 
         <TextView
             style="@style/Title_Sub"
-            android:text="产权面积(m²)"/>
+            android:text="产权面积"/>
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_property_area"

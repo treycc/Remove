@@ -48,6 +48,7 @@ public class NodeAdapter extends BaseLvAdapter<FlowNode> {
         viewHolder.tv_node_des.setText(flowNode.getNodeName());
         if (isTitle) {
             //是标题
+            viewHolder.iv_arrow.setVisibility(View.VISIBLE);
             viewHolder.iv_arrow.setBackgroundResource(R.mipmap.ic_arrow_down);
             List<FlowNode> subFlowNodes = flowNode.getSubFlowNodes();
             if (subFlowNodes != null && subFlowNodes.size() > 0) {
@@ -56,6 +57,7 @@ public class NodeAdapter extends BaseLvAdapter<FlowNode> {
                 viewHolder.lv_node_sub.setOnItemClickListener((parentSub, view, positionSub, id) -> {
                     FlowNode flowNodeSub = (FlowNode) parentSub.getItemAtPosition(positionSub);
                     if (flowNodeSub.isAvailable()) {
+                        LogUtil.e(TAG,"子项 buildingId:"+buildingId);
                         NodeUtil.goNodeActivity((Activity)context,flowNodeSub.getId(),buildingId);
                     }
 

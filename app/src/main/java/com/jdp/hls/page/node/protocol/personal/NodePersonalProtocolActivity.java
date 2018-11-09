@@ -158,9 +158,9 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
     private void calculateTotalMoney() {
         String totalPurchasePriceStr = etProtocolTotalPurchasePrice.getText().toString().trim();
         String totalPayStr = etProtocolTotalPay.getText().toString().trim();
-        double totalPurchasePrice = TextUtils.isEmpty(totalPurchasePriceStr) ? 0d : Double.valueOf
+        double totalPurchasePrice =totalPurchasePriceStr.startsWith(".")|| TextUtils.isEmpty(totalPurchasePriceStr) ? 0d : Double.valueOf
                 (totalPurchasePriceStr);
-        double totalPay = TextUtils.isEmpty(totalPayStr) ? 0d : Double.valueOf(totalPayStr);
+        double totalPay =totalPayStr.startsWith(".")||  TextUtils.isEmpty(totalPayStr) ? 0d : Double.valueOf(totalPayStr);
         tvProtocolNeedPayBuildingAmount.setText(String.valueOf(MathUtil.sub(totalPurchasePrice, totalPay)));
     }
 

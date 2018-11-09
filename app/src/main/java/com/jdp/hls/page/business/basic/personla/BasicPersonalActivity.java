@@ -25,6 +25,7 @@ import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.page.operate.OperateNodeContract;
 import com.jdp.hls.page.operate.OperateNodePresenter;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NodeUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -84,11 +85,6 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         } else if (flowNode.isAvailable()) {
             NodeUtil.goNodeActivity(this, flowNode.getId(), buildingId);
         }
-    }
-
-    private void goNodeActivity(Class<? extends BaseNodeActivity> clazz, int fileType) {
-        BaseNodeActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
-                .PERSONAL);
     }
 
     @OnClick({R.id.rl_business_detail})

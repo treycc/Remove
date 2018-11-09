@@ -164,11 +164,4 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
     public void onModifyCompanyMappingSuccess() {
         showSuccessAndFinish();
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

@@ -28,57 +28,64 @@ public class NodeUtil {
         switch (id) {
             case Constants.BusinessNode.COMPANY_MEASURE:
                 //企业入户丈量
-                goNodeActivity(activity, NodeCompanyMeasureActivity.class, buildingId, Status.FileType.NODE_MEASURE);
+                goNodeActivity(activity, NodeCompanyMeasureActivity.class, buildingId, Status.FileType.NODE_MEASURE,
+                        Status.BuildingTypeStr.COMPANY);
                 break;
             case Constants.BusinessNode.COMPANY_MAPPING:
                 //企业测绘出图
-                goNodeActivity(activity, NodeCompanyMappingActivity.class, buildingId, Status.FileType.NODE_MAPPING);
+                goNodeActivity(activity, NodeCompanyMappingActivity.class, buildingId, Status.FileType.NODE_MAPPING,
+                        Status.BuildingTypeStr.COMPANY);
                 break;
             case Constants.BusinessNode.COMPANY_AGE:
                 //企业年限鉴定
-                goNodeActivity(activity, NodeCompanyAgeActivity.class, buildingId, Status.FileType.NODE_AGE);
+                goNodeActivity(activity, NodeCompanyAgeActivity.class, buildingId, Status.FileType.NODE_AGE, Status
+                        .BuildingTypeStr.COMPANY);
                 break;
             case Constants.BusinessNode.COMPANY_EVALUATE_HOUSE:
                 //企业房地产评估
                 goNodeActivity(activity, NodeCompanyHouseEvaluateActivity.class, buildingId, Status.FileType
-                        .HOUSE_EVALUATE);
+                        .HOUSE_EVALUATE, Status.BuildingTypeStr.COMPANY);
                 break;
             case Constants.BusinessNode.COMPANY_EVALUATE_MONEY:
                 //企业资产评估
                 goNodeActivity(activity, NodeCompanyMoneyEvaluateActivity.class, buildingId, Status.FileType
-                        .MONEY_EVALUATE);
+                        .MONEY_EVALUATE, Status.BuildingTypeStr.COMPANY);
                 break;
             case Constants.BusinessNode.COMPANY_PROTOCOL:
                 //企业协议生成
-                goNodeActivity(activity, NodeCompanyProtocolActivity.class, buildingId, Status.FileType.NODE_PROTOCOL);
+                goNodeActivity(activity, NodeCompanyProtocolActivity.class, buildingId, Status.FileType
+                        .NODE_PROTOCOL, Status.BuildingTypeStr.COMPANY);
                 break;
             case Constants.BusinessNode.PERSONAL_MEASURE:
                 //个人入户丈量
-                goNodeActivity(activity, NodePersonalMeasureActivity.class, buildingId, Status.FileType.NODE_MEASURE);
+                goNodeActivity(activity, NodePersonalMeasureActivity.class, buildingId, Status.FileType.NODE_MEASURE,
+                        Status.BuildingTypeStr.PERSONAL);
                 break;
             case Constants.BusinessNode.PERSONAL_MAPPING:
                 //个人测绘出图
-                goNodeActivity(activity, NodePersonalMappingActivity.class, buildingId, Status.FileType.NODE_MAPPING);
+                goNodeActivity(activity, NodePersonalMappingActivity.class, buildingId, Status.FileType.NODE_MAPPING,
+                        Status.BuildingTypeStr.PERSONAL);
                 break;
             case Constants.BusinessNode.PERSONAL_AGE:
                 //个人年限鉴定
-                goNodeActivity(activity, NodePersonalAgeActivity.class, buildingId, Status.FileType.NODE_AGE);
+                goNodeActivity(activity, NodePersonalAgeActivity.class, buildingId, Status.FileType.NODE_AGE, Status
+                        .BuildingTypeStr.PERSONAL);
                 break;
             case Constants.BusinessNode.PERSONAL_EVALUATE:
                 //个人评估
                 goNodeActivity(activity, NodePersonalEvaluateActivity.class, buildingId, Status.FileType
-                        .HOUSE_EVALUATE);
+                        .HOUSE_EVALUATE, Status.BuildingTypeStr.PERSONAL);
                 break;
             case Constants.BusinessNode.PERSONAL_PROTOCOL:
                 //个人协议生成
-                goNodeActivity(activity, NodePersonalProtocolActivity.class, buildingId, Status.FileType.NODE_PROTOCOL);
+                goNodeActivity(activity, NodePersonalProtocolActivity.class, buildingId, Status.FileType
+                        .NODE_PROTOCOL, Status.BuildingTypeStr.PERSONAL);
                 break;
         }
     }
 
     private static void goNodeActivity(Activity activity, Class<? extends BaseNodeActivity> clazz, String buildingId,
-                                       int fileType) {
-        BaseNodeActivity.goActivity(activity, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
-                .COMPANY);
+                                       int fileType, String buildingType) {
+        BaseNodeActivity.goActivity(activity, clazz, String.valueOf(fileType), buildingId, buildingType);
     }
 }

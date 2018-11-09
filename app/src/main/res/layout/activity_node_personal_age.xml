@@ -186,7 +186,7 @@
 
         <TextView
             style="@style/Title_Main"
-            android:text="未经登记建筑面积(m²)"/>
+            android:text="年限鉴定面积"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">
@@ -370,7 +370,7 @@
 
             <TextView
                 style="@style/Title_Main"
-                android:text="未来登记审批认定面积"/>
+                android:text="未登记审批认定面积"/>
 
             <LinearLayout
                 style="@style/Content_LL_T6">

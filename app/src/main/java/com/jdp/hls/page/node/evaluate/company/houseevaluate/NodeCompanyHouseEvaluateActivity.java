@@ -94,13 +94,13 @@ public class NodeCompanyHouseEvaluateActivity extends BaseNodeActivity implement
         String legalBuildingPayStr = etLegalBuildingPay.getText().toString().trim();
         String legalDecorationPayStr = etLegalDecorationPay.getText().toString().trim();
         String appurtenancePayStr = etAppurtenancePay.getText().toString().trim();
-        double nonMobileDevicePay = TextUtils.isEmpty(legalLandPayStr) ? 0d : Double.valueOf
-                (legalLandPayStr);
-        double mobileDevicePay = TextUtils.isEmpty(legalBuildingPayStr) ? 0d : Double.valueOf(legalBuildingPayStr);
-        double legalDecorationPay = TextUtils.isEmpty(legalDecorationPayStr) ? 0d : Double.valueOf
+        double legalLandPay = legalLandPayStr.startsWith(".") || TextUtils.isEmpty(legalLandPayStr) ? 0d : Double
+                .valueOf(legalLandPayStr);
+        double legalBuildingPay = legalBuildingPayStr.startsWith(".") || TextUtils.isEmpty(legalBuildingPayStr) ? 0d : Double.valueOf(legalBuildingPayStr);
+        double legalDecorationPay = legalDecorationPayStr.startsWith(".") || TextUtils.isEmpty(legalDecorationPayStr) ? 0d : Double.valueOf
                 (legalDecorationPayStr);
-        double appurtenancePay = TextUtils.isEmpty(appurtenancePayStr) ? 0d : Double.valueOf(appurtenancePayStr);
-        tvAssetEvaluatAmount.setText(String.valueOf(MathUtil.add(nonMobileDevicePay, mobileDevicePay) + MathUtil
+        double appurtenancePay = appurtenancePayStr.startsWith(".") || TextUtils.isEmpty(appurtenancePayStr) ? 0d : Double.valueOf(appurtenancePayStr);
+        tvAssetEvaluatAmount.setText(String.valueOf(MathUtil.add(legalLandPay, legalBuildingPay) + MathUtil
                 .add(legalDecorationPay, appurtenancePay)));
     }
 
@@ -153,7 +153,7 @@ public class NodeCompanyHouseEvaluateActivity extends BaseNodeActivity implement
         etLegalDecorationPay.setString(nodeCompanyHouseEvaluate.getLegalDecorationPay());
         etAppurtenancePay.setString(nodeCompanyHouseEvaluate.getAppurtenancePay());
         etRemark.setString(nodeCompanyHouseEvaluate.getRemark());
-        rvPhotoPreview.setData(nodeCompanyHouseEvaluate.getFiles(), getFileConfig(),allowEdit);
+        rvPhotoPreview.setData(nodeCompanyHouseEvaluate.getFiles(), getFileConfig(), allowEdit);
         calculateTotal();
 
     }

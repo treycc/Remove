@@ -90,9 +90,9 @@ public class NodeCompanyMoneyEvaluateActivity extends BaseNodeActivity implement
     private void calculateTotal() {
         String nonMobileDevicePayStr = etNonMobileDevicePay.getText().toString().trim();
         String mobileDevicePayStr = etMobileDevicePay.getText().toString().trim();
-        double nonMobileDevicePay = TextUtils.isEmpty(nonMobileDevicePayStr) ? 0d : Double.valueOf
+        double nonMobileDevicePay =nonMobileDevicePayStr.startsWith(".")|| TextUtils.isEmpty(nonMobileDevicePayStr) ? 0d : Double.valueOf
                 (nonMobileDevicePayStr);
-        double mobileDevicePay = TextUtils.isEmpty(mobileDevicePayStr) ? 0d : Double.valueOf(mobileDevicePayStr);
+        double mobileDevicePay = mobileDevicePayStr.startsWith(".")|| TextUtils.isEmpty(mobileDevicePayStr) ? 0d : Double.valueOf(mobileDevicePayStr);
         tvAssetEvaluatAmount.setText(String.valueOf(MathUtil.add(nonMobileDevicePay, mobileDevicePay)));
     }
 

@@ -120,6 +120,7 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -133,6 +134,7 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -147,12 +149,13 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
             <TextView
-                android:singleLine="true"
                 style="@style/Title_Sub"
+                android:singleLine="true"
                 android:text="不动产面积(产权证)"/>
 
             <com.jdp.hls.view.StringTextView
@@ -161,12 +164,13 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
             <TextView
-                android:singleLine="true"
                 style="@style/Title_Sub"
+                android:singleLine="true"
                 android:text="不动产面积(土地证)"/>
 
             <com.jdp.hls.view.StringTextView
@@ -175,6 +179,7 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -190,6 +195,7 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -205,6 +211,7 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -215,10 +222,12 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_mapping_totalLegalArea"
                 style="@style/Content_ET_W1_3"
-                android:hint="请输入总合法土地面积"/>
+                android:hint="请输入总合法土地面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -229,11 +238,12 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_mapping_otherLandArea"
                 style="@style/Content_ET_W1_3"
-                android:inputType="numberDecimal"
-                android:hint="请输入其它土地面积"/>
+                android:hint="请输入其它土地面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -244,8 +254,8 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_mapping_currentOccupyArea"
                 style="@style/Content_ET_W1_3"
-                android:inputType="numberDecimal"
-                android:hint="请输入其它土地面积"/>
+                android:hint="请输入其它土地面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -265,8 +275,6 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
-
-
 
 
         <TextView

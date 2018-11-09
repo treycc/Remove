@@ -87,7 +87,7 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
         if (flowNode.isTitle()) {
             nodeAdapter.setVisibility(position);
         } else if (flowNode.isAvailable()) {
-            NodeUtil.goNodeActivity(this,flowNode.getId(),buildingId);
+            NodeUtil.goNodeActivity(this, flowNode.getId(), buildingId);
         }
     }
 
@@ -133,7 +133,7 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
         EventBus.getDefault().register(this);
         basicCompanyPresenter.attachView(this);
         operateNodePresenter.attachView(this);
-        nodeAdapter = new NodeAdapter(this, flowNodes,buildingId);
+        nodeAdapter = new NodeAdapter(this, flowNodes, buildingId);
         lvBusinessNode.setAdapter(nodeAdapter);
     }
 
@@ -208,17 +208,17 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
 
     @Override
     public void onSendNodeSuccess(String buildingIds) {
-        showSuccessAndFinish("发送成功");
+        onOperateSuccess("发送成功", buildingIds);
     }
 
     @Override
     public void onReviewNodeSuccess(String buildingIds) {
-        showSuccessAndFinish("复查成功");
+        onOperateSuccess("复查成功", buildingIds);
     }
 
     @Override
     public void onBackNodeSuccess(String buildingIds) {
-        showSuccessAndFinish("退回成功");
+        onOperateSuccess("退回成功", buildingIds);
     }
 
     @Override
@@ -232,12 +232,5 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
             tvBasicName.setText(event.getRealName());
             tvBasicAddress.setText(event.getAddress());
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

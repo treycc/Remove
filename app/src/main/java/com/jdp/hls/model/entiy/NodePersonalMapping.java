@@ -24,8 +24,17 @@ public class NodePersonalMapping {
     private String Remark;
     private String CompanyName;
     private String Address;
+    private String Confirmer;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getConfirmer() {
+        return Confirmer;
+    }
+
+    public void setConfirmer(String confirmer) {
+        Confirmer = confirmer;
+    }
 
     public List<ImgInfo> getFiles() {
         return Files;

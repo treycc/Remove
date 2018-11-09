@@ -201,6 +201,7 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
         etLicenseMobilePhone.setText(String.valueOf(deedCompanyLicense.getMobilePhone()));
         etRemark.setText(String.valueOf(deedCompanyLicense.getRemark()));
         allowEdit = deedCompanyLicense.isAllowEdit();
+        String personId = deedCompanyLicense.getPersonId();
         setEditable(allowEdit);
         rvPhotoPreview.setData(deedCompanyLicense.getFiles(), getFileConfig(), allowEdit);
     }

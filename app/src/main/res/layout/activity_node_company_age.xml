@@ -57,7 +57,8 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_age_otherArea"
                 style="@style/Content_ET_W1"
-                android:hint="请输入其它面积"/>
+                android:hint="请输入其它面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <com.jdp.hls.view.StringTextView
@@ -126,7 +127,7 @@
 
         <com.jdp.hls.view.StringTextView
             style="@style/Title_Main"
-            android:text="认定资料"/>
+            android:text="鉴定资料"/>
 
         <include layout="@layout/layout_photo_preview"/>
 
