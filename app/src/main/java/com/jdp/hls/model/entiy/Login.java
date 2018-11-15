@@ -22,6 +22,24 @@ public class Login {
     private String Token;
     private String ServerName;
     private String ProtocolUrl;
+    private int RouteId;
+    private String RouteDesc;
+
+    public int getRouteId() {
+        return RouteId;
+    }
+
+    public void setRouteId(int routeId) {
+        RouteId = routeId;
+    }
+
+    public String getRouteDesc() {
+        return RouteDesc;
+    }
+
+    public void setRouteDesc(String routeDesc) {
+        RouteDesc = routeDesc;
+    }
 
     public String getProtocolUrl() {
         return ProtocolUrl;

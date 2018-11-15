@@ -83,14 +83,14 @@ public class NodeCompanyMeasureActivity extends BaseNodeActivity implements Node
         setEditable(allowEdit);
         tvMeasureName.setText(nodeCompanyMeasure.getRealName());
         etMeasureRemark.setText(nodeCompanyMeasure.getRemark());
-        tvMeasureCompanyName.setText(nodeCompanyMeasure.getAddress());
+        tvMeasureCompanyName.setText(nodeCompanyMeasure.getCompanyName());
         tvMeasureDate.setText(DateUtil.getShortDate(nodeCompanyMeasure.getMeaDate()));
         rvPhotoPreview.setData(nodeCompanyMeasure.getFiles(), getFileConfig(), allowEdit);
     }
 
     @Override
     public void onModifyCompanyMeasureSuccess() {
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
     @Override

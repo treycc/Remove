@@ -1,6 +1,5 @@
 package com.jdp.hls.page.node.mapping.company;
 
-import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -162,6 +160,6 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
 
     @Override
     public void onModifyCompanyMappingSuccess() {
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 }

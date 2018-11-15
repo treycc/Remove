@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="账号"/>
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_loginName"
+            style="@style/Content_ET_W3"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="密码"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_password"
+            style="@style/Content_ET_W3"
+            android:hint="如不修改请留空"
+            android:inputType="textPassword"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout style="@style/Content_LL_T6">
+
+        <com.jdp.hls.view.RequiredTextView
+            style="@style/Title_Sub"
+            android:text="姓名"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_realName"
+            style="@style/Content_ET_W3"
+            android:hint="请输入姓名"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout style="@style/Content_LL_T6">
+
+        <com.jdp.hls.view.RequiredTextView
+            style="@style/Title_Sub"
+            android:text="手机号"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_mobile"
+            style="@style/Content_ET_W3"
+            android:hint="请输入手机号"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+</LinearLayout>

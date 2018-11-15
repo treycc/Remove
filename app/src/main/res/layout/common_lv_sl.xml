@@ -18,6 +18,6 @@
             android:layout_height="match_parent"
             android:divider="@color/div_hi"
             android:dividerHeight="1px"
-            tools:listitem="@layout/item_project"/>
+            tools:listitem="@layout/item_employee"/>
     </com.jdp.hls.view.RefreshSwipeRefreshLayout>
 </LinearLayout>

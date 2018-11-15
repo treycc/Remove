@@ -112,7 +112,7 @@ public class OtherAreaAddActivity extends BaseTitleActivity implements OhterArea
         otherArea.setPCId(Integer.valueOf(pcdId));
         EventBus.getDefault().post(new AddOtherEvent(otherArea));
         LogUtil.e(TAG,"新增其它面积");
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
     public static void goActivity(Context context, String id, String buildingType) {

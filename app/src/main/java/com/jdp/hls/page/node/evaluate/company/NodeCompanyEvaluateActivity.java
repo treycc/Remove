@@ -220,7 +220,7 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
 
     @Override
     public void onModifyCompanyEvaluateSuccess() {
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
 }

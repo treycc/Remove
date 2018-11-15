@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,13 +37,11 @@ import com.jdp.hls.view.AddableRecyclerView;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.StringTextView;
-import com.jdp.hls.view.dialog.ConfirmDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -367,19 +364,19 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     @Override
     public void onModifyAirPhotoDetailSuccess(AirPhotoItem airPhotoItem) {
         EventBus.getDefault().post(new ModifyAirPhotoEvent(airPhotoItem));
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
     @Override
     public void onSendAirPhotoSuccess(AirPhotoItem airPhotoItem) {
         postEvent();
-        showSuccessAndFinish("发送成功");
+        showSuccessDialogAndFinish("发送成功");
     }
 
     @Override
     public void onReviewAirPhotoSuccess(AirPhotoItem airPhotoItem) {
         postEvent();
-        showSuccessAndFinish("复查成功");
+        showSuccessDialogAndFinish("复查成功");
     }
 
     @Override
@@ -388,7 +385,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
             LogUtil.e(TAG, "发送onUpdateAgePhotosSuccess");
             postEvent();
         }
-        showSuccessAndFinish("操作成功");
+        showSuccessDialogAndFinish("操作成功");
     }
 
     private void postEvent() {
@@ -400,7 +397,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     public void onFinishAirPhotoSuccess() {
         EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem, Constants.AirPhotoType.FINISH));
         EventBus.getDefault().post(new RemoveAirPhotoEvent(airPhotoItem.getAirCheckId(), Constants.AirPhotoType.TODO));
-        showSuccessAndFinish("完结成功");
+        showSuccessDialogAndFinish("完结成功");
     }
 
 

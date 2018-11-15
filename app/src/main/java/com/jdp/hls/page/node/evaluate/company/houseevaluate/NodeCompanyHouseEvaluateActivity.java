@@ -160,6 +160,6 @@ public class NodeCompanyHouseEvaluateActivity extends BaseNodeActivity implement
 
     @Override
     public void onModifyCompanyHouseEvaluateSuccess() {
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 }

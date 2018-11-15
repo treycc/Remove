@@ -13,6 +13,7 @@ import com.jdp.hls.injector.module.AppModule;
 import com.jdp.hls.rx.RxRe;
 import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.DialogUtil;
+import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.dialog.ConfirmDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -116,11 +117,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         AppManager.getAppManager().finishActivity(this);
     }
 
-    public void showSuccessAndFinish() {
-        showSuccessAndFinish("保存成功");
+    public void showSuccessDialogAndFinish() {
+        showSuccessDialogAndFinish("保存成功");
     }
 
-    public void showSuccessAndFinish(String tip) {
+    public void showSuccessDialogAndFinish(String tip) {
         DialogUtil.createSingleDialog(this, tip, new ConfirmDialog.OnConfirmListener() {
             @Override
             public void onConfirm() {
@@ -128,6 +129,16 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
             }
         });
     }
+
+    public void showSuccessToastAndFinish() {
+        showSuccessToastAndFinish("保存成功");
+    }
+
+    public void showSuccessToastAndFinish(String tip) {
+        ToastUtil.showText(tip);
+        finish();
+    }
+
 
     @Override
     public void showLoading() {

@@ -238,6 +238,6 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
 
     @Override
     public void onModifyCompanyProtocolSuccess() {
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 }

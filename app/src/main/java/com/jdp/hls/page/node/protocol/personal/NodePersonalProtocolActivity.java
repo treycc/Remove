@@ -263,7 +263,7 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
 
     @Override
     public void onModifyPersonalProtocolSuccess() {
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
 }

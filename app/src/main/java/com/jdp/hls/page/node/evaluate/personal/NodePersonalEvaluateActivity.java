@@ -1,6 +1,5 @@
 package com.jdp.hls.page.node.evaluate.personal;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -21,7 +20,6 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -183,7 +181,7 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
 
     @Override
     public void onModifyPersonalEvaluateSuccess() {
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
 }

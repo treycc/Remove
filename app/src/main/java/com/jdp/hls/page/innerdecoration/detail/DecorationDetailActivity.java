@@ -244,12 +244,12 @@ public class DecorationDetailActivity extends BaseTitleActivity implements Decor
     @Override
     public void onModifyDecorationSuccess(DecorationItem decorationItem) {
         EventBus.getDefault().post(new ModifyDecorationEvent(decorationItem));
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
     @Override
     public void onAddDecorationSuccess(DecorationItem decorationItem) {
         EventBus.getDefault().post(new AddDecorationEvent(decorationItem));
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 }

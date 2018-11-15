@@ -218,10 +218,10 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
     public void onApplyAirPhotoSuccess(AirPhotoItem airPhotoItem) {
         if (iSaveSend) {
             EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem, Constants.AirPhotoType.DONE));
-            showSuccessAndFinish("发送成功");
+            showSuccessDialogAndFinish("发送成功");
         } else {
             EventBus.getDefault().post(new AddAirPhotoEvent(airPhotoItem, Constants.AirPhotoType.TODO));
-            showSuccessAndFinish();
+            showSuccessDialogAndFinish();
         }
 
     }

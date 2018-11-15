@@ -5,6 +5,9 @@ import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.BasicCompany;
+import com.jdp.hls.model.entiy.Employee;
+import com.jdp.hls.model.entiy.EmployeeDetail;
+import com.jdp.hls.model.entiy.ModuleDetail;
 import com.jdp.hls.model.entiy.NodeCompanyHouseEvaluate;
 import com.jdp.hls.model.entiy.NodeCompanyMoneyEvaluate;
 import com.jdp.hls.model.entiy.DecorationItem;
@@ -35,6 +38,7 @@ import com.jdp.hls.model.entiy.NodePersonalEvaluate;
 import com.jdp.hls.model.entiy.NodePersonalMapping;
 import com.jdp.hls.model.entiy.NodePersonalMeasure;
 import com.jdp.hls.model.entiy.NodePersonalProtocol;
+import com.jdp.hls.model.entiy.Notification;
 import com.jdp.hls.model.entiy.OtherArea;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
@@ -590,4 +594,31 @@ public interface ApiService {
     /*航拍复查-年限上传图片*/
     @POST("api/AirCheck/UpdateByAppraise")
     Observable<HttpResult<Object>> updateAgePhotos(@Body RequestBody requestBody);
+
+
+    /*获取系统里列表*/
+    @GET("api/SystemSevice/GetSystemModuleList")
+    Observable<HttpResult<ModuleDetail>> getModuleDetail(@Query("routeId") String routeId);
+
+    /*员工-列表*/
+    @GET("api/user/GetUserPageList")
+    Observable<HttpResult<EmployeeDetail>> getEmployeeList(@Query("pageIndex") int pageIndex, @Query("pageSize") int
+            pageSize);
+
+    /*员工-增加*/
+    @POST("api/user/AddNewUser")
+    Observable<HttpResult<Employee>> addEmployee(@Body RequestBody requestBody);
+
+    /*员工-修改*/
+    @POST("api/user/UpdateNewUser")
+    Observable<HttpResult<Employee>> modifyEmployee(@Body RequestBody requestBody);
+
+    /*员工-详情*/
+    @GET("api/user/GetUserDetail")
+    Observable<HttpResult<Employee>> getEmployeeDetail(@Query("EmployeeId") String employeeId);
+
+    /*通知-列表*/
+    @GET("api/SystemSevice/GetMessageCount")
+    Observable<HttpResult<List<Notification>>> getNotificationList();
+
 }

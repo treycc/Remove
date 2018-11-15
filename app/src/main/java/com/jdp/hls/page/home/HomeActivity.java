@@ -1,5 +1,8 @@
 package com.jdp.hls.page.home;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,8 +17,10 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.ResetLoginStatusEvent;
-import com.jdp.hls.fragment.HomeFragment;
+import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
+import com.jdp.hls.page.module.HomeFragment;
 import com.jdp.hls.fragment.MessageFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.login.LoginActivity;
@@ -67,6 +72,7 @@ public class HomeActivity extends BaseTitleActivity {
     private static final int FRAGMENT_MESSAGE = 1;
     private static final int FRAGMENT_MINE = 2;
     private int currentTabIndex = 0;
+    private String routeId;
 
     @OnClick({R.id.ll_tab_map, R.id.ll_tab_message, R.id.ll_tab_mine})
     public void onViewClicked(View view) {
@@ -88,6 +94,7 @@ public class HomeActivity extends BaseTitleActivity {
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
+        routeId = getIntent().getStringExtra(Constants.Extra.RouteId);
     }
 
 
@@ -109,7 +116,7 @@ public class HomeActivity extends BaseTitleActivity {
     @Override
     protected void initView() {
         supportFragmentManager = getSupportFragmentManager();
-        fragmentMap.put(FRAGMENT_HOME, currentFragment =new HomeFragment());
+        fragmentMap.put(FRAGMENT_HOME, currentFragment = HomeFragment.newInstance(routeId));
         fragmentMap.put(FRAGMENT_MESSAGE, MessageFragment.newInstance());
         fragmentMap.put(FRAGMENT_MINE, MineFragment.newInstance());
         getSupportFragmentManager().beginTransaction().add(R.id.fl_home, currentFragment).commit();
@@ -159,7 +166,8 @@ public class HomeActivity extends BaseTitleActivity {
                         .getColor(this, R.color.c_9));
         tvTabMine.setTextColor(fragmentId == FRAGMENT_MINE ? ContextCompat.getColor(this, R.color.main) : ContextCompat
                 .getColor(this, R.color.c_9));
-        ivTabMap.setBackgroundResource(fragmentId == FRAGMENT_HOME ? R.mipmap.ic_tab_home_sel : R.mipmap.ic_tab_home_nor);
+        ivTabMap.setBackgroundResource(fragmentId == FRAGMENT_HOME ? R.mipmap.ic_tab_home_sel : R.mipmap
+                .ic_tab_home_nor);
         ivTabMessage.setBackgroundResource(fragmentId == FRAGMENT_MESSAGE ? R.mipmap.ic_tab_msg_sel : R.mipmap
                 .ic_tab_msg_nor);
         ivTabMine.setBackgroundResource(fragmentId == FRAGMENT_MINE ? R.mipmap.ic_tab_mine_sel : R.mipmap
@@ -171,7 +179,7 @@ public class HomeActivity extends BaseTitleActivity {
         super.onDestroy();
         fragmentMap.clear();
         EventBus.getDefault().unregister(this);
-        LogUtil.e(TAG, "关闭页面: " );
+        LogUtil.e(TAG, "关闭页面: ");
     }
 
     //防止Fragment重生重叠
@@ -198,4 +206,12 @@ public class HomeActivity extends BaseTitleActivity {
         AppManager.getAppManager().finishAllActivity();
         GoUtil.goActivity(this, LoginActivity.class);
     }
+
+    public static void goActivity(Activity context, String routeId) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.putExtra(Constants.Extra.RouteId, routeId);
+        context.startActivity(intent);
+        context.finish();
+    }
+
 }

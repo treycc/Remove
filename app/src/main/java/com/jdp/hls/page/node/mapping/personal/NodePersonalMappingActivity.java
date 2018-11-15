@@ -177,7 +177,7 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
 
     @Override
     public void onModifyPersonalMappingSuccess() {
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
     @Override

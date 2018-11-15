@@ -8,7 +8,6 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
-import com.jdp.hls.event.AddOtherEvent;
 import com.jdp.hls.event.ModifyOtherEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.OtherArea;
@@ -127,6 +126,6 @@ public class OtherAreaDetailActivity extends BaseTitleActivity implements OtherA
         otherArea.setName(name);
         otherArea.setArea(Double.valueOf(area));
         EventBus.getDefault().post(new ModifyOtherEvent(otherArea));
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 }

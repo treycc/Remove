@@ -7,20 +7,19 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import com.jdp.hls.R;
-import com.jdp.hls.page.home.HomeActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Login;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.UserInfo;
+import com.jdp.hls.page.home.HomeActivity;
 import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.service.initialize.InitializeService;
 import com.jdp.hls.util.AesUtil;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.EncryptUtil;
-import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeEditText;
@@ -157,20 +156,25 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
             SpSir.getInstance().setIfRememberBaby(false);
             SpSir.getInstance().setComeOnBaby("");
         }
-        LogUtil.e(TAG, "token:" + account.getToken());
-        List<Project> projects = account.getProjects();
-        if (projects != null && projects.size() > 0) {
-            if (projects.size() > 1) {
-                ProjectListActivity.goActivity(this, projects);
+        int routeId = account.getRouteId();
+        if (routeId == Status.RouteId.SYSTEM_LEVY) {
+            List<Project> projects = account.getProjects();
+            if (projects != null && projects.size() > 0) {
+                if (projects.size() > 1) {
+                    ProjectListActivity.goActivity(this, projects);
+                } else {
+                    Project project = projects.get(0);
+                    SpSir.getInstance().setProjectId(project.getProjectId());
+                    SpSir.getInstance().setProjectName(project.getProjectName());
+                    HomeActivity.goActivity(this, String.valueOf(routeId));
+                }
             } else {
-                Project project = projects.get(0);
-                SpSir.getInstance().setProjectId(project.getProjectId());
-                SpSir.getInstance().setProjectName(project.getProjectName());
-                GoUtil.goActivityAndFinish(this, HomeActivity.class);
+                ToastUtil.showText("您的账号下没有项目");
             }
         } else {
-            ToastUtil.showText("您的账号下没有项目");
+            HomeActivity.goActivity(this, String.valueOf(routeId));
         }
+
     }
 
     private void saveUserInfo(Login account) {

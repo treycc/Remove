@@ -1,6 +1,5 @@
 package com.jdp.hls.page.node.evaluate.company.moneyevaluate;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -19,7 +18,6 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -141,6 +139,6 @@ public class NodeCompanyMoneyEvaluateActivity extends BaseNodeActivity implement
 
     @Override
     public void onModifyCompanyMoneyevaluateSuccess() {
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 }

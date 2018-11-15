@@ -327,7 +327,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         businessEvent.setRealName(realName);
         businessEvent.setBuildingId(buildingId);
         EventBus.getDefault().post(businessEvent);
-        showSuccessAndFinish("保存成功");
+        showSuccessDialogAndFinish("保存成功");
     }
 
     public static void goActivity(Context context, String buildingId) {

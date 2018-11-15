@@ -158,7 +158,7 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
 
     @Override
     public void onModifyCompanyAgeSuccess() {
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
     private TextWatcher calculateTextWatcher = new SimpleTextWatcher() {

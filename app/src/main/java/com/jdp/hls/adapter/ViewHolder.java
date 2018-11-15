@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jdp.hls.R;
+import com.jdp.hls.imgaeloader.ImageLoader;
+
 /**
  * Description:TODO
  * Create Time:2018/7/27 0027 上午 8:49
@@ -19,9 +22,11 @@ public class ViewHolder {
     private final SparseArray<View> mViews;
     private int mPosition;
     private View mConvertView;
+    private Context mContext;
 
     private ViewHolder(Context context, ViewGroup parent, int layoutId,
                        int position) {
+        this.mContext = context;
         this.mPosition = position;
         this.mViews = new SparseArray<View>();
         mConvertView = LayoutInflater.from(context).inflate(layoutId, parent,
@@ -55,12 +60,13 @@ public class ViewHolder {
         view.setText(text);
         return this;
     }
+
     public ViewHolder setText(int viewId, int text) {
-        return setText( viewId, String.valueOf(text) );
+        return setText(viewId, String.valueOf(text));
     }
 
     public ViewHolder setText(int viewId, double text) {
-        return setText( viewId, String.valueOf(text) );
+        return setText(viewId, String.valueOf(text));
     }
 
     public ViewHolder setImageResource(int viewId, int drawableId) {
@@ -69,11 +75,13 @@ public class ViewHolder {
 
         return this;
     }
+
     public ViewHolder setBackgroundResource(int viewId, int drawableId) {
         ImageView view = getView(viewId);
         view.setBackgroundResource(drawableId);
         return this;
     }
+
     public ViewHolder setBackgroundColor(int viewId, int colorId) {
         View view = getView(viewId);
         view.setBackgroundColor(colorId);
@@ -88,13 +96,23 @@ public class ViewHolder {
 
     public ViewHolder setVisibility(int viewId, boolean visibility) {
         View view = getView(viewId);
-        view.setVisibility(visibility?View.VISIBLE:View.GONE);
+        view.setVisibility(visibility ? View.VISIBLE : View.GONE);
         return this;
     }
 
     public ViewHolder setImageByUrl(int viewId, String url) {
-//        ImageLoader.getInstance(3, Type.LIFO).loadImage(url,
-//                (ImageView) getView(viewId));
+        ImageView view = getView(viewId);
+        ImageLoader.getInstance().loadImage(mContext, url, view);
+        return this;
+    }
+    public ViewHolder setRoundImageByUrl(int viewId, String url,int connerWidth) {
+        ImageView view = getView(viewId);
+        ImageLoader.getInstance().loadRoundImage(mContext, url, R.drawable.ic_placeholder, view,connerWidth);
+        return this;
+    }
+    public ViewHolder setCircleByUrl(int viewId, String url) {
+        ImageView view = getView(viewId);
+        ImageLoader.getInstance().loadCircleImage(mContext, url, R.drawable.ic_placeholder, view);
         return this;
     }
 

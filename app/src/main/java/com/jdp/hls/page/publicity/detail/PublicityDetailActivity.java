@@ -178,7 +178,7 @@ public class PublicityDetailActivity extends BaseTitleActivity implements Public
     @Override
     public void onModifyPublicitySuccess(PublicityItem publicityItem) {
         EventBus.getDefault().post(new ModifyPublicityEvent(publicityItem));
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
     @Override

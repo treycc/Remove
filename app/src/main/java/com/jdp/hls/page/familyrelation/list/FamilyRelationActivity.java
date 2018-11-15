@@ -190,7 +190,7 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
     @Override
     public void onModifyFamilyRelationSuccess() {
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
     public static void goActivity(Context context, String houseId, boolean editable) {

@@ -23,6 +23,12 @@ public class Status {
         int COMPANY = 1;
     }
 
+    //    string,路由ID 1.普通账号  2:后台管理,
+    public interface RouteId {
+        int SYSTEM_LEVY = 1;
+        int SYSTEM_ADMIN = 2;
+    }
+
     public interface BuildingTypeStr {
         String PERSONAL = "0";
         String COMPANY = "1";
@@ -31,6 +37,16 @@ public class Status {
     public interface PublicityType {
         int SURVEY = 0;
         int AFFIRM = 1;
+    }
+
+    public interface ModuleId {
+        int SYSTEM_ACCOUNT = 1;
+        int SYSTEM_PROJECT_MANAGER = 2;
+        int SYSTEM_MESSAGE = 3;
+        int SYSTEM_QUERY = 4;
+        int SYSTEM_LEVY = 5;
+        int SYSTEM_PROJECT_SUPERVISE = 6;
+        int SYSTEM_LOCATION = 7;
     }
 
     public interface ConfigType {

@@ -133,7 +133,10 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/c_9</item>
     </style>
-
+    <style name="font_9_10">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/c_9</item>
+    </style>
     <style name="font_9_15">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/c_9</item>
@@ -143,6 +146,12 @@
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/red_hi</item>
     </style>
+
+    <style name="font_red_24">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/red_hi</item>
+    </style>
+
 
     <style name="font_9_15_eet">
         <item name="android:background">@null</item>
@@ -173,7 +182,10 @@
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/white_hi</item>
     </style>
-
+    <style name="font_f_8">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/white_hi</item>
+    </style>
     <style name="font_f_15">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/white_hi</item>
@@ -375,8 +387,8 @@
     </style>
 
     <style name="BG_ARROW">
-        <item name="android:layout_width">9dp</item>
-        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_width">15dp</item>
+        <item name="android:layout_height">15dp</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:background">@mipmap/ic_arrow_right</item>
@@ -396,6 +408,21 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingLeft">12dp</item>
         <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="Ll_Container_Arrow">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Ll_Container_Arrow_W2" parent="Ll_Container_Arrow">
+        <item name="android:layout_weight">2</item>
+    </style>
+    <style name="Ll_Container_Arrow_W1_8" parent="Ll_Container_Arrow">
+        <item name="android:layout_weight">1.8</item>
     </style>
 
     <style name="Rl_Container_Arrow_W2_5" parent="Rl_Container_Arrow">

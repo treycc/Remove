@@ -2,7 +2,6 @@ package com.jdp.hls.page.familyrelation.detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.jdp.hls.R;
@@ -207,6 +206,6 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         } else {
             EventBus.getDefault().post(new AddFamilyMememberEvent(eventObj));
         }
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 }

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_hi">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="基本信息"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="项目名称"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_projectName"
+                style="@style/Content_ET_W2"
+                android:hint="请输入档案编号"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_projectArea"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="项目区域"/>
+
+            <LinearLayout style="@style/Ll_Container_Arrow_W2">
+
+                <TextView
+                    android:id="@+id/tv_projectArea"
+                    style="@style/font_9_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:hint="请选择项目区域"
+                    android:singleLine="true"/>
+
+                <ImageView style="@style/BG_ARROW"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_projectStreet"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="街道"/>
+
+            <LinearLayout style="@style/Ll_Container_Arrow_W2">
+
+                <TextView
+                    android:id="@+id/tv_projectStreet"
+                    style="@style/font_9_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:hint="请选择街道"
+                    android:singleLine="true"/>
+
+                <ImageView style="@style/BG_ARROW"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="项目地址"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_address"
+                style="@style/Content_ET_W2"
+                android:hint="请输入项目地址"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_Year"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="年份"/>
+
+            <LinearLayout style="@style/Ll_Container_Arrow_W2">
+
+                <TextView
+                    android:id="@+id/tv_year"
+                    style="@style/font_9_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:hint="请选择年份"
+                    android:singleLine="true"/>
+
+                <ImageView style="@style/BG_ARROW"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_projectEmployee"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="负责人"/>
+
+            <LinearLayout style="@style/Ll_Container_Arrow_W2">
+
+                <TextView
+                    android:id="@+id/tv_projectEmployee"
+                    style="@style/font_9_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:hint="请选择负责人"
+                    android:singleLine="true"/>
+
+                <ImageView style="@style/BG_ARROW"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <TextView
+            style="@style/Title_Normal"
+            android:background="@color/white_hi"
+            android:text="区域范围"
+            android:textColor="@color/c_6"
+            android:textSize="15sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp">
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_areaRange"
+                style="@style/font_9_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi"
+                android:gravity="start"
+                android:hint="请输入区域范围"
+                android:lines="2"/>
+        </LinearLayout>
+
+        <TextView
+            style="@style/Title_Main"
+            android:text="项目配置信息"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_projectConfig"
+            style="@style/Container_Normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="项目配置表"/>
+
+            <ImageView
+                style="@style/BG_ARROW"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_projectGroup"
+            style="@style/Container_Normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="小组信息"/>
+
+            <ImageView
+                style="@style/BG_ARROW"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</ScrollView>

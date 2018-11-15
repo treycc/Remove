@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingBottom="16dp"
+              android:paddingLeft="12dp"
+              android:paddingRight="12dp"
+              android:paddingTop="16dp">
+
+    <!--头像-->
+    <ImageView
+        android:id="@+id/iv_headUrl"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_placeholder"/>
+
+    <!--账号信息-->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/stv_realName"
+            style="@style/font_3_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="王小虎"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:text="手机"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/stv_mobilePhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10000000000"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:text="别名"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/stv_accountAlias"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="小王"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:text="账号"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/stv_loginName"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1@1"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <!--箭头-->
+    <ImageView style="@style/BG_ARROW"/>
+
+</LinearLayout>

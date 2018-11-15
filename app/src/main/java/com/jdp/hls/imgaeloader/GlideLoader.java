@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.jdp.hls.R;
+import com.jdp.hls.constant.Constants;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 
@@ -16,16 +18,16 @@ import com.jdp.hls.util.SpSir;
  * Email:kingjavip@gmail.com
  */
 public class GlideLoader implements IImageLoader {
+    private final String TAG = getClass().getSimpleName();
+
     @Override
     public void loadImage(Context context, String url, int resourceId, ImageView view) {
-        LogUtil.e("图片url","图片url："+SpSir.getInstance().getServerName()+ url);
         Glide.with(context)
-                .load(SpSir.getInstance().getServerName()+ url)
+                .load(Constants.BASE_URL + url)
                 .centerCrop()
-                .placeholder(resourceId == -1 ? R.mipmap.ic_img_placeholder : resourceId)
+                .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
                 .error(R.mipmap.ic_img_fail)
                 .crossFade()
-                .skipMemoryCache(true)
                 .into(view);
     }
 
@@ -34,10 +36,33 @@ public class GlideLoader implements IImageLoader {
         Glide.with(context)
                 .load(uri)
                 .centerCrop()
-                .placeholder(R.mipmap.ic_img_placeholder)
+                .placeholder(R.drawable.ic_placeholder)
                 .error(R.mipmap.ic_img_fail)
                 .crossFade()
                 .skipMemoryCache(true)
+                .into(view);
+    }
+
+    @Override
+    public void loadRoundImage(Context context, String url, int resourceId, ImageView view, int connerWidth) {
+        Glide.with(context)
+                .load(Constants.BASE_URL + url)
+                .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
+                .error(R.mipmap.ic_img_fail)
+                .crossFade()
+                .transform(new CenterCrop(context), new GlideRoundTransform(context, connerWidth))
+                .into(view);
+    }
+
+    @Override
+    public void loadCircleImage(Context context, String url, int resourceId, ImageView view) {
+        Glide.with(context)
+                .load(Constants.BASE_URL + url)
+                .centerCrop()
+                .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
+                .error(R.mipmap.ic_img_fail)
+                .crossFade()
+                .transform(new CenterCrop(context), new GlideCircleTransform(context))
                 .into(view);
     }
 }

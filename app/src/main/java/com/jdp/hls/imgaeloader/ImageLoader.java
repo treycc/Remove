@@ -28,6 +28,20 @@ public class ImageLoader implements IImageLoader {
         imageLoader.loadImage(context, uri, view);
     }
 
+    @Override
+    public void loadRoundImage(Context context, String url, int resourceId, ImageView view, int connerWidth) {
+        imageLoader.loadRoundImage(context, url, resourceId, view, connerWidth);
+    }
+
+    @Override
+    public void loadCircleImage(Context context, String url, int resourceId, ImageView view) {
+        imageLoader.loadCircleImage(context, url, resourceId, view);
+    }
+
+    public void loadCircleImage(Context context, String url, ImageView view) {
+        imageLoader.loadCircleImage(context, url, -1, view);
+    }
+
     public void loadImage(Context context, String url, ImageView view) {
         loadImage(context, url, -1, view);
     }

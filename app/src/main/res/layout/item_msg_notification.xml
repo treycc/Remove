@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white_hi"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:padding="12dp">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="6dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_news_admin"/>
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_count"
+            style="@style/font_f_8"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="end"
+            android:background="@drawable/shape_circle_point"
+            android:gravity="center"
+            android:text="99"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_messageTypeName"
+            style="@style/font_3_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="系统消息"/>
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_content"
+            style="@style/font_9_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="您有6条消息，请及时处理"/>
+    </LinearLayout>
+
+    <com.jdp.hls.view.StringTextView
+        android:id="@+id/tv_lastTime"
+        style="@style/font_9_10"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="22:10"/>
+
+</LinearLayout>

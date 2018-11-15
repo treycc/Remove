@@ -226,7 +226,7 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
     @Override
     public void onApplyPublicitySuccess(PublicityItem publicityItem) {
         EventBus.getDefault().post(new AddPublicityEvent(publicityItem));
-        showSuccessAndFinish();
+        showSuccessDialogAndFinish();
     }
 
 }

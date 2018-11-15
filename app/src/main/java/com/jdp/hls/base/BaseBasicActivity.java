@@ -239,7 +239,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     protected void onOperateSuccess(String msg, String buildingIds) {
         EventBus.getDefault().post(new RefreshBusinessListEvent(buildingIds));
         EventBus.getDefault().post(new RefreshTaskEvent());
-        super.showSuccessAndFinish(msg);
+        super.showSuccessDialogAndFinish(msg);
     }
 
 }
