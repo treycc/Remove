@@ -130,7 +130,7 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         if (mIsAdd) {
             setRightClick("保存", addListener);
             setDateSelector(ivDateSelector, tvLandOutExpiryDate, mIsAdd);

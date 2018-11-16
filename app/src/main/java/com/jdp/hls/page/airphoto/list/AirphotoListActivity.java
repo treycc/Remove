@@ -125,7 +125,7 @@ public class AirphotoListActivity extends BaseTitleActivity {
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

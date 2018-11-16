@@ -17,6 +17,7 @@ import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Module;
 import com.jdp.hls.model.entiy.ModuleDetail;
+import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
 import com.jdp.hls.page.employee.list.EmployeeListActivity;
 import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.page.message.notification.NotificationActivity;
@@ -58,7 +59,7 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
                 GoUtil.goActivity(getActivity(), EmployeeListActivity.class);
                 break;
             case Status.ModuleId.SYSTEM_PROJECT_MANAGER:
-                ToastUtil.showText("功能开发中");
+                GoUtil.goActivity(getActivity(), ProjectListAdminActivity.class);
                 break;
             case Status.ModuleId.SYSTEM_MESSAGE:
                 GoUtil.goActivity(getActivity(), NotificationActivity.class);
@@ -114,7 +115,7 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         modulePresenter.getModuleDetail(routeId);
     }
 

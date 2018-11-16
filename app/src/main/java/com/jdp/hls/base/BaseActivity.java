@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public abstract class BaseActivity extends AppCompatActivity implements BaseView, DialogInterface.OnDismissListener {
+public abstract class BaseActivity extends AppCompatActivity implements BaseView, DialogInterface.OnDismissListener ,BaseInit{
     protected String TAG = getClass().getSimpleName();
     private ProgressDialog mDialogProgress;
 
@@ -81,8 +81,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     protected abstract void initData();
 
+    @Override
+    public abstract void initNet();
     /*初始化网络数据*/
-    protected abstract void initNet();
 
 
     /*提供全局AppComponent*/

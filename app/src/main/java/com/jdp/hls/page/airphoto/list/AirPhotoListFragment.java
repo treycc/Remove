@@ -19,7 +19,7 @@ import com.jdp.hls.model.entiy.ModifyAirPhotoEvent;
 import com.jdp.hls.page.airphoto.detail.AirPhotoDetailActivity;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,7 +44,7 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
     private List<AirPhotoItem> airPhotoItems = new ArrayList<>();
     private AirPhotoListAdapter adapter;
     private String taskType;
@@ -111,7 +111,7 @@ public class AirPhotoListFragment extends BaseFragment implements SwipeRefreshLa
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         LogUtil.e(TAG, "initNet");
         airPhotoListPresenter.getAirPhotoList("-1", taskType);
     }

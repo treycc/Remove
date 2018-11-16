@@ -370,7 +370,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         rosterDetailPresenter.getRosterDetail(roster.getHouseId(), SpSir.getInstance().getEmployeeId(), roster
                 .isEnterprise() ? 1 : 0);
     }

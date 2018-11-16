@@ -157,7 +157,7 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         nodeCompanyProtocolPresenter.getCompanyProtocol(mBuildingId);
     }
 

@@ -19,7 +19,7 @@ import com.jdp.hls.model.entiy.PublicityObject;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class PublicityObjectActivity extends BaseTitleActivity implements Public
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
 
     private List<PublicityObject> publicityObjectList = new ArrayList<>();
     private PublicityObjectAdapter publicityObjectAdapter;
@@ -102,7 +102,7 @@ public class PublicityObjectActivity extends BaseTitleActivity implements Public
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         publicityObjectPresenter.getPublicityObject(buildingType, publicityType);
     }
 

@@ -109,7 +109,7 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         nodePersonalEvaluatePresenter.getPersonalEvaluate(mBuildingId);
     }
 

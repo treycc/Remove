@@ -97,7 +97,7 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         if (mIsAdd) {
             setRightClick("保存", addListener);
         } else {

@@ -8,23 +8,18 @@ import com.jdp.hls.adapter.EmployeeAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
-import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.AddEmployeeEvent;
 import com.jdp.hls.event.ModifyEmployeeEvent;
-import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.EmployeeDetail;
-import com.jdp.hls.model.entiy.Table;
-import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
-import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.page.employee.add.EmployeeAddActivity;
 import com.jdp.hls.page.employee.detail.EmployeeDetailActivity;
 import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -34,7 +29,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnItemClick;
-import okhttp3.MultipartBody;
 
 /**
  * Description:TODO
@@ -46,7 +40,7 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
     @Inject
     EmployeeListPresenter employeeListPresenter;
     private EmployeeAdapter employeeAdapter;
@@ -59,7 +53,7 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
 
     @Override
     public void initVariable() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -92,12 +86,11 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
         setRightClick("增加", v -> {
             GoUtil.goActivity(EmployeeListActivity.this, EmployeeAddActivity.class);
         });
-
     }
 
     @Override
-    protected void initNet() {
-        employeeListPresenter.getEmployeeList(Constants.PAGE_FIRST, Constants.PAGE_SIZE);
+    public void initNet() {
+        employeeListPresenter.getEmployeeList(Constants.PAGE_FIRST, Constants.PAGE_SIZE_100);
     }
 
     @Override
@@ -122,6 +115,6 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addEmployee(AddEmployeeEvent event) {
-        employeeAdapter.AddEmployee(event.getEmployee());
+        employeeAdapter.addEmployee(event.getEmployee());
     }
 }

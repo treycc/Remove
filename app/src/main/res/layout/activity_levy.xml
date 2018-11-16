@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jdp.hls.view.RefreshSwipeRefreshLayout
+<com.jdp.hls.view.RefreshableSwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/srl"
@@ -156,4 +156,4 @@
 
         </LinearLayout>
     </ScrollView>
-</com.jdp.hls.view.RefreshSwipeRefreshLayout>
+</com.jdp.hls.view.RefreshableSwipeRefreshLayout>

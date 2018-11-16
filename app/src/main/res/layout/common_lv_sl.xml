@@ -6,7 +6,7 @@
               android:background="@color/white_hi"
               android:orientation="vertical">
 
-    <com.jdp.hls.view.RefreshSwipeRefreshLayout
+    <com.jdp.hls.view.RefreshableSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,5 +19,5 @@
             android:divider="@color/div_hi"
             android:dividerHeight="1px"
             tools:listitem="@layout/item_employee"/>
-    </com.jdp.hls.view.RefreshSwipeRefreshLayout>
+    </com.jdp.hls.view.RefreshableSwipeRefreshLayout>
 </LinearLayout>

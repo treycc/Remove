@@ -124,7 +124,7 @@ public class SettingActivity extends BaseTitleActivity implements SettingContrac
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

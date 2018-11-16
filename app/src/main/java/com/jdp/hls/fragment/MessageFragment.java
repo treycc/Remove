@@ -13,7 +13,7 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Message;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class MessageFragment extends BaseFragment {
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
     private List<Message> messages = new ArrayList<>();
     private CommonAdapter adapter;
 
@@ -83,7 +83,7 @@ public class MessageFragment extends BaseFragment {
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

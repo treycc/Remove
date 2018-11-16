@@ -81,7 +81,7 @@ public class TableListActivity extends BaseTitleActivity implements TableListCon
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         tableListPresenter.getTables(SpSir.getInstance().getProjectId(), -1, statisId == null ? "" : statisId);
     }
 

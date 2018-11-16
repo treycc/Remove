@@ -134,7 +134,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

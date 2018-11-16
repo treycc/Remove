@@ -165,7 +165,7 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         nodePersonalProtocolPresenter.getPersonalProtocol(mBuildingId);
     }
 

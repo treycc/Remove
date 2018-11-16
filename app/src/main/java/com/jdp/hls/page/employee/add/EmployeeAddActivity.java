@@ -1,14 +1,11 @@
 package com.jdp.hls.page.employee.add;
 
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.event.AddEmployeeEvent;
-import com.jdp.hls.event.ModifyEmployeeEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.util.CheckUtil;
@@ -22,7 +19,6 @@ import org.greenrobot.eventbus.EventBus;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -94,7 +90,7 @@ public class EmployeeAddActivity extends BaseTitleActivity implements EmployeeAd
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

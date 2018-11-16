@@ -155,7 +155,7 @@ public class ModifyAndUploadActivity extends BaseTitleActivity implements Modify
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

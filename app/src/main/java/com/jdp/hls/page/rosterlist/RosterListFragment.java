@@ -19,7 +19,7 @@ import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -45,7 +45,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
     private List<Roster> rosters = new ArrayList<>();
     private RosterListAdapter adapter;
     private int isEnterprise;
@@ -142,7 +142,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

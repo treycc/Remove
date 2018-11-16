@@ -69,7 +69,7 @@
 
     <View style="@style/div_hor_gray"/>
 
-    <com.jdp.hls.view.RefreshSwipeRefreshLayout
+    <com.jdp.hls.view.RefreshableSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -81,6 +81,6 @@
             android:divider="@color/div_hi"
             android:dividerHeight="1px"
             tools:listitem="@layout/item_publicity_object"/>
-    </com.jdp.hls.view.RefreshSwipeRefreshLayout>
+    </com.jdp.hls.view.RefreshableSwipeRefreshLayout>
 
 </LinearLayout>

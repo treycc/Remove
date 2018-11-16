@@ -21,6 +21,12 @@ public class DateUtil {
         return sf.format(d);
     }
 
+    public static String getDateString(long time,String fromat) {
+        Date d = new Date(time);
+        SimpleDateFormat sf = new SimpleDateFormat(fromat);
+        return sf.format(d);
+    }
+
     public static Date str2Date(String strDate) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         ParsePosition pos = new ParsePosition(0);

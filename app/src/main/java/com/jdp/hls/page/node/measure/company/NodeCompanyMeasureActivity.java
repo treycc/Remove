@@ -73,7 +73,7 @@ public class NodeCompanyMeasureActivity extends BaseNodeActivity implements Node
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         nodeCompanyMeasurePresenter.getCompanyMeasure(mBuildingId);
     }
 

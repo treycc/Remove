@@ -75,7 +75,7 @@ public abstract class BaseNodeActivity extends BaseTitleActivity {
     }
 
     @Override
-    protected abstract void initNet();
+    public abstract void initNet();
 
     public static void goActivity(Context context, Class<? extends BaseNodeActivity> clazz, String buildingId) {
         Intent intent = new Intent(context, clazz);

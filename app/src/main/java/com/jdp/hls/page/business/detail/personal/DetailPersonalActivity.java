@@ -218,7 +218,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         detailPersonalPresenter.getPersonalDetail(buildingId);
     }
 

@@ -91,7 +91,7 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
 
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         nodeCompanyMappingPresenter.getCompanyMapping(mBuildingId);
     }
 

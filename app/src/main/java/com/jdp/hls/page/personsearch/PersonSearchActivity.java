@@ -18,7 +18,7 @@ import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class PersonSearchActivity extends BaseTitleActivity implements PersonsCo
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
     @Inject
     PersonsPresenter personsPresenter;
     List<Person> persons = new ArrayList<>();
@@ -110,7 +110,7 @@ public class PersonSearchActivity extends BaseTitleActivity implements PersonsCo
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         srl.setRefreshing(false);
         personsPresenter.getPersons(SpSir.getInstance().getProjectId());
     }

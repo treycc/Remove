@@ -55,13 +55,8 @@ public class EmployeeAdapter extends BaseLvAdapter<Employee> {
         notifyDataSetChanged();
     }
 
-    public void AddEmployee(Employee employee) {
-        Employee item = new Employee();
-        item.setRealName(employee.getRealName());
-        item.setMobilePhone(employee.getMobilePhone());
-        item.setAccountAlias(employee.getAccountAlias());
-        item.setLoginName(employee.getLoginName());
-        list.add(0, item);
+    public void addEmployee(Employee employee) {
+        list.add(0, employee);
         notifyDataSetChanged();
     }
 

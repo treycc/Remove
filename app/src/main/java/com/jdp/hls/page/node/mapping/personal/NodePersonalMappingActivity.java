@@ -112,7 +112,7 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         nodePersonalMappingPresenter.getPersonalMapping(mBuildingId);
     }
 

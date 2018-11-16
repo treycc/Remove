@@ -73,7 +73,7 @@ public class NodePersonalMeasureActivity extends BaseNodeActivity implements Nod
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         nodePersonalMeasurePresenter.getPersonalMeasure(mBuildingId);
     }
 

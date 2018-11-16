@@ -82,7 +82,7 @@ public class PublicityListActivity extends BaseTitleActivity {
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

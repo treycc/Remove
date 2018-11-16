@@ -67,7 +67,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     protected abstract void initData();
 
     @Override
-    protected abstract void initNet();
+    public abstract void initNet();
 
     protected void setSingleAuth(Auth auth, String buildingId, String buildingType, String stastusId) {
         setSingleAuth(auth, buildingId, buildingType, stastusId, "");

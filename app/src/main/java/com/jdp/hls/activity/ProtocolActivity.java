@@ -71,7 +71,7 @@ public class ProtocolActivity extends BaseTitleActivity {
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

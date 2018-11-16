@@ -70,7 +70,7 @@ public class AboutUsActivity extends BaseTitleActivity {
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

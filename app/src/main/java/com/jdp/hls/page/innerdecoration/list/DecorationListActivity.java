@@ -127,7 +127,7 @@ public class DecorationListActivity extends BaseTitleActivity implements Decorat
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         decorationListPresenter.getDecorationList(evalId, buildingType, compensationType);
     }
 

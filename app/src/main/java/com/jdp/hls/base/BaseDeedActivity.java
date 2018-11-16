@@ -67,7 +67,7 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
     }
 
     @Override
-    protected abstract void initNet();
+    public abstract void initNet();
 
     public static void goActivity(Activity context, Class<? extends BaseDeedActivity> clazz, String fileType, String
             buildingId, String buildingType, boolean isAdd) {

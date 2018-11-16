@@ -96,7 +96,7 @@ public class NodeCompanyAgeActivity extends BaseNodeActivity implements NodeComp
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         nodeCompanyAgePresenter.getCompanyAge(mBuildingId);
     }
 

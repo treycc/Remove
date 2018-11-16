@@ -95,7 +95,7 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         employeeDetailPresenter.getEmployeeDetail(employeeId);
     }
 

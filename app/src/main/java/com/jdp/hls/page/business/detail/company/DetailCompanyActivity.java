@@ -196,7 +196,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         detailCompanyPresenter.getCompanyDetail(buildingId);
     }
 

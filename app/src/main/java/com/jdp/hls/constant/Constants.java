@@ -117,6 +117,7 @@ public class Constants {
         String HOUSEID = "houseId";
         String STATIS_ID = "statisId";
         String RouteId = "RouteId";
+        String PROJECTID = "projectId";
     }
 
     public interface AirPhotoType {

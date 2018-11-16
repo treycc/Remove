@@ -193,7 +193,7 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         statisticsPresenter.getStatistics(SpSir.getInstance().getProjectId(), statisType, "-1");
     }
 

@@ -43,7 +43,7 @@ public class MessageDetailActivity extends BaseTitleActivity {
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 }

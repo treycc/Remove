@@ -219,7 +219,7 @@ public class DecorationDetailActivity extends BaseTitleActivity implements Decor
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

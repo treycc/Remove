@@ -105,7 +105,7 @@ public class NodeCompanyHouseEvaluateActivity extends BaseNodeActivity implement
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         nodeCompanyHouseEvaluatePresenter.getCompanyHouseEvaluate(mBuildingId);
     }
 

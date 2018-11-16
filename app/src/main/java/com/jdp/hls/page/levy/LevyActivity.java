@@ -19,12 +19,11 @@ import com.jdp.hls.page.airphoto.list.AirphotoListActivity;
 import com.jdp.hls.page.business.list.BusinessListActivity;
 import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.page.publicity.PublicityActivity;
-import com.jdp.hls.page.publicity.PublicityListActivity;
 import com.jdp.hls.page.statistics.StatisticsActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,7 +52,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
     @BindView(R.id.gv_statisticsAction)
     GridView gvStatisticsAction;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
     private CommonAdapter taskAdapter;
     private CommonPositionAdapter businessActionAdapter;
     private CommonPositionAdapter statisticsActionAdapter;
@@ -158,7 +157,7 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         taskPresenter.getTask(SpSir.getInstance().getProjectId(), -1);
     }
 

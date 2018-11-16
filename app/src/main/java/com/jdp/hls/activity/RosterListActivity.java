@@ -192,7 +192,7 @@ public class RosterListActivity extends BaseTitleActivity {
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

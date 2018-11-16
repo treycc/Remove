@@ -165,7 +165,7 @@ public class PhotoPreviewActivity extends BaseTitleActivity implements PhotoCont
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

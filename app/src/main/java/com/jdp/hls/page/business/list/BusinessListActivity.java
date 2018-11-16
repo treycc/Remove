@@ -193,7 +193,7 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(), -1, taskType);
     }
 

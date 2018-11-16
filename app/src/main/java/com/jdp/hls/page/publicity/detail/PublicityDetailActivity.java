@@ -144,7 +144,7 @@ public class PublicityDetailActivity extends BaseTitleActivity implements Public
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         publicityDetailPresenter.getPublicityDetail(pubId);
     }
 

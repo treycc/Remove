@@ -83,7 +83,7 @@ public class DeedCompanyBankActivity extends BaseDeedActivity implements DeedCom
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         if (mIsAdd) {
             setRightClick("保存", addListener);
         } else {

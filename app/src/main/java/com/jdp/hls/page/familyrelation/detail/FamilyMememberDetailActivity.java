@@ -169,7 +169,7 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

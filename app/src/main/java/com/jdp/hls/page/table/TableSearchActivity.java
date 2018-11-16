@@ -112,7 +112,7 @@ public class TableSearchActivity extends BaseTitleActivity {
 
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

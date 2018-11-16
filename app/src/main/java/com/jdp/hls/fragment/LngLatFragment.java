@@ -106,7 +106,7 @@ public class LngLatFragment extends BaseFragment implements AMap.OnMapClickListe
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

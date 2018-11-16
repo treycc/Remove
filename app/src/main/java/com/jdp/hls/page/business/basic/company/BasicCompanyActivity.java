@@ -142,7 +142,7 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         basicCompanyPresenter.getCompanyBasic(buildingId);
     }
 

@@ -16,7 +16,7 @@ import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.page.airphoto.add.AirPhotoApplyActivity;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class AirPhotoBuildingActivity extends BaseTitleActivity implements AirPh
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
     private List<AirPhotoBuilding> airPhotoBuildingList = new ArrayList<>();
     @Inject
     AirPhotoBuildingPresenter airPhotoBuildingPresenter;
@@ -106,7 +106,7 @@ public class AirPhotoBuildingActivity extends BaseTitleActivity implements AirPh
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         airPhotoBuildingPresenter.getAirPhotoBuildings("-1");
     }
 

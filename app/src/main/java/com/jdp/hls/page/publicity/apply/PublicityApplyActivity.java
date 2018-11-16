@@ -219,7 +219,7 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

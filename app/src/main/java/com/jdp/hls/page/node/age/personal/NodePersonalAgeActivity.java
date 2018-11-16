@@ -118,7 +118,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         nodePersonalAgePresenter.getPersonalAge(mBuildingId);
     }
 

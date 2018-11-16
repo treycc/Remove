@@ -19,7 +19,7 @@ import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.page.publicity.detail.PublicityDetailActivity;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,7 +44,7 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
     private List<PublicityItem> publicityItems = new ArrayList<>();
     private PublicityListAdapter adapter;
     private int publicityType;
@@ -124,7 +124,7 @@ public class PublicityListFragment extends BaseFragment implements SwipeRefreshL
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         srl.setRefreshing(false);
         publicityListPresenter.getPublicityList(SpSir.getInstance().getProjectId(), publicityType);
     }

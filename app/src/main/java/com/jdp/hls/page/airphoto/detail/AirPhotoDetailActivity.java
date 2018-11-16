@@ -179,7 +179,7 @@ public class AirPhotoDetailActivity extends BaseTitleActivity implements AirPhot
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         airPhotoDetailPresenter.getAirPhotoDetail(airCheckId, String.valueOf(checkType));
     }
 

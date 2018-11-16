@@ -198,7 +198,7 @@ public class MineFragment extends BaseFragment implements MineContract.View {
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

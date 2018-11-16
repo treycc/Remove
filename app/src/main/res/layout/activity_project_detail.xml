@@ -19,13 +19,13 @@
         <LinearLayout
             style="@style/Content_LL_T6">
 
-            <TextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/Title_Sub"
                 android:text="项目名称"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_projectName"
-                style="@style/Content_ET_W2"
+                style="@style/Content_ET_W2_Mul_Line"
                 android:hint="请输入档案编号"/>
         </LinearLayout>
 
@@ -35,22 +35,21 @@
             android:id="@+id/ll_projectArea"
             style="@style/Content_LL_T12">
 
-            <TextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/Title_Sub"
                 android:text="项目区域"/>
 
             <LinearLayout style="@style/Ll_Container_Arrow_W2">
 
-                <TextView
+                <com.jdp.hls.view.StringTextView
                     android:id="@+id/tv_projectArea"
                     style="@style/font_9_15"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
-                    android:ellipsize="end"
                     android:hint="请选择项目区域"
-                    android:singleLine="true"/>
+                    android:textColorHint="@color/c_9"/>
 
                 <ImageView style="@style/BG_ARROW"/>
             </LinearLayout>
@@ -62,22 +61,21 @@
             android:id="@+id/ll_projectStreet"
             style="@style/Content_LL_T12">
 
-            <TextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/Title_Sub"
                 android:text="街道"/>
 
             <LinearLayout style="@style/Ll_Container_Arrow_W2">
 
-                <TextView
+                <com.jdp.hls.view.StringTextView
                     android:id="@+id/tv_projectStreet"
                     style="@style/font_9_15"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
-                    android:ellipsize="end"
                     android:hint="请选择街道"
-                    android:singleLine="true"/>
+                    android:textColorHint="@color/c_9"/>
 
                 <ImageView style="@style/BG_ARROW"/>
             </LinearLayout>
@@ -94,7 +92,7 @@
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_address"
-                style="@style/Content_ET_W2"
+                style="@style/Content_ET_W2_Mul_Line"
                 android:hint="请输入项目地址"/>
         </LinearLayout>
 
@@ -104,22 +102,21 @@
             android:id="@+id/ll_Year"
             style="@style/Content_LL_T12">
 
-            <TextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/Title_Sub"
                 android:text="年份"/>
 
             <LinearLayout style="@style/Ll_Container_Arrow_W2">
 
-                <TextView
+                <com.jdp.hls.view.StringTextView
                     android:id="@+id/tv_year"
                     style="@style/font_9_15"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
-                    android:ellipsize="end"
                     android:hint="请选择年份"
-                    android:singleLine="true"/>
+                    android:textColorHint="@color/c_9"/>
 
                 <ImageView style="@style/BG_ARROW"/>
             </LinearLayout>
@@ -131,22 +128,21 @@
             android:id="@+id/ll_projectEmployee"
             style="@style/Content_LL_T12">
 
-            <TextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/Title_Sub"
                 android:text="负责人"/>
 
             <LinearLayout style="@style/Ll_Container_Arrow_W2">
 
-                <TextView
+                <com.jdp.hls.view.StringTextView
                     android:id="@+id/tv_projectEmployee"
                     style="@style/font_9_15"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
-                    android:ellipsize="end"
                     android:hint="请选择负责人"
-                    android:singleLine="true"/>
+                    android:textColorHint="@color/c_9"/>
 
                 <ImageView style="@style/BG_ARROW"/>
             </LinearLayout>
@@ -181,47 +177,56 @@
                 android:lines="2"/>
         </LinearLayout>
 
-        <TextView
-            style="@style/Title_Main"
-            android:text="项目配置信息"/>
+        <include layout="@layout/layout_remark"/>
 
-        <RelativeLayout
-            android:id="@+id/rl_projectConfig"
-            style="@style/Container_Normal"
+        <LinearLayout
+            android:id="@+id/ll_projectConfig"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white_hi">
+            android:orientation="vertical">
 
             <TextView
-                style="@style/font_6_15"
-                android:layout_width="wrap_content"
+                style="@style/Title_Main"
+                android:text="项目配置信息"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_projectConfig"
+                style="@style/Container_Normal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="项目配置表"/>
+                android:background="@color/white_hi">
 
-            <ImageView
-                style="@style/BG_ARROW"/>
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="项目配置表"/>
 
-        </RelativeLayout>
+                <ImageView
+                    style="@style/BG_ARROW"/>
 
-        <RelativeLayout
-            android:id="@+id/rl_projectGroup"
-            style="@style/Container_Normal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white_hi">
+            </RelativeLayout>
 
-            <TextView
-                style="@style/font_6_15"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/rl_projectGroup"
+                style="@style/Container_Normal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="小组信息"/>
+                android:background="@color/white_hi">
 
-            <ImageView
-                style="@style/BG_ARROW"/>
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="小组信息"/>
 
-        </RelativeLayout>
+                <ImageView
+                    style="@style/BG_ARROW"/>
+
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
 

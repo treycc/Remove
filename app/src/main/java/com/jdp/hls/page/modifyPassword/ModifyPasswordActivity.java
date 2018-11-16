@@ -87,7 +87,7 @@ public class ModifyPasswordActivity extends BaseTitleActivity implements ModifyP
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

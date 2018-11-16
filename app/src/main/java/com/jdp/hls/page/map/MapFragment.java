@@ -195,7 +195,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         getRosterPresenter.getRosterList(SpSir.getInstance().getProjectId(), SpSir.getInstance().getEmployeeId());
     }
 

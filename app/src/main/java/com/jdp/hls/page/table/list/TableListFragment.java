@@ -90,7 +90,7 @@ public class TableListFragment extends BaseFragment implements SwipeRefreshLayou
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

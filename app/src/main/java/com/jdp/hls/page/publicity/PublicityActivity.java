@@ -24,7 +24,7 @@ import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -54,7 +54,7 @@ public class PublicityActivity extends BaseTitleActivity implements SwipeRefresh
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
     @Inject
     PublicityListPresenter publicityListPresenter;
     List<PublicityItem> publicityItemList = new ArrayList<>();
@@ -124,7 +124,7 @@ public class PublicityActivity extends BaseTitleActivity implements SwipeRefresh
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         srl.setRefreshing(false);
         publicityListPresenter.getPublicityList(SpSir.getInstance().getProjectId(), -1);
     }

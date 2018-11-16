@@ -35,12 +35,16 @@ public class NotificationAdapter extends BaseLvAdapter<Notification> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tv_count.setString(list.get(position).getCount());
+
+        int count = list.get(position).getCount();
+        viewHolder.tv_count.setString(count);
+        viewHolder.tv_count.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+        String content = count > 0 ? "您有%d条%s，请查看处理" : "您有%d条%s";
         viewHolder.tv_messageTypeName.setString(list.get(position).getMessageTypeName());
         viewHolder.tv_lastTime.setString(list.get(position).getLastTime());
-        viewHolder.tv_content.setString(String.format("您有%d条%s，请查看处理", list.get(position).getCount(), list.get
+        viewHolder.tv_content.setString(String.format(content, count, list.get
                 (position).getMessageTypeName()));
-        ImageLoader.getInstance().loadCircleImage(context, list.get(position).getIconUrl(), viewHolder.iv_icon);
+        ImageLoader.getInstance().loadImage(context, list.get(position).getIconUrl(), viewHolder.iv_icon);
         return convertView;
     }
 

@@ -203,7 +203,7 @@ public class AirPhotoApplyActivity extends BaseTitleActivity implements AirPhoto
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

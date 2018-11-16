@@ -106,7 +106,7 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         if (mIsAdd) {
             setRightClick("保存", addListener);
         } else {

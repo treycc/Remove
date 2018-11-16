@@ -107,7 +107,7 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

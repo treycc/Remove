@@ -110,7 +110,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         //1.增加 不做任何操作，点保存增加
         //2.修改 先获取接口，然后可编辑，点保存修改
         //3.查看 先获取接口，然后不可编辑，不出现按钮

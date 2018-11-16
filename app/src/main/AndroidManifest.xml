@@ -356,6 +356,8 @@
         <activity android:name=".page.employee.add.EmployeeAddActivity"/>
         <activity android:name=".page.employee.detail.EmployeeDetailActivity"/>
         <activity android:name=".page.message.notification.NotificationActivity"/>
+        <activity android:name=".page.admin.project.list.ProjectListAdminActivity"/>
+        <activity android:name=".page.admin.project.detail.ProjectDetailActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

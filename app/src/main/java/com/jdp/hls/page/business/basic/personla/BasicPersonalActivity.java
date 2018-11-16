@@ -133,7 +133,7 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         basicPersonalPresenter.getPersonalBasic(buildingId);
     }
 

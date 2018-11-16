@@ -108,7 +108,7 @@ public class OtherAreaDetailActivity extends BaseTitleActivity implements OtherA
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

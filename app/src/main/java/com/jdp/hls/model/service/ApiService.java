@@ -5,6 +5,7 @@ import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.BasicCompany;
+import com.jdp.hls.model.entiy.Company;
 import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.EmployeeDetail;
 import com.jdp.hls.model.entiy.ModuleDetail;
@@ -42,6 +43,8 @@ import com.jdp.hls.model.entiy.Notification;
 import com.jdp.hls.model.entiy.OtherArea;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
+import com.jdp.hls.model.entiy.ProjectItem;
+import com.jdp.hls.model.entiy.ProjectListInfo;
 import com.jdp.hls.model.entiy.PublicityDetail;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.model.entiy.PublicityObject;
@@ -620,5 +623,38 @@ public interface ApiService {
     /*通知-列表*/
     @GET("api/SystemSevice/GetMessageCount")
     Observable<HttpResult<List<Notification>>> getNotificationList();
+
+    /*=========================================项目=========================================*/
+    /*项目-列表*/
+    @GET("api/project/GetProjectList_Admin")
+    Observable<HttpResult<ProjectListInfo>> getProjectList();
+
+    /*项目-详情*/
+    @GET("api/project/GetProjectBaseInfo")
+    Observable<HttpResult<ProjectItem>> getProjectDetail(@Query("projectId") String projectId);
+
+    /*项目-创建*/
+    @POST("api/project/AddUserProject")
+    Observable<HttpResult<ProjectItem>> addProject(@Body RequestBody requestBody);
+
+    /*项目-修改*/
+    @POST("api/project/UpdateUserProject")
+    Observable<HttpResult<ProjectItem>> modifyProject(@Body RequestBody requestBody);
+
+    /*项目-保存*/
+    @POST("api/project/SaveUserProject")
+    Observable<HttpResult<ProjectItem>> saveProject(@Body RequestBody requestBody);
+
+    /*项目配置-获取*/
+    @GET("api/project/GetProjectCompanyList")
+    Observable<HttpResult<List<Company>>> getProjectConfig(@Query("projectId") String projectId);
+
+    /*项目配置-修改*/
+    @POST("api/project/SetProjectCompany")
+    Observable<HttpResult<Object>> modifyProjectConfig(@Body RequestBody requestBody);
+
+    /*公司-列表*/
+    @GET("api/company/GetList")
+    Observable<HttpResult<ProjectItem>> getCompanyList(@Query("CompanyTypeId") String companyTypeId);
 
 }

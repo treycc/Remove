@@ -19,7 +19,7 @@ import com.jdp.hls.util.InputMethodManagerUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -42,7 +42,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
     private List<Project> projects = new ArrayList<>();
     private CommonAdapter adapter;
     private boolean isFromLocal;
@@ -122,7 +122,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         if (!isFromLocal) {
             projectsPresenter.getProjects(SpSir.getInstance().getEmployeeId());
         }

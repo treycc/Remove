@@ -329,7 +329,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

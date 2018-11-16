@@ -20,7 +20,6 @@ import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -120,7 +119,7 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         otherAreaPresenter.getOtherAreaList(pcdId, buildingType);
     }
 

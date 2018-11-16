@@ -162,7 +162,7 @@ public class SuggestActivity extends BaseTitleActivity implements SuggestContrac
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 

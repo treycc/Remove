@@ -156,7 +156,7 @@ public class NodeCompanyEvaluateActivity extends BaseNodeActivity implements Nod
     }
 
     @Override
-    protected void initNet() {
+    public void initNet() {
         nodeCompanyEvaluatePresenter.getCompanyEvaluate(mBuildingId);
     }
 

@@ -21,7 +21,7 @@ import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.page.rosterlist.GetRostersByTypeContract;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -47,7 +47,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    RefreshableSwipeRefreshLayout srl;
     private List<Business> business = new ArrayList<>();
     private BusinessAdapter adapter;
     private int buildingType;
@@ -127,7 +127,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
         this.onBusinessSelectedListener = onBusinessSelectedListener;
     }
     @Override
-    protected void initNet() {
+    public void initNet() {
 
     }
 
