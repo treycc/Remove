@@ -1,8 +1,8 @@
 package com.jdp.hls.page.admin.project.detail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,22 +13,34 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.AddProjectEvent;
+import com.jdp.hls.event.ModifyProjectEvent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.AreaData;
+import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.ProjectItem;
-import com.jdp.hls.page.node.BaseNodeActivity;
-import com.jdp.hls.util.CheckUtil;
+import com.jdp.hls.page.admin.manager.ManagerListActivity;
 import com.jdp.hls.util.DateUtil;
-import com.jdp.hls.util.EncryptUtil;
+import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.GsonUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.SpSir;
+import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
+import com.jdp.hls.view.dialog.AreaDialog;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -75,11 +87,19 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     ProjectDetailPresenter projectDetailPresenter;
     private String projectId;
     private TimePickerDialog timePickerDialog;
+    private String projectEmployeeIDs = "";
+    private List<Employee> selectedEmployees = new ArrayList<>();
+    private int provinceId;
+    private int cityId;
+    private int areaId;
+    private int streetId;
+    private AreaDialog areaDialog;
 
     @OnClick({R.id.ll_projectArea, R.id.ll_projectStreet, R.id.ll_Year, R.id.ll_projectEmployee})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_projectArea:
+                areaDialog.show();
                 break;
             case R.id.ll_projectStreet:
                 break;
@@ -87,6 +107,7 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                 timePickerDialog.show(getSupportFragmentManager(), String.valueOf(llYear.hashCode()));
                 break;
             case R.id.ll_projectEmployee:
+                ManagerListActivity.goActivity(this, selectedEmployees);
                 break;
             default:
                 break;
@@ -94,9 +115,30 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            switch (requestCode) {
+                case Constants.RequestCode.MANAGER_LIST:
+                    projectEmployeeIDs = data.getStringExtra(Constants.Extra.Ids);
+                    String names = data.getStringExtra(Constants.Extra.Names);
+                    selectedEmployees = (List<Employee>) data.getSerializableExtra(Constants.Extra.Employees);
+                    LogUtil.e(TAG, "带来会数量:" + selectedEmployees.size());
+                    tvProjectEmployee.setString(names);
+                    break;
+            }
+        }
+    }
+
+    @Override
     public void initVariable() {
         projectId = getIntent().getStringExtra(Constants.Extra.PROJECTID);
         isAddProject = TextUtils.isEmpty(projectId);
+        String aresJson = SpSir.getInstance().getAresJson();
+        if (TextUtils.isEmpty(aresJson)) {
+            ToastUtil.showText("地区信息获取失败");
+        } else {
+            AreaData.AreaBean areaBean = GsonUtil.json2obj(aresJson, AreaData.AreaBean.class);
+        }
     }
 
     @Override
@@ -140,6 +182,7 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                     tvYear.setText(DateUtil.getDateString(millseconds, "yyyy"));
                 })
                 .build();
+        areaDialog = new AreaDialog(this);
 
     }
 
@@ -153,14 +196,14 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                 .addFormDataPart("ProjectId", TextUtils.isEmpty(projectId) ? "" : projectId)
                 .addFormDataPart("ProjectName", projectName)
                 .addFormDataPart("Year", year)
-                .addFormDataPart("ProvinceId", "")
-                .addFormDataPart("CityId", "")
-                .addFormDataPart("AreaId", "")
-                .addFormDataPart("StreetId", "")
+                .addFormDataPart("ProvinceId", String.valueOf(provinceId))
+                .addFormDataPart("CityId", String.valueOf(cityId))
+                .addFormDataPart("AreaId", String.valueOf(areaId))
+                .addFormDataPart("StreetId", String.valueOf(streetId))
                 .addFormDataPart("Address", address)
                 .addFormDataPart("AreaRange", areaRange)
                 .addFormDataPart("Remark", remark)
-                .addFormDataPart("ProjectEmployeeIDs", "")
+                .addFormDataPart("ProjectEmployeeIDs", projectEmployeeIDs)
                 .build());
     }
 
@@ -184,23 +227,44 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
 
     @Override
     public void onGetProjectDetailSuccess(ProjectItem projectItem) {
+        boolean isAllowEdit = projectItem.isIsAllowEdit();
+        boolean isAllowView = projectItem.isIsAllowView();
+        llProjectConfig.setVisibility(isAllowView ? View.VISIBLE : View.GONE);
+
         etProjectName.setString(projectItem.getProjectName());
-        tvProjectArea.setString(projectItem.getProjectName() + projectItem.getCityName() + projectItem.getAreaName());
+        tvProjectArea.setString(projectItem.getProvinceName() + projectItem.getCityName() + projectItem.getAreaName());
         tvProjectStreet.setString(projectItem.getStreetName());
         etAddress.setString(projectItem.getAddress());
         tvYear.setString(projectItem.getYear());
         tvProjectEmployee.setString(projectItem.getProjectEmployeeName());
         etAreaRange.setString(projectItem.getAreaRange());
         etRemark.setString(projectItem.getRemark());
-    }
+        provinceId = projectItem.getProvinceId();
+        cityId = projectItem.getCityId();
+        areaId = projectItem.getAreaId();
+        streetId = projectItem.getStreetId();
+        projectEmployeeIDs = projectItem.getProjectEmployeeIDs();
 
-    @Override
-    public void onAddProjectSuccess(ProjectItem projectItem) {
+        etProjectName.setEnabled(isAllowEdit);
+        etAddress.setEnabled(isAllowEdit);
+        etAreaRange.setEnabled(isAllowEdit);
+        etRemark.setEnabled(isAllowEdit);
+
+        llYear.setEnabled(isAllowEdit);
+        llProjectArea.setEnabled(isAllowEdit);
+        llProjectStreet.setEnabled(isAllowEdit);
+        llProjectEmployee.setEnabled(isAllowEdit);
 
     }
 
     @Override
     public void onSaveProjectSuccess(ProjectItem projectItem) {
+        if (isAddProject) {
+            EventBus.getDefault().post(new AddProjectEvent(projectItem));
+        } else {
+            EventBus.getDefault().post(new ModifyProjectEvent(projectItem));
+        }
+        showSuccessDialogAndFinish();
 
     }
 }

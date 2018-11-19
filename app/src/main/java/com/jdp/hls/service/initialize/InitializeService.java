@@ -7,9 +7,12 @@ import android.support.annotation.Nullable;
 import com.jdp.hls.base.App;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.dao.DBManager;
+import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.greendaobean.TDict;
+import com.jdp.hls.model.entiy.AreaResult;
 import com.jdp.hls.model.entiy.Dict;
 import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.SpSir;
 
 import java.util.List;
 
@@ -59,6 +62,8 @@ public class InitializeService extends IntentService implements InitializeContra
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         initializePresenter.getDict();
+//        initializePresenter.getAreaInfo(SpSir.getInstance().getUpdateTime());
+        initializePresenter.getAreaData(SpSir.getInstance().getUpdateTime());
     }
 
     @Override
@@ -83,10 +88,25 @@ public class InitializeService extends IntentService implements InitializeContra
             DBManager.getInstance().deleteAllDicts();
             for (Dict dict : dicts) {
                 DBManager.getInstance().addDict(new TDict(null, dict.getRowNum(), dict.getConfigType
-                        (), dict.getTypeId(), dict.getTypeName(),dict.getConfigTypeDesc(),dict.getParentId(),dict.getClassValue()));
+                        (), dict.getTypeId(), dict.getTypeName(), dict.getConfigTypeDesc(), dict.getParentId(), dict
+                        .getClassValue()));
             }
         }
         LogUtil.e(TAG, "【数据初始化】数量：" + dicts.size());
+
+    }
+
+    @Override
+    public void onGetAreaDataSuccess(AreaResult areaResult) {
+        String updateTime = areaResult.getUpdateTime();
+        List<Area> areas = areaResult.getArea();
+        if (areas != null && areas.size() > 0) {
+            LogUtil.e(TAG, "【区域数据】数量：" + areas.size());
+            for (Area area : areas) {
+                DBManager.getInstance().addArea(area);
+            }
+            SpSir.getInstance().setUpdateTime(updateTime);
+        }
 
     }
 }

@@ -11,7 +11,12 @@ import com.jdp.hls.R;
 import com.jdp.hls.adapter.ProjectAdminAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.AddProjectEvent;
+import com.jdp.hls.event.ModifyProjectEvent;
+import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.ProjectItem;
 import com.jdp.hls.model.entiy.ProjectListInfo;
 import com.jdp.hls.page.admin.project.detail.ProjectDetailActivity;
@@ -19,6 +24,12 @@ import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -63,7 +74,7 @@ public class ProjectListAdminActivity extends BaseTitleActivity implements Proje
 
     @Override
     public void initVariable() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -118,5 +129,18 @@ public class ProjectListAdminActivity extends BaseTitleActivity implements Proje
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void addProject(AddProjectEvent event) {
+        LogUtil.e(TAG, "增加项目");
+        projectAdapter.addFirst(event.getProjectItem());
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modifyProject(ModifyProjectEvent event) {
+        LogUtil.e(TAG, "修改项目");
+        projectAdapter.modifyProject(event.getProjectItem());
     }
 }

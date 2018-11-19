@@ -2,6 +2,7 @@ package com.jdp.hls.base;
 
 
 import com.jdp.hls.activity.PhotoPreviewActivity;
+import com.jdp.hls.page.admin.manager.ManagerListActivity;
 import com.jdp.hls.page.admin.project.detail.ProjectDetailActivity;
 import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
 import com.jdp.hls.page.airphoto.add.AirPhotoApplyActivity;
@@ -25,16 +26,16 @@ import com.jdp.hls.page.deed.personal.bank.DeedPersonalBankActivity;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
-import com.jdp.hls.page.employee.add.EmployeeAddActivity;
-import com.jdp.hls.page.employee.detail.EmployeeDetailActivity;
-import com.jdp.hls.page.employee.list.EmployeeListActivity;
+import com.jdp.hls.page.admin.employee.add.EmployeeAddActivity;
+import com.jdp.hls.page.admin.employee.detail.EmployeeDetailActivity;
+import com.jdp.hls.page.admin.employee.list.EmployeeListActivity;
 import com.jdp.hls.page.familyrelation.detail.FamilyMememberDetailActivity;
 import com.jdp.hls.page.familyrelation.list.FamilyRelationActivity;
 import com.jdp.hls.page.innerdecoration.detail.DecorationDetailActivity;
 import com.jdp.hls.page.innerdecoration.list.DecorationListActivity;
 import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.page.map.RosterActivity;
-import com.jdp.hls.page.message.notification.NotificationActivity;
+import com.jdp.hls.page.admin.message.notification.NotificationActivity;
 import com.jdp.hls.page.mine.MineFragment;
 import com.jdp.hls.page.module.HomeFragment;
 import com.jdp.hls.page.node.age.company.NodeCompanyAgeActivity;
@@ -86,12 +87,20 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(ManagerListActivity target);
+
     void inject(ProjectDetailActivity target);
+
     void inject(ProjectListAdminActivity target);
+
     void inject(NotificationActivity target);
+
     void inject(EmployeeAddActivity target);
+
     void inject(EmployeeDetailActivity target);
+
     void inject(HomeFragment target);
+
     void inject(EmployeeListActivity target);
 
     void inject(PhotoPreviewActivity target);

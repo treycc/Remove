@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.i.OnSearchListener;
+import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.ProjectItem;
 import com.jdp.hls.util.LogUtil;
@@ -39,10 +40,11 @@ public class ProjectAdminAdapter extends BaseSearchAdapter<ProjectItem> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tv_address.setString(list.get(position).getAddress());
-        viewHolder.tv_projectName.setString(list.get(position).getProjectName());
-        viewHolder.tv_projectSysCode.setString(list.get(position).getProjectSysCode());
-        viewHolder.tv_projectEmployeeName.setString(list.get(position).getProjectEmployeeName());
+        ProjectItem project = (ProjectItem) getItem(position);
+        viewHolder.tv_address.setString(project.getAddress());
+        viewHolder.tv_projectName.setString(project.getProjectName());
+        viewHolder.tv_projectSysCode.setString(project.getProjectSysCode());
+        viewHolder.tv_projectEmployeeName.setString(project.getProjectEmployeeName());
         return convertView;
     }
 
@@ -54,6 +56,18 @@ public class ProjectAdminAdapter extends BaseSearchAdapter<ProjectItem> {
                 resultList.add(project);
             }
         }
+    }
+
+    public void modifyProject(ProjectItem projectItem) {
+        for (ProjectItem item : resultList) {
+            if (item.getProjectId().equals(projectItem.getProjectId())) {
+                item.setAddress(projectItem.getAddress());
+                item.setProjectName(projectItem.getProjectName());
+                item.setProjectSysCode(projectItem.getProjectSysCode());
+                item.setProjectEmployeeName(projectItem.getProjectEmployeeName());
+            }
+        }
+        notifyDataSetChanged();
     }
 
 

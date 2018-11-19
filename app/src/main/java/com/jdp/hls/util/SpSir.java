@@ -32,6 +32,9 @@ public class SpSir {
     private String UserName = "UserName";
     private String AccountType = "accountType";
     private String IsOperatorAccount = "IsOperatorAccount";
+    private String AreaVersion = "AreaVersion";
+    private String UpdateTime = "UpdateTime";
+    private String AreaJson = "AreaJson";
     private static final String EMPTY_STRING = "";
     private static final int ZERO_INT = -1;
     private static SpSir mSpSir;
@@ -208,7 +211,22 @@ public class SpSir {
     }
 
 
+    public String getUpdateTime() {
+        return getString(UpdateTime,"2010-10-10 10:10:10");
+    }
 
+    public void setUpdateTime(String updateTime) {
+        putString(UpdateTime, updateTime);
+    }
+
+
+    public String getAresJson() {
+        return getString(AreaJson);
+    }
+
+    public void setAreaJson(String json) {
+        putString(AreaJson, json);
+    }
 
 
     private String getString(String key, String defaultValue) {

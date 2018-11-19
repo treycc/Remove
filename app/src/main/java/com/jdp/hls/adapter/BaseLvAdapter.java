@@ -23,11 +23,11 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter {
 
     public BaseLvAdapter(Context context, List<T> list) {
         this.context = context;
-        this.list = (list==null?new ArrayList<>():list);
+        this.list = (list == null ? new ArrayList<>() : list);
     }
 
     public void setData(List<T> list) {
-        this.list = list==null?new ArrayList<>():list;
+        this.list = list == null ? new ArrayList<>() : list;
         selectPosition = -1;
         this.notifyDataSetChanged();
     }
@@ -38,6 +38,16 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter {
 
     public void addData(List<T> list) {
         this.list.addAll(list);
+        this.notifyDataSetChanged();
+    }
+
+    public void addFirst(T item) {
+        this.list.add(0, item);
+        this.notifyDataSetChanged();
+    }
+
+    public void addLast(T item) {
+        this.list.add(item);
         this.notifyDataSetChanged();
     }
 
@@ -74,6 +84,10 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter {
 
     public void removeItem(int position) {
         list.remove(position);
+        this.notifyDataSetChanged();
+    }
+    public void removeItem(T item) {
+        list.remove(item);
         this.notifyDataSetChanged();
     }
 }

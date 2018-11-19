@@ -2,8 +2,8 @@ package com.jdp.hls.service.initialize;
 
 import android.support.annotation.NonNull;
 
-import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.AreaResult;
 import com.jdp.hls.model.entiy.Dict;
 import com.jdp.hls.model.entiy.ResultObserver;
 
@@ -33,11 +33,23 @@ public class InitializePresenter implements InitializeContract.Presenter {
     @Override
     public void getDict() {
         mApi.getApiService().getDicts().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                .observeOn(Schedulers.io()).subscribe
                 (new ResultObserver<List<Dict>>(mView) {
                     @Override
                     protected void onSuccess(List<Dict> dicts) {
                         mView.onGetDictsSuccess(dicts);
+                    }
+                });
+    }
+
+    @Override
+    public void getAreaData(String updateTime) {
+        mApi.getApiService().getAreaData(updateTime).subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io()).subscribe
+                (new ResultObserver<AreaResult>(mView) {
+                    @Override
+                    protected void onSuccess(AreaResult areaResult) {
+                        mView.onGetAreaDataSuccess(areaResult);
                     }
                 });
     }

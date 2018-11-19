@@ -1,12 +1,14 @@
 package com.jdp.hls.model.entiy;
 
+import java.io.Serializable;
+
 /**
  * Description:TODO
  * Create Time:2018/11/15 0015 下午 2:12
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class Employee {
+public class Employee implements Serializable {
     private int EmployeeId;
     private int CompanyId;
     private String RealName;
@@ -17,6 +19,15 @@ public class Employee {
     private String LoginName;
     private String CompanyName;
     private boolean IsCompanyAccount;
+    private boolean selected;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
     public int getEmployeeId() {
         return EmployeeId;
@@ -96,5 +107,20 @@ public class Employee {
 
     public void setCompanyAccount(boolean companyAccount) {
         IsCompanyAccount = companyAccount;
+    }
+
+
+    @Override
+    public int hashCode() {
+        return this.EmployeeId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Employee)) {
+            return false;
+        }
+        Employee employee = (Employee) obj;
+        return this.EmployeeId == employee.getEmployeeId();
     }
 }

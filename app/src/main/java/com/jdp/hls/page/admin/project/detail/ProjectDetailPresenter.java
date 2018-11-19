@@ -42,18 +42,6 @@ public class ProjectDetailPresenter implements ProjecDetailContract.Presenter {
     }
 
     @Override
-    public void addProject(RequestBody requestBody) {
-        mApi.getApiService().addProject(requestBody).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<ProjectItem>(mView) {
-                    @Override
-                    protected void onSuccess(ProjectItem projectItem) {
-                        mView.onAddProjectSuccess(projectItem);
-                    }
-                });
-    }
-
-    @Override
     public void saveProject(RequestBody requestBody) {
         mApi.getApiService().saveProject(requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe

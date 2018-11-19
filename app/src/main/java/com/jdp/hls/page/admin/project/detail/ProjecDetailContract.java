@@ -20,15 +20,11 @@ public interface ProjecDetailContract {
     interface View extends BaseView {
         void onGetProjectDetailSuccess(ProjectItem projectItem);
 
-        void onAddProjectSuccess(ProjectItem projectItem);
-
         void onSaveProjectSuccess(ProjectItem projectItem);
     }
 
     interface Presenter extends BasePresenter<View> {
         void getProjectDetail(String projectId);
-
-        void addProject(RequestBody requestBody);
 
         void saveProject(RequestBody requestBody);
     }

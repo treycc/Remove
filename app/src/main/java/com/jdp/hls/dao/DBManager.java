@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jdp.hls.base.App;
+import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.greendaobean.TDict;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class DBManager {
-    private final static String dbName = "KingJA_Power";
+    private final static String dbName = "JDP_DB";
     private static DBManager mInstance;
     private DaoMaster.DevOpenHelper openHelper;
     private final SQLiteDatabase db;
@@ -77,4 +78,15 @@ public class DBManager {
         List<TDict> results = getDictDao().queryBuilder().where(TDictDao.Properties.ConfigType.eq(configType)).list();
         return results == null ? new ArrayList<>() : results;
     }
+
+    public void addArea(Area area) {
+        AreaDao areaDao = getAreaDao();
+        areaDao.insert(area);
+    }
+    private AreaDao getAreaDao() {
+        DaoMaster daoMaster = new DaoMaster(db);
+        DaoSession daoSession = daoMaster.newSession();
+        return daoSession.getAreaDao();
+    }
+
 }

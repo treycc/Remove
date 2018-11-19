@@ -17,7 +17,7 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public abstract class BaseSearchAdapter<T> extends BaseLvAdapter<T> implements OnSearchListener {
-    private List<T> resultList = new ArrayList<>();
+    protected List<T> resultList = new ArrayList<>();
 
     public BaseSearchAdapter(Context context, List<T> list) {
         super(context, list);

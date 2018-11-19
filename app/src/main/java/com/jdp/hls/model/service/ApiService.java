@@ -1,8 +1,11 @@
 package com.jdp.hls.model.service;
 
 
+import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
+import com.jdp.hls.model.entiy.AreaData;
+import com.jdp.hls.model.entiy.AreaResult;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.BasicCompany;
 import com.jdp.hls.model.entiy.Company;
@@ -656,5 +659,14 @@ public interface ApiService {
     /*公司-列表*/
     @GET("api/company/GetList")
     Observable<HttpResult<ProjectItem>> getCompanyList(@Query("CompanyTypeId") String companyTypeId);
+
+//    /*省市区*/
+//    @GET("api/SystemSevice/GetAllRegionJson")
+//    Observable<HttpResult<AreaData>> getAreaInfo(@Query("version") String version);
+
+    /*省市区-列表*/
+    @FormUrlEncoded
+    @POST("api/SystemSevice/QueryAllRegionList")
+    Observable<HttpResult<AreaResult>> getAreaData(@Field("updateTime") String updateTime);
 
 }

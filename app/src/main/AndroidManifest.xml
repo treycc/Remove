@@ -352,12 +352,15 @@
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".page.node.evaluate.company.moneyevaluate.NodeCompanyMoneyEvaluateActivity"/>
         <activity android:name=".page.node.evaluate.company.houseevaluate.NodeCompanyHouseEvaluateActivity"/>
-        <activity android:name=".page.employee.list.EmployeeListActivity"/>
-        <activity android:name=".page.employee.add.EmployeeAddActivity"/>
-        <activity android:name=".page.employee.detail.EmployeeDetailActivity"/>
-        <activity android:name=".page.message.notification.NotificationActivity"/>
+        <activity android:name=".page.admin.employee.list.EmployeeListActivity"/>
+        <activity android:name=".page.admin.employee.add.EmployeeAddActivity"/>
+        <activity android:name=".page.admin.employee.detail.EmployeeDetailActivity"/>
+        <activity android:name=".page.admin.message.notification.NotificationActivity"/>
         <activity android:name=".page.admin.project.list.ProjectListAdminActivity"/>
         <activity android:name=".page.admin.project.detail.ProjectDetailActivity"/>
+        <activity android:name=".page.admin.manager.ManagerListActivity"
+                  android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".page.admin.message.NotificationDetailActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

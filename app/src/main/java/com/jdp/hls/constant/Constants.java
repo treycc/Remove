@@ -47,6 +47,7 @@ public class Constants {
         int PUBLICITY_DETAIL = 13;
         int PUBLICITY_OBJECT = 14;
         int UNRECORDBUILDING = 15;
+        int MANAGER_LIST = 16;
     }
 
     public interface MapSetting {
@@ -77,6 +78,9 @@ public class Constants {
     }
 
     public interface Extra {
+        String Employees = "Employees";
+        String Ids = "Ids";
+        String Names = "Names";
         String EmployeeId = "employeeId";
         String AIRPHOTO_TYPE = "airPhotoType";
         String CERTNUM = "certNum";

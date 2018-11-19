@@ -4,8 +4,8 @@ apply plugin: 'org.greenrobot.greendao'
 
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.jdp.hls"
         minSdkVersion MIN_SDK_VERSION as int
@@ -146,6 +146,10 @@ dependencies {
 
     /*数据库*/
     implementation 'org.greenrobot:greendao:3.2.2'
+
+    /*底部对话框*/
+    implementation('com.flipboard:bottomsheet-core:1.5.3') { exclude group: 'com.android.support' }
+    implementation project(':wheelview')
 }
 
 def buildApkBy() {
