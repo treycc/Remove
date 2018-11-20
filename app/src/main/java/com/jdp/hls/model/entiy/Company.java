@@ -1,21 +1,14 @@
 package com.jdp.hls.model.entiy;
 
+import java.io.Serializable;
+
 /**
  * Description:TODO
- * Create Time:2018/11/16 0016 下午 1:37
+ * Create Time:2018/11/20 0020 下午 7:58
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class Company {
-
-    /**
-     * CompanyId : 1
-     * CompanyTypeID : 2
-     * CompanyTypeName : 事务单位
-     * CompanyName : 温州民生拆迁
-     * CompanyCode : aaaaaa
-     * AccountCode : 1
-     */
+public class Company implements Serializable {
 
     private int CompanyId;
     private int CompanyTypeID;
@@ -70,5 +63,19 @@ public class Company {
 
     public void setAccountCode(long AccountCode) {
         this.AccountCode = AccountCode;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.CompanyId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Company)) {
+            return false;
+        }
+        Company company = (Company) obj;
+        return this.CompanyId == company.getCompanyId();
     }
 }

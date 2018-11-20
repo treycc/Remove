@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
  * Email:kingjavip@gmail.com
  */
 public abstract class CommonDialog extends Dialog {
+    protected  final String TAG = getClass().getSimpleName();
     protected OnConfirmListener onConfirmListener;
     protected OnCancelListener onCancelListener;
 

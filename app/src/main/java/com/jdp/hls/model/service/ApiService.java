@@ -1,14 +1,13 @@
 package com.jdp.hls.model.service;
 
 
-import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
-import com.jdp.hls.model.entiy.AreaData;
 import com.jdp.hls.model.entiy.AreaResult;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.BasicCompany;
 import com.jdp.hls.model.entiy.Company;
+import com.jdp.hls.model.entiy.ConfigCompany;
 import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.EmployeeDetail;
 import com.jdp.hls.model.entiy.ModuleDetail;
@@ -650,7 +649,7 @@ public interface ApiService {
 
     /*项目配置-获取*/
     @GET("api/project/GetProjectCompanyList")
-    Observable<HttpResult<List<Company>>> getProjectConfig(@Query("projectId") String projectId);
+    Observable<HttpResult<List<ConfigCompany>>> getProjectConfig(@Query("projectId") String projectId);
 
     /*项目配置-修改*/
     @POST("api/project/SetProjectCompany")
@@ -658,7 +657,7 @@ public interface ApiService {
 
     /*公司-列表*/
     @GET("api/company/GetList")
-    Observable<HttpResult<ProjectItem>> getCompanyList(@Query("CompanyTypeId") String companyTypeId);
+    Observable<HttpResult<List<Company>>> getCompanyList(@Query("CompanyTypeId") int companyTypeId);
 
 //    /*省市区*/
 //    @GET("api/SystemSevice/GetAllRegionJson")

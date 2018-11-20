@@ -361,6 +361,8 @@
         <activity android:name=".page.admin.manager.ManagerListActivity"
                   android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".page.admin.message.NotificationDetailActivity"/>
+        <activity android:name=".page.admin.project.config.ProjectConfigActivity"/>
+        <activity android:name=".page.admin.project.company.CompanyListActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

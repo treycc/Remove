@@ -3,6 +3,8 @@ package com.jdp.hls.base;
 
 import com.jdp.hls.activity.PhotoPreviewActivity;
 import com.jdp.hls.page.admin.manager.ManagerListActivity;
+import com.jdp.hls.page.admin.project.company.CompanyListActivity;
+import com.jdp.hls.page.admin.project.config.ProjectConfigActivity;
 import com.jdp.hls.page.admin.project.detail.ProjectDetailActivity;
 import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
 import com.jdp.hls.page.airphoto.add.AirPhotoApplyActivity;
@@ -87,6 +89,10 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(CompanyListActivity target);
+
+    void inject(ProjectConfigActivity target);
+
     void inject(ManagerListActivity target);
 
     void inject(ProjectDetailActivity target);

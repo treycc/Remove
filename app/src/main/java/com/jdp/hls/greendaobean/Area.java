@@ -17,6 +17,7 @@ public class Area {
     private String RegionName;
     private int ParentId;
     private int Level;
+
     @Generated(hash = 550826081)
     public Area(Long RegionId, String RegionName, int ParentId, int Level) {
         this.RegionId = RegionId;
@@ -24,32 +25,54 @@ public class Area {
         this.ParentId = ParentId;
         this.Level = Level;
     }
+
     @Generated(hash = 179626505)
     public Area() {
     }
+
     public Long getRegionId() {
         return this.RegionId;
     }
+
     public void setRegionId(Long RegionId) {
         this.RegionId = RegionId;
     }
+
     public String getRegionName() {
         return this.RegionName;
     }
+
     public void setRegionName(String RegionName) {
         this.RegionName = RegionName;
     }
+
     public int getParentId() {
         return this.ParentId;
     }
+
     public void setParentId(int ParentId) {
         this.ParentId = ParentId;
     }
+
     public int getLevel() {
         return this.Level;
     }
+
     public void setLevel(int Level) {
         this.Level = Level;
     }
-    
+
+    public int getRegionIntId() {
+        return this.RegionId.intValue();
+    }
+
+    @Override
+    public String toString() {
+        return "Area{" +
+                "RegionId=" + RegionId +
+                ", RegionName='" + RegionName + '\'' +
+                ", ParentId=" + ParentId +
+                ", Level=" + Level +
+                '}';
+    }
 }

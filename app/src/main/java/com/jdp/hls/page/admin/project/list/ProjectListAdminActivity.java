@@ -20,7 +20,9 @@ import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.ProjectItem;
 import com.jdp.hls.model.entiy.ProjectListInfo;
 import com.jdp.hls.page.admin.project.detail.ProjectDetailActivity;
+import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
@@ -56,6 +58,8 @@ public class ProjectListAdminActivity extends BaseTitleActivity implements Proje
     @BindView(R.id.iv_clear)
     ImageView ivClear;
     private ProjectAdminAdapter projectAdapter;
+    private boolean isAllowEdit;
+    private boolean isAllowView;
 
     @OnClick({R.id.iv_clear})
     public void click(View view) {
@@ -68,8 +72,10 @@ public class ProjectListAdminActivity extends BaseTitleActivity implements Proje
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        ProjectItem projectItem = (ProjectItem) adapterView.getItemAtPosition(position);
-        ProjectDetailActivity.goActivity(this, projectItem.getProjectId());
+        if (isAllowView) {
+            ProjectItem projectItem = (ProjectItem) adapterView.getItemAtPosition(position);
+            ProjectDetailActivity.goActivity(this, projectItem.getProjectId());
+        }
     }
 
     @Override
@@ -122,8 +128,19 @@ public class ProjectListAdminActivity extends BaseTitleActivity implements Proje
 
     @Override
     public void onGetProjectListSuccess(ProjectListInfo projectListInfo) {
+        isAllowEdit = projectListInfo.isIsAllowEdit();
+        isAllowView = projectListInfo.isIsAllowView();
         String keyword = etKeyword.getText().toString().trim();
         setSearchListView(projectListInfo.getLstProject(), projectAdapter, keyword);
+
+        if (isAllowEdit) {
+            setRightClick("创建项目", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    GoUtil.goActivity(ProjectListAdminActivity.this, ProjectDetailActivity.class);
+                }
+            });
+        }
     }
 
     @Override

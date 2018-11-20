@@ -13,16 +13,16 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.event.AddProjectEvent;
 import com.jdp.hls.event.ModifyProjectEvent;
+import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.AreaData;
 import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.ProjectItem;
 import com.jdp.hls.page.admin.manager.ManagerListActivity;
+import com.jdp.hls.page.admin.project.config.ProjectConfigActivity;
 import com.jdp.hls.util.DateUtil;
-import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.util.GsonUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SpSir;
@@ -30,6 +30,7 @@ import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
 import com.jdp.hls.view.dialog.AreaDialog;
+import com.jdp.hls.view.dialog.StreetDialog;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 
@@ -95,19 +96,38 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     private int streetId;
     private AreaDialog areaDialog;
 
-    @OnClick({R.id.ll_projectArea, R.id.ll_projectStreet, R.id.ll_Year, R.id.ll_projectEmployee})
+    @OnClick({R.id.ll_projectArea, R.id.ll_projectStreet, R.id.ll_Year, R.id.ll_projectEmployee, R.id
+            .rl_projectConfig, R.id.rl_projectGroup})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_projectArea:
                 areaDialog.show();
                 break;
             case R.id.ll_projectStreet:
+                if (areaId != 0 && DBManager.getInstance().getStreets(areaId).size() > 0) {
+                    StreetDialog streetDialog = new StreetDialog(this, areaId);
+                    streetDialog.setOnAreaSelectedListener(street -> {
+                        tvProjectStreet.setText(street.getRegionName());
+                        streetId = street.getRegionIntId();
+
+                    });
+                    streetDialog.show();
+                } else {
+
+                    ToastUtil.showText("所在地区没有街道");
+                }
                 break;
             case R.id.ll_Year:
                 timePickerDialog.show(getSupportFragmentManager(), String.valueOf(llYear.hashCode()));
                 break;
             case R.id.ll_projectEmployee:
                 ManagerListActivity.goActivity(this, selectedEmployees);
+                break;
+            case R.id.rl_projectConfig:
+                ProjectConfigActivity.goActivity(this, projectId);
+                break;
+            case R.id.rl_projectGroup:
+                ToastUtil.showText("小组信息");
                 break;
             default:
                 break;
@@ -134,11 +154,6 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
         projectId = getIntent().getStringExtra(Constants.Extra.PROJECTID);
         isAddProject = TextUtils.isEmpty(projectId);
         String aresJson = SpSir.getInstance().getAresJson();
-        if (TextUtils.isEmpty(aresJson)) {
-            ToastUtil.showText("地区信息获取失败");
-        } else {
-            AreaData.AreaBean areaBean = GsonUtil.json2obj(aresJson, AreaData.AreaBean.class);
-        }
     }
 
     @Override
@@ -183,6 +198,17 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                 })
                 .build();
         areaDialog = new AreaDialog(this);
+        areaDialog.setOnAreaSelectedListener((province, city, area) -> {
+            provinceId = province.getRegionIntId();
+            cityId = city.getRegionIntId();
+            areaId = area.getRegionIntId();
+            LogUtil.e(TAG, "省：" + province.getRegionName() + provinceId);
+            LogUtil.e(TAG, "市：" + city.getRegionName() + cityId);
+            LogUtil.e(TAG, "区：" + area.getRegionName() + areaId);
+//            LogUtil.e(TAG, "街道：" + DBManager.getInstance().getStreets(areaId).size());
+            tvProjectArea.setText(province.getRegionName() + city.getRegionName() + area.getRegionName());
+
+        });
 
     }
 
@@ -211,6 +237,9 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     public void initNet() {
         if (!isAddProject) {
             projectDetailPresenter.getProjectDetail(projectId);
+        } else {
+            showSuccessCallback();
+            llProjectConfig.setVisibility(View.GONE);
         }
     }
 
@@ -221,16 +250,10 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     }
 
     @Override
-    public boolean ifRegisterLoadSir() {
-        return true;
-    }
-
-    @Override
     public void onGetProjectDetailSuccess(ProjectItem projectItem) {
         boolean isAllowEdit = projectItem.isIsAllowEdit();
         boolean isAllowView = projectItem.isIsAllowView();
         llProjectConfig.setVisibility(isAllowView ? View.VISIBLE : View.GONE);
-
         etProjectName.setString(projectItem.getProjectName());
         tvProjectArea.setString(projectItem.getProvinceName() + projectItem.getCityName() + projectItem.getAreaName());
         tvProjectStreet.setString(projectItem.getStreetName());
@@ -265,6 +288,10 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
             EventBus.getDefault().post(new ModifyProjectEvent(projectItem));
         }
         showSuccessDialogAndFinish();
+    }
 
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }

@@ -70,6 +70,10 @@ public class ProjectAdminAdapter extends BaseSearchAdapter<ProjectItem> {
         notifyDataSetChanged();
     }
 
+    public void addFirst(ProjectItem projectItem) {
+        this.resultList.add(0, projectItem);
+        this.notifyDataSetChanged();
+    }
 
     public class ViewHolder {
         public final View root;

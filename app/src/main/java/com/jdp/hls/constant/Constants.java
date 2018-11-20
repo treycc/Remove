@@ -48,6 +48,7 @@ public class Constants {
         int PUBLICITY_OBJECT = 14;
         int UNRECORDBUILDING = 15;
         int MANAGER_LIST = 16;
+        int COMPANY_LIST = 17;
     }
 
     public interface MapSetting {
@@ -78,6 +79,8 @@ public class Constants {
     }
 
     public interface Extra {
+        String Companies = "Companies";
+        String CompanyTypeId = "CompanyTypeId";
         String Employees = "Employees";
         String Ids = "Ids";
         String Names = "Names";

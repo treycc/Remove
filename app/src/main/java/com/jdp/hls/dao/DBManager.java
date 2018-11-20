@@ -79,14 +79,26 @@ public class DBManager {
         return results == null ? new ArrayList<>() : results;
     }
 
+    public List<Area> getAreas() {
+        List<Area> results = getAreaDao().loadAll();
+        return results == null ? new ArrayList<>() : results;
+    }
+
     public void addArea(Area area) {
         AreaDao areaDao = getAreaDao();
         areaDao.insert(area);
     }
+
     private AreaDao getAreaDao() {
         DaoMaster daoMaster = new DaoMaster(db);
         DaoSession daoSession = daoMaster.newSession();
         return daoSession.getAreaDao();
+    }
+
+    public List<Area> getStreets(int parentId) {
+        AreaDao areaDao = getAreaDao();
+        List<Area> results = areaDao.queryBuilder().where(AreaDao.Properties.ParentId.eq(parentId)).list();
+        return results == null ? new ArrayList<>() : results;
     }
 
 }
