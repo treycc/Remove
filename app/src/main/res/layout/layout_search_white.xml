@@ -40,7 +40,8 @@
             android:id="@+id/iv_clear"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:background="@mipmap/ic_input_clear"/>
+            android:background="@mipmap/ic_input_clear"
+            android:visibility="gone"/>
 
 
     </com.kingja.supershapeview.view.SuperShapeLinearLayout>

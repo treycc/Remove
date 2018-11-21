@@ -35,6 +35,7 @@ public class SpSir {
     private String AreaVersion = "AreaVersion";
     private String UpdateTime = "UpdateTime";
     private String AreaJson = "AreaJson";
+    private String RouteId = "RouteId";
     private static final String EMPTY_STRING = "";
     private static final int ZERO_INT = -1;
     private static SpSir mSpSir;
@@ -228,6 +229,14 @@ public class SpSir {
         putString(AreaJson, json);
     }
 
+
+    public int getRouteId() {
+        return getInt(RouteId);
+    }
+
+    public void setRouteId(int routeId) {
+        putInt(RouteId, routeId);
+    }
 
     private String getString(String key, String defaultValue) {
         return mSp.getString(key, defaultValue);

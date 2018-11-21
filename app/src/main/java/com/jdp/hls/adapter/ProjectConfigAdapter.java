@@ -37,8 +37,20 @@ public class ProjectConfigAdapter extends BaseLvAdapter<ConfigCompany> {
 
         viewHolder.tv_companyTypeName.setText(list.get(position).getCompanyTypeName());
         viewHolder.tv_companyName.setHint(list.get(position).getMarkedWords());
-        viewHolder.tv_companyName.setString(list.get(position).getCompanyName());
+        String companyName = list.get(position).getCompanyName().replace("，","\n");
+        viewHolder.tv_companyName.setString(companyName);
         return convertView;
+    }
+
+    public void modifyItem(ConfigCompany configCompany) {
+        for (ConfigCompany company : list) {
+            if (company.getCompanyTypeID() == configCompany.getCompanyTypeID()) {
+                company.setCompanyId(configCompany.getCompanyId());
+                company.setCompanyName(configCompany.getCompanyName());
+                company.setCompanyTypeIDS(configCompany.getCompanyTypeIDS());
+            }
+        }
+        notifyDataSetChanged();
     }
 
 

@@ -20,6 +20,7 @@ import com.jdp.hls.service.initialize.InitializeService;
 import com.jdp.hls.util.AesUtil;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.EncryptUtil;
+import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeEditText;
@@ -157,6 +158,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
             SpSir.getInstance().setComeOnBaby("");
         }
         int routeId = account.getRouteId();
+        SpSir.getInstance().setRouteId(routeId);
         if (routeId == Status.RouteId.SYSTEM_LEVY) {
             List<Project> projects = account.getProjects();
             if (projects != null && projects.size() > 0) {
@@ -166,13 +168,13 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
                     Project project = projects.get(0);
                     SpSir.getInstance().setProjectId(project.getProjectId());
                     SpSir.getInstance().setProjectName(project.getProjectName());
-                    HomeActivity.goActivity(this, String.valueOf(routeId));
+                    GoUtil.goActivityAndFinish(this, HomeActivity.class);
                 }
             } else {
                 ToastUtil.showText("您的账号下没有项目");
             }
         } else {
-            HomeActivity.goActivity(this, String.valueOf(routeId));
+            GoUtil.goActivityAndFinish(this, HomeActivity.class);
         }
 
     }

@@ -20,9 +20,11 @@ import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.ProjectItem;
+import com.jdp.hls.page.admin.group.list.GroupListActivity;
 import com.jdp.hls.page.admin.manager.ManagerListActivity;
 import com.jdp.hls.page.admin.project.config.ProjectConfigActivity;
 import com.jdp.hls.util.DateUtil;
+import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SpSir;
@@ -30,6 +32,7 @@ import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
 import com.jdp.hls.view.dialog.AreaDialog;
+import com.jdp.hls.view.dialog.ConfirmDialog;
 import com.jdp.hls.view.dialog.StreetDialog;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
@@ -127,7 +130,7 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                 ProjectConfigActivity.goActivity(this, projectId);
                 break;
             case R.id.rl_projectGroup:
-                ToastUtil.showText("小组信息");
+                GroupListActivity.goActivity(this, projectId);
                 break;
             default:
                 break;
@@ -284,10 +287,18 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     public void onSaveProjectSuccess(ProjectItem projectItem) {
         if (isAddProject) {
             EventBus.getDefault().post(new AddProjectEvent(projectItem));
+            llProjectConfig.setVisibility(View.VISIBLE);
+            projectId = projectItem.getProjectId();
+            DialogUtil.createSingleDialog(this, "创建成功，您可以进行项目配置了", new ConfirmDialog.OnConfirmListener() {
+                @Override
+                public void onConfirm() {
+                }
+            });
         } else {
             EventBus.getDefault().post(new ModifyProjectEvent(projectItem));
+            showSuccessDialogAndFinish();
         }
-        showSuccessDialogAndFinish();
+
     }
 
     @Override

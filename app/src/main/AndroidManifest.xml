@@ -363,6 +363,11 @@
         <activity android:name=".page.admin.message.NotificationDetailActivity"/>
         <activity android:name=".page.admin.project.config.ProjectConfigActivity"/>
         <activity android:name=".page.admin.project.company.CompanyListActivity"/>
+        <activity android:name=".page.admin.query.ProjectSelectActivity"/>
+        <activity android:name=".page.admin.query.list.QueryListActivity"/>
+        <activity android:name=".page.admin.group.detail.GroupDetailActivity"/>
+        <activity android:name=".page.admin.group.member.MemberSelectActivity"/>
+        <activity android:name=".page.admin.group.list.GroupListActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

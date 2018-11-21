@@ -28,6 +28,7 @@ import com.jdp.hls.page.mine.MineFragment;
 import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -72,7 +73,6 @@ public class HomeActivity extends BaseTitleActivity {
     private static final int FRAGMENT_MESSAGE = 1;
     private static final int FRAGMENT_MINE = 2;
     private int currentTabIndex = 0;
-    private String routeId;
 
     @OnClick({R.id.ll_tab_map, R.id.ll_tab_message, R.id.ll_tab_mine})
     public void onViewClicked(View view) {
@@ -94,7 +94,6 @@ public class HomeActivity extends BaseTitleActivity {
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
-        routeId = getIntent().getStringExtra(Constants.Extra.RouteId);
     }
 
 
@@ -116,7 +115,7 @@ public class HomeActivity extends BaseTitleActivity {
     @Override
     protected void initView() {
         supportFragmentManager = getSupportFragmentManager();
-        fragmentMap.put(FRAGMENT_HOME, currentFragment = HomeFragment.newInstance(routeId));
+        fragmentMap.put(FRAGMENT_HOME, currentFragment = HomeFragment.newInstance(String.valueOf(SpSir.getInstance().getRouteId())));
         fragmentMap.put(FRAGMENT_MESSAGE, MessageFragment.newInstance());
         fragmentMap.put(FRAGMENT_MINE, MineFragment.newInstance());
         getSupportFragmentManager().beginTransaction().add(R.id.fl_home, currentFragment).commit();
@@ -205,13 +204,6 @@ public class HomeActivity extends BaseTitleActivity {
     public void reLogin(ResetLoginStatusEvent resetLoginStatusEvent) {
         AppManager.getAppManager().finishAllActivity();
         GoUtil.goActivity(this, LoginActivity.class);
-    }
-
-    public static void goActivity(Activity context, String routeId) {
-        Intent intent = new Intent(context, HomeActivity.class);
-        intent.putExtra(Constants.Extra.RouteId, routeId);
-        context.startActivity(intent);
-        context.finish();
     }
 
 }

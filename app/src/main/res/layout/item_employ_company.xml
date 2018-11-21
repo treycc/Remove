@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white_hi"
+              android:orientation="vertical">
+
+    <com.jdp.hls.view.StringTextView
+        android:id="@+id/tv_companyName"
+        style="@style/font_6_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_hi"
+        android:paddingBottom="12dp"
+        android:paddingLeft="24dp"
+        android:paddingTop="12dp"
+        android:text="浙江健德普信息科技有限公司"/>
+
+    <com.jdp.hls.view.StringTextView
+        android:id="@+id/tv_realName"
+        style="@style/font_9_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:paddingBottom="12dp"
+        android:paddingLeft="48dp"
+        android:paddingTop="12dp"
+        android:text="王小虎"/>
+
+</LinearLayout>

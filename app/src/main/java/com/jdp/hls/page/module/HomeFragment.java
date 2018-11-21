@@ -19,6 +19,7 @@ import com.jdp.hls.model.entiy.Module;
 import com.jdp.hls.model.entiy.ModuleDetail;
 import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
 import com.jdp.hls.page.admin.employee.list.EmployeeListActivity;
+import com.jdp.hls.page.admin.query.ProjectSelectActivity;
 import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.page.admin.message.notification.NotificationActivity;
 import com.jdp.hls.util.GoUtil;
@@ -63,10 +64,9 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
                 break;
             case Status.ModuleId.SYSTEM_MESSAGE:
                 GoUtil.goActivity(getActivity(), NotificationActivity.class);
-
                 break;
             case Status.ModuleId.SYSTEM_QUERY:
-                ToastUtil.showText("功能开发中");
+                GoUtil.goActivity(getActivity(), ProjectSelectActivity.class);
                 break;
             case Status.ModuleId.SYSTEM_LEVY:
                 GoUtil.goActivity(getActivity(), LevyActivity.class);

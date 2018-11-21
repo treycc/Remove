@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Company;
+import com.jdp.hls.model.entiy.ConfigCompany;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.ToastUtil;
@@ -62,7 +64,7 @@ public class CompanyListActivity extends BaseTitleActivity implements CompanyLis
     private CompanyAdapter companyAdapter;
     private View bottomSheetView;
     private CompanySelectedAdapter companySelectedAdapter;
-    private List<Company> selectedCompanies;
+    private List<Company> selectedCompanies = new ArrayList<>();
     private int companyTypeId;
 
     @OnItemClick({R.id.plv})
@@ -93,12 +95,31 @@ public class CompanyListActivity extends BaseTitleActivity implements CompanyLis
                     ToastUtil.showText("请选择公司");
                     return;
                 } else {
-                    String ids = companySelectedAdapter.getIds();
-                    String names = companySelectedAdapter.getNames();
+                    List<Company> selectCompanies = companySelectedAdapter.getData();
+                    StringBuilder companyIdsSb = new StringBuilder();
+                    StringBuilder companyNamesSb = new StringBuilder();
+                    StringBuilder companyTypeIdsSb = new StringBuilder();
+                    ConfigCompany configCompany = new ConfigCompany();
+                    for (int i = 0; i < selectCompanies.size(); i++) {
+                        if (i != selectCompanies.size() - 1) {
+                            companyIdsSb.append(selectCompanies.get(i).getCompanyId());
+                            companyIdsSb.append("#");
+                            companyNamesSb.append(selectCompanies.get(i).getCompanyName());
+                            companyNamesSb.append("\n");
+                            companyTypeIdsSb.append(selectCompanies.get(i).getCompanyTypeID());
+                            companyTypeIdsSb.append("#");
+                        } else {
+                            companyIdsSb.append(selectCompanies.get(i).getCompanyId());
+                            companyNamesSb.append(selectCompanies.get(i).getCompanyName());
+                            companyTypeIdsSb.append(selectCompanies.get(i).getCompanyTypeID());
+                        }
+                    }
+                    configCompany.setCompanyTypeIDS(companyTypeIdsSb.toString());
+                    configCompany.setCompanyId(companyIdsSb.toString());
+                    configCompany.setCompanyName(companyNamesSb.toString());
+                    configCompany.setCompanyTypeID(companyTypeId);
                     Intent intent = new Intent();
-                    intent.putExtra(Constants.Extra.Ids, ids);
-                    intent.putExtra(Constants.Extra.Names, names);
-                    intent.putExtra(Constants.Extra.Employees, (Serializable) companySelectedAdapter.getData());
+                    intent.putExtra(Constants.Extra.ConfigCompany, configCompany);
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }
@@ -114,11 +135,22 @@ public class CompanyListActivity extends BaseTitleActivity implements CompanyLis
 
     @Override
     public void initVariable() {
-        selectedCompanies = (List<Company>) getIntent().getSerializableExtra(Constants.Extra.Companies);
-        if (selectedCompanies == null) {
-            selectedCompanies = new ArrayList<>();
+        ConfigCompany configCompany = (ConfigCompany) getIntent().getSerializableExtra(Constants.Extra.ConfigCompany);
+        companyTypeId = configCompany.getCompanyTypeID();
+        String companyIds = configCompany.getCompanyId();
+        String companyNames = configCompany.getCompanyName();
+        if (TextUtils.isEmpty(companyIds)) {
+            return;
         }
-        companyTypeId = getIntent().getIntExtra(Constants.Extra.CompanyTypeId, 0);
+        String[] companyIdsAttr = companyIds.split("#");
+        String[] companyNamesAttr = companyNames.split("，");
+        for (int i = 0; i < companyIdsAttr.length; i++) {
+            Company company = new Company();
+            company.setCompanyId(Integer.valueOf(companyIdsAttr[i]));
+            company.setCompanyName(companyNamesAttr[i]);
+            company.setCompanyTypeID(configCompany.getCompanyTypeID());
+            selectedCompanies.add(company);
+        }
         LogUtil.e(TAG, "带去数量:" + selectedCompanies.size());
     }
 
@@ -180,10 +212,9 @@ public class CompanyListActivity extends BaseTitleActivity implements CompanyLis
         return true;
     }
 
-    public static void goActivity(Activity activity, int companyTypeId, List<Company> companies) {
+    public static void goActivity(Activity activity,  ConfigCompany company) {
         Intent intent = new Intent(activity, CompanyListActivity.class);
-        intent.putExtra(Constants.Extra.CompanyTypeId, companyTypeId);
-        intent.putExtra(Constants.Extra.Companies, (Serializable) companies);
+        intent.putExtra(Constants.Extra.ConfigCompany, company);
         activity.startActivityForResult(intent, Constants.RequestCode.COMPANY_LIST);
     }
 

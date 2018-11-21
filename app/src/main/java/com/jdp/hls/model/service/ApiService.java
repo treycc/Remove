@@ -6,10 +6,13 @@ import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.AreaResult;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.BasicCompany;
+import com.jdp.hls.model.entiy.BusinessQuery;
 import com.jdp.hls.model.entiy.Company;
 import com.jdp.hls.model.entiy.ConfigCompany;
 import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.EmployeeDetail;
+import com.jdp.hls.model.entiy.Group;
+import com.jdp.hls.model.entiy.GroupDetail;
 import com.jdp.hls.model.entiy.ModuleDetail;
 import com.jdp.hls.model.entiy.NodeCompanyHouseEvaluate;
 import com.jdp.hls.model.entiy.NodeCompanyMoneyEvaluate;
@@ -631,6 +634,15 @@ public interface ApiService {
     @GET("api/project/GetProjectList_Admin")
     Observable<HttpResult<ProjectListInfo>> getProjectList();
 
+    /*项目-查询列表*/
+    @GET("api/project/QueryProjectList")
+    Observable<HttpResult<List<ProjectItem>>> getQueryProjectList();
+
+    /*业务-查询列表*/
+    @GET("api/Building/GetList_Admin")
+    Observable<HttpResult<List<BusinessQuery>>> getQueryList(@Query("projectId") String projectId, @Query
+            ("buildingType") int buildingType);
+
     /*项目-详情*/
     @GET("api/project/GetProjectBaseInfo")
     Observable<HttpResult<ProjectItem>> getProjectDetail(@Query("projectId") String projectId);
@@ -659,13 +671,26 @@ public interface ApiService {
     @GET("api/company/GetList")
     Observable<HttpResult<List<Company>>> getCompanyList(@Query("CompanyTypeId") int companyTypeId);
 
-//    /*省市区*/
-//    @GET("api/SystemSevice/GetAllRegionJson")
-//    Observable<HttpResult<AreaData>> getAreaInfo(@Query("version") String version);
-
     /*省市区-列表*/
     @FormUrlEncoded
     @POST("api/SystemSevice/QueryAllRegionList")
     Observable<HttpResult<AreaResult>> getAreaData(@Field("updateTime") String updateTime);
+
+    /*小组-列表*/
+    @GET("api/Group/GetGroupList")
+    Observable<HttpResult<List<Group>>> getGroupList(@Query("projectId") String projectId);
+
+    /*小组-详情*/
+    @GET("api/Group/GetGroupMemberList")
+    Observable<HttpResult<GroupDetail>> getGroupDetail(@Query("projectId") String projectId, @Query("groupId") int
+            groupId);
+
+    /*根据公司查询员工*/
+    @POST("api/user/QueryUserPageList")
+    Observable<HttpResult<EmployeeDetail>> getEmployeeByCompany(@Body RequestBody requestBody);
+
+    /*小组-添加/修改*/
+    @POST("api/Group/SaveGroupMemberV2")
+    Observable<HttpResult<Group>> saveGroupInfo(@Body RequestBody requestBody);
 
 }

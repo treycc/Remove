@@ -1,12 +1,16 @@
 package com.jdp.hls.model.entiy;
 
+import android.text.TextUtils;
+
+import java.io.Serializable;
+
 /**
  * Description:TODO
  * Create Time:2018/11/16 0016 下午 1:37
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ConfigCompany {
+public class ConfigCompany implements Serializable {
 
     /**
      * CompanyId :
@@ -19,10 +23,34 @@ public class ConfigCompany {
 
     private String CompanyId;
     private String CompanyName;
+    private String CompanyTypeIDS;
     private int CompanyTypeID;
     private String CompanyTypeName;
     private String MarkedWords;
     private int Sort;
+
+    public String getCompanyTypeIDS() {
+        if (TextUtils.isEmpty(CompanyId)) {
+            return String.valueOf(CompanyTypeID);
+        } else {
+            StringBuilder sb = new StringBuilder();
+            String[] companyIdsAttr = CompanyId.split("#");
+            for (int i = 0; i < companyIdsAttr.length; i++) {
+                if (i != companyIdsAttr.length - 1) {
+                    sb.append(CompanyTypeID);
+                    sb.append("#");
+                } else {
+                    sb.append(CompanyTypeID);
+                }
+            }
+            return sb.toString();
+
+        }
+    }
+
+    public void setCompanyTypeIDS(String companyTypeIDS) {
+        CompanyTypeIDS = companyTypeIDS;
+    }
 
     public String getCompanyId() {
         return CompanyId;

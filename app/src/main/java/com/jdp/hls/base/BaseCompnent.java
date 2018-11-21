@@ -2,11 +2,17 @@ package com.jdp.hls.base;
 
 
 import com.jdp.hls.activity.PhotoPreviewActivity;
+import com.jdp.hls.page.admin.group.detail.GroupDetailActivity;
+import com.jdp.hls.page.admin.group.list.GroupListActivity;
+import com.jdp.hls.page.admin.group.member.MemberSelectActivity;
 import com.jdp.hls.page.admin.manager.ManagerListActivity;
 import com.jdp.hls.page.admin.project.company.CompanyListActivity;
 import com.jdp.hls.page.admin.project.config.ProjectConfigActivity;
 import com.jdp.hls.page.admin.project.detail.ProjectDetailActivity;
 import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
+import com.jdp.hls.page.admin.query.ProjectSelectActivity;
+import com.jdp.hls.page.admin.query.list.QueryListActivity;
+import com.jdp.hls.page.admin.query.list.QueryListFragment;
 import com.jdp.hls.page.airphoto.add.AirPhotoApplyActivity;
 import com.jdp.hls.page.airphoto.building.AirPhotoBuildingActivity;
 import com.jdp.hls.page.airphoto.detail.AirPhotoDetailActivity;
@@ -89,6 +95,18 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(GroupListActivity target);
+
+    void inject(MemberSelectActivity target);
+
+    void inject(GroupDetailActivity target);
+
+    void inject(QueryListFragment target);
+
+    void inject(QueryListActivity target);
+
+    void inject(ProjectSelectActivity target);
+
     void inject(CompanyListActivity target);
 
     void inject(ProjectConfigActivity target);
