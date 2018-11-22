@@ -40,12 +40,19 @@ public class Status {
     }
 
     public interface ModuleId {
+        /*账号管理*/
         int SYSTEM_ACCOUNT = 1;
+        /*项目管理*/
         int SYSTEM_PROJECT_MANAGER = 2;
+        /*消息管理*/
         int SYSTEM_MESSAGE = 3;
+        /*数据查询*/
         int SYSTEM_QUERY = 4;
+        /*征收业务*/
         int SYSTEM_LEVY = 5;
+        /*监管系统*/
         int SYSTEM_PROJECT_SUPERVISE = 6;
+        /*地理信息*/
         int SYSTEM_LOCATION = 7;
     }
 
