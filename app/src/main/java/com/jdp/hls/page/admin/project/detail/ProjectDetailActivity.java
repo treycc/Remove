@@ -297,7 +297,7 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                 tvProjectStreet.setText("");
             }
             if (areaId != 0) {
-                streetDialog.nodifySetData(areaId,streetId);
+                streetDialog.nodifySetData(areaId, streetId);
             }
             lastAreaId = areaId;
 
