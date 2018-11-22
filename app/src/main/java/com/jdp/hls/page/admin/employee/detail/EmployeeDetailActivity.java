@@ -81,7 +81,7 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
                 String password = etPassword.getText().toString().trim();
                 String realName = etRealName.getText().toString().trim();
                 String mobile = etMobile.getText().toString().trim();
-                if (CheckUtil.checkEmpty(realName, "请输入姓名") && CheckUtil.checkEmpty(mobile, "请输入手机号")) {
+                if (CheckUtil.checkEmpty(realName, "请输入姓名") && CheckUtil.checkPhoneFormat(mobile)) {
                     employeeDetailPresenter.modifyEmployee(new MultipartBody.Builder().setType(MultipartBody.FORM)
                             .addFormDataPart("EmployeeId", employeeId)
                             .addFormDataPart("Password", TextUtils.isEmpty(password) ? "" : EncryptUtil.getDoubleMd5

@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import com.jdp.hls.R;
 import com.jdp.hls.model.entiy.Group;
-import com.jdp.hls.model.entiy.Member;
 import com.jdp.hls.view.StringTextView;
 
 import java.util.List;
@@ -61,7 +60,6 @@ public class GroupAdapter extends BaseLvAdapter<Group> {
         }
         notifyDataSetChanged();
     }
-
 
     public class ViewHolder {
         public final View root;

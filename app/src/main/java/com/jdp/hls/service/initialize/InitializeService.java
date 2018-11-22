@@ -62,7 +62,6 @@ public class InitializeService extends IntentService implements InitializeContra
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         initializePresenter.getDict();
-//        initializePresenter.getAreaInfo(SpSir.getInstance().getUpdateTime());
         initializePresenter.getAreaData(SpSir.getInstance().getUpdateTime());
     }
 

@@ -12,14 +12,10 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ProjectItem;
-import com.jdp.hls.model.entiy.ProjectListInfo;
-import com.jdp.hls.page.admin.project.list.ProjectListContract;
 import com.jdp.hls.page.admin.query.list.QueryListActivity;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -60,7 +56,7 @@ public class ProjectSelectActivity extends BaseTitleActivity implements ProjectS
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         ProjectItem projectItem = (ProjectItem) adapterView.getItemAtPosition(position);
-        QueryListActivity.GoActivity(this, projectItem.getProjectId(),projectItem.getProjectName());
+        QueryListActivity.GoActivity(this, projectItem.getProjectId(), projectItem.getProjectName());
     }
 
     @Override

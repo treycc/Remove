@@ -128,10 +128,11 @@ public class QueryListActivity extends BaseTitleActivity implements QueryListCon
 
     private void refreshData() {
         List<BusinessQuery> selectBusiness = new ArrayList<>();
-        for (BusinessQuery roster : queryList) {
-            if (roster.getRealName().contains(keyword) || roster.getAddress().contains(keyword) || roster
-                    .getMobilePhone().contains(keyword) || roster.getCusCode().contains(keyword)) {
-                selectBusiness.add(roster);
+        for (BusinessQuery businessQuery : queryList) {
+            if (businessQuery.getRealName().contains(keyword) || businessQuery.getAddress().contains(keyword) ||
+                    businessQuery
+                    .getMobilePhone().contains(keyword) || businessQuery.getCusCode().contains(keyword)) {
+                selectBusiness.add(businessQuery);
             }
         }
         List<BusinessQuery> personalBusiness = new ArrayList<>();
@@ -145,17 +146,13 @@ public class QueryListActivity extends BaseTitleActivity implements QueryListCon
         }
         mFragmentArr[0].refreshData(personalBusiness);
         mFragmentArr[1].refreshData(companyBusiness);
-
         refreshTitles(personalBusiness.size(), companyBusiness.size());
-        LogUtil.e(TAG, "personalBusiness.size:" + personalBusiness.size());
-        LogUtil.e(TAG, "companyBusiness.size:" + companyBusiness.size());
     }
 
     private void refreshTitles(int personalRosters, int companyRosters) {
-        tabBusinessCounts[0] = personalRosters + "户";
-        tabBusinessCounts[1] = companyRosters + "家";
+        tabBusinessCounts[0] = String.valueOf(personalRosters);
+        tabBusinessCounts[1] = String.valueOf(companyRosters);
         mCountPageAdapter.refreshrosterCount(tabBusinessCounts);
-
         for (int i = 0; i < tab.getTabCount(); i++) {
             TabLayout.Tab t = tab.getTabAt(i);
             t.setCustomView(mCountPageAdapter.getTabView(i));

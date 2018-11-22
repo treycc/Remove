@@ -129,6 +129,10 @@ public class GroupListActivity extends BaseTitleActivity implements GroupListCon
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addGroup(AddGroupEvent event) {
+        if (groupAdapter.getCount() == 0) {
+            showSuccessCallback();
+        }
         groupAdapter.addFirst(event.getGroup());
+
     }
 }

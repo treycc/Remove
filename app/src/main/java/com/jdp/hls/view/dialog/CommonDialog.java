@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.jdp.hls.R;
 import com.jdp.hls.base.App;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.util.LogUtil;
 
 import butterknife.ButterKnife;
 
@@ -24,11 +25,13 @@ public abstract class CommonDialog extends Dialog {
 
     public CommonDialog(@NonNull Context context) {
         super(context, R.style.CustomAlertDialog);
+        LogUtil.e(TAG,"CommonDialog");
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtil.e(TAG,"onCreate");
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         initComponent(App.getContext().getAppComponent());

@@ -81,21 +81,12 @@ public class AreaDialog extends CommonDialog implements OnWheelScrollListener, O
         }
     }
 
-    public List<Area> getStreets(int areaIndex) {
-        if (areaIndex == -1) {
-            return new ArrayList<>();
-        }
-
-        List<Integer> resultAreas = sourceMap.get(areaIndex);
-        if (sourceMap.get(areaIndex) == null) {
-            return new ArrayList<>();
-        } else {
-            List<Area> areas = new ArrayList<>();
-            for (Integer index : resultAreas) {
-                areas.add(areasList.get(index));
-            }
-            return areas;
-        }
+    public AreaDialog(@NonNull Context context, int provinceId, int cityId, int areaId) {
+        super(context);
+        LogUtil.e(TAG, "AreaDialog");
+        this.provinceId = provinceId;
+        this.cityId = cityId;
+        this.areaId = areaId;
     }
 
     public Area getAreaByIndex(int areaIndex) {
@@ -103,10 +94,6 @@ public class AreaDialog extends CommonDialog implements OnWheelScrollListener, O
         noArea.setRegionName("");
         noArea.setRegionId(0L);
         return areaIndex == -1 ? noArea : areasList.get(areaIndex);
-    }
-
-    public AreaDialog(@NonNull Context context) {
-        super(context);
     }
 
     @Override
@@ -134,14 +121,20 @@ public class AreaDialog extends CommonDialog implements OnWheelScrollListener, O
                 sourceMap.put(area.getParentId(), indexList);
             }
         }
+        LogUtil.e(TAG, "provinceId:" + provinceId);
+        LogUtil.e(TAG, "cityId:" + cityId);
+        LogUtil.e(TAG, "areaId:" + areaId);
         if (provinceId == 0) {
             provinceIndexs = sourceMap.get(1);
             cityIndexs = sourceMap.get(areasList.get(provinceIndexs.get(0)).getRegionIntId());
             areaIndexs = sourceMap.get(areasList.get(cityIndexs.get(0)).getRegionIntId());
         } else {
             provinceIndexs = sourceMap.get(1);
-            cityIndexs = sourceMap.get(areasList.get(provinceId).getParentId());
-            areaIndexs = sourceMap.get(areasList.get(cityId).getParentId());
+            cityIndexs = sourceMap.get(provinceId)==null?new ArrayList<>():sourceMap.get(provinceId);
+            areaIndexs = sourceMap.get(cityId)==null?new ArrayList<>():sourceMap.get(cityId);
+
+            LogUtil.e(TAG, "cityIndexs:" + cityIndexs.size());
+            LogUtil.e(TAG, "areaIndexs:" + areaIndexs.size());
         }
 
     }
@@ -152,14 +145,17 @@ public class AreaDialog extends CommonDialog implements OnWheelScrollListener, O
     }
 
 
-
     @Override
     public void initData() {
+        provinceIndex = provinceIndexs.get(getProvinceIndex(provinceId));
+        cityIndex = cityIndexs.get(getCityIndex(cityId));
+        areaIndex = areaIndexs.get(getAresIndex(areaId));
+
+        provinceIndex = provinceIndexs.get(getProvinceIndex(provinceId));
         provinceAdapter = new AreaWheelTextAdapter(getContext(), provinceIndexs);
         wvProvince.setVisibleItems(VisibleItems);
         wvProvince.setViewAdapter(provinceAdapter);
         wvProvince.setCurrentItem(getProvinceIndex(provinceId));
-
 
         cityAdapter = new AreaWheelTextAdapter(getContext(), cityIndexs);
         wvCity.setVisibleItems(VisibleItems);
@@ -197,7 +193,7 @@ public class AreaDialog extends CommonDialog implements OnWheelScrollListener, O
 
     private int getCurrentIndex(List<Integer> indexList, int id) {
         for (int i = 0; i < indexList.size(); i++) {
-            if (areasList.get(i).getRegionId() == id) {
+            if (areasList.get(indexList.get(i)).getRegionId() == id) {
                 return i;
             }
         }
@@ -282,15 +278,15 @@ public class AreaDialog extends CommonDialog implements OnWheelScrollListener, O
     @Override
     public void onChanged(WheelView wheel, int oldValue, int newValue) {
         switch (wheel.getId()) {
-            case R.id.wv_province:
-                setTextviewSize((String) provinceAdapter.getItemText(wheel.getCurrentItem()), provinceAdapter);
-                break;
-            case R.id.wv_city:
-                setTextviewSize((String) cityAdapter.getItemText(wheel.getCurrentItem()), cityAdapter);
-                break;
-            case R.id.wv_area:
-                setTextviewSize((String) areaAdapter.getItemText(wheel.getCurrentItem()), areaAdapter);
-                break;
+//            case R.id.wv_province:
+//                setTextviewSize((String) provinceAdapter.getItemText(wheel.getCurrentItem()), provinceAdapter);
+//                break;
+//            case R.id.wv_city:
+//                setTextviewSize((String) cityAdapter.getItemText(wheel.getCurrentItem()), cityAdapter);
+//                break;
+//            case R.id.wv_area:
+//                setTextviewSize((String) areaAdapter.getItemText(wheel.getCurrentItem()), areaAdapter);
+//                break;
         }
 
     }

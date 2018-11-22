@@ -78,7 +78,7 @@ public class EmployeeAddActivity extends BaseTitleActivity implements EmployeeAd
                 String realName = etRealName.getText().toString().trim();
                 String mobile = etMobile.getText().toString().trim();
                 if (CheckUtil.checkEmpty(password, "请输入密码") && CheckUtil.checkEmpty(realName, "请输入姓名") && CheckUtil
-                        .checkEmpty(mobile, "请输入手机号")) {
+                        .checkPhoneFormat(mobile)) {
                     employeeAddPresenter.addEmployee(new MultipartBody.Builder().setType(MultipartBody.FORM)
                             .addFormDataPart("Password", EncryptUtil.getDoubleMd5(password))
                             .addFormDataPart("RealName", realName)

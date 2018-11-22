@@ -34,7 +34,7 @@ public class GroupDetailPresenter implements GroupDetailContract.Presenter {
     public void getGroupDetail(String projectId, int groupId) {
         mApi.getApiService().getGroupDetail(projectId, groupId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<GroupDetail>(mView) {
+                (new LoadSirObserver<GroupDetail>(mView) {
                     @Override
                     protected void onSuccess(GroupDetail groupDetail) {
                         mView.onGetGroupDetailSuccess(groupDetail);

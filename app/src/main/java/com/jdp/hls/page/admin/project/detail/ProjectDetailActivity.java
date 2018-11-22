@@ -16,18 +16,17 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.event.AddProjectEvent;
 import com.jdp.hls.event.ModifyProjectEvent;
-import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.ProjectItem;
 import com.jdp.hls.page.admin.group.list.GroupListActivity;
 import com.jdp.hls.page.admin.manager.ManagerListActivity;
 import com.jdp.hls.page.admin.project.config.ProjectConfigActivity;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
@@ -98,6 +97,8 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     private int areaId;
     private int streetId;
     private AreaDialog areaDialog;
+    private String year;
+    private StreetDialog streetDialog;
 
     @OnClick({R.id.ll_projectArea, R.id.ll_projectStreet, R.id.ll_Year, R.id.ll_projectEmployee, R.id
             .rl_projectConfig, R.id.rl_projectGroup})
@@ -108,20 +109,13 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                 break;
             case R.id.ll_projectStreet:
                 if (areaId != 0 && DBManager.getInstance().getStreets(areaId).size() > 0) {
-                    StreetDialog streetDialog = new StreetDialog(this, areaId);
-                    streetDialog.setOnAreaSelectedListener(street -> {
-                        tvProjectStreet.setText(street.getRegionName());
-                        streetId = street.getRegionIntId();
-
-                    });
                     streetDialog.show();
                 } else {
-
                     ToastUtil.showText("所在地区没有街道");
                 }
                 break;
             case R.id.ll_Year:
-                timePickerDialog.show(getSupportFragmentManager(), String.valueOf(llYear.hashCode()));
+                showYearSelector();
                 break;
             case R.id.ll_projectEmployee:
                 ManagerListActivity.goActivity(this, selectedEmployees);
@@ -135,6 +129,24 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
             default:
                 break;
         }
+    }
+
+    private void showYearSelector() {
+        year = tvYear.getText().toString().trim();
+        timePickerDialog = new TimePickerDialog.Builder()
+                .setType(Type.YEAR)
+                .setThemeColor(ContextCompat.getColor(this, R.color.main))
+                .setWheelItemTextSize(15)
+                .setCurrentMillseconds(!TextUtils.isEmpty(year) ? DateUtil.getMillSeconds(year, "yyyy") : DateUtil
+                        .getYearMillSeconds(+1))
+                .setMinMillseconds(DateUtil.getYearMillSeconds(-20))
+                .setMaxMillseconds(DateUtil.getYearMillSeconds(+1))
+                .setTitleStringId("请选择年份")
+                .setCallBack((timePickerView, millseconds) -> {
+                    tvYear.setText(DateUtil.getDateString(millseconds, "yyyy"));
+                })
+                .build();
+        timePickerDialog.show(getSupportFragmentManager(), String.valueOf(llYear.hashCode()));
     }
 
     @Override
@@ -156,7 +168,6 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     public void initVariable() {
         projectId = getIntent().getStringExtra(Constants.Extra.PROJECTID);
         isAddProject = TextUtils.isEmpty(projectId);
-        String aresJson = SpSir.getInstance().getAresJson();
     }
 
     @Override
@@ -191,36 +202,24 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                 saveProject();
             }
         });
-        timePickerDialog = new TimePickerDialog.Builder()
-                .setType(Type.YEAR)
-                .setThemeColor(ContextCompat.getColor(this, R.color.main))
-                .setWheelItemTextSize(15)
-                .setTitleStringId("请选择年份")
-                .setCallBack((timePickerView, millseconds) -> {
-                    tvYear.setText(DateUtil.getDateString(millseconds, "yyyy"));
-                })
-                .build();
-        areaDialog = new AreaDialog(this);
-        areaDialog.setOnAreaSelectedListener((province, city, area) -> {
-            provinceId = province.getRegionIntId();
-            cityId = city.getRegionIntId();
-            areaId = area.getRegionIntId();
-            LogUtil.e(TAG, "省：" + province.getRegionName() + provinceId);
-            LogUtil.e(TAG, "市：" + city.getRegionName() + cityId);
-            LogUtil.e(TAG, "区：" + area.getRegionName() + areaId);
-//            LogUtil.e(TAG, "街道：" + DBManager.getInstance().getStreets(areaId).size());
-            tvProjectArea.setText(province.getRegionName() + city.getRegionName() + area.getRegionName());
-
-        });
-
+        if (isAddProject) {
+            initAreaDialog();
+            initStreetDialog();
+        }
     }
 
     private void saveProject() {
         String projectName = etProjectName.getText().toString().trim();
-        String year = tvYear.getText().toString().trim();
+        year = tvYear.getText().toString().trim();
         String address = etAddress.getText().toString().trim();
         String areaRange = etAreaRange.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
+        if (CheckUtil.checkEmpty(projectName, "请输入项目名称")
+                && CheckUtil.checkEmpty(String.valueOf(provinceId), "请选择项目区域")
+                && CheckUtil.checkEmpty(year, "请选择年份")
+                && CheckUtil.checkEmpty(projectEmployeeIDs, "请选择负责人")) {
+
+        }
         projectDetailPresenter.saveProject(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("ProjectId", TextUtils.isEmpty(projectId) ? "" : projectId)
                 .addFormDataPart("ProjectName", projectName)
@@ -267,7 +266,7 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
         etRemark.setString(projectItem.getRemark());
         provinceId = projectItem.getProvinceId();
         cityId = projectItem.getCityId();
-        areaId = projectItem.getAreaId();
+        lastAreaId = areaId = projectItem.getAreaId();
         streetId = projectItem.getStreetId();
         projectEmployeeIDs = projectItem.getProjectEmployeeIDs();
 
@@ -275,12 +274,42 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
         etAddress.setEnabled(isAllowEdit);
         etAreaRange.setEnabled(isAllowEdit);
         etRemark.setEnabled(isAllowEdit);
-
+        initAreaDialog();
+        initStreetDialog();
         llYear.setEnabled(isAllowEdit);
         llProjectArea.setEnabled(isAllowEdit);
         llProjectStreet.setEnabled(isAllowEdit);
         llProjectEmployee.setEnabled(isAllowEdit);
 
+    }
+
+    private int lastAreaId;
+
+    private void initAreaDialog() {
+        areaDialog = new AreaDialog(this, provinceId, cityId, areaId);
+        areaDialog.setOnAreaSelectedListener((province, city, area) -> {
+            provinceId = province.getRegionIntId();
+            cityId = city.getRegionIntId();
+            areaId = area.getRegionIntId();
+            tvProjectArea.setText(province.getRegionName() + city.getRegionName() + area.getRegionName());
+            if (lastAreaId != areaId) {
+                streetId = 0;
+                tvProjectStreet.setText("");
+            }
+            if (areaId != 0) {
+                streetDialog.nodifySetData(areaId,streetId);
+            }
+            lastAreaId = areaId;
+
+        });
+    }
+
+    private void initStreetDialog() {
+        streetDialog = new StreetDialog(this, areaId, streetId);
+        streetDialog.setOnAreaSelectedListener(street -> {
+            tvProjectStreet.setText(street.getRegionName());
+            streetId = street.getRegionIntId();
+        });
     }
 
     @Override

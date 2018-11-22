@@ -124,11 +124,6 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
         return R.layout.fragment_home;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 
     @Override
     public void onGetModuleDetailSuccess(ModuleDetail moduleDetail) {

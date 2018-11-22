@@ -3,14 +3,12 @@ package com.jdp.hls.view.dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.util.LogUtil;
 import com.kingja.wheelview.AbstractWheelTextAdapter;
 import com.kingja.wheelview.OnSimleWheelScrollListener;
 import com.kingja.wheelview.WheelView;
@@ -35,14 +33,29 @@ public class StreetDialog extends CommonDialog {
     @BindView(R.id.tv_confirm)
     TextView tvConfirm;
     private int areaId;
+    private int streetId;
     private List<Area> streets = new ArrayList<>();
     private static final int VisibleItems = 5;
     private int streetIndex;
     private OnAreaSelectedListener onAreaSelectedListener;
+    private AreaWheelTextAdapter streetAdapter;
 
-    public StreetDialog(@NonNull Context context, int areaId) {
+    public StreetDialog(@NonNull Context context, int areaId, int streetId) {
         super(context);
         this.areaId = areaId;
+        this.streetId = streetId;
+    }
+
+    public void nodifySetData(int areaId, int streetId) {
+        this.areaId = areaId;
+        this.streetId = streetId;
+        streets = DBManager.getInstance().getStreets(areaId);
+        streetIndex = getCurrentIndex(streetId);
+        if (wvStreet != null) {
+            streetAdapter.setData(streets);
+            wvStreet.invalidateWheel(true);
+            wvStreet.setCurrentItem(streetIndex);
+        }
     }
 
     @OnClick({R.id.tv_confirm, R.id.tv_cancle})
@@ -84,15 +97,27 @@ public class StreetDialog extends CommonDialog {
 
     @Override
     public void initData() {
-        AreaWheelTextAdapter streetAdapter = new AreaWheelTextAdapter(getContext(), streets);
+        streetIndex = getCurrentIndex(streetId);
+        streetAdapter = new AreaWheelTextAdapter(getContext(), streets);
         wvStreet.setVisibleItems(VisibleItems);
         wvStreet.setViewAdapter(streetAdapter);
+        wvStreet.setCurrentItem(streetIndex);
         wvStreet.addScrollingListener(new OnSimleWheelScrollListener() {
             @Override
             public void onScrollingFinished(WheelView wheel) {
                 streetIndex = wheel.getCurrentItem();
             }
         });
+    }
+
+
+    private int getCurrentIndex(int streetId) {
+        for (int i = 0; i < streets.size(); i++) {
+            if (streets.get(i).getRegionId() == streetId) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     @Override
@@ -110,6 +135,7 @@ public class StreetDialog extends CommonDialog {
             this.streetList = (streetList == null ? new ArrayList<>() : streetList);
             setItemTextResource(R.id.tempValue);
         }
+
         @Override
         public int getItemsCount() {
             return streetList.size();
@@ -118,6 +144,10 @@ public class StreetDialog extends CommonDialog {
         @Override
         protected CharSequence getItemText(int index) {
             return streetList.get(index).getRegionName();
+        }
+
+        public void setData(List<Area> streetList) {
+            this.streetList = streetList;
         }
     }
 

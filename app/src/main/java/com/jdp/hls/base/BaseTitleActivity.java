@@ -205,11 +205,15 @@ public abstract class BaseTitleActivity extends BaseActivity {
 
     protected <T> void setSearchListView(List<T> list, BaseSearchAdapter<T> adapter, String keyword) {
         if (list != null && list.size() > 0) {
-            showSuccessCallback();
+            if (ifRegisterLoadSir()) {
+                showSuccessCallback();
+            }
             adapter.setData(list);
             adapter.onSearch(keyword);
         } else {
-            showEmptyCallback();
+            if (ifRegisterLoadSir()) {
+                showEmptyCallback();
+            }
         }
     }
 

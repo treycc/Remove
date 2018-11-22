@@ -10,7 +10,7 @@
     <LinearLayout
         style="@style/Content_LL_T6">
 
-        <TextView
+        <com.jdp.hls.view.RequiredTextView
             style="@style/Title_Sub"
             android:text="小组名称"/>
 

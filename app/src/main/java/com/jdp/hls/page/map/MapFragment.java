@@ -81,15 +81,12 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     ImageView ivMapShowall;
     @BindView(R.id.iv_map_refresh)
     ImageView ivMapRefresh;
-    Unbinder unbinder;
     @BindView(R.id.iv_search)
     ImageView ivSearch;
-    Unbinder unbinder1;
     @BindView(R.id.et_keyword)
     EditText etKeyword;
     @BindView(R.id.iv_clear)
     ImageView ivClear;
-    Unbinder unbinder2;
     private AMap mAMap;
     public AMapLocationClient mLocationClient;
     private OnLocationChangedListener mListener;
@@ -412,19 +409,5 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
             }
         }
         refreshRostersOnMap(selectRosters);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder2 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder2.unbind();
     }
 }

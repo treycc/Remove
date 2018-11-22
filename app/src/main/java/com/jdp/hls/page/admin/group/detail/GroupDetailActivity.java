@@ -18,13 +18,13 @@ import com.jdp.hls.model.entiy.Group;
 import com.jdp.hls.model.entiy.GroupDetail;
 import com.jdp.hls.model.entiy.Member;
 import com.jdp.hls.page.admin.group.member.MemberSelectActivity;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.FixedListView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -57,6 +57,7 @@ public class GroupDetailActivity extends BaseTitleActivity implements GroupDetai
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Member member = (Member) adapterView.getItemAtPosition(position);
         MemberSelectActivity.goActivity(this, projectId, member.getCompanyTypeId());
+
     }
 
     @Override
@@ -115,15 +116,17 @@ public class GroupDetailActivity extends BaseTitleActivity implements GroupDetai
                 }
                 String groupName = etGroupName.getText().toString().trim();
                 String remark = etRemark.getText().toString().trim();
-                groupDetailPresenter.saveGroupInfo(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                        .addFormDataPart("GroupID", String.valueOf(groupId))
-                        .addFormDataPart("ProjectId", projectId)
-                        .addFormDataPart("GroupName", groupName)
-                        .addFormDataPart("Remark", remark)
-                        .addFormDataPart("EmployeeId", employeeIdSb.toString())
-                        .addFormDataPart("AccountType", accountTypeSb.toString())
-                        .addFormDataPart("CompanyTypeId", companyTypeIdSb.toString())
-                        .build());
+                if (CheckUtil.checkEmpty(groupName, "请输入小组名称")) {
+                    groupDetailPresenter.saveGroupInfo(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                            .addFormDataPart("GroupId", String.valueOf(groupId))
+                            .addFormDataPart("ProjectId", projectId)
+                            .addFormDataPart("GroupName", groupName)
+                            .addFormDataPart("Remark", remark)
+                            .addFormDataPart("EmployeeId", employeeIdSb.toString())
+                            .addFormDataPart("AccountType", accountTypeSb.toString())
+                            .addFormDataPart("CompanyTypeId", companyTypeIdSb.toString())
+                            .build());
+                }
             }
         });
         groupDetailAdapter = new GroupDetailAdapter(this, null);
@@ -172,5 +175,10 @@ public class GroupDetailActivity extends BaseTitleActivity implements GroupDetai
                     break;
             }
         }
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }

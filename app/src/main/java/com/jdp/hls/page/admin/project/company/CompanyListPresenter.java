@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.Company;
 import com.jdp.hls.model.entiy.LoadSirObserver;
+import com.jdp.hls.model.entiy.ResultObserver;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class CompanyListPresenter implements CompanyListContract.Presenter {
     public void getCompanyList(int companyTypeId) {
         mApi.getApiService().getCompanyList(companyTypeId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<List<Company>>(mView) {
+                (new ResultObserver<List<Company>>(mView) {
                     @Override
                     protected void onSuccess(List<Company> companyList) {
                         mView.onGetCompanyListSuccess(companyList);

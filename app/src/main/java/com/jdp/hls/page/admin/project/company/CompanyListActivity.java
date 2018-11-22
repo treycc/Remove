@@ -26,6 +26,7 @@ import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.FixedListView;
 import com.jdp.hls.view.PullToBottomListView;
+import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 import com.jdp.hls.view.StringTextView;
 
 import java.io.Serializable;
@@ -54,7 +55,7 @@ public class CompanyListActivity extends BaseTitleActivity implements CompanyLis
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
-    SwipeRefreshLayout srl;
+    RefreshSwipeRefreshLayout srl;
     @BindView(R.id.bottomSheetLayout)
     BottomSheetLayout bottomSheetLayout;
     @BindView(R.id.tv_count)
@@ -200,16 +201,12 @@ public class CompanyListActivity extends BaseTitleActivity implements CompanyLis
                 ivClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
             }
         });
+        srl.stepRefresh(this);
     }
 
     @Override
     public void initNet() {
         companyListPresenter.getCompanyList(companyTypeId);
-    }
-
-    @Override
-    public boolean ifRegisterLoadSir() {
-        return true;
     }
 
     public static void goActivity(Activity activity,  ConfigCompany company) {
@@ -222,5 +219,15 @@ public class CompanyListActivity extends BaseTitleActivity implements CompanyLis
     public void onGetCompanyListSuccess(List<Company> companyList) {
         String keyword = etKeyword.getText().toString().trim();
         setSearchListView(companyList, companyAdapter, keyword);
+    }
+
+    @Override
+    public void showLoading() {
+        srl.setRefreshing(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        srl.setRefreshing(false);
     }
 }

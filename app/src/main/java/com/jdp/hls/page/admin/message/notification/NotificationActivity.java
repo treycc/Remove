@@ -10,7 +10,6 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Notification;
 import com.jdp.hls.page.admin.message.NotificationDetailActivity;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.view.FixedListView;
 
 import java.util.List;
@@ -34,7 +33,8 @@ public class NotificationActivity extends BaseTitleActivity implements Notificat
 
     @OnItemClick({R.id.flv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        GoUtil.goActivity(this, NotificationDetailActivity.class);
+        Notification notification = (Notification) adapterView.getItemAtPosition(position);
+        NotificationDetailActivity.GoActivity(this, notification.getMessageTypeName());
     }
 
     @Override

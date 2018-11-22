@@ -58,6 +58,7 @@
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_mobile"
             style="@style/Content_ET_W3"
+            android:inputType="number"
             android:hint="请输入手机号"/>
     </LinearLayout>
 

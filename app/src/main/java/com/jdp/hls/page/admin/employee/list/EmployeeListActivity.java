@@ -17,7 +17,7 @@ import com.jdp.hls.page.admin.employee.add.EmployeeAddActivity;
 import com.jdp.hls.page.admin.employee.detail.EmployeeDetailActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,7 +31,7 @@ import butterknife.BindView;
 import butterknife.OnItemClick;
 
 /**
- * Description:TODO
+ * Description:账号管理
  * Create Time:2018/11/15 0015 下午 3:31
  * Author:KingJA
  * Email:kingjavip@gmail.com
@@ -39,8 +39,8 @@ import butterknife.OnItemClick;
 public class EmployeeListActivity extends BaseTitleActivity implements EmployeeListContract.View {
     @BindView(R.id.plv)
     PullToBottomListView plv;
-    @BindView(R.id.srl)
-    RefreshableSwipeRefreshLayout srl;
+    @BindView(R.id.rsrl)
+    RefreshSwipeRefreshLayout rsrl;
     @Inject
     EmployeeListPresenter employeeListPresenter;
     private EmployeeAdapter employeeAdapter;
@@ -58,7 +58,7 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
 
     @Override
     protected int getContentView() {
-        return R.layout.common_lv_sl;
+        return R.layout.common_lv_rsl;
     }
 
     @Override
@@ -86,6 +86,7 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
         setRightClick("增加", v -> {
             GoUtil.goActivity(EmployeeListActivity.this, EmployeeAddActivity.class);
         });
+        rsrl.stepRefresh(this);
     }
 
     @Override

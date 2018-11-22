@@ -130,6 +130,7 @@ public class Constants {
         String PROJECTID = "projectId";
         String GROUPID = "groupId";
         String PROJECTNAME = "projectName";
+        String MessageTypeName = "messageTypeName";
     }
 
     public interface AirPhotoType {
