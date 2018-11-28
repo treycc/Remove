@@ -459,7 +459,7 @@ public class WheelView extends View {
 	 */
 	private void initResourcesIfNecessary() {
 		if (centerDrawable == null) {
-			centerDrawable = getContext().getResources().getDrawable(R.drawable.wheel_val);
+			centerDrawable = getContext().getResources().getDrawable(R.drawable.wheel_center);
 		}
 
 		if (topShadow == null) {
@@ -470,7 +470,7 @@ public class WheelView extends View {
 			bottomShadow = new GradientDrawable(Orientation.BOTTOM_TOP, SHADOWS_COLORS);
 		}
 
-		setBackgroundResource(R.drawable.wheel_bg);
+//		setBackgroundResource(R.drawable.wheel_bg);//去掉背景渐变色
 	}
 
 	/**
@@ -600,7 +600,7 @@ public class WheelView extends View {
 			drawCenterRect(canvas);
 		}
 
-//		drawShadows(canvas);
+		drawShadows(canvas);//画阴影
 	}
 
 	/**

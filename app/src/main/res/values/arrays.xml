@@ -15,6 +15,16 @@
         <item>个人</item>
         <item>企业</item>
     </string-array>
+
+    <string-array name="building_type">
+        <item>个人</item>
+        <item>企业</item>
+    </string-array>
+
+    <string-array name="statistics_type">
+        <item>个人统计</item>
+        <item>企业统计</item>
+    </string-array>
     <string-array name="switch_measure">
         <item>未丈量</item>
         <item>已丈量</item>

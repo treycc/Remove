@@ -8,8 +8,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.jdp.hls.R;
 import com.jdp.hls.constant.Constants;
-import com.jdp.hls.util.LogUtil;
-import com.jdp.hls.util.SpSir;
 
 /**
  * Description：TODO
@@ -26,7 +24,7 @@ public class GlideLoader implements IImageLoader {
                 .load(Constants.BASE_URL + url)
                 .centerCrop()
                 .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
-                .error(R.mipmap.ic_img_fail)
+                .error(R.drawable.ic_img_fail)
                 .crossFade()
                 .into(view);
     }
@@ -37,7 +35,7 @@ public class GlideLoader implements IImageLoader {
                 .load(uri)
                 .centerCrop()
                 .placeholder(R.drawable.ic_placeholder)
-                .error(R.mipmap.ic_img_fail)
+                .error(R.drawable.ic_img_fail)
                 .crossFade()
                 .skipMemoryCache(true)
                 .into(view);
@@ -48,7 +46,7 @@ public class GlideLoader implements IImageLoader {
         Glide.with(context)
                 .load(Constants.BASE_URL + url)
                 .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
-                .error(R.mipmap.ic_img_fail)
+                .error(R.drawable.ic_img_fail)
                 .crossFade()
                 .transform(new CenterCrop(context), new GlideRoundTransform(context, connerWidth))
                 .into(view);
@@ -60,7 +58,7 @@ public class GlideLoader implements IImageLoader {
                 .load(Constants.BASE_URL + url)
                 .centerCrop()
                 .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
-                .error(R.mipmap.ic_img_fail)
+                .error(R.drawable.ic_img_fail)
                 .crossFade()
                 .transform(new CenterCrop(context), new GlideCircleTransform(context))
                 .into(view);

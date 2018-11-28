@@ -18,14 +18,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="160dip"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
 
         <com.kingja.wheelview.WheelView
             android:id="@+id/wv_province"
-            android:layout_width="0dip"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
@@ -33,7 +34,7 @@
 
         <com.kingja.wheelview.WheelView
             android:id="@+id/wv_city"
-            android:layout_width="0dip"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
@@ -41,7 +42,7 @@
 
         <com.kingja.wheelview.WheelView
             android:id="@+id/wv_area"
-            android:layout_width="0dip"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"

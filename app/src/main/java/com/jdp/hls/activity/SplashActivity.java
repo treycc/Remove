@@ -18,10 +18,11 @@ import com.jdp.hls.util.InputMethodManagerUtil;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class SplashActivity  extends BaseActivity{
+public class SplashActivity extends BaseActivity {
     private int DELAY_MILLIS = 2000;
     private Handler dispatchHander;
     private DispatcherRunnable dispatcherRunnable;
+
     @Override
     public void initVariable() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -30,7 +31,7 @@ public class SplashActivity  extends BaseActivity{
 
     @Override
     public View getContentId() {
-        return View.inflate(this,R.layout.activity_splash,null);
+        return View.inflate(this, R.layout.activity_splash, null);
     }
 
     @Override
@@ -54,6 +55,7 @@ public class SplashActivity  extends BaseActivity{
     public void initNet() {
 
     }
+
     class DispatcherRunnable implements Runnable {
 
         @Override

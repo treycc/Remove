@@ -51,7 +51,7 @@
     <style name="div_hor_bg">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
-        <item name="android:background">@color/gray_hi</item>
+        <item name="android:background">@color/bg_hi</item>
     </style>
 
     <style name="div_hor_gray_6">
@@ -65,18 +65,22 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/c_3</item>
     </style>
+
     <style name="font_3_12">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/c_3</item>
     </style>
+
     <style name="font_3_15">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/c_3</item>
     </style>
+
     <style name="font_3_14">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/c_3</item>
     </style>
+
     <style name="font_3_20">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/c_3</item>
@@ -102,6 +106,11 @@
         <item name="android:textColor">@color/c_6</item>
     </style>
 
+    <style name="font_6_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/c_6</item>
+    </style>
+
     <style name="font_6_15">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/c_6</item>
@@ -121,22 +130,27 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/c_9</item>
     </style>
+
     <style name="font_9_14">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/c_9</item>
     </style>
+
     <style name="font_9_16">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/c_9</item>
     </style>
+
     <style name="font_9_12">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/c_9</item>
     </style>
+
     <style name="font_9_10">
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/c_9</item>
     </style>
+
     <style name="font_9_15">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/c_9</item>
@@ -182,10 +196,12 @@
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/white_hi</item>
     </style>
+
     <style name="font_f_8">
         <item name="android:textSize">8sp</item>
         <item name="android:textColor">@color/white_hi</item>
     </style>
+
     <style name="font_f_15">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/white_hi</item>
@@ -200,6 +216,11 @@
     <style name="font_f_18">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white_hi</item>
+    </style>
+
+    <style name="font_main_12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/main</item>
     </style>
 
     <style name="font_main_13">
@@ -222,7 +243,10 @@
         <item name="android:textColor">@color/main</item>
     </style>
 
-
+    <style name="font_main_30">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/main</item>
+    </style>
     <!--
         <style name="PhotoTheme" parent="Theme.AppCompat.Light.NoActionBar">
             <item name="colorPrimary">@color/red_hi</item>
@@ -273,6 +297,7 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/c_c</item>
     </style>
+
     <style name="Title_Sub9">
         <item name="android:paddingLeft">8dp</item>
         <item name="android:layout_width">0dp</item>
@@ -281,6 +306,7 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/c_9</item>
     </style>
+
     <style name="Title_Sub_SingleLine" parent="Title_Sub">
         <item name="android:singleLine">true</item>
     </style>
@@ -421,6 +447,7 @@
     <style name="Ll_Container_Arrow_W2" parent="Ll_Container_Arrow">
         <item name="android:layout_weight">2</item>
     </style>
+
     <style name="Ll_Container_Arrow_W1_8" parent="Ll_Container_Arrow">
         <item name="android:layout_weight">1.8</item>
     </style>
@@ -454,7 +481,12 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="TabLayoutTextStyle" >
+    <style name="TabLayoutTextStyle">
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TabLayoutStyle">
+        <item name="android:textSize">16sp</item>
+        <!--<item name="android:textStyle">bold</item>-->
     </style>
 </resources>

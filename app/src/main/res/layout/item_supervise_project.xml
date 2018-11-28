@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white_hi"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingBottom="16dp"
+              android:paddingLeft="12dp"
+              android:paddingRight="12dp"
+              android:paddingTop="16dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/font_3_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="鹿城拆迁项目"/>
+
+        <TextView
+            style="@style/font_9_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区"/>
+    </LinearLayout>
+
+    <com.kingja.supershapeview.view.SuperShapeLinearLayout
+        android:layout_width="64dp"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:super_cornerRadius="5dp"
+        app:super_strokeColor="@color/main"
+        app:super_strokeWidth="1dp">
+
+        <TextView
+            style="@style/font_main_12"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:text="60%"/>
+
+        <com.kingja.supershapeview.view.SuperShapeTextView
+            style="@style/font_f_12"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/main"
+            android:gravity="center"
+            app:super_bottomLeftRadius="5dp"
+            app:super_bottomRightRadius="5dp"
+            app:super_solidColor="@color/main"
+            android:text="1000户"/>
+
+    </com.kingja.supershapeview.view.SuperShapeLinearLayout>
+
+
+</LinearLayout>

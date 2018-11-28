@@ -1,7 +1,9 @@
 package com.jdp.hls.page.module;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -17,13 +19,15 @@ import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Module;
 import com.jdp.hls.model.entiy.ModuleDetail;
-import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
 import com.jdp.hls.page.admin.employee.list.EmployeeListActivity;
+import com.jdp.hls.page.admin.message.notification.NotificationActivity;
+import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
 import com.jdp.hls.page.admin.query.ProjectSelectActivity;
 import com.jdp.hls.page.levy.LevyActivity;
-import com.jdp.hls.page.admin.message.notification.NotificationActivity;
+import com.jdp.hls.page.supervise.project.list.ProjectListSuperviseActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 import com.jdp.hls.view.StringTextView;
 
 import java.util.List;
@@ -31,7 +35,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnItemClick;
+import butterknife.Unbinder;
 
 /**
  * Description:业务征收平台
@@ -46,6 +52,9 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     ImageView ivImageUrl;
     @BindView(R.id.flv)
     ListView flv;
+    @BindView(R.id.rsrl)
+    RefreshSwipeRefreshLayout rsrl;
+    Unbinder unbinder;
     private String routeId;
 
     @Inject
@@ -72,7 +81,7 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
                 GoUtil.goActivity(getActivity(), LevyActivity.class);
                 break;
             case Status.ModuleId.SYSTEM_PROJECT_SUPERVISE:
-                ToastUtil.showText("功能开发中");
+                GoUtil.goActivity(getActivity(), ProjectListSuperviseActivity.class);
                 break;
             case Status.ModuleId.SYSTEM_LOCATION:
                 ToastUtil.showText("功能开发中");
@@ -111,7 +120,7 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
 
     @Override
     protected void initData() {
-
+        rsrl.stepRefresh(this);
     }
 
     @Override
@@ -149,5 +158,12 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

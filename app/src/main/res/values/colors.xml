@@ -12,6 +12,7 @@
     <color name="gray_hi">#CCCCCC</color>
     <color name="div_hi">#efefef</color>
     <color name="bg_hi">#F8F8F8</color>
+    <color name="bg_progress">#e6eaf0</color>
     <color name="red_hi">#EA1022</color>
     <color name="white_hi">#ffffff</color>
     <color name="half_hi">#33ffffff</color>
@@ -20,7 +21,7 @@
     <color name="blue">#27AEFA</color>
     <color name="black">#000000</color>
     <color name="transparent">#00ffffff</color>
-
+    <color name="pink">#FD60CB</color>
 
     <color name="node_finish">#FA8639</color>
     <color name="node_delete">#f48080</color>

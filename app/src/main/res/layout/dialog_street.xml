@@ -18,20 +18,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp">
 
         <com.kingja.wheelview.WheelView
             android:id="@+id/wv_street"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            />
+            android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
-
 
     <View style="@style/div_hor_gray"/>
 

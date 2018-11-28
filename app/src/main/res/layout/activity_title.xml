@@ -24,8 +24,6 @@
         </LinearLayout>
 
 
-
-
         <LinearLayout
             android:id="@+id/ll_title_menu"
             android:layout_width="48dp"
@@ -55,20 +53,24 @@
             android:paddingRight="16dp"
             android:text="操作"
             android:visibility="gone"/>
+
         <com.jdp.hls.view.dialog.FixLengthTextView
-            android:maxEms="8"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:gravity="center"
             android:id="@+id/tv_title_title"
             style="@style/font_3_18"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxEms="8"
+            android:singleLine="true"
             android:text="标题标题标题标题标题"/>
     </RelativeLayout>
 
-    <View style="@style/div_hor_bg"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_hi"/>
 
     <FrameLayout
         android:id="@+id/fl_content"

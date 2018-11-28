@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_hi"
+        android:orientation="vertical">
+        <!--比例-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="26dp"
+            android:paddingTop="26dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginRight="6dp"
+                    android:background="@drawable/shape_circle_pink"/>
+
+                <com.jdp.hls.view.StringTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="18dp"
+                    android:text="总已丈量户数：30户"
+                    android:textColor="#fc9faa"
+                    android:textSize="12sp"/>
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginRight="6dp"
+                    android:background="@drawable/shape_circle_blue"/>
+
+                <com.jdp.hls.view.StringTextView
+                    style="@style/font_main_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总未丈量户数：30户"/>
+            </LinearLayout>
+
+            <com.jdp.hls.view.StringTextView
+                style="@style/font_main_30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="40dp"
+                android:text="36.25%"/>
+
+            <com.jdp.hls.view.StringTextView
+                style="@style/font_9_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="丈量比例"/>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_6"/>
+        <!--图标-->
+    </LinearLayout>
+</ScrollView>

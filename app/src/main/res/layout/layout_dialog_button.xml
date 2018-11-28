@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/tv_confirm"
-        style="@style/font_3_15"
+        style="@style/font_main_15"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

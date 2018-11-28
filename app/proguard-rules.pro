@@ -254,6 +254,9 @@
 -dontwarn org.greenrobot.**
 -keep class org.greenrobot.**{*;}
 -keep class com.jdp.hls.dao.**{*;}
+# 底部对话框
+-dontwarn com.flipboard.**
+-keep class com.flipboard.**{*;}
 
 # 注解
 -keep class * extends java.lang.annotation.Annotation { *; }

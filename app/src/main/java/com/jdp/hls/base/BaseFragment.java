@@ -37,7 +37,7 @@ import butterknife.Unbinder;
  * Time: 12:14 AM
  * Desc: BaseFragment
  */
-public abstract class BaseFragment extends Fragment implements BaseView, DialogInterface.OnDismissListener {
+public abstract class BaseFragment extends Fragment implements BaseView, DialogInterface.OnDismissListener ,BaseInit{
     protected String TAG = getClass().getSimpleName();
     private ProgressDialog mDialogProgress;
     protected Unbinder unbinder;
@@ -85,7 +85,7 @@ public abstract class BaseFragment extends Fragment implements BaseView, DialogI
 
     protected abstract void initData();
 
-    protected abstract void initNet();
+    public abstract void initNet();
 
     @Nullable
     @Override
@@ -199,4 +199,5 @@ public abstract class BaseFragment extends Fragment implements BaseView, DialogI
     public void onDismiss(DialogInterface dialog) {
         RxRe.getInstance().cancle(this);
     }
+
 }
