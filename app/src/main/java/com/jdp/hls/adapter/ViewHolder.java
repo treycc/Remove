@@ -88,6 +88,12 @@ public class ViewHolder {
         return this;
     }
 
+    public ViewHolder setTextColor(int viewId, int colorId) {
+        TextView view = getView(viewId);
+        view.setTextColor(colorId);
+        return this;
+    }
+
     public ViewHolder setImageBitmap(int viewId, Bitmap bm) {
         ImageView view = getView(viewId);
         view.setImageBitmap(bm);

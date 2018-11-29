@@ -59,6 +59,7 @@ public class StatisticsProgressActivity extends BaseTitleActivity {
         fragments[1] = StatisticsProgressFragment.newInstance(1);
         CommonFragmentAdapter fragmentAdapter = new CommonFragmentAdapter(this, fragments, tabNames);
         vp.setAdapter(fragmentAdapter);
+        tab.setupWithViewPager(vp);
     }
 
     @Override

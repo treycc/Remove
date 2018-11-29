@@ -50,7 +50,7 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity {
                 GoUtil.goActivity(this, StatisticsTotalActivity.class);
                 break;
             case R.id.rl_statistics_table:
-                GoUtil.goActivity(this, StatisticsTableActivity.class);
+//                GoUtil.goActivity(this, StatisticsTableActivity.class);
                 break;
         }
     }

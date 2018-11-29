@@ -6,6 +6,8 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportListDayActivity;
+import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 
 /**
@@ -48,7 +50,7 @@ public class StatisticsProgressDetailActivity extends BaseTitleActivity {
         setRightClick("查看报表", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-
+                GoUtil.goActivity(StatisticsProgressDetailActivity.this, ReportListDayActivity.class);
             }
         });
 

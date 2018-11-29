@@ -71,7 +71,6 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
                 case 24:
                     AirphotoListActivity.goActivity(this, Status.AirPhotoFinishType.FINISH);
                     break;
-
             }
         } else {
             TableListActivity.goActivity(this, String.valueOf(statisticsItem.getStatisItemTypeId()));
@@ -172,7 +171,6 @@ public class StatisticsActivity extends BaseTitleActivity implements StatisticsC
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(15f);
         data.setValueTextColor(Color.BLACK);
-
         /*====================*/
 //        dataSet.setValueLinePart1OffsetPercentage(80.f);
 //        dataSet.setValueLinePart1Length(0.5f);
