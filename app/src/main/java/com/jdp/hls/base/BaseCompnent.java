@@ -91,6 +91,7 @@ import com.jdp.hls.page.supervise.project.list.ProjectListSuperviseActivity;
 import com.jdp.hls.page.supervise.statistics.progress.detail.StatisticsProgressDetailActivity;
 import com.jdp.hls.page.supervise.statistics.progress.home.StatisticsProgressFragment;
 import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportListDayActivity;
+import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalFragment;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.page.table.list.TableListFragment;
 import com.jdp.hls.service.initialize.InitializeService;
@@ -100,6 +101,8 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(StatisticsTotalFragment target);
+
     void inject(StatisticsProgressFragment target);
 
     void inject(ReportListDayActivity target);

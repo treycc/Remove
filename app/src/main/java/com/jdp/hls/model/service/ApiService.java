@@ -13,6 +13,7 @@ import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.EmployeeDetail;
 import com.jdp.hls.model.entiy.Group;
 import com.jdp.hls.model.entiy.GroupDetail;
+import com.jdp.hls.model.entiy.KeyValue;
 import com.jdp.hls.model.entiy.ModuleDetail;
 import com.jdp.hls.model.entiy.NodeCompanyHouseEvaluate;
 import com.jdp.hls.model.entiy.NodeCompanyMoneyEvaluate;
@@ -50,6 +51,8 @@ import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.ProjectItem;
 import com.jdp.hls.model.entiy.ProjectListInfo;
+import com.jdp.hls.model.entiy.ProjectSuperviseDetail;
+import com.jdp.hls.model.entiy.ProjectSuperviseInfo;
 import com.jdp.hls.model.entiy.PublicityDetail;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.model.entiy.PublicityObject;
@@ -57,6 +60,7 @@ import com.jdp.hls.model.entiy.ReceivePerson;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.StatisticsDetail;
+import com.jdp.hls.model.entiy.StatisticsProgressInfo;
 import com.jdp.hls.model.entiy.Table;
 import com.jdp.hls.model.entiy.TaskInfo;
 
@@ -693,4 +697,22 @@ public interface ApiService {
     @POST("api/Group/SaveGroupMemberV2")
     Observable<HttpResult<Group>> saveGroupInfo(@Body RequestBody requestBody);
 
+    /*项目-列表(监管系统)*/
+    @GET("api/supervise/GetProjectPageList")
+    Observable<HttpResult<ProjectSuperviseInfo>> getProjectSuperviseList(@Query("PageSize") int pageSize, @Query
+            ("PageIndex") int pageIndex, @Query("OrderBy") int orderBy);
+
+    /*项目-列表详情(监管系统)*/
+    @GET("api/supervise/GetProjectDetail")
+    Observable<HttpResult<ProjectSuperviseDetail>> getProjectSuperviseDetail(@Query("ProjectId") String projectId);
+
+    /*汇总统计(监管系统)*/
+    @GET("api/supervise/GetCollectViewBuilding")
+    Observable<HttpResult<List<KeyValue>>> getStatisticsTotal(@Query("ProjectId") String projectId,
+                                                              @Query("BuildingType") int buildingType);
+
+    /*进度统计(监管系统)*/
+    @GET("api/supervise/GetProgressStatistics")
+    Observable<HttpResult<StatisticsProgressInfo>> getStatisticsProgress(@Query("ProjectId") String projectId,
+                                                                         @Query("BuildingType") int buildingType);
 }

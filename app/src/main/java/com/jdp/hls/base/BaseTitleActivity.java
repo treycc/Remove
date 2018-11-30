@@ -10,15 +10,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.BaseLvAdapter;
 import com.jdp.hls.adapter.BaseSearchAdapter;
 import com.jdp.hls.callback.EmptyCallback;
 import com.jdp.hls.callback.ErrorCallback;
 import com.jdp.hls.callback.ErrorMessageCallback;
 import com.jdp.hls.callback.LoadingCallback;
+import com.jdp.hls.i.ILvSetData;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.PublicityItem;
-import com.jdp.hls.util.LogUtil;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
@@ -194,7 +192,7 @@ public abstract class BaseTitleActivity extends BaseActivity {
     @Override
     public abstract void initNet();
 
-    protected <T> void setListView(List<T> list, BaseLvAdapter<T> adapter) {
+    protected <T> void setListView(List<T> list, ILvSetData<T> adapter) {
         if (list != null && list.size() > 0) {
             showSuccessCallback();
             adapter.setData(list);
@@ -216,5 +214,4 @@ public abstract class BaseTitleActivity extends BaseActivity {
             }
         }
     }
-
 }

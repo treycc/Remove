@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.jdp.hls.i.ILvSetData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
  * 创建时间：2016/3/24 9:13
  * 修改备注：
  */
-public abstract class BaseLvAdapter<T> extends BaseAdapter {
+public abstract class BaseLvAdapter<T> extends BaseAdapter implements ILvSetData<T> {
     protected static final String TAG = "PhotoPreviewAdapter";
     protected Context context;
     protected List<T> list;
@@ -26,6 +28,7 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter {
         this.list = (list == null ? new ArrayList<>() : list);
     }
 
+    @Override
     public void setData(List<T> list) {
         this.list = list == null ? new ArrayList<>() : list;
         selectPosition = -1;
@@ -86,6 +89,7 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter {
         list.remove(position);
         this.notifyDataSetChanged();
     }
+
     public void removeItem(T item) {
         list.remove(item);
         this.notifyDataSetChanged();

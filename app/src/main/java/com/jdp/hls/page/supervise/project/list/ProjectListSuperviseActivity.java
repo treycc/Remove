@@ -5,11 +5,14 @@ import android.widget.AdapterView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.CommonAdapter;
+import com.jdp.hls.adapter.ProjectSuperviseAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ProjectSupervise;
+import com.jdp.hls.model.entiy.ProjectSuperviseInfo;
 import com.jdp.hls.page.supervise.project.detail.ProjectDetailSuperviseActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.view.PullToBottomListView;
@@ -17,6 +20,8 @@ import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnItemClick;
@@ -27,15 +32,18 @@ import butterknife.OnItemClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ProjectListSuperviseActivity extends BaseTitleActivity {
+public class ProjectListSuperviseActivity extends BaseTitleActivity implements ProjectListSuperviseContract.View {
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.rsrl)
     RefreshSwipeRefreshLayout rsrl;
-    private CommonAdapter<ProjectSupervise> adapter;
+    private ProjectSuperviseAdapter adapter;
+    @Inject
+    ProjectListSupervisePresenter projectListSupervisePresenter;
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        ProjectSupervise projectSupervise = (ProjectSupervise) adapterView.getItemAtPosition(position);
         GoUtil.goActivity(this, ProjectDetailSuperviseActivity.class);
     }
 
@@ -55,6 +63,7 @@ public class ProjectListSuperviseActivity extends BaseTitleActivity {
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
+        projectListSupervisePresenter.attachView(this);
     }
 
     @Override
@@ -71,22 +80,23 @@ public class ProjectListSuperviseActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        plv.setAdapter(adapter = new CommonAdapter<ProjectSupervise>(this, projectSuperviseList, R.layout
-                .item_supervise_project) {
-            @Override
-            public void convert(ViewHolder helper, ProjectSupervise item) {
-            }
-        });
-
+        plv.setAdapter(adapter = new ProjectSuperviseAdapter(this, null));
+        rsrl.stepRefresh(this);
     }
 
     @Override
     public void initNet() {
+        projectListSupervisePresenter.getProjectSuperviseList(Constants.PAGE_SIZE_100, Constants.PAGE_FIRST, 0);
         projectSuperviseList.add(new ProjectSupervise());
         projectSuperviseList.add(new ProjectSupervise());
         projectSuperviseList.add(new ProjectSupervise());
         projectSuperviseList.add(new ProjectSupervise());
         adapter.setData(projectSuperviseList);
+    }
 
+    @Override
+    public void onGetProjectSuperviseListSuccess(ProjectSuperviseInfo projectSuperviseInfo) {
+        //TODO 分页
+        setListView(projectSuperviseInfo.getResultList(), adapter);
     }
 }

@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="18dp"
                     android:text="总已丈量户数：30户"
-                    android:textColor="#fc9faa"
+                    android:textColor="@color/pink"
                     android:textSize="12sp"/>
 
                 <View
@@ -70,6 +70,11 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_6"/>
-        <!--图标-->
+        <!--折线图-->
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_height="195dp"
+            />
     </LinearLayout>
 </ScrollView>

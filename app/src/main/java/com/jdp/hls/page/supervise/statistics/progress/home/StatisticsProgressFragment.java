@@ -3,39 +3,32 @@ package com.jdp.hls.page.supervise.statistics.progress.home;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.CommonAdapter;
-import com.jdp.hls.adapter.CommonPositionAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.BusinessAction;
-import com.jdp.hls.model.entiy.Statistics;
 import com.jdp.hls.model.entiy.StatisticsProgressItem;
-import com.jdp.hls.page.statistics.StatisticsActivity;
 import com.jdp.hls.page.supervise.statistics.progress.detail.StatisticsProgressDetailActivity;
 import com.jdp.hls.util.AppUtil;
 import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.view.FixedGridView;
 import com.jdp.hls.view.FixedListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 
@@ -51,14 +44,12 @@ public class StatisticsProgressFragment extends BaseFragment {
     FixedListView flv;
     @BindView(R.id.chart_pie)
     PieChart chartPie;
-    @BindView(R.id.gv)
-    FixedGridView gv;
-    Unbinder unbinder;
     private int buildingType;
     public static final int PADDING_TOP_DOWN = 5;
     public static final int PADDING_LEFT_RIGHT = 10;
     private int[] colorAttr = {R.color.pink, R.color.main};
-    private int[] backgroundAttr = {R.drawable.shape_circle_pink, R.drawable.shape_circle_blue};
+    private List<StatisticsProgressItem> statisticsProgressList = new ArrayList<>();
+    private CommonAdapter<StatisticsProgressItem> adapter;
 
     public static StatisticsProgressFragment newInstance(int buildingType) {
         StatisticsProgressFragment fragment = new StatisticsProgressFragment();
@@ -93,13 +84,6 @@ public class StatisticsProgressFragment extends BaseFragment {
 
     }
 
-    private List<StatisticsProgressItem> statisticsProgressList = new ArrayList<>();
-
-    private CommonAdapter<StatisticsProgressItem> adapter;
-
-    private CommonPositionAdapter commonPositionAdapter;
-    private List<Statistics> statisticsList = new ArrayList<>();
-
     @Override
     protected void initData() {
         initchart();
@@ -109,24 +93,13 @@ public class StatisticsProgressFragment extends BaseFragment {
             public void convert(ViewHolder helper, StatisticsProgressItem item) {
             }
         });
-        statisticsList.add(new Statistics("总签约户数", 450));
-        statisticsList.add(new Statistics("总未签约户数", 750));
-        gv.setAdapter(commonPositionAdapter = new CommonPositionAdapter<Statistics>(getActivity(),
-                statisticsList, R.layout.item_piechat) {
-            @Override
-            public void convert(ViewHolder helper, Statistics item, int position) {
-                helper.setBackgroundResource(R.id.iv_circle, backgroundAttr[position]);
-                helper.setText(R.id.tv_desText, item.getName() + ":" + item.getQuantity() + "户");
-                helper.setTextColor(R.id.tv_desText, ContextCompat.getColor(getActivity(), colorAttr[position]));
-            }
-        });
     }
 
     @Override
     public void initNet() {
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry((float) 450, "总签约户数"));
-        entries.add(new PieEntry((float) 750, "总未签约户数"));
+        entries.add(new PieEntry((float) 450, "总签约户数:" + 450 + "户"));
+        entries.add(new PieEntry((float) 750, "总未签约户数:" + 750 + "户"));
         setData(entries);
 
         statisticsProgressList.add(new StatisticsProgressItem());
@@ -195,36 +168,18 @@ public class StatisticsProgressFragment extends BaseFragment {
         chartPie.setDrawHoleEnabled(true);
         chartPie.setHoleRadius(66);
         chartPie.setTransparentCircleAlpha(0);//中间透明圈颜色
-        chartPie.getLegend().setEnabled(false);//是否显示说明文字，带色块
-        //说明文字，带色块
-//        Legend l = chartPie.getLegend();
-//        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-//        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-//        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-//        //数据块水平
-//        l.setXEntrySpace(2f);
-//        //数据块垂直间距
-//        l.setYEntrySpace(0f);
-//        l.setYOffset(0f);
-//        l.setXOffset(2f);
-//        l.setTextSize(12);
-//        //绘制在图标外
-//        l.setDrawInside(false);
-//        //显示说明文字
-//        l.setEnabled(false);
+
+        Legend legend = chartPie.getLegend();//图例
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);//垂直对齐方式
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);//水平对齐方式
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);//图例布局方向
+//        legend.setYOffset(-10);
+        legend.setForm(Legend.LegendForm.CIRCLE);//图标形状
+        legend.setXEntrySpace(18f);//水平间距
+        legend.setTextSize(12);//图例文字大小
+        legend.setTextColor(ContextCompat.getColor(getActivity(), R.color.c_6));
+        legend.setDrawInside(true);//绘制在图标外
+        legend.setEnabled(true);//是否显示图例
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 }

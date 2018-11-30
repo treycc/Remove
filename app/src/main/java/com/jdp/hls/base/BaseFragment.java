@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.adapter.BaseSearchAdapter;
 import com.jdp.hls.callback.EmptyCallback;
 import com.jdp.hls.callback.ErrorCallback;
 import com.jdp.hls.callback.ErrorMessageCallback;
 import com.jdp.hls.callback.LoadingCallback;
+import com.jdp.hls.i.ILvSetData;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.rx.RxRe;
 import com.jdp.hls.util.LogUtil;
@@ -26,6 +28,8 @@ import com.kingja.loadsir.core.LoadSir;
 import com.kingja.loadsir.core.Transport;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -198,6 +202,29 @@ public abstract class BaseFragment extends Fragment implements BaseView, DialogI
     @Override
     public void onDismiss(DialogInterface dialog) {
         RxRe.getInstance().cancle(this);
+    }
+
+    protected <T> void setListView(List<T> list, ILvSetData<T> adapter) {
+        if (list != null && list.size() > 0) {
+            showSuccessCallback();
+            adapter.setData(list);
+        } else {
+            showEmptyCallback();
+        }
+    }
+
+    protected <T> void setSearchListView(List<T> list, BaseSearchAdapter<T> adapter, String keyword) {
+        if (list != null && list.size() > 0) {
+            if (ifRegisterLoadSir()) {
+                showSuccessCallback();
+            }
+            adapter.setData(list);
+            adapter.onSearch(keyword);
+        } else {
+            if (ifRegisterLoadSir()) {
+                showEmptyCallback();
+            }
+        }
     }
 
 }

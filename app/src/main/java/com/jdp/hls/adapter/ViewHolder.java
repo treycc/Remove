@@ -2,6 +2,7 @@ package com.jdp.hls.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +58,7 @@ public class ViewHolder {
 
     public ViewHolder setText(int viewId, String text) {
         TextView view = getView(viewId);
-        view.setText(text);
+        view.setText(null == text ? "" : text);
         return this;
     }
 
@@ -111,11 +112,13 @@ public class ViewHolder {
         ImageLoader.getInstance().loadImage(mContext, url, view);
         return this;
     }
-    public ViewHolder setRoundImageByUrl(int viewId, String url,int connerWidth) {
+
+    public ViewHolder setRoundImageByUrl(int viewId, String url, int connerWidth) {
         ImageView view = getView(viewId);
-        ImageLoader.getInstance().loadRoundImage(mContext, url, R.drawable.ic_placeholder, view,connerWidth);
+        ImageLoader.getInstance().loadRoundImage(mContext, url, R.drawable.ic_placeholder, view, connerWidth);
         return this;
     }
+
     public ViewHolder setCircleByUrl(int viewId, String url) {
         ImageView view = getView(viewId);
         ImageLoader.getInstance().loadCircleImage(mContext, url, R.drawable.ic_placeholder, view);

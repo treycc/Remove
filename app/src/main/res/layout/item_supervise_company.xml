@@ -6,11 +6,13 @@
               android:paddingBottom="6dp"
               android:paddingTop="6dp">
 
-    <TextView
+    <com.jdp.hls.view.StringTextView
+        android:id="@+id/tv_companyTypeName"
         style="@style/Title_Sub"
-        android:text="项目名称"/>
+        android:text="测绘公司"/>
 
     <com.jdp.hls.view.StringTextView
+        android:id="@+id/tv_companyName"
         style="@style/Content_ET_W2"
-        android:text="鹿城拆迁项目"/>
+        android:text="XX测绘公司"/>
 </LinearLayout>

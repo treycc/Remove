@@ -18,14 +18,16 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <TextView
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_projectName"
             style="@style/font_3_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="鹿城拆迁项目"/>
 
-        <TextView
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_address"
             style="@style/font_9_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +43,8 @@
         app:super_strokeColor="@color/main"
         app:super_strokeWidth="1dp">
 
-        <TextView
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_percentDesc"
             style="@style/font_main_12"
             android:layout_width="match_parent"
             android:layout_height="20dp"
@@ -49,6 +52,7 @@
             android:text="60%"/>
 
         <com.kingja.supershapeview.view.SuperShapeTextView
+            android:id="@+id/tv_totalQuantity"
             style="@style/font_f_12"
             android:layout_width="match_parent"
             android:layout_height="20dp"

@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.jdp.hls.i.ILvSetData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +17,8 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public abstract class CommonAdapter<T> extends BaseAdapter {
-    protected  final String TAG = getClass().getSimpleName();
+public abstract class CommonAdapter<T> extends BaseAdapter implements ILvSetData<T> {
+    protected final String TAG = getClass().getSimpleName();
     protected LayoutInflater mInflater;
     protected Context mContext;
     protected List<T> mDatas;
@@ -25,7 +27,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     public CommonAdapter(Context context, List<T> datas, int itemLayoutId) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext);
-        this.mDatas = (datas==null?new ArrayList<>():datas);
+        this.mDatas = (datas == null ? new ArrayList<>() : datas);
         this.mItemLayoutId = itemLayoutId;
     }
 
@@ -35,6 +37,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         this.mDatas = datas;
         this.mItemLayoutId = getItemLayoutId();
     }
+
     public List<T> getData() {
         return mDatas;
     }
@@ -76,12 +79,17 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
                 position);
     }
 
+    @Override
     public void setData(List<T> list) {
-        this.mDatas = list;
+        this.mDatas = (list==null?new ArrayList<>():list);
         notifyDataSetChanged();
     }
+
     public void addData(T data) {
-        this.mDatas.add(0,data);
+        if (data == null) {
+            return;
+        }
+        this.mDatas.add(0, data);
         notifyDataSetChanged();
     }
 

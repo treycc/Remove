@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jdp.hls.view.FixedListView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_hi"
+    android:divider="@color/div_hi"
+    android:dividerHeight="1px"
+    android:listSelector="@android:color/transparent"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    tools:listitem="@layout/item_statistics_total"/>

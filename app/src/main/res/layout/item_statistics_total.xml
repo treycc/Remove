@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="6dp"
+    android:paddingTop="6dp">
+
+    <TextView
+        android:id="@+id/tv_key"
+        style="@style/Title_Sub"
+        android:text="项目名称"/>
+
+    <com.jdp.hls.view.StringTextView
+        android:id="@+id/tv_value"
+        style="@style/Content_ET_W1_3"
+        android:text="XX有限公司"/>
+</LinearLayout>
+
+

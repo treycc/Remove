@@ -1,5 +1,8 @@
 package com.jdp.hls.page.supervise.project.detail;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -8,18 +11,23 @@ import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.CompanySupervise;
+import com.jdp.hls.model.entiy.ProjectSuperviseDetail;
 import com.jdp.hls.page.supervise.statistics.progress.home.StatisticsProgressActivity;
-import com.jdp.hls.page.supervise.statistics.table.StatisticsTableActivity;
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.view.FixedListView;
+import com.jdp.hls.view.StringTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -28,7 +36,7 @@ import butterknife.OnClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ProjectDetailSuperviseActivity extends BaseTitleActivity {
+public class ProjectDetailSuperviseActivity extends BaseTitleActivity implements ProjectDetailSuperviseContract.View {
     @BindView(R.id.rl_statistics_progress)
     RelativeLayout rlStatisticsProgress;
     @BindView(R.id.rl_statistics_total)
@@ -37,8 +45,15 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity {
     RelativeLayout rlStatisticsTable;
     @BindView(R.id.flv)
     FixedListView flv;
+    @BindView(R.id.tv_projectName)
+    StringTextView tvProjectName;
+    @BindView(R.id.tv_address)
+    StringTextView tvAddress;
     private List<CompanySupervise> companySuperviseList = new ArrayList<>();
     private CommonAdapter<CompanySupervise> adapter;
+    @Inject
+    ProjectDetailSupervisePresenter projectDetailSupervisePresenter;
+    private String projectId;
 
     @OnClick({R.id.rl_statistics_progress, R.id.rl_statistics_total, R.id.rl_statistics_table})
     public void click(View view) {
@@ -57,7 +72,7 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity {
 
     @Override
     public void initVariable() {
-
+        projectId = getIntent().getStringExtra(Constants.Extra.PROJECTID);
     }
 
     @Override
@@ -71,6 +86,7 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity {
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
+        projectDetailSupervisePresenter.attachView(this);
     }
 
     @Override
@@ -90,18 +106,32 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity {
                 .item_supervise_company) {
             @Override
             public void convert(ViewHolder helper, CompanySupervise item) {
+                helper.setText(R.id.tv_companyTypeName, item.getCompanyTypeName());
+                helper.setText(R.id.tv_companyName, item.getCompanyName());
             }
         });
-
     }
 
     @Override
     public void initNet() {
-        companySuperviseList.add(new CompanySupervise());
-        companySuperviseList.add(new CompanySupervise());
-        companySuperviseList.add(new CompanySupervise());
-        companySuperviseList.add(new CompanySupervise());
-        adapter.setData(companySuperviseList);
+        projectDetailSupervisePresenter.getProjectSuperviseDetail(projectId);
     }
 
+    @Override
+    public void onGetProjectSuperviseDetailSuccess(ProjectSuperviseDetail projectSuperviseDetail) {
+        tvProjectName.setString(projectSuperviseDetail.getProjectName());
+        tvAddress.setString(projectSuperviseDetail.getAddress());
+        adapter.setData(projectSuperviseDetail.getLstProjectCompany());
+    }
+
+    public static void goActivity(Context context, String projectId) {
+        Intent intent = new Intent(context, ProjectDetailSuperviseActivity.class);
+        intent.putExtra(Constants.Extra.PROJECTID, projectId);
+        context.startActivity(intent);
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
+    }
 }
