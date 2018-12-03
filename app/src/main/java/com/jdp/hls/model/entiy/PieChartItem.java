@@ -11,7 +11,7 @@ public class PieChartItem {
     private int Quantity;
 
     public String getName() {
-        return Name;
+        return null == Name ? "" : Name;
     }
 
     public void setName(String name) {

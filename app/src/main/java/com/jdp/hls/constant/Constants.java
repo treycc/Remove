@@ -80,6 +80,10 @@ public class Constants {
     }
 
     public interface Extra {
+        String ItemType = "itemType";
+        String DateType = "dateType";
+        String BeginDate = "beginDate";
+        String EndDate = "endDate";
         String Member = "Member";
         String Companies = "Companies";
         String ConfigCompany = "ConfigCompany";

@@ -14,7 +14,7 @@ public class UserInfo {
     private String RealName;
     private String HeadUrl;
     private String MobilePhone;
-    private int AccountName;
+    private long AccountName;
     private String AccountType;
     private String AccountAlias;
     private boolean IsOperatorAccount;
@@ -83,11 +83,11 @@ public class UserInfo {
         this.MobilePhone = MobilePhone;
     }
 
-    public int getAccountName() {
+    public long getAccountName() {
         return AccountName;
     }
 
-    public void setAccountName(int AccountName) {
+    public void setAccountName(long AccountName) {
         this.AccountName = AccountName;
     }
 

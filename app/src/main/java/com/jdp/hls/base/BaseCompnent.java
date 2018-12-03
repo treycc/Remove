@@ -88,8 +88,9 @@ import com.jdp.hls.page.statistics.StatisticsActivity;
 import com.jdp.hls.page.suggest.SuggestActivity;
 import com.jdp.hls.page.supervise.project.detail.ProjectDetailSuperviseActivity;
 import com.jdp.hls.page.supervise.project.list.ProjectListSuperviseActivity;
-import com.jdp.hls.page.supervise.statistics.progress.detail.StatisticsProgressDetailActivity;
-import com.jdp.hls.page.supervise.statistics.progress.home.StatisticsProgressFragment;
+import com.jdp.hls.page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity;
+import com.jdp.hls.page.supervise.statistics.progress.detail.linechart.StatisticsProgressLineFragment;
+import com.jdp.hls.page.supervise.statistics.progress.progress.StatisticsProgressInfoFragment;
 import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportListDayActivity;
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalFragment;
 import com.jdp.hls.page.table.list.TableListActivity;
@@ -101,9 +102,11 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(StatisticsProgressLineFragment target);
+
     void inject(StatisticsTotalFragment target);
 
-    void inject(StatisticsProgressFragment target);
+    void inject(StatisticsProgressInfoFragment target);
 
     void inject(ReportListDayActivity target);
 

@@ -26,6 +26,30 @@ public class ProgressItem {
     private String IconUrl;
     private int Sort;
 
+    public int getItemType() {
+        return ItemType;
+    }
+
+    public void setItemType(int itemType) {
+        ItemType = itemType;
+    }
+
+    public String getItemTypeName() {
+        return null == ItemTypeName ? "" : ItemTypeName;
+    }
+
+    public void setItemTypeName(String itemTypeName) {
+        ItemTypeName = itemTypeName;
+    }
+
+    public int getTotalQuantity() {
+        return TotalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        TotalQuantity = totalQuantity;
+    }
+
     public int getQuantity() {
         return Quantity;
     }
@@ -34,51 +58,27 @@ public class ProgressItem {
         Quantity = quantity;
     }
 
-    public int getItemType() {
-        return ItemType;
-    }
-
-    public void setItemType(int ItemType) {
-        this.ItemType = ItemType;
-    }
-
-    public String getItemTypeName() {
-        return ItemTypeName;
-    }
-
-    public void setItemTypeName(String ItemTypeName) {
-        this.ItemTypeName = ItemTypeName;
-    }
-
-    public int getTotalQuantity() {
-        return TotalQuantity;
-    }
-
-    public void setTotalQuantity(int TotalQuantity) {
-        this.TotalQuantity = TotalQuantity;
-    }
-
     public String getPercentDesc() {
-        return PercentDesc;
+        return null == PercentDesc ? "" : PercentDesc;
     }
 
-    public void setPercentDesc(String PercentDesc) {
-        this.PercentDesc = PercentDesc;
+    public void setPercentDesc(String percentDesc) {
+        PercentDesc = percentDesc;
     }
 
     public String getIconUrl() {
-        return IconUrl;
+        return null == IconUrl ? "" : IconUrl;
     }
 
-    public void setIconUrl(String IconUrl) {
-        this.IconUrl = IconUrl;
+    public void setIconUrl(String iconUrl) {
+        IconUrl = iconUrl;
     }
 
     public int getSort() {
         return Sort;
     }
 
-    public void setSort(int Sort) {
-        this.Sort = Sort;
+    public void setSort(int sort) {
+        Sort = sort;
     }
 }

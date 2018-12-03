@@ -9,31 +9,41 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class StatisticsProgressInfo {
-//    {
-//        "BuildingType": "integer,0：个人，1：企业",
-//            "Series": [
-//        {
-//            "Name": "string,名称（如：总已拆迁户数：450户）",
-//                "Quantity": "integer,数量"
-//        }
-//    ],
-//        "Ratio": "string,总签约比例（如：总签约比例37.50%）",
-//            "TotalQuantity": "integer,预计总数量(如：1000)",
-//            "ProgressItems": [
-//        {
-//            "ItemType": "integer,子项类别",
-//                "ItemTypeName": "string,子项类别名称",
-//                "TotalQuantity": "integer,总数量",
-//                "Percent": "decimal,占比,完成百分比（数值）",
-//                "PercentDesc": "string,占比，完成百分比（文字）",
-//                "IconUrl": "string,图片URL",
-//                "Sort": "integer,排序"
-//        }
-//    ]
-//    }
 
     private List<PieChartItem> Series;
     private List<ProgressItem> ProgressItems;
     private int TotalQuantity;
     private int BuildingType;
+
+    public List<PieChartItem> getSeries() {
+        return Series;
+    }
+
+    public void setSeries(List<PieChartItem> series) {
+        Series = series;
+    }
+
+    public List<ProgressItem> getProgressItems() {
+        return ProgressItems;
+    }
+
+    public void setProgressItems(List<ProgressItem> progressItems) {
+        ProgressItems = progressItems;
+    }
+
+    public int getTotalQuantity() {
+        return TotalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        TotalQuantity = totalQuantity;
+    }
+
+    public int getBuildingType() {
+        return BuildingType;
+    }
+
+    public void setBuildingType(int buildingType) {
+        BuildingType = buildingType;
+    }
 }

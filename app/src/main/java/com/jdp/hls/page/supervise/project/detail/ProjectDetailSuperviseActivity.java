@@ -2,7 +2,6 @@ package com.jdp.hls.page.supervise.project.detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -15,7 +14,7 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.CompanySupervise;
 import com.jdp.hls.model.entiy.ProjectSuperviseDetail;
-import com.jdp.hls.page.supervise.statistics.progress.home.StatisticsProgressActivity;
+import com.jdp.hls.page.supervise.statistics.progress.progress.StatisticsProgressInfoActivity;
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.view.FixedListView;
@@ -27,7 +26,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -59,7 +57,7 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity implements
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_statistics_progress:
-                GoUtil.goActivity(this, StatisticsProgressActivity.class);
+                GoUtil.goActivity(this, StatisticsProgressInfoActivity.class);
                 break;
             case R.id.rl_statistics_total:
                 GoUtil.goActivity(this, StatisticsTotalActivity.class);

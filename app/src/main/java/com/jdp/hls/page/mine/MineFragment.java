@@ -103,7 +103,7 @@ public class MineFragment extends BaseFragment implements MineContract.View {
                 callPhone(tvMineService.getText().toString().trim());
                 break;
             case R.id.ll_personal_head:
-                MatisseUtil.openCameraInFragment(this,Constants.SINGLE_IMG_UPLOAD_COUNT);
+                MatisseUtil.openCameraInFragment(this, Constants.SINGLE_IMG_UPLOAD_COUNT);
                 break;
             default:
                 break;
@@ -141,17 +141,18 @@ public class MineFragment extends BaseFragment implements MineContract.View {
                     break;
                 default:
                     break;
-
             }
         }
 
     }
+
     private void uploadHeadImg(Uri uri) {
         File headImgFile = FileUtil.getFileByUri(uri, getActivity());
         RequestBody body = RequestBody.create(MediaType.parse("image/jpg"), headImgFile);
         MultipartBody.Part photoPart = MultipartBody.Part.createFormData("file", headImgFile.getName(), body);
         minePresenter.uploadHeadImg(photoPart);
     }
+
     public static MineFragment newInstance() {
         MineFragment fragment = new MineFragment();
         Bundle args = new Bundle();

@@ -34,7 +34,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <!--.page.login.LoginActivity-->
         <activity
-            android:name=".page.login.LoginActivity"
+            android:name=".page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -370,10 +370,10 @@
         <activity android:name=".page.admin.group.list.GroupListActivity"/>
         <activity android:name=".page.supervise.project.list.ProjectListSuperviseActivity"/>
         <activity android:name=".page.supervise.project.detail.ProjectDetailSuperviseActivity"/>
-        <activity android:name=".page.supervise.statistics.progress.home.StatisticsProgressActivity"/>
+        <activity android:name=".page.supervise.statistics.progress.progress.StatisticsProgressInfoActivity"/>
         <activity android:name=".page.supervise.statistics.total.StatisticsTotalActivity"/>
         <activity android:name=".page.supervise.statistics.table.StatisticsTableActivity"/>
-        <activity android:name=".page.supervise.statistics.progress.detail.StatisticsProgressDetailActivity"/>
+        <!--<activity android:name=".page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity"/>-->
         <activity android:name=".page.supervise.statistics.progress.report.daylist.ReportListDayActivity"/>
 
         <!--<activity-->

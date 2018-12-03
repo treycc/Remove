@@ -1,0 +1,117 @@
+package com.jdp.hls.page.supervise.statistics.progress.detail.head;
+
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+
+import com.jdp.hls.R;
+import com.jdp.hls.adapter.LineChartPageAdapter;
+import com.jdp.hls.adapter.RosterPageAdapter;
+import com.jdp.hls.base.BaseFragment;
+import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.StatisticsProgressDetail;
+import com.jdp.hls.page.rosterlist.RosterListFragment;
+import com.jdp.hls.page.supervise.statistics.progress.detail.linechart.StatisticsProgressLineFragment;
+import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportListDayActivity;
+import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.view.StringTextView;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * Description:TODO
+ * Create Time:2018/11/28 0028 上午 8:49
+ * Author:KingJA
+ * Email:kingjavip@gmail.com
+ */
+public class StatisticsProgressDetailActivity extends BaseTitleActivity implements StatisticsProgressDetailContract
+        .View {
+    @Inject
+    StatisticsProgressDetailPresenter statisticsProgressDetailPresenter;
+    @BindView(R.id.tv_quantityFinished)
+    StringTextView tvQuantityFinished;
+    @BindView(R.id.tv_quantityUnfinished)
+    StringTextView tvQuantityUnfinished;
+    @BindView(R.id.tv_ratio)
+    StringTextView tvRatio;
+    @BindView(R.id.tv_ratioName)
+    StringTextView tvRatioName;
+    @BindView(R.id.tab)
+    TabLayout tab;
+    @BindView(R.id.vp)
+    ViewPager vp;
+
+    private int[] tabImgs = {R.drawable.selector_tab_statistics_day, R.drawable.selector_tab_statistics_week, R
+            .drawable.selector_tab_statistics_month, R.drawable.selector_tab_statistics_date};
+    private BaseFragment mFragmentArr[] = new BaseFragment[4];
+
+    @Override
+    public void initVariable() {
+
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_statistics_progress_detail;
+    }
+
+    @Override
+    protected void initComponent(AppComponent appComponent) {
+        DaggerBaseCompnent.builder()
+                .appComponent(appComponent)
+                .build()
+                .inject(this);
+        statisticsProgressDetailPresenter.attachView(this);
+    }
+
+    @Override
+    protected String getContentTitle() {
+        return "统计详情";
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+        setRightClick("查看报表", new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                GoUtil.goActivity(StatisticsProgressDetailActivity.this, ReportListDayActivity.class);
+            }
+        });
+
+        mFragmentArr[0] = StatisticsProgressLineFragment.newInstance(0, 0, "", "");
+        mFragmentArr[1] = StatisticsProgressLineFragment.newInstance(0, 0, "", "");
+        mFragmentArr[2] = StatisticsProgressLineFragment.newInstance(0, 0, "", "");
+        mFragmentArr[3] = StatisticsProgressLineFragment.newInstance(0, 0, "", "");
+        LineChartPageAdapter lineChartPageAdapter = new LineChartPageAdapter(this, mFragmentArr, tabImgs);
+        vp.setAdapter(lineChartPageAdapter);
+        vp.setOffscreenPageLimit(4);
+        tab.setupWithViewPager(vp);
+        for (int i = 0; i < tab.getTabCount(); i++) {
+            TabLayout.Tab t = tab.getTabAt(i);
+            t.setCustomView(lineChartPageAdapter.getTabView(i));
+        }
+
+    }
+
+    @Override
+    public void initNet() {
+
+    }
+
+    @Override
+    public void onGetStatisticsProgressDetailSuccess(StatisticsProgressDetail statisticsProgressDetail) {
+
+    }
+}

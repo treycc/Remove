@@ -4,9 +4,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ProjectSuperviseAdapter;
-import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
@@ -14,12 +12,8 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ProjectSupervise;
 import com.jdp.hls.model.entiy.ProjectSuperviseInfo;
 import com.jdp.hls.page.supervise.project.detail.ProjectDetailSuperviseActivity;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -44,7 +38,7 @@ public class ProjectListSuperviseActivity extends BaseTitleActivity implements P
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         ProjectSupervise projectSupervise = (ProjectSupervise) adapterView.getItemAtPosition(position);
-        GoUtil.goActivity(this, ProjectDetailSuperviseActivity.class);
+        ProjectDetailSuperviseActivity.goActivity(this,projectSupervise.getProjectId());
     }
 
     @Override
@@ -75,9 +69,6 @@ public class ProjectListSuperviseActivity extends BaseTitleActivity implements P
     protected void initView() {
 
     }
-
-    private List<ProjectSupervise> projectSuperviseList = new ArrayList<>();
-
     @Override
     protected void initData() {
         plv.setAdapter(adapter = new ProjectSuperviseAdapter(this, null));
@@ -87,11 +78,6 @@ public class ProjectListSuperviseActivity extends BaseTitleActivity implements P
     @Override
     public void initNet() {
         projectListSupervisePresenter.getProjectSuperviseList(Constants.PAGE_SIZE_100, Constants.PAGE_FIRST, 0);
-        projectSuperviseList.add(new ProjectSupervise());
-        projectSuperviseList.add(new ProjectSupervise());
-        projectSuperviseList.add(new ProjectSupervise());
-        projectSuperviseList.add(new ProjectSupervise());
-        adapter.setData(projectSuperviseList);
     }
 
     @Override

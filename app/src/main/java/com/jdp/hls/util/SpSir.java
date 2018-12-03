@@ -104,12 +104,12 @@ public class SpSir {
         putString(MobilePhone, mobilePhone);
     }
 
-    public int getAccountName() {
-        return getInt(AccountName);
+    public long getAccountName() {
+        return getLong(AccountName);
     }
 
-    public void setAccountName(int accountName) {
-        putInt(AccountName, accountName);
+    public void setAccountName(long accountName) {
+        putLong(AccountName, accountName);
     }
 
     public String getAccountAlias() {
@@ -259,6 +259,9 @@ public class SpSir {
     private int getInt(String key) {
         return mSp.getInt(key, ZERO_INT);
     }
+    private long getLong(String key) {
+        return mSp.getLong(key, 0L);
+    }
 
     private int getInt(String key, int defaultValue) {
         return mSp.getInt(key, defaultValue);
@@ -266,6 +269,9 @@ public class SpSir {
 
     private void putInt(String key, int value) {
         mSp.edit().putInt(key, value).apply();
+    }
+    private void putLong(String key, long value) {
+        mSp.edit().putLong(key, value).apply();
     }
 
     private boolean getBoolean(String key, boolean defaultValue) {

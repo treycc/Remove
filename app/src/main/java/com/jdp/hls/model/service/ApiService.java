@@ -14,6 +14,7 @@ import com.jdp.hls.model.entiy.EmployeeDetail;
 import com.jdp.hls.model.entiy.Group;
 import com.jdp.hls.model.entiy.GroupDetail;
 import com.jdp.hls.model.entiy.KeyValue;
+import com.jdp.hls.model.entiy.LineChartItem;
 import com.jdp.hls.model.entiy.ModuleDetail;
 import com.jdp.hls.model.entiy.NodeCompanyHouseEvaluate;
 import com.jdp.hls.model.entiy.NodeCompanyMoneyEvaluate;
@@ -60,6 +61,7 @@ import com.jdp.hls.model.entiy.ReceivePerson;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.StatisticsDetail;
+import com.jdp.hls.model.entiy.StatisticsProgressDetail;
 import com.jdp.hls.model.entiy.StatisticsProgressInfo;
 import com.jdp.hls.model.entiy.Table;
 import com.jdp.hls.model.entiy.TaskInfo;
@@ -711,8 +713,24 @@ public interface ApiService {
     Observable<HttpResult<List<KeyValue>>> getStatisticsTotal(@Query("ProjectId") String projectId,
                                                               @Query("BuildingType") int buildingType);
 
-    /*进度统计(监管系统)*/
+    /*进度统计-主页(监管系统)*/
     @GET("api/supervise/GetProgressStatistics")
     Observable<HttpResult<StatisticsProgressInfo>> getStatisticsProgress(@Query("ProjectId") String projectId,
                                                                          @Query("BuildingType") int buildingType);
+
+    /*进度统计-详情(监管系统)*/
+    @GET("api/supervise/GetProgressDetail")
+    Observable<HttpResult<StatisticsProgressDetail>> getStatisticsProgressDetail(@Query("ItemType") int itemType);
+
+    /*进度统计-折线图(监管系统)*/
+    @GET("api/supervise/GetStatisticChart")
+    Observable<HttpResult<List<LineChartItem>>> getLineChart(@Query("ItemType") int itemType, @Query
+            ("DateType") int dateType, @Query("BeginDate") String beginDate, @Query("EndDate") String endDate);
+
+    /*一览表(监管系统)*/
+    @GET("api/supervise/GetBuildingList")
+    Observable<HttpResult<List<Table>>> getTableList(@Query("ProjectId") String projectId, @Query
+            ("BuildingType") int buildingType);
+
+
 }

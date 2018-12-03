@@ -3,6 +3,7 @@ package com.jdp.hls.page.supervise.project.list;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ProjectSuperviseInfo;
 import com.jdp.hls.model.entiy.ResultObserver;
 
@@ -31,7 +32,7 @@ public class ProjectListSupervisePresenter implements ProjectListSuperviseContra
     public void getProjectSuperviseList(int pageSize, int pageIndex, int orderBy) {
         mApi.getApiService().getProjectSuperviseList(pageSize, pageIndex, orderBy).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<ProjectSuperviseInfo>(mView) {
+                (new LoadSirObserver<ProjectSuperviseInfo>(mView) {
                     @Override
                     protected void onSuccess(ProjectSuperviseInfo projectSuperviseInfo) {
                         mView.onGetProjectSuperviseListSuccess(projectSuperviseInfo);

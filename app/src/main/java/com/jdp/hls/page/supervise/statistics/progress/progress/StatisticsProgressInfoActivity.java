@@ -1,4 +1,4 @@
-package com.jdp.hls.page.supervise.statistics.progress.home;
+package com.jdp.hls.page.supervise.statistics.progress.progress;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,7 +17,7 @@ import butterknife.BindView;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class StatisticsProgressActivity extends BaseTitleActivity {
+public class StatisticsProgressInfoActivity extends BaseTitleActivity {
     @BindView(R.id.tab)
     TabLayout tab;
     @BindView(R.id.vp)
@@ -55,8 +55,8 @@ public class StatisticsProgressActivity extends BaseTitleActivity {
         for (int i = 0; i < tabNames.length; i++) {
             tab.addTab(tab.newTab().setText(tabNames[i]));
         }
-        fragments[0] = StatisticsProgressFragment.newInstance(0);
-        fragments[1] = StatisticsProgressFragment.newInstance(1);
+        fragments[0] = StatisticsProgressInfoFragment.newInstance(0);
+        fragments[1] = StatisticsProgressInfoFragment.newInstance(1);
         CommonFragmentAdapter fragmentAdapter = new CommonFragmentAdapter(this, fragments, tabNames);
         vp.setAdapter(fragmentAdapter);
         tab.setupWithViewPager(vp);

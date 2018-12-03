@@ -1,4 +1,4 @@
-package com.jdp.hls.page.supervise.statistics.progress.home;
+package com.jdp.hls.page.supervise.statistics.progress.progress;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,8 +19,9 @@ import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.StatisticsProgressItem;
-import com.jdp.hls.page.supervise.statistics.progress.detail.StatisticsProgressDetailActivity;
+import com.jdp.hls.model.entiy.ProgressItem;
+import com.jdp.hls.model.entiy.StatisticsProgressInfo;
+import com.jdp.hls.page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity;
 import com.jdp.hls.util.AppUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.view.FixedListView;
@@ -28,9 +29,10 @@ import com.jdp.hls.view.FixedListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnItemClick;
-import butterknife.Unbinder;
 
 /**
  * Description:TODO
@@ -38,7 +40,7 @@ import butterknife.Unbinder;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class StatisticsProgressFragment extends BaseFragment {
+public class StatisticsProgressInfoFragment extends BaseFragment implements StatisticsProgressInfoContract.View {
 
     @BindView(R.id.flv)
     FixedListView flv;
@@ -48,11 +50,14 @@ public class StatisticsProgressFragment extends BaseFragment {
     public static final int PADDING_TOP_DOWN = 5;
     public static final int PADDING_LEFT_RIGHT = 10;
     private int[] colorAttr = {R.color.pink, R.color.main};
-    private List<StatisticsProgressItem> statisticsProgressList = new ArrayList<>();
-    private CommonAdapter<StatisticsProgressItem> adapter;
+    private List<ProgressItem> statisticsProgressList = new ArrayList<>();
+    private CommonAdapter<ProgressItem> adapter;
 
-    public static StatisticsProgressFragment newInstance(int buildingType) {
-        StatisticsProgressFragment fragment = new StatisticsProgressFragment();
+    @Inject
+    StatisticsProgressInfoPresenter statisticsProgressPresenter;
+
+    public static StatisticsProgressInfoFragment newInstance(int buildingType) {
+        StatisticsProgressInfoFragment fragment = new StatisticsProgressInfoFragment();
         Bundle args = new Bundle();
         args.putInt(Constants.Extra.BUILDING_TYPE, buildingType);
         fragment.setArguments(args);
@@ -77,6 +82,7 @@ public class StatisticsProgressFragment extends BaseFragment {
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
+        statisticsProgressPresenter.attachView(this);
     }
 
     @Override
@@ -87,10 +93,10 @@ public class StatisticsProgressFragment extends BaseFragment {
     @Override
     protected void initData() {
         initchart();
-        flv.setAdapter(adapter = new CommonAdapter<StatisticsProgressItem>(getActivity(), statisticsProgressList, R
+        flv.setAdapter(adapter = new CommonAdapter<ProgressItem>(getActivity(), statisticsProgressList, R
                 .layout.item_statistics_progress) {
             @Override
-            public void convert(ViewHolder helper, StatisticsProgressItem item) {
+            public void convert(ViewHolder helper, ProgressItem item) {
             }
         });
     }
@@ -102,14 +108,14 @@ public class StatisticsProgressFragment extends BaseFragment {
         entries.add(new PieEntry((float) 750, "总未签约户数:" + 750 + "户"));
         setData(entries);
 
-        statisticsProgressList.add(new StatisticsProgressItem());
-        statisticsProgressList.add(new StatisticsProgressItem());
-        statisticsProgressList.add(new StatisticsProgressItem());
-        statisticsProgressList.add(new StatisticsProgressItem());
-        statisticsProgressList.add(new StatisticsProgressItem());
-        statisticsProgressList.add(new StatisticsProgressItem());
-        statisticsProgressList.add(new StatisticsProgressItem());
-        statisticsProgressList.add(new StatisticsProgressItem());
+        statisticsProgressList.add(new ProgressItem());
+        statisticsProgressList.add(new ProgressItem());
+        statisticsProgressList.add(new ProgressItem());
+        statisticsProgressList.add(new ProgressItem());
+        statisticsProgressList.add(new ProgressItem());
+        statisticsProgressList.add(new ProgressItem());
+        statisticsProgressList.add(new ProgressItem());
+        statisticsProgressList.add(new ProgressItem());
         adapter.setData(statisticsProgressList);
     }
 
@@ -182,4 +188,13 @@ public class StatisticsProgressFragment extends BaseFragment {
         legend.setEnabled(true);//是否显示图例
     }
 
+    @Override
+    public void onGetStatisticsProgressSuccess(StatisticsProgressInfo statisticsProgressInfo) {
+
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
+    }
 }

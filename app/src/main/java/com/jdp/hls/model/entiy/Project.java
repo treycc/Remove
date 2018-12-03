@@ -8,13 +8,31 @@ import java.io.Serializable;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class Project implements Serializable{
+public class Project implements Serializable {
 
     private String ProjectId;
     private String ProjectName;
     private int Year;
     private String Address;
     private String RealName;
+    private int TotalQuantity;
+    private String PercentDesc;
+
+    public int getTotalQuantity() {
+        return TotalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        TotalQuantity = totalQuantity;
+    }
+
+    public String getPercentDesc() {
+        return null == PercentDesc ? "" : PercentDesc;
+    }
+
+    public void setPercentDesc(String percentDesc) {
+        PercentDesc = percentDesc;
+    }
 
     public String getRealName() {
         return RealName;
