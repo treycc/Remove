@@ -38,7 +38,7 @@ public class ProjectListSuperviseActivity extends BaseTitleActivity implements P
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         ProjectSupervise projectSupervise = (ProjectSupervise) adapterView.getItemAtPosition(position);
-        ProjectDetailSuperviseActivity.goActivity(this,projectSupervise.getProjectId());
+//        ProjectDetailSuperviseActivity.goActivity(this,projectSupervise.getProjectId());
     }
 
     @Override

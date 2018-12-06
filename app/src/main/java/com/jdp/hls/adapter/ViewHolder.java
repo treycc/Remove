@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
@@ -59,6 +60,17 @@ public class ViewHolder {
     public ViewHolder setText(int viewId, String text) {
         TextView view = getView(viewId);
         view.setText(null == text ? "" : text);
+        return this;
+    }
+
+    public ViewHolder setProgress(int viewId, int progress) {
+        ProgressBar progressBar = getView(viewId);
+        progressBar.setProgress(progress);
+        return this;
+    }
+    public ViewHolder setProgressDrawable(int viewId, int resId) {
+        ProgressBar progressBar = getView(viewId);
+        progressBar.setProgressDrawable(mContext.getResources().getDrawable(resId));
         return this;
     }
 

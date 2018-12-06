@@ -25,6 +25,7 @@ import com.jdp.hls.fragment.MessageFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.page.mine.MineFragment;
+import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
@@ -123,7 +124,6 @@ public class HomeActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-
     }
 
     @Override

@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 
 
 /**
@@ -48,6 +49,18 @@ public class ProjectsPresenter implements ProjectsContract.Presenter {
                     @Override
                     protected void onSuccess(List<Project> projects) {
                         mView.onGetProjectsSuccess(projects);
+                    }
+                });
+    }
+
+    @Override
+    public void switchProject(RequestBody requestBody,Project project) {
+        mApi.getApiService().switchProject(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onSwitchProjectSuccess(project);
                     }
                 });
     }

@@ -8,7 +8,7 @@ package com.jdp.hls.model.entiy;
  */
 public class LineChartItem {
     private String Time;
-    private int Timestamp;
+    private long Timestamp;
     private int Quantity;
 
     public String getTime() {
@@ -19,11 +19,11 @@ public class LineChartItem {
         Time = time;
     }
 
-    public int getTimestamp() {
+    public long getTimestamp() {
         return Timestamp;
     }
 
-    public void setTimestamp(int timestamp) {
+    public void setTimestamp(long timestamp) {
         Timestamp = timestamp;
     }
 

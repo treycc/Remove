@@ -15,6 +15,7 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.SwitchProjectEvent;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.modify.ModifyAndUploadActivity;
@@ -28,6 +29,10 @@ import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeImageView;
 import com.zhihu.matisse.Matisse;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.List;
@@ -163,6 +168,7 @@ public class MineFragment extends BaseFragment implements MineContract.View {
 
     @Override
     protected void initVariable() {
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             String param = getArguments().getString("param");
         }
@@ -213,5 +219,10 @@ public class MineFragment extends BaseFragment implements MineContract.View {
     public void onUploadHeadImgSuccess(String url) {
         SpSir.getInstance().setHeadUrl(url);
         ToastUtil.showText("头像上传成功");
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void switchProject(SwitchProjectEvent event) {
+        tvMineProject.setText(SpSir.getInstance().getProjectName());
     }
 }

@@ -23,8 +23,44 @@
             style="@style/font_3_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:text="鹿城拆迁项目"/>
+
+        <LinearLayout
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_projectYear"
+                style="@style/font_9_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="89"/>
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:text="年"/>
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="负责人:"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_realName"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="司马懿"/>
+        </LinearLayout>
 
         <com.jdp.hls.view.StringTextView
             android:id="@+id/tv_address"
@@ -58,10 +94,10 @@
             android:layout_height="20dp"
             android:background="@color/main"
             android:gravity="center"
+            android:text="1000户"
             app:super_bottomLeftRadius="5dp"
             app:super_bottomRightRadius="5dp"
-            app:super_solidColor="@color/main"
-            android:text="1000户"/>
+            app:super_solidColor="@color/main"/>
 
     </com.kingja.supershapeview.view.SuperShapeLinearLayout>
 

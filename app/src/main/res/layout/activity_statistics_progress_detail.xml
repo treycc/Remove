@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="18dp"
-                    android:text="总已丈量户数：30户"
+                    android:text="--"
                     android:textColor="@color/pink"
                     android:textSize="12sp"/>
 
@@ -51,7 +51,7 @@
                     style="@style/font_main_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="总未丈量户数：30户"/>
+                    android:text="--"/>
             </LinearLayout>
 
             <com.jdp.hls.view.StringTextView
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="40dp"
-                android:text="36.25%"
+                android:text="0%"
                 android:textStyle="bold"/>
 
             <com.jdp.hls.view.StringTextView
@@ -69,7 +69,7 @@
                 style="@style/font_9_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="丈量比例"/>
+                android:text="--"/>
 
         </LinearLayout>
 
@@ -96,7 +96,7 @@
             app:tabPaddingEnd="4dp"
             app:tabMode="fixed"/>
 
-        <android.support.v4.view.ViewPager
+        <com.jdp.hls.view.NoScrollViewPager
             android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

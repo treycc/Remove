@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.jdp.hls.view.RefreshSwipeRefreshLayout
-    android:id="@+id/rsrl"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rsrl"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,12 +18,28 @@
             android:layout_height="48dp">
 
 
+            <TextView
+                android:id="@+id/tv_switchProject"
+                style="@style/font_main_15"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="12dp"
+                android:gravity="center"
+                android:text="切换"/>
+
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_title"
                 style="@style/font_6_18"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_marginLeft="48dp"
+                android:layout_marginRight="48dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
                 android:text="房屋征收平台"/>
 
         </RelativeLayout>

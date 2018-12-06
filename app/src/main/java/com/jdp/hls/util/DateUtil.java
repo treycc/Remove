@@ -70,4 +70,15 @@ public class DateUtil {
         return c.getTime().getTime();
     }
 
+    public static String getLineChartDate(long timestamp) {
+        Calendar nowCalendar = Calendar.getInstance();
+        nowCalendar.setTime(new Date());
+
+        Calendar targetCalendar = Calendar.getInstance();
+        targetCalendar.setTime(new Date(timestamp));
+
+        return (nowCalendar.get(Calendar.YEAR) == targetCalendar.get(Calendar.YEAR)) ? getDateString(timestamp,
+                "MM/dd") : getDateString(timestamp, "yyyy/MM/dd");
+    }
+
 }

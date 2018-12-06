@@ -3,8 +3,8 @@ package com.jdp.hls.page.supervise.project.detail;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ProjectSuperviseDetail;
-import com.jdp.hls.model.entiy.ResultObserver;
 
 import javax.inject.Inject;
 
@@ -31,7 +31,7 @@ public class ProjectDetailSupervisePresenter implements ProjectDetailSuperviseCo
     public void getProjectSuperviseDetail(String projectId) {
         mApi.getApiService().getProjectSuperviseDetail(projectId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<ProjectSuperviseDetail>(mView) {
+                (new LoadSirObserver<ProjectSuperviseDetail>(mView) {
                     @Override
                     protected void onSuccess(ProjectSuperviseDetail projectSuperviseDetail) {
                         mView.onGetProjectSuperviseDetailSuccess(projectSuperviseDetail);

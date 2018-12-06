@@ -13,6 +13,6 @@
 
     <com.jdp.hls.view.StringTextView
         android:id="@+id/tv_companyName"
-        style="@style/Content_ET_W2"
+        style="@style/Content_ET_W1_5_LINES"
         android:text="XX测绘公司"/>
 </LinearLayout>

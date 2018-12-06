@@ -24,7 +24,7 @@
 
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_projectName"
-                style="@style/Content_ET_W2"
+                style="@style/Content_ET_W1_5_LINES"
                 android:text="鹿城拆迁项目"/>
         </LinearLayout>
 
@@ -39,7 +39,7 @@
 
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_address"
-                style="@style/Content_ET_W2_Mul_Line"
+                style="@style/Content_ET_W1_5_LINES"
                 android:text="鹿城区"/>
         </LinearLayout>
 

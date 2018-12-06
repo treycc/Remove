@@ -8,6 +8,8 @@ import com.jdp.hls.model.entiy.StatisticsProgressDetail;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Query;
 
 /**
@@ -22,6 +24,6 @@ public interface StatisticsProgressLineChartContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getLineChart(int itemType,int dateType,String beginDate,String endDate);
+        void getLineChart(RequestBody requestBody);
     }
 }

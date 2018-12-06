@@ -1,12 +1,14 @@
 package com.jdp.hls.model.entiy;
 
+import java.io.Serializable;
+
 /**
  * Description:TODO
  * Create Time:2018/11/30 0030 下午 4:50
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ProgressItem {
+public class ProgressItem implements Serializable{
 
 
     /**
@@ -24,7 +26,34 @@ public class ProgressItem {
     private int Quantity;
     private String PercentDesc;
     private String IconUrl;
+    private String FinishedQty;
+    private String UnfinishedQty;
+    private String RatioName;
     private int Sort;
+
+    public String getFinishedQty() {
+        return null == FinishedQty ? "" : FinishedQty;
+    }
+
+    public void setFinishedQty(String finishedQty) {
+        FinishedQty = finishedQty;
+    }
+
+    public String getUnfinishedQty() {
+        return null == UnfinishedQty ? "" : UnfinishedQty;
+    }
+
+    public void setUnfinishedQty(String unfinishedQty) {
+        UnfinishedQty = unfinishedQty;
+    }
+
+    public String getRatioName() {
+        return null == RatioName ? "" : RatioName;
+    }
+
+    public void setRatioName(String ratioName) {
+        RatioName = ratioName;
+    }
 
     public int getItemType() {
         return ItemType;

@@ -1,5 +1,7 @@
 package com.jdp.hls.page.supervise.statistics.progress.detail.head;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -11,14 +13,20 @@ import com.jdp.hls.adapter.RosterPageAdapter;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.ProgressItem;
 import com.jdp.hls.model.entiy.StatisticsProgressDetail;
+import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
 import com.jdp.hls.page.supervise.statistics.progress.detail.linechart.StatisticsProgressLineFragment;
 import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportListDayActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.view.NoScrollViewPager;
 import com.jdp.hls.view.StringTextView;
+
+import java.io.Serializable;
 
 import javax.inject.Inject;
 
@@ -46,15 +54,16 @@ public class StatisticsProgressDetailActivity extends BaseTitleActivity implemen
     @BindView(R.id.tab)
     TabLayout tab;
     @BindView(R.id.vp)
-    ViewPager vp;
+    NoScrollViewPager vp;
 
     private int[] tabImgs = {R.drawable.selector_tab_statistics_day, R.drawable.selector_tab_statistics_week, R
             .drawable.selector_tab_statistics_month, R.drawable.selector_tab_statistics_date};
     private BaseFragment mFragmentArr[] = new BaseFragment[4];
+    private ProgressItem progressItem;
 
     @Override
     public void initVariable() {
-
+        progressItem = (ProgressItem) getIntent().getSerializableExtra(Constants.Extra.ProgressItem);
     }
 
     @Override
@@ -83,6 +92,14 @@ public class StatisticsProgressDetailActivity extends BaseTitleActivity implemen
 
     @Override
     protected void initData() {
+        if (progressItem != null) {
+            tvQuantityFinished.setString(progressItem.getFinishedQty());
+            tvQuantityUnfinished.setString(progressItem.getUnfinishedQty());
+            tvRatio.setString(progressItem.getPercentDesc());
+            tvRatioName.setString(progressItem.getRatioName());
+        }
+
+
         setRightClick("查看报表", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
@@ -90,10 +107,10 @@ public class StatisticsProgressDetailActivity extends BaseTitleActivity implemen
             }
         });
 
-        mFragmentArr[0] = StatisticsProgressLineFragment.newInstance(0, 0, "", "");
-        mFragmentArr[1] = StatisticsProgressLineFragment.newInstance(0, 0, "", "");
-        mFragmentArr[2] = StatisticsProgressLineFragment.newInstance(0, 0, "", "");
-        mFragmentArr[3] = StatisticsProgressLineFragment.newInstance(0, 0, "", "");
+        mFragmentArr[0] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), 1, "", "");
+        mFragmentArr[1] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), 2, "", "");
+        mFragmentArr[2] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), 3, "", "");
+        mFragmentArr[3] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), 0, "", "");
         LineChartPageAdapter lineChartPageAdapter = new LineChartPageAdapter(this, mFragmentArr, tabImgs);
         vp.setAdapter(lineChartPageAdapter);
         vp.setOffscreenPageLimit(4);
@@ -113,5 +130,11 @@ public class StatisticsProgressDetailActivity extends BaseTitleActivity implemen
     @Override
     public void onGetStatisticsProgressDetailSuccess(StatisticsProgressDetail statisticsProgressDetail) {
 
+    }
+
+    public static void goActivity(Context context, ProgressItem progressItem) {
+        Intent intent = new Intent(context, StatisticsProgressDetailActivity.class);
+        intent.putExtra(Constants.Extra.ProgressItem, progressItem);
+        context.startActivity(intent);
     }
 }

@@ -15,8 +15,10 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.CompanySupervise;
 import com.jdp.hls.model.entiy.ProjectSuperviseDetail;
 import com.jdp.hls.page.supervise.statistics.progress.progress.StatisticsProgressInfoActivity;
+import com.jdp.hls.page.supervise.statistics.table.StatisticsTableActivity;
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalActivity;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.FixedListView;
 import com.jdp.hls.view.StringTextView;
 
@@ -51,7 +53,6 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity implements
     private CommonAdapter<CompanySupervise> adapter;
     @Inject
     ProjectDetailSupervisePresenter projectDetailSupervisePresenter;
-    private String projectId;
 
     @OnClick({R.id.rl_statistics_progress, R.id.rl_statistics_total, R.id.rl_statistics_table})
     public void click(View view) {
@@ -63,14 +64,13 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity implements
                 GoUtil.goActivity(this, StatisticsTotalActivity.class);
                 break;
             case R.id.rl_statistics_table:
-//                GoUtil.goActivity(this, StatisticsTableActivity.class);
+                GoUtil.goActivity(this, StatisticsTableActivity.class);
                 break;
         }
     }
 
     @Override
     public void initVariable() {
-        projectId = getIntent().getStringExtra(Constants.Extra.PROJECTID);
     }
 
     @Override
@@ -112,7 +112,8 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity implements
 
     @Override
     public void initNet() {
-        projectDetailSupervisePresenter.getProjectSuperviseDetail(projectId);
+//        projectDetailSupervisePresenter.getProjectSuperviseDetail(projectId);
+        projectDetailSupervisePresenter.getProjectSuperviseDetail(SpSir.getInstance().getProjectId());
     }
 
     @Override
@@ -120,12 +121,6 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity implements
         tvProjectName.setString(projectSuperviseDetail.getProjectName());
         tvAddress.setString(projectSuperviseDetail.getAddress());
         adapter.setData(projectSuperviseDetail.getLstProjectCompany());
-    }
-
-    public static void goActivity(Context context, String projectId) {
-        Intent intent = new Intent(context, ProjectDetailSuperviseActivity.class);
-        intent.putExtra(Constants.Extra.PROJECTID, projectId);
-        context.startActivity(intent);
     }
 
     @Override

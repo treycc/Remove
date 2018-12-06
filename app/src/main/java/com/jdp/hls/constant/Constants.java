@@ -135,6 +135,7 @@ public class Constants {
         String GROUPID = "groupId";
         String PROJECTNAME = "projectName";
         String MessageTypeName = "messageTypeName";
+        String ProgressItem = "ProgressItem";
     }
 
     public interface AirPhotoType {

@@ -15,6 +15,8 @@ import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
+import com.jdp.hls.event.ResetLoginStatusEvent;
+import com.jdp.hls.event.SwitchProjectEvent;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Module;
@@ -24,11 +26,21 @@ import com.jdp.hls.page.admin.message.notification.NotificationActivity;
 import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
 import com.jdp.hls.page.admin.query.ProjectSelectActivity;
 import com.jdp.hls.page.levy.LevyActivity;
+import com.jdp.hls.page.login.LoginActivity;
+import com.jdp.hls.page.personsearch.PersonSearchActivity;
+import com.jdp.hls.page.projects.ProjectListActivity;
+import com.jdp.hls.page.supervise.project.detail.ProjectDetailSuperviseActivity;
 import com.jdp.hls.page.supervise.project.list.ProjectListSuperviseActivity;
+import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 import com.jdp.hls.view.StringTextView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -36,6 +48,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 
@@ -54,12 +67,18 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     ListView flv;
     @BindView(R.id.rsrl)
     RefreshSwipeRefreshLayout rsrl;
-    Unbinder unbinder;
     private String routeId;
 
     @Inject
     ModulePresenter modulePresenter;
-
+    @OnClick({R.id.tv_switchProject})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.tv_switchProject:
+               GoUtil.goActivity(getActivity(),ProjectListActivity.class);
+                break;
+        }
+    }
 
     @OnItemClick({R.id.flv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -81,7 +100,8 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
                 GoUtil.goActivity(getActivity(), LevyActivity.class);
                 break;
             case Status.ModuleId.SYSTEM_PROJECT_SUPERVISE:
-                GoUtil.goActivity(getActivity(), ProjectListSuperviseActivity.class);
+                GoUtil.goActivity(getActivity(),ProjectDetailSuperviseActivity.class);
+//                ProjectDetailSuperviseActivity.goActivity(getActivity(),"");
                 break;
             case Status.ModuleId.SYSTEM_LOCATION:
                 ToastUtil.showText("功能开发中");
@@ -99,6 +119,7 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
 
     @Override
     protected void initVariable() {
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             routeId = getArguments().getString(Constants.Extra.RouteId);
         }
@@ -121,6 +142,7 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     @Override
     protected void initData() {
         rsrl.stepRefresh(this);
+        tvTitle.setText(SpSir.getInstance().getProjectName());
     }
 
     @Override
@@ -137,7 +159,7 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     @Override
     public void onGetModuleDetailSuccess(ModuleDetail moduleDetail) {
         if (moduleDetail != null) {
-            tvTitle.setString(moduleDetail.getTitle());
+//            tvTitle.setString(moduleDetail.getTitle());
             ImageLoader.getInstance().loadImage(getActivity(), moduleDetail.getImageUrl(), ivImageUrl);
             List<Module> modules = moduleDetail.getModules();
             if (modules != null && modules.size() > 0) {
@@ -160,10 +182,9 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
         return true;
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void switchProject(SwitchProjectEvent event) {
+        tvTitle.setText(SpSir.getInstance().getProjectName());
     }
+
 }

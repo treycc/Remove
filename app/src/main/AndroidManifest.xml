@@ -34,7 +34,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <!--.page.login.LoginActivity-->
         <activity
-            android:name=".page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity"
+            android:name=".page.login.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -43,9 +43,9 @@
             </intent-filter>
         </activity>
         <!--登录页-->
-        <!--     <activity
-                 android:name=".page.login.LoginActivity"
-                 android:screenOrientation="portrait"/>-->
+        <!--      <activity
+                  android:name=".page.login.LoginActivity"
+                  android:screenOrientation="portrait"/>-->
         <!--项目列表-->
         <activity
             android:name=".page.projects.ProjectListActivity"
@@ -358,8 +358,9 @@
         <activity android:name=".page.admin.message.notification.NotificationActivity"/>
         <activity android:name=".page.admin.project.list.ProjectListAdminActivity"/>
         <activity android:name=".page.admin.project.detail.ProjectDetailActivity"/>
-        <activity android:name=".page.admin.manager.ManagerListActivity"
-                  android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".page.admin.manager.ManagerListActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".page.admin.message.NotificationDetailActivity"/>
         <activity android:name=".page.admin.project.config.ProjectConfigActivity"/>
         <activity android:name=".page.admin.project.company.CompanyListActivity"/>
@@ -373,7 +374,7 @@
         <activity android:name=".page.supervise.statistics.progress.progress.StatisticsProgressInfoActivity"/>
         <activity android:name=".page.supervise.statistics.total.StatisticsTotalActivity"/>
         <activity android:name=".page.supervise.statistics.table.StatisticsTableActivity"/>
-        <!--<activity android:name=".page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity"/>-->
+        <activity android:name=".page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity"/>
         <activity android:name=".page.supervise.statistics.progress.report.daylist.ReportListDayActivity"/>
 
         <!--<activity-->

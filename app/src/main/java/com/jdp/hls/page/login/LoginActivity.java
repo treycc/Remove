@@ -2,6 +2,7 @@ package com.jdp.hls.page.login;
 
 import android.Manifest;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -159,23 +160,30 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
         }
         int routeId = account.getRouteId();
         SpSir.getInstance().setRouteId(routeId);
-        if (routeId == Status.RouteId.SYSTEM_LEVY) {
-            List<Project> projects = account.getProjects();
-            if (projects != null && projects.size() > 0) {
-                if (projects.size() > 1) {
-                    ProjectListActivity.goActivity(this, projects);
-                } else {
-                    Project project = projects.get(0);
-                    SpSir.getInstance().setProjectId(project.getProjectId());
-                    SpSir.getInstance().setProjectName(project.getProjectName());
-                    GoUtil.goActivityAndFinish(this, HomeActivity.class);
-                }
-            } else {
-                ToastUtil.showText("您的账号下没有项目");
-            }
+//        if (routeId == Status.RouteId.SYSTEM_LEVY) {
+//            List<Project> projects = account.getProjects();
+//            if (projects != null && projects.size() > 0) {
+//                if (projects.size() > 1) {
+//                    ProjectListActivity.goActivity(this, projects);
+//                } else {
+//                    Project project = projects.get(0);
+//                    SpSir.getInstance().setProjectId(project.getProjectId());
+//                    SpSir.getInstance().setProjectName(project.getProjectName());
+//                    GoUtil.goActivityAndFinish(this, HomeActivity.class);
+//                }
+//            } else {
+//                ToastUtil.showText("您的账号下没有项目");
+//            }
+//        } else {
+//            GoUtil.goActivityAndFinish(this, HomeActivity.class);
+//        }
+
+        if (TextUtils.isEmpty(SpSir.getInstance().getProjectId())) {
+            GoUtil.goActivityAndFinish(this, ProjectListActivity.class);
         } else {
             GoUtil.goActivityAndFinish(this, HomeActivity.class);
         }
+
 
     }
 

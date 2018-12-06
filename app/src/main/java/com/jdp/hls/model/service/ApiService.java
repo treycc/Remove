@@ -723,14 +723,16 @@ public interface ApiService {
     Observable<HttpResult<StatisticsProgressDetail>> getStatisticsProgressDetail(@Query("ItemType") int itemType);
 
     /*进度统计-折线图(监管系统)*/
-    @GET("api/supervise/GetStatisticChart")
-    Observable<HttpResult<List<LineChartItem>>> getLineChart(@Query("ItemType") int itemType, @Query
-            ("DateType") int dateType, @Query("BeginDate") String beginDate, @Query("EndDate") String endDate);
+    @POST("api/supervise/QueryStatisChartDataList")
+    Observable<HttpResult<List<LineChartItem>>> getLineChart(@Body RequestBody requestBody);
 
     /*一览表(监管系统)*/
     @GET("api/supervise/GetBuildingList")
-    Observable<HttpResult<List<Table>>> getTableList(@Query("ProjectId") String projectId, @Query
-            ("BuildingType") int buildingType);
+    Observable<HttpResult<List<Table>>> getTableList(@Query("ProjectId") String projectId, @Query("BuildingType") int
+            buildingType);
 
+    /*项目列表-切换*/
+    @POST("/api/Project/ChangeProject")
+    Observable<HttpResult<Object>> switchProject(@Body RequestBody requestBody);
 
 }

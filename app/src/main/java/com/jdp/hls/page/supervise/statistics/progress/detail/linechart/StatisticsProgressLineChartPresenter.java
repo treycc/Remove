@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 
 
 /**
@@ -30,8 +31,8 @@ public class StatisticsProgressLineChartPresenter implements StatisticsProgressL
     }
 
     @Override
-    public void getLineChart(int itemType, int dateType, String beginDate, String endDate) {
-        mApi.getApiService().getLineChart(itemType, dateType, beginDate, endDate).subscribeOn(Schedulers.io())
+    public void getLineChart(RequestBody requestBody){
+        mApi.getApiService().getLineChart(requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<List<LineChartItem>>(mView) {
                     @Override
