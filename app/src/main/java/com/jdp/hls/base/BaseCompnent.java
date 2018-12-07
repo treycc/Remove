@@ -91,7 +91,7 @@ import com.jdp.hls.page.supervise.project.list.ProjectListSuperviseActivity;
 import com.jdp.hls.page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity;
 import com.jdp.hls.page.supervise.statistics.progress.detail.linechart.StatisticsProgressLineFragment;
 import com.jdp.hls.page.supervise.statistics.progress.progress.StatisticsProgressInfoFragment;
-import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportListDayActivity;
+import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportDayListActivity;
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalFragment;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.page.table.list.TableListFragment;
@@ -108,7 +108,7 @@ public interface BaseCompnent {
 
     void inject(StatisticsProgressInfoFragment target);
 
-    void inject(ReportListDayActivity target);
+    void inject(ReportDayListActivity target);
 
     void inject(StatisticsProgressDetailActivity target);
 

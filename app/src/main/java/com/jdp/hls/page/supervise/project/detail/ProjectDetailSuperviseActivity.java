@@ -1,7 +1,5 @@
 package com.jdp.hls.page.supervise.project.detail;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -10,13 +8,12 @@ import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
-import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.CompanySupervise;
 import com.jdp.hls.model.entiy.ProjectSuperviseDetail;
 import com.jdp.hls.page.supervise.statistics.progress.progress.StatisticsProgressInfoActivity;
-import com.jdp.hls.page.supervise.statistics.table.StatisticsTableActivity;
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalActivity;
+import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.FixedListView;
@@ -64,7 +61,7 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity implements
                 GoUtil.goActivity(this, StatisticsTotalActivity.class);
                 break;
             case R.id.rl_statistics_table:
-                GoUtil.goActivity(this, StatisticsTableActivity.class);
+                GoUtil.goActivity(this, TableListActivity.class);
                 break;
         }
     }

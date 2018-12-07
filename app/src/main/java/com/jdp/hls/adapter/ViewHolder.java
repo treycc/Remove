@@ -62,7 +62,6 @@ public class ViewHolder {
         view.setText(null == text ? "" : text);
         return this;
     }
-
     public ViewHolder setProgress(int viewId, int progress) {
         ProgressBar progressBar = getView(viewId);
         progressBar.setProgress(progress);

@@ -22,6 +22,20 @@ public class DateUtil {
         return sf.format(d);
     }
 
+    public static String getNowDate() {
+        Date d = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        return sf.format(d);
+    }
+
+    public static String getFirstDayOfMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH), 1);
+        return getDateString(calendar.getTime().getTime());
+    }
+
     public static String getDateString(long time, String fromat) {
         Date d = new Date(time);
         SimpleDateFormat sf = new SimpleDateFormat(fromat);

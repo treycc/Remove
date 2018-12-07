@@ -175,24 +175,23 @@ public class StatisticsProgressInfoFragment extends BaseFragment implements Stat
         chartPie.setDrawCenterText(true);//是否显示中心文字
         //饼图与边界间隔
         chartPie.setExtraOffsets(AppUtil.dp2px(PADDING_LEFT_RIGHT), AppUtil.dp2px(PADDING_TOP_DOWN), AppUtil.dp2px
-                (PADDING_LEFT_RIGHT), AppUtil.dp2px(PADDING_TOP_DOWN));
+                (PADDING_LEFT_RIGHT), AppUtil.dp2px(0));
         //去掉中间空洞
         chartPie.setDrawHoleEnabled(true);
         chartPie.setHoleRadius(66);
         chartPie.setTransparentCircleAlpha(0);//中间透明圈颜色
         chartPie.setNoDataText("暂无数据");
         chartPie.setNoDataTextColor(ContextCompat.getColor(getActivity(), R.color.main));
-
         Legend legend = chartPie.getLegend();//图例
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);//垂直对齐方式
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);//水平对齐方式
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);//图例布局方向
-//        legend.setYOffset(-10);
         legend.setForm(Legend.LegendForm.CIRCLE);//图标形状
         legend.setXEntrySpace(18f);//水平间距
+//        legend.setYOffset(18);
         legend.setTextSize(12);//图例文字大小
         legend.setTextColor(ContextCompat.getColor(getActivity(), R.color.c_6));
-        legend.setDrawInside(true);//绘制在图标外
+        legend.setDrawInside(false);//绘制在图标外
         legend.setEnabled(true);//是否显示图例
     }
 

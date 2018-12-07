@@ -1,13 +1,16 @@
 package com.jdp.hls.page.supervise.statistics.progress.detail.linechart;
 
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -15,27 +18,34 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.LineChartItem;
+import com.jdp.hls.page.supervise.statistics.progress.progress.StatisticsProgressInfoActivity;
+import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalActivity;
+import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.DateUtil;
+import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
+import com.jdp.hls.view.StringTextView;
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
+import com.kingja.supershapeview.view.SuperShapeRelativeLayout;
+import com.kingja.supershapeview.view.SuperShapeTextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import okhttp3.MultipartBody;
 
 /**
@@ -48,6 +58,18 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
 
     @BindView(R.id.lineChart)
     LineChart lineChart;
+    @BindView(R.id.tv_startDate)
+    StringTextView tvStartDate;
+    @BindView(R.id.srl_startDate)
+    SuperShapeRelativeLayout srlStartDate;
+    @BindView(R.id.tv_endDate)
+    StringTextView tvEndDate;
+    @BindView(R.id.srl_endDate)
+    SuperShapeRelativeLayout srlEndDate;
+    @BindView(R.id.ll_dateSelector)
+    LinearLayout llDateSelector;
+    private TimePickerDialog startDateSelector;
+    private TimePickerDialog endDateSelector;
     private int itemType;
     private int dateType;
     private String startDatetime;
@@ -65,6 +87,53 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
         args.putString(Constants.Extra.EndDate, endDate);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @OnClick({R.id.srl_startDate, R.id.srl_endDate, R.id.tv_confirm})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.srl_startDate:
+                startDateSelector = new TimePickerDialog.Builder()
+                        .setType(Type.YEAR_MONTH_DAY)
+                        .setThemeColor(ContextCompat.getColor(getActivity(), R.color.main))
+                        .setWheelItemTextSize(15)
+                        .setCurrentMillseconds(!TextUtils.isEmpty(startDatetime) ? DateUtil.getMillSeconds
+                                (startDatetime,
+                                        "yyyy-MM-dd") : System.currentTimeMillis())
+                        .setMaxMillseconds(!TextUtils.isEmpty(endDatetime) ? DateUtil.getMillSeconds(endDatetime,
+                                "yyyy-MM-dd") : System.currentTimeMillis())
+                        .setTitleStringId("请选择起始日期")
+                        .setCallBack((timePickerView, millseconds) -> {
+                            startDatetime = DateUtil.getDateString(millseconds);
+                            tvStartDate.setText(startDatetime);
+                        })
+                        .build();
+
+                startDateSelector.show(getActivity().getSupportFragmentManager(), String.valueOf(srlStartDate.hashCode
+                        ()));
+                break;
+            case R.id.srl_endDate:
+                endDateSelector = new TimePickerDialog.Builder()
+                        .setType(Type.YEAR_MONTH_DAY)
+                        .setThemeColor(ContextCompat.getColor(getActivity(), R.color.main))
+                        .setWheelItemTextSize(15)
+                        .setTitleStringId("请选择结束日期")
+                        .setMinMillseconds(!TextUtils.isEmpty(startDatetime) ? DateUtil.getMillSeconds(startDatetime,
+                                "yyyy-MM-dd") : System.currentTimeMillis())
+                        .setCurrentMillseconds(!TextUtils.isEmpty(endDatetime) ? DateUtil.getMillSeconds(endDatetime,
+                                "yyyy-MM-dd") : (!TextUtils.isEmpty(startDatetime) ? DateUtil.getMillSeconds
+                                (startDatetime, "yyyy-MM-dd") : System.currentTimeMillis()))
+                        .setCallBack((timePickerView, millseconds) -> {
+                            endDatetime = DateUtil.getDateString(millseconds);
+                            tvEndDate.setText(endDatetime);
+                        })
+                        .build();
+                endDateSelector.show(getActivity().getSupportFragmentManager(), String.valueOf(srlEndDate.hashCode()));
+                break;
+            case R.id.tv_confirm:
+                callNet();
+                break;
+        }
     }
 
     @Override
@@ -89,6 +158,7 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
     @Override
     protected void initView() {
 
+
         lineChart.setNoDataText("暂无数据");
         lineChart.setNoDataTextColor(ContextCompat.getColor(getActivity(), R.color.main));
         //禁用Y轴
@@ -110,11 +180,22 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
 
     @Override
     protected void initData() {
+        if (dateType == Status.DateType.DATE) {
+            startDatetime = DateUtil.getFirstDayOfMonth();
+            endDatetime   = DateUtil.getNowDate();
+            tvStartDate.setString(startDatetime);
+            tvEndDate.setString(endDatetime);
+            llDateSelector.setVisibility(View.VISIBLE);
+        }
 
     }
 
     @Override
     public void initNet() {
+        callNet();
+    }
+
+    private void callNet() {
         statisticsProgressLineChartPresenter.getLineChart(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("ProjectId", SpSir.getInstance().getProjectId())
                 .addFormDataPart("ItemType", String.valueOf(itemType))
@@ -160,8 +241,8 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
 
             dataSet.setLineWidth(1f);//线条宽度
             dataSet.setDrawValues(true);//是否绘制线条上的文字
-            dataSet.setValueTextSize(12);//数字文字的大小
-            dataSet.setValueTextColor(ContextCompat.getColor(getActivity(), R.color.c_3));//数字文字的颜色
+            dataSet.setValueTextSize(10);//数字文字的大小
+            dataSet.setValueTextColor(ContextCompat.getColor(getActivity(), R.color.c_9));//数字文字的颜色
             dataSet.setValueFormatter((value, entry, dataSetIndex, viewPortHandler) -> (int) value + "户");
             dataSet.setHighlightEnabled(false);//是否禁用点击高亮线
             //3.chart设置数据
@@ -177,7 +258,7 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
             leftAxis.setTextSize(12f);
             leftAxis.setAxisMinimum(minValue);
             leftAxis.setAxisMaximum(maxValue);
-            leftAxis.setLabelCount(6,false);
+            leftAxis.setLabelCount(6, false);
             //设置Y轴网格线
 //            leftAxis.enableGridDashedLine(10f, 10f, 0f);
 //            leftAxis.setValueFormatter((value, axis) -> String.valueOf((int) value));

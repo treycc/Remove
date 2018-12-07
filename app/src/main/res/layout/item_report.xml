@@ -3,81 +3,71 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white_hi"
     android:paddingBottom="16dp"
-    android:paddingLeft="12dp"
-    android:paddingRight="12dp"
     android:paddingTop="16dp">
 
     <LinearLayout
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+
+        <TextView
+            android:id="@+id/tv_finishedTime"
+            style="@style/font_6_14"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:text="2018-10-15"/>
 
-            <ImageView
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/shape_circle_blue"/>
+        <TextView
+            android:id="@+id/tv_quantity"
+            style="@style/font_6_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="5"/>
 
-            <TextView
-                style="@style/font_6_16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2018-10-15"/>
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/font_orange_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="10:12"/>
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_timeAvg"
+            style="@style/font_6_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="05:22"/>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                style="@style/font_6_14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="5"/>
-
-            <TextView
-                style="@style/font_orange_14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="10:12"/>
-
-            <TextView
-                style="@style/font_6_14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="05:22"/>
-
-            <TextView
-                style="@style/font_red_14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="5.2"/>
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_speed"
+            style="@style/font_red_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="20.00"/>
 
 
     </LinearLayout>
 
-
     <ImageView
+        android:layout_marginRight="6dp"
+        android:layout_centerVertical="true"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
         android:background="@mipmap/ic_arrow_right"/>
 </RelativeLayout>
+

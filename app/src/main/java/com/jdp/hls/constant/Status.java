@@ -17,7 +17,12 @@ public class Status {
         //身份证存在
         int ERROR_IDCARD_EXIST = 1011;
     }
-
+    public interface DateType {
+        int DAY = 1;
+        int WEEK = 2;
+        int MONTH = 3;
+        int DATE = 0;
+    }
     public interface BuildingType {
         int PERSONAL = 0;
         int COMPANY = 1;

@@ -2,36 +2,29 @@ package com.jdp.hls.page.supervise.statistics.progress.detail.head;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.LineChartPageAdapter;
-import com.jdp.hls.adapter.RosterPageAdapter;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ProgressItem;
 import com.jdp.hls.model.entiy.StatisticsProgressDetail;
-import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
-import com.jdp.hls.page.rosterlist.RosterListFragment;
 import com.jdp.hls.page.supervise.statistics.progress.detail.linechart.StatisticsProgressLineFragment;
-import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportListDayActivity;
+import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportDayListActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.NoScrollViewPager;
 import com.jdp.hls.view.StringTextView;
 
-import java.io.Serializable;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:TODO
@@ -103,14 +96,14 @@ public class StatisticsProgressDetailActivity extends BaseTitleActivity implemen
         setRightClick("查看报表", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                GoUtil.goActivity(StatisticsProgressDetailActivity.this, ReportListDayActivity.class);
+                ReportDayListActivity.goActivity(StatisticsProgressDetailActivity.this,progressItem.getItemType());
             }
         });
 
-        mFragmentArr[0] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), 1, "", "");
-        mFragmentArr[1] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), 2, "", "");
-        mFragmentArr[2] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), 3, "", "");
-        mFragmentArr[3] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), 0, "", "");
+        mFragmentArr[0] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), Status.DateType.DAY, "", "");
+        mFragmentArr[1] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), Status.DateType.WEEK, "", "");
+        mFragmentArr[2] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), Status.DateType.MONTH, "", "");
+        mFragmentArr[3] = StatisticsProgressLineFragment.newInstance(progressItem.getItemType(), Status.DateType.DATE, "", "");
         LineChartPageAdapter lineChartPageAdapter = new LineChartPageAdapter(this, mFragmentArr, tabImgs);
         vp.setAdapter(lineChartPageAdapter);
         vp.setOffscreenPageLimit(4);
