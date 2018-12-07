@@ -58,6 +58,7 @@ import com.jdp.hls.model.entiy.PublicityDetail;
 import com.jdp.hls.model.entiy.PublicityItem;
 import com.jdp.hls.model.entiy.PublicityObject;
 import com.jdp.hls.model.entiy.ReceivePerson;
+import com.jdp.hls.model.entiy.ReportBuilding;
 import com.jdp.hls.model.entiy.ReportItem;
 import com.jdp.hls.model.entiy.ReportResult;
 import com.jdp.hls.model.entiy.Roster;
@@ -745,5 +746,9 @@ public interface ApiService {
     @GET("api/supervise/GetBuildingList")
     Observable<HttpResult<List<Table>>> getHourReport(@Query("ProjectId") String projectId, @Query("BuildingType") int
             buildingType);
+
+    /*征收人列表(监管系统)*/
+    @GET("api/supervise/GetBuildingList")
+    Observable<HttpResult<List<ReportBuilding>>> getReportBuildingList();
 
 }

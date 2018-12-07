@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:background="@color/white_hi"
+              android:orientation="vertical"
+              android:paddingBottom="12dp"
+              android:paddingLeft="24dp"
+              android:paddingRight="24dp"
+              android:paddingTop="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_marginRight="8dp"
+                android:id="@+id/tv_table_number"
+                style="@style/font_3_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="2018-MD-5412"/>
+
+            <com.kingja.supershapeview.view.SuperShapeTextView
+                android:visibility="gone"
+                android:id="@+id/set_status_back"
+                style="@style/font_red_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                android:singleLine="true"
+                android:text="退"
+                app:super_cornerRadius="5dp"
+                app:super_strokeWidth="1px"
+                app:super_strokeColor="@color/red_hi"/>
+
+            <com.kingja.supershapeview.view.SuperShapeTextView
+                android:visibility="gone"
+                android:id="@+id/set_status_banned"
+                style="@style/font_red_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                android:singleLine="true"
+                android:text="废"
+                app:super_cornerRadius="5dp"
+                app:super_strokeWidth="1px"
+                app:super_strokeColor="@color/red_hi"/>
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="户主/手机号:"/>
+
+            <TextView
+                android:id="@+id/tv_table_name"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="张三"/>
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"/>
+
+            <TextView
+                android:id="@+id/tv_table_mobile"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/13355556665"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="身份证号:"/>
+
+            <TextView
+                android:id="@+id/tv_table_idcard"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="330355555588888886"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="地址:"/>
+
+            <TextView
+                android:id="@+id/tv_table_address"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="温州龙湾"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="办理用时:"/>
+
+            <TextView
+                android:id="@+id/tv_table_node"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12：:0"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

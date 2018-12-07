@@ -376,6 +376,7 @@
         <activity android:name=".page.supervise.statistics.table.StatisticsTableActivity"/>
         <activity android:name=".page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity"/>
         <activity android:name=".page.supervise.statistics.progress.report.daylist.ReportDayListActivity"/>
+        <activity android:name=".page.supervise.statistics.progress.report.buildinglist.ReportBuildingListActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->
