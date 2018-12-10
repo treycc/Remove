@@ -32,7 +32,7 @@ public class RegeocodeTask implements GeocodeSearch.OnGeocodeSearchListener {
     }
 
     public void search(double latitude, double longitude) {
-        Log.e(TAG, "search: " );
+        Log.e(TAG, "search: ");
         lat = latitude;
         lng = longitude;
         RegeocodeQuery regecodeQuery = new RegeocodeQuery(new LatLonPoint(
@@ -51,9 +51,8 @@ public class RegeocodeTask implements GeocodeSearch.OnGeocodeSearchListener {
     }
 
     @Override
-    public void onRegeocodeSearched(RegeocodeResult regeocodeReult,
-                                    int resultCode) {
-        Log.e(TAG, "resultCode: "+resultCode );
+    public void onRegeocodeSearched(RegeocodeResult regeocodeReult, int resultCode) {
+        Log.e(TAG, "resultCode: " + resultCode);
         if (resultCode == AMapException.CODE_AMAP_SUCCESS) {
             if (regeocodeReult != null
                     && regeocodeReult.getRegeocodeAddress() != null
@@ -72,7 +71,7 @@ public class RegeocodeTask implements GeocodeSearch.OnGeocodeSearchListener {
         //TODO 可以根据app自身需求对查询错误情况进行相应的提示或者逻辑处理
     }
 
-   public class PositionEntity {
+    public class PositionEntity {
 
         public double latitue;
         public double longitude;

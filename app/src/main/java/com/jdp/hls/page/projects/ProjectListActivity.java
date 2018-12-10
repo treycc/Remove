@@ -19,7 +19,7 @@ import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.InputMethodManagerUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -42,8 +42,8 @@ import okhttp3.MultipartBody;
 public class ProjectListActivity extends BaseTitleActivity implements ProjectsContract.View {
     @BindView(R.id.plv)
     PullToBottomListView plv;
-    @BindView(R.id.srl)
-    RefreshableSwipeRefreshLayout srl;
+    @BindView(R.id.rsrl)
+    RefreshSwipeRefreshLayout rsrl;
     private List<Project> projects = new ArrayList<>();
     private CommonAdapter adapter;
     private boolean isFromLocal;
@@ -85,7 +85,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
 
     @Override
     protected int getContentView() {
-        return R.layout.common_lv_sl;
+        return R.layout.common_lv_rsl;
     }
 
     @Override
@@ -119,8 +119,18 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     }
 
     @Override
-    protected void initData() {
+    public void showLoading() {
+        rsrl.setRefreshing(true);
+    }
 
+    @Override
+    public void hideLoading() {
+        rsrl.setRefreshing(false);
+    }
+
+    @Override
+    protected void initData() {
+        rsrl.stepRefresh(this);
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.jdp.hls.page.crash.CrashActivity;
 import com.kingja.loadsir.core.LoadSir;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
 
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 
@@ -39,12 +40,12 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         initLoadSir();
-//        if (LeakCanary.isInAnalyzerProcess(this)) {
-//            // This process is dedicated to LeakCanary for heap analysis.
-//            // You should not init your app in this process.
-//            return;
-//        }
-//        LeakCanary.install(this);
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
         Logger.addLogAdapter(new AndroidLogAdapter());
         sInstance = this;
         mSharedPreferences = getSharedPreferences(Constants.APPLICATION_NAME, MODE_PRIVATE);

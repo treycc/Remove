@@ -25,7 +25,6 @@ import com.jdp.hls.base.App;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.RegeocodeTask;
 
 import butterknife.BindView;
@@ -74,6 +73,8 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
             mAMap.getUiSettings().setMyLocationButtonEnabled(true);
             //设置缩放按钮是否显示
             mAMap.getUiSettings().setZoomControlsEnabled(false);
+
+
         }
     }
 
@@ -148,17 +149,27 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
      */
     @Override
     public void onDestroy() {
+        super.onDestroy();
+        if (mAMap != null) {
+            mAMap.setLocationSource(null);
+            mAMap.setOnCameraChangeListener(null);
+            mAMap.setMyLocationEnabled(false);
+            mAMap = null;
+        }
         if (mMapView != null) {
             mMapView.onDestroy();
             mMapView = null;
         }
         if (mLocationClient != null) {
             mLocationClient.onDestroy();
+            mLocationClient = null;
         }
         if (mOnLocationChangedListener != null) {
             mOnLocationChangedListener = null;
         }
-        super.onDestroy();
+        if (onLocationGetListener != null) {
+            onLocationGetListener = null;
+        }
     }
 
     /**
@@ -166,7 +177,6 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
      */
     @Override
     public void activate(OnLocationChangedListener listener) {
-        Log.e(TAG, "激活定位: ");
         mOnLocationChangedListener = listener;
         if (mLocationClient == null) {
             initLocation();

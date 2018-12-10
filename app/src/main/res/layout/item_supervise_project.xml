@@ -26,11 +26,11 @@
             android:text="鹿城拆迁项目"/>
 
         <LinearLayout
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -70,22 +70,24 @@
             android:text="浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区"/>
     </LinearLayout>
 
-    <com.kingja.supershapeview.view.SuperShapeLinearLayout
+    <LinearLayout
         android:layout_width="64dp"
         android:layout_height="42dp"
         android:gravity="center"
-        android:orientation="vertical"
-        app:super_cornerRadius="5dp"
-        app:super_strokeColor="@color/main"
-        app:super_strokeWidth="1dp">
+        android:orientation="vertical">
 
-        <com.jdp.hls.view.StringTextView
+        <com.kingja.supershapeview.view.SuperShapeTextView
             android:id="@+id/tv_percentDesc"
             style="@style/font_main_12"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="center"
-            android:text="60%"/>
+            android:text="60%"
+            app:super_solidColor="@color/white_hi"
+            app:super_strokeColor="@color/main"
+            app:super_strokeWidth="1dp"
+            app:super_topLeftRadius="5dp"
+            app:super_topRightRadius="5dp"/>
 
         <com.kingja.supershapeview.view.SuperShapeTextView
             android:id="@+id/tv_totalQuantity"
@@ -97,9 +99,11 @@
             android:text="1000户"
             app:super_bottomLeftRadius="5dp"
             app:super_bottomRightRadius="5dp"
-            app:super_solidColor="@color/main"/>
+            app:super_solidColor="@color/main"
+            app:super_strokeColor="@color/main"
+            app:super_strokeWidth="1dp"/>
 
-    </com.kingja.supershapeview.view.SuperShapeLinearLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

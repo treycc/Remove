@@ -35,6 +35,7 @@ public class LocationActivity extends BaseTitleActivity {
     private double currentLng;
     private double currentLat;
     private LocationFragment locationFragment;
+
     @Override
     public void initVariable() {
 
@@ -96,12 +97,5 @@ public class LocationActivity extends BaseTitleActivity {
     @Override
     public void initNet() {
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }
