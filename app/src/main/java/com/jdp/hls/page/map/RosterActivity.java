@@ -63,9 +63,8 @@ import butterknife.Unbinder;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class RosterActivity extends BaseTitleActivity implements LocationSource, AMapLocationListener, GetRosterContract
-        .View, AMap.OnMarkerClickListener, AMap.OnInfoWindowClickListener, AMap.OnMapClickListener, TextView
-        .OnEditorActionListener {
+public class RosterActivity extends BaseTitleActivity implements GetRosterContract.View, AMap.OnMarkerClickListener,
+        AMap.OnInfoWindowClickListener, AMap.OnMapClickListener, TextView.OnEditorActionListener {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_roster_list)
@@ -85,9 +84,6 @@ public class RosterActivity extends BaseTitleActivity implements LocationSource,
     @BindView(R.id.iv_clear)
     ImageView ivClear;
     private AMap mAMap;
-    public AMapLocationClient mLocationClient;
-    private OnLocationChangedListener mListener;
-    private AMapLocationClientOption mLocationOption;
     @Inject
     GetRosterPresenter getRosterPresenter;
     private List<Roster> rosters;
@@ -124,7 +120,7 @@ public class RosterActivity extends BaseTitleActivity implements LocationSource,
                 etKeyword.setText("");
                 break;
             case R.id.ll_back:
-                LogUtil.e(TAG,"返回");
+                LogUtil.e(TAG, "返回");
                 finish();
                 break;
             default:
@@ -143,7 +139,6 @@ public class RosterActivity extends BaseTitleActivity implements LocationSource,
             mAMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Constants.MapSetting.Lat, Constants.MapSetting
                     .Lng)));
             mAMap.getUiSettings().setZoomControlsEnabled(false);
-            mAMap.setLocationSource(this);// 设置定位监听
             mAMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
             mAMap.setOnInfoWindowClickListener(this);// 设置点击InfoWindow事件监听器
             mAMap.setOnMapClickListener(this);
@@ -198,9 +193,6 @@ public class RosterActivity extends BaseTitleActivity implements LocationSource,
         getRosterPresenter.getRosterList(SpSir.getInstance().getProjectId(), SpSir.getInstance().getEmployeeId());
     }
 
-    /**
-     * 必须重写以下方法
-     */
     @Override
     public void onResume() {
         super.onResume();
@@ -221,15 +213,9 @@ public class RosterActivity extends BaseTitleActivity implements LocationSource,
 
     @Override
     public void onDestroy() {
-        LogUtil.e(TAG, "消灭onDestroy");
-        LogUtil.e(TAG, "mMapView:" + (mMapView == null));
         EventBus.getDefault().unregister(this);
         if (mMapView != null) {
             mMapView.onDestroy();
-        }
-
-        if (mLocationClient != null) {
-            mLocationClient.onDestroy();
         }
         super.onDestroy();
     }
@@ -237,64 +223,6 @@ public class RosterActivity extends BaseTitleActivity implements LocationSource,
     @Override
     protected boolean ifHideTitle() {
         return true;
-    }
-
-    /**
-     * 激活定位
-     */
-    @Override
-    public void activate(OnLocationChangedListener listener) {
-        Log.e(TAG, "激活定位: ");
-        mListener = listener;
-        if (mLocationClient == null) {
-            initLocation();
-        }
-    }
-
-    /**
-     * 停止定位
-     */
-    @Override
-    public void deactivate() {
-        Log.e(TAG, "停止定位: ");
-        mListener = null;
-        if (mLocationClient != null) {
-            mLocationClient.stopLocation();
-            mLocationClient.onDestroy();
-        }
-        mLocationClient = null;
-    }
-
-    private void initLocation() {
-        //初始化定位
-        mLocationClient = new AMapLocationClient(this);
-        //设置定位回调监听
-        mLocationClient.setLocationListener(this);
-        //初始化AMapLocationClientOption对象
-        AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
-        //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        mLocationOption.setOnceLocation(true);
-        mLocationOption.setNeedAddress(true);
-        //给定位客户端对象设置定位参数
-        mLocationClient.setLocationOption(mLocationOption);
-        mLocationClient.startLocation();
-    }
-
-    @Override
-    public void onLocationChanged(AMapLocation amapLocation) {
-        Log.e(TAG, "aMapLocation: " + amapLocation.getAddress());
-        LatLng la = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
-//        setMarket(la, amapLocation.getCity(), amapLocation.getAddress());
-        if (mListener != null && amapLocation != null) {
-            if (amapLocation != null && amapLocation.getErrorCode() == 0) {
-                mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
-            } else {
-                String errText = "定位失败," + amapLocation.getErrorCode() + ": "
-                        + amapLocation.getErrorInfo();
-                Log.e("AmapErr", errText);
-            }
-        }
     }
 
     @Override

@@ -25,6 +25,7 @@ import com.jdp.hls.base.App;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.RegeocodeTask;
 
 import butterknife.BindView;
@@ -144,22 +145,21 @@ public class LocationFragment extends BaseFragment implements LocationSource, AM
         mMapView.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onDestroyView() {
+        if (mMapView != null) {
+            mMapView.onDestroy();
+            mMapView = null;
+        }
+        super.onDestroyView();
+    }
+
     /**
      * 必须重写以下方法
      */
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mAMap != null) {
-            mAMap.setLocationSource(null);
-            mAMap.setOnCameraChangeListener(null);
-            mAMap.setMyLocationEnabled(false);
-            mAMap = null;
-        }
-        if (mMapView != null) {
-            mMapView.onDestroy();
-            mMapView = null;
-        }
         if (mLocationClient != null) {
             mLocationClient.onDestroy();
             mLocationClient = null;
