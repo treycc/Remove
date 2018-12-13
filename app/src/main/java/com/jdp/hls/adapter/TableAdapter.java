@@ -30,7 +30,7 @@ public class TableAdapter extends CommonAdapter<Table> {
 
     @Override
     public void convert(ViewHolder helper, Table item) {
-        helper.setText(R.id.tv_table_number, item.getSysCode());
+        helper.setText(R.id.tv_table_sysCode, item.getSysCode());
         helper.setText(R.id.tv_table_cusCode, item.getCusCode());
         helper.setText(R.id.tv_table_name, item.getRealName());
         helper.setText(R.id.tv_table_mobile, item.getMobilePhone());

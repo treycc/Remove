@@ -30,8 +30,9 @@ public class ReportBuildingListPresenter implements ReportBuildingListContract.P
     }
 
     @Override
-    public void getReportBuildingList() {
-        mApi.getApiService().getReportBuildingList().subscribeOn(Schedulers.io())
+    public void getReportBuildingList(String projectId, int ReportType, String startDate, String endDate) {
+        mApi.getApiService().getReportBuildingList(projectId, ReportType, startDate, endDate).subscribeOn(Schedulers
+                .io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<List<ReportBuilding>>(mView) {
                     @Override

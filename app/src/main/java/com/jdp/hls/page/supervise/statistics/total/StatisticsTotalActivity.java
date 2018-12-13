@@ -64,9 +64,10 @@ public class StatisticsTotalActivity extends BaseTitleActivity {
             tab.addTab(tab.newTab().setText(tabNames[i]));
         }
         fragments[0] = StatisticsTotalFragment.newInstance(projectId, Status.BuildingType.PERSONAL);
-        fragments[1] = StatisticsTotalFragment.newInstance(projectId, Status.BuildingType.PERSONAL);
+        fragments[1] = StatisticsTotalFragment.newInstance(projectId, Status.BuildingType.COMPANY);
         NormalPageAdapter fragmentAdapter = new NormalPageAdapter(this, fragments, tabNames, tabIcons);
         vp.setAdapter(fragmentAdapter);
+        tab.setupWithViewPager(vp);
     }
 
     @Override

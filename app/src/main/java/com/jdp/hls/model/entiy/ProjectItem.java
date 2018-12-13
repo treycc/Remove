@@ -1,5 +1,7 @@
 package com.jdp.hls.model.entiy;
 
+import java.util.List;
+
 /**
  * Description:TODO
  * Create Time:2018/11/16 0016 上午 11:10
@@ -53,6 +55,51 @@ public class ProjectItem {
     private String StreetName;
     private boolean IsAllowView;
     private boolean IsAllowEdit;
+    private String OldVRUrl;
+    private String NewVRUrl;
+    private List<ImgInfo> OldFiles;
+    private List<ImgInfo> NewFiles;
+    private int EstimateTotalBuildings;
+
+    public int getEstimateTotalBuildings() {
+        return EstimateTotalBuildings;
+    }
+
+    public void setEstimateTotalBuildings(int estimateTotalBuildings) {
+        EstimateTotalBuildings = estimateTotalBuildings;
+    }
+
+    public String getOldVRUrl() {
+        return null == OldVRUrl ? "" : OldVRUrl;
+    }
+
+    public void setOldVRUrl(String oldVRUrl) {
+        OldVRUrl = oldVRUrl;
+    }
+
+    public String getNewVRUrl() {
+        return null == NewVRUrl ? "" : NewVRUrl;
+    }
+
+    public void setNewVRUrl(String newVRUrl) {
+        NewVRUrl = newVRUrl;
+    }
+
+    public List<ImgInfo> getOldFiles() {
+        return OldFiles;
+    }
+
+    public void setOldFiles(List<ImgInfo> oldFiles) {
+        OldFiles = oldFiles;
+    }
+
+    public List<ImgInfo> getNewFiles() {
+        return NewFiles;
+    }
+
+    public void setNewFiles(List<ImgInfo> newFiles) {
+        NewFiles = newFiles;
+    }
 
     public String getProjectId() {
         return ProjectId;

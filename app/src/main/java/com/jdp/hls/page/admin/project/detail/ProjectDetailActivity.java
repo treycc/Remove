@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -19,12 +20,14 @@ import com.jdp.hls.event.ModifyProjectEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.ProjectItem;
+import com.jdp.hls.page.admin.contrast.ProjectContrastDetailActivity;
 import com.jdp.hls.page.admin.group.list.GroupListActivity;
 import com.jdp.hls.page.admin.manager.ManagerListActivity;
 import com.jdp.hls.page.admin.project.config.ProjectConfigActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.DialogUtil;
+import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
@@ -85,6 +88,8 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     RelativeLayout rlProjectGroup;
     @BindView(R.id.ll_projectConfig)
     LinearLayout llProjectConfig;
+    @BindView(R.id.et_estimateTotalBuildings)
+    EnableEditText etEstimateTotalBuildings;
     private boolean isAddProject;
     @Inject
     ProjectDetailPresenter projectDetailPresenter;
@@ -101,7 +106,7 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     private StreetDialog streetDialog;
 
     @OnClick({R.id.ll_projectArea, R.id.ll_projectStreet, R.id.ll_Year, R.id.ll_projectEmployee, R.id
-            .rl_projectConfig, R.id.rl_projectGroup})
+            .rl_projectConfig, R.id.rl_projectGroup, R.id.rl_projectContrast})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_projectArea:
@@ -125,6 +130,9 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                 break;
             case R.id.rl_projectGroup:
                 GroupListActivity.goActivity(this, projectId);
+                break;
+            case R.id.rl_projectContrast:
+                ProjectContrastDetailActivity.goActivity(this, projectId);
                 break;
             default:
                 break;
@@ -214,25 +222,26 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
         String address = etAddress.getText().toString().trim();
         String areaRange = etAreaRange.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
+        String estimateTotalBuildings = etEstimateTotalBuildings.getText().toString().trim();
         if (CheckUtil.checkEmpty(projectName, "请输入项目名称")
                 && CheckUtil.checkEmpty(String.valueOf(provinceId), "请选择项目区域")
                 && CheckUtil.checkEmpty(year, "请选择年份")
                 && CheckUtil.checkEmpty(projectEmployeeIDs, "请选择负责人")) {
-
+            projectDetailPresenter.saveProject(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("ProjectId", TextUtils.isEmpty(projectId) ? "" : projectId)
+                    .addFormDataPart("ProjectName", projectName)
+                    .addFormDataPart("Year", year)
+                    .addFormDataPart("ProvinceId", String.valueOf(provinceId))
+                    .addFormDataPart("CityId", String.valueOf(cityId))
+                    .addFormDataPart("AreaId", String.valueOf(areaId))
+                    .addFormDataPart("StreetId", String.valueOf(streetId))
+                    .addFormDataPart("Address", address)
+                    .addFormDataPart("AreaRange", areaRange)
+                    .addFormDataPart("Remark", remark)
+                    .addFormDataPart("EstimateTotalBuildings", estimateTotalBuildings)
+                    .addFormDataPart("ProjectEmployeeIDs", projectEmployeeIDs)
+                    .build());
         }
-        projectDetailPresenter.saveProject(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("ProjectId", TextUtils.isEmpty(projectId) ? "" : projectId)
-                .addFormDataPart("ProjectName", projectName)
-                .addFormDataPart("Year", year)
-                .addFormDataPart("ProvinceId", String.valueOf(provinceId))
-                .addFormDataPart("CityId", String.valueOf(cityId))
-                .addFormDataPart("AreaId", String.valueOf(areaId))
-                .addFormDataPart("StreetId", String.valueOf(streetId))
-                .addFormDataPart("Address", address)
-                .addFormDataPart("AreaRange", areaRange)
-                .addFormDataPart("Remark", remark)
-                .addFormDataPart("ProjectEmployeeIDs", projectEmployeeIDs)
-                .build());
     }
 
     @Override
@@ -269,7 +278,7 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
         lastAreaId = areaId = projectItem.getAreaId();
         streetId = projectItem.getStreetId();
         projectEmployeeIDs = projectItem.getProjectEmployeeIDs();
-
+        etEstimateTotalBuildings.setString(projectItem.getEstimateTotalBuildings());
         etProjectName.setEnabled(isAllowEdit);
         etAddress.setEnabled(isAllowEdit);
         etAreaRange.setEnabled(isAllowEdit);
@@ -280,6 +289,7 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
         llProjectArea.setEnabled(isAllowEdit);
         llProjectStreet.setEnabled(isAllowEdit);
         llProjectEmployee.setEnabled(isAllowEdit);
+        etEstimateTotalBuildings.setEnabled(isAllowEdit);
 
     }
 
@@ -334,4 +344,5 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     public boolean ifRegisterLoadSir() {
         return true;
     }
+
 }

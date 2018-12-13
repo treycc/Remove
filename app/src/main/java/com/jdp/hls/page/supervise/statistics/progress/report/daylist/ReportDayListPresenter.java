@@ -4,10 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LoadSirObserver;
-import com.jdp.hls.model.entiy.ReportItem;
-import com.jdp.hls.model.entiy.ReportResult;
-
-import java.util.List;
+import com.jdp.hls.model.entiy.ReportDayResult;
 
 import javax.inject.Inject;
 
@@ -35,9 +32,9 @@ public class ReportDayListPresenter implements ReportDayListContract.Presenter {
     public void getDayReport(RequestBody requestBody) {
         mApi.getApiService().getDayReport(requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<ReportResult>(mView) {
+                (new LoadSirObserver<ReportDayResult>(mView) {
                     @Override
-                    protected void onSuccess(ReportResult reportResult) {
+                    protected void onSuccess(ReportDayResult reportResult) {
                         mView.onGetDayReportSuccess(reportResult);
                     }
                 });

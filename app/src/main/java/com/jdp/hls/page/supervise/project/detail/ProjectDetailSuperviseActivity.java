@@ -11,9 +11,10 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.CompanySupervise;
 import com.jdp.hls.model.entiy.ProjectSuperviseDetail;
+import com.jdp.hls.page.supervise.project.contrast.ProjectContrastActivity;
 import com.jdp.hls.page.supervise.statistics.progress.progress.StatisticsProgressInfoActivity;
+import com.jdp.hls.page.supervise.statistics.table.TableListSuperviseActivity;
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalActivity;
-import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.FixedListView;
@@ -51,7 +52,8 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity implements
     @Inject
     ProjectDetailSupervisePresenter projectDetailSupervisePresenter;
 
-    @OnClick({R.id.rl_statistics_progress, R.id.rl_statistics_total, R.id.rl_statistics_table})
+    @OnClick({R.id.rl_statistics_progress, R.id.rl_statistics_total, R.id.rl_statistics_table, R.id
+            .rl_statistics_contrast})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_statistics_progress:
@@ -61,7 +63,10 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity implements
                 GoUtil.goActivity(this, StatisticsTotalActivity.class);
                 break;
             case R.id.rl_statistics_table:
-                GoUtil.goActivity(this, TableListActivity.class);
+                GoUtil.goActivity(this, TableListSuperviseActivity.class);
+                break;
+            case R.id.rl_statistics_contrast:
+                GoUtil.goActivity(this, ProjectContrastActivity.class);
                 break;
         }
     }

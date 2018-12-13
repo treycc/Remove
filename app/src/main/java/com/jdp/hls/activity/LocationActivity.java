@@ -90,8 +90,8 @@ public class LocationActivity extends BaseTitleActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         getSupportFragmentManager().beginTransaction().remove(locationFragment).commitAllowingStateLoss();
+        super.onDestroy();
     }
 
     @Override

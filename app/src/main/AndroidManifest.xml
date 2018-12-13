@@ -373,10 +373,14 @@
         <activity android:name=".page.supervise.project.detail.ProjectDetailSuperviseActivity"/>
         <activity android:name=".page.supervise.statistics.progress.progress.StatisticsProgressInfoActivity"/>
         <activity android:name=".page.supervise.statistics.total.StatisticsTotalActivity"/>
-        <activity android:name=".page.supervise.statistics.table.StatisticsTableActivity"/>
         <activity android:name=".page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity"/>
         <activity android:name=".page.supervise.statistics.progress.report.daylist.ReportDayListActivity"/>
         <activity android:name=".page.supervise.statistics.progress.report.buildinglist.ReportBuildingListActivity"/>
+        <activity android:name=".page.supervise.statistics.progress.report.hourlist.ReportHourListActivity"/>
+        <activity android:name=".page.supervise.statistics.table.TableListSuperviseActivity"/>
+        <activity android:name=".page.supervise.project.contrast.ProjectContrastActivity"/>
+        <activity android:name=".page.supervise.project.contrast.VRDetailActivity"/>
+        <activity android:name=".page.admin.contrast.ProjectContrastDetailActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

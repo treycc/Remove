@@ -165,5 +165,40 @@
                 style="@style/BG_ARROW"/>
 
         </RelativeLayout>
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_statistics_contrast"
+            style="@style/Container_Normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@mipmap/ic_contrast"/>
+
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="新旧对比"/>
+
+            </LinearLayout>
+
+
+            <ImageView
+                style="@style/BG_ARROW"/>
+
+        </RelativeLayout>
     </LinearLayout>
 </ScrollView>

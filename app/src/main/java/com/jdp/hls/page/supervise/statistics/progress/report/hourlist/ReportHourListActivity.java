@@ -1,4 +1,4 @@
-package com.jdp.hls.page.supervise.statistics.progress.report.daylist;
+package com.jdp.hls.page.supervise.statistics.progress.report.hourlist;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,11 +13,10 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.ReportDayResult;
+import com.jdp.hls.model.entiy.ReportHourResult;
 import com.jdp.hls.model.entiy.ReportItem;
 import com.jdp.hls.model.entiy.ReportTitle;
-import com.jdp.hls.model.entiy.Title;
-import com.jdp.hls.page.supervise.statistics.progress.report.hourlist.ReportHourListActivity;
+import com.jdp.hls.page.supervise.statistics.progress.report.buildinglist.ReportBuildingListActivity;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.FixedGridView;
 import com.jdp.hls.view.PullToBottomListView;
@@ -30,7 +29,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
-import okhttp3.MultipartBody;
 
 /**
  * Description:TODO
@@ -38,32 +36,30 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ReportDayListActivity extends BaseTitleActivity implements ReportDayListContract.View {
+public class ReportHourListActivity extends BaseTitleActivity implements ReportHourListContract.View {
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.rsrl)
     RefreshSwipeRefreshLayout rsrl;
     @BindView(R.id.gv)
     FixedGridView gv;
-    private CommonAdapter titleAdapter;
     private CommonAdapter reportAdapter;
+    private CommonAdapter titleAdapter;
     private int reportType;
-
-    private String startDate = "";
-    private String endDate = "";
     @Inject
-    ReportDayListPresenter reportDayListPresenter;
+    ReportHourListPresenter reportHourListPresenter;
+    private String date;
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         ReportItem reportItem = (ReportItem) adapterView.getItemAtPosition(position);
-        ReportHourListActivity.goActivity(this, reportType, reportItem.getFinishedDate());
+        ReportBuildingListActivity.goActivity(this, reportType, reportItem.getFinishedDate(),reportItem.getDisplayTime());
     }
 
     @Override
     public void initVariable() {
         reportType = getIntent().getIntExtra(Constants.Extra.ReportType, 1);
-
+        date = getIntent().getStringExtra(Constants.Extra.Date);
     }
 
     @Override
@@ -77,17 +73,17 @@ public class ReportDayListActivity extends BaseTitleActivity implements ReportDa
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
-        reportDayListPresenter.attachView(this);
+        reportHourListPresenter.attachView(this);
     }
 
     @Override
     protected String getContentTitle() {
-        return "日报表";
+        return date;
     }
 
     @Override
     protected void initView() {
-
+        rsrl.stepRefresh(this);
     }
 
     @Override
@@ -114,14 +110,7 @@ public class ReportDayListActivity extends BaseTitleActivity implements ReportDa
 
     @Override
     public void initNet() {
-        reportDayListPresenter.getDayReport(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("ProjectId", SpSir.getInstance().getProjectId())
-                .addFormDataPart("StartDate", startDate)
-                .addFormDataPart("EndDate", endDate)
-                .addFormDataPart("ReportType", String.valueOf(reportType))
-                .addFormDataPart("PageSize", String.valueOf(Constants.PAGE_SIZE_100))
-                .addFormDataPart("PageIndex", String.valueOf(Constants.PAGE_FIRST))
-                .build());
+        reportHourListPresenter.getHourReport(SpSir.getInstance().getProjectId(), reportType, date, date);
     }
 
     @Override
@@ -129,29 +118,22 @@ public class ReportDayListActivity extends BaseTitleActivity implements ReportDa
         return true;
     }
 
-    public static void goActivity(Context context, int reportType) {
-        Intent intent = new Intent(context, ReportDayListActivity.class);
+    public static void goActivity(Context context, int reportType, String date) {
+        Intent intent = new Intent(context, ReportHourListActivity.class);
         intent.putExtra(Constants.Extra.ReportType, reportType);
+        intent.putExtra(Constants.Extra.Date, date);
         context.startActivity(intent);
     }
 
+
     @Override
-    public void onGetDayReportSuccess(ReportDayResult reportResult) {
-        ReportDayResult.ReportListInfo reportDataList = reportResult.getReportDataList();
+    public void onGetHourReportSuccess(ReportHourResult reportResult) {
+        List<ReportItem> reportDataList = reportResult.getReportDataList();
         List<ReportTitle> titles = reportResult.getTitles();
-        if (reportDataList != null) {
-            setListView(reportDataList.getResultList(), reportAdapter);
-        }
+        setListView(reportDataList, reportAdapter);
         if (titles != null) {
             titleAdapter.setData(titles);
         }
         setContentTitle(reportResult.getName());
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

@@ -25,50 +25,50 @@ public class ReportItem {
     private String Speed;
 
     public String getFinishedDate() {
-        return FinishedDate;
+        return null == FinishedDate ? "" : FinishedDate;
     }
 
-    public void setFinishedDate(String FinishedDate) {
-        this.FinishedDate = FinishedDate;
+    public void setFinishedDate(String finishedDate) {
+        FinishedDate = finishedDate;
     }
 
     public String getDisplayTime() {
-        return DisplayTime;
+        return null == DisplayTime ? "" : DisplayTime;
     }
 
-    public void setDisplayTime(String DisplayTime) {
-        this.DisplayTime = DisplayTime;
+    public void setDisplayTime(String displayTime) {
+        DisplayTime = displayTime;
     }
 
     public String getTime() {
-        return Time;
+        return null == Time ? "" : Time;
     }
 
-    public void setTime(String Time) {
-        this.Time = Time;
+    public void setTime(String time) {
+        Time = time;
     }
 
     public String getQuantity() {
-        return Quantity;
+        return null == Quantity ? "" : Quantity;
     }
 
-    public void setQuantity(String Quantity) {
-        this.Quantity = Quantity;
+    public void setQuantity(String quantity) {
+        Quantity = quantity;
     }
 
     public String getTimeAvg() {
-        return TimeAvg;
+        return null == TimeAvg ? "" : TimeAvg;
     }
 
-    public void setTimeAvg(String TimeAvg) {
-        this.TimeAvg = TimeAvg;
+    public void setTimeAvg(String timeAvg) {
+        TimeAvg = timeAvg;
     }
 
     public String getSpeed() {
-        return Speed;
+        return null == Speed ? "" : Speed;
     }
 
-    public void setSpeed(String Speed) {
-        this.Speed = Speed;
+    public void setSpeed(String speed) {
+        Speed = speed;
     }
 }

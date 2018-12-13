@@ -13,11 +13,11 @@
 
         <com.jdp.hls.view.PullToBottomListView
             android:id="@+id/plv"
-            android:listSelector="@android:color/transparent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@color/div_hi"
             android:dividerHeight="1px"
+            android:listSelector="@android:color/transparent"
             tools:listitem="@layout/item_employee"/>
     </com.jdp.hls.view.RefreshSwipeRefreshLayout>
 </LinearLayout>

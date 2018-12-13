@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        style="@style/Title_Main"
+        android:text="项目旧貌照片"/>
+
+    <RelativeLayout
+        style="@style/Content_LL_T12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi">
+
+        <com.jdp.hls.view.PreviewRecyclerView
+            android:id="@+id/rv_photo_preview_old"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"/>
+
+        <ImageView
+            style="@style/BG_ARROW"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_old_vr"
+        style="@style/Container_Normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="项目旧貌VR"/>
+
+        <ImageView
+            style="@style/BG_ARROW"/>
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/Title_Main"
+        android:text="项目新貌照片"/>
+
+    <RelativeLayout
+        style="@style/Content_LL_T12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi">
+
+        <com.jdp.hls.view.PreviewRecyclerView
+            android:id="@+id/rv_photo_preview_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"/>
+
+        <ImageView
+            style="@style/BG_ARROW"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_new_vr"
+        style="@style/Container_Normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi">
+
+        <TextView
+            style="@style/font_6_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="项目新貌VR"/>
+
+        <ImageView
+            style="@style/BG_ARROW"/>
+
+    </RelativeLayout>
+</LinearLayout>

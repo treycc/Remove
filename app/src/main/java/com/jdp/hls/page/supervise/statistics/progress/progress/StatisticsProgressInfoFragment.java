@@ -104,7 +104,7 @@ public class StatisticsProgressInfoFragment extends BaseFragment implements Stat
             public void convert(ViewHolder helper, ProgressItem item, int position) {
                 helper.setText(R.id.tv_itemTypeName, item.getItemTypeName());
                 helper.setText(R.id.tv_percentDesc, item.getPercentDesc());
-                helper.setText(R.id.tv_totalQuantity, item.getTotalQuantity());
+                helper.setText(R.id.tv_totalQuantity, item.getQuantity()+"户");
                 helper.setProgress(R.id.pb, getProgress(item.getQuantity(), item.getTotalQuantity()));
                 helper.setProgressDrawable(R.id.pb,progressLayers[position%progressLayers.length] );
                 helper.setImageByUrl(R.id.iv_iconUrl,item.getIconUrl());
@@ -204,7 +204,7 @@ public class StatisticsProgressInfoFragment extends BaseFragment implements Stat
         if (pieChartItemList != null && pieChartItemList.size() > 0) {
             ArrayList<PieEntry> entries = new ArrayList<>();
             for (PieChartItem pieChartItem : pieChartItemList) {
-                entries.add(new PieEntry((float) pieChartItem.getQuantity(), pieChartItem.getName()));
+                entries.add(new PieEntry((float) pieChartItem.getQuantity(), String.format("%s：%d户",pieChartItem.getName(),pieChartItem.getQuantity())));
             }
             setData(entries, totalQuantity);
         }

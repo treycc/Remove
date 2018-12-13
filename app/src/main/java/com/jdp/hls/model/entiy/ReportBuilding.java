@@ -8,14 +8,23 @@ package com.jdp.hls.model.entiy;
  */
 public class ReportBuilding {
     private String BuildingId;
-    private String SysCode;
     private int BuildingType;
+    private String SysCode;
+    private String CusCode;
     private String RealName;
     private String MobilePhone;
+    private String Idcard;
     private int StatusId;
     private String StatusDesc;
     private String Address;
-    private String CusCode;
+
+    public String getIdcard() {
+        return null == Idcard ? "" : Idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        Idcard = idcard;
+    }
 
     public String getBuildingId() {
         return null == BuildingId ? "" : BuildingId;

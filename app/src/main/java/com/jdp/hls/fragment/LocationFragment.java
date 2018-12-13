@@ -25,7 +25,6 @@ import com.jdp.hls.base.App;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.RegeocodeTask;
 
 import butterknife.BindView;

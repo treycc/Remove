@@ -137,6 +137,9 @@ public class Constants {
         String MessageTypeName = "messageTypeName";
         String ProgressItem = "ProgressItem";
         String ReportType = "reportType";
+        String Date = "date";
+        String StartDate = "startDate";
+        String VrUrl = "vrUrl";
     }
 
     public interface AirPhotoType {

@@ -15,20 +15,20 @@
 
 
         <TextView
-            android:id="@+id/tv_finishedTime"
+            android:id="@+id/tv_displayTime"
             style="@style/font_6_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.2"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="2018-10-15"/>
+            android:text="18-10-15"/>
 
         <TextView
             android:id="@+id/tv_quantity"
             style="@style/font_6_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="5"/>
 
@@ -37,7 +37,7 @@
             style="@style/font_orange_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="10:12"/>
 
@@ -46,7 +46,7 @@
             style="@style/font_6_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="05:22"/>
 
@@ -55,7 +55,7 @@
             style="@style/font_red_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="20.00"/>
 

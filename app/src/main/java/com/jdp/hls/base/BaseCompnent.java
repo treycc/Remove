@@ -86,6 +86,7 @@ import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
 import com.jdp.hls.page.statistics.StatisticsActivity;
 import com.jdp.hls.page.suggest.SuggestActivity;
+import com.jdp.hls.page.supervise.project.contrast.ProjectContrastActivity;
 import com.jdp.hls.page.supervise.project.detail.ProjectDetailSuperviseActivity;
 import com.jdp.hls.page.supervise.project.list.ProjectListSuperviseActivity;
 import com.jdp.hls.page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity;
@@ -93,6 +94,8 @@ import com.jdp.hls.page.supervise.statistics.progress.detail.linechart.Statistic
 import com.jdp.hls.page.supervise.statistics.progress.progress.StatisticsProgressInfoFragment;
 import com.jdp.hls.page.supervise.statistics.progress.report.buildinglist.ReportBuildingListActivity;
 import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportDayListActivity;
+import com.jdp.hls.page.supervise.statistics.progress.report.hourlist.ReportHourListActivity;
+import com.jdp.hls.page.supervise.statistics.table.TableListSuperviseActivity;
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalFragment;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.page.table.list.TableListFragment;
@@ -103,6 +106,12 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(ProjectContrastActivity target);
+
+    void inject(TableListSuperviseActivity target);
+
+    void inject(ReportHourListActivity target);
+
     void inject(ReportBuildingListActivity target);
 
     void inject(StatisticsProgressLineFragment target);

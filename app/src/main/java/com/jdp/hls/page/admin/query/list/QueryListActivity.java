@@ -131,7 +131,7 @@ public class QueryListActivity extends BaseTitleActivity implements QueryListCon
         for (BusinessQuery businessQuery : queryList) {
             if (businessQuery.getRealName().contains(keyword) || businessQuery.getAddress().contains(keyword) ||
                     businessQuery
-                    .getMobilePhone().contains(keyword) || businessQuery.getCusCode().contains(keyword)) {
+                            .getMobilePhone().contains(keyword) || businessQuery.getCusCode().contains(keyword)) {
                 selectBusiness.add(businessQuery);
             }
         }
@@ -161,7 +161,7 @@ public class QueryListActivity extends BaseTitleActivity implements QueryListCon
 
     @Override
     public void initNet() {
-        queryListPresenter.getQueryList(projectId, -1);
+        queryListPresenter.getQueryList(SpSir.getInstance().getProjectId(), -1);
     }
 
     @Override

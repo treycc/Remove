@@ -27,7 +27,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginRight="12dp"
                 android:gravity="center"
-                android:text="切换"/>
+                android:text="选择项目"/>
 
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_title"

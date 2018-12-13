@@ -17,12 +17,14 @@ public class Status {
         //身份证存在
         int ERROR_IDCARD_EXIST = 1011;
     }
+
     public interface DateType {
         int DAY = 1;
         int WEEK = 2;
         int MONTH = 3;
         int DATE = 0;
     }
+
     public interface BuildingType {
         int PERSONAL = 0;
         int COMPANY = 1;
@@ -146,6 +148,8 @@ public class Status {
         int BANK = 34;
         int HOUSE_EVALUATE = 16;
         int MONEY_EVALUATE = 35;
+        int PROJECT_OLDLOOK = 36;
+        int PROJECT_NEWLOOK = 37;
         int OTHER = 100;
     }
 

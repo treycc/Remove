@@ -8,7 +8,7 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ReportResult {
+public class ReportDayResult {
     private String Name;
     private List<ReportTitle> Titles;
     private ReportListInfo ReportDataList;

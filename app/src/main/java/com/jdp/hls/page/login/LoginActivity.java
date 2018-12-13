@@ -158,33 +158,14 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
             SpSir.getInstance().setIfRememberBaby(false);
             SpSir.getInstance().setComeOnBaby("");
         }
-        int routeId = account.getRouteId();
-        SpSir.getInstance().setRouteId(routeId);
-//        if (routeId == Status.RouteId.SYSTEM_LEVY) {
-//            List<Project> projects = account.getProjects();
-//            if (projects != null && projects.size() > 0) {
-//                if (projects.size() > 1) {
-//                    ProjectListActivity.goActivity(this, projects);
-//                } else {
-//                    Project project = projects.get(0);
-//                    SpSir.getInstance().setProjectId(project.getProjectId());
-//                    SpSir.getInstance().setProjectName(project.getProjectName());
-//                    GoUtil.goActivityAndFinish(this, HomeActivity.class);
-//                }
-//            } else {
-//                ToastUtil.showText("您的账号下没有项目");
-//            }
-//        } else {
-//            GoUtil.goActivityAndFinish(this, HomeActivity.class);
-//        }
-
-        if (TextUtils.isEmpty(SpSir.getInstance().getProjectId())) {
-            GoUtil.goActivityAndFinish(this, ProjectListActivity.class);
-        } else {
-            GoUtil.goActivityAndFinish(this, HomeActivity.class);
+        SpSir.getInstance().setRouteId(account.getRouteId());
+        List<Project> projects = account.getProjects();
+        if (projects != null && projects.size() > 0) {
+            Project project = projects.get(0);
+            SpSir.getInstance().setProjectName(project.getProjectName());
+            SpSir.getInstance().setProjectId(project.getProjectId());
         }
-
-
+        GoUtil.goActivityAndFinish(this, HomeActivity.class);
     }
 
     private void saveUserInfo(Login account) {

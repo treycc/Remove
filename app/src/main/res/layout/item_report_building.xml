@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="@color/white_hi"
-              android:orientation="vertical"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
               android:paddingBottom="12dp"
               android:paddingLeft="24dp"
               android:paddingRight="24dp"
               android:paddingTop="12dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,16 +25,15 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_marginRight="8dp"
-                android:id="@+id/tv_table_number"
+                android:id="@+id/tv_table_sysCode"
                 style="@style/font_3_15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
                 android:text="2018-MD-5412"/>
 
             <com.kingja.supershapeview.view.SuperShapeTextView
-                android:visibility="gone"
                 android:id="@+id/set_status_back"
                 style="@style/font_red_10"
                 android:layout_width="wrap_content"
@@ -42,12 +44,12 @@
                 android:paddingTop="2dp"
                 android:singleLine="true"
                 android:text="退"
+                android:visibility="gone"
                 app:super_cornerRadius="5dp"
-                app:super_strokeWidth="1px"
-                app:super_strokeColor="@color/red_hi"/>
+                app:super_strokeColor="@color/red_hi"
+                app:super_strokeWidth="1px"/>
 
             <com.kingja.supershapeview.view.SuperShapeTextView
-                android:visibility="gone"
                 android:id="@+id/set_status_banned"
                 style="@style/font_red_10"
                 android:layout_width="wrap_content"
@@ -58,10 +60,10 @@
                 android:paddingTop="2dp"
                 android:singleLine="true"
                 android:text="废"
+                android:visibility="gone"
                 app:super_cornerRadius="5dp"
-                app:super_strokeWidth="1px"
-                app:super_strokeColor="@color/red_hi"/>
-
+                app:super_strokeColor="@color/red_hi"
+                app:super_strokeWidth="1px"/>
 
 
         </LinearLayout>
@@ -156,17 +158,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                android:text="办理用时:"/>
+                android:text="办理节点:"/>
 
             <TextView
-                android:id="@+id/tv_table_node"
+                android:id="@+id/tv_table_statusDesc"
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12：:0"/>
+                android:text="入户丈量"/>
         </LinearLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="10dp"
+        android:background="@mipmap/ic_arrow_right"
+        android:visibility="gone"/>
 
 
 </LinearLayout>

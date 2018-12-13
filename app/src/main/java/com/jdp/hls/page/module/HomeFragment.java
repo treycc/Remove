@@ -25,6 +25,7 @@ import com.jdp.hls.page.admin.employee.list.EmployeeListActivity;
 import com.jdp.hls.page.admin.message.notification.NotificationActivity;
 import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
 import com.jdp.hls.page.admin.query.ProjectSelectActivity;
+import com.jdp.hls.page.admin.query.list.QueryListActivity;
 import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.page.personsearch.PersonSearchActivity;
@@ -32,6 +33,7 @@ import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.page.supervise.project.detail.ProjectDetailSuperviseActivity;
 import com.jdp.hls.page.supervise.project.list.ProjectListSuperviseActivity;
 import com.jdp.hls.util.AppManager;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
@@ -71,11 +73,12 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
 
     @Inject
     ModulePresenter modulePresenter;
+
     @OnClick({R.id.tv_switchProject})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.tv_switchProject:
-               GoUtil.goActivity(getActivity(),ProjectListActivity.class);
+                GoUtil.goActivity(getActivity(), ProjectListActivity.class);
                 break;
         }
     }
@@ -85,25 +88,40 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
         Module module = (Module) adapterView.getItemAtPosition(position);
         switch (module.getModuleId()) {
             case Status.ModuleId.SYSTEM_ACCOUNT:
+                //账号管理
                 GoUtil.goActivity(getActivity(), EmployeeListActivity.class);
                 break;
             case Status.ModuleId.SYSTEM_PROJECT_MANAGER:
+                //项目管理
                 GoUtil.goActivity(getActivity(), ProjectListAdminActivity.class);
                 break;
             case Status.ModuleId.SYSTEM_MESSAGE:
-                GoUtil.goActivity(getActivity(), NotificationActivity.class);
+                //系统消息
+                if (CheckUtil.checkEmpty(SpSir.getInstance().getProjectId(), "请选择项目")) {
+                    GoUtil.goActivity(getActivity(), NotificationActivity.class);
+                }
                 break;
             case Status.ModuleId.SYSTEM_QUERY:
-                GoUtil.goActivity(getActivity(), ProjectSelectActivity.class);
+                //数据查询
+                if (CheckUtil.checkEmpty(SpSir.getInstance().getProjectId(), "请选择项目")) {
+//                    GoUtil.goActivity(getActivity(), ProjectSelectActivity.class);
+                    QueryListActivity.GoActivity(getActivity(),SpSir.getInstance().getProjectId(),SpSir.getInstance().getProjectName());
+                }
                 break;
             case Status.ModuleId.SYSTEM_LEVY:
-                GoUtil.goActivity(getActivity(), LevyActivity.class);
+                //征收系统
+                if (CheckUtil.checkEmpty(SpSir.getInstance().getProjectId(), "请选择项目")) {
+                    GoUtil.goActivity(getActivity(), LevyActivity.class);
+                }
                 break;
             case Status.ModuleId.SYSTEM_PROJECT_SUPERVISE:
-                GoUtil.goActivity(getActivity(),ProjectDetailSuperviseActivity.class);
-//                ProjectDetailSuperviseActivity.goActivity(getActivity(),"");
+                //项目监管
+                if (CheckUtil.checkEmpty(SpSir.getInstance().getProjectId(), "请选择项目")) {
+                    GoUtil.goActivity(getActivity(), ProjectDetailSuperviseActivity.class);
+                }
                 break;
             case Status.ModuleId.SYSTEM_LOCATION:
+                //地理信息
                 ToastUtil.showText("功能开发中");
                 break;
         }

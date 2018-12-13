@@ -149,7 +149,21 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            style="@style/Content_LL_T6">
 
+            <TextView
+                style="@style/Title_Sub"
+                android:text="预估总户数"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:inputType="number"
+                android:id="@+id/et_estimateTotalBuildings"
+                style="@style/Content_ET_W2_Mul_Line"
+                android:hint="请输入预估总户数"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
         <TextView
             style="@style/Title_Normal"
             android:background="@color/white_hi"
@@ -221,6 +235,24 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="小组信息"/>
+
+                <ImageView
+                    style="@style/BG_ARROW"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_projectContrast"
+                style="@style/Container_Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi">
+
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="新旧比对"/>
 
                 <ImageView
                     style="@style/BG_ARROW"/>

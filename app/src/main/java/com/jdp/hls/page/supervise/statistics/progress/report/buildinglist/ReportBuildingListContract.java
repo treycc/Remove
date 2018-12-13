@@ -4,11 +4,10 @@ package com.jdp.hls.page.supervise.statistics.progress.report.buildinglist;
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.ReportBuilding;
-import com.jdp.hls.model.entiy.ReportResult;
 
 import java.util.List;
 
-import okhttp3.RequestBody;
+import retrofit2.http.Query;
 
 /**
  * Description：TODO
@@ -22,6 +21,6 @@ public interface ReportBuildingListContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getReportBuildingList();
+        void getReportBuildingList(String projectId, int ReportType, String startDate, String endDate);
     }
 }

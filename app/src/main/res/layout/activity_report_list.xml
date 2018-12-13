@@ -6,55 +6,20 @@
               android:background="@color/white_hi"
               android:orientation="vertical">
 
-    <LinearLayout
+    <com.jdp.hls.view.FixedGridView
+        android:id="@+id/gv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:horizontalSpacing="0dp"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="5"
         android:paddingBottom="16dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingTop="16dp">
-
-        <TextView
-            android:gravity="center"
-            style="@style/font_6_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:text="日期"/>
-
-        <TextView
-            android:gravity="center"
-            style="@style/font_6_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="数量"/>
-
-        <TextView
-            android:gravity="center"
-            style="@style/font_6_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:text="用时"/>
-
-        <TextView
-            android:gravity="center"
-            style="@style/font_6_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:text="均时"/>
-
-        <TextView
-            android:gravity="center"
-            style="@style/font_6_14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:text="均速"/>
-    </LinearLayout>
+        android:paddingTop="16dp"
+        android:scrollbars="none"
+        android:verticalSpacing="0dp"
+        tools:listitem="@layout/item_title"/>
 
     <View style="@style/div_hor_gray_4"/>
 

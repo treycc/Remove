@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.KeyValue;
+import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class StatisticsTotalPresenter implements StatisticsTotalContract.Present
     public void getStatisticsTotal(String projectId, int buildingType) {
         mApi.getApiService().getStatisticsTotal(projectId, buildingType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<List<KeyValue>>(mView) {
+                (new LoadSirObserver<List<KeyValue>>(mView) {
                     @Override
                     protected void onSuccess(List<KeyValue> keyValueList) {
                         mView.onGetStatisticsTotalSuccess(keyValueList);

@@ -10,6 +10,7 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.KeyValue;
+import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.FixedListView;
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class StatisticsTotalFragment extends BaseFragment implements StatisticsT
                 .item_statistics_total) {
             @Override
             public void convert(ViewHolder helper, KeyValue item) {
-                helper.setText(R.id.tv_key, item.getKey());
+                helper.setText(R.id.tv_key, item.getName());
                 helper.setText(R.id.tv_value, item.getValue());
             }
         });
@@ -81,7 +82,7 @@ public class StatisticsTotalFragment extends BaseFragment implements StatisticsT
 
     @Override
     public void initNet() {
-        statisticsTotalPresenter.getStatisticsTotal(projectId, buildingType);
+        statisticsTotalPresenter.getStatisticsTotal(SpSir.getInstance().getProjectId(), buildingType);
     }
 
     @Override

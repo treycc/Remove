@@ -7,31 +7,31 @@ package com.jdp.hls.model.entiy;
  * Email:kingjavip@gmail.com
  */
 public class KeyValue {
-    private String Key;
+    private String Name;
     private String Value;
     private int Type;
 
-    public String getKey() {
-        return Key;
-    }
-
-    public void setKey(String key) {
-        Key = key;
-    }
-
-    public String getValue() {
-        return Value;
+    public void setName(String name) {
+        Name = name;
     }
 
     public void setValue(String value) {
         Value = value;
     }
 
-    public int getType() {
-        return Type;
+    public void setType(int buildingType) {
+        Type = buildingType;
     }
 
-    public void setType(int type) {
-        Type = type;
+    public String getName() {
+        return null == Name ? "" : Name;
+    }
+
+    public String getValue() {
+        return null == Value ? "" : Value;
+    }
+
+    public int getType() {
+        return Type;
     }
 }

@@ -1,8 +1,5 @@
 package com.jdp.hls.page.home;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,15 +14,12 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
-import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.ResetLoginStatusEvent;
-import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
-import com.jdp.hls.page.module.HomeFragment;
 import com.jdp.hls.fragment.MessageFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.page.mine.MineFragment;
-import com.jdp.hls.page.projects.ProjectListActivity;
+import com.jdp.hls.page.module.HomeFragment;
 import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
@@ -116,7 +110,8 @@ public class HomeActivity extends BaseTitleActivity {
     @Override
     protected void initView() {
         supportFragmentManager = getSupportFragmentManager();
-        fragmentMap.put(FRAGMENT_HOME, currentFragment = HomeFragment.newInstance(String.valueOf(SpSir.getInstance().getRouteId())));
+        fragmentMap.put(FRAGMENT_HOME, currentFragment = HomeFragment.newInstance(String.valueOf(SpSir.getInstance()
+                .getRouteId())));
         fragmentMap.put(FRAGMENT_MESSAGE, MessageFragment.newInstance());
         fragmentMap.put(FRAGMENT_MINE, MineFragment.newInstance());
         getSupportFragmentManager().beginTransaction().add(R.id.fl_home, currentFragment).commit();

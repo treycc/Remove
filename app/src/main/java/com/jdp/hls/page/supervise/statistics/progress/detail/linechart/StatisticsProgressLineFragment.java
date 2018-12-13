@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -18,6 +19,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
@@ -30,6 +33,7 @@ import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.StringTextView;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -212,8 +216,10 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
 
     @Override
     public void onGetLineChartSuccess(List<LineChartItem> lineChartItemList) {
+
         if (lineChartItemList != null && lineChartItemList.size() > 0) {
             List<Entry> entries = new ArrayList<>();
+            String [] dates=new String [lineChartItemList.size()];
             int maxValue = 0;
             int minValue = 0;
             for (int i = 0; i < lineChartItemList.size(); i++) {
@@ -225,8 +231,10 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
                     minValue = quantity;
                 }
                 entries.add(new Entry(i, quantity));
+                dates[i]=DateUtil.getLineChartDate(lineChartItemList.get(i).getTimestamp());
             }
             maxValue += maxValue;
+            LogUtil.e(TAG,"maxValue:"+maxValue);
 //            minValue = minValue - 2 >= 0 ? minValue - 2 : 0;
             //设置折线
             LineDataSet dataSet = new LineDataSet(entries, "折线图"); // 折线图数据及提示文字
@@ -266,8 +274,7 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
             XAxis xAxis = lineChart.getXAxis();
             xAxis.setTextColor(ContextCompat.getColor(getActivity(), R.color.c_9));
             xAxis.setTextSize(12f);
-            xAxis.setValueFormatter((value, axis) -> DateUtil.getLineChartDate(lineChartItemList.get((int) value)
-                    .getTimestamp()));
+            xAxis.setValueFormatter(new IndexAxisValueFormatter(dates));
             xAxis.setDrawAxisLine(true);//是否绘制轴线
             xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
             xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值

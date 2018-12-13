@@ -1,11 +1,13 @@
-package com.jdp.hls.page.supervise.statistics.progress.report.daylist;
+package com.jdp.hls.page.supervise.statistics.progress.report.hourlist;
 
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.ReportDayResult;
+import com.jdp.hls.model.entiy.ReportHourResult;
 
 import okhttp3.RequestBody;
+import retrofit2.http.Query;
 
 /**
  * Description：TODO
@@ -13,12 +15,12 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public interface ReportDayListContract {
+public interface ReportHourListContract {
     interface View extends BaseView {
-        void onGetDayReportSuccess(ReportDayResult reportResult);
+        void onGetHourReportSuccess(ReportHourResult reportResult);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getDayReport(RequestBody requestBody);
+        void getHourReport(String projectId, int ReportType, String startDate, String endDate);
     }
 }

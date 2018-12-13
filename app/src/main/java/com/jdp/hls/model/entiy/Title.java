@@ -2,11 +2,11 @@ package com.jdp.hls.model.entiy;
 
 /**
  * Description:TODO
- * Create Time:2018/12/7 0007 上午 10:52
+ * Create Time:2018/12/12 0012 下午 3:52
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ReportTitle {
+public class Title {
     private String DisplayName;
 
     public String getDisplayName() {
