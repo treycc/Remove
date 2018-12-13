@@ -1,6 +1,7 @@
 package com.jdp.hls.page.module;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,10 +75,10 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     @Inject
     ModulePresenter modulePresenter;
 
-    @OnClick({R.id.tv_switchProject})
+    @OnClick({R.id.tv_title})
     public void click(View view) {
         switch (view.getId()) {
-            case R.id.tv_switchProject:
+            case R.id.tv_title:
                 GoUtil.goActivity(getActivity(), ProjectListActivity.class);
                 break;
         }
@@ -160,7 +161,7 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     @Override
     protected void initData() {
         rsrl.stepRefresh(this);
-        tvTitle.setText(SpSir.getInstance().getProjectName());
+        tvTitle.setText(TextUtils.isEmpty(SpSir.getInstance().getProjectName())?"项目未选择":SpSir.getInstance().getProjectName());
     }
 
     @Override

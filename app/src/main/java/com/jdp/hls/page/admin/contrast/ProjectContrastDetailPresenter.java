@@ -5,11 +5,13 @@ import android.support.annotation.NonNull;
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ProjectFacade;
+import com.jdp.hls.model.entiy.ResultObserver;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 
 
 /**
@@ -28,13 +30,13 @@ public class ProjectContrastDetailPresenter implements ProjectContrastDetailCont
     }
 
     @Override
-    public void getProjectPhoto(String projectId) {
-        mApi.getApiService().getProjectPhoto(projectId).subscribeOn(Schedulers.io())
+    public void saveVrInfo(RequestBody requestBody) {
+        mApi.getApiService().saveVrInfo(requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<ProjectFacade>(mView) {
+                (new ResultObserver<Object>(mView) {
                     @Override
-                    protected void onSuccess(ProjectFacade projectFacade) {
-                        mView.onGetProjectPhotoSuccess(projectFacade);
+                    protected void onSuccess(Object obj) {
+                        mView.onSaveVrInfoSuccess();
                     }
                 });
     }

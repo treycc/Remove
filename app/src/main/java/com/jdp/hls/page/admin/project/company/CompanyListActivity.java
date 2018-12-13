@@ -106,7 +106,7 @@ public class CompanyListActivity extends BaseTitleActivity implements CompanyLis
                             companyIdsSb.append(selectCompanies.get(i).getCompanyId());
                             companyIdsSb.append("#");
                             companyNamesSb.append(selectCompanies.get(i).getCompanyName());
-                            companyNamesSb.append("\n");
+                            companyNamesSb.append(",");
                             companyTypeIdsSb.append(selectCompanies.get(i).getCompanyTypeID());
                             companyTypeIdsSb.append("#");
                         } else {
@@ -144,7 +144,7 @@ public class CompanyListActivity extends BaseTitleActivity implements CompanyLis
             return;
         }
         String[] companyIdsAttr = companyIds.split("#");
-        String[] companyNamesAttr = companyNames.split("，");
+        String[] companyNamesAttr = companyNames.split(",");
         for (int i = 0; i < companyIdsAttr.length; i++) {
             Company company = new Company();
             company.setCompanyId(Integer.valueOf(companyIdsAttr[i]));

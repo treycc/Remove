@@ -24,6 +24,7 @@ import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SimpleTextWatcher;
+import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
@@ -75,6 +76,8 @@ public class ProjectListAdminActivity extends BaseTitleActivity implements Proje
         if (isAllowView) {
             ProjectItem projectItem = (ProjectItem) adapterView.getItemAtPosition(position);
             ProjectDetailActivity.goActivity(this, projectItem.getProjectId());
+        }else{
+            ToastUtil.showText("没有操作权限");
         }
     }
 

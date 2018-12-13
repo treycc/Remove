@@ -1,80 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jdp.hls.view.RefreshSwipeRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rsrl"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white_hi"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingRight="24dp"
+        android:paddingLeft="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <com.jdp.hls.view.StringTextView
+            android:layout_marginRight="6dp"
+            android:id="@+id/tv_title"
+            style="@style/font_6_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="项目未选择"/>
+
+        <ImageView
+            android:background="@mipmap/ic_drop_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white_hi"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="6dp">
 
-
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/iv_imageUrl"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="116dp"
+            android:scaleType="centerCrop"/>
 
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_switchProject"
-                style="@style/font_main_15"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="12dp"
-                android:gravity="center"
-                android:text="选择项目"/>
+    <View style="@style/div_hor_gray"/>
 
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_title"
-                style="@style/font_6_18"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="48dp"
-                android:layout_marginRight="48dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="房屋征收平台"/>
+    <TextView
+        style="@style/font_3_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="12dp"
+        android:text="应用系统"/>
 
-        </RelativeLayout>
+    <com.jdp.hls.view.RefreshSwipeRefreshLayout
 
-        <View style="@style/div_hor_gray"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white_hi"
-            android:orientation="vertical"
-            android:paddingBottom="6dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="6dp">
-
-            <ImageView
-                android:id="@+id/iv_imageUrl"
-                android:layout_width="match_parent"
-                android:layout_height="116dp"
-                android:scaleType="centerCrop"/>
-
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray"/>
-
-        <TextView
-            style="@style/font_3_20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="12dp"
-            android:text="应用系统"/>
+        android:id="@+id/rsrl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ListView
             android:id="@+id/flv"
@@ -88,6 +84,6 @@
             android:paddingTop="8dp"
             tools:listitem="@layout/item_module"/>
 
+    </com.jdp.hls.view.RefreshSwipeRefreshLayout>
+</LinearLayout>
 
-    </LinearLayout>
-</com.jdp.hls.view.RefreshSwipeRefreshLayout>

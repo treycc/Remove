@@ -28,7 +28,8 @@ public class StatisticsTotalActivity extends BaseTitleActivity {
     ViewPager vp;
     private String[] tabNames;
     private Fragment[] fragments = new Fragment[2];
-    private int[] tabIcons = {R.drawable.selector_tab_airphoto_todo, R.drawable.selector_tab_airphoto_done};
+    private int[] tabIcons = {R.drawable.selector_tab_statistics_total_personal, R.drawable
+            .selector_tab_statistics_total_company};
     private String projectId;
 
     @Override
@@ -68,6 +69,10 @@ public class StatisticsTotalActivity extends BaseTitleActivity {
         NormalPageAdapter fragmentAdapter = new NormalPageAdapter(this, fragments, tabNames, tabIcons);
         vp.setAdapter(fragmentAdapter);
         tab.setupWithViewPager(vp);
+        for (int i = 0; i < tab.getTabCount(); i++) {
+            TabLayout.Tab t = tab.getTabAt(i);
+            t.setCustomView(fragmentAdapter.getTabView(i));
+        }
     }
 
     @Override

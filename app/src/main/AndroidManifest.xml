@@ -378,9 +378,11 @@
         <activity android:name=".page.supervise.statistics.progress.report.buildinglist.ReportBuildingListActivity"/>
         <activity android:name=".page.supervise.statistics.progress.report.hourlist.ReportHourListActivity"/>
         <activity android:name=".page.supervise.statistics.table.TableListSuperviseActivity"/>
-        <activity android:name=".page.supervise.project.contrast.ProjectContrastActivity"/>
+        <activity android:name=".page.supervise.project.contrast.ProjectContrastActivity"
+                  android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".page.supervise.project.contrast.VRDetailActivity"/>
-        <activity android:name=".page.admin.contrast.ProjectContrastDetailActivity"/>
+        <activity android:name=".page.admin.contrast.ProjectContrastDetailActivity"
+                  android:windowSoftInputMode="adjustPan"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

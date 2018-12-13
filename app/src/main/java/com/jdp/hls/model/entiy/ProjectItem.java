@@ -59,13 +59,13 @@ public class ProjectItem {
     private String NewVRUrl;
     private List<ImgInfo> OldFiles;
     private List<ImgInfo> NewFiles;
-    private int EstimateTotalBuildings;
+    private String EstimateTotalBuildings;
 
-    public int getEstimateTotalBuildings() {
+    public String getEstimateTotalBuildings() {
         return EstimateTotalBuildings;
     }
 
-    public void setEstimateTotalBuildings(int estimateTotalBuildings) {
+    public void setEstimateTotalBuildings(String estimateTotalBuildings) {
         EstimateTotalBuildings = estimateTotalBuildings;
     }
 

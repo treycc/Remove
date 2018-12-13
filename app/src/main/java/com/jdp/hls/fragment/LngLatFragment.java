@@ -2,13 +2,9 @@ package com.jdp.hls.fragment;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdate;
@@ -35,23 +31,16 @@ import butterknife.BindView;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class LngLatFragment extends Fragment implements AMap.OnMapClickListener {
+public class LngLatFragment extends BaseFragment implements AMap.OnMapClickListener {
+    @BindView(R.id.map_fragment)
     TextureMapView mMapView;
     private AMap aMap;
     private boolean editable;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
-            savedInstanceState) {
-        View rootView = View.inflate(getContext(), R.layout.fragment_lnglat, null);
-        mMapView = rootView.findViewById(R.id.map_fragment);
-        return mMapView;
-    }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.e(TAG, "onViewCreated: ");
         mMapView.onCreate(savedInstanceState);
         if (aMap == null) {
             aMap = mMapView.getMap();
@@ -96,6 +85,36 @@ public class LngLatFragment extends Fragment implements AMap.OnMapClickListener 
         drawMarkers(lng, lat);
     }
 
+    @Override
+    protected void initVariable() {
+
+    }
+
+    @Override
+    protected void initComponent(AppComponent appComponent) {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    public void initNet() {
+
+    }
+
+    @Override
+    protected int getContentId() {
+        return R.layout.fragment_lnglat;
+    }
+
     /**
      * 必须重写以下方法
      */
@@ -123,10 +142,6 @@ public class LngLatFragment extends Fragment implements AMap.OnMapClickListener 
         mMapView.onSaveInstanceState(outState);
     }
 
-
-    /**
-     * 必须重写以下方法，否则发生内存泄漏
-     */
     @Override
     public void onDestroyView() {
         if (mMapView != null) {

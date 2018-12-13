@@ -40,10 +40,10 @@ public class ProjectContrastActivity extends BaseTitleActivity implements Projec
     public void rl_protocol_otherArea(View view) {
         switch (view.getId()) {
             case R.id.rl_old_vr:
-//                if (CheckUtil.checkEmpty(oldVrUrl, "暂无旧貌VR")) {
+                if (CheckUtil.checkEmpty(oldVrUrl, "暂无旧貌VR")) {
                     VRDetailActivity.goActivity(this, oldVrUrl, "旧貌VR");
                     break;
-//                }
+                }
             case R.id.rl_new_vr:
                 if (CheckUtil.checkEmpty(newVrUrl, "暂无新貌VR")) {
                     VRDetailActivity.goActivity(this, newVrUrl, "新貌VR");

@@ -28,10 +28,10 @@ import butterknife.OnItemClick;
  * Email:kingjavip@gmail.com
  */
 public class MessageFragment extends BaseFragment {
-    @BindView(R.id.plv)
-    PullToBottomListView plv;
-    @BindView(R.id.srl)
-    RefreshableSwipeRefreshLayout srl;
+//    @BindView(R.id.plv)
+//    PullToBottomListView plv;
+//    @BindView(R.id.srl)
+//    RefreshableSwipeRefreshLayout srl;
     private List<Message> messages = new ArrayList<>();
     private CommonAdapter adapter;
 
@@ -43,20 +43,13 @@ public class MessageFragment extends BaseFragment {
         return fragment;
     }
 
-    @OnItemClick({R.id.plv})
-    public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        GoUtil.goActivity(getActivity(), MessageDetailActivity.class);
-    }
+//    @OnItemClick({R.id.plv})
+//    public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//        GoUtil.goActivity(getActivity(), MessageDetailActivity.class);
+//    }
 
     @Override
     protected void initVariable() {
-        if (getArguments() != null) {
-            String param = getArguments().getString("param");
-        }
-        for (int i = 0; i < 10; i++) {
-            messages.add(new Message("曹雪晴" + i, "2018-08-22 10:22:2" + i, "您好，请发送的丈量信息审核不通过，审核人为朱自清，不通过原因为：图片清晰度不够" +
-                    i));
-        }
     }
 
     @Override
@@ -66,15 +59,15 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        plv.setAdapter(adapter = new CommonAdapter<Message>(getActivity(), messages, R.layout.item_message) {
-            @Override
-            public void convert(ViewHolder helper, Message item) {
-                helper.setText(R.id.tv_message_sender, item.getSender());
-                helper.setText(R.id.tv_message_date, item.getDate());
-                helper.setText(R.id.tv_message_content, item.getContent());
+//        plv.setAdapter(adapter = new CommonAdapter<Message>(getActivity(), messages, R.layout.item_message) {
+//            @Override
+//            public void convert(ViewHolder helper, Message item) {
+//                helper.setText(R.id.tv_message_sender, item.getSender());
+//                helper.setText(R.id.tv_message_date, item.getDate());
+//                helper.setText(R.id.tv_message_content, item.getContent());
 //                helper.setText(R.id.v_message_isReaded, item.getPerson());
-            }
-        });
+//            }
+//        });
     }
 
     @Override
@@ -89,7 +82,7 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected int getContentId() {
-        return R.layout.common_lv_title;
+        return R.layout.layout_empty_message;
     }
 
 }

@@ -49,6 +49,14 @@ public class CheckUtil {
         return true;
     }
 
+    public static boolean checkUrl(String url,String tip) {
+        if (!TextUtils.isEmpty(url) && !url.startsWith("http")) {
+            ToastUtil.showText(tip);
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 验证是否以0开始
      *

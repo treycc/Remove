@@ -37,7 +37,7 @@ public class ProjectConfigAdapter extends BaseLvAdapter<ConfigCompany> {
 
         viewHolder.tv_companyTypeName.setText(list.get(position).getCompanyTypeName());
         viewHolder.tv_companyName.setHint(list.get(position).getMarkedWords());
-        String companyName = list.get(position).getCompanyName().replace("，","\n");
+        String companyName = list.get(position).getCompanyName().replace(",","\n");
         viewHolder.tv_companyName.setString(companyName);
         return convertView;
     }

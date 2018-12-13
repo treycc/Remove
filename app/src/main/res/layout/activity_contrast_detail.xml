@@ -38,10 +38,9 @@
             android:text="项目旧貌VR"/>
 
         <com.jdp.hls.view.EnableEditText
-            android:id="@+id/et_newVrUrl"
+            android:id="@+id/et_oldVrUrl"
             style="@style/Content_ET_W2_5_LINES"
-            android:hint="请输入项目旧貌VR地址"
-            android:inputType="number"/>
+            android:hint="请输入项目旧貌VR地址"/>
     </LinearLayout>
 
     <TextView
@@ -78,9 +77,8 @@
             android:text="项目新貌VR"/>
 
         <com.jdp.hls.view.EnableEditText
-            android:id="@+id/et_oldVrUrl"
+            android:id="@+id/et_newVrUrl"
             style="@style/Content_ET_W2_5_LINES"
-            android:hint="请输入项目新貌VR地址"
-            android:inputType="number"/>
+            android:hint="请输入项目新貌VR地址"/>
     </LinearLayout>
 </LinearLayout>

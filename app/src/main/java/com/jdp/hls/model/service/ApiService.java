@@ -758,7 +758,11 @@ public interface ApiService {
     Observable<HttpResult<List<Table>>> getTablesSupervise(@Query("projectId") String projectId, @Query
             ("buildingType") int buildingType);
 
-    /*项目外貌/VR(监管系统)*/
+    /*项目外貌/VR-详情(监管系统)*/
     @GET("project/GetProjectPhoto")
     Observable<HttpResult<ProjectFacade>> getProjectPhoto(@Query("projectId") String projectId);
+
+    /*项目外貌/VR-保存(监管系统)*/
+    @POST("project/SaveProjectVR")
+    Observable<HttpResult<Object>> saveVrInfo(@Body RequestBody requestBody);
 }

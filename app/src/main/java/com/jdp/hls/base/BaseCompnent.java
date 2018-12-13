@@ -2,6 +2,7 @@ package com.jdp.hls.base;
 
 
 import com.jdp.hls.activity.PhotoPreviewActivity;
+import com.jdp.hls.page.admin.contrast.ProjectContrastDetailActivity;
 import com.jdp.hls.page.admin.group.detail.GroupDetailActivity;
 import com.jdp.hls.page.admin.group.list.GroupListActivity;
 import com.jdp.hls.page.admin.group.member.MemberSelectActivity;
@@ -106,6 +107,8 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(ProjectContrastDetailActivity target);
+
     void inject(ProjectContrastActivity target);
 
     void inject(TableListSuperviseActivity target);

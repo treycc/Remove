@@ -113,7 +113,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="公摊面积"/>
+                android:text="建筑分摊面积"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_property_shareArea"

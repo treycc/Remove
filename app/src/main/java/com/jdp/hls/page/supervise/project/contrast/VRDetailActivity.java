@@ -2,7 +2,6 @@ package com.jdp.hls.page.supervise.project.contrast;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -14,10 +13,8 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.util.SpSir;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:TODO
@@ -30,7 +27,7 @@ public class VRDetailActivity extends BaseTitleActivity {
     WebView wb;
     @BindView(R.id.pb)
     ProgressBar pb;
-    private String vrUrl = "http://m.detu.com/zh/pano/show/519372";
+    private String vrUrl;
     private String title;
 
     @Override
@@ -76,10 +73,9 @@ public class VRDetailActivity extends BaseTitleActivity {
                 if (newProgress == 100) {
                     pb.setVisibility(View.GONE);
                 }
-
             }
         });
-        wb.loadUrl("http://m.detu.com/zh/pano/show/519372");
+        wb.loadUrl(vrUrl);
     }
 
     @Override
