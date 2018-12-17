@@ -3,6 +3,7 @@ package com.jdp.hls.page.rosterdetail;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -57,6 +58,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lib.kingja.switchbutton.SwitchMultiButton;
 import okhttp3.MediaType;
@@ -110,6 +112,10 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     TextView tvRosterCompanyName;
     @BindView(R.id.ll_roster_location)
     LinearLayout llRosterLocation;
+    @BindView(R.id.smb_roster_assetEvaluator)
+    SwitchMultiButton smbRosterAssetEvaluator;
+    @BindView(R.id.ll_assetEvaluator)
+    LinearLayout llAssetEvaluator;
     private List<ImgInfo> imgInfos = new ArrayList<>();
     private Roster roster;
     private LngLatFragment lngLatFragment;
@@ -124,6 +130,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     private boolean isEnterprise = false;
     private boolean isMeasured = false;
     private boolean isEvaluated = false;
+    private boolean isAssetEvaluator = false;
     private String personId;
     private String houseId;
 
@@ -278,6 +285,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                     .addFormDataPart("mobilePhone", phone)
                     .addFormDataPart("isEvaluated", String.valueOf(isEvaluated))
                     .addFormDataPart("isMeasured", String.valueOf(isMeasured))
+                    .addFormDataPart("isAssetEvaluator", String.valueOf(isAssetEvaluator))
                     .addFormDataPart("longitude", String.valueOf(lng))
                     .addFormDataPart("latitude", String.valueOf(lat))
                     .addFormDataPart("deleteFileIDs", imgAdapter.getDeleteImgIds())
@@ -367,6 +375,12 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
             modifyMap.setEvaluated(isEvaluated);
             checkHasModified();
         });
+
+        smbRosterAssetEvaluator.setOnSwitchListener((position, tabText) -> {
+            isAssetEvaluator = position == 1;
+            modifyMap.setAssetEvaluated(isAssetEvaluator);
+            checkHasModified();
+        });
     }
 
     @Override
@@ -397,10 +411,13 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         gender = rosterDetail.isGender();
         isMeasured = rosterDetail.isMeasured();
         isEvaluated = rosterDetail.isEvaluated();
+        isAssetEvaluator = rosterDetail.isAssetEvaluator();
         smbRosterGender.setSelectedTab(gender ? 0 : 1);
         smbRosterMeasured.setSelectedTab(isMeasured ? 1 : 0);
         smbRosterEvaluated.setSelectedTab(isEvaluated ? 1 : 0);
+        smbRosterAssetEvaluator.setSelectedTab(isAssetEvaluator ? 1 : 0);
         llRosterCompanyName.setVisibility(rosterDetail.isEnterprise() ? View.VISIBLE : View.GONE);
+        llAssetEvaluator.setVisibility(rosterDetail.isEnterprise() ? View.VISIBLE : View.GONE);
         tvRosterCompanyName.setText(rosterDetail.getEnterpriseName());
         setLocation(lng, lat);
         List<ImgInfo> houseFiles = rosterDetail.getHouseFiles();
@@ -479,5 +496,12 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

@@ -16,6 +16,7 @@ import com.jdp.hls.page.node.measure.company.NodeCompanyMeasureActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
+import com.jdp.hls.page.node.protocol.personal.lastst.NodePersonalProtocolNewActivity;
 
 /**
  * Description:TODO
@@ -78,7 +79,10 @@ public class NodeUtil {
                 break;
             case Constants.BusinessNode.PERSONAL_PROTOCOL:
                 //个人协议生成
-                goNodeActivity(activity, NodePersonalProtocolActivity.class, buildingId, Status.FileType
+//                goNodeActivity(activity, NodePersonalProtocolActivity.class, buildingId, Status.FileType
+//                        .NODE_PROTOCOL, Status.BuildingTypeStr.PERSONAL);
+
+                goNodeActivity(activity, NodePersonalProtocolNewActivity.class, buildingId, Status.FileType
                         .NODE_PROTOCOL, Status.BuildingTypeStr.PERSONAL);
                 break;
         }

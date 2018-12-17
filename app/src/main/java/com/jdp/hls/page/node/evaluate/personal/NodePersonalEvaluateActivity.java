@@ -1,5 +1,6 @@
 package com.jdp.hls.page.node.evaluate.personal;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,6 +21,7 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -31,7 +33,7 @@ import okhttp3.MultipartBody;
  */
 public class NodePersonalEvaluateActivity extends BaseNodeActivity implements NodePersonalEvaluateContract.View {
     @BindView(R.id.tv_evaluate_realName)
-    TextView tvEvaluateRealName;
+    StringTextView tvEvaluateRealName;
     @BindView(R.id.et_evaluate_houseResetMoney)
     EnableEditText etEvaluateHouseResetMoney;
     @BindView(R.id.et_evaluate_innerDecorateMoney)
@@ -42,8 +44,6 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
     EnableEditText etEvaluateOldHouseMarketMoney;
     @BindView(R.id.et_evaluate_oldHouseMarketTotalMoney)
     EnableEditText etEvaluateOldHouseMarketTotalMoney;
-    @BindView(R.id.tv_evaluate_address)
-    StringTextView tvEvaluateAddress;
     @BindView(R.id.tv_evaluate_date)
     TextView tvEvaluateDate;
     @BindView(R.id.iv_dateSelector)
@@ -64,6 +64,8 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
     EnableEditText etEvaluateBuyBackPrice;
     @BindView(R.id.et_evaluate_benchmarkPriceBusinessOccupancy)
     EnableEditText etEvaluateBenchmarkPriceBusinessOccupancy;
+    @BindView(R.id.tv_evaluate_companyName)
+    StringTextView tvEvaluateCompanyName;
     private int evalId;
 
     @OnClick({R.id.rl_evaluate_innerDecoratedDetail, R.id.rl_evaluate_appurtenanceDetail})
@@ -120,7 +122,6 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
         etEvaluateAppurtenancePay.setEnabled(allowEdit);
         etEvaluateOldHouseMarketMoney.setEnabled(allowEdit);
         etEvaluateOldHouseMarketTotalMoney.setEnabled(allowEdit);
-        tvEvaluateAddress.setEnabled(allowEdit);
         etAgeRemark.setEnabled(allowEdit);
         etEvaluateNewHouseEstimatePrice.setEnabled(allowEdit);
         etEvaluateBuyBackPrice.setEnabled(allowEdit);
@@ -164,12 +165,12 @@ public class NodePersonalEvaluateActivity extends BaseNodeActivity implements No
         setEditable(allowEdit);
         evalId = nodePersonalEvaluate.getEvalId();
         tvEvaluateRealName.setText(nodePersonalEvaluate.getRealName());
+        tvEvaluateCompanyName.setText(nodePersonalEvaluate.getCompanyName());
         etEvaluateHouseResetMoney.setString(nodePersonalEvaluate.getHouseResetMoney());
         etEvaluateInnerDecorateMoney.setString(nodePersonalEvaluate.getInnerDecorateMoney());
         etEvaluateAppurtenancePay.setString(nodePersonalEvaluate.getAppurtenancePay());
         etEvaluateOldHouseMarketMoney.setString(nodePersonalEvaluate.getOldHouseMarketMoney());
         etEvaluateOldHouseMarketTotalMoney.setString(nodePersonalEvaluate.getOldHouseMarketTotalMoney());
-        tvEvaluateAddress.setString(nodePersonalEvaluate.getAddress());
         etAgeRemark.setString(nodePersonalEvaluate.getRemark());
         tvEvaluateDate.setText(DateUtil.getShortDate(nodePersonalEvaluate.getEvalDate()));
         rvPhotoPreview.setData(nodePersonalEvaluate.getFiles(), getFileConfig(), allowEdit);

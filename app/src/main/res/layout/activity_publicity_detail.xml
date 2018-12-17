@@ -172,7 +172,7 @@
 
         <TextView
             style="@style/Title_Normal"
-            android:text="照片"/>
+            android:text="公示照片"/>
 
         <View style="@style/div_hor_gray_margin24"/>
 

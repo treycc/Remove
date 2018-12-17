@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -157,4 +158,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public void onDismiss(DialogInterface dialog) {
         RxRe.getInstance().cancle(this);
     }
+
+
 }

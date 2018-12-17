@@ -1,22 +1,24 @@
 package com.jdp.hls.page.module;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.activity.TodoActivity;
 import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
-import com.jdp.hls.event.ResetLoginStatusEvent;
 import com.jdp.hls.event.SwitchProjectEvent;
 import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.injector.component.AppComponent;
@@ -25,19 +27,13 @@ import com.jdp.hls.model.entiy.ModuleDetail;
 import com.jdp.hls.page.admin.employee.list.EmployeeListActivity;
 import com.jdp.hls.page.admin.message.notification.NotificationActivity;
 import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
-import com.jdp.hls.page.admin.query.ProjectSelectActivity;
 import com.jdp.hls.page.admin.query.list.QueryListActivity;
 import com.jdp.hls.page.levy.LevyActivity;
-import com.jdp.hls.page.login.LoginActivity;
-import com.jdp.hls.page.personsearch.PersonSearchActivity;
 import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.page.supervise.project.detail.ProjectDetailSuperviseActivity;
-import com.jdp.hls.page.supervise.project.list.ProjectListSuperviseActivity;
-import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 import com.jdp.hls.view.StringTextView;
 
@@ -70,15 +66,18 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     ListView flv;
     @BindView(R.id.rsrl)
     RefreshSwipeRefreshLayout rsrl;
+    @BindView(R.id.ll_switch)
+    LinearLayout llSwitch;
+    Unbinder unbinder;
     private String routeId;
 
     @Inject
     ModulePresenter modulePresenter;
 
-    @OnClick({R.id.tv_title})
+    @OnClick({R.id.ll_switch})
     public void click(View view) {
         switch (view.getId()) {
-            case R.id.tv_title:
+            case R.id.ll_switch:
                 GoUtil.goActivity(getActivity(), ProjectListActivity.class);
                 break;
         }
@@ -106,7 +105,8 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
                 //数据查询
                 if (CheckUtil.checkEmpty(SpSir.getInstance().getProjectId(), "请选择项目")) {
 //                    GoUtil.goActivity(getActivity(), ProjectSelectActivity.class);
-                    QueryListActivity.GoActivity(getActivity(),SpSir.getInstance().getProjectId(),SpSir.getInstance().getProjectName());
+                    QueryListActivity.GoActivity(getActivity(), SpSir.getInstance().getProjectId(), SpSir.getInstance
+                            ().getProjectName());
                 }
                 break;
             case Status.ModuleId.SYSTEM_LEVY:
@@ -123,7 +123,15 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
                 break;
             case Status.ModuleId.SYSTEM_LOCATION:
                 //地理信息
-                ToastUtil.showText("功能开发中");
+                TodoActivity.goActivity(getActivity(), "地理信息系统");
+                break;
+            case Status.ModuleId.SYSTEM_PROJECRT_CHECK:
+                //项目审批系统
+                TodoActivity.goActivity(getActivity(), "项目审批系统");
+                break;
+            case Status.ModuleId.SYSTEM_MONEY_MANAGE:
+                //财务管理系统
+                TodoActivity.goActivity(getActivity(), "财务管理系统");
                 break;
         }
     }
@@ -161,7 +169,8 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     @Override
     protected void initData() {
         rsrl.stepRefresh(this);
-        tvTitle.setText(TextUtils.isEmpty(SpSir.getInstance().getProjectName())?"项目未选择":SpSir.getInstance().getProjectName());
+        tvTitle.setText(TextUtils.isEmpty(SpSir.getInstance().getProjectName()) ? "项目未选择" : SpSir.getInstance()
+                .getProjectName());
     }
 
     @Override
@@ -206,4 +215,17 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
         tvTitle.setText(SpSir.getInstance().getProjectName());
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }

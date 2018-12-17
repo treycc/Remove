@@ -1,5 +1,6 @@
 package com.jdp.hls.page.node.protocol.personal;
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -29,6 +30,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -39,10 +41,6 @@ import okhttp3.MultipartBody;
  * Email:kingjavip@gmail.com
  */
 public class NodePersonalProtocolActivity extends BaseNodeActivity implements NodePersonalProtocolContract.View {
-    @BindView(R.id.tv_protocol_cusCode)
-    StringTextView tvProtocolCusCode;
-    @BindView(R.id.tv_protocol_ownerName)
-    StringTextView tvProtocolOwnerName;
     @BindView(R.id.tv_protocol_totalArea)
     StringTextView tvProtocolTotalArea;
     @BindView(R.id.tv_protocol_totalNotRecordArea)
@@ -51,8 +49,6 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
     StringTextView tvProtocolBuildOccupyArea;
     @BindView(R.id.tv_protocol_landCertArea)
     StringTextView tvProtocolLandCertArea;
-    @BindView(R.id.tv_address)
-    StringTextView tvAddress;
     @BindView(R.id.tv_protocol_date)
     TextView tvProtocolDate;
     @BindView(R.id.iv_dateSelector)
@@ -91,6 +87,10 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
     PreviewRecyclerView rvPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
+    @BindView(R.id.tv_protocol_companyName)
+    StringTextView tvProtocolCompanyName;
+    @BindView(R.id.tv_protocol_realName)
+    StringTextView tvProtocolRealName;
     private int payType;
     @Inject
     NodePersonalProtocolPresenter nodePersonalProtocolPresenter;
@@ -158,9 +158,11 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
     private void calculateTotalMoney() {
         String totalPurchasePriceStr = etProtocolTotalPurchasePrice.getText().toString().trim();
         String totalPayStr = etProtocolTotalPay.getText().toString().trim();
-        double totalPurchasePrice =totalPurchasePriceStr.startsWith(".")|| TextUtils.isEmpty(totalPurchasePriceStr) ? 0d : Double.valueOf
+        double totalPurchasePrice = totalPurchasePriceStr.startsWith(".") || TextUtils.isEmpty(totalPurchasePriceStr)
+                ? 0d : Double.valueOf
                 (totalPurchasePriceStr);
-        double totalPay =totalPayStr.startsWith(".")||  TextUtils.isEmpty(totalPayStr) ? 0d : Double.valueOf(totalPayStr);
+        double totalPay = totalPayStr.startsWith(".") || TextUtils.isEmpty(totalPayStr) ? 0d : Double.valueOf
+                (totalPayStr);
         tvProtocolNeedPayBuildingAmount.setText(String.valueOf(MathUtil.sub(totalPurchasePrice, totalPay)));
     }
 
@@ -232,8 +234,8 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
         allowEdit = nodePersonalProtocol.isAllowEdit();
         setEditable(allowEdit);
         pcId = nodePersonalProtocol.getPCId();
-        tvProtocolCusCode.setText(nodePersonalProtocol.getCusCode());
-        tvProtocolOwnerName.setText(nodePersonalProtocol.getOwnerName());
+        tvProtocolCompanyName.setString(nodePersonalProtocol.getCompanyName());
+        tvProtocolRealName.setString(nodePersonalProtocol.getRealName());
         tvProtocolTotalArea.setText(nodePersonalProtocol.getTotalArea());
         tvProtocolTotalNotRecordArea.setText(nodePersonalProtocol.getTotalNotRecordArea());
         tvProtocolBuildOccupyArea.setText(nodePersonalProtocol.getBuildOccupyArea());
@@ -247,7 +249,6 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
         etProtocolTempPlacementFee.setString(nodePersonalProtocol.getTempPlacementFee());
         etProtocolOtherFee.setString(nodePersonalProtocol.getOtherFee());
         etRemark.setString(nodePersonalProtocol.getRemark());
-        tvAddress.setString(nodePersonalProtocol.getAddress());
         payType = nodePersonalProtocol.getPayType();
         spinnerProtocolPayType.setSelectItem(payType);
 

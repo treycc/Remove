@@ -59,6 +59,7 @@ import com.jdp.hls.page.node.measure.company.NodeCompanyMeasureActivity;
 import com.jdp.hls.page.node.measure.personal.NodePersonalMeasureActivity;
 import com.jdp.hls.page.node.protocol.company.NodeCompanyProtocolActivity;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolActivity;
+import com.jdp.hls.page.node.protocol.personal.lastst.NodePersonalProtocolNewActivity;
 import com.jdp.hls.page.operate.back.BackDialog;
 import com.jdp.hls.page.operate.delete.DeleteDialog;
 import com.jdp.hls.page.operate.recover.RecoverDialog;
@@ -107,6 +108,8 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(NodePersonalProtocolNewActivity target);
+
     void inject(ProjectContrastDetailActivity target);
 
     void inject(ProjectContrastActivity target);

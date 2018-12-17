@@ -47,6 +47,13 @@
                 android:layout_height="18dp"
                 android:layout_marginRight="12dp"
                 android:background="@mipmap/ic_evaluate_nor"/>
+            <ImageView
+                android:id="@+id/iv_roster_isAssetEvaluated"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="12dp"
+                android:background="@mipmap/ic_evaluate_nor"/>
+
 
             <ImageView
                 android:id="@+id/iv_roster_isMeasure"

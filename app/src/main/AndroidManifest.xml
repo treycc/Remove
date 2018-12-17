@@ -383,6 +383,8 @@
         <activity android:name=".page.supervise.project.contrast.VRDetailActivity"/>
         <activity android:name=".page.admin.contrast.ProjectContrastDetailActivity"
                   android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activity.TodoActivity"/>
+        <activity android:name=".page.node.protocol.personal.lastst.NodePersonalProtocolNewActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

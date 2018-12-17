@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -225,6 +226,21 @@ public abstract class BaseFragment extends Fragment implements BaseView, DialogI
                 showEmptyCallback();
             }
         }
+    }
+
+   public interface OnGoActivityCallback{
+        void onCallback();
+    }
+
+    public void  setOnGoActivityCallback(OnGoActivityCallback onGoActivityCallback) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (onGoActivityCallback != null) {
+                    onGoActivityCallback.onCallback();
+                }
+            }
+        },500);
     }
 
 }

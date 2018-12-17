@@ -19,12 +19,21 @@ public class RosterDetail implements Serializable {
     private boolean IsEnterprise;
     private boolean IsEvaluated;
     private boolean IsMeasured;
+    private boolean IsAssetEvaluator;
     private boolean Gender;
     private String Remark;
     private String Idcard;
     private String EnterpriseName;
     private String PersonId;
     private List<ImgInfo> HouseFiles;
+
+    public boolean isAssetEvaluator() {
+        return IsAssetEvaluator;
+    }
+
+    public void setAssetEvaluator(boolean assetEvaluator) {
+        IsAssetEvaluator = assetEvaluator;
+    }
 
     public String getPersonId() {
         return PersonId;

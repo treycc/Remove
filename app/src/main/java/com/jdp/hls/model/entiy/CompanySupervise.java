@@ -7,16 +7,16 @@ package com.jdp.hls.model.entiy;
  * Email:kingjavip@gmail.com
  */
 public class CompanySupervise {
-    private String CompanyType;
+    private int CompanyType;
     private String CompanyTypeName;
-    private int CompanyId;
+    private String CompanyId;
     private String CompanyName;
 
-    public String getCompanyType() {
+    public int getCompanyType() {
         return CompanyType;
     }
 
-    public void setCompanyType(String companyType) {
+    public void setCompanyType(int companyType) {
         CompanyType = companyType;
     }
 
@@ -28,11 +28,11 @@ public class CompanySupervise {
         CompanyTypeName = companyTypeName;
     }
 
-    public int getCompanyId() {
+    public String getCompanyId() {
         return CompanyId;
     }
 
-    public void setCompanyId(int companyId) {
+    public void setCompanyId(String companyId) {
         CompanyId = companyId;
     }
 

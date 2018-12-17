@@ -2,6 +2,7 @@ package com.jdp.hls.page.rosteradd;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,6 +54,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lib.kingja.switchbutton.SwitchMultiButton;
 import okhttp3.MediaType;
@@ -116,6 +118,10 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     LinearLayout llRosterType;
     @BindView(R.id.tv_roster_hasLocationed)
     TextView tvRosterHasLocationed;
+    @BindView(R.id.smb_roster_assetEvaluator)
+    SwitchMultiButton smbRosterAssetEvaluator;
+    @BindView(R.id.ll_assetEvaluator)
+    LinearLayout llAssetEvaluator;
     private List<Uri> photoUris = new ArrayList<>();
     private ImgUriAdapter imgUriAdapter;
     List<Uri> mSelectedUris;
@@ -128,6 +134,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     private boolean isEnterprise = false;
     private boolean isMeasured = false;
     private boolean isEvaluated = false;
+    private boolean isAssetEvaluator = false;
     private String personId;
     public static final int REQUEST_CODE_PERSON = 2;
 
@@ -212,12 +219,14 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
         smbRosterType.setOnSwitchListener((position, tabText) -> {
             isEnterprise = position == 1;
             llRosterCompanyName.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
+            llAssetEvaluator.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
             realNameTip = (isEnterprise ? "负责人" : "户主");
             rtvOwnerType.setText(realNameTip);
 
         });
         smbRosterMeasured.setOnSwitchListener((position, tabText) -> isMeasured = position == 1);
         smbRosterEvaluated.setOnSwitchListener((position, tabText) -> isEvaluated = position == 1);
+        smbRosterAssetEvaluator.setOnSwitchListener((position, tabText) -> isAssetEvaluator = position == 1);
     }
 
 
@@ -242,6 +251,7 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
                     .addFormDataPart("idcard", idcard)
                     .addFormDataPart("mobilePhone", phone)
                     .addFormDataPart("remark", remark)
+                    .addFormDataPart("IsAssetEvaluator", String.valueOf(isAssetEvaluator))
                     .addFormDataPart("isEvaluated", String.valueOf(isEvaluated))
                     .addFormDataPart("isMeasured", String.valueOf(isMeasured))
                     .addFormDataPart("longitude", String.valueOf(lng))
@@ -376,5 +386,12 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
         Intent mIntent = getIntent();
         finish();
         startActivity(mIntent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

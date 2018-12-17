@@ -17,7 +17,16 @@ public class Roster implements Serializable {
     private double Latitude;
     private boolean IsEnterprise;
     private boolean IsEvaluated;
+    private boolean IsAssetEvaluator;
     private boolean IsMeasured;
+
+    public boolean isAssetEvaluator() {
+        return IsAssetEvaluator;
+    }
+
+    public void setAssetEvaluator(boolean assetEvaluator) {
+        IsAssetEvaluator = assetEvaluator;
+    }
 
     public String getHouseId() {
         return HouseId;

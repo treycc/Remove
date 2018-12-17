@@ -136,6 +136,7 @@
     </LinearLayout>
     <View style="@style/div_hor_gray"/>
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/rl_mine_project"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -177,7 +178,8 @@
 
 
     </LinearLayout>
-    <View style="@style/div_hor_gray"/>
+    <View style="@style/div_hor_gray"
+        android:visibility="gone"/>
     <LinearLayout
         android:id="@+id/rl_mine_phone"
         android:layout_width="match_parent"

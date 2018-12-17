@@ -12,11 +12,11 @@
         android:text="基本信息"/>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ll_companyBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
 
         <LinearLayout
@@ -80,6 +80,7 @@
             android:hint="请输入银行卡卡号"/>
     </LinearLayout>
 
+    <include layout="@layout/layout_remark"/>
 
     <TextView
         style="@style/Title_Main"
@@ -88,5 +89,4 @@
     <include layout="@layout/layout_photo_preview"/>
 
 
-    <include layout="@layout/layout_remark_title"/>
 </LinearLayout>

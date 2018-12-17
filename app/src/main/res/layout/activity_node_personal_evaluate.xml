@@ -17,18 +17,71 @@
         <TextView
             style="@style/Title_Main"
             android:text="基本信息"/>
-
         <LinearLayout
             style="@style/Content_LL_T6">
 
             <TextView
                 style="@style/Title_Sub"
+                android:text="评估单位"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_evaluate_companyName"
+                style="@style/Content_ET_W1"
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <com.jdp.hls.view.StringTextView
+                style="@style/Title_Sub"
                 android:text="评估人"/>
 
-            <TextView
+            <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_evaluate_realName"
                 style="@style/Content_ET_W1"
-                android:hint="请输入评估人"/>
+                android:hint=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="评估日期"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_evaluate_date"
+                    style="@style/font_9_15_eet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text=""/>
+
+                <ImageView
+                    android:id="@+id/iv_dateSelector"
+                    style="@style/BG_DATE_SELECTOR"/>
+
+
+            </RelativeLayout>
+
+
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -161,59 +214,6 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="坐落地址"/>
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_evaluate_address"
-                style="@style/Content_ET_W1"
-                android:hint=""/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white_hi"
-            android:gravity="center_vertical"
-            android:paddingBottom="12dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:paddingTop="12dp">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="评估日期"/>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/tv_evaluate_date"
-                    style="@style/font_9_15_eet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text=""/>
-
-                <ImageView
-                    android:id="@+id/iv_dateSelector"
-                    style="@style/BG_DATE_SELECTOR"/>
-
-
-            </RelativeLayout>
-
-
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
 
         <TextView
             style="@style/Title_Main"

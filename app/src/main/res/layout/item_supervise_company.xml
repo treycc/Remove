@@ -9,10 +9,10 @@
     <com.jdp.hls.view.StringTextView
         android:id="@+id/tv_companyTypeName"
         style="@style/Title_Sub"
-        android:text="测绘公司"/>
+        android:text="房地产评估公司"/>
 
     <com.jdp.hls.view.StringTextView
         android:id="@+id/tv_companyName"
-        style="@style/Content_ET_W1_5_LINES"
+        style="@style/Content_ET_W2_LINES"
         android:text="XX测绘公司"/>
 </LinearLayout>

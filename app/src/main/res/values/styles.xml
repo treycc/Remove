@@ -476,6 +476,8 @@
         <item name="android:paddingLeft">24dp</item>
         <item name="android:paddingRight">24dp</item>
         <item name="android:paddingTop">12dp</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/c_6</item>
     </style>
 
     <style name="Container_Normal" parent="Title_Normal">

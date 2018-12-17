@@ -61,6 +61,10 @@ public class Status {
         int SYSTEM_PROJECT_SUPERVISE = 6;
         /*地理信息*/
         int SYSTEM_LOCATION = 7;
+        /*项目审批*/
+        int SYSTEM_PROJECRT_CHECK = 8;
+        /*财务管理*/
+        int SYSTEM_MONEY_MANAGE = 9;
     }
 
     public interface ConfigType {

@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+
+import com.jdp.hls.activity.TodoActivity;
+import com.jdp.hls.constant.Constants;
 
 /**
  * 项目名称：物联网城市防控(警用版)
@@ -18,6 +22,7 @@ public class GoUtil {
         Intent intent = new Intent(activity,
                 clazz);
         activity.startActivity(intent);
+
     }
     public static void goActivityOutOfActivity(Context context, Class clazz) {
         Intent intent = new Intent(context,

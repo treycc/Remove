@@ -22,6 +22,7 @@ public class ModifyMap extends HashMap<Integer, Boolean> {
     private final Integer KEY_IMG_COUNT = 9;
     private final Integer KEY_LOCATION = 10;
     private final Integer KEY_REMARK = 11;
+    private final Integer KEY_ASSET_EVALUATED = 12;
 
     private RosterDetail rosterDetail;
 
@@ -62,6 +63,11 @@ public class ModifyMap extends HashMap<Integer, Boolean> {
     public void setEvaluated(boolean evaluated) {
         put(KEY_EVALUATED,evaluated!=rosterDetail.isEvaluated());
     }
+
+    public void setAssetEvaluated(boolean assetEvaluated) {
+        put(KEY_EVALUATED,assetEvaluated!=rosterDetail.isAssetEvaluator());
+    }
+
     public void setImgs() {
         put(KEY_IMG_COUNT,true);
     }

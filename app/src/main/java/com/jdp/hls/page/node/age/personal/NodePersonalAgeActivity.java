@@ -39,8 +39,6 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
     StringTextView tvAgeSimpleHouseMeasure;
     @BindView(R.id.tv_age_tanArea)
     StringTextView tvAgeTanArea;
-    @BindView(R.id.tv_age_address)
-    StringTextView tvAgeAddress;
     @BindView(R.id.tv_age_realName)
     TextView tvAgeRealName;
     @BindView(R.id.tv_age_affirmUnit)
@@ -131,7 +129,6 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         tvAgeBuildOccupyArea.setEnabled(!isOperatorAccount && allowEdit);
         tvAgeSimpleHouseMeasure.setEnabled(!isOperatorAccount && allowEdit);
         tvAgeTanArea.setEnabled(!isOperatorAccount && allowEdit);
-        tvAgeAddress.setEnabled(!isOperatorAccount && allowEdit);
         etAgeArea8486.setEnabled(!isOperatorAccount && allowEdit);
         etAgeArea94.setEnabled(!isOperatorAccount && allowEdit);
         etAgeArea98.setEnabled(!isOperatorAccount && allowEdit);
@@ -226,7 +223,6 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         etAgeSimpleHouseAge.setString(nodePersonalAge.getSimpleHouse());
         tvAgeAffirmUnit.setText(nodePersonalAge.getCompanyName());
         tvAgeTanArea.setString(nodePersonalAge.getTanArea());
-        tvAgeAddress.setString(nodePersonalAge.getAddress());
         etAgeArea8486.setString(nodePersonalAge.getArea84_86());
         etAgeArea94.setString(nodePersonalAge.getArea94());
         etAgeArea98.setString(nodePersonalAge.getArea98());

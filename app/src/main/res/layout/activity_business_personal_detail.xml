@@ -58,7 +58,7 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_detail_mobile"
                 style="@style/Content_ET_W2"
-                android:hint="请输入联系有号码"/>
+                android:hint="请输入联系号码"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>

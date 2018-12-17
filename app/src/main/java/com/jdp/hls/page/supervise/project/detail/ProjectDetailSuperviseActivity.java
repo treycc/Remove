@@ -1,5 +1,6 @@
 package com.jdp.hls.page.supervise.project.detail;
 
+import android.os.Handler;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -107,7 +108,7 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity implements
             @Override
             public void convert(ViewHolder helper, CompanySupervise item) {
                 helper.setText(R.id.tv_companyTypeName, item.getCompanyTypeName());
-                helper.setText(R.id.tv_companyName, item.getCompanyName());
+                helper.setText(R.id.tv_companyName, item.getCompanyName().replace(",","\n"));
             }
         });
     }
