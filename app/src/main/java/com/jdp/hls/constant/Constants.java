@@ -8,7 +8,7 @@ package com.jdp.hls.constant;
  * 修改备注：
  */
 public class Constants {
-        public static final String BASE_URL = "http://192.168.0.2:8080/";//本地
+    public static final String BASE_URL = "http://192.168.0.2:8080/";//本地
 //    public static final String BASE_URL = "http://192.168.0.5:8081/";//服务器
 //    public static final String BASE_URL = "http://api.fwzspt.cn/";//外网
 

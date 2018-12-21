@@ -231,6 +231,7 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         if (event.getBuildingType() == Status.BuildingType.PERSONAL) {
             tvBasicName.setText(event.getRealName());
             tvBasicAddress.setText(event.getAddress());
+            vrUrl = event.getVRUrl();
         }
     }
 }

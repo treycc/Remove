@@ -126,6 +126,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private String realName;
     private String mobile;
     private String cusCode;
+    private String vrUrl;
 
     @OnClick({R.id.rl_unrecordBuilding, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
             .ll_detail_immovableDeed, R.id.ll_detail_bankDeed})
@@ -301,7 +302,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         String idcard = etDetailIdcard.getText().toString().trim();
         String remark = etDetailRemark.getText().toString().trim();
         String bizUseArea = etDetailBizUseArea.getText().toString().trim();
-        String vrUrl = etDetailVrUrl.getText().toString().trim();
+        vrUrl = etDetailVrUrl.getText().toString().trim();
         if (!CheckUtil.checkEmpty(realName, "请输入户主名称") || !CheckUtil.checkEmpty(address, "请输入地址")) {
             return;
         }
@@ -334,6 +335,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         businessEvent.setMobile(mobile);
         businessEvent.setRealName(realName);
         businessEvent.setBuildingId(buildingId);
+        businessEvent.setVRUrl(vrUrl);
         EventBus.getDefault().post(businessEvent);
         showSuccessDialogAndFinish("保存成功");
     }

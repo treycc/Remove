@@ -12,7 +12,16 @@ public class ModifyBusinessEvent {
     private String realName;
     private String mobile;
     private String address;
+    private String VRUrl;
     private int buildingType;
+
+    public String getVRUrl() {
+        return null == VRUrl ? "" : VRUrl;
+    }
+
+    public void setVRUrl(String VRUrl) {
+        this.VRUrl = VRUrl;
+    }
 
     public int getBuildingType() {
         return buildingType;
