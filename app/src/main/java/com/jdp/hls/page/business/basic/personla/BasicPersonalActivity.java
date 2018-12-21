@@ -23,6 +23,7 @@ import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
 import com.jdp.hls.page.operate.OperateNodeContract;
 import com.jdp.hls.page.operate.OperateNodePresenter;
 import com.jdp.hls.page.supervise.project.contrast.VRDetailActivity;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NodeUtil;
 import com.jdp.hls.util.ToastUtil;
 
@@ -232,6 +233,8 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
             tvBasicName.setText(event.getRealName());
             tvBasicAddress.setText(event.getAddress());
             vrUrl = event.getVRUrl();
+            tvVrTip.setVisibility(TextUtils.isEmpty(vrUrl) ? View.VISIBLE : View.GONE);
+            LogUtil.e(TAG,"vrUrl:"+vrUrl);
         }
     }
 }
