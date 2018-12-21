@@ -1,7 +1,10 @@
 package com.jdp.hls.page.admin.employee.list;
 
+import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.EmployeeAdapter;
@@ -16,6 +19,7 @@ import com.jdp.hls.model.entiy.EmployeeDetail;
 import com.jdp.hls.page.admin.employee.add.EmployeeAddActivity;
 import com.jdp.hls.page.admin.employee.detail.EmployeeDetailActivity;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
@@ -23,11 +27,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 
 /**
@@ -43,12 +46,25 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
     RefreshSwipeRefreshLayout rsrl;
     @Inject
     EmployeeListPresenter employeeListPresenter;
+    @BindView(R.id.et_keyword)
+    EditText etKeyword;
+    @BindView(R.id.iv_clear)
+    ImageView ivClear;
     private EmployeeAdapter employeeAdapter;
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Employee employee = (Employee) adapterView.getItemAtPosition(position);
         EmployeeDetailActivity.goActivity(this, String.valueOf(employee.getEmployeeId()));
+    }
+
+    @OnClick({R.id.iv_clear})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.iv_clear:
+                etKeyword.setText("");
+                break;
+        }
     }
 
     @Override
@@ -58,7 +74,7 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
 
     @Override
     protected int getContentView() {
-        return R.layout.common_lv_rsl;
+        return R.layout.common_lv_rsl_search;
     }
 
     @Override
@@ -83,10 +99,18 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
 
     @Override
     protected void initData() {
+        etKeyword.setHint("请输入姓名/手机号/别名");
         setRightClick("增加", v -> {
             GoUtil.goActivity(EmployeeListActivity.this, EmployeeAddActivity.class);
         });
         rsrl.stepRefresh(this);
+        etKeyword.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                employeeAdapter.onSearch(s.toString());
+                ivClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
     @Override
@@ -96,12 +120,8 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
 
     @Override
     public void onGetEmployeeListSuccess(EmployeeDetail employeeDetail) {
-        if (employeeDetail != null) {
-            List<Employee> employeeList = employeeDetail.getResultList();
-            if (employeeList != null && employeeList.size() > 0) {
-                employeeAdapter.setData(employeeList);
-            }
-        }
+        String keyword = etKeyword.getText().toString().trim();
+        setSearchListView(employeeDetail.getResultList(), employeeAdapter, keyword);
     }
 
     @Override

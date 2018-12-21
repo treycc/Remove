@@ -11,8 +11,11 @@ import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ReportBuilding;
+import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
+import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
@@ -44,13 +47,14 @@ public class ReportBuildingListActivity extends BaseTitleActivity implements Rep
 
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//        ReportBuilding reportBuilding = (ReportBuilding) adapterView.getItemAtPosition(position);
-//        if (reportBuilding.getBuildingType() == Status.BuildingType.PERSONAL) {
-//            BasicPersonalActivity.goActivity(this, reportBuilding.getBuildingId());
-//        } else {
-//            BasicCompanyActivity.goActivity(this, reportBuilding.getBuildingId());
-//        }
+        ReportBuilding reportBuilding = (ReportBuilding) adapterView.getItemAtPosition(position);
+        if (reportBuilding.getBuildingType() == Status.BuildingType.PERSONAL) {
+            BasicPersonalActivity.goActivity(this, reportBuilding.getBuildingId());
+        } else {
+            BasicCompanyActivity.goActivity(this, reportBuilding.getBuildingId());
+        }
     }
+
     @Override
     public void initVariable() {
         reportType = getIntent().getIntExtra(Constants.Extra.ReportType, 1);
@@ -79,9 +83,7 @@ public class ReportBuildingListActivity extends BaseTitleActivity implements Rep
 
     @Override
     protected void initView() {
-
     }
-
 
     @Override
     protected void initData() {
@@ -101,7 +103,8 @@ public class ReportBuildingListActivity extends BaseTitleActivity implements Rep
 
     @Override
     public void initNet() {
-        reportBuildingListPresenter.getReportBuildingList(SpSir.getInstance().getProjectId(), reportType, startDate, endDate);
+        reportBuildingListPresenter.getReportBuildingList(SpSir.getInstance().getProjectId(), reportType, startDate,
+                endDate);
     }
 
     @Override

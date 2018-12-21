@@ -119,11 +119,11 @@
         android:layout_marginTop="6dp"
         android:background="@color/white_hi">
 
-        <com.amap.api.maps.MapView
+        <com.amap.api.maps.TextureMapView
             android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </com.amap.api.maps.MapView>
+        </com.amap.api.maps.TextureMapView>
 
         <ImageView
             android:id="@+id/iv_map_showall"

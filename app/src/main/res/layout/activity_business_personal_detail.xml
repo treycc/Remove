@@ -90,6 +90,23 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_detail_address"
                 style="@style/Content_ET_W2_Mul_Line"
+                android:hint="请输入地址"
+                android:text=""/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="全景VR地址"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_detail_vrUrl"
+                style="@style/Content_ET_W2_Mul_Line"
+                android:hint="请输入VR地址"
                 android:text=""/>
         </LinearLayout>
 
@@ -215,7 +232,6 @@
         </LinearLayout>
 
 
-
         <LinearLayout
             android:id="@+id/ll_businessArea"
             android:layout_width="match_parent"
@@ -240,6 +256,7 @@
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_detail_immovableDeed"
             style="@style/Content_LL_T12">
@@ -263,6 +280,7 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             android:id="@+id/ll_detail_propertyDeed"
             style="@style/Content_LL_T12">
@@ -346,18 +364,18 @@
             android:background="@color/white_hi">
 
             <com.jdp.hls.view.PreviewRecyclerView
-                android:layout_centerVertical="true"
                 android:id="@+id/rv_photo_preview_procedure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="12dp"/>
 
             <ImageView
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
                 style="@style/BG_ARROW"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 
@@ -373,18 +391,18 @@
             android:background="@color/white_hi">
 
             <com.jdp.hls.view.PreviewRecyclerView
-                android:layout_centerVertical="true"
                 android:id="@+id/rv_photo_preview_house"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="12dp"/>
 
             <ImageView
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
                 style="@style/BG_ARROW"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
 

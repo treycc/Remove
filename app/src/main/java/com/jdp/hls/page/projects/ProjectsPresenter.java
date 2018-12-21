@@ -54,7 +54,7 @@ public class ProjectsPresenter implements ProjectsContract.Presenter {
     }
 
     @Override
-    public void switchProject(RequestBody requestBody,Project project) {
+    public void switchProject(RequestBody requestBody, Project project) {
         mApi.getApiService().switchProject(requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<Object>(mView) {

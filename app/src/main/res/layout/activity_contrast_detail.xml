@@ -6,7 +6,7 @@
 
     <TextView
         style="@style/Title_Main"
-        android:text="项目旧貌照片"/>
+        android:text="大建大美前照片"/>
 
     <RelativeLayout
         style="@style/Content_LL_T12"
@@ -35,17 +35,17 @@
 
         <TextView
             style="@style/Title_Sub"
-            android:text="项目旧貌VR"/>
+            android:text="大建大美前VR"/>
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_oldVrUrl"
-            style="@style/Content_ET_W2_5_LINES"
+            style="@style/Content_ET_W2_LINES"
             android:hint="请输入项目旧貌VR地址"/>
     </LinearLayout>
 
     <TextView
         style="@style/Title_Main"
-        android:text="项目新貌照片"/>
+        android:text="大建大美后照片"/>
 
     <RelativeLayout
         style="@style/Content_LL_T12"
@@ -74,11 +74,11 @@
 
         <TextView
             style="@style/Title_Sub"
-            android:text="项目新貌VR"/>
+            android:text="大建大美后VR"/>
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_newVrUrl"
-            style="@style/Content_ET_W2_5_LINES"
+            style="@style/Content_ET_W2_LINES"
             android:hint="请输入项目新貌VR地址"/>
     </LinearLayout>
 </LinearLayout>

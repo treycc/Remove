@@ -296,6 +296,7 @@
 
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/rl_protocol_otherArea"
             style="@style/Container_Normal"
             android:layout_width="match_parent"

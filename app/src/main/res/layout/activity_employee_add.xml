@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:focusable="true"
               android:focusableInTouchMode="true"
               android:orientation="vertical">
@@ -16,7 +17,8 @@
         <com.jdp.hls.view.StringTextView
             android:id="@+id/tv_loginName"
             style="@style/Content_ET_W3"
-            android:hint="系统自动生成"/>
+            android:hint="系统自动生成"
+            android:textColorHint="@color/c_6"/>
     </LinearLayout>
 
     <View style="@style/div_hor_gray_margin24"/>
@@ -57,12 +59,67 @@
             android:text="手机号"/>
 
         <com.jdp.hls.view.EnableEditText
-            android:inputType="number"
             android:id="@+id/et_mobile"
             style="@style/Content_ET_W3"
-            android:hint="请输入手机号"/>
+            android:hint="请输入手机号"
+            android:inputType="number"/>
     </LinearLayout>
 
     <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T12">
+
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="账户状态"/>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:paddingLeft="12dp">
+
+            <lib.kingja.switchbutton.SwitchMultiButton
+                android:id="@+id/smb_accountStatus"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                app:selectedColor="@color/main"
+                app:selectedTab="0"
+                app:strokeRadius="4dp"
+                app:strokeWidth="1dp"
+                app:switchTabs="@array/switch_account_status"
+                app:textSize="14sp"/>
+        </FrameLayout>
+
+
+    </LinearLayout>
+    <View style="@style/div_hor_gray_margin24"/>
+    <LinearLayout
+        android:id="@+id/ll_projectSelector"
+        style="@style/Content_LL_T12">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="监管项目"/>
+
+        <LinearLayout style="@style/Ll_Container_Arrow_W3">
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_projectSelector"
+                style="@style/font_9_15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:hint="请选择监管项目"
+                android:textColorHint="@color/c_9"/>
+
+            <ImageView style="@style/BG_ARROW"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

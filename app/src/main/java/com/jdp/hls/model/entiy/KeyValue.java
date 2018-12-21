@@ -10,6 +10,24 @@ public class KeyValue {
     private String Name;
     private String Value;
     private int Type;
+    private int InterfaceId;
+    private boolean HasDetail;
+
+    public int getInterfaceId() {
+        return InterfaceId;
+    }
+
+    public void setInterfaceId(int interfaceId) {
+        InterfaceId = interfaceId;
+    }
+
+    public boolean isHasDetail() {
+        return HasDetail;
+    }
+
+    public void setHasDetail(boolean hasDetail) {
+        HasDetail = hasDetail;
+    }
 
     public void setName(String name) {
         Name = name;

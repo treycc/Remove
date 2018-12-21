@@ -58,7 +58,8 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
                 onBusinessSelectedListener.onBusinessRemove(list.get(position));
             }
         });
-        viewHolder.tv_business_nameTip.setText(list.get(position).getBuildingType()== Status.BuildingType.PERSONAL?"户主":"负责人");
+        viewHolder.tv_business_nameTip.setText(list.get(position).getBuildingType() == Status.BuildingType.PERSONAL ?
+                "户主" : "负责人");
         viewHolder.cb_business.setVisibility(checkable ? View.VISIBLE : View.GONE);
         viewHolder.cb_business.setChecked(list.get(position).isSelected());
         viewHolder.tv_business_address.setText(list.get(position).getAddress());
@@ -67,8 +68,7 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
         viewHolder.tv_business_mobile.setText(list.get(position).getMobilePhone());
         viewHolder.tv_business_node.setText(list.get(position).getStatusDesc());
         viewHolder.iv_business_hasLocation.setBackgroundResource(list.get(position).isHasLongitudeAndLatitude() ? R
-                .mipmap
-                .ic_location_sel : R.mipmap.ic_location_nor);
+                .mipmap.ic_location_sel : R.mipmap.ic_location_nor);
         viewHolder.iv_business_isBack.setVisibility(list.get(position).isFlowBack() ? View.VISIBLE : View.GONE);
         return convertView;
     }

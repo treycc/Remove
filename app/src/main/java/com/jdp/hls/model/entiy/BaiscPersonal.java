@@ -18,9 +18,18 @@ public class BaiscPersonal {
     private String CusCode;
     private String MsgTitle;
     private String MsgContent;
+    private String VRUrl;
     private int StatusId;
     private List<FlowNode> FlowNodes;
     private Auth Auth;
+
+    public String getVRUrl() {
+        return null == VRUrl ? "" : VRUrl;
+    }
+
+    public void setVRUrl(String VRUrl) {
+        this.VRUrl = VRUrl;
+    }
 
     public String getMsgTitle() {
         return MsgTitle;

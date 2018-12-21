@@ -25,6 +25,11 @@ public class Status {
         int DATE = 0;
     }
 
+    public interface InterfaceId {
+        int PAY_DETAIL = 1;
+        int TAOTYPE_DETAIL = 2;
+    }
+
     public interface BuildingType {
         int PERSONAL = 0;
         int COMPANY = 1;
@@ -39,6 +44,12 @@ public class Status {
     public interface BuildingTypeStr {
         String PERSONAL = "0";
         String COMPANY = "1";
+    }
+
+    public interface AreaType {
+        String BUILDING_AREA = "总安置建筑面积";
+        String TAOTYPE_AREA = "总安置套内面积";
+        String TAOTYPE = "套型";
     }
 
     public interface PublicityType {
@@ -75,11 +86,12 @@ public class Status {
         int FAMILY_RELATION = 5;//产权用途
         int FLOW_NODE = 7;//节点
         int SOCIAL_RELATION = 8;//社会关系
-        int PAY_TYPE = 9;//补偿方式
+        int COMPENSATION_TYPE = 9;//补偿方式
         int DECORATION_ITEM = 10;//装饰项目
         int GRADLE = 11;//等级
         int AIRPHOTOTYPE = 12;//航拍阶段
         int PUBLICITYTYPE = 13;//航拍阶段
+        int PAY_TYPE = 15;//支付类型
     }
 
     public interface BuildingId {
@@ -154,7 +166,12 @@ public class Status {
         int MONEY_EVALUATE = 35;
         int PROJECT_OLDLOOK = 36;
         int PROJECT_NEWLOOK = 37;
+        int PAY_DETAIL = 38;
         int OTHER = 100;
+    }
+
+    public interface PayTypeItem {
+        int TempPlacementFee = 2;
     }
 
 //    文件类型 基础 = 0, 个人不动产证 = 1, 个人房屋现状 = 2, 个人土地证 = 3, 个人房产证 = 4, 企业证件 = 5, 企业现状 = 6, 企业不动产证 = 7, 企业土地证 = 8, 企业房产证 = 9,

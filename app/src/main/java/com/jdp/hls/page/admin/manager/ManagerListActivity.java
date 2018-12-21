@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.flipboard.bottomsheet.BottomSheetLayout;
@@ -52,10 +53,8 @@ public class ManagerListActivity extends BaseTitleActivity implements EmployeeLi
     ImageView ivClear;
     @BindView(R.id.tv_search)
     TextView tvSearch;
-    @BindView(R.id.plv)
-    PullToBottomListView plv;
-    @BindView(R.id.srl)
-    SwipeRefreshLayout srl;
+    @BindView(R.id.lv)
+    ListView lv;
     @BindView(R.id.bottomSheetLayout)
     BottomSheetLayout bottomSheetLayout;
     @BindView(R.id.tv_count)
@@ -71,7 +70,7 @@ public class ManagerListActivity extends BaseTitleActivity implements EmployeeLi
     private ManagerSelectedAdapter selectedAdapter;
     private List<Employee> selectedEmployees;
 
-    @OnItemClick({R.id.plv})
+    @OnItemClick({R.id.lv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Employee employee = (Employee) adapterView.getItemAtPosition(position);
         if (!managerAdapter.isSelected(employee)) {
@@ -154,7 +153,7 @@ public class ManagerListActivity extends BaseTitleActivity implements EmployeeLi
         FixedListView selectedLv = bottomSheetView.findViewById(R.id.flv_selected);
         selectedAdapter = new ManagerSelectedAdapter(this, selectedEmployees);
         managerAdapter = new ManagerAdapter(this, null, selectedEmployees);
-        plv.setAdapter(this.managerAdapter);
+        lv.setAdapter(this.managerAdapter);
         selectedLv.setAdapter(selectedAdapter);
         selectedLv.setOnItemClickListener((parent, view, position, id) -> {
             Employee employee = (Employee) parent.getItemAtPosition(position);

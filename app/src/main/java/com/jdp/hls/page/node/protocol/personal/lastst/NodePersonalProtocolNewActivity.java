@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.DaggerBaseCompnent;
@@ -16,8 +15,8 @@ import com.jdp.hls.model.entiy.NodePersonalProtocol;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolContract;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolPresenter;
-import com.jdp.hls.page.otherarea.list.OtherAreaListActivity;
-import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.page.node.protocol.personal.lastst.pay.list.PayListActivity;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.StringTextView;
@@ -28,6 +27,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MultipartBody;
 
 /**
  * Description:协议生成-个人
@@ -41,7 +41,7 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
     @BindView(R.id.tv_protocol_realName)
     StringTextView tvProtocolRealName;
     @BindView(R.id.tv_protocol_date)
-    TextView tvProtocolDate;
+    StringTextView tvProtocolDate;
     @BindView(R.id.iv_dateSelector)
     ImageView ivDateSelector;
     @BindView(R.id.tv_protocol_totalArea)
@@ -56,37 +56,38 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
     KSpinner spinnerProtocolPayType;
     @BindView(R.id.fl_payType)
     FrameLayout flPayType;
-    @BindView(R.id.rl_protocol_otherArea)
-    RelativeLayout rlProtocolOtherArea;
     @BindView(R.id.rl_photo_preview)
     RelativeLayout rlPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
+    @BindView(R.id.tv_payableAmount)
+    StringTextView tvPayableAmount;
+    @BindView(R.id.tv_paidAmount)
+    StringTextView tvPaidAmount;
+    @BindView(R.id.tv_balanceAmount)
+    StringTextView tvBalanceAmount;
     private int payType;
     @Inject
     NodePersonalProtocolPresenter nodePersonalProtocolPresenter;
     private List<TDict> payTypeList;
-    private int pcId;
     private PayMoneyFragment payMoneyFragment;
     private PayChangeFragment payChangeFragment;
     private PayRebuyFragment payRebuyFragment;
 
-    @OnClick({R.id.rl_protocol_otherArea})
-    public void rl_protocol_otherArea(View view) {
+
+    @OnClick({R.id.rl_payList})
+    public void click(View view) {
         switch (view.getId()) {
-            case R.id.rl_protocol_otherArea:
-                OtherAreaListActivity.goActivity(this, String.valueOf(pcId), String.valueOf(Status.BuildingType
-                        .PERSONAL), allowEdit);
-                break;
-            default:
+            case R.id.rl_payList:
+                PayListActivity.goActivity(this,mBuildingId,mBuildingType,allowEdit);
                 break;
         }
     }
-
     @Override
     public void initVariable() {
         super.initVariable();
-        payTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PAY_TYPE);
+        payTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.COMPENSATION_TYPE);
+        LogUtil.e(TAG, "payTypeList:" + payTypeList.size());
     }
 
     @Override
@@ -118,14 +119,8 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
         spinnerProtocolPayType.setDicts(payTypeList, typeId -> {
             payType = typeId;
             switchPayType(typeId);
+            LogUtil.e(TAG, "typeId:" + typeId);
         });
-        spinnerProtocolPayType.setSelectItem(spinnerProtocolPayType.getDefaultTypeId());
-        payMoneyFragment = new PayMoneyFragment();
-        payChangeFragment = new PayChangeFragment();
-        payRebuyFragment = new PayRebuyFragment();
-
-
-        switchPayType(1);
     }
 
     private void switchPayType(int typeId) {
@@ -135,7 +130,7 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
                 getSupportFragmentManager().beginTransaction().replace(R.id.fl_payType, payChangeFragment).commit();
                 break;
             case 2:
-                //货币补偿
+                //货币退购
                 getSupportFragmentManager().beginTransaction().replace(R.id.fl_payType, payMoneyFragment).commit();
                 break;
             case 3:
@@ -149,23 +144,75 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
 
     @Override
     public void initNet() {
-//        nodePersonalProtocolPresenter.getPersonalProtocol(mBuildingId);
-
-
+        nodePersonalProtocolPresenter.getPersonalProtocol(mBuildingId);
     }
 
     @Override
     protected void onUiEditable(boolean allowEdit) {
-
+        etRemark.setEnabled(allowEdit);
+        spinnerProtocolPayType.enable(allowEdit);
+        setDateSelector(ivDateSelector, tvProtocolDate, allowEdit);
     }
 
     @Override
     protected void onSaveDate() {
+        String remark = etRemark.getText().toString().trim();
+        String pCDate = tvProtocolDate.getText().toString().trim();
+        MultipartBody.Builder requestBuilder = getRequestBuilder(payType);
+        nodePersonalProtocolPresenter.modifyPersonalProtocol(requestBuilder
+                .addFormDataPart("HouseId", mBuildingId)
+                .addFormDataPart("PayType", String.valueOf(payType))
+                .addFormDataPart("PCDate", pCDate)
+                .addFormDataPart("Remark", remark)
+                .build());
+    }
 
+    private MultipartBody.Builder getRequestBuilder(int payType) {
+        MultipartBody.Builder builder = null;
+        switch (payType) {
+            case 1:
+                //产权置换
+                builder = payChangeFragment.getRequestBuilder();
+                break;
+            case 2:
+                //货币退购
+                builder = payMoneyFragment.getRequestBuilder();
+                break;
+            case 3:
+                //权益回购
+                builder = payRebuyFragment.getRequestBuilder();
+                break;
+            default:
+                builder = payChangeFragment.getRequestBuilder();
+                break;
+        }
+        return builder;
     }
 
     @Override
     public void onGetPersonalProtocolSuccess(NodePersonalProtocol nodePersonalProtocol) {
+        allowEdit = nodePersonalProtocol.isAllowEdit();
+        setEditable(allowEdit);
+        etRemark.setString(nodePersonalProtocol.getRemark());
+        tvProtocolCompanyName.setString(nodePersonalProtocol.getCompanyName());
+        tvProtocolRealName.setString(nodePersonalProtocol.getRealName());
+        tvProtocolDate.setText(nodePersonalProtocol.getPCDate());
+        tvProtocolTotalArea.setString(nodePersonalProtocol.getTotalArea());
+        tvProtocolTotalNotRecordArea.setString(nodePersonalProtocol.getTotalNotRecordArea());
+        tvProtocolBuildOccupyArea.setString(nodePersonalProtocol.getBuildOccupyArea());
+        tvProtocolLandCertArea.setString(nodePersonalProtocol.getLandCertArea());
+
+        tvPayableAmount.setString(nodePersonalProtocol.getPayableAmount());
+        tvPaidAmount.setString(nodePersonalProtocol.getPaidAmount());
+        tvBalanceAmount.setString(nodePersonalProtocol.getBalanceAmount());
+
+        payType = nodePersonalProtocol.getPayType();
+        payMoneyFragment = PayMoneyFragment.newInstance(nodePersonalProtocol);
+        payChangeFragment = PayChangeFragment.newInstance(nodePersonalProtocol);
+        payRebuyFragment = PayRebuyFragment.newInstance(nodePersonalProtocol);
+        spinnerProtocolPayType.setSelectItem(payType);
+        switchPayType(payType);
+
 
     }
 
@@ -176,6 +223,6 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
 
     @Override
     public boolean ifRegisterLoadSir() {
-        return false;
+        return true;
     }
 }

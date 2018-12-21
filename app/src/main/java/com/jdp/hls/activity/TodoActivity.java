@@ -56,14 +56,9 @@ public class TodoActivity extends BaseTitleActivity {
     }
 
     public static void goActivity(Context context, String titlle) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(context, TodoActivity.class);
-                intent.putExtra(Constants.Extra.TITLE, titlle);
-                context.startActivity(intent);
-            }
-        },500);
+        Intent intent = new Intent(context, TodoActivity.class);
+        intent.putExtra(Constants.Extra.TITLE, titlle);
+        context.startActivity(intent);
 
     }
 }

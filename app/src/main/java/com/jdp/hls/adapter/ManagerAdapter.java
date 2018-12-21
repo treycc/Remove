@@ -7,9 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.i.OnSearchListener;
 import com.jdp.hls.model.entiy.Employee;
-import com.jdp.hls.model.entiy.ProjectItem;
 
 import java.util.List;
 

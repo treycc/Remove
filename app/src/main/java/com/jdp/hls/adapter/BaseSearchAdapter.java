@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jdp.hls.i.OnSearchListener;
+import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.Person;
 
 import java.util.ArrayList;
@@ -34,16 +35,37 @@ public abstract class BaseSearchAdapter<T> extends BaseLvAdapter<T> implements O
         notifyDataSetChanged();
     }
 
+    public void addSearchFirst(T t) {
+        list.add(0, t);
+        resultList.add(0, t);
+        notifyDataSetChanged();
+    }
+
+    public void modifySearchItem(T t) {
+    }
+
+    public void removeSearchItem(int position) {
+        resultList.remove(position);
+        notifyDataSetChanged();
+    }
+    public void removeSearchItem(T t) {
+        resultList.remove(t);
+        list.remove(t);
+        notifyDataSetChanged();
+    }
+
     protected abstract void doSearch(List<T> list, List<T> resultList, String keyword);
 
     @Override
     public Object getItem(int position) {
         return resultList.get(position);
     }
+
     @Override
     public int getCount() {
         return resultList.size();
     }
+
     @Override
     public void setData(List<T> list) {
         this.resultList = list;

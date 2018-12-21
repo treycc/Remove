@@ -2,7 +2,6 @@ package com.jdp.hls.page.business.basic.personla;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.NodeAdapter;
-import com.jdp.hls.adapter.SubNodeAdapter;
 import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
@@ -22,11 +20,11 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.FlowNode;
 import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
-import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.page.operate.OperateNodeContract;
 import com.jdp.hls.page.operate.OperateNodePresenter;
-import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.page.supervise.project.contrast.VRDetailActivity;
 import com.jdp.hls.util.NodeUtil;
+import com.jdp.hls.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,7 +36,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import okhttp3.RequestBody;
@@ -67,7 +64,8 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
     TextView tvMsgContent;
     @BindView(R.id.ll_msgRoot)
     LinearLayout llMsgRoot;
-
+    @BindView(R.id.tv_vrTip)
+    TextView tvVrTip;
     private List<FlowNode> flowNodes = new ArrayList<>();
     @Inject
     BasicPersonalPresenter basicPersonalPresenter;
@@ -75,6 +73,7 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
     OperateNodePresenter operateNodePresenter;
     private String buildingId;
     private NodeAdapter nodeAdapter;
+    private String vrUrl;
 
 
     @OnItemClick({R.id.lv_business_node})
@@ -87,11 +86,18 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         }
     }
 
-    @OnClick({R.id.rl_business_detail})
+    @OnClick({R.id.rl_business_detail, R.id.rl_business_vr})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_business_detail:
                 DetailPersonalActivity.goActivity(this, buildingId);
+                break;
+            case R.id.rl_business_vr:
+                if (TextUtils.isEmpty(vrUrl)) {
+                    ToastUtil.showText("暂无VR信息");
+                } else {
+                    VRDetailActivity.goActivity(this, vrUrl, "全景VR");
+                }
                 break;
         }
     }
@@ -173,6 +179,8 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         tvBasicSyscode.setText(baiscPersonal.getSysCode());
         tvBasicName.setText(baiscPersonal.getRealName());
         tvBasicAddress.setText(baiscPersonal.getAddress());
+        vrUrl = baiscPersonal.getVRUrl();
+        tvVrTip.setVisibility(TextUtils.isEmpty(vrUrl) ? View.VISIBLE : View.GONE);
 
         if (!TextUtils.isEmpty(baiscPersonal.getMsgTitle())) {
             llMsgRoot.setVisibility(View.VISIBLE);
@@ -187,7 +195,6 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         setSingleAuth(baiscPersonal.getAuth(), baiscPersonal.getHouseId(), String.valueOf(Status.BuildingType.PERSONAL),
                 String.valueOf(baiscPersonal.getStatusId()), String.valueOf(baiscPersonal.getGroupId()));
     }
-
 
     @Override
     public boolean ifRegisterLoadSir() {
@@ -225,12 +232,5 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
             tvBasicName.setText(event.getRealName());
             tvBasicAddress.setText(event.getAddress());
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

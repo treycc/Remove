@@ -49,7 +49,7 @@
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
                     android:hint="请选择项目区域"
-                    android:textColorHint="@color/c_9"/>
+                    android:textColorHint="@color/c_c"/>
 
                 <ImageView style="@style/BG_ARROW"/>
             </LinearLayout>
@@ -75,7 +75,7 @@
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
                     android:hint="请选择街道"
-                    android:textColorHint="@color/c_9"/>
+                    android:textColorHint="@color/c_c"/>
 
                 <ImageView style="@style/BG_ARROW"/>
             </LinearLayout>
@@ -116,7 +116,7 @@
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
                     android:hint="请选择年份"
-                    android:textColorHint="@color/c_9"/>
+                    android:textColorHint="@color/c_c"/>
 
                 <ImageView style="@style/BG_ARROW"/>
             </LinearLayout>
@@ -142,7 +142,7 @@
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
                     android:hint="请选择负责人"
-                    android:textColorHint="@color/c_9"/>
+                    android:textColorHint="@color/c_c"/>
 
                 <ImageView style="@style/BG_ARROW"/>
             </LinearLayout>
@@ -161,6 +161,31 @@
                 android:id="@+id/et_estimateTotalBuildings"
                 style="@style/Content_ET_W2_Mul_Line"
                 android:hint="请输入预估总户数"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            android:id="@+id/ll_taoType"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="套型"/>
+
+            <LinearLayout style="@style/Ll_Container_Arrow_W2">
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_taoType"
+                    style="@style/font_9_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:hint="请配置套型"
+                    android:textColorHint="@color/c_c"/>
+
+                <ImageView style="@style/BG_ARROW"/>
+            </LinearLayout>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -252,7 +277,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="新旧比对"/>
+                    android:text="大建大美前后比对"/>
 
                 <ImageView
                     style="@style/BG_ARROW"/>

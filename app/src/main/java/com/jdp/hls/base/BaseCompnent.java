@@ -3,6 +3,7 @@ package com.jdp.hls.base;
 
 import com.jdp.hls.activity.PhotoPreviewActivity;
 import com.jdp.hls.page.admin.contrast.ProjectContrastDetailActivity;
+import com.jdp.hls.page.admin.employee.add.projectlist.SuperviseProjectListActivity;
 import com.jdp.hls.page.admin.group.detail.GroupDetailActivity;
 import com.jdp.hls.page.admin.group.list.GroupListActivity;
 import com.jdp.hls.page.admin.group.member.MemberSelectActivity;
@@ -49,6 +50,8 @@ import com.jdp.hls.page.mine.MineFragment;
 import com.jdp.hls.page.module.HomeFragment;
 import com.jdp.hls.page.node.age.company.NodeCompanyAgeActivity;
 import com.jdp.hls.page.node.age.personal.NodePersonalAgeActivity;
+import com.jdp.hls.page.node.protocol.personal.lastst.pay.detail.PayDetailActivity;
+import com.jdp.hls.page.node.protocol.personal.lastst.pay.list.PayListActivity;
 import com.jdp.hls.page.node.evaluate.company.NodeCompanyEvaluateActivity;
 import com.jdp.hls.page.node.evaluate.company.houseevaluate.NodeCompanyHouseEvaluateActivity;
 import com.jdp.hls.page.node.evaluate.company.moneyevaluate.NodeCompanyMoneyEvaluateActivity;
@@ -99,6 +102,9 @@ import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportDayLi
 import com.jdp.hls.page.supervise.statistics.progress.report.hourlist.ReportHourListActivity;
 import com.jdp.hls.page.supervise.statistics.table.TableListSuperviseActivity;
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalFragment;
+import com.jdp.hls.page.supervise.statistics.total.pay.SupervisePayListActivity;
+import com.jdp.hls.page.supervise.statistics.total.taotype.StatisticsTaotypeListActivity;
+import com.jdp.hls.page.supervise.statistics.total.taotype.person.TaoTypePersonListActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.page.table.list.TableListFragment;
 import com.jdp.hls.service.initialize.InitializeService;
@@ -108,6 +114,18 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(TaoTypePersonListActivity target);
+
+    void inject(StatisticsTaotypeListActivity target);
+
+    void inject(SupervisePayListActivity target);
+
+    void inject(PayDetailActivity target);
+
+    void inject(SuperviseProjectListActivity target);
+
+    void inject(PayListActivity target);
+
     void inject(NodePersonalProtocolNewActivity target);
 
     void inject(ProjectContrastDetailActivity target);

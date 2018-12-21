@@ -385,6 +385,16 @@
                   android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.TodoActivity"/>
         <activity android:name=".page.node.protocol.personal.lastst.NodePersonalProtocolNewActivity"/>
+        <activity android:name=".page.node.protocol.personal.lastst.pay.list.PayListActivity"/>
+        <activity android:name=".page.node.protocol.personal.lastst.pay.detail.PayDetailActivity"/>
+        <activity android:name=".page.admin.project.detail.tao.TaoTypeListAddActivity"/>
+        <activity android:name=".page.admin.project.detail.tao.TaoTypeDetailActivity"/>
+        <activity android:name=".page.admin.employee.add.projectlist.SuperviseProjectListActivity"/>
+        <activity android:name=".page.node.protocol.personal.lastst.pay.list.PayListActivity"/>
+        <activity android:name=".page.node.protocol.personal.lastst.taotype.TaoTypeSelectActivity"/>
+        <activity android:name=".page.supervise.statistics.total.pay.SupervisePayListActivity"/>
+        <activity android:name=".page.supervise.statistics.total.taotype.StatisticsTaotypeListActivity"/>
+        <activity android:name=".page.supervise.statistics.total.taotype.person.TaoTypePersonListActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

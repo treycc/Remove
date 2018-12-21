@@ -8,9 +8,9 @@ package com.jdp.hls.constant;
  * 修改备注：
  */
 public class Constants {
-//        public static final String BASE_URL = "http://192.168.0.2:8080/";//本地
-    public static final String BASE_URL = "http://192.168.0.5:8081/";//服务器
-//    public static final String BASE_URL = "http://47.100.213.104:8081/";//外网
+        public static final String BASE_URL = "http://192.168.0.2:8080/";//本地
+//    public static final String BASE_URL = "http://192.168.0.5:8081/";//服务器
+//    public static final String BASE_URL = "http://api.fwzspt.cn/";//外网
 
     public static final int PAGE_SIZE = 20;
     public static final int PAGE_FIRST = 1;
@@ -50,6 +50,9 @@ public class Constants {
         int MANAGER_LIST = 16;
         int COMPANY_LIST = 17;
         int MEMBERSELECT = 18;
+        int TaoTypeListAdd = 19;
+        int SuperviseProjectList = 20;
+        int TaoTypeSelect = 21;
     }
 
     public interface MapSetting {
@@ -80,6 +83,7 @@ public class Constants {
     }
 
     public interface Extra {
+        String LIST = "LIST";
         String ItemType = "itemType";
         String DateType = "dateType";
         String BeginDate = "beginDate";
@@ -90,6 +94,7 @@ public class Constants {
         String CompanyTypeId = "CompanyTypeId";
         String Employees = "Employees";
         String Ids = "Ids";
+        String IsManageAllProjects = "IsManageAllProjects";
         String Names = "Names";
         String EmployeeId = "employeeId";
         String AIRPHOTO_TYPE = "airPhotoType";
@@ -140,6 +145,11 @@ public class Constants {
         String Date = "date";
         String StartDate = "startDate";
         String VrUrl = "vrUrl";
+        String TaoTypeList = "taoTypeList";
+        String TaoType = "taoType";
+        String Object = "Object";
+        String Key = "Key";
+        String Value = "value";
     }
 
     public interface AirPhotoType {

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical">
+
+    <include layout="@layout/layout_search_white"/>
+
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@color/div_hi"
+        android:dividerHeight="1px"
+        android:listSelector="@android:color/transparent"
+        tools:listitem="@layout/item_pay_detail"/>
+
+    <View style="@style/div_hor_gray_6"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="应付金额"/>
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_payableAmount"
+            style="@style/Content_ET_W1_3"
+            android:hint="0"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="已付金额"/>
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_paidAmount"
+            style="@style/Content_ET_W1_3"
+            android:hint="0"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="未付金额"/>
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_balanceAmount"
+            style="@style/Content_ET_W1_3"
+            android:hint="0"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+
+
+</LinearLayout>

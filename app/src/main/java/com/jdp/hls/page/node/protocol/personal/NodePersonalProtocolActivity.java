@@ -1,6 +1,5 @@
 package com.jdp.hls.page.node.protocol.personal;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -30,7 +29,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -112,7 +110,7 @@ public class NodePersonalProtocolActivity extends BaseNodeActivity implements No
     @Override
     public void initVariable() {
         super.initVariable();
-        payTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PAY_TYPE);
+        payTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.COMPENSATION_TYPE);
     }
 
     @Override

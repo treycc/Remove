@@ -18,7 +18,7 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class EmployeeAdapter extends BaseLvAdapter<Employee> {
+public class EmployeeAdapter extends BaseSearchAdapter<Employee> {
 
     public EmployeeAdapter(Context context, List<Employee> list) {
         super(context, list);
@@ -35,16 +35,27 @@ public class EmployeeAdapter extends BaseLvAdapter<Employee> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.stv_realName.setText(list.get(position).getRealName());
-        viewHolder.stv_mobilePhone.setText(list.get(position).getMobilePhone());
-        viewHolder.stv_accountAlias.setText(list.get(position).getAccountAlias());
-        viewHolder.stv_loginName.setText(list.get(position).getLoginName());
-        ImageLoader.getInstance().loadCircleImage(context, list.get(position).getHeadUrl(), viewHolder.iv_headUrl);
+        Employee employee = (Employee) getItem(position);
+        viewHolder.stv_realName.setText(employee.getRealName());
+        viewHolder.stv_mobilePhone.setText(employee.getMobilePhone());
+        viewHolder.stv_accountAlias.setText(employee.getAccountAlias());
+        viewHolder.stv_loginName.setText(employee.getLoginName());
+        ImageLoader.getInstance().loadCircleImage(context, employee.getHeadUrl(), viewHolder.iv_headUrl);
         return convertView;
     }
 
+    @Override
+    protected void doSearch(List<Employee> list, List<Employee> resultList, String keyword) {
+        for (Employee employee : list) {
+            if (employee.getRealName().contains(keyword) || employee.getMobilePhone().contains(keyword) || employee
+                    .getAccountAlias().contains(keyword)|| employee.getLoginName().contains(keyword)) {
+                resultList.add(employee);
+            }
+        }
+    }
+
     public void modifyEmployee(Employee employee) {
-        for (Employee item : list) {
+        for (Employee item : resultList) {
             if (item.getEmployeeId() == employee.getEmployeeId()) {
                 item.setRealName(employee.getRealName());
                 item.setMobilePhone(employee.getMobilePhone());
@@ -56,7 +67,7 @@ public class EmployeeAdapter extends BaseLvAdapter<Employee> {
     }
 
     public void addEmployee(Employee employee) {
-        list.add(0, employee);
+        resultList.add(0, employee);
         notifyDataSetChanged();
     }
 

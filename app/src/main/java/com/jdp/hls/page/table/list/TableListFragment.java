@@ -96,7 +96,7 @@ public class TableListFragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     protected int getContentId() {
-        return R.layout.common_lv;
+        return R.layout.common_plv;
     }
 
 

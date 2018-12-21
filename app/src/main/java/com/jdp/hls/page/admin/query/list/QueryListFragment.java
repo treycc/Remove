@@ -89,7 +89,7 @@ public class QueryListFragment extends BaseFragment {
 
     @Override
     protected int getContentId() {
-        return R.layout.common_lv;
+        return R.layout.common_plv;
     }
 
 

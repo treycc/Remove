@@ -138,6 +138,7 @@ public abstract class BaseNodeActivity extends BaseTitleActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         rvPhotoPreview.onActivityResult(requestCode, resultCode, data);
     }
 }

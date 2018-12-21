@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jdp.hls.view.DrawHelperLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawHelperLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_hi">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="12dp">
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="90套型(30m²)"/>
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@mipmap/ic_arrow_right"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/red_hi">
+
+        <TextView
+            android:id="@+id/tv_delete"
+            style="@style/font_f_15"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="删除"/>
+
+    </LinearLayout>
+</com.jdp.hls.view.DrawHelperLayout>

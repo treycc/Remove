@@ -20,6 +20,33 @@ public class Employee implements Serializable {
     private String CompanyName;
     private boolean IsCompanyAccount;
     private boolean selected;
+    private boolean IsStop;
+    private boolean IsManageAllProjects;
+    private String ProjectIDs;
+
+    public boolean isStop() {
+        return IsStop;
+    }
+
+    public void setStop(boolean stop) {
+        IsStop = stop;
+    }
+
+    public boolean isManageAllProjects() {
+        return IsManageAllProjects;
+    }
+
+    public void setManageAllProjects(boolean manageAllProjects) {
+        IsManageAllProjects = manageAllProjects;
+    }
+
+    public String getProjectIDs() {
+        return null == ProjectIDs ? "" : ProjectIDs;
+    }
+
+    public void setProjectIDs(String projectIDs) {
+        ProjectIDs = projectIDs;
+    }
 
     public boolean isSelected() {
         return selected;

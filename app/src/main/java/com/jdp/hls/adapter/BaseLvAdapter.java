@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.jdp.hls.i.ILvSetData;
+import com.jdp.hls.model.entiy.UnRecordBuilding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter implements ILvSetData
     protected Context context;
     protected List<T> list;
     protected int selectPosition = -1;
+    protected OnItemOperListener onItemOperListener;
 
     public BaseLvAdapter(Context context, List<T> list) {
         this.context = context;
@@ -47,6 +49,9 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter implements ILvSetData
     public void addFirst(T item) {
         this.list.add(0, item);
         this.notifyDataSetChanged();
+    }
+
+    public void modifyItem(T item) {
     }
 
     public void addLast(T item) {
@@ -93,5 +98,14 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter implements ILvSetData
     public void removeItem(T item) {
         list.remove(item);
         this.notifyDataSetChanged();
+    }
+
+    public interface OnItemOperListener<T> {
+        void onItemDelete(T t, int position);
+        void onItemClick(T item);
+    }
+
+    public void setOnItemOperListener(OnItemOperListener onItemOperListener) {
+        this.onItemOperListener = onItemOperListener;
     }
 }

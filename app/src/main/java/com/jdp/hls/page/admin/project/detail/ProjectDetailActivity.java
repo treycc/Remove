@@ -3,13 +3,14 @@ package com.jdp.hls.page.admin.project.detail;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
@@ -20,14 +21,15 @@ import com.jdp.hls.event.ModifyProjectEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.ProjectItem;
+import com.jdp.hls.model.entiy.TaoType;
 import com.jdp.hls.page.admin.contrast.ProjectContrastDetailActivity;
 import com.jdp.hls.page.admin.group.list.GroupListActivity;
 import com.jdp.hls.page.admin.manager.ManagerListActivity;
 import com.jdp.hls.page.admin.project.config.ProjectConfigActivity;
+import com.jdp.hls.page.admin.project.detail.tao.TaoTypeListAddActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.DialogUtil;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
@@ -41,12 +43,14 @@ import com.jzxiang.pickerview.data.Type;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -90,6 +94,10 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     LinearLayout llProjectConfig;
     @BindView(R.id.et_estimateTotalBuildings)
     EnableEditText etEstimateTotalBuildings;
+    @BindView(R.id.tv_taoType)
+    StringTextView tvTaoType;
+    @BindView(R.id.ll_taoType)
+    LinearLayout llTaoType;
     private boolean isAddProject;
     @Inject
     ProjectDetailPresenter projectDetailPresenter;
@@ -104,11 +112,17 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     private AreaDialog areaDialog;
     private String year;
     private StreetDialog streetDialog;
+    private List<TaoType> taoTypeList = new ArrayList<>();
+    private String deletePatternIDs;
+    private String jsonProjectPatterns = "";
 
     @OnClick({R.id.ll_projectArea, R.id.ll_projectStreet, R.id.ll_Year, R.id.ll_projectEmployee, R.id
-            .rl_projectConfig, R.id.rl_projectGroup, R.id.rl_projectContrast})
+            .rl_projectConfig, R.id.rl_projectGroup, R.id.rl_projectContrast, R.id.ll_taoType})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ll_taoType:
+                TaoTypeListAddActivity.goActivity(this, taoTypeList);
+                break;
             case R.id.ll_projectArea:
                 areaDialog.show();
                 break;
@@ -168,6 +182,14 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                     LogUtil.e(TAG, "带来会数量:" + selectedEmployees.size());
                     tvProjectEmployee.setString(names);
                     break;
+                case Constants.RequestCode.TaoTypeListAdd:
+                    deletePatternIDs = data.getStringExtra(Constants.Extra.DELETEIDS);
+                    taoTypeList = (List<TaoType>) data.getSerializableExtra(Constants.Extra.TaoTypeList);
+                    if (taoTypeList != null && taoTypeList.size() > 0) {
+                        tvTaoType.setHint(String.format("已配置%d个套型", taoTypeList.size()));
+                    }
+
+                    break;
             }
         }
     }
@@ -223,6 +245,9 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
         String areaRange = etAreaRange.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
         String estimateTotalBuildings = etEstimateTotalBuildings.getText().toString().trim();
+        if (taoTypeList != null && taoTypeList.size() > 0) {
+            jsonProjectPatterns = new Gson().toJson(taoTypeList);
+        }
         if (CheckUtil.checkEmpty(projectName, "请输入项目名称")
                 && CheckUtil.checkEmpty(String.valueOf(provinceId), "请选择项目区域")
                 && CheckUtil.checkEmpty(year, "请选择年份")
@@ -240,6 +265,8 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                     .addFormDataPart("Remark", remark)
                     .addFormDataPart("EstimateTotalBuildings", estimateTotalBuildings)
                     .addFormDataPart("ProjectEmployeeIDs", projectEmployeeIDs)
+                    .addFormDataPart("JsonProjectPatterns", jsonProjectPatterns)
+                    .addFormDataPart("DeletePatternIDs", TextUtils.isEmpty(deletePatternIDs) ? "" : deletePatternIDs)
                     .build());
         }
     }
@@ -270,14 +297,18 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
         tvProjectStreet.setString(projectItem.getStreetName());
         etAddress.setString(projectItem.getAddress());
         tvYear.setString(projectItem.getYear());
-        tvProjectEmployee.setString(projectItem.getProjectEmployeeName());
+        String projectEmployeeNames = projectItem.getProjectEmployeeName();
+        projectEmployeeIDs = projectItem.getProjectEmployeeIDs();
+
+        fillEmployeeList(projectEmployeeIDs, projectEmployeeNames);
+
+        tvProjectEmployee.setString(projectEmployeeNames);
         etAreaRange.setString(projectItem.getAreaRange());
         etRemark.setString(projectItem.getRemark());
         provinceId = projectItem.getProvinceId();
         cityId = projectItem.getCityId();
         lastAreaId = areaId = projectItem.getAreaId();
         streetId = projectItem.getStreetId();
-        projectEmployeeIDs = projectItem.getProjectEmployeeIDs();
         etEstimateTotalBuildings.setString(projectItem.getEstimateTotalBuildings());
         etProjectName.setEnabled(isAllowEdit);
         etAddress.setEnabled(isAllowEdit);
@@ -290,6 +321,32 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
         llProjectStreet.setEnabled(isAllowEdit);
         llProjectEmployee.setEnabled(isAllowEdit);
         etEstimateTotalBuildings.setEnabled(isAllowEdit);
+        taoTypeList = projectItem.getProjectPatternNames();
+
+        if (taoTypeList != null && taoTypeList.size() > 0) {
+            tvTaoType.setHint(String.format("已配置%d个套型", taoTypeList.size()));
+        }
+
+    }
+
+    private void fillEmployeeList(String projectEmployeeIDs, String projectEmployeeNames) {
+        if (TextUtils.isEmpty(projectEmployeeIDs) || TextUtils.isEmpty(projectEmployeeNames)) {
+            return;
+        }
+        String[] employeeIds = projectEmployeeIDs.split("#");
+        String[] employeeNames = projectEmployeeNames.split(",");
+
+        if (employeeIds.length != employeeNames.length) {
+            return;
+        }
+
+        selectedEmployees.clear();
+        for (int i = 0; i < employeeIds.length; i++) {
+            Employee employee = new Employee();
+            employee.setRealName(employeeNames[i]);
+            employee.setEmployeeId(Integer.valueOf(employeeIds[i]));
+            selectedEmployees.add(employee);
+        }
 
     }
 
@@ -337,7 +394,6 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
             EventBus.getDefault().post(new ModifyProjectEvent(projectItem));
             showSuccessDialogAndFinish();
         }
-
     }
 
     @Override
@@ -345,4 +401,10 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
         return true;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public class OtherArea implements Serializable{
     private int Id;
-    private int PCId;
+    private String PCId;
     private String Name;
     private double Price;
     private double Area;
@@ -23,11 +23,11 @@ public class OtherArea implements Serializable{
         Id = id;
     }
 
-    public int getPCId() {
+    public String getPCId() {
         return PCId;
     }
 
-    public void setPCId(int PCId) {
+    public void setPCId(String PCId) {
         this.PCId = PCId;
     }
 

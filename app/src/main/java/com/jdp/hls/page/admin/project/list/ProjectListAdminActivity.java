@@ -1,6 +1,5 @@
 package com.jdp.hls.page.admin.project.list;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,12 +10,9 @@ import com.jdp.hls.R;
 import com.jdp.hls.adapter.ProjectAdminAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
-import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.AddProjectEvent;
 import com.jdp.hls.event.ModifyProjectEvent;
-import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.model.entiy.ProjectItem;
 import com.jdp.hls.model.entiy.ProjectListInfo;
 import com.jdp.hls.page.admin.project.detail.ProjectDetailActivity;
@@ -32,12 +28,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 
@@ -88,7 +81,7 @@ public class ProjectListAdminActivity extends BaseTitleActivity implements Proje
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_project_list;
+        return R.layout.activity_search_list;
     }
 
     @Override
@@ -119,6 +112,7 @@ public class ProjectListAdminActivity extends BaseTitleActivity implements Proje
 
     @Override
     protected void initData() {
+        etKeyword.setHint("请输入项目名称/地址/负责人/系统编号");
         srl.stepRefresh(this);
         projectAdapter = new ProjectAdminAdapter(this, null);
         plv.setAdapter(projectAdapter);

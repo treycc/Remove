@@ -7,9 +7,11 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodePersonalAge;
 import com.jdp.hls.page.node.BaseNodeActivity;
+import com.jdp.hls.page.otherarea.list.OtherAreaListActivity;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.EnableEditText;
@@ -18,6 +20,7 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
 /**
@@ -86,6 +89,17 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
     private String identifierId;
     private boolean isShowNotRecordArea;
 
+    @OnClick({R.id.rl_otherArea})
+    public void rl_protocol_otherArea(View view) {
+        switch (view.getId()) {
+            case R.id.rl_otherArea:
+                OtherAreaListActivity.goActivity(this, mBuildingId, String.valueOf(Status.BuildingType
+                        .PERSONAL), allowEdit);
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     protected int getContentView() {

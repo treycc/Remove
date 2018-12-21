@@ -3,6 +3,7 @@ package com.jdp.hls.page.business.detail.personal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -45,6 +46,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -106,6 +108,8 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     PreviewRecyclerView rvPhotoPreviewHouse;
     @BindView(R.id.tv_detail_bankAccount)
     TextView tvDetailBankAccount;
+    @BindView(R.id.et_detail_vrUrl)
+    EnableEditText etDetailVrUrl;
     private String buildingId;
     @Inject
     DetailPersonalPresenter detailPersonalPresenter;
@@ -236,6 +240,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         etDetailMobile.setText(detailPersonal.getMobilePhone().trim());
         etDetailIdcard.setText(detailPersonal.getIdcard().trim());
         etDetailAddress.setText(detailPersonal.getAddress());
+        etDetailVrUrl.setString(detailPersonal.getVRUrl());
         etDetailBizUseArea.setText(String.valueOf(detailPersonal.getBizUseArea()));
         tvDetailPropertyDeed.setText(detailPersonal.getPropertyCertNum());
         tvDetailLandDeed.setText(detailPersonal.getLandCertNum());
@@ -262,6 +267,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         etDetailRealName.setEnabled(allowEdit);
         etDetailMobile.setEnabled(allowEdit);
         etDetailAddress.setEnabled(allowEdit);
+        etDetailVrUrl.setEnabled(allowEdit);
         etDetailIdcard.setEnabled(allowEdit);
         etDetailBizUseArea.setEnabled(allowEdit);
         etDetailRemark.setEnabled(allowEdit);
@@ -295,6 +301,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         String idcard = etDetailIdcard.getText().toString().trim();
         String remark = etDetailRemark.getText().toString().trim();
         String bizUseArea = etDetailBizUseArea.getText().toString().trim();
+        String vrUrl = etDetailVrUrl.getText().toString().trim();
         if (!CheckUtil.checkEmpty(realName, "请输入户主名称") || !CheckUtil.checkEmpty(address, "请输入地址")) {
             return;
         }
@@ -313,6 +320,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                 .addFormDataPart("PoliticalTitle", String.valueOf(socialRelation))
                 .addFormDataPart("Idcard", idcard)
                 .addFormDataPart("MobilePhone", mobile)
+                .addFormDataPart("VRUrl", vrUrl)
                 .build());
     }
 
@@ -382,5 +390,12 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
             }
         }
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

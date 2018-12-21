@@ -12,13 +12,9 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.AddGroupEvent;
 import com.jdp.hls.event.ModifyGroupEvent;
-import com.jdp.hls.event.RefreshBusinessListEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Group;
-import com.jdp.hls.model.entiy.GroupDetail;
-import com.jdp.hls.model.entiy.Member;
 import com.jdp.hls.page.admin.group.detail.GroupDetailActivity;
-import com.jdp.hls.page.admin.group.member.MemberSelectActivity;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
@@ -133,6 +129,5 @@ public class GroupListActivity extends BaseTitleActivity implements GroupListCon
             showSuccessCallback();
         }
         groupAdapter.addFirst(event.getGroup());
-
     }
 }

@@ -4,6 +4,7 @@ package com.jdp.hls.page.supervise.statistics.total;
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.KeyValue;
+import com.jdp.hls.model.entiy.StatisticsTotalInfo;
 
 import java.util.List;
 
@@ -15,10 +16,10 @@ import java.util.List;
  */
 public interface StatisticsTotalContract {
     interface View extends BaseView {
-        void onGetStatisticsTotalSuccess(List<KeyValue> keyValueList);
+        void onGetStatisticsTotalSuccess(StatisticsTotalInfo keyValueList);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getStatisticsTotal(String projectId, int buildingType);
+        void getStatisticsTotal(int buildingType);
     }
 }

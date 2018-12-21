@@ -7,7 +7,6 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.page.admin.query.list.QueryListActivity;
 
 /**
  * Description:TODO
@@ -26,7 +25,7 @@ public class NotificationDetailActivity extends BaseTitleActivity {
 
     @Override
     protected int getContentView() {
-        return R.layout.common_lv;
+        return R.layout.common_plv;
     }
 
     @Override

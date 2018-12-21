@@ -159,6 +159,11 @@
         <item name="android:textColor">@color/c_9</item>
     </style>
 
+    <style name="font_c_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/c_c</item>
+    </style>
+
     <style name="font_red_10">
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/red_hi</item>
@@ -180,6 +185,7 @@
         <item name="android:background">@null</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/c_9</item>
+        <item name="android:textColorHint">@color/c_c</item>
         <item name="android:paddingLeft">12dp</item>
         <item name="android:paddingRight">12dp</item>
         <item name="android:paddingTop">6dp</item>
@@ -331,6 +337,7 @@
         <item name="android:paddingTop">6dp</item>
         <item name="android:paddingBottom">6dp</item>
         <item name="android:singleLine">true</item>
+        <item name="android:textColorHint">@color/c_c</item>
 
     </style>
 
@@ -345,7 +352,9 @@
     <style name="Content_ET_W1_5" parent="Content_ET">
         <item name="android:layout_weight">1.5</item>
     </style>
-
+    <style name="Content_ET_W1_8" parent="Content_ET">
+        <item name="android:layout_weight">1.8</item>
+    </style>
     <style name="Content_ET_W1_3" parent="Content_ET">
         <item name="android:layout_weight">1.3</item>
     </style>
@@ -456,7 +465,9 @@
     <style name="Ll_Container_Arrow_W2" parent="Ll_Container_Arrow">
         <item name="android:layout_weight">2</item>
     </style>
-
+    <style name="Ll_Container_Arrow_W3" parent="Ll_Container_Arrow">
+        <item name="android:layout_weight">3</item>
+    </style>
     <style name="Ll_Container_Arrow_W1_8" parent="Ll_Container_Arrow">
         <item name="android:layout_weight">1.8</item>
     </style>
@@ -467,6 +478,9 @@
 
     <style name="Rl_Container_Arrow_W2" parent="Rl_Container_Arrow">
         <item name="android:layout_weight">2</item>
+    </style>
+    <style name="Rl_Container_Arrow_W1_5" parent="Rl_Container_Arrow">
+        <item name="android:layout_weight">1.5</item>
     </style>
 
     <style name="Title_Normal">

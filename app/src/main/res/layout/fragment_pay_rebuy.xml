@@ -18,9 +18,8 @@
                 android:text="房屋重置补偿价"/>
 
             <com.jdp.hls.view.StringTextView
-                style="@style/Content_ET_W1"
-                android:text="60"
-                android:hint="60"/>
+                android:id="@+id/tv_houseResetMoney"
+                style="@style/Content_ET_W1_5"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -33,9 +32,8 @@
                 android:text="装修"/>
 
             <com.jdp.hls.view.StringTextView
-                android:text="60"
-                style="@style/Content_ET_W1"
-                android:hint="60"/>
+                android:id="@+id/tv_innerDecorateMoney"
+                style="@style/Content_ET_W1_5"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -48,9 +46,8 @@
                 android:text="附属物"/>
 
             <com.jdp.hls.view.StringTextView
-                android:text="60"
-                style="@style/Content_ET_W1"
-                android:hint="60"/>
+                android:id="@+id/tv_appurtenancePay"
+                style="@style/Content_ET_W1_5"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -63,11 +60,10 @@
                 android:text="拆迁奖励"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_protocol_hzArea"
-                style="@style/Content_ET_W1"
-                android:hint="请输入户增面积"
-                android:inputType="numberDecimal"
-                android:text="1000"/>
+                android:id="@+id/et_pulledDownPayAmount"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入拆迁奖励"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -80,11 +76,10 @@
                 android:text="其它补偿"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_protocol_azBuildingArea"
-                style="@style/Content_ET_W1"
-                android:hint="请输入总安置建筑面积"
-                android:inputType="numberDecimal"
-                android:text="3500"/>
+                android:id="@+id/et_otherFee"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入其它补偿"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -97,9 +92,8 @@
                 android:text="旧房补偿总金额"/>
 
             <com.jdp.hls.view.StringTextView
-                style="@style/Content_ET_W1"
-                android:hint="60"
-                android:text="60000"/>
+                android:id="@+id/tv_totalPayMoney"
+                style="@style/Content_ET_W1_5"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -112,11 +106,10 @@
                 android:text="总购房金额"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_protocol_azntArea"
-                style="@style/Content_ET_W1"
-                android:hint="请输入总安置套内面积"
-                android:inputType="numberDecimal"
-                android:text="50000"/>
+                android:id="@+id/et_totalPurchasePrice"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入总购房金额"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -129,9 +122,8 @@
                 android:text="应交购房款"/>
 
             <com.jdp.hls.view.StringTextView
-                style="@style/Content_ET_W1"
-                android:hint="120000"
-                android:text="11000"/>
+                android:id="@+id/tv_needPayBuildingAmount"
+                style="@style/Content_ET_W1_5"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -144,10 +136,10 @@
                 android:text="权益回购总金额"/>
 
             <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint="请输入货币补偿总金额"
-                android:inputType="numberDecimal"
-                android:text="10000"/>
+                android:id="@+id/et_equityRepurchaseTotalAmount"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入权益回购总金额"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -160,9 +152,8 @@
                 android:text="应支付权益回购款"/>
 
             <com.jdp.hls.view.StringTextView
-                style="@style/Content_ET_W1"
-                android:text="60000"
-                android:hint="60000"/>
+                android:id="@+id/tv_needPayEquityRepurchase"
+                style="@style/Content_ET_W1_5"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -174,10 +165,10 @@
                 style="@style/Title_Sub"
                 android:text="权益回购奖励金"/>
 
-            <com.jdp.hls.view.StringTextView
-                style="@style/Content_ET_W1"
-                android:text="60000"
-                android:hint="60000"/>
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_equityRepurchaseBountyAmount"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入权益回购奖励金"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -190,10 +181,10 @@
                 android:text="临时安置费"/>
 
             <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint="请输入货币补偿总金额"
-                android:inputType="numberDecimal"
-                android:text="1000"/>
+                android:id="@+id/et_tempPlacementFee"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入临时安置费"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -206,10 +197,10 @@
                 android:text="搬迁费"/>
 
             <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint="请输入货币补偿总金额"
-                android:inputType="numberDecimal"
-                android:text="2000"/>
+                android:id="@+id/et_removeFee"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入搬迁费"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -222,10 +213,10 @@
                 android:text="固定设施报销费"/>
 
             <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint="请输入货币补偿总金额"
-                android:inputType="numberDecimal"
-                android:text="3000"/>
+                android:id="@+id/et_fixedFacilitiesAmount"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入固定设施报销费"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -238,10 +229,10 @@
                 android:text="总安置建筑面积"/>
 
             <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint="请输入货币补偿总金额"
-                android:inputType="numberDecimal"
-                android:text="200"/>
+                android:id="@+id/et_aZBuildingArea"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入总安置建筑面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -254,90 +245,35 @@
                 android:text="总安置套内面积"/>
 
             <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint="请输入货币补偿总金额"
-                android:inputType="numberDecimal"
-                android:text="150"/>
+                android:id="@+id/et_aZTNArea"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入总安置套内面积"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
-            style="@style/Content_LL_T6">
+            android:id="@+id/ll_taoType"
+            style="@style/Content_LL_T12">
 
             <TextView
                 style="@style/Title_Sub"
                 android:text="套型"/>
 
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint=""
-                android:inputType="numberDecimal"
-                android:text="两室一厅"/>
-        </LinearLayout>
+            <RelativeLayout style="@style/Rl_Container_Arrow_W1_5">
 
-        <View style="@style/div_hor_gray_margin24"/>
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_taoType"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="请选择套型"
+                    android:textColorHint="@color/c_c"/>
 
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="货币补偿总金额"/>
-
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint=""
-                android:inputType="numberDecimal"
-                android:text="50000"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="户增面积"/>
-
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint=""
-                android:inputType="numberDecimal"
-                android:text="200"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="空翻面积"/>
-
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint=""
-                android:inputType="numberDecimal"
-                android:text="150"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="超审批占地"/>
-
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1"
-                android:hint=""
-                android:inputType="numberDecimal"
-                android:text="150"/>
+                <ImageView style="@style/BG_ARROW"/>
+            </RelativeLayout>
         </LinearLayout>
 
 

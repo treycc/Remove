@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -12,8 +13,10 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.ModifyEmployeeEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Employee;
+import com.jdp.hls.page.admin.employee.add.projectlist.SuperviseProjectListActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.EncryptUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
@@ -23,6 +26,8 @@ import org.greenrobot.eventbus.EventBus;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+import lib.kingja.switchbutton.SwitchMultiButton;
 import okhttp3.MultipartBody;
 
 /**
@@ -42,7 +47,24 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
     EnableEditText etMobile;
     @Inject
     EmployeeDetailPresenter employeeDetailPresenter;
+    @BindView(R.id.smb_accountStatus)
+    SwitchMultiButton smbAccountStatus;
+    @BindView(R.id.tv_projectSelector)
+    StringTextView tvProjectSelector;
+    @BindView(R.id.ll_projectSelector)
+    LinearLayout llProjectSelector;
     private String employeeId;
+
+    @OnClick({R.id.ll_projectSelector})
+    public void rl_protocol_otherArea(View view) {
+        switch (view.getId()) {
+            case R.id.ll_projectSelector:
+                SuperviseProjectListActivity.goActivity(this, projectIDs, isManageAllProjects);
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     public void initVariable() {
@@ -73,8 +95,13 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
 
     }
 
+    private boolean isStop;
+    private boolean isManageAllProjects;
+    private String projectIDs = "";
+
     @Override
     protected void initData() {
+        smbAccountStatus.setOnSwitchListener((position, tabText) -> isStop = position != 0);
         setRightClick("保存", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
@@ -88,6 +115,9 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
                                     (password))
                             .addFormDataPart("RealName", realName)
                             .addFormDataPart("Mobile", mobile)
+                            .addFormDataPart("IsStop", String.valueOf(isStop))
+                            .addFormDataPart("IsManageAllProjects", String.valueOf(isManageAllProjects))
+                            .addFormDataPart("ProjectIDs", TextUtils.isEmpty(projectIDs) ? "" : projectIDs)
                             .build());
                 }
             }
@@ -102,7 +132,7 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
     @Override
     public void onModifyEmployeeSuccess(Employee employee) {
         EventBus.getDefault().post(new ModifyEmployeeEvent(employee));
-        showSuccessToastAndFinish();
+        showSuccessDialogAndFinish();
     }
 
     @Override
@@ -111,6 +141,18 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
             tvLoginName.setString(employee.getLoginName());
             etRealName.setString(employee.getRealName());
             etMobile.setString(employee.getMobilePhone());
+            isStop = employee.isStop();
+            isManageAllProjects = employee.isManageAllProjects();
+            projectIDs = employee.getProjectIDs();
+            if (isManageAllProjects) {
+                tvProjectSelector.setHint("已选择所有项目");
+            } else {
+                String[] ids = projectIDs.split("#");
+                if (!TextUtils.isEmpty(projectIDs) && ids.length > 0) {
+                    tvProjectSelector.setHint(String.format("已选择%d个项目", ids.length));
+                }
+            }
+            smbAccountStatus.setSelectedTab(isStop ? 1 : 0);
         }
     }
 
@@ -123,5 +165,27 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
         Intent intent = new Intent(context, EmployeeDetailActivity.class);
         intent.putExtra(Constants.Extra.EmployeeId, employeeId);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null) {
+            switch (requestCode) {
+                case Constants.RequestCode.SuperviseProjectList:
+                    projectIDs = data.getStringExtra(Constants.Extra.Ids);
+                    isManageAllProjects = data.getBooleanExtra(Constants.Extra.IsManageAllProjects, false);
+                    if (isManageAllProjects) {
+                        tvProjectSelector.setHint("已选择全部项目");
+                    } else {
+                        String[] selectProjectIds = projectIDs.split("#");
+                        if (selectProjectIds.length > 0) {
+                            tvProjectSelector.setHint(String.format("已选择%d个项目", selectProjectIds.length));
+                            LogUtil.e(TAG, "projectIDs:" + projectIDs);
+                        }
+                    }
+                    break;
+            }
+        }
     }
 }

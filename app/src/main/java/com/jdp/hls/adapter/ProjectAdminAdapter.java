@@ -52,7 +52,7 @@ public class ProjectAdminAdapter extends BaseSearchAdapter<ProjectItem> {
     protected void doSearch(List<ProjectItem> list, List<ProjectItem> resultList, String keyword) {
         for (ProjectItem project : list) {
             if (project.getProjectName().contains(keyword) || project.getAddress().contains(keyword) || project
-                    .getProjectEmployeeName().contains(keyword)) {
+                    .getProjectEmployeeName().contains(keyword) || project.getProjectSysCode().contains(keyword)) {
                 resultList.add(project);
             }
         }

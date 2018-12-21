@@ -78,20 +78,15 @@
             <View style="@style/div_hor_gray"/>
 
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/srl"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <com.jdp.hls.view.PullToBottomListView
-                    android:id="@+id/plv"
+                <ListView
+                    android:id="@+id/lv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:divider="@color/div_hi"
                     android:dividerHeight="1px"
                     android:listSelector="@android:color/transparent"
                     tools:listitem="@layout/item_manager"/>
-            </android.support.v4.widget.SwipeRefreshLayout>
         </LinearLayout>
     </com.flipboard.bottomsheet.BottomSheetLayout>
 

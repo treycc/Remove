@@ -65,7 +65,7 @@ public class ProjectSelectActivity extends BaseTitleActivity implements ProjectS
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_project_list;
+        return R.layout.activity_search_list;
     }
 
     @Override

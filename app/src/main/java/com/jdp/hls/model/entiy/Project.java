@@ -73,4 +73,18 @@ public class Project implements Serializable {
     public void setAddress(String Address) {
         this.Address = Address;
     }
+
+    @Override
+    public int hashCode() {
+        return this.ProjectId.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Project)) {
+            return false;
+        }
+        Project project = (Project) obj;
+        return this.ProjectId .equals(project.getProjectId()) ;
+    }
 }

@@ -46,7 +46,7 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
     private OtherAreaAdapter otherAreaAdapter;
     @Inject
     OtherAreaPresenter otherAreaPresenter;
-    private String pcdId;
+    private String buildingId;
     private String buildingType;
     private boolean editable;
 
@@ -54,7 +54,7 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
     public void initVariable() {
         EventBus.getDefault().register(this);
         editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE,true);
-        pcdId = getIntent().getStringExtra(Constants.Extra.ID);
+        buildingId = getIntent().getStringExtra(Constants.Extra.ID);
         buildingType = getIntent().getStringExtra(Constants.Extra.BUILDING_TYPE);
     }
 
@@ -66,7 +66,7 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
 
     @Override
     protected int getContentView() {
-        return R.layout.common_lv;
+        return R.layout.common_plv;
     }
 
     @Override
@@ -95,7 +95,7 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
             setRightClick("增加", new NoDoubleClickListener() {
                 @Override
                 public void onNoDoubleClick(View v) {
-                    OtherAreaAddActivity.goActivity(OtherAreaListActivity.this, pcdId, buildingType);
+                    OtherAreaAddActivity.goActivity(OtherAreaListActivity.this, buildingId, buildingType);
                 }
             });
         }
@@ -120,7 +120,7 @@ public class OtherAreaListActivity extends BaseTitleActivity implements OhterAre
 
     @Override
     public void initNet() {
-        otherAreaPresenter.getOtherAreaList(pcdId, buildingType);
+        otherAreaPresenter.getOtherAreaList(buildingId, buildingType);
     }
 
     @Override

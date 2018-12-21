@@ -20,6 +20,7 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.TextureMapView;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
@@ -72,7 +73,7 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
     @BindView(R.id.tv_roster_add)
     TextView tvRosterAdd;
     @BindView(R.id.map)
-    MapView mMapView;
+    TextureMapView mMapView;
     @BindView(R.id.iv_map_showall)
     ImageView ivMapShowall;
     @BindView(R.id.iv_map_refresh)

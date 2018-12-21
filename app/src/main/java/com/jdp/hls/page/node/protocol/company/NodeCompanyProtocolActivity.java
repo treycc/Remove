@@ -16,7 +16,6 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodeCompanyProtocol;
 import com.jdp.hls.page.node.BaseNodeActivity;
-import com.jdp.hls.page.otherarea.list.OtherAreaListActivity;
 import com.jdp.hls.util.MathUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
@@ -92,8 +91,8 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
     public void rl_protocol_otherArea(View view) {
         switch (view.getId()) {
             case R.id.rl_protocol_otherArea:
-                OtherAreaListActivity.goActivity(this, String.valueOf(pcId), String.valueOf(Status.BuildingType
-                        .COMPANY), allowEdit);
+//                OtherAreaListActivity.goActivity(this, String.valueOf(pcId), String.valueOf(Status.BuildingType
+//                        .COMPANY), allowEdit);
                 break;
             default:
                 break;
@@ -103,7 +102,7 @@ public class NodeCompanyProtocolActivity extends BaseNodeActivity implements Nod
     @Override
     public void initVariable() {
         super.initVariable();
-        payTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.PAY_TYPE);
+        payTypeList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType.COMPENSATION_TYPE);
     }
 
     @Override

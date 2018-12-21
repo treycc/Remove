@@ -1,12 +1,14 @@
 package com.jdp.hls.view;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 
+import com.jdp.hls.R;
 import com.jdp.hls.adapter.ReceiverSpinnerAdapter;
 import com.jdp.hls.adapter.KSpinnerAdapter;
 import com.jdp.hls.greendaobean.TDict;
@@ -38,6 +40,7 @@ public class KSpinner extends NiceSpinner {
 
     public KSpinner(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setHintTextColor(ContextCompat.getColor(context, R.color.c_c));
         setPadding(dp2px(DEFAULT_PADDING), dp2px(DEFAULT_PADDING), DEFAULT_PADDING, dp2px(DEFAULT_PADDING));
     }
 

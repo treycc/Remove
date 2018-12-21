@@ -34,4 +34,8 @@ public class StringTextView extends TextView {
     public void setString(String value) {
         setText(TextUtils.isEmpty(value)?"":value);
     }
+
+    public void setString(boolean value) {
+        setText(String.valueOf(value));
+    }
 }

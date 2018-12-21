@@ -1,5 +1,6 @@
 package com.jdp.hls.model.entiy;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodePersonalProtocol {
+public class NodePersonalProtocol implements Serializable {
 
     private int PCId;
     private String HouseId;
@@ -44,8 +45,143 @@ public class NodePersonalProtocol {
     private double AZTNArea;
     private String TaoTypeName;
     private double DamagesAmount;
-    private double NeedPayAmount;
     private List<ImgInfo> Files;
+    private double NeedPayAmount;
+    private double EquityRepurchaseTotalAmount;
+    private double EquityRepurchaseBountyAmount;
+    private double FixedFacilitiesAmount;
+    private double PulledDownPayAmount;
+    private double KongFanPayAmount;
+    private double AppurtenancePay;
+    private double InnerDecorateMoney;
+    private double NeedPayBuildingAmount;
+    private double OldHouseMarketTotalMoney;
+    private double HouseResetMoney;
+    private double ClearObstaclePay;
+    private double PayableAmount;
+    private double PaidAmount;
+    private double BalanceAmount;
+    private List<TaoType> Patterns;
+
+    public List<TaoType> getPatterns() {
+        return Patterns;
+    }
+
+    public void setPatterns(List<TaoType> patterns) {
+        Patterns = patterns;
+    }
+
+    public double getPayableAmount() {
+        return PayableAmount;
+    }
+
+    public void setPayableAmount(double payableAmount) {
+        PayableAmount = payableAmount;
+    }
+
+    public double getPaidAmount() {
+        return PaidAmount;
+    }
+
+    public void setPaidAmount(double paidAmount) {
+        PaidAmount = paidAmount;
+    }
+
+    public double getBalanceAmount() {
+        return BalanceAmount;
+    }
+
+    public void setBalanceAmount(double balanceAmount) {
+        BalanceAmount = balanceAmount;
+    }
+
+    public double getClearObstaclePay() {
+        return ClearObstaclePay;
+    }
+
+    public void setClearObstaclePay(double clearObstaclePay) {
+        ClearObstaclePay = clearObstaclePay;
+    }
+
+    public double getEquityRepurchaseTotalAmount() {
+        return EquityRepurchaseTotalAmount;
+    }
+
+    public void setEquityRepurchaseTotalAmount(double equityRepurchaseTotalAmount) {
+        EquityRepurchaseTotalAmount = equityRepurchaseTotalAmount;
+    }
+
+    public double getEquityRepurchaseBountyAmount() {
+        return EquityRepurchaseBountyAmount;
+    }
+
+    public void setEquityRepurchaseBountyAmount(double equityRepurchaseBountyAmount) {
+        EquityRepurchaseBountyAmount = equityRepurchaseBountyAmount;
+    }
+
+    public double getFixedFacilitiesAmount() {
+        return FixedFacilitiesAmount;
+    }
+
+    public void setFixedFacilitiesAmount(double fixedFacilitiesAmount) {
+        FixedFacilitiesAmount = fixedFacilitiesAmount;
+    }
+
+    public double getPulledDownPayAmount() {
+        return PulledDownPayAmount;
+    }
+
+    public void setPulledDownPayAmount(double pulledDownPayAmount) {
+        PulledDownPayAmount = pulledDownPayAmount;
+    }
+
+    public double getKongFanPayAmount() {
+        return KongFanPayAmount;
+    }
+
+    public void setKongFanPayAmount(double kongFanPayAmount) {
+        KongFanPayAmount = kongFanPayAmount;
+    }
+
+    public double getAppurtenancePay() {
+        return AppurtenancePay;
+    }
+
+    public void setAppurtenancePay(double appurtenancePay) {
+        AppurtenancePay = appurtenancePay;
+    }
+
+    public double getInnerDecorateMoney() {
+        return InnerDecorateMoney;
+    }
+
+    public void setInnerDecorateMoney(double innerDecorateMoney) {
+        InnerDecorateMoney = innerDecorateMoney;
+    }
+
+    public double getNeedPayBuildingAmount() {
+        return NeedPayBuildingAmount;
+    }
+
+    public void setNeedPayBuildingAmount(double needPayBuildingAmount) {
+        NeedPayBuildingAmount = needPayBuildingAmount;
+    }
+
+    public double getOldHouseMarketTotalMoney() {
+        return OldHouseMarketTotalMoney;
+    }
+
+    public void setOldHouseMarketTotalMoney(double oldHouseMarketTotalMoney) {
+        OldHouseMarketTotalMoney = oldHouseMarketTotalMoney;
+    }
+
+    public double getHouseResetMoney() {
+        return HouseResetMoney;
+    }
+
+    public void setHouseResetMoney(double houseResetMoney) {
+        HouseResetMoney = houseResetMoney;
+    }
 
     public List<ImgInfo> getFiles() {
         return Files;

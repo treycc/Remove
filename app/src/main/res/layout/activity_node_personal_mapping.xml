@@ -19,6 +19,7 @@
         <TextView
             style="@style/Title_Main"
             android:text="基本信息"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -31,7 +32,9 @@
                 style="@style/Content_ET_W1"
                 android:text=""/>
         </LinearLayout>
+
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -44,7 +47,9 @@
                 style="@style/Content_ET_W1"
                 android:text=""/>
         </LinearLayout>
+
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             style="@style/Content_LL_T6">
 
@@ -210,7 +215,6 @@
                 android:hint="请输入棚面积"
                 android:inputType="numberDecimal"/>
         </LinearLayout>
-
 
 
         <TextView

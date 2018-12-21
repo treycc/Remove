@@ -158,6 +158,8 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
             SpSir.getInstance().setIfRememberBaby(false);
             SpSir.getInstance().setComeOnBaby("");
         }
+        SpSir.getInstance().setProjectId("");
+        SpSir.getInstance().setProjectName("");
         SpSir.getInstance().setRouteId(account.getRouteId());
         List<Project> projects = account.getProjects();
         if (projects != null && projects.size() > 0) {

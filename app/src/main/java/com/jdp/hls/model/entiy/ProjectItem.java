@@ -60,6 +60,15 @@ public class ProjectItem {
     private List<ImgInfo> OldFiles;
     private List<ImgInfo> NewFiles;
     private String EstimateTotalBuildings;
+    private List<TaoType> ProjectPatternNames;
+
+    public List<TaoType> getProjectPatternNames() {
+        return ProjectPatternNames;
+    }
+
+    public void setProjectPatternNames(List<TaoType> projectPatternNames) {
+        ProjectPatternNames = projectPatternNames;
+    }
 
     public String getEstimateTotalBuildings() {
         return EstimateTotalBuildings;

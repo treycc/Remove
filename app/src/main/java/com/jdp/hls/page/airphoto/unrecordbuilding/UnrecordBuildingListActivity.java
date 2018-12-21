@@ -14,7 +14,6 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.AddUnrecordBuildingEvent;
 import com.jdp.hls.event.ModifyUnrecordBuildingEvent;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.UnRecordBuilding;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.GoUtil;
@@ -61,7 +60,7 @@ public class UnrecordBuildingListActivity extends BaseTitleActivity {
 
     @Override
     protected int getContentView() {
-        return R.layout.common_lv;
+        return R.layout.common_plv;
     }
 
     @Override

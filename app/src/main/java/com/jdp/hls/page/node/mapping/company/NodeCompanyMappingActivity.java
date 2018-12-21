@@ -50,10 +50,6 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
     EnableEditText etMappingCurrentOccupyArea;
     @BindView(R.id.tv_mapping_confirmer)
     StringTextView tvMappingConfirmer;
-    @BindView(R.id.tv_mapping_propertyCertArea)
-    StringTextView tvMappingPropertyCertArea;
-    @BindView(R.id.tv_mapping_landCertArea)
-    StringTextView tvMappingLandCertArea;
     @BindView(R.id.tv_mapping_estateCertPropertyArea)
     StringTextView tvMappingEstateCertPropertyArea;
     @BindView(R.id.tv_mapping_estateCertLandArea)
@@ -147,8 +143,6 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         tvMappingConfirmer.setString(nodeCompanyMapping.getConfirmer());
         tvMappingEstateCertLandArea.setString(nodeCompanyMapping.getEstateCertLandArea());
         tvMappingEstateCertPropertyArea.setString(nodeCompanyMapping.getEstateCertPropertyArea());
-        tvMappingLandCertArea.setString(nodeCompanyMapping.getLandCertArea());
-        tvMappingPropertyCertArea.setString(nodeCompanyMapping.getPropertyCertArea());
         etMappingOtherLandArea.setString(nodeCompanyMapping.getOtherLandArea());
         etMappingCurrentOccupyArea.setString(nodeCompanyMapping.getCurrentOccupyArea());
 

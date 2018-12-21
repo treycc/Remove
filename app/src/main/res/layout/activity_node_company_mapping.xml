@@ -121,34 +121,6 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="产权证面积"/>
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_mapping_propertyCertArea"
-                style="@style/Content_ET_W1_3"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="土地证面积"/>
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_mapping_landCertArea"
-                style="@style/Content_ET_W1_3"
-                android:inputType="numberDecimal"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T6">

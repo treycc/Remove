@@ -57,7 +57,8 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     private boolean checkable;
     private OnBusinessItemSelectedListener onBusinessSelectedListener;
 
-    public static BusinessListFragment newInstance(List<Business> business, int taskType, int buildingType,boolean checkable) {
+    public static BusinessListFragment newInstance(List<Business> business, int taskType, int buildingType, boolean
+            checkable) {
         BusinessListFragment fragment = new BusinessListFragment();
         Bundle args = new Bundle();
         args.putSerializable("business", (Serializable) business);
@@ -73,9 +74,9 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
         Business business = (Business) adapterView.getItemAtPosition(position);
         String buildingId = business.getBuildingId();
         if (business.getBuildingType() == Status.BuildingId.PERSONAL) {
-            BasicPersonalActivity.goActivity(getActivity(),buildingId);
+            BasicPersonalActivity.goActivity(getActivity(), buildingId);
         } else {
-            BasicCompanyActivity.goActivity(getActivity(),buildingId);
+            BasicCompanyActivity.goActivity(getActivity(), buildingId);
         }
     }
 
@@ -87,7 +88,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
             buildingType = getArguments().getInt("buildingType", 0);
             taskType = getArguments().getInt("taskType", 0);
             checkable = getArguments().getBoolean("getCheckable");
-            LogUtil.e(TAG,"business:"+business.size());
+            LogUtil.e(TAG, "business:" + business.size());
         }
     }
 
@@ -108,7 +109,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     @Override
     protected void initView() {
         businessPresenter.attachView(this);
-        adapter = new BusinessAdapter(getActivity(), business,checkable);
+        adapter = new BusinessAdapter(getActivity(), business, checkable);
         plv.setAdapter(adapter);
         checkListSize(business);
     }
@@ -123,9 +124,11 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
         srl.setOnRefreshListener(this);
         adapter.setOnBusinessSelectedListener(onBusinessSelectedListener);
     }
+
     public void setOnBusinessSelectedListener(OnBusinessItemSelectedListener onBusinessSelectedListener) {
         this.onBusinessSelectedListener = onBusinessSelectedListener;
     }
+
     @Override
     public void initNet() {
 
@@ -149,7 +152,7 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
         if (businesses != null && businesses.size() > 0) {
             showSuccessCallback();
             adapter.setData(businesses);
-        }else{
+        } else {
             showEmptyCallback();
         }
     }
@@ -171,22 +174,11 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     @Override
     public void onRefresh() {
         srl.setRefreshing(false);
-//        businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(), buildingType, taskType);
     }
-
-
-
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void refreshTask(RefreshTaskEvent event) {
-////        待办 = 1,退回 = 2,废弃= 3,已办 = 4,完结= 5
-//        if (taskType == 1 || taskType == 4) {
-//            businessPresenter.getBusinessList(SpSir.getInstance().getProjectId(), buildingType, taskType);
-//        }
-//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void modifyBusinessEvent(ModifyBusinessEvent event) {
-        if (event.getBuildingType()==buildingType) {
+        if (event.getBuildingType() == buildingType) {
             adapter.modify(event);
         }
     }

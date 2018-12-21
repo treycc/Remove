@@ -72,8 +72,17 @@ public class DetailPersonal {
     private String PersonId;
     private String BookletId;
     private String BankAccount;
+    private String VRUrl;
     private List<ImgInfo> Files;
     private List<ImgInfo> ApprovalFiles;
+
+    public String getVRUrl() {
+        return null == VRUrl ? "" : VRUrl;
+    }
+
+    public void setVRUrl(String VRUrl) {
+        this.VRUrl = VRUrl;
+    }
 
     public String getBankAccount() {
         return BankAccount;

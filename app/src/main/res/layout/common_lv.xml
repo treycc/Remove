@@ -3,14 +3,15 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/bg_hi"
+              android:background="@color/white_hi"
               android:orientation="vertical">
-    <com.jdp.hls.view.PullToBottomListView
-        android:id="@+id/plv"
+
+    <ListView
+        android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/div_hi"
         android:dividerHeight="1px"
         android:listSelector="@android:color/transparent"
-        tools:listitem="@layout/item_project"/>
+        tools:listitem="@layout/item_taotype_select"/>
 </LinearLayout>

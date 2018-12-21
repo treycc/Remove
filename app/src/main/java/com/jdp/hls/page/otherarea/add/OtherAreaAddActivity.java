@@ -109,7 +109,7 @@ public class OtherAreaAddActivity extends BaseTitleActivity implements OhterArea
         otherArea.setName(name);
         otherArea.setArea(Double.valueOf(area));
         otherArea.setId(id);
-        otherArea.setPCId(Integer.valueOf(pcdId));
+        otherArea.setPCId(pcdId);
         EventBus.getDefault().post(new AddOtherEvent(otherArea));
         LogUtil.e(TAG,"新增其它面积");
         showSuccessDialogAndFinish();

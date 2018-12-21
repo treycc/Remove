@@ -48,6 +48,7 @@ import com.jdp.hls.model.entiy.NodePersonalMeasure;
 import com.jdp.hls.model.entiy.NodePersonalProtocol;
 import com.jdp.hls.model.entiy.Notification;
 import com.jdp.hls.model.entiy.OtherArea;
+import com.jdp.hls.model.entiy.PayItem;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.ProjectFacade;
@@ -67,7 +68,11 @@ import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.StatisticsDetail;
 import com.jdp.hls.model.entiy.StatisticsProgressDetail;
 import com.jdp.hls.model.entiy.StatisticsProgressInfo;
+import com.jdp.hls.model.entiy.StatisticsTotalInfo;
+import com.jdp.hls.model.entiy.SupervisePayInfo;
 import com.jdp.hls.model.entiy.Table;
+import com.jdp.hls.model.entiy.TaoType;
+import com.jdp.hls.model.entiy.TaoTypePerson;
 import com.jdp.hls.model.entiy.TaskInfo;
 
 import java.util.List;
@@ -487,26 +492,27 @@ public interface ApiService {
     /*======================协议生成-其它面积======================*/
 
     /*协议生成-其它面积-详情*/
-    @GET("workflow/GetProtocolCheckItems")
+    @GET("workflow/GetHouseOtherArea")
     Observable<HttpResult<OtherArea>> getOtherAreaDetail(@Query("id") String id, @Query("buildingType")
             String buildingType);
 
     /*协议生成-其它面积-列表*/
-    @GET("workflow/GetProtocolCheckItemsList")
+    @GET("workflow/GetOtherAreaList")
     Observable<HttpResult<List<OtherArea>>> getOtherAreaList(@Query("pCId") String pCId, @Query("buildingType")
             String buildingType);
 
     /*协议生成-其它面积-新增*/
-    @POST("workflow/AddProtocolCheckItems")
+    @POST("workflow/AddHouseOtherArea")
     Observable<HttpResult<Integer>> addOtherArea(@Body RequestBody requestBody);
 
     /*协议生成-其它面积-修改*/
-    @POST("workflow/UpdateProtocolCheckItems")
+    @POST("workflow/UpdateOtherArea")
     Observable<HttpResult<Object>> modifyOtherArea(@Body RequestBody requestBody);
 
     /*协议生成-其它面积-删除*/
-    @POST("workflow/DeleteProtocolCheckItems")
+    @POST("workflow/DeleteOtherArea")
     Observable<HttpResult<Object>> deleteOtherArea(@Body RequestBody requestBody);
+
 
     /*图片修改*/
     @POST("files/UpLoadFiles")
@@ -714,8 +720,7 @@ public interface ApiService {
 
     /*汇总统计(监管系统)*/
     @GET("supervise/GetCollectViewBuilding")
-    Observable<HttpResult<List<KeyValue>>> getStatisticsTotal(@Query("ProjectId") String projectId,
-                                                              @Query("BuildingType") int buildingType);
+    Observable<HttpResult<StatisticsTotalInfo>> getStatisticsTotal(@Query("BuildingType") int buildingType);
 
     /*进度统计-主页(监管系统)*/
     @GET("supervise/GetProgressStatistics")
@@ -765,4 +770,34 @@ public interface ApiService {
     /*项目外貌/VR-保存(监管系统)*/
     @POST("project/SaveProjectVR")
     Observable<HttpResult<Object>> saveVrInfo(@Body RequestBody requestBody);
+
+    /*支付-列表*/
+    @GET("Finance/GetList")
+    Observable<HttpResult<List<PayItem>>> getPayList(@Query("buildingId") String buildingId, @Query("buildingType")
+            String buildingType);
+
+    /*支付-详情*/
+    @GET("Finance/GetPay")
+    Observable<HttpResult<PayItem>> getPayDetail(@Query("Id") int Id);
+
+    /*支付-保存*/
+    @POST("Finance/Save")
+    Observable<HttpResult<PayItem>> savePay(@Body RequestBody requestBody);
+
+    /*支付-删除*/
+    @FormUrlEncoded
+    @POST("Finance/Delete")
+    Observable<HttpResult<Object>> deletePay(@Field("Id") int Id);
+
+    /*支付-列表(监管系统)*/
+    @POST("Finance/QueryList")
+    Observable<HttpResult<SupervisePayInfo>> getSupervisePayList(@Body RequestBody requestBody);
+
+    /*套型面积-列表*/
+    @GET("Supervise/GetProjectPatternList")
+    Observable<HttpResult<List<TaoType>>> getSuperviseTaoTypeList();
+
+    /*套型征收人-列表*/
+    @GET("supervise/GetZSRList")
+    Observable<HttpResult<List<TaoTypePerson>>> getTaoTypePersonList(@Query("PatternId") int patternId);
 }

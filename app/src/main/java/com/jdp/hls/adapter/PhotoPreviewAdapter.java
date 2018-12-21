@@ -82,9 +82,7 @@ public class PhotoPreviewAdapter extends BaseLvAdapter<ImgInfo> {
             viewHolder.cb_check.setVisibility(showCheckbox ? View.VISIBLE : View.GONE);
             viewHolder.cb_check.setChecked(list.get(position).isChecked());
             viewHolder.cb_check.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (buttonView.isPressed()) {
-                    list.get(position).setChecked(isChecked);
-                }
+
             });
         }
         return convertView;
