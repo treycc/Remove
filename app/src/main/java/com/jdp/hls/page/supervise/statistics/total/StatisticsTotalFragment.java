@@ -1,8 +1,9 @@
 package com.jdp.hls.page.supervise.statistics.total;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.jdp.hls.R;
@@ -18,9 +19,9 @@ import com.jdp.hls.model.entiy.KeyValue;
 import com.jdp.hls.model.entiy.StatisticsTotalInfo;
 import com.jdp.hls.page.supervise.statistics.total.pay.SupervisePayListActivity;
 import com.jdp.hls.page.supervise.statistics.total.taotype.StatisticsTaotypeListActivity;
-import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.util.SpSir;
+import com.jdp.hls.view.FixSwipeRefreshLayout;
 import com.jdp.hls.view.FixedListView;
+import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 import com.jdp.hls.view.StringTextView;
 
 import java.util.ArrayList;
@@ -29,7 +30,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnItemClick;
+import butterknife.Unbinder;
 
 
 /**
@@ -48,6 +51,7 @@ public class StatisticsTotalFragment extends BaseFragment implements StatisticsT
     StringTextView tvPaidAmount;
     @BindView(R.id.tv_balanceAmount)
     StringTextView tvBalanceAmount;
+    Unbinder unbinder;
     private int buildingType;
     private CommonAdapter adapter;
     @Inject
@@ -63,10 +67,11 @@ public class StatisticsTotalFragment extends BaseFragment implements StatisticsT
         }
         switch (keyValue.getInterfaceId()) {
             case Status.InterfaceId.TAOTYPE_DETAIL:
-                StatisticsTaotypeListActivity.  GoActivity(getActivity(), keyValue.getName(),keyValue.getValue(),buildingArea);
+                StatisticsTaotypeListActivity.GoActivity(getActivity(), keyValue.getName(), keyValue.getValue(),
+                        buildingArea);
                 break;
             case Status.InterfaceId.PAY_DETAIL:
-                SupervisePayListActivity.GoActivity(getActivity(),keyValue.getName(),keyValue.getValue());
+                SupervisePayListActivity.GoActivity(getActivity(), keyValue.getName(), keyValue.getValue());
                 break;
         }
 
@@ -118,7 +123,7 @@ public class StatisticsTotalFragment extends BaseFragment implements StatisticsT
 
     @Override
     public void initNet() {
-        statisticsTotalPresenter.getStatisticsTotal( buildingType);
+        statisticsTotalPresenter.getStatisticsTotal(buildingType);
     }
 
     @Override
@@ -157,4 +162,17 @@ public class StatisticsTotalFragment extends BaseFragment implements StatisticsT
         return true;
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }

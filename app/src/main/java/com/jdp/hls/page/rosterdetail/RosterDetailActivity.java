@@ -452,7 +452,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
 
 
     private void setLocation(double lng, double lat) {
-        if (lng != 0 && lat != 0) {
+        if (lng > 0 && lat > 0) {
             lngLatFragment.setLnglat(lng, lat);
             ivRosterLocation.setBackgroundResource(R.mipmap.ic_confirm_sel);
             tvRosterHasLocationed.setText("已定位");

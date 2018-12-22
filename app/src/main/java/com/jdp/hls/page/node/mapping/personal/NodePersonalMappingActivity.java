@@ -35,7 +35,7 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
     @BindView(R.id.tv_mapping_realName)
     TextView tvMappingRealName;
     @BindView(R.id.et_mapping_totalBuildingArea)
-    TextView etTotalBuildingArea;
+    EnableEditText etTotalBuildingArea;
     @BindView(R.id.tv_mapping_propertyCertTotalArea)
     StringTextView tvMappingPropertyCertTotalArea;
     @BindView(R.id.et_mapping_totalNotRecordArea)
@@ -89,7 +89,7 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
     protected void initData() {
         super.initData();
 //        tvMappingPropertyCertTotalArea.addTextChangedListener(calculateTextWatcher);
-//        etMappingTotalNotRecordArea.addTextChangedListener(calculateTextWatcher);
+        etMappingTotalNotRecordArea.addTextChangedListener(calculateTextWatcher);
     }
 
     private TextWatcher calculateTextWatcher = new SimpleTextWatcher() {
@@ -168,10 +168,11 @@ public class NodePersonalMappingActivity extends BaseNodeActivity implements Nod
         etMappingTanArea.setString(nodePersonalMapping.getTanArea());
         etMappingShedArea.setString(nodePersonalMapping.getShedArea());
         etMeasureRemark.setString(nodePersonalMapping.getRemark());
+        etTotalBuildingArea.setString(nodePersonalMapping.getTotalBuildingArea());
         tvMappingConfirmer.setString(nodePersonalMapping.getConfirmer());
         tvMappingCompanyName.setString(nodePersonalMapping.getCompanyName());
         tvMappingDate.setText(DateUtil.getShortDate(nodePersonalMapping.getMapDate()));
-        calculateArea();
+//        calculateArea();
         rvPhotoPreview.setData(nodePersonalMapping.getFiles(), getFileConfig(), allowEdit);
     }
 

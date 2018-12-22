@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
-                android:text="档案编号"/>
+                android:text="/"/>
 
             <com.kingja.supershapeview.view.SuperShapeTextView
                 android:id="@+id/set_status_back"
@@ -84,7 +84,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="张三"/>
+                android:text=""/>
 
             <TextView
                 style="@style/font_9_12"
@@ -97,7 +97,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5"/>
+                android:text=""/>
 
         </LinearLayout>
 
@@ -119,7 +119,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="温州龙湾"/>
+                android:text="/"/>
         </LinearLayout>
 
     </LinearLayout>

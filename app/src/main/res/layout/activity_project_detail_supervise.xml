@@ -191,7 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="新旧对比"/>
+                    android:text="大建大美前后对比"/>
 
             </LinearLayout>
 

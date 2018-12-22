@@ -92,6 +92,7 @@ public class ReportDayListActivity extends BaseTitleActivity implements ReportDa
 
     @Override
     protected void initData() {
+        rsrl.stepRefresh(this);
         gv.setAdapter(titleAdapter = new CommonAdapter<ReportTitle>(this, null, R.layout
                 .item_title) {
             @Override

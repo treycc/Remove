@@ -9,15 +9,6 @@ import com.jdp.hls.model.entiy.BasicCompany;
 import com.jdp.hls.model.entiy.BusinessQuery;
 import com.jdp.hls.model.entiy.Company;
 import com.jdp.hls.model.entiy.ConfigCompany;
-import com.jdp.hls.model.entiy.Employee;
-import com.jdp.hls.model.entiy.EmployeeDetail;
-import com.jdp.hls.model.entiy.Group;
-import com.jdp.hls.model.entiy.GroupDetail;
-import com.jdp.hls.model.entiy.KeyValue;
-import com.jdp.hls.model.entiy.LineChartItem;
-import com.jdp.hls.model.entiy.ModuleDetail;
-import com.jdp.hls.model.entiy.NodeCompanyHouseEvaluate;
-import com.jdp.hls.model.entiy.NodeCompanyMoneyEvaluate;
 import com.jdp.hls.model.entiy.DecorationItem;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
@@ -31,15 +22,23 @@ import com.jdp.hls.model.entiy.DeedPersonalProperty;
 import com.jdp.hls.model.entiy.DetailCompany;
 import com.jdp.hls.model.entiy.DetailPersonal;
 import com.jdp.hls.model.entiy.Dict;
+import com.jdp.hls.model.entiy.Employee;
+import com.jdp.hls.model.entiy.EmployeeDetail;
 import com.jdp.hls.model.entiy.FamilyRelation;
+import com.jdp.hls.model.entiy.Group;
+import com.jdp.hls.model.entiy.GroupDetail;
 import com.jdp.hls.model.entiy.HttpResult;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.LevyInfo;
+import com.jdp.hls.model.entiy.LineChartItem;
 import com.jdp.hls.model.entiy.Login;
+import com.jdp.hls.model.entiy.ModuleDetail;
 import com.jdp.hls.model.entiy.NodeCompanyAge;
 import com.jdp.hls.model.entiy.NodeCompanyEvaluate;
+import com.jdp.hls.model.entiy.NodeCompanyHouseEvaluate;
 import com.jdp.hls.model.entiy.NodeCompanyMapping;
 import com.jdp.hls.model.entiy.NodeCompanyMeasure;
+import com.jdp.hls.model.entiy.NodeCompanyMoneyEvaluate;
 import com.jdp.hls.model.entiy.NodeCompanyProtocol;
 import com.jdp.hls.model.entiy.NodePersonalAge;
 import com.jdp.hls.model.entiy.NodePersonalEvaluate;
@@ -492,7 +491,7 @@ public interface ApiService {
     /*======================协议生成-其它面积======================*/
 
     /*协议生成-其它面积-详情*/
-    @GET("workflow/GetHouseOtherArea")
+    @GET("workflow/GetOtherArea")
     Observable<HttpResult<OtherArea>> getOtherAreaDetail(@Query("id") String id, @Query("buildingType")
             String buildingType);
 
@@ -502,7 +501,7 @@ public interface ApiService {
             String buildingType);
 
     /*协议生成-其它面积-新增*/
-    @POST("workflow/AddHouseOtherArea")
+    @POST("workflow/AddOtherArea")
     Observable<HttpResult<Integer>> addOtherArea(@Body RequestBody requestBody);
 
     /*协议生成-其它面积-修改*/

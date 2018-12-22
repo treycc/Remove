@@ -2,12 +2,10 @@ package com.jdp.hls.page.supervise.statistics.total.taotype;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.CommonAdapter;
@@ -26,7 +24,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
 /**
@@ -61,7 +58,7 @@ public class StatisticsTaotypeListActivity extends BaseTitleActivity implements 
     @OnItemClick({R.id.lv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         TaoType taoType = (TaoType) adapterView.getItemAtPosition(position);
-        TaoTypePersonListActivity.goActivity(this, taoType.getId());
+        TaoTypePersonListActivity.goActivity(this, taoType.getId(), taoType.getPatternName());
     }
 
     @Override
@@ -80,7 +77,7 @@ public class StatisticsTaotypeListActivity extends BaseTitleActivity implements 
 
     @Override
     protected String getContentTitle() {
-        return "详情";
+        return "套型列表及统计";
     }
 
     @Override
@@ -96,6 +93,7 @@ public class StatisticsTaotypeListActivity extends BaseTitleActivity implements 
     }
 
     private double taoArea = 0d;
+    private double totalArea = 0d;
     private double hasDealTaoArea = 0d;
 
     @Override
@@ -114,31 +112,34 @@ public class StatisticsTaotypeListActivity extends BaseTitleActivity implements 
         setListView(taoTypeList, adapter);
 
         hasDealTaoArea = getDealTaoArea(taoTypeList);
-        tvHasDealArea.setString(String.format("%.2fm²", hasDealTaoArea));
+        tvHasDealArea.setString(String.format("%.2fm² (建筑:%.2fm²)", hasDealTaoArea, hasDealTaoArea * 1.25f));
         switch (key) {
             case Status.AreaType.BUILDING_AREA:
                 taoArea = Double.valueOf(value) / 1.25f;
-                tvTotalArea.setString(String.format("%sm²(套内:%.2fm²)", value, taoArea));
-
+                totalArea = Double.valueOf(value);
+                tvTotalArea.setString(String.format("%.2fm² (建筑:%.2fm²)", taoArea, totalArea));
                 break;
             case Status.AreaType.TAOTYPE_AREA:
                 taoArea = Double.valueOf(value);
-                tvTotalArea.setString(String.format("%.2fm²(套内:%.2fm²)", Double.valueOf(value) * 1.25f, taoArea));
+                totalArea = Double.valueOf(value) * 1.25f;
+                tvTotalArea.setString(String.format("%.2fm² (建筑:%.2fm²)", taoArea, totalArea));
                 break;
             case Status.AreaType.TAOTYPE:
                 taoArea = Double.valueOf(otherArea) / 1.25f;
-                tvTotalArea.setString(String.format("%sm²(套内:%.2fm²)", otherArea, taoArea));
+                totalArea = Double.valueOf(otherArea);
+                tvTotalArea.setString(String.format("%.2fm² (建筑:%.2fm²)", taoArea, totalArea));
                 break;
         }
 
-        tvLeftArea.setString(String.format("%.2fm²", taoArea - hasDealTaoArea));
+        tvLeftArea.setString(String.format("%.2fm²  (建筑:%.2fm²)", Math.abs(taoArea - hasDealTaoArea), Math.abs
+                (totalArea - hasDealTaoArea)));
     }
 
     private double getDealTaoArea(List<TaoType> taoTypeList) {
         double result = 0d;
         if (taoTypeList != null && taoTypeList.size() > 0) {
             for (TaoType taoType : taoTypeList) {
-                result += Double.valueOf(TextUtils.isEmpty(taoType.getArea())?"0":taoType.getArea());
+                result += Double.valueOf(TextUtils.isEmpty(taoType.getArea()) ? "0" : taoType.getArea());
             }
         }
         return result;
@@ -155,12 +156,5 @@ public class StatisticsTaotypeListActivity extends BaseTitleActivity implements 
         intent.putExtra(Constants.Extra.Value, value);
         intent.putExtra(Constants.Extra.OTHER_AREA, buildingArea);
         context.startActivity(intent);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

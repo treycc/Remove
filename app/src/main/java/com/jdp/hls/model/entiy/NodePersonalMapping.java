@@ -25,8 +25,17 @@ public class NodePersonalMapping {
     private String CompanyName;
     private String Address;
     private String Confirmer;
+    private String TotalBuildingArea;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public String getTotalBuildingArea() {
+        return null == TotalBuildingArea ? "" : TotalBuildingArea;
+    }
+
+    public void setTotalBuildingArea(String totalBuildingArea) {
+        TotalBuildingArea = totalBuildingArea;
+    }
 
     public String getConfirmer() {
         return Confirmer;

@@ -103,7 +103,6 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-
         <LinearLayout
             style="@style/Content_LL_T6">
 

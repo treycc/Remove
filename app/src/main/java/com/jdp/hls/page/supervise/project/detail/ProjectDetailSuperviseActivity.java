@@ -114,7 +114,6 @@ public class ProjectDetailSuperviseActivity extends BaseTitleActivity implements
 
     @Override
     public void initNet() {
-//        projectDetailSupervisePresenter.getProjectSuperviseDetail(projectId);
         projectDetailSupervisePresenter.getProjectSuperviseDetail(SpSir.getInstance().getProjectId());
     }
 

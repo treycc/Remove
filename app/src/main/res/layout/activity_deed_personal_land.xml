@@ -37,7 +37,7 @@
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_land_certArea"
             style="@style/Content_ET_W2"
-            android:hint="请输入总面积"
+            android:hint="请输入土地记载面积"
             android:inputType="numberDecimal"/>
     </LinearLayout>
 

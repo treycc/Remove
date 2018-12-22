@@ -4,24 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:paddingBottom="6dp"
-    android:paddingTop="6dp">
+    android:paddingBottom="12dp"
+    android:paddingTop="12dp">
 
     <TextView
         android:id="@+id/tv_key"
         style="@style/Title_Sub"
-        android:text="key"/>
+        android:text="/"/>
 
-    <com.jdp.hls.view.StringTextView
-        android:id="@+id/tv_value"
-        style="@style/Content_ET_W1_3"
-        android:text="value"/>
 
-    <ImageView
-        android:id="@+id/iv_detail"
-        android:background="@mipmap/ic_arrow_right"
-        android:layout_width="15dp"
-        android:layout_height="15dp"/>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.3">
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_9_15"
+            android:textColorHint="@color/c_c"
+            android:text="/"/>
+
+        <ImageView
+            android:id="@+id/iv_detail"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/ic_arrow_right"/>
+
+    </RelativeLayout>
+
+
 </LinearLayout>
-
-

@@ -36,7 +36,7 @@
             android:layout_marginRight="12dp"
             android:layout_weight="1"
             android:background="@null"
-            android:hint="请输入搜索关键字"/>
+            android:hint="请输入地址/户主/手机号"/>
 
         <ImageView
             android:visibility="gone"

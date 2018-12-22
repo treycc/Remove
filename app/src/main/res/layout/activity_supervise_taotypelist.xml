@@ -27,13 +27,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="数量"/>
+            android:text="数量(套)"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="面积"/>
+            android:text="面积(m²)"/>
 
     </LinearLayout>
 
@@ -54,26 +54,10 @@
 
         <TextView
             style="@style/Title_Sub"
-            android:text="总安置建筑面积"/>
+            android:text="协议内面积"/>
 
         <com.jdp.hls.view.StringTextView
             android:id="@+id/tv_totalArea"
-            style="@style/Content_ET_W1_8"
-            android:hint="0"
-            android:inputType="numberDecimal"/>
-    </LinearLayout>
-
-    <View style="@style/div_hor_gray_margin24"/>
-
-    <LinearLayout
-        style="@style/Content_LL_T6">
-
-        <com.jdp.hls.view.StringTextView
-            style="@style/Title_Sub"
-            android:text="已经安置套型面积"/>
-
-        <com.jdp.hls.view.StringTextView
-            android:id="@+id/tv_hasDealTaoArea"
             style="@style/Content_ET_W1_8"
             android:hint="0"
             android:inputType="numberDecimal"/>
@@ -94,6 +78,24 @@
             android:hint="0"
             android:inputType="numberDecimal"/>
     </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <com.jdp.hls.view.StringTextView
+            style="@style/Title_Sub"
+            android:text="需安置面积"/>
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_hasDealTaoArea"
+            style="@style/Content_ET_W1_8"
+            android:hint="0"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+
+
+
 
 
 </LinearLayout>

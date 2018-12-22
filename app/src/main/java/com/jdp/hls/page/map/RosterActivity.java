@@ -240,7 +240,7 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
     private void showAllRostersOnMap(List<Roster> rosters) {
         LatLngBounds.Builder newbounds = new LatLngBounds.Builder();
         for (Roster roster : rosters) {
-            if (roster.getLatitude() == 0 || roster.getLongitude() == 0) {
+            if (roster.getLatitude() <= 0 || roster.getLongitude() <= 0) {
                 continue;
             }
             newbounds.include(new LatLng(roster.getLatitude(), roster.getLongitude()));
@@ -274,7 +274,7 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
     private void drawRostersOnMap(List<Roster> rosters) {
         mAMap.clear();
         for (Roster roster : rosters) {
-            if (roster.getLatitude() == 0 || roster.getLongitude() == 0) {
+            if (roster.getLatitude() <= 0 || roster.getLongitude()<= 0) {
                 continue;
             }
             setMarket(roster);
@@ -328,7 +328,7 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
     }
 
     private void doSearch(String keyword) {
-        if (rosters == null && rosters.size() == 0) {
+        if (rosters == null || rosters.size() == 0) {
             ToastUtil.showText("暂无花名册信息");
             return;
         }

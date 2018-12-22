@@ -34,7 +34,7 @@ public class TaoTypePersonAdapter extends BaseSearchAdapter<TaoTypePerson> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        TaoTypePerson taoTypePerson = list.get(position);
+        TaoTypePerson taoTypePerson = (TaoTypePerson) getItem(position);
         viewHolder.tv_cusCode.setString(taoTypePerson.getCusCode());
         viewHolder.tv_realName.setString(taoTypePerson.getRealName());
         viewHolder.tv_patternQuantity.setString(taoTypePerson.getPatternQuantity());
@@ -45,7 +45,7 @@ public class TaoTypePersonAdapter extends BaseSearchAdapter<TaoTypePerson> {
     @Override
     protected void doSearch(List<TaoTypePerson> list, List<TaoTypePerson> resultList, String keyword) {
         for (TaoTypePerson taoTypePerson : list) {
-            if (taoTypePerson.getRealName().contains(keyword)) {
+            if (taoTypePerson.getRealName().contains(keyword)||taoTypePerson.getAddress().contains(keyword)) {
                 resultList.add(taoTypePerson);
             }
         }

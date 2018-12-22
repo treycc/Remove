@@ -15,7 +15,6 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.TaoTypePerson;
-import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.SimpleTextWatcher;
 
 import java.util.List;
@@ -42,6 +41,7 @@ public class TaoTypePersonListActivity extends BaseTitleActivity implements TaoT
     TaoTypePersonListPresenter taoTypePersonListPresenter;
     private TaoTypePersonAdapter taoTypePersonAdapter;
     private int patternId;
+    private String title;
 
     @OnClick({R.id.iv_clear})
     public void click(View view) {
@@ -54,7 +54,8 @@ public class TaoTypePersonListActivity extends BaseTitleActivity implements TaoT
 
     @Override
     public void initVariable() {
-        patternId = getIntent().getIntExtra(Constants.Extra.ID,0);
+        patternId = getIntent().getIntExtra(Constants.Extra.ID, 0);
+        title = getIntent().getStringExtra(Constants.Extra.TITLE);
     }
 
     @Override
@@ -73,7 +74,7 @@ public class TaoTypePersonListActivity extends BaseTitleActivity implements TaoT
 
     @Override
     protected String getContentTitle() {
-        return "征收人列表";
+        return title;
     }
 
     @Override
@@ -84,6 +85,7 @@ public class TaoTypePersonListActivity extends BaseTitleActivity implements TaoT
 
     @Override
     protected void initData() {
+        etKeyword.setHint("请输入户主姓名/地址");
         etKeyword.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -104,9 +106,11 @@ public class TaoTypePersonListActivity extends BaseTitleActivity implements TaoT
         String keyword = etKeyword.getText().toString().trim();
         setSearchListView(taoTypeList, taoTypePersonAdapter, keyword);
     }
-    public static void goActivity(Context context, int id) {
+
+    public static void goActivity(Context context, int id, String patternName) {
         Intent intent = new Intent(context, TaoTypePersonListActivity.class);
         intent.putExtra(Constants.Extra.ID, id);
+        intent.putExtra(Constants.Extra.TITLE, patternName);
         context.startActivity(intent);
     }
 

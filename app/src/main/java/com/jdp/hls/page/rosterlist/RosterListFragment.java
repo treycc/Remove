@@ -108,8 +108,8 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
             helper.setText(R.id.tv_roster_name, item.getRealName());
             helper.setText(R.id.tv_roster_phone, item.getMobilePhone());
             helper.setVisibility(R.id.iv_roster_isAssetEvaluated, item.isEnterprise());
-            helper.setBackgroundResource(R.id.iv_roster_hasLocation, (item.getLatitude() == 0 || item.getLongitude()
-                    == 0) ? R.mipmap.ic_has_location_nor : R.mipmap.ic_has_location_sel);
+            helper.setBackgroundResource(R.id.iv_roster_hasLocation, (item.getLatitude() <=0 || item.getLongitude()
+                    <=0) ? R.mipmap.ic_has_location_nor : R.mipmap.ic_has_location_sel);
             helper.setBackgroundResource(R.id.iv_roster_isMeasure, item.isMeasured() ? R.mipmap
                     .ic_measure_action : R.mipmap.ic_measure_nor);
             helper.setBackgroundResource(R.id.iv_roster_isEvaluated, item.isEvaluated() ? R.mipmap

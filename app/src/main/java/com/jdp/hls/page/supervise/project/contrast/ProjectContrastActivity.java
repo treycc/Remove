@@ -41,12 +41,12 @@ public class ProjectContrastActivity extends BaseTitleActivity implements Projec
         switch (view.getId()) {
             case R.id.rl_old_vr:
                 if (CheckUtil.checkEmpty(oldVrUrl, "大建大美前VR")) {
-                    VRDetailActivity.goActivity(this, oldVrUrl, "旧貌VR");
+                    VRDetailActivity.goActivity(this, oldVrUrl, "大建大美前VR");
                     break;
                 }
             case R.id.rl_new_vr:
                 if (CheckUtil.checkEmpty(newVrUrl, "大建大美后VR")) {
-                    VRDetailActivity.goActivity(this, newVrUrl, "新貌VR");
+                    VRDetailActivity.goActivity(this, newVrUrl, "大建大美后VR");
                     break;
                 }
                 break;

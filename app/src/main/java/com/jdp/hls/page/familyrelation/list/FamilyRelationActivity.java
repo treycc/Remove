@@ -21,6 +21,7 @@ import com.jdp.hls.page.familyrelation.detail.FamilyMememberDetailActivity;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
+import com.jdp.hls.view.FixedListView;
 import com.jdp.hls.view.PreviewRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,7 +47,7 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     @BindView(R.id.et_familyRelation_num)
     EnableEditText etFamilyRelationNum;
     @BindView(R.id.lv_familyRelation)
-    ListView lvFamilyRelation;
+    FixedListView lvFamilyRelation;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
     @BindView(R.id.et_remark)
