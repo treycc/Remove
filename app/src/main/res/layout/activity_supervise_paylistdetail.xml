@@ -3,11 +3,57 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:focusable="true"
-              android:focusableInTouchMode="true"
               android:orientation="vertical">
 
-    <include layout="@layout/layout_search_white"/>
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="档案编号"/>
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_cusCode"
+            style="@style/Content_ET_W2"
+            android:hint="0"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="户主/联系号码"/>
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_owner"
+            style="@style/Content_ET_W2"
+            android:hint="0"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray_margin24"/>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="身份证号"/>
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_idcard"
+            style="@style/Content_ET_W2"
+            android:hint="0"
+            android:inputType="numberDecimal"/>
+    </LinearLayout>
+
+    <com.jdp.hls.view.StringTextView
+        style="@style/Title_Main"
+        android:text="支付明细"/>
 
     <ListView
         android:id="@+id/lv"
@@ -17,7 +63,7 @@
         android:divider="@color/div_hi"
         android:dividerHeight="1px"
         android:listSelector="@android:color/transparent"
-        tools:listitem="@layout/item_pay"/>
+        tools:listitem="@layout/item_pay_detail"/>
 
     <View style="@style/div_hor_gray_6"/>
 
@@ -30,7 +76,7 @@
 
         <com.jdp.hls.view.StringTextView
             android:id="@+id/tv_payableAmount"
-            style="@style/Content_ET_W1_3"
+            style="@style/Content_ET_W2"
             android:hint="0"
             android:inputType="numberDecimal"/>
     </LinearLayout>
@@ -46,7 +92,7 @@
 
         <com.jdp.hls.view.StringTextView
             android:id="@+id/tv_paidAmount"
-            style="@style/Content_ET_W1_3"
+            style="@style/Content_ET_W2"
             android:hint="0"
             android:inputType="numberDecimal"/>
     </LinearLayout>
@@ -62,7 +108,7 @@
 
         <com.jdp.hls.view.StringTextView
             android:id="@+id/tv_balanceAmount"
-            style="@style/Content_ET_W1_3"
+            style="@style/Content_ET_W2"
             android:hint="0"
             android:inputType="numberDecimal"/>
     </LinearLayout>

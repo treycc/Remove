@@ -17,11 +17,12 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.AmountInfo;
 import com.jdp.hls.model.entiy.KeyValue;
 import com.jdp.hls.model.entiy.StatisticsTotalInfo;
-import com.jdp.hls.page.supervise.statistics.total.pay.SupervisePayListActivity;
+import com.jdp.hls.model.entiy.TaoType;
+import com.jdp.hls.page.admin.employee.add.projectlist.SuperviseProjectListActivity;
+import com.jdp.hls.page.supervise.statistics.total.pay.list.SupervisePayListActivity;
 import com.jdp.hls.page.supervise.statistics.total.taotype.StatisticsTaotypeListActivity;
-import com.jdp.hls.view.FixSwipeRefreshLayout;
+import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.FixedListView;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 import com.jdp.hls.view.StringTextView;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 
@@ -56,8 +58,22 @@ public class StatisticsTotalFragment extends BaseFragment implements StatisticsT
     private CommonAdapter adapter;
     @Inject
     StatisticsTotalPresenter statisticsTotalPresenter;
-    private String projectId;
     private String buildingArea;
+
+
+    @OnClick({R.id.ll_payableAmount, R.id.ll_paidAmount})
+    public void rl_protocol_otherArea(View view) {
+        switch (view.getId()) {
+            case R.id.ll_payableAmount:
+                ToastUtil.showText("应付金额");
+                break;
+            case R.id.ll_paidAmount:
+                ToastUtil.showText("已付金额");
+                break;
+            default:
+                break;
+        }
+    }
 
     @OnItemClick({R.id.flv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -77,11 +93,10 @@ public class StatisticsTotalFragment extends BaseFragment implements StatisticsT
 
     }
 
-    public static StatisticsTotalFragment newInstance(String projectId, int buildingType) {
+    public static StatisticsTotalFragment newInstance(int buildingType) {
         StatisticsTotalFragment fragment = new StatisticsTotalFragment();
         Bundle args = new Bundle();
         args.putInt(Constants.Extra.BUILDING_TYPE, buildingType);
-        args.putString(Constants.Extra.PROJECTID, projectId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -90,7 +105,6 @@ public class StatisticsTotalFragment extends BaseFragment implements StatisticsT
     protected void initVariable() {
         if (getArguments() != null) {
             buildingType = getArguments().getInt(Constants.Extra.BUILDING_TYPE);
-            projectId = getArguments().getString(Constants.Extra.PROJECTID);
         }
     }
 

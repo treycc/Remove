@@ -4,9 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LoadSirObserver;
-import com.jdp.hls.model.entiy.SupervisePayInfo;
 import com.jdp.hls.model.entiy.TaoTypePerson;
-import com.jdp.hls.page.supervise.statistics.total.pay.StatisticsPayListContract;
 
 import java.util.List;
 
@@ -14,7 +12,6 @@ import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.RequestBody;
 
 
 /**

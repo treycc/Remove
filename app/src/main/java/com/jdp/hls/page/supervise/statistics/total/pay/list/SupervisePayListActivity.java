@@ -1,4 +1,4 @@
-package com.jdp.hls.page.supervise.statistics.total.pay;
+package com.jdp.hls.page.supervise.statistics.total.pay.list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -94,6 +94,7 @@ public class SupervisePayListActivity extends BaseTitleActivity implements Stati
 
     @Override
     protected void initData() {
+        etKeyword.setHint("请输入户主姓名");
         payDetailAdapter = new PayDetailAdapter(this, null);
         lv.setAdapter(payDetailAdapter);
         etKeyword.addTextChangedListener(new SimpleTextWatcher() {

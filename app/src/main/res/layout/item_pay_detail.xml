@@ -1,124 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white_hi"
     android:gravity="center_vertical"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:paddingBottom="12dp"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
     android:paddingTop="12dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="4dp"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/font_6_15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:layout_weight="1"
-            android:text="户主"/>
-
-        <com.jdp.hls.view.StringTextView
-            android:id="@+id/tv_realName"
-            style="@style/font_9_15"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:text=""/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/font_6_12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:layout_weight="1"
-            android:text="身份证"/>
-
-        <com.jdp.hls.view.StringTextView
-            android:id="@+id/tv_idcard"
-            style="@style/font_9_12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:text=""/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/font_6_12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:layout_weight="1"
-            android:text="银行卡"/>
-
-        <com.jdp.hls.view.StringTextView
-            android:id="@+id/tv_bankAccount"
-            style="@style/font_9_12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:text=""/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/font_6_12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:layout_weight="1"
-            android:text="金额"/>
-
-        <com.jdp.hls.view.StringTextView
-            android:id="@+id/tv_amount"
-            style="@style/font_9_12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:text=""/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/ll_tempPlacementFee"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/ll_limitDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
@@ -131,20 +33,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
                 android:layout_weight="1"
-                android:text="时限"/>
+                android:text="支付日期"/>
 
             <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_limitDate"
+                android:id="@+id/tv_realName"
                 style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2.5"
+                android:layout_weight="2"
                 android:text=""/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_isDouble"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
@@ -157,44 +58,118 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
                 android:layout_weight="1"
-                android:text="是否翻倍"/>
+                android:text="金额"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_idcard"
+                    style="@style/font_9_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:text="200"/>
+
+                <com.kingja.supershapeview.view.SuperShapeTextView
+                    style="@style/font_main_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:paddingTop="2dp"
+                    android:text="翻倍"
+                    app:super_cornerRadius="6dp"
+                    app:super_strokeColor="@color/main"
+                    app:super_strokeWidth="1px"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/font_6_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="支付时段"/>
 
             <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_isDouble"
+                android:id="@+id/tv_bankAccount"
                 style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2.5"
+                android:layout_weight="2"
+                android:text=""/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/font_6_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="银行卡号"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_amount"
+                style="@style/font_9_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text=""/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/font_6_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:text="备注"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_remark"
+                style="@style/font_9_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:text=""/>
 
         </LinearLayout>
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/font_6_12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:layout_weight="1"
-            android:text="备注"/>
-
-        <com.jdp.hls.view.StringTextView
-            android:id="@+id/tv_remark"
-            style="@style/font_9_12"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:text=""/>
-
-    </LinearLayout>
-
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:background="@mipmap/ic_arrow_right"/>
 </LinearLayout>

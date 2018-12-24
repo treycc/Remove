@@ -1,13 +1,12 @@
-package com.jdp.hls.page.supervise.statistics.total.pay;
+package com.jdp.hls.page.supervise.statistics.total.pay.detaillist;
 
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
-import com.jdp.hls.model.entiy.StatisticsTotalInfo;
+import com.jdp.hls.model.entiy.SupervisePayDetailInfo;
 import com.jdp.hls.model.entiy.SupervisePayInfo;
 
 import okhttp3.RequestBody;
-import retrofit2.http.Body;
 
 /**
  * Description：TODO
@@ -15,12 +14,12 @@ import retrofit2.http.Body;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public interface StatisticsPayListContract {
+public interface StatisticsPayDetailListContract {
     interface View extends BaseView {
-        void onGetSupervisePayListSuccess(SupervisePayInfo supervisePayInfo);
+        void onGetSupervisePayDetailListSuccess(SupervisePayDetailInfo supervisePayDetailInfo);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getSupervisePayList(RequestBody requestBody);
+        void getSupervisePayDetailList();
     }
 }

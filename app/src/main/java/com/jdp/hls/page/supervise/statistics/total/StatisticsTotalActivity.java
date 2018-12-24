@@ -1,7 +1,5 @@
 package com.jdp.hls.page.supervise.statistics.total;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -30,12 +28,10 @@ public class StatisticsTotalActivity extends BaseTitleActivity {
     private Fragment[] fragments = new Fragment[2];
     private int[] tabIcons = {R.drawable.selector_tab_statistics_total_personal, R.drawable
             .selector_tab_statistics_total_company};
-    private String projectId;
 
     @Override
     public void initVariable() {
         tabNames = getResources().getStringArray(R.array.statistics_type);
-        projectId = getIntent().getStringExtra(Constants.Extra.PROJECTID);
     }
 
     @Override
@@ -64,8 +60,8 @@ public class StatisticsTotalActivity extends BaseTitleActivity {
         for (int i = 0; i < tabNames.length; i++) {
             tab.addTab(tab.newTab().setText(tabNames[i]));
         }
-        fragments[0] = StatisticsTotalFragment.newInstance(projectId, Status.BuildingType.PERSONAL);
-        fragments[1] = StatisticsTotalFragment.newInstance(projectId, Status.BuildingType.COMPANY);
+        fragments[0] = StatisticsTotalFragment.newInstance(Status.BuildingType.PERSONAL);
+        fragments[1] = StatisticsTotalFragment.newInstance(Status.BuildingType.COMPANY);
         NormalPageAdapter fragmentAdapter = new NormalPageAdapter(this, fragments, tabNames, tabIcons);
         vp.setAdapter(fragmentAdapter);
         tab.setupWithViewPager(vp);
@@ -78,11 +74,5 @@ public class StatisticsTotalActivity extends BaseTitleActivity {
     @Override
     public void initNet() {
 
-    }
-
-    public static void goActivity(Context context, String projectId) {
-        Intent intent = new Intent(context, StatisticsTotalActivity.class);
-        intent.putExtra(Constants.Extra.PROJECTID, projectId);
-        context.startActivity(intent);
     }
 }

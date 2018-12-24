@@ -68,6 +68,7 @@ import com.jdp.hls.model.entiy.StatisticsDetail;
 import com.jdp.hls.model.entiy.StatisticsProgressDetail;
 import com.jdp.hls.model.entiy.StatisticsProgressInfo;
 import com.jdp.hls.model.entiy.StatisticsTotalInfo;
+import com.jdp.hls.model.entiy.SupervisePayDetailInfo;
 import com.jdp.hls.model.entiy.SupervisePayInfo;
 import com.jdp.hls.model.entiy.Table;
 import com.jdp.hls.model.entiy.TaoType;
@@ -791,6 +792,10 @@ public interface ApiService {
     /*支付-列表(监管系统)*/
     @POST("Finance/QueryList")
     Observable<HttpResult<SupervisePayInfo>> getSupervisePayList(@Body RequestBody requestBody);
+
+    /*支付-明细列表(监管系统)*/
+    @GET("Finance/QueryList")
+    Observable<HttpResult<SupervisePayDetailInfo>> getSupervisePayDetailList();
 
     /*套型面积-列表*/
     @GET("Supervise/GetProjectPatternList")

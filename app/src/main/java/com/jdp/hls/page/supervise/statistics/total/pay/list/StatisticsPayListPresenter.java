@@ -1,10 +1,9 @@
-package com.jdp.hls.page.supervise.statistics.total.pay;
+package com.jdp.hls.page.supervise.statistics.total.pay.list;
 
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LoadSirObserver;
-import com.jdp.hls.model.entiy.ResultObserver;
 import com.jdp.hls.model.entiy.SupervisePayInfo;
 
 import javax.inject.Inject;

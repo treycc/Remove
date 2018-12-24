@@ -29,39 +29,69 @@
             android:text="支付信息"/>
 
         <LinearLayout
-            style="@style/Content_LL_T6">
+            android:id="@+id/ll_payableAmount"
+            style="@style/Content_LL_T12">
 
             <TextView
                 style="@style/Title_Sub"
                 android:text="应付金额"/>
 
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_payableAmount"
-                style="@style/Content_ET_W1_3"
-                android:hint=""
-                android:inputType="numberDecimal"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.3">
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_payableAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/font_9_15"/>
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@mipmap/ic_arrow_right"/>
+
+            </RelativeLayout>
+
+
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
-            style="@style/Content_LL_T6">
+            android:id="@+id/ll_paidAmount"
+            style="@style/Content_LL_T12">
 
             <TextView
                 style="@style/Title_Sub"
                 android:text="已付金额"/>
 
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_paidAmount"
-                style="@style/Content_ET_W1_3"
-                android:hint=""
-                android:inputType="numberDecimal"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.3">
+
+                <com.jdp.hls.view.StringTextView
+                    style="@style/font_9_15"
+                    android:id="@+id/tv_paidAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@mipmap/ic_arrow_right"/>
+
+            </RelativeLayout>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
-            style="@style/Content_LL_T6">
+            style="@style/Content_LL_T12">
 
             <TextView
                 style="@style/Title_Sub"
@@ -69,9 +99,10 @@
 
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_balanceAmount"
-                style="@style/Content_ET_W1_3"
-                android:hint=""
-                android:inputType="numberDecimal"/>
+                style="@style/font_9_15"
+                android:layout_weight="1.3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </LinearLayout>

@@ -39,6 +39,7 @@ public class TaoTypePersonAdapter extends BaseSearchAdapter<TaoTypePerson> {
         viewHolder.tv_realName.setString(taoTypePerson.getRealName());
         viewHolder.tv_patternQuantity.setString(taoTypePerson.getPatternQuantity());
         viewHolder.tv_address.setString(taoTypePerson.getAddress());
+        viewHolder.tv_mobilePhone.setString(taoTypePerson.getMobilePhone());
         return convertView;
     }
 
@@ -58,6 +59,7 @@ public class TaoTypePersonAdapter extends BaseSearchAdapter<TaoTypePerson> {
         StringTextView tv_realName;
         StringTextView tv_patternQuantity;
         StringTextView tv_address;
+        StringTextView tv_mobilePhone;
 
         public ViewHolder(View root) {
             this.root = root;
@@ -65,6 +67,7 @@ public class TaoTypePersonAdapter extends BaseSearchAdapter<TaoTypePerson> {
             tv_realName = root.findViewById(R.id.tv_realName);
             tv_patternQuantity = root.findViewById(R.id.tv_patternQuantity);
             tv_address = root.findViewById(R.id.tv_address);
+            tv_mobilePhone = root.findViewById(R.id.tv_mobilePhone);
         }
     }
 }

@@ -8,12 +8,9 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.constant.Status;
-import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.model.entiy.PayItem;
-import com.jdp.hls.util.AppUtil;
 import com.jdp.hls.view.DrawHelperLayout;
 import com.jdp.hls.view.StringTextView;
-import com.kingja.supershapeview.core.SuperManager;
 
 import java.util.List;
 
@@ -56,7 +53,7 @@ public class PayAdapter extends BaseSearchAdapter<PayItem> {
                 tempViewHolder = new TempViewHolder(convertView);
                 convertView.setTag(tempViewHolder);
             } else {
-                convertView = View.inflate(context, R.layout.item_pay, null);
+                convertView = View.inflate(context, R.layout.item_pay_protocol, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }

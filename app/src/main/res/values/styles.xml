@@ -238,6 +238,12 @@
         <item name="android:textColor">@color/main</item>
     </style>
 
+    <style name="font_main_10">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/main</item>
+    </style>
+
+
     <style name="font_main_13">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/main</item>
