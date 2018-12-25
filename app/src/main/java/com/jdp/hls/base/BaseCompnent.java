@@ -103,7 +103,7 @@ import com.jdp.hls.page.supervise.statistics.progress.report.hourlist.ReportHour
 import com.jdp.hls.page.supervise.statistics.table.TableListSuperviseActivity;
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalFragment;
 import com.jdp.hls.page.supervise.statistics.total.pay.detaillist.StatisticsPayDetailListActivity;
-import com.jdp.hls.page.supervise.statistics.total.pay.list.SupervisePayListActivity;
+import com.jdp.hls.page.supervise.statistics.total.pay.list.SupervisePayOwnerListActivity;
 import com.jdp.hls.page.supervise.statistics.total.taotype.StatisticsTaotypeListActivity;
 import com.jdp.hls.page.supervise.statistics.total.taotype.person.TaoTypePersonListActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
@@ -120,7 +120,7 @@ public interface BaseCompnent {
 
     void inject(StatisticsTaotypeListActivity target);
 
-    void inject(SupervisePayListActivity target);
+    void inject(SupervisePayOwnerListActivity target);
 
     void inject(PayDetailActivity target);
 

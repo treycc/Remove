@@ -5,6 +5,7 @@ import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.KeyValue;
 import com.jdp.hls.model.entiy.StatisticsTotalInfo;
+import com.jdp.hls.model.entiy.TitleItem;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public interface StatisticsTotalContract {
     interface View extends BaseView {
-        void onGetStatisticsTotalSuccess(StatisticsTotalInfo keyValueList);
+        void onGetStatisticsTotalSuccess(List<TitleItem> titleItemList);
     }
 
     interface Presenter extends BasePresenter<View> {

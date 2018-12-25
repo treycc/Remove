@@ -7,6 +7,7 @@ import com.jdp.hls.model.entiy.KeyValue;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
 import com.jdp.hls.model.entiy.StatisticsTotalInfo;
+import com.jdp.hls.model.entiy.TitleItem;
 
 import java.util.List;
 
@@ -35,10 +36,10 @@ public class StatisticsTotalPresenter implements StatisticsTotalContract.Present
     public void getStatisticsTotal(int buildingType) {
         mApi.getApiService().getStatisticsTotal( buildingType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<StatisticsTotalInfo>(mView) {
+                (new LoadSirObserver<List<TitleItem>>(mView) {
                     @Override
-                    protected void onSuccess(StatisticsTotalInfo statisticsTotalInfo) {
-                        mView.onGetStatisticsTotalSuccess(statisticsTotalInfo);
+                    protected void onSuccess(List<TitleItem> titleItemList) {
+                        mView.onGetStatisticsTotalSuccess(titleItemList);
                     }
                 });
     }

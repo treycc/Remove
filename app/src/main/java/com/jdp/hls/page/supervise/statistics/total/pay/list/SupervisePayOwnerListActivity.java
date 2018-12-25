@@ -5,18 +5,23 @@ import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.PayDetailAdapter;
+import com.jdp.hls.adapter.PayOwnerAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.AmountInfo;
 import com.jdp.hls.model.entiy.PayItem;
-import com.jdp.hls.model.entiy.SupervisePayInfo;
+import com.jdp.hls.model.entiy.PayOwner;
+import com.jdp.hls.model.entiy.PayOwnerListInfo;
+import com.jdp.hls.model.entiy.Project;
+import com.jdp.hls.page.supervise.statistics.total.pay.detaillist.StatisticsPayDetailListActivity;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.StringTextView;
 
@@ -26,7 +31,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.MultipartBody;
+import butterknife.OnItemClick;
 
 /**
  * Description:TODO
@@ -34,9 +39,9 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class SupervisePayListActivity extends BaseTitleActivity implements StatisticsPayListContract.View {
+public class SupervisePayOwnerListActivity extends BaseTitleActivity implements StatisticsPayOwnerListContract.View {
     @Inject
-    StatisticsPayListPresenter statisticsPayListPresenter;
+    StatisticsPayOwnerListPresenter statisticsPayListPresenter;
     @BindView(R.id.et_keyword)
     EditText etKeyword;
     @BindView(R.id.iv_clear)
@@ -49,9 +54,16 @@ public class SupervisePayListActivity extends BaseTitleActivity implements Stati
     StringTextView tvPaidAmount;
     @BindView(R.id.tv_balanceAmount)
     StringTextView tvBalanceAmount;
-    private String useItemName;
-    private PayDetailAdapter payDetailAdapter;
-    private String payableAmount;
+    private PayOwnerAdapter payDetailAdapter;
+    private int buildingType;
+    private int userItemId;
+    private String title;
+
+    @OnItemClick({R.id.lv})
+    public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        PayOwner payOwner = (PayOwner) adapterView.getItemAtPosition(position);
+        StatisticsPayDetailListActivity.goActivity(this, payOwner,title);
+    }
 
     @OnClick({R.id.iv_clear})
     public void click(View view) {
@@ -64,8 +76,9 @@ public class SupervisePayListActivity extends BaseTitleActivity implements Stati
 
     @Override
     public void initVariable() {
-        useItemName = getIntent().getStringExtra(Constants.Extra.Key);
-        payableAmount = getIntent().getStringExtra(Constants.Extra.Value);
+        buildingType = getIntent().getIntExtra(Constants.Extra.BUILDING_TYPE, 0);
+        userItemId = getIntent().getIntExtra(Constants.Extra.ID, 0);
+        title = getIntent().getStringExtra(Constants.Extra.TITLE);
     }
 
     @Override
@@ -84,7 +97,7 @@ public class SupervisePayListActivity extends BaseTitleActivity implements Stati
 
     @Override
     protected String getContentTitle() {
-        return TextUtils.isEmpty(useItemName) ? "支付详情" : useItemName;
+        return TextUtils.isEmpty(title) ? "支付详情" : title;
     }
 
     @Override
@@ -94,8 +107,8 @@ public class SupervisePayListActivity extends BaseTitleActivity implements Stati
 
     @Override
     protected void initData() {
-        etKeyword.setHint("请输入户主姓名");
-        payDetailAdapter = new PayDetailAdapter(this, null);
+        etKeyword.setHint("请输入档案编号/户主姓名");
+        payDetailAdapter = new PayOwnerAdapter(this, null);
         lv.setAdapter(payDetailAdapter);
         etKeyword.addTextChangedListener(new SimpleTextWatcher() {
             @Override
@@ -104,49 +117,36 @@ public class SupervisePayListActivity extends BaseTitleActivity implements Stati
                 ivClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
             }
         });
-        tvPayableAmount.setString(TextUtils.isEmpty(payableAmount) ? "0" : payableAmount);
     }
 
     @Override
     public void initNet() {
-        statisticsPayListPresenter.getSupervisePayList(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("UseItemName", useItemName)
-                .build());
+        statisticsPayListPresenter.getPayOwnList(buildingType, userItemId);
     }
 
-    @Override
-    public void onGetSupervisePayListSuccess(SupervisePayInfo supervisePayInfo) {
-        String keyword = etKeyword.getText().toString().trim();
-        setSearchListView(supervisePayInfo.getLstFinancePay(), payDetailAdapter, keyword);
-
-        double paidAmount = getPaidAmount(supervisePayInfo.getLstFinancePay());
-        tvPaidAmount.setString(paidAmount);
-
-        double payableAmount=Double.valueOf(tvPayableAmount.getText().toString().trim()) ;
-
-        tvBalanceAmount.setString((int)(paidAmount-payableAmount));
-
-    }
-
-    private double getPaidAmount(List<PayItem> payItemList) {
-        double paidAmount = 0d;
-        if (payItemList != null && payItemList.size() > 0) {
-            for (PayItem payItem : payItemList) {
-                paidAmount += payItem.getAmount();
-            }
-        }
-        return paidAmount;
-    }
-
-    public static void GoActivity(Context context, String key, String value) {
-        Intent intent = new Intent(context, SupervisePayListActivity.class);
-        intent.putExtra(Constants.Extra.Key, key);
-        intent.putExtra(Constants.Extra.Value, value);
+    public static void GoActivity(Context context, int buildingType, int userItemId, String title) {
+        Intent intent = new Intent(context, SupervisePayOwnerListActivity.class);
+        intent.putExtra(Constants.Extra.BUILDING_TYPE, buildingType);
+        intent.putExtra(Constants.Extra.ID, userItemId);
+        intent.putExtra(Constants.Extra.TITLE, title);
         context.startActivity(intent);
     }
 
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Override
+    public void onGetPayOwnListListSuccess(PayOwnerListInfo payOwnerListInfo) {
+        String keyword = etKeyword.getText().toString().trim();
+        setSearchListView(payOwnerListInfo.getLstPayable(), payDetailAdapter, keyword);
+        AmountInfo amountInfo = payOwnerListInfo.getAmountInfo();
+        if (amountInfo != null) {
+            tvPayableAmount.setString(amountInfo.getPayableAmount() + "元");
+            tvPaidAmount.setString(amountInfo.getPaidAmount() + "元");
+            tvBalanceAmount.setString(amountInfo.getBalanceAmount() + "元");
+        }
+
     }
 }

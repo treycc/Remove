@@ -3,7 +3,6 @@ package com.jdp.hls.page.supervise.statistics.total.pay.detaillist;
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
-import com.jdp.hls.model.entiy.SupervisePayDetailInfo;
 import com.jdp.hls.model.entiy.SupervisePayInfo;
 
 import okhttp3.RequestBody;
@@ -16,10 +15,10 @@ import okhttp3.RequestBody;
  */
 public interface StatisticsPayDetailListContract {
     interface View extends BaseView {
-        void onGetSupervisePayDetailListSuccess(SupervisePayDetailInfo supervisePayDetailInfo);
+        void onGetSupervisePayListSuccess(SupervisePayInfo supervisePayInfo);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getSupervisePayDetailList();
+        void getSupervisePayList(RequestBody requestBody);
     }
 }

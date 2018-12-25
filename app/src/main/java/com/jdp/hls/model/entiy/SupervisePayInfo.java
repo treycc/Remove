@@ -1,7 +1,5 @@
 package com.jdp.hls.model.entiy;
 
-import com.jdp.hls.constant.Status;
-
 import java.util.List;
 
 /**
@@ -13,6 +11,15 @@ import java.util.List;
 public class SupervisePayInfo {
     private List<PayItem> LstFinancePay;
     private boolean IsAllowEdit;
+    private AmountInfo AmountInfo;
+
+    public AmountInfo getAmountInfo() {
+        return AmountInfo;
+    }
+
+    public void setAmountInfo(AmountInfo amountInfo) {
+        AmountInfo = amountInfo;
+    }
 
     public List<PayItem> getLstFinancePay() {
         return LstFinancePay;

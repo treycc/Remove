@@ -9,22 +9,5 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class StatisticsTotalInfo {
-    private AmountInfo AmountInfo;
-    private List<KeyValue> LstBuildingCollect;
-
-    public AmountInfo getAmountInfo() {
-        return AmountInfo;
-    }
-
-    public void setAmountInfo(AmountInfo amountInfo) {
-        AmountInfo = amountInfo;
-    }
-
-    public List<KeyValue> getLstBuildingCollect() {
-        return LstBuildingCollect;
-    }
-
-    public void setLstBuildingCollect(List<KeyValue> lstBuildingCollect) {
-        LstBuildingCollect = lstBuildingCollect;
-    }
+    private List<TitleItem> LstBuildingCollect;
 }

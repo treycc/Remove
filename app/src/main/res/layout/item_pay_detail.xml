@@ -36,7 +36,7 @@
                 android:text="支付日期"/>
 
             <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_realName"
+                android:id="@+id/tv_payDate"
                 style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -66,14 +66,15 @@
                 android:layout_weight="2">
 
                 <com.jdp.hls.view.StringTextView
-                    android:id="@+id/tv_idcard"
+                    android:id="@+id/tv_amount"
                     style="@style/font_9_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:text="200"/>
+                    android:layout_marginRight="12dp"/>
 
                 <com.kingja.supershapeview.view.SuperShapeTextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_isDouble"
                     style="@style/font_main_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -91,6 +92,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_limitDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
@@ -106,7 +108,7 @@
                 android:text="支付时段"/>
 
             <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_bankAccount"
+                android:id="@+id/tv_limitDate"
                 style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -131,7 +133,7 @@
                 android:text="银行卡号"/>
 
             <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_amount"
+                android:id="@+id/tv_bankAccount"
                 style="@style/font_9_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -169,6 +171,7 @@
     </LinearLayout>
 
     <ImageView
+        android:visibility="gone"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:background="@mipmap/ic_arrow_right"/>

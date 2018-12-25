@@ -48,6 +48,7 @@ import com.jdp.hls.model.entiy.NodePersonalProtocol;
 import com.jdp.hls.model.entiy.Notification;
 import com.jdp.hls.model.entiy.OtherArea;
 import com.jdp.hls.model.entiy.PayItem;
+import com.jdp.hls.model.entiy.PayOwnerListInfo;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.ProjectFacade;
@@ -74,6 +75,7 @@ import com.jdp.hls.model.entiy.Table;
 import com.jdp.hls.model.entiy.TaoType;
 import com.jdp.hls.model.entiy.TaoTypePerson;
 import com.jdp.hls.model.entiy.TaskInfo;
+import com.jdp.hls.model.entiy.TitleItem;
 
 import java.util.List;
 
@@ -720,7 +722,7 @@ public interface ApiService {
 
     /*汇总统计(监管系统)*/
     @GET("supervise/GetCollectViewBuilding")
-    Observable<HttpResult<StatisticsTotalInfo>> getStatisticsTotal(@Query("BuildingType") int buildingType);
+    Observable<HttpResult<List<TitleItem>>> getStatisticsTotal(@Query("BuildingType") int buildingType);
 
     /*进度统计-主页(监管系统)*/
     @GET("supervise/GetProgressStatistics")
@@ -804,4 +806,9 @@ public interface ApiService {
     /*套型征收人-列表*/
     @GET("supervise/GetZSRList")
     Observable<HttpResult<List<TaoTypePerson>>> getTaoTypePersonList(@Query("PatternId") int patternId);
+
+    /*支付明细修改-列表*/
+    @GET("supervise/GetHousePayableList")
+    Observable<HttpResult<PayOwnerListInfo>> getPayOwnList(@Query("BuildingType") int BuildingType, @Query
+            ("UseItemId") int UseItemId);
 }

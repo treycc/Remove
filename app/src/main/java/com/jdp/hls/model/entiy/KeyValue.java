@@ -9,9 +9,27 @@ package com.jdp.hls.model.entiy;
 public class KeyValue {
     private String Name;
     private String Value;
+    private String ValueDesc;
     private int Type;
     private int InterfaceId;
+    private int UseItemId;
     private boolean HasDetail;
+
+    public String getValueDesc() {
+        return null == ValueDesc ? "" : ValueDesc;
+    }
+
+    public void setValueDesc(String valueDesc) {
+        ValueDesc = valueDesc;
+    }
+
+    public int getUseItemId() {
+        return UseItemId;
+    }
+
+    public void setUseItemId(int useItemId) {
+        UseItemId = useItemId;
+    }
 
     public int getInterfaceId() {
         return InterfaceId;

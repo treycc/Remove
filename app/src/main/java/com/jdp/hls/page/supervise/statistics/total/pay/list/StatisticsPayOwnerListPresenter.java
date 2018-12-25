@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LoadSirObserver;
+import com.jdp.hls.model.entiy.PayOwnerListInfo;
 import com.jdp.hls.model.entiy.SupervisePayInfo;
 
 import javax.inject.Inject;
@@ -19,30 +20,30 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class StatisticsPayListPresenter implements StatisticsPayListContract.Presenter {
+public class StatisticsPayOwnerListPresenter implements StatisticsPayOwnerListContract.Presenter {
     private UserApi mApi;
-    private StatisticsPayListContract.View mView;
+    private StatisticsPayOwnerListContract.View mView;
 
     @Inject
-    public StatisticsPayListPresenter(UserApi mApi) {
+    public StatisticsPayOwnerListPresenter(UserApi mApi) {
         this.mApi = mApi;
     }
 
     @Override
-    public void getSupervisePayList(RequestBody requestBody) {
-        mApi.getApiService().getSupervisePayList( requestBody).subscribeOn(Schedulers.io())
+    public void getPayOwnList(int BuildingType, int UseItemId) {
+        mApi.getApiService().getPayOwnList( BuildingType,  UseItemId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<SupervisePayInfo>(mView) {
+                (new LoadSirObserver<PayOwnerListInfo>(mView) {
                     @Override
-                    protected void onSuccess(SupervisePayInfo supervisePayInfo) {
-                        mView.onGetSupervisePayListSuccess(supervisePayInfo);
+                    protected void onSuccess(PayOwnerListInfo payOwnerListInfo) {
+                        mView.onGetPayOwnListListSuccess(payOwnerListInfo);
                     }
                 });
     }
 
 
     @Override
-    public void attachView(@NonNull StatisticsPayListContract.View view) {
+    public void attachView(@NonNull StatisticsPayOwnerListContract.View view) {
         this.mView = view;
     }
 

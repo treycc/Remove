@@ -392,7 +392,7 @@
         <activity android:name=".page.admin.employee.add.projectlist.SuperviseProjectListActivity"/>
         <activity android:name=".page.node.protocol.personal.lastst.pay.list.PayListActivity"/>
         <activity android:name=".page.node.protocol.personal.lastst.taotype.TaoTypeSelectActivity"/>
-        <activity android:name=".page.supervise.statistics.total.pay.list.SupervisePayListActivity"/>
+        <activity android:name=".page.supervise.statistics.total.pay.list.SupervisePayOwnerListActivity"/>
         <activity android:name=".page.supervise.statistics.total.taotype.StatisticsTaotypeListActivity"/>
         <activity android:name=".page.supervise.statistics.total.taotype.person.TaoTypePersonListActivity"/>
         <activity android:name=".page.supervise.statistics.total.pay.detaillist.StatisticsPayDetailListActivity"/>

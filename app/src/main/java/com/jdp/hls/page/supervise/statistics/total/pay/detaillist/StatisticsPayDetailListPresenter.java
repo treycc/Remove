@@ -4,12 +4,13 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LoadSirObserver;
-import com.jdp.hls.model.entiy.SupervisePayDetailInfo;
+import com.jdp.hls.model.entiy.SupervisePayInfo;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 
 
 /**
@@ -28,13 +29,13 @@ public class StatisticsPayDetailListPresenter implements StatisticsPayDetailList
     }
 
     @Override
-    public void getSupervisePayDetailList() {
-        mApi.getApiService().getSupervisePayDetailList().subscribeOn(Schedulers.io())
+    public void getSupervisePayList(RequestBody requestBody) {
+        mApi.getApiService().getSupervisePayList( requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<SupervisePayDetailInfo>(mView) {
+                (new LoadSirObserver<SupervisePayInfo>(mView) {
                     @Override
-                    protected void onSuccess(SupervisePayDetailInfo supervisePayDetailInfo) {
-                        mView.onGetSupervisePayDetailListSuccess(supervisePayDetailInfo);
+                    protected void onSuccess(SupervisePayInfo supervisePayInfo) {
+                        mView.onGetSupervisePayListSuccess(supervisePayInfo);
                     }
                 });
     }
