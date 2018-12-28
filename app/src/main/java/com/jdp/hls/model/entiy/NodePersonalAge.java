@@ -27,6 +27,7 @@ public class NodePersonalAge {
     private String Area86_90;
     private String Area98Y;
     private String Area98N;
+    private String Area98L ;
     private String Animal;
     private String Basement;
     private String SimpleHouse;
@@ -43,6 +44,14 @@ public class NodePersonalAge {
     private List<ImgInfo> Files;
     private boolean IsAllowEdit;
     private boolean IsShowNotRecordArea;
+
+    public String getArea98L() {
+        return null == Area98L ? "" : Area98L;
+    }
+
+    public void setArea98L(String area98L) {
+        Area98L = area98L;
+    }
 
     public String getRemarkOperator() {
         return RemarkOperator;

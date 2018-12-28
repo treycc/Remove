@@ -1,9 +1,6 @@
 package com.jdp.hls.page.node.protocol.personal.lastst;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +10,6 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodePersonalProtocol;
 import com.jdp.hls.util.CalculateUtil;
-import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
 
@@ -50,6 +46,11 @@ public class PayMoneyFragment extends BasePayFragment {
     EnableEditText etFixedFacilitiesAmount;
     @BindView(R.id.tv_totalBackPay)
     StringTextView tvTotalBackPay;
+    @BindView(R.id.et_protocol_otherArea)
+    EnableEditText etProtocolOtherArea;
+    @BindView(R.id.et_protocol_overAuditArea)
+    EnableEditText etProtocolOverAuditArea;
+    Unbinder unbinder;
     private NodePersonalProtocol nodePersonalProtocol;
 
     public static PayMoneyFragment newInstance(NodePersonalProtocol nodePersonalProtocol) {
@@ -88,6 +89,8 @@ public class PayMoneyFragment extends BasePayFragment {
         etTempPlacementFee.setString(nodePersonalProtocol.getTempPlacementFee());
         etRemoveFee.setString(nodePersonalProtocol.getRemoveFee());
         etFixedFacilitiesAmount.setString(nodePersonalProtocol.getFixedFacilitiesAmount());
+        etProtocolOtherArea.setString(nodePersonalProtocol.getOtherArea());
+        etProtocolOverAuditArea.setString(nodePersonalProtocol.getOverAuditArea());
 
 
         etKongFanPayAmount.addTextChangedListener(calculateWatcher);
@@ -96,7 +99,8 @@ public class PayMoneyFragment extends BasePayFragment {
         etTempPlacementFee.addTextChangedListener(calculateWatcher);
         etRemoveFee.addTextChangedListener(calculateWatcher);
 
-
+        etProtocolOtherArea.setEnabled(allowEdit);
+        etProtocolOverAuditArea.setEnabled(allowEdit);
         etKongFanPayAmount.setEnabled(allowEdit);
         etPulledDownPayAmount.setEnabled(allowEdit);
         etOtherFee.setEnabled(allowEdit);
@@ -112,20 +116,22 @@ public class PayMoneyFragment extends BasePayFragment {
 
     @Override
     protected MultipartBody.Builder getRequestBuilder() {
-
-
         String kongFanPayAmount = etKongFanPayAmount.getText().toString().trim();
         String pulledDownPayAmount = etPulledDownPayAmount.getText().toString().trim();
         String otherFee = etOtherFee.getText().toString().trim();
         String tempPlacementFee = etTempPlacementFee.getText().toString().trim();
         String removeFee = etRemoveFee.getText().toString().trim();
         String fixedFacilitiesAmount = etFixedFacilitiesAmount.getText().toString().trim();
+        String otherArea = etProtocolOtherArea.getText().toString().trim();
+        String overAuditArea = etProtocolOverAuditArea.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("KongFanPayAmount", kongFanPayAmount)
                 .addFormDataPart("PulledDownPayAmount", pulledDownPayAmount)
                 .addFormDataPart("OtherFee", otherFee)
                 .addFormDataPart("TempPlacementFee", tempPlacementFee)
                 .addFormDataPart("RemoveFee", removeFee)
+                .addFormDataPart("OtherArea", otherArea)
+                .addFormDataPart("OverAuditArea", overAuditArea)
                 .addFormDataPart("FixedFacilitiesAmount", fixedFacilitiesAmount);
     }
 
@@ -135,11 +141,23 @@ public class PayMoneyFragment extends BasePayFragment {
     }
 
 
-
-
     protected void calculate() {
         tvTotalBackPay.setString(CalculateUtil.getTotalValue(tvOldHouseMarketTotalMoney, tvInnerDecorateMoney,
                 tvAppurtenancePay, etKongFanPayAmount, etPulledDownPayAmount, etOtherFee, etTempPlacementFee,
                 etRemoveFee));
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

@@ -1,15 +1,13 @@
 package com.jdp.hls.page.supervise.project.contrast;
 
+import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
-import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ProjectFacade;
-import com.jdp.hls.page.otherarea.list.OtherAreaListActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PreviewRecyclerView;
@@ -17,6 +15,7 @@ import com.jdp.hls.view.PreviewRecyclerView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -32,21 +31,29 @@ public class ProjectContrastActivity extends BaseTitleActivity implements Projec
     PreviewRecyclerView rvPhotoPreviewOld;
     @BindView(R.id.rv_photo_preview_new)
     PreviewRecyclerView rvPhotoPreviewNew;
+    @BindView(R.id.rv_photo_preview_house_ichnography)
+    PreviewRecyclerView rvPhotoPreviewHouseIchnography;
 
     private String oldVrUrl;
     private String newVrUrl;
+    private String houseIchnographyVrUrl;
 
-    @OnClick({R.id.rl_old_vr, R.id.rl_new_vr})
+    @OnClick({R.id.rl_old_vr, R.id.rl_new_vr, R.id.rl_house_ichnography})
     public void rl_protocol_otherArea(View view) {
         switch (view.getId()) {
             case R.id.rl_old_vr:
                 if (CheckUtil.checkEmpty(oldVrUrl, "暂无全景VR")) {
-                    VRDetailActivity.goActivity(this, oldVrUrl, "全景VR");
+                    VRDetailActivity.goActivity(this, oldVrUrl, "改造前全景VR");
                     break;
                 }
             case R.id.rl_new_vr:
                 if (CheckUtil.checkEmpty(newVrUrl, "暂无全景VR")) {
-                    VRDetailActivity.goActivity(this, newVrUrl, "全景VR");
+                    VRDetailActivity.goActivity(this, newVrUrl, "改造后全景VR");
+                    break;
+                }
+            case R.id.rl_house_ichnography:
+                if (CheckUtil.checkEmpty(houseIchnographyVrUrl, "暂无全景VR")) {
+                    VRDetailActivity.goActivity(this, houseIchnographyVrUrl, "现房VR");
                     break;
                 }
                 break;
@@ -98,8 +105,10 @@ public class ProjectContrastActivity extends BaseTitleActivity implements Projec
     public void onGetProjectPhotoSuccess(ProjectFacade projectFacade) {
         rvPhotoPreviewOld.setData(projectFacade.getOldFiles());
         rvPhotoPreviewNew.setData(projectFacade.getNewFiles());
+        rvPhotoPreviewHouseIchnography.setData(projectFacade.getHouseIchnographyFiles());
         oldVrUrl = projectFacade.getOldVRUrl();
         newVrUrl = projectFacade.getNewVRUrl();
+        houseIchnographyVrUrl = projectFacade.getHouseIchnographyVRUrl();
     }
 
     @Override

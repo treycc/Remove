@@ -81,4 +81,42 @@
             style="@style/Content_ET_W2_LINES"
             android:hint="请输入项目新貌VR地址"/>
     </LinearLayout>
+    <TextView
+        style="@style/Title_Main"
+        android:text="现房平面照片"/>
+
+    <RelativeLayout
+        style="@style/Content_LL_T12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi">
+
+        <com.jdp.hls.view.PreviewRecyclerView
+            android:id="@+id/rv_photo_preview_house_ichnography"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"/>
+
+        <ImageView
+            style="@style/BG_ARROW"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="全景VR"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_house_ichnography"
+            style="@style/Content_ET_W2_LINES"
+            android:hint="请输入项目新貌VR地址"/>
+    </LinearLayout>
 </LinearLayout>

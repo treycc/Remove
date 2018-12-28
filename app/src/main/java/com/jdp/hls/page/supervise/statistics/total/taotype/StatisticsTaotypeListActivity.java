@@ -41,8 +41,6 @@ public class StatisticsTaotypeListActivity extends BaseTitleActivity implements 
     StringTextView tvTotalArea;
     @BindView(R.id.tv_hasDealTaoArea)
     StringTextView tvHasDealArea;
-    @BindView(R.id.tv_leftArea)
-    StringTextView tvLeftArea;
     private CommonAdapter adapter;
     private String key;
     private String value;
@@ -130,9 +128,6 @@ public class StatisticsTaotypeListActivity extends BaseTitleActivity implements 
                 tvTotalArea.setString(String.format("%.2fm² (建筑:%.2fm²)", taoArea, totalArea));
                 break;
         }
-
-        tvLeftArea.setString(String.format("%.2fm²  (建筑:%.2fm²)", Math.abs(taoArea - hasDealTaoArea), Math.abs
-                (totalArea - hasDealTaoArea)));
     }
 
     private double getDealTaoArea(List<TaoType> taoTypeList) {

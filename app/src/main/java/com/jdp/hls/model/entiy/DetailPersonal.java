@@ -48,6 +48,7 @@ public class DetailPersonal {
     private boolean IsFlowBack;
     private boolean IsEvaluated;
     private boolean IsMeasured;
+    private boolean IsUrgent;
     private String CreateDatetime;
     private String RealName;
     private boolean Gender;
@@ -75,6 +76,14 @@ public class DetailPersonal {
     private String VRUrl;
     private List<ImgInfo> Files;
     private List<ImgInfo> ApprovalFiles;
+
+    public boolean isUrgent() {
+        return IsUrgent;
+    }
+
+    public void setUrgent(boolean urgent) {
+        IsUrgent = urgent;
+    }
 
     public String getVRUrl() {
         return null == VRUrl ? "" : VRUrl;

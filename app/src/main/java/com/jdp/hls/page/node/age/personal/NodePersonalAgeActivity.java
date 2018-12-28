@@ -1,5 +1,6 @@
 package com.jdp.hls.page.node.age.personal;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -86,6 +88,8 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
     LinearLayout llOperateContent;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
+    @BindView(R.id.et_age_area98l)
+    EnableEditText etAgeArea98l;
     private String identifierId;
     private boolean isShowNotRecordArea;
 
@@ -151,6 +155,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         etAgeArea8690.setEnabled(!isOperatorAccount && allowEdit);
         etAgeArea98n.setEnabled(!isOperatorAccount && allowEdit);
         etAgeArea98y.setEnabled(!isOperatorAccount && allowEdit);
+        etAgeArea98l.setEnabled(!isOperatorAccount && allowEdit);
         etAgeAsLegitimateArea.setEnabled(!isOperatorAccount && allowEdit);
         etAgeRemark.setEnabled(!isOperatorAccount && allowEdit);
 
@@ -181,6 +186,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         String area8690 = etAgeArea8690.getText().toString().trim();
         String area98n = etAgeArea98n.getText().toString().trim();
         String area98y = etAgeArea98y.getText().toString().trim();
+        String area98l = etAgeArea98l.getText().toString().trim();
         String asLegitimateArea = etAgeAsLegitimateArea.getText().toString().trim();
         String animalHouseArea = etAgeAnimalHouseArea.getText().toString().trim();
         String basement = etAgeBasement.getText().toString().trim();
@@ -211,6 +217,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
                 .addFormDataPart("Area86_90", area8690)
                 .addFormDataPart("Area98Y", area98y)
                 .addFormDataPart("Area98N", area98n)
+                .addFormDataPart("Area98L", area98l)
                 .addFormDataPart("AsLegitimateArea", asLegitimateArea)
                 .addFormDataPart("Animal", animalHouseArea)
                 .addFormDataPart("Basement", basement)
@@ -245,6 +252,7 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
         etAgeArea8690.setString(nodePersonalAge.getArea86_90());
         etAgeArea98n.setString(nodePersonalAge.getArea98N());
         etAgeArea98y.setString(nodePersonalAge.getArea98Y());
+        etAgeArea98l.setString(nodePersonalAge.getArea98L());
         etAgeSubsidiaryHouse.setString(nodePersonalAge.getSubsidiaryHouse());
         etAgeAsLegitimateArea.setString(nodePersonalAge.getAsLegitimateArea());
         etAgeAnimalHouseArea.setString(nodePersonalAge.getAnimal());
@@ -260,5 +268,12 @@ public class NodePersonalAgeActivity extends BaseNodeActivity implements NodePer
     @Override
     public void onModifyPersonalAgeSuccess() {
         showSuccessDialogAndFinish();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

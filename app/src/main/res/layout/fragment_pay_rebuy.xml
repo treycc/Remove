@@ -276,6 +276,38 @@
             </RelativeLayout>
         </LinearLayout>
 
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="空翻面积"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_protocol_otherArea"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入空翻面积"
+                android:inputType="numberDecimal"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="超审批占地面积"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_protocol_overAuditArea"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入超审批占地面积"
+                android:inputType="numberDecimal"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 </ScrollView>

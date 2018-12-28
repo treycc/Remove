@@ -3,6 +3,7 @@ package com.jdp.hls.page.admin.contrast;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.jdp.hls.R;
@@ -22,6 +23,7 @@ import com.jdp.hls.view.PreviewRecyclerView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -41,6 +43,10 @@ public class ProjectContrastDetailActivity extends BaseTitleActivity implements 
     PreviewRecyclerView rvPhotoPreviewNew;
     @BindView(R.id.et_newVrUrl)
     EnableEditText etNewVrUrl;
+    @BindView(R.id.rv_photo_preview_house_ichnography)
+    PreviewRecyclerView rvPhotoPreviewHouseIchnography;
+    @BindView(R.id.et_house_ichnography)
+    EnableEditText etHouseIchnography;
     private String projectId;
     @Inject
     ProjectContrastPresenter projectContrastPresenter;
@@ -84,11 +90,15 @@ public class ProjectContrastDetailActivity extends BaseTitleActivity implements 
             public void onClick(View v) {
                 String newVrUrl = etNewVrUrl.getText().toString().trim();
                 String oldVrUrl = etOldVrUrl.getText().toString().trim();
-                if (CheckUtil.checkUrl(oldVrUrl, "旧貌VR地址格式有误") && CheckUtil.checkUrl(newVrUrl, "新貌VR地址格式有误")) {
+                String houseIchnographyVRUrl = etHouseIchnography.getText().toString().trim();
+                if (CheckUtil.checkUrl(oldVrUrl, "旧貌VR地址格式有误")
+                        && CheckUtil.checkUrl(newVrUrl, "新貌VR地址格式有误")
+                        && CheckUtil.checkUrl(houseIchnographyVRUrl, "现房VR地址格式有误")) {
                     projectContrastDetailPresenter.saveVrInfo(new MultipartBody.Builder().setType(MultipartBody.FORM)
                             .addFormDataPart("ProjectId", projectId)
                             .addFormDataPart("OldVRUrl", oldVrUrl)
                             .addFormDataPart("NewVRUrl", newVrUrl)
+                            .addFormDataPart("HouseIchnographyVRUrl", houseIchnographyVRUrl)
                             .build());
                 }
 
@@ -114,8 +124,12 @@ public class ProjectContrastDetailActivity extends BaseTitleActivity implements 
                 .PROJECT_OLDLOOK, projectId, String.valueOf(Status.BuildingType.PERSONAL)), true);
         rvPhotoPreviewNew.setData(projectFacade.getNewFiles(), new FileConfig(Status.FileType
                 .PROJECT_NEWLOOK, projectId, String.valueOf(Status.BuildingType.PERSONAL)), true);
+        rvPhotoPreviewHouseIchnography.setData(projectFacade.getHouseIchnographyFiles(), new FileConfig(Status.FileType
+                .HOUSE_ICHNOGRAPHY, projectId, String.valueOf(Status.BuildingType.PERSONAL)), true);
+
         etNewVrUrl.setString(projectFacade.getNewVRUrl());
         etOldVrUrl.setString(projectFacade.getOldVRUrl());
+        etHouseIchnography.setString(projectFacade.getHouseIchnographyVRUrl());
     }
 
     @Override
@@ -135,6 +149,7 @@ public class ProjectContrastDetailActivity extends BaseTitleActivity implements 
                 case Constants.RequestCode.PHOTO_PREVIEW:
                     rvPhotoPreviewNew.onActivityResult(requestCode, data);
                     rvPhotoPreviewOld.onActivityResult(requestCode, data);
+                    rvPhotoPreviewHouseIchnography.onActivityResult(requestCode, data);
                     break;
                 default:
                     break;

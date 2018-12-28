@@ -3,6 +3,7 @@ package com.jdp.hls.page.business.detail.company;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -100,6 +102,8 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     PreviewRecyclerView rvPhotoPreviewHouse;
     @BindView(R.id.rv_photo_preview_otherCert)
     PreviewRecyclerView rvPhotoPreviewOtherCert;
+    @BindView(R.id.switch_detail_isUrgent)
+    Switch switchDetailIsUrgent;
     private String buildingId;
     private boolean ifPublicity;
     @Inject
@@ -116,6 +120,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     private String mobile;
     private String address;
     private String cusCode;
+    private boolean isUrgent;
 
     @Override
     public void initVariable() {
@@ -231,7 +236,9 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         tvDetailPropertyDeed.setText(propertyCertNum);
 
         ifPublicity = detailCompany.isAllowPublicity();
+        isUrgent = detailCompany.isUrgent();
         switchDetailPublicity.setChecked(ifPublicity);
+        switchDetailIsUrgent.setChecked(isUrgent);
 
         initLngLat(detailCompany.getLongitude(), detailCompany.getLatitude());
         allowEdit = detailCompany.isAllowEdit();
@@ -253,13 +260,14 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         etDetailRemark.setEnabled(allowEdit);
         etDetailCurrentOccupyArea.setEnabled(allowEdit);
         switchDetailPublicity.setEnabled(allowEdit);
+        switchDetailIsUrgent.setEnabled(allowEdit);
         lngLatFragment.setEditable(allowEdit);
         rvPhotoPreviewHouse.setData(detailCompany.getFiles(), new FileConfig(Status.FileType
-                .COMPANY_CURRENT,this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
+                .COMPANY_CURRENT, this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
         rvPhotoPreviewProcedure.setData(detailCompany.getApprovalFiles(), new FileConfig(Status.FileType
-                .PROCEDURE,this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
+                .PROCEDURE, this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
         rvPhotoPreviewOtherCert.setData(detailCompany.getOtherFiles(), new FileConfig(Status.FileType
-                .OTHER,this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
+                .OTHER, this.buildingId, String.valueOf(Status.BuildingType.COMPANY)), allowEdit);
     }
 
     private void saveData() {
@@ -279,6 +287,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                 .addFormDataPart("Address", address)
                 .addFormDataPart("Remark", remark)
                 .addFormDataPart("IsAllowPublicity", String.valueOf(ifPublicity))
+                .addFormDataPart("IsUrgent", String.valueOf(isUrgent))
                 .addFormDataPart("Longitude", String.valueOf(longitude))
                 .addFormDataPart("Latitude", String.valueOf(latitude))
                 .addFormDataPart("RentInfo", rentInfo)
@@ -360,5 +369,12 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
             }
         }
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

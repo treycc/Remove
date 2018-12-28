@@ -167,6 +167,7 @@ public class Status {
         int PROJECT_OLDLOOK = 36;
         int PROJECT_NEWLOOK = 37;
         int PAY_DETAIL = 38;
+        int HOUSE_ICHNOGRAPHY = 39;
         int OTHER = 100;
     }
 

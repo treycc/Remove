@@ -9,22 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.google.gson.Gson;
 import com.jdp.hls.R;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodePersonalProtocol;
-import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.TaoType;
-import com.jdp.hls.page.node.protocol.personal.lastst.pay.list.PayListActivity;
 import com.jdp.hls.page.node.protocol.personal.lastst.taotype.TaoTypeSelectActivity;
 import com.jdp.hls.util.CalculateUtil;
 import com.jdp.hls.util.LogUtil;
-import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
-import com.zhihu.matisse.Matisse;
 
 import java.util.List;
 
@@ -73,6 +68,11 @@ public class PayChangeFragment extends BasePayFragment {
     LinearLayout llTaoType;
     @BindView(R.id.tv_oldHouseTotalPay)
     StringTextView tvOldHouseTotalPay;
+    @BindView(R.id.et_protocol_otherArea)
+    EnableEditText etProtocolOtherArea;
+    @BindView(R.id.et_protocol_overAuditArea)
+    EnableEditText etProtocolOverAuditArea;
+    Unbinder unbinder;
     private NodePersonalProtocol nodePersonalProtocol;
     private List<TaoType> taoTypeList;
 
@@ -132,6 +132,9 @@ public class PayChangeFragment extends BasePayFragment {
         etAZBuildingArea.setString(nodePersonalProtocol.getAZBuildingArea());
         etAZTNArea.setString(nodePersonalProtocol.getAZTNArea());
 
+        etProtocolOtherArea.setString(nodePersonalProtocol.getOtherArea());
+        etProtocolOverAuditArea.setString(nodePersonalProtocol.getOverAuditArea());
+
         etPulledDownPayAmount.addTextChangedListener(calculateWatcher);
         etClearObstaclePay.addTextChangedListener(calculateWatcher);
         etOtherFee.addTextChangedListener(calculateWatcher);
@@ -142,8 +145,8 @@ public class PayChangeFragment extends BasePayFragment {
                 calculateNeedPayMoney();
             }
         });
-
-
+        etProtocolOtherArea.setEnabled(allowEdit);
+        etProtocolOverAuditArea.setEnabled(allowEdit);
         etPulledDownPayAmount.setEnabled(allowEdit);
         etClearObstaclePay.setEnabled(allowEdit);
         etOtherFee.setEnabled(allowEdit);
@@ -153,10 +156,8 @@ public class PayChangeFragment extends BasePayFragment {
         etFixedFacilitiesAmount.setEnabled(allowEdit);
         etAZBuildingArea.setEnabled(allowEdit);
         etAZTNArea.setEnabled(allowEdit);
-
         calculate();
         calculateNeedPayMoney();
-
     }
 
 
@@ -182,6 +183,8 @@ public class PayChangeFragment extends BasePayFragment {
         String fixedFacilitiesAmount = etFixedFacilitiesAmount.getText().toString().trim();
         String aZBuildingArea = etAZBuildingArea.getText().toString().trim();
         String aZTNArea = etAZTNArea.getText().toString().trim();
+        String otherArea = etProtocolOtherArea.getText().toString().trim();
+        String overAuditArea = etProtocolOverAuditArea.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("PulledDownPayAmount", pulledDownPayAmount)
                 .addFormDataPart("ClearObstaclePay", clearObstaclePay)
@@ -192,6 +195,8 @@ public class PayChangeFragment extends BasePayFragment {
                 .addFormDataPart("FixedFacilitiesAmount", fixedFacilitiesAmount)
                 .addFormDataPart("AZBuildingArea", aZBuildingArea)
                 .addFormDataPart("JsonPattern", getTaoTypeJson(taoTypeList))
+                .addFormDataPart("OtherArea", otherArea)
+                .addFormDataPart("OverAuditArea", overAuditArea)
                 .addFormDataPart("AZTNArea", aZTNArea);
     }
 
@@ -219,5 +224,19 @@ public class PayChangeFragment extends BasePayFragment {
                     break;
             }
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

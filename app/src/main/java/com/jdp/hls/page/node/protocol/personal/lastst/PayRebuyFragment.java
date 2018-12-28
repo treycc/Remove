@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
@@ -16,14 +18,15 @@ import com.jdp.hls.page.node.protocol.personal.lastst.taotype.TaoTypeSelectActiv
 import com.jdp.hls.util.CalculateUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import okhttp3.MultipartBody;
 
 /**
@@ -69,6 +72,11 @@ public class PayRebuyFragment extends BasePayFragment {
     StringTextView tvTaoType;
     @BindView(R.id.ll_taoType)
     LinearLayout llTaoType;
+    @BindView(R.id.et_protocol_otherArea)
+    EnableEditText etProtocolOtherArea;
+    @BindView(R.id.et_protocol_overAuditArea)
+    EnableEditText etProtocolOverAuditArea;
+    Unbinder unbinder;
     private NodePersonalProtocol nodePersonalProtocol;
     private List<TaoType> taoTypeList;
 
@@ -128,6 +136,8 @@ public class PayRebuyFragment extends BasePayFragment {
         etFixedFacilitiesAmount.setString(nodePersonalProtocol.getFixedFacilitiesAmount());
         etAZBuildingArea.setString(nodePersonalProtocol.getAZBuildingArea());
         etAZTNArea.setString(nodePersonalProtocol.getAZTNArea());
+        etProtocolOtherArea.setString(nodePersonalProtocol.getOtherArea());
+        etProtocolOverAuditArea.setString(nodePersonalProtocol.getOverAuditArea());
 
 
         etPulledDownPayAmount.addTextChangedListener(calculateWatcher);
@@ -152,6 +162,8 @@ public class PayRebuyFragment extends BasePayFragment {
             }
         });
 
+        etProtocolOtherArea.setEnabled(allowEdit);
+        etProtocolOverAuditArea.setEnabled(allowEdit);
         etPulledDownPayAmount.setEnabled(allowEdit);
         etOtherFee.setEnabled(allowEdit);
         etTotalPurchasePrice.setEnabled(allowEdit);
@@ -182,6 +194,8 @@ public class PayRebuyFragment extends BasePayFragment {
         String fixedFacilitiesAmount = etFixedFacilitiesAmount.getText().toString().trim();
         String aZBuildingArea = etAZBuildingArea.getText().toString().trim();
         String aZTNArea = etAZTNArea.getText().toString().trim();
+        String otherArea = etProtocolOtherArea.getText().toString().trim();
+        String overAuditArea = etProtocolOverAuditArea.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("PulledDownPayAmount", pulledDownPayAmount)
                 .addFormDataPart("OtherFee", otherFee)
@@ -193,6 +207,8 @@ public class PayRebuyFragment extends BasePayFragment {
                 .addFormDataPart("FixedFacilitiesAmount", fixedFacilitiesAmount)
                 .addFormDataPart("AZBuildingArea", aZBuildingArea)
                 .addFormDataPart("JsonPattern", getTaoTypeJson(taoTypeList))
+                .addFormDataPart("OtherArea", otherArea)
+                .addFormDataPart("OverAuditArea", overAuditArea)
                 .addFormDataPart("AZTNArea", aZTNArea);
     }
 
@@ -223,5 +239,4 @@ public class PayRebuyFragment extends BasePayFragment {
             }
         }
     }
-
 }

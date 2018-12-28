@@ -34,9 +34,18 @@ public class DetailCompany {
     private double Latitude;
     private boolean IsAllowPublicity;
     private boolean IsAllowEdit;
+    private boolean IsUrgent;
     private List<ImgInfo> Files;
     private List<ImgInfo> ApprovalFiles;
     private List<ImgInfo> OtherFiles;
+
+    public boolean isUrgent() {
+        return IsUrgent;
+    }
+
+    public void setUrgent(boolean urgent) {
+        IsUrgent = urgent;
+    }
 
     public List<ImgInfo> getOtherFiles() {
         return OtherFiles;

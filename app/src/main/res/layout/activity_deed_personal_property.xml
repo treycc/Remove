@@ -14,7 +14,6 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
-
         <TextView
             style="@style/Title_Main"
             android:text="基本信息"/>
@@ -118,7 +117,7 @@
                 android:hint="请输入地址"/>
         </LinearLayout>
 
-    <include layout="@layout/layout_remark"/>
+        <include layout="@layout/layout_remark"/>
 
         <TextView
             style="@style/Title_Main"

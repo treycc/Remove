@@ -110,6 +110,8 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     TextView tvDetailBankAccount;
     @BindView(R.id.et_detail_vrUrl)
     EnableEditText etDetailVrUrl;
+    @BindView(R.id.switch_detail_isUrgent)
+    Switch switchDetailIsUrgent;
     private String buildingId;
     @Inject
     DetailPersonalPresenter detailPersonalPresenter;
@@ -127,6 +129,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private String mobile;
     private String cusCode;
     private String vrUrl;
+    private boolean isUrgent;
 
     @OnClick({R.id.rl_unrecordBuilding, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
             .ll_detail_immovableDeed, R.id.ll_detail_bankDeed})
@@ -216,6 +219,9 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         switchDetailPublicity.setOnCheckedChangeListener((buttonView, isChecked) -> {
             ifPublicity = isChecked;
         });
+        switchDetailIsUrgent.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            isUrgent = isChecked;
+        });
         switchDetailHasShop.setOnCheckedChangeListener((buttonView, isChecked) -> {
             hasShop = isChecked;
             llBusinessArea.setVisibility(hasShop ? View.VISIBLE : View.GONE);
@@ -234,6 +240,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         setContentTitle(detailPersonal.getAddress());
         socialRelation = politicalTitle == 0 ? 1 : politicalTitle;
         hasShop = detailPersonal.isShop();
+        isUrgent=detailPersonal.isUrgent();
         needHouse = detailPersonal.isNeedTempHouse();
         ifPublicity = detailPersonal.isAllowPublicity();
         etDetailcusCode.setText(detailPersonal.getCusCode());
@@ -251,6 +258,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         switchDetailHasShop.setChecked(hasShop);
         switchDetailNeedHouse.setChecked(detailPersonal.isNeedTempHouse());
         switchDetailPublicity.setChecked(detailPersonal.isAllowPublicity());
+        switchDetailIsUrgent.setChecked(isUrgent);
         spinnerDetailSocialRelation.setSelectItem(politicalTitle);
         llBusinessArea.setVisibility(hasShop ? View.VISIBLE : View.GONE);
         initLngLat(detailPersonal.getLongitude(), detailPersonal.getLatitude());
@@ -275,6 +283,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         switchDetailHasShop.setEnabled(allowEdit);
         switchDetailNeedHouse.setEnabled(allowEdit);
         switchDetailPublicity.setEnabled(allowEdit);
+        switchDetailIsUrgent.setEnabled(allowEdit);
         spinnerDetailSocialRelation.enable(allowEdit);
         lngLatFragment.setEditable(allowEdit);
         rvPhotoPreviewHouse.setData(detailPersonal.getFiles(), new FileConfig(Status.FileType
@@ -310,6 +319,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                 .addFormDataPart("HouseId", buildingId)
                 .addFormDataPart("CusCode", cusCode)
                 .addFormDataPart("IsShop", String.valueOf(hasShop))
+                .addFormDataPart("IsUrgent", String.valueOf(isUrgent))
                 .addFormDataPart("NeedTempHouse", String.valueOf(needHouse))
                 .addFormDataPart("BizUseArea", bizUseArea)
                 .addFormDataPart("Address", address)

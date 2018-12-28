@@ -202,6 +202,29 @@
 
 
         </LinearLayout>
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="加急"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+                <Switch
+                    android:id="@+id/switch_detail_isUrgent"
+                    style="@style/KSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="否"
+                    android:textOn="是"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
 
 
         <TextView
