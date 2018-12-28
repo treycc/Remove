@@ -6,7 +6,7 @@
 
     <TextView
         style="@style/Title_Main"
-        android:text="大建大美前照片"/>
+        android:text="改造前照片"/>
 
     <RelativeLayout
         style="@style/Content_LL_T12"
@@ -35,7 +35,7 @@
 
         <TextView
             style="@style/Title_Sub"
-            android:text="大建大美前VR"/>
+            android:text="全景VR"/>
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_oldVrUrl"
@@ -45,7 +45,7 @@
 
     <TextView
         style="@style/Title_Main"
-        android:text="大建大美后照片"/>
+        android:text="改造后照片"/>
 
     <RelativeLayout
         style="@style/Content_LL_T12"
@@ -74,7 +74,7 @@
 
         <TextView
             style="@style/Title_Sub"
-            android:text="大建大美后VR"/>
+            android:text="全景VR"/>
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_newVrUrl"

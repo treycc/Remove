@@ -79,10 +79,11 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_payList:
-                PayListActivity.goActivity(this,mBuildingId,mBuildingType,allowEdit);
+                PayListActivity.goActivity(this, mBuildingId, mBuildingType, allowEdit);
                 break;
         }
     }
+
     @Override
     public void initVariable() {
         super.initVariable();

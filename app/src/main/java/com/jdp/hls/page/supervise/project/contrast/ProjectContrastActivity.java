@@ -40,13 +40,13 @@ public class ProjectContrastActivity extends BaseTitleActivity implements Projec
     public void rl_protocol_otherArea(View view) {
         switch (view.getId()) {
             case R.id.rl_old_vr:
-                if (CheckUtil.checkEmpty(oldVrUrl, "大建大美前VR")) {
-                    VRDetailActivity.goActivity(this, oldVrUrl, "大建大美前VR");
+                if (CheckUtil.checkEmpty(oldVrUrl, "暂无全景VR")) {
+                    VRDetailActivity.goActivity(this, oldVrUrl, "全景VR");
                     break;
                 }
             case R.id.rl_new_vr:
-                if (CheckUtil.checkEmpty(newVrUrl, "大建大美后VR")) {
-                    VRDetailActivity.goActivity(this, newVrUrl, "大建大美后VR");
+                if (CheckUtil.checkEmpty(newVrUrl, "暂无全景VR")) {
+                    VRDetailActivity.goActivity(this, newVrUrl, "全景VR");
                     break;
                 }
                 break;
@@ -76,7 +76,7 @@ public class ProjectContrastActivity extends BaseTitleActivity implements Projec
 
     @Override
     protected String getContentTitle() {
-        return "大建大美前后对比";
+        return "改造前后对比";
     }
 
     @Override

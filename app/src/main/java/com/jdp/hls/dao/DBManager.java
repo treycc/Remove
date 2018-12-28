@@ -1,6 +1,5 @@
 package com.jdp.hls.dao;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jdp.hls.base.App;
@@ -86,7 +85,7 @@ public class DBManager {
 
     public void addArea(Area area) {
         AreaDao areaDao = getAreaDao();
-        areaDao.insert(area);
+        areaDao.insertOrReplace(area);
     }
 
     private AreaDao getAreaDao() {
