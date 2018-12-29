@@ -396,6 +396,7 @@
         <activity android:name=".page.supervise.statistics.total.taotype.StatisticsTaotypeListActivity"/>
         <activity android:name=".page.supervise.statistics.total.taotype.person.TaoTypePersonListActivity"/>
         <activity android:name=".page.supervise.statistics.total.pay.detaillist.StatisticsPayDetailListActivity"/>
+        <activity android:name=".page.business.detail.personal.branklist.BrankListActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

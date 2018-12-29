@@ -64,6 +64,20 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="建筑占地面积"/>
+
+            <com.jdp.hls.view.EnableEditText
+                style="@style/Content_ET_W2"
+                android:hint="请输入建筑占地面积"
+                android:inputType="numberDecimal"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
             style="@style/Content_LL_T0">

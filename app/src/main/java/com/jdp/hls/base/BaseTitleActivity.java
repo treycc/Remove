@@ -138,7 +138,7 @@ public abstract class BaseTitleActivity extends BaseActivity {
     }
 
     public void setContentTitle(String title) {
-        tvTitleTitle.setText(TextUtils.isEmpty(title)?"":title);
+        tvTitleTitle.setText(TextUtils.isEmpty(title) ? "" : title);
     }
 
     public void setMenuRes(int resId, View.OnClickListener onClickListener) {
@@ -194,9 +194,13 @@ public abstract class BaseTitleActivity extends BaseActivity {
     public abstract void initNet();
 
     protected <T> void setListView(List<T> list, ILvSetData<T> adapter) {
+        setListView(list, adapter, false);
+    }
+
+    protected <T> void setListView(List<T> list, ILvSetData<T> adapter, boolean editable) {
         if (list != null && list.size() > 0) {
             showSuccessCallback();
-            adapter.setData(list);
+            adapter.setData(list, editable);
         } else {
             showEmptyCallback();
         }

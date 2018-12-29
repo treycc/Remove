@@ -6,6 +6,7 @@ import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.AreaResult;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.BasicCompany;
+import com.jdp.hls.model.entiy.BrankListInfo;
 import com.jdp.hls.model.entiy.BusinessQuery;
 import com.jdp.hls.model.entiy.Company;
 import com.jdp.hls.model.entiy.ConfigCompany;
@@ -811,4 +812,9 @@ public interface ApiService {
     @GET("supervise/GetHousePayableList")
     Observable<HttpResult<PayOwnerListInfo>> getPayOwnList(@Query("BuildingType") int BuildingType, @Query
             ("UseItemId") int UseItemId);
+
+
+    /*银行卡-列表*/
+    @GET("supervise/GetBrankList")
+    Observable<HttpResult<BrankListInfo>> getBrankList(@Query("BuildingId") String buildingId);
 }

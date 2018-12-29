@@ -24,6 +24,7 @@ import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
 import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.page.business.detail.company.DetailCompanyActivity;
 import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
+import com.jdp.hls.page.business.detail.personal.branklist.BrankListActivity;
 import com.jdp.hls.page.business.list.BusinessListActivity;
 import com.jdp.hls.page.business.list.BusinessListFragment;
 import com.jdp.hls.page.crash.CrashActivity;
@@ -115,6 +116,7 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(BrankListActivity target);
     void inject(StatisticsPayDetailListActivity target);
     void inject(TaoTypePersonListActivity target);
 

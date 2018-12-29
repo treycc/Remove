@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.jdp.hls.i.ILvSetData;
+import com.jdp.hls.model.entiy.BrankInfo;
+import com.jdp.hls.model.entiy.OtherArea;
 import com.jdp.hls.model.entiy.UnRecordBuilding;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter implements ILvSetData
     protected static final String TAG = "PhotoPreviewAdapter";
     protected Context context;
     protected List<T> list;
+    protected boolean editable;
     protected int selectPosition = -1;
     protected OnItemOperListener onItemOperListener;
 
@@ -32,7 +35,13 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter implements ILvSetData
 
     @Override
     public void setData(List<T> list) {
+        setData(list, true);
+    }
+
+    @Override
+    public void setData(List<T> list, boolean editable) {
         this.list = list == null ? new ArrayList<>() : list;
+        this.editable = editable;
         selectPosition = -1;
         this.notifyDataSetChanged();
     }
@@ -102,6 +111,7 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter implements ILvSetData
 
     public interface OnItemOperListener<T> {
         void onItemDelete(T t, int position);
+
         void onItemClick(T item);
     }
 

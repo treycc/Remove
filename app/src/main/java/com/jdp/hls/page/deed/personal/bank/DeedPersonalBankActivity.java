@@ -1,22 +1,31 @@
 package com.jdp.hls.page.deed.personal.bank;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseDeedActivity;
+import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedPersonalBank;
+import com.jdp.hls.other.file.FileConfig;
+import com.jdp.hls.page.business.detail.personal.branklist.BrankListActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
+import com.jdp.hls.view.PreviewRecyclerView;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -26,7 +35,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedPersonalBankActivity extends BaseDeedActivity implements DeedPersonalBankContract.View {
+public class DeedPersonalBankActivity extends BaseTitleActivity implements DeedPersonalBankContract.View {
     @BindView(R.id.et_bankAccountName)
     EnableEditText etBankAccountName;
     @BindView(R.id.et_bankName)
@@ -37,10 +46,18 @@ public class DeedPersonalBankActivity extends BaseDeedActivity implements DeedPe
     EnableEditText etRemark;
     @Inject
     DeedPersonalBankPresenter deedPersonalBankPresenter;
+    @BindView(R.id.rv_photo_preview)
+    PreviewRecyclerView rvPhotoPreview;
     private String remark;
     private String bankAccount;
     private String bankName;
     private String bankAccountName;
+    private String id;
+
+    @Override
+    public void initVariable() {
+        id = getIntent().getStringExtra(Constants.Extra.ID);
+    }
 
     @Override
     protected int getContentView() {
@@ -67,19 +84,24 @@ public class DeedPersonalBankActivity extends BaseDeedActivity implements DeedPe
     }
 
     @Override
+    protected void initData() {
+
+    }
+
+    @Override
     public void initNet() {
-        if (mIsAdd) {
+        if (TextUtils.isEmpty(id)) {
             setRightClick("保存", addListener);
         } else {
             //获取接口
-            deedPersonalBankPresenter.getDeedPersonalBank(mBuildingId);
+            deedPersonalBankPresenter.getDeedPersonalBank(id);
         }
     }
 
     @NonNull
     private RequestBody getRequestBody() {
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("HouseId", mBuildingId)
+                .addFormDataPart("HouseId", "")
                 .addFormDataPart("BankAccountName", bankAccountName)
                 .addFormDataPart("BankName", bankName)
                 .addFormDataPart("BankAccount", bankAccount)
@@ -134,18 +156,22 @@ public class DeedPersonalBankActivity extends BaseDeedActivity implements DeedPe
         etRemark.setText(deedPersonalBank.getRemark());
         boolean allowEdit = deedPersonalBank.isAllowEdit();
         setEditable(allowEdit);
-        rvPhotoPreview.setData(deedPersonalBank.getFiles(), getFileConfig(), allowEdit);
+//        rvPhotoPreview.setData(deedPersonalBank.getFiles(), new FileConfig(Status.FileType.BANK,), allowEdit);
     }
 
     @Override
     public void onAddDeedPersonalBankSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(bankAccount, Status.FileType.BANK, Status.BuildingType
-                .PERSONAL));
+
     }
 
     @Override
     public void onModifyDeedPersonalBankSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(bankAccount, Status.FileType.BANK, Status.BuildingType
-                .PERSONAL));
+
+    }
+
+    public static void goActivity(Context context, String id) {
+        Intent intent = new Intent(context, DeedPersonalBankActivity.class);
+        intent.putExtra(Constants.Extra.ID, id);
+        context.startActivity(intent);
     }
 }

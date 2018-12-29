@@ -60,6 +60,30 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="12dp"
                     android:layout_weight="1"
+                    android:text="收款账号"/>
+
+                <com.jdp.hls.view.StringTextView
+                    style="@style/font_9_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:text="测试   66666666666666"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/font_6_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1"
                     android:text="支付日期"/>
 
                 <com.jdp.hls.view.StringTextView
@@ -98,57 +122,57 @@
             </LinearLayout>
 
 
-                <LinearLayout
-                    android:id="@+id/ll_limitDate"
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/ll_limitDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/font_6_12"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1"
+                    android:text="时限"/>
 
-                    <TextView
-                        style="@style/font_6_12"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="12dp"
-                        android:layout_weight="1"
-                        android:text="时限"/>
-
-                    <com.jdp.hls.view.StringTextView
-                        android:id="@+id/tv_limitDate"
-                        style="@style/font_9_12"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:text="2018-10-22至2018-10-25"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_isDouble"
-                    android:layout_width="match_parent"
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_limitDate"
+                    style="@style/font_9_12"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal">
+                    android:layout_weight="2.5"
+                    android:text="2018-10-22至2018-10-25"/>
 
-                    <TextView
-                        style="@style/font_6_12"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="12dp"
-                        android:layout_weight="1"
-                        android:text="是否翻倍"/>
+            </LinearLayout>
 
-                    <com.jdp.hls.view.StringTextView
-                        android:id="@+id/tv_isDouble"
-                        style="@style/font_9_12"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:text="否"/>
+            <LinearLayout
+                android:id="@+id/ll_isDouble"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
 
-                </LinearLayout>
+                <TextView
+                    style="@style/font_6_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="1"
+                    android:text="是否翻倍"/>
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_isDouble"
+                    style="@style/font_9_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:text="否"/>
+
+            </LinearLayout>
 
 
             <LinearLayout

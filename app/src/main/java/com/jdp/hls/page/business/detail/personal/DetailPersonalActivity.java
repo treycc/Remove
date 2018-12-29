@@ -25,7 +25,7 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailPersonal;
 import com.jdp.hls.other.file.FileConfig;
-import com.jdp.hls.page.deed.personal.bank.DeedPersonalBankActivity;
+import com.jdp.hls.page.business.detail.personal.branklist.BrankListActivity;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
@@ -154,9 +154,10 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                         .isEmpty(immovableNum));
                 break;
             case R.id.ll_detail_bankDeed:
-                String bankAccount = tvDetailBankAccount.getText().toString().trim();
-                goDeedActivity(DeedPersonalBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
-                        (bankAccount));
+//                String bankAccount = tvDetailBankAccount.getText().toString().trim();
+//                goDeedActivity(DeedPersonalBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
+//                        (bankAccount));
+                BrankListActivity.goActivity(this, buildingId);
                 break;
         }
     }
@@ -240,7 +241,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         setContentTitle(detailPersonal.getAddress());
         socialRelation = politicalTitle == 0 ? 1 : politicalTitle;
         hasShop = detailPersonal.isShop();
-        isUrgent=detailPersonal.isUrgent();
+        isUrgent = detailPersonal.isUrgent();
         needHouse = detailPersonal.isNeedTempHouse();
         ifPublicity = detailPersonal.isAllowPublicity();
         etDetailcusCode.setText(detailPersonal.getCusCode());

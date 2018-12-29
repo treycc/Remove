@@ -38,7 +38,7 @@
                     android:text="姓名"/>
 
                 <com.jdp.hls.view.StringTextView
-                    android:id="@+id/tv_useItemName"
+                    android:id="@+id/tv_realName"
                     style="@style/font_9_15"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                     android:text="银行账号"/>
 
                 <com.jdp.hls.view.StringTextView
-                    android:id="@+id/tv_payDate"
+                    android:id="@+id/tv_bankAccount"
                     style="@style/font_9_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

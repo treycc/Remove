@@ -21,6 +21,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter implements ILvSetData
     protected final String TAG = getClass().getSimpleName();
     protected LayoutInflater mInflater;
     protected Context mContext;
+    protected boolean mEditable;
     protected List<T> mDatas;
     protected final int mItemLayoutId;
 
@@ -79,8 +80,15 @@ public abstract class CommonAdapter<T> extends BaseAdapter implements ILvSetData
                 position);
     }
 
+
     @Override
     public void setData(List<T> list) {
+        setData(list, true);
+    }
+
+    @Override
+    public void setData(List<T> list, boolean editable) {
+        this.mEditable = editable;
         this.mDatas = (list==null?new ArrayList<>():list);
         notifyDataSetChanged();
     }

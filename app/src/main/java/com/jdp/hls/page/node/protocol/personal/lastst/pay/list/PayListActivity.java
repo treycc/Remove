@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -18,7 +17,6 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.AddPayEvent;
 import com.jdp.hls.model.entiy.ModifyPayEvent;
 import com.jdp.hls.model.entiy.PayItem;
-import com.jdp.hls.page.airphoto.unrecordbuilding.UnrecordBuildingListActivity;
 import com.jdp.hls.page.node.protocol.personal.lastst.pay.detail.PayDetailActivity;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.LogUtil;
@@ -37,8 +35,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
-import okhttp3.MultipartBody;
 
 /**
  * Description:TODO
@@ -127,9 +123,8 @@ public class PayListActivity extends BaseTitleActivity implements PayListContrac
             @Override
             public void onItemDelete(PayItem item, int position) {
                 DialogUtil.showDoubleDialog(PayListActivity.this, "是否确定删除该项?", (dialog, which) -> {
-                    payListPresenter.deletePay(item.getId(),item);
+                    payListPresenter.deletePay(item.getId(), item);
                 });
-
             }
 
             @Override

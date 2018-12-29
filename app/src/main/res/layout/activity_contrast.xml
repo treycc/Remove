@@ -96,7 +96,7 @@
 
     <TextView
         style="@style/Title_Main"
-        android:text="现房平面照片"/>
+        android:text="现房平面图"/>
 
     <RelativeLayout
         style="@style/Content_LL_T12"

@@ -9,6 +9,8 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public  interface ILvSetData<T> {
+public interface ILvSetData<T> {
     void setData(List<T> list);
+
+    void setData(List<T> list, boolean editable);
 }
