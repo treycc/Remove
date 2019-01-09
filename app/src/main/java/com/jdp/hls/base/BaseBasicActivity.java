@@ -12,6 +12,7 @@ import com.jdp.hls.model.entiy.Auth;
 import com.jdp.hls.page.operate.back.BackDialog;
 import com.jdp.hls.page.operate.delete.DeleteDialog;
 import com.jdp.hls.page.operate.recover.RecoverDialog;
+import com.jdp.hls.page.operate.reminder.ReminderDialog;
 import com.jdp.hls.page.operate.review.ReviewDialog;
 import com.jdp.hls.page.operate.send.SendDialog;
 import com.jdp.hls.util.NoDoubleClickListener;
@@ -39,6 +40,8 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     protected LinearLayout llNodeDelete;
     @BindView(R.id.ll_node_recover)
     protected LinearLayout llNodeRecover;
+    @BindView(R.id.ll_node_reminder)
+    protected LinearLayout llNodeReminder;
     @BindView(R.id.ll_node_operateBar)
     protected LinearLayout llNodeOperateBar;
     private SendDialog sendDialog;
@@ -47,6 +50,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     private ReviewDialog reviewDialog;
     private Auth auth;
     private RecoverDialog recoverDialog;
+    private ReminderDialog reminderDialog;
 
     @Override
     public abstract void initVariable();
@@ -85,7 +89,8 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
         boolean allowReview = auth.isAllowReview();
         boolean allowFlowBack = auth.isAllowFlowBack();
         boolean allowRecover = auth.isAllowRecover();
-        if (allowSend || allowBanned || allowFlowBack || allowReview || allowRecover) {
+        boolean allowReminder = auth.isAllowReminder();
+        if (allowSend || allowBanned || allowFlowBack || allowReview || allowRecover || allowReminder) {
             llNodeOperateBar.setVisibility(View.VISIBLE);
         } else {
             llNodeOperateBar.setVisibility(View.GONE);
@@ -95,6 +100,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
         llNodeReview.setVisibility(allowReview ? View.VISIBLE : View.GONE);
         llNodeBack.setVisibility(allowFlowBack ? View.VISIBLE : View.GONE);
         llNodeRecover.setVisibility(allowRecover ? View.VISIBLE : View.GONE);
+        llNodeReminder.setVisibility(allowReminder ? View.VISIBLE : View.GONE);
         if (allowSend) {
             initSendDialog();
         }
@@ -110,6 +116,26 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
         if (allowRecover) {
             initRecoverDialog();
         }
+        if (allowReminder) {
+            initReminderDialog();
+        }
+    }
+
+    private void initReminderDialog() {
+        reminderDialog = new ReminderDialog(BaseBasicActivity.this);
+        reminderDialog.setOnOperateConfirmListener(requestBody -> {
+            onReminderNode(requestBody, reminderDialog.getBuildingId());
+        });
+        llNodeReminder.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                if (TextUtils.isEmpty(reminderDialog.getBuildingId())) {
+                    ToastUtil.showText("请选择催办业务");
+                    return;
+                }
+                reminderDialog.show();
+            }
+        });
     }
 
     private void initRecoverDialog() {
@@ -145,7 +171,6 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
             }
         });
     }
-
 
     private void initBackDialog() {
         backDialog = new BackDialog(BaseBasicActivity.this);
@@ -204,6 +229,7 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
         boolean allowReview = auth.isAllowReview();
         boolean allowFlowBack = auth.isAllowFlowBack();
         boolean allowRecover = auth.isAllowRecover();
+        boolean allowReminder = auth.isAllowReminder();
         if (allowSend) {
             sendDialog.setData(buildingId, buildingType, stastusId, groupId);
         }
@@ -218,6 +244,9 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
         }
         if (allowRecover) {
             recoverDialog.setData(buildingId, buildingType, stastusId, groupId);
+        }
+        if (allowReminder) {
+            reminderDialog.setData(buildingId, buildingType, stastusId, groupId);
         }
     }
 
@@ -235,6 +264,8 @@ public abstract class BaseBasicActivity extends BaseTitleActivity {
     protected abstract void onDeleteNode(RequestBody requestBody, String buildingIds);
 
     protected abstract void onRecoverNode(RequestBody requestBody, String buildingIds);
+
+    protected abstract void onReminderNode(RequestBody requestBody, String buildingIds);
 
     protected void onOperateSuccess(String msg, String buildingIds) {
         EventBus.getDefault().post(new RefreshBusinessListEvent(buildingIds));

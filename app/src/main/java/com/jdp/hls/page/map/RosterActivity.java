@@ -4,7 +4,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -12,14 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.LocationSource;
-import com.amap.api.maps.MapView;
 import com.amap.api.maps.TextureMapView;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
@@ -39,6 +32,7 @@ import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.util.AppUtil;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.LatLngUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SoftKeyboardUtil;
@@ -56,7 +50,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Description:花名册
@@ -154,7 +147,7 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
 
     @Override
     protected int getContentView() {
-        return R.layout.fragment_map;
+        return R.layout.activity_roster;
     }
 
 
@@ -240,10 +233,9 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
     private void showAllRostersOnMap(List<Roster> rosters) {
         LatLngBounds.Builder newbounds = new LatLngBounds.Builder();
         for (Roster roster : rosters) {
-            if (roster.getLatitude() <= 0 || roster.getLongitude() <= 0) {
-                continue;
+            if (LatLngUtil.isChinaLatLng(roster.getLatitude(), roster.getLongitude())) {
+                newbounds.include(new LatLng(roster.getLatitude(), roster.getLongitude()));
             }
-            newbounds.include(new LatLng(roster.getLatitude(), roster.getLongitude()));
         }
         mAMap.animateCamera(CameraUpdateFactory.newLatLngBounds(newbounds.build(),
                 AppUtil.dp2px(24)));//第二个参数为四周留空宽度
@@ -274,10 +266,9 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
     private void drawRostersOnMap(List<Roster> rosters) {
         mAMap.clear();
         for (Roster roster : rosters) {
-            if (roster.getLatitude() <= 0 || roster.getLongitude()<= 0) {
-                continue;
+            if (LatLngUtil.isChinaLatLng(roster.getLatitude(), roster.getLongitude())) {
+                setMarket(roster);
             }
-            setMarket(roster);
         }
         mMapView.invalidate();
     }

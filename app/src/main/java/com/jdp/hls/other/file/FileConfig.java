@@ -12,12 +12,30 @@ public class FileConfig implements Serializable {
     private int fileType;
     private String buildingId;
     private String buildingType;
+    private String masterId;
     private boolean editable;
 
+    public String getMasterId() {
+        return null == masterId ? "" : masterId;
+    }
+
+    public void setMasterId(String masterId) {
+        this.masterId = masterId;
+    }
+
     public FileConfig(int fileType, String buildingId, String buildingType, boolean editable) {
+        this(fileType, buildingId, buildingType, "", editable);
+    }
+
+    public FileConfig(int fileType, String buildingId, String buildingType, String masterId) {
+        this(fileType, buildingId, buildingType, masterId, false);
+    }
+
+    public FileConfig(int fileType, String buildingId, String buildingType, String masterId, boolean editable) {
         this.fileType = fileType;
         this.buildingId = buildingId;
         this.buildingType = buildingType;
+        this.masterId = masterId;
         this.editable = editable;
     }
 
@@ -30,10 +48,11 @@ public class FileConfig implements Serializable {
     }
 
     public FileConfig(int fileType, String buildingId, String buildingType) {
-        this.fileType =fileType ;
+        this.fileType = fileType;
         this.buildingId = buildingId;
         this.buildingType = buildingType;
     }
+
 
     public int getFileType() {
         return fileType;

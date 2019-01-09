@@ -25,7 +25,7 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailPersonal;
 import com.jdp.hls.other.file.FileConfig;
-import com.jdp.hls.page.business.detail.personal.branklist.BrankListActivity;
+import com.jdp.hls.page.business.detail.personal.branklist.BankListActivity;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
@@ -157,7 +157,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
 //                String bankAccount = tvDetailBankAccount.getText().toString().trim();
 //                goDeedActivity(DeedPersonalBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
 //                        (bankAccount));
-                BrankListActivity.goActivity(this, buildingId);
+                BankListActivity.goActivity(this, buildingId);
                 break;
         }
     }
@@ -254,7 +254,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         tvDetailPropertyDeed.setText(detailPersonal.getPropertyCertNum());
         tvDetailLandDeed.setText(detailPersonal.getLandCertNum());
         tvDetailImmovableDeed.setText(detailPersonal.getEstateCertNum());
-        tvDetailBankAccount.setText(detailPersonal.getBankAccount());
+//        tvDetailBankAccount.setText(detailPersonal.getBankAccount());
         etDetailRemark.setText(detailPersonal.getRemark());
         switchDetailHasShop.setChecked(hasShop);
         switchDetailNeedHouse.setChecked(detailPersonal.isNeedTempHouse());
@@ -346,6 +346,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         businessEvent.setMobile(mobile);
         businessEvent.setRealName(realName);
         businessEvent.setBuildingId(buildingId);
+        businessEvent.setUrgent(isUrgent);
         businessEvent.setVRUrl(vrUrl);
         EventBus.getDefault().post(businessEvent);
         showSuccessDialogAndFinish("保存成功");

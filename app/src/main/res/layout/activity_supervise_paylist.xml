@@ -9,6 +9,11 @@
 
     <include layout="@layout/layout_search_white"/>
 
+    <com.jdp.hls.view.RefreshSwipeRefreshLayout
+        android:id="@+id/rsrl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
     <ListView
         android:id="@+id/lv"
         android:layout_width="match_parent"
@@ -18,7 +23,7 @@
         android:dividerHeight="1px"
         android:listSelector="@android:color/transparent"
         tools:listitem="@layout/item_pay"/>
-
+    </com.jdp.hls.view.RefreshSwipeRefreshLayout>
     <View style="@style/div_hor_gray_6"/>
 
     <LinearLayout

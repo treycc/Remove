@@ -17,6 +17,6 @@ public interface StatisticsProgressInfoContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getStatisticsProgress(String projectId, int buildingType);
+        void getStatisticsProgress(int buildingType);
     }
 }

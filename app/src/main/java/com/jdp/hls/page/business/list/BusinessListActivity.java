@@ -18,6 +18,7 @@ import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.RefreshBusinessListEvent;
+import com.jdp.hls.event.RefreshReminderEvent;
 import com.jdp.hls.event.RefreshTaskEvent;
 import com.jdp.hls.i.OnBusinessItemSelectedListener;
 import com.jdp.hls.injector.component.AppComponent;
@@ -223,6 +224,11 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     }
 
     @Override
+    protected void onReminderNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.reminderNode(requestBody, buildingIds);
+    }
+
+    @Override
     public void onGetBusinessSuccess(TaskInfo taskInfo) {
         businesses = taskInfo.getMyTaskList();
         boolean checkable = getCheckable(taskInfo.getAuth());
@@ -307,6 +313,14 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     }
 
     @Override
+    public void onReminderNodeSuccess(String buildingIds) {
+        ToastUtil.showText("催办成功");
+        //TODO 列表体现催办UI
+        LogUtil.e(TAG,"buildingIds:"+buildingIds);
+        EventBus.getDefault().post(new RefreshReminderEvent(buildingIds));
+    }
+
+    @Override
     protected void onOperateSuccess(String msg, String buildingIds) {
         ToastUtil.showText(msg);
         refreshBusiness(buildingIds);
@@ -314,7 +328,6 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
     }
 
     private Set<Business> selectedBusinessList = new HashSet<>();
-
 
     public void setRefreshDialogDate() {
         StringBuilder buildingIdsSb = new StringBuilder();

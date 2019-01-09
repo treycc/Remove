@@ -23,6 +23,24 @@ public class Business implements Serializable {
     private boolean IsFlowBack;
     private boolean HasLongitudeAndLatitude;
     private boolean selected;
+    private boolean IsUrgent;
+    private boolean IsReminder;
+
+    public boolean isUrgent() {
+        return IsUrgent;
+    }
+
+    public void setUrgent(boolean urgent) {
+        IsUrgent = urgent;
+    }
+
+    public boolean isReminder() {
+        return IsReminder;
+    }
+
+    public void setReminder(boolean reminder) {
+        IsReminder = reminder;
+    }
 
     public String getCusCode() {
         return CusCode;

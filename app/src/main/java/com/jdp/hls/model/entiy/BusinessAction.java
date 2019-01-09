@@ -16,10 +16,19 @@ public class BusinessAction {
 
     private int ActionId;
     private String ActionName;
+    private String ActionPicUrl;
     private int Sort;
     private int ActionType;
     private int StatisId;
     private boolean IsAvailable;
+
+    public String getActionPicUrl() {
+        return null == ActionPicUrl ? "" : ActionPicUrl;
+    }
+
+    public void setActionPicUrl(String actionPicUrl) {
+        ActionPicUrl = actionPicUrl;
+    }
 
     public int getStatisId() {
         return StatisId;

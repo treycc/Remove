@@ -52,14 +52,15 @@
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_bankAccount"
             style="@style/Content_ET_W2"
-            android:hint="请输入银行卡卡号"/>
+            android:hint="请输入银行卡卡号"
+            android:inputType="number"/>
     </LinearLayout>
 
     <TextView
         style="@style/Title_Main"
         android:text="银行卡照片"/>
 
-    <include layout="@layout/layout_photo_preview"/>
+    <include layout="@layout/layout_addable_photo_preview"/>
 
 
     <include layout="@layout/layout_remark_title"/>

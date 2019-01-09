@@ -72,6 +72,7 @@ public class PayAdapter extends BaseSearchAdapter<PayItem> {
             tempViewHolder.tv_limitDate.setString(payItem.getLimitStartDate() + "至" + payItem.getLimitEndDate());
             tempViewHolder.tv_isDouble.setString(payItem.isIsDouble() ? "是" : "否");
             tempViewHolder.tv_remark.setString(payItem.getRemark());
+            tempViewHolder.tv_receiveAccount.setString(payItem.getBankAccountName()+"  "+payItem.getBankAccount());
             tempViewHolder.tv_delete.setOnClickListener(v -> {
                 if (onItemOperListener != null) {
                     onItemOperListener.onItemDelete(payItem, position);
@@ -90,6 +91,7 @@ public class PayAdapter extends BaseSearchAdapter<PayItem> {
             viewHolder.tv_payDate.setString(payItem.getPayDate());
             viewHolder.tv_amount.setString(payItem.getAmount());
             viewHolder.tv_remark.setString(payItem.getRemark());
+            viewHolder.tv_receiveAccount.setString(payItem.getBankAccountName()+"  "+payItem.getBankAccount());
             viewHolder.tv_delete.setOnClickListener(v -> {
                 if (onItemOperListener != null) {
                     onItemOperListener.onItemDelete(payItem, position);
@@ -122,6 +124,9 @@ public class PayAdapter extends BaseSearchAdapter<PayItem> {
     public void modifySearchItem(PayItem payItem) {
         for (PayItem item : resultList) {
             if (item.getId() == payItem.getId()) {
+                item.setRecBankAccountId(payItem.getRecBankAccountId());
+                item.setBankAccountName(payItem.getBankAccountName());
+                item.setBankAccount(payItem.getBankAccount());
                 item.setAmount(payItem.getAmount());
                 item.setPayDate(payItem.getPayDate());
                 item.setUseItemName(payItem.getUseItemName());
@@ -143,6 +148,7 @@ public class PayAdapter extends BaseSearchAdapter<PayItem> {
         public StringTextView tv_limitDate;
         public StringTextView tv_isDouble;
         public StringTextView tv_remark;
+        public StringTextView tv_receiveAccount;
         public TextView tv_delete;
         public DrawHelperLayout drawHelperLayout;
 
@@ -156,6 +162,7 @@ public class PayAdapter extends BaseSearchAdapter<PayItem> {
             tv_remark = root.findViewById(R.id.tv_remark);
             drawHelperLayout = root.findViewById(R.id.drawHelperLayout);
             tv_delete = root.findViewById(R.id.tv_delete);
+            tv_receiveAccount = root.findViewById(R.id.tv_receiveAccount);
         }
     }
 
@@ -167,6 +174,7 @@ public class PayAdapter extends BaseSearchAdapter<PayItem> {
         public StringTextView tv_remark;
         public StringTextView tv_limitDate;
         public StringTextView tv_isDouble;
+        public StringTextView tv_receiveAccount;
         public TextView tv_delete;
         public LinearLayout ll_tempPlacementFee;
         public DrawHelperLayout drawHelperLayout;
@@ -182,6 +190,7 @@ public class PayAdapter extends BaseSearchAdapter<PayItem> {
             ll_tempPlacementFee = root.findViewById(R.id.ll_tempPlacementFee);
             drawHelperLayout = root.findViewById(R.id.drawHelperLayout);
             tv_delete = root.findViewById(R.id.tv_delete);
+            tv_receiveAccount = root.findViewById(R.id.tv_receiveAccount);
         }
     }
 }

@@ -79,6 +79,27 @@
                 android:text="复查"/>
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_node_reminder"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="6dp"
+                android:background="@mipmap/ic_reminder"/>
+
+            <TextView
+                android:textColor="@color/node_reminder"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="催办"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_node_delete"

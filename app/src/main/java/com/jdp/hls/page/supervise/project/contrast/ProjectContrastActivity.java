@@ -1,6 +1,5 @@
 package com.jdp.hls.page.supervise.project.contrast;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.jdp.hls.R;
@@ -15,7 +14,6 @@ import com.jdp.hls.view.PreviewRecyclerView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -31,12 +29,12 @@ public class ProjectContrastActivity extends BaseTitleActivity implements Projec
     PreviewRecyclerView rvPhotoPreviewOld;
     @BindView(R.id.rv_photo_preview_new)
     PreviewRecyclerView rvPhotoPreviewNew;
-    @BindView(R.id.rv_photo_preview_house_ichnography)
-    PreviewRecyclerView rvPhotoPreviewHouseIchnography;
+    @BindView(R.id.rv_photo_preview_newHouseVRUrl)
+    PreviewRecyclerView rvPhotoPreviewNewHouseVRUrl;
 
     private String oldVrUrl;
     private String newVrUrl;
-    private String houseIchnographyVrUrl;
+    private String newHouseVRUrl;
 
     @OnClick({R.id.rl_old_vr, R.id.rl_new_vr, R.id.rl_house_ichnography})
     public void rl_protocol_otherArea(View view) {
@@ -52,8 +50,8 @@ public class ProjectContrastActivity extends BaseTitleActivity implements Projec
                     break;
                 }
             case R.id.rl_house_ichnography:
-                if (CheckUtil.checkEmpty(houseIchnographyVrUrl, "暂无全景VR")) {
-                    VRDetailActivity.goActivity(this, houseIchnographyVrUrl, "现房VR");
+                if (CheckUtil.checkEmpty(newHouseVRUrl, "暂无全景VR")) {
+                    VRDetailActivity.goActivity(this, newHouseVRUrl, "现房全景VR");
                     break;
                 }
                 break;
@@ -105,10 +103,10 @@ public class ProjectContrastActivity extends BaseTitleActivity implements Projec
     public void onGetProjectPhotoSuccess(ProjectFacade projectFacade) {
         rvPhotoPreviewOld.setData(projectFacade.getOldFiles());
         rvPhotoPreviewNew.setData(projectFacade.getNewFiles());
-        rvPhotoPreviewHouseIchnography.setData(projectFacade.getHouseIchnographyFiles());
+        rvPhotoPreviewNewHouseVRUrl.setData(projectFacade.getHousePlaneFiles());
         oldVrUrl = projectFacade.getOldVRUrl();
         newVrUrl = projectFacade.getNewVRUrl();
-        houseIchnographyVrUrl = projectFacade.getHouseIchnographyVRUrl();
+        newHouseVRUrl = projectFacade.getNewHouseVRUrl();
     }
 
     @Override

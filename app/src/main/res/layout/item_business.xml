@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="@color/white_hi"
               android:orientation="horizontal"
               android:paddingBottom="12dp"
@@ -29,28 +30,13 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_business_address"
+                style="@style/font_3_15"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/tv_business_address"
-                    style="@style/font_3_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="高二路"/>
-
-                <ImageView
-                    android:id="@+id/iv_business_isBack"
-                    android:layout_width="24dp"
-                    android:layout_height="16dp"
-                    android:background="@mipmap/ic_return_label"/>
-
-
-            </LinearLayout>
+                android:text="高二路"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,25 +103,81 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    style="@style/font_9_12"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="办理节点:"/>
+                    android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/tv_business_node"
-                    style="@style/font_9_12"
+                    <TextView
+                        style="@style/font_9_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text="办理节点:"/>
+
+                    <TextView
+                        android:id="@+id/tv_business_node"
+                        style="@style/font_9_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text=""/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text=""/>
+                    android:layout_height="wrap_content">
+
+                    <com.kingja.supershapeview.view.SuperShapeTextView
+                        android:visibility="gone"
+                        android:layout_marginLeft="12dp"
+                        android:gravity="center"
+                        android:id="@+id/set_business_isBack"
+                        style="@style/font_red_10"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:singleLine="true"
+                        android:text="退"
+                        app:super_cornerRadius="18dp"
+                        app:super_strokeColor="@color/red_hi"
+                        app:super_strokeWidth="1dp"/>
+                    <com.kingja.supershapeview.view.SuperShapeTextView
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:layout_marginLeft="12dp"
+                        android:id="@+id/set_business_isReminder"
+                        style="@style/font_orange_10"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:singleLine="true"
+                        android:text="催"
+                        app:super_cornerRadius="18dp"
+                        app:super_strokeColor="@color/orange"
+                        app:super_strokeWidth="1dp"/>
+                    <com.kingja.supershapeview.view.SuperShapeTextView
+                        android:visibility="gone"
+                        android:gravity="center"
+                        android:layout_marginLeft="12dp"
+                        android:id="@+id/set_business_isUrgent"
+                        style="@style/font_main_10"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:singleLine="true"
+                        android:text="急"
+                        app:super_cornerRadius="18dp"
+                        app:super_strokeColor="@color/main"
+                        app:super_strokeWidth="1dp"/>
+
+                </LinearLayout>
+
+
 
             </LinearLayout>
+
+
 
 
         </LinearLayout>

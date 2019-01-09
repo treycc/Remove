@@ -5,8 +5,9 @@ import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.AreaResult;
 import com.jdp.hls.model.entiy.BaiscPersonal;
+import com.jdp.hls.model.entiy.BankInfo;
 import com.jdp.hls.model.entiy.BasicCompany;
-import com.jdp.hls.model.entiy.BrankListInfo;
+import com.jdp.hls.model.entiy.BankListInfo;
 import com.jdp.hls.model.entiy.BusinessQuery;
 import com.jdp.hls.model.entiy.Company;
 import com.jdp.hls.model.entiy.ConfigCompany;
@@ -50,6 +51,7 @@ import com.jdp.hls.model.entiy.Notification;
 import com.jdp.hls.model.entiy.OtherArea;
 import com.jdp.hls.model.entiy.PayItem;
 import com.jdp.hls.model.entiy.PayOwnerListInfo;
+import com.jdp.hls.model.entiy.PaySchemeInfo;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.ProjectFacade;
@@ -69,7 +71,6 @@ import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.StatisticsDetail;
 import com.jdp.hls.model.entiy.StatisticsProgressDetail;
 import com.jdp.hls.model.entiy.StatisticsProgressInfo;
-import com.jdp.hls.model.entiy.StatisticsTotalInfo;
 import com.jdp.hls.model.entiy.SupervisePayDetailInfo;
 import com.jdp.hls.model.entiy.SupervisePayInfo;
 import com.jdp.hls.model.entiy.Table;
@@ -315,15 +316,15 @@ public interface ApiService {
 
     /*个人银行信息-获取*/
     @GET("cert/GetHouseOpenAccountCert")
-    Observable<HttpResult<DeedPersonalBank>> getDeedPersonalBank(@Query("houseId") String houseId);
+    Observable<HttpResult<DeedPersonalBank>> getDeedPersonalBank(@Query("Id") String id);
 
     /*个人银行信息-修改*/
     @POST("cert/UpdateHouseOpenAccountCert")
-    Observable<HttpResult<Object>> modifyDeedPersonalBank(@Body RequestBody rosterBody);
+    Observable<HttpResult<BankInfo>> modifyDeedPersonalBank(@Body RequestBody rosterBody);
 
     /*个人银行信息-创建*/
     @POST("cert/AddHouseOpenAccountCert")
-    Observable<HttpResult<Object>> addDeedPersonalBank(@Body RequestBody rosterBody);
+    Observable<HttpResult<BankInfo>> addDeedPersonalBank(@Body RequestBody rosterBody);
 
 
     /*======================企业证件======================*/
@@ -727,8 +728,7 @@ public interface ApiService {
 
     /*进度统计-主页(监管系统)*/
     @GET("supervise/GetProgressStatistics")
-    Observable<HttpResult<StatisticsProgressInfo>> getStatisticsProgress(@Query("ProjectId") String projectId,
-                                                                         @Query("BuildingType") int buildingType);
+    Observable<HttpResult<StatisticsProgressInfo>> getStatisticsProgress(@Query("BuildingType") int buildingType);
 
     /*进度统计-详情(监管系统)*/
     @GET("supervise/GetProgressDetail")
@@ -813,8 +813,25 @@ public interface ApiService {
     Observable<HttpResult<PayOwnerListInfo>> getPayOwnList(@Query("BuildingType") int BuildingType, @Query
             ("UseItemId") int UseItemId);
 
-
     /*银行卡-列表*/
-    @GET("supervise/GetBrankList")
-    Observable<HttpResult<BrankListInfo>> getBrankList(@Query("BuildingId") String buildingId);
+    @GET("cert/GetHouseOpenAccountList")
+    Observable<HttpResult<BankListInfo>> getBrankList(@Query("houseId") String houseId);
+
+    /*节点-催办*/
+    @POST("workflow/FlowReminder")
+    Observable<HttpResult<Object>> reminderNode(@Body RequestBody requestBody);
+
+    /*补偿方案-修改*/
+    @POST("project/UpdateCompensationScheme")
+    Observable<HttpResult<Object>> savePayScheme(@Body RequestBody requestBody);
+
+    /*补偿方案-获取*/
+    @GET("project/GetCompensationScheme")
+    Observable<HttpResult<PaySchemeInfo>> getPayScheme(@Query("projectId") String projectId);
+
+    /*删除银行卡账号*/
+    @FormUrlEncoded
+    @POST("cert/DeleteHouseOpenAccountCert")
+    Observable<HttpResult<Object>> deleteBankInfo( @Field("IDs") String mobile);
+
 }

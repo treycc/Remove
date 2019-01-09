@@ -1,5 +1,7 @@
 package com.jdp.hls.constant;
 
+import com.jdp.hls.util.EncryptUtil;
+
 /**
  * 项目名称：
  * 类描述：TODO
@@ -8,8 +10,8 @@ package com.jdp.hls.constant;
  * 修改备注：
  */
 public class Constants {
-    public static final String BASE_URL = "http://192.168.0.2:8080/";//本地
-//    public static final String BASE_URL = "http://192.168.0.5:8081/";//服务器
+//    public static final String BASE_URL = "http://192.168.0.2:8080/";//本地
+    public static final String BASE_URL = "http://192.168.0.5:8081/";//服务器
 //    public static final String BASE_URL = "http://api.fwzspt.cn/";//外网
 
     public static final int PAGE_SIZE = 20;
@@ -53,6 +55,7 @@ public class Constants {
         int TaoTypeListAdd = 19;
         int SuperviseProjectList = 20;
         int TaoTypeSelect = 21;
+        int ReceiveAccount = 22;
     }
 
     public interface MapSetting {
@@ -150,6 +153,8 @@ public class Constants {
         String Object = "Object";
         String Key = "Key";
         String Value = "value";
+        String ReceiveAccount = "ReceiveAccount";
+        String RecBankAccountId = "RecBankAccountId";
     }
 
     public interface AirPhotoType {
@@ -159,5 +164,16 @@ public class Constants {
         String DONE = "1";
         /*办结*/
         String FINISH = "2";
+    }
+
+    public static void main(String[] args) {
+        long l = System.currentTimeMillis();
+
+        System.out.println(l);
+        long l1 = l + 25  * 60 * 60 * 1000l;
+        String name = EncryptUtil.getSignature(l1, "bc7cdf2b5a8c48d7b5b32203974186b3");
+
+        System.out.println(l1);
+        System.out.println(name);
     }
 }

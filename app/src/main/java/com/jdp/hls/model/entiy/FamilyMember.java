@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class FamilyMember implements Serializable{
+public class FamilyMember implements Serializable {
 
     /**
      * PersonId : 96e1b34c-3da9-4b93-90c6-02bf7403545b
@@ -27,7 +27,6 @@ public class FamilyMember implements Serializable{
      * IsEnterprisePrincipal : False
      * IsLegalPerson : False
      */
-
     private String PersonId;
     private String RealName;
     private boolean Gender;
@@ -44,6 +43,15 @@ public class FamilyMember implements Serializable{
     private String IsEnterprisePrincipal;
     private String IsLegalPerson;
     private String BookletNum;
+    private String Appellation;
+
+    public String getAppellation() {
+        return null == Appellation ? "" : Appellation;
+    }
+
+    public void setAppellation(String appellation) {
+        Appellation = appellation;
+    }
 
     public String getBookletNum() {
         return BookletNum;

@@ -1,8 +1,9 @@
-package com.jdp.hls.page.deed.personal.bank;
+package com.jdp.hls.page.business.detail.personal.bankdetail;
 
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.BankInfo;
 import com.jdp.hls.model.entiy.DeedPersonalBank;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
@@ -45,10 +46,10 @@ public class DeedPersonalBankPresenter implements DeedPersonalBankContract.Prese
     public void addDeedPersonalBank(RequestBody rosterBody) {
         mApi.getApiService().addDeedPersonalBank(rosterBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<BankInfo>(mView) {
                     @Override
-                    protected void onSuccess(Object object) {
-                        mView.onAddDeedPersonalBankSuccess();
+                    protected void onSuccess(BankInfo bankInfo) {
+                        mView.onAddDeedPersonalBankSuccess(bankInfo);
                     }
                 });
     }
@@ -57,10 +58,10 @@ public class DeedPersonalBankPresenter implements DeedPersonalBankContract.Prese
     public void modifyDeedPersonalBank(RequestBody rosterBody) {
         mApi.getApiService().modifyDeedPersonalBank(rosterBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<BankInfo>(mView) {
                     @Override
-                    protected void onSuccess(Object object) {
-                        mView.onModifyDeedPersonalBankSuccess();
+                    protected void onSuccess(BankInfo bankInfo) {
+                        mView.onModifyDeedPersonalBankSuccess(bankInfo);
                     }
                 });
     }

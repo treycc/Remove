@@ -11,8 +11,10 @@
     <TextView
         style="@style/Title_Main"
         android:text="基本信息"/>
+
     <LinearLayout
-        style="@style/Content_LL_T6">
+        style="@style/Content_LL_T6"
+        android:visibility="gone">
 
         <TextView
             style="@style/Title_Sub"
@@ -24,11 +26,14 @@
             android:hint="请输入户号"/>
     </LinearLayout>
 
-    <View style="@style/div_hor_gray_margin24"/>
+    <View
+        style="@style/div_hor_gray_margin24"
+        android:visibility="gone"/>
+
     <LinearLayout
         style="@style/Content_LL_T6">
 
-        <TextView
+        <com.jdp.hls.view.RequiredTextView
             style="@style/Title_Sub"
             android:text="姓名"/>
 
@@ -41,22 +46,16 @@
     <View style="@style/div_hor_gray_margin24"/>
 
     <LinearLayout
-        style="@style/Content_LL_T0">
+        style="@style/Content_LL_T6">
 
-        <TextView
+        <com.jdp.hls.view.RequiredTextView
             style="@style/Title_Sub"
             android:text="称谓"/>
 
-        <com.jdp.hls.view.KSpinner
-            android:id="@+id/spinner_familyMemember_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hint="请选择称谓"
-            android:padding="0dp"
-            app:backgroundSelector="@drawable/sel_t2g"
-            app:dropDownListPaddingBottom="100dp"
-            app:textTint="@color/c_9"/>
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_appellation"
+            style="@style/Content_ET_W2"
+            android:hint="请输入称谓"/>
     </LinearLayout>
 
     <View style="@style/div_hor_gray_margin24"/>
@@ -102,7 +101,7 @@
     <LinearLayout
         style="@style/Content_LL_T6">
 
-        <TextView
+        <com.jdp.hls.view.RequiredTextView
             style="@style/Title_Sub"
             android:text="身份证号"/>
 

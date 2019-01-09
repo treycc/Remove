@@ -1,141 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <TextView
-        style="@style/Title_Main"
-        android:text="改造前照片"/>
-
-    <RelativeLayout
-        style="@style/Content_LL_T12"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_hi">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.jdp.hls.view.PreviewRecyclerView
-            android:id="@+id/rv_photo_preview_old"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"/>
-
-        <ImageView
-            style="@style/BG_ARROW"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_old_vr"
-        style="@style/Container_Normal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_hi">
 
         <TextView
-            style="@style/font_6_15"
-            android:layout_width="wrap_content"
+            style="@style/Title_Main"
+            android:text="改造前照片"/>
+
+        <RelativeLayout
+            style="@style/Content_LL_T12"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="全景VR"/>
+            android:background="@color/white_hi">
 
-        <ImageView
-            style="@style/BG_ARROW"/>
+            <com.jdp.hls.view.PreviewRecyclerView
+                android:id="@+id/rv_photo_preview_old"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"/>
 
-    </RelativeLayout>
+            <ImageView
+                style="@style/BG_ARROW"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
 
-    <TextView
-        style="@style/Title_Main"
-        android:text="改造后照片"/>
+        </RelativeLayout>
 
-    <RelativeLayout
-        style="@style/Content_LL_T12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_hi">
-
-        <com.jdp.hls.view.PreviewRecyclerView
-            android:id="@+id/rv_photo_preview_new"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rl_old_vr"
+            style="@style/Container_Normal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"/>
+            android:background="@color/white_hi">
 
-        <ImageView
-            style="@style/BG_ARROW"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="全景VR"/>
 
-    </RelativeLayout>
+            <ImageView
+                style="@style/BG_ARROW"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_new_vr"
-        style="@style/Container_Normal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_hi">
+        </RelativeLayout>
 
         <TextView
-            style="@style/font_6_15"
-            android:layout_width="wrap_content"
+            style="@style/Title_Main"
+            android:text="改造后照片"/>
+
+        <RelativeLayout
+            style="@style/Content_LL_T12"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="全景VR"/>
+            android:background="@color/white_hi">
 
-        <ImageView
-            style="@style/BG_ARROW"/>
+            <com.jdp.hls.view.PreviewRecyclerView
+                android:id="@+id/rv_photo_preview_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"/>
 
-    </RelativeLayout>
+            <ImageView
+                style="@style/BG_ARROW"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
 
-    <TextView
-        style="@style/Title_Main"
-        android:text="现房平面图"/>
+        </RelativeLayout>
 
-    <RelativeLayout
-        style="@style/Content_LL_T12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_hi">
-
-        <com.jdp.hls.view.PreviewRecyclerView
-            android:id="@+id/rv_photo_preview_house_ichnography"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rl_new_vr"
+            style="@style/Container_Normal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"/>
+            android:background="@color/white_hi">
 
-        <ImageView
-            style="@style/BG_ARROW"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="全景VR"/>
 
-    </RelativeLayout>
+            <ImageView
+                style="@style/BG_ARROW"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_house_ichnography"
-        style="@style/Container_Normal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_hi">
+        </RelativeLayout>
 
         <TextView
-            style="@style/font_6_15"
-            android:layout_width="wrap_content"
+            style="@style/Title_Main"
+            android:text="现房平面图"/>
+
+        <RelativeLayout
+            style="@style/Content_LL_T12"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="全景VR"/>
+            android:background="@color/white_hi">
 
-        <ImageView
-            style="@style/BG_ARROW"/>
+            <com.jdp.hls.view.PreviewRecyclerView
+                android:id="@+id/rv_photo_preview_newHouseVRUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"/>
 
-    </RelativeLayout>
-</LinearLayout>
+            <ImageView
+                style="@style/BG_ARROW"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_house_ichnography"
+            style="@style/Container_Normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi">
+
+            <TextView
+                style="@style/font_6_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="全景VR"/>
+
+            <ImageView
+                style="@style/BG_ARROW"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

@@ -91,6 +91,7 @@
                 <TextView
                     android:id="@+id/tv_basic_address"
                     style="@style/Content_ET_W3"
+                    android:singleLine="false"
                     android:text=""/>
             </LinearLayout>
 

@@ -12,6 +12,15 @@ public class Auth {
     private boolean IsAllowReview;
     private boolean IsAllowFlowBack;
     private boolean IsAllowRecover;
+    private boolean IsAllowReminder;
+
+    public boolean isAllowReminder() {
+        return IsAllowReminder;
+    }
+
+    public void setAllowReminder(boolean allowReminder) {
+        IsAllowReminder = allowReminder;
+    }
 
     public boolean isAllowRecover() {
         return IsAllowRecover;

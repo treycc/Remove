@@ -2,6 +2,7 @@ package com.jdp.hls.page.deed.personal.property;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -25,6 +26,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -50,6 +52,8 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
     EnableEditText etPropertyAddress;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
+    @BindView(R.id.et_property_buildOccupyArea)
+    EnableEditText etPropertyBuildOccupyArea;
     private List<TDict> propertyUseList;
     private List<TDict> propertyStructureList;
     private int propertyUse;
@@ -62,6 +66,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
     private String shareArea;
     private String address;
     private String remark;
+    private String buildOccupyArea;
 
 
     @Override
@@ -148,6 +153,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
                 .addFormDataPart("TotalArea", totalArea)
                 .addFormDataPart("ShareArea", shareArea)
                 .addFormDataPart("Remark", remark)
+                .addFormDataPart("buildOccupyArea", buildOccupyArea)
                 .addFormDataPart("Address", address);
         return bodyBuilder.build();
     }
@@ -158,6 +164,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
         shareArea = etPropertyShareArea.getText().toString().trim();
         address = etPropertyAddress.getText().toString().trim();
         remark = etRemark.getText().toString().trim();
+        buildOccupyArea = etPropertyBuildOccupyArea.getText().toString().trim();
         return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
     }
 
@@ -176,6 +183,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
         etPropertyShareArea.setText(String.valueOf(deedPersonalProperty.getShareArea()));
         etPropertyAddress.setText(deedPersonalProperty.getAddress());
         etRemark.setText(deedPersonalProperty.getRemark());
+        etPropertyBuildOccupyArea.setText(deedPersonalProperty.getBuildOccupyArea());
         propertyUse = deedPersonalProperty.getPropertyUseTypeId();
         propertyStructure = deedPersonalProperty.getStructureTypeId();
         spinnerPropertyUse.setSelectItem(propertyUse);
@@ -194,6 +202,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
         etPropertyShareArea.setEnabled(allowEdit);
         etPropertyAddress.setEnabled(allowEdit);
         etRemark.setEnabled(allowEdit);
+        etPropertyBuildOccupyArea.setEnabled(allowEdit);
         spinnerPropertyUse.enable(allowEdit);
         spinnerPropertyStructure.enable(allowEdit);
     }

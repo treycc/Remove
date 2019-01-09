@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white_hi"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="政策内增购价"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_inPolicyBuyMoreAmount"
+            style="@style/Content_ET_W1_5"
+            android:inputType="number"
+            android:hint="请输入政策内增购价"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="新房市场评估价"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_newHouseValuationPice"
+            style="@style/Content_ET_W1_5"
+            android:hint="请输入新房市场评估价"
+            android:inputType="number"/>
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+
+    <LinearLayout
+        style="@style/Content_LL_T6">
+
+        <TextView
+            style="@style/Title_Sub"
+            android:text="集中回购市场价"/>
+
+        <com.jdp.hls.view.EnableEditText
+            android:id="@+id/et_collectBuyBackPrice"
+            style="@style/Content_ET_W1_5"
+            android:hint="请输入集中回购市场价"
+            android:inputType="number"/>
+    </LinearLayout>
+</LinearLayout>

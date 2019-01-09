@@ -99,7 +99,7 @@ public class StatisticsPayDetailListActivity extends BaseTitleActivity implement
                 helper.setText(R.id.tv_payDate, item.getPayDate());
                 helper.setText(R.id.tv_amount, item.getAmount());
                 helper.setText(R.id.tv_remark, item.getRemark());
-                helper.setText(R.id.tv_bankAccount, item.getBankAccount());
+                helper.setText(R.id.tv_bankAccount,item.getBankAccountName()+"  "+ item.getBankAccount());
                 helper.setText(R.id.tv_limitDate, item.getLimitStartDate() + "至" + item.getLimitEndDate());
                 helper.setVisibility(R.id.tv_isDouble, item.isIsDouble());
                 helper.setVisibility(R.id.ll_limitDate, item.getUseItemId() == Status.PayTypeItem.TempPlacementFee);

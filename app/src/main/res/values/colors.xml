@@ -30,6 +30,7 @@
     <color name="node_recover">#fd5900</color>
     <color name="node_back">#fca637</color>
     <color name="node_send">#13A4F9</color>
+    <color name="node_reminder">#fc9715</color>
 
     <color name="pie_red">#F18F72</color>
     <color name="pie_yellow">#f2e174</color>

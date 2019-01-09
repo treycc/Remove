@@ -9,8 +9,7 @@
         android:id="@+id/iv_businessAction"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="8dp"
-        android:background="@mipmap/ic_surveying"/>
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/tv_taskName"

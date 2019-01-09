@@ -3,22 +3,16 @@ package com.jdp.hls.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.model.entiy.KeyValue;
-import com.jdp.hls.model.entiy.TaoType;
 import com.jdp.hls.model.entiy.TitleItem;
 import com.jdp.hls.page.supervise.statistics.total.pay.list.SupervisePayOwnerListActivity;
 import com.jdp.hls.page.supervise.statistics.total.taotype.StatisticsTaotypeListActivity;
-import com.jdp.hls.util.LogUtil;
-import com.jdp.hls.view.DrawHelperLayout;
 import com.jdp.hls.view.FixedListView;
 import com.jdp.hls.view.StringTextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +52,6 @@ public class TitleItemAdapter extends BaseLvAdapter<TitleItem> {
         });
         viewHolder.flv.setOnItemClickListener((adapterView, view, itemPosition, id) -> {
             KeyValue keyValue = (KeyValue) adapterView.getItemAtPosition(itemPosition);
-            LogUtil.e(TAG, "OnItem" + keyValue.getInterfaceId());
             if (!keyValue.isHasDetail()) {
                 return;
             }

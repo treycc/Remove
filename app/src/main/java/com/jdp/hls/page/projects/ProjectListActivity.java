@@ -2,11 +2,16 @@ package com.jdp.hls.page.projects;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.CommonAdapter;
+import com.jdp.hls.adapter.ProjectSearchAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
@@ -17,6 +22,8 @@ import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.page.home.HomeActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.InputMethodManagerUtil;
+import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
@@ -30,6 +37,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 import okhttp3.MultipartBody;
 
@@ -42,15 +51,24 @@ import okhttp3.MultipartBody;
 public class ProjectListActivity extends BaseTitleActivity implements ProjectsContract.View {
     @BindView(R.id.plv)
     PullToBottomListView plv;
-    @BindView(R.id.rsrl)
+    @BindView(R.id.srl)
     RefreshSwipeRefreshLayout rsrl;
-    private List<Project> projects = new ArrayList<>();
-    private CommonAdapter adapter;
-    private boolean isFromLocal;
+    @BindView(R.id.et_keyword)
+    EditText etKeyword;
+    @BindView(R.id.iv_clear)
+    ImageView ivClear;
     @Inject
     ProjectsPresenter projectsPresenter;
+    private ProjectSearchAdapter projectSearchAdapter;
 
-
+    @OnClick({R.id.iv_clear})
+    public void click(View view) {
+        switch (view.getId()) {
+            case R.id.iv_clear:
+                etKeyword.setText("");
+                break;
+        }
+    }
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Project project = (Project) adapterView.getItemAtPosition(position);
@@ -61,16 +79,11 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
 
     @Override
     public void initVariable() {
-        List<Project> transitivedpProjects = (List<Project>) getIntent().getSerializableExtra("projects");
-        if (transitivedpProjects != null) {
-            isFromLocal = true;
-            projects = transitivedpProjects;
-        }
     }
 
     @Override
     protected int getContentView() {
-        return R.layout.common_lv_rsl;
+        return R.layout.activity_search_list;
     }
 
     @Override
@@ -90,17 +103,8 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     @Override
     protected void initView() {
         projectsPresenter.attachView(this);
-        plv.setAdapter(adapter = new CommonAdapter<Project>(this, projects, R.layout.item_supervise_project) {
-            @Override
-            public void convert(ViewHolder helper, Project item) {
-                helper.setText(R.id.tv_projectName, item.getProjectName());
-                helper.setText(R.id.tv_projectYear, String.valueOf(item.getYear()));
-                helper.setText(R.id.tv_address, item.getAddress());
-                helper.setText(R.id.tv_realName, item.getRealName());
-                helper.setText(R.id.tv_percentDesc, item.getPercentDesc());
-                helper.setText(R.id.tv_totalQuantity, item.getTotalQuantity() + "户");
-            }
-        });
+        projectSearchAdapter = new ProjectSearchAdapter(this, null);
+        plv.setAdapter(projectSearchAdapter);
     }
 
     @Override
@@ -115,31 +119,28 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
 
     @Override
     protected void initData() {
+        etKeyword.setHint("请输入项目名称/地址/负责人");
+        etKeyword.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                projectSearchAdapter.onSearch(s.toString());
+                ivClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
+            }
+        });
         rsrl.stepRefresh(this);
     }
 
-    @Override
-    protected boolean ifHideBack() {
-        return isFromLocal;
-    }
 
     @Override
     public void initNet() {
-        if (!isFromLocal) {
-            projectsPresenter.getProjects(SpSir.getInstance().getEmployeeId());
-        }
+        projectsPresenter.getProjects(SpSir.getInstance().getEmployeeId());
     }
 
-    public static void goActivity(Activity activity, List<Project> projects) {
-        Intent intent = new Intent(activity, ProjectListActivity.class);
-        intent.putExtra("projects", (Serializable) projects);
-        activity.startActivity(intent);
-        activity.finish();
-    }
 
     @Override
     public void onGetProjectsSuccess(List<Project> projects) {
-        adapter.setData(projects);
+        String keyword = etKeyword.getText().toString().trim();
+       setSearchListView(projects,projectSearchAdapter,keyword);
     }
 
     @Override

@@ -51,6 +51,8 @@ public class PayMoneyFragment extends BasePayFragment {
     @BindView(R.id.et_protocol_overAuditArea)
     EnableEditText etProtocolOverAuditArea;
     Unbinder unbinder;
+    @BindView(R.id.et_moveBackFee)
+    EnableEditText etMoveBackFee;
     private NodePersonalProtocol nodePersonalProtocol;
 
     public static PayMoneyFragment newInstance(NodePersonalProtocol nodePersonalProtocol) {
@@ -91,6 +93,7 @@ public class PayMoneyFragment extends BasePayFragment {
         etFixedFacilitiesAmount.setString(nodePersonalProtocol.getFixedFacilitiesAmount());
         etProtocolOtherArea.setString(nodePersonalProtocol.getOtherArea());
         etProtocolOverAuditArea.setString(nodePersonalProtocol.getOverAuditArea());
+        etMoveBackFee.setString(nodePersonalProtocol.getMoveBackFee());
 
 
         etKongFanPayAmount.addTextChangedListener(calculateWatcher);
@@ -106,6 +109,7 @@ public class PayMoneyFragment extends BasePayFragment {
         etOtherFee.setEnabled(allowEdit);
         etTempPlacementFee.setEnabled(allowEdit);
         etRemoveFee.setEnabled(allowEdit);
+        etMoveBackFee.setEnabled(allowEdit);
         etFixedFacilitiesAmount.setEnabled(allowEdit);
         calculate();
     }
@@ -124,6 +128,7 @@ public class PayMoneyFragment extends BasePayFragment {
         String fixedFacilitiesAmount = etFixedFacilitiesAmount.getText().toString().trim();
         String otherArea = etProtocolOtherArea.getText().toString().trim();
         String overAuditArea = etProtocolOverAuditArea.getText().toString().trim();
+        String moveBackFee = etMoveBackFee.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("KongFanPayAmount", kongFanPayAmount)
                 .addFormDataPart("PulledDownPayAmount", pulledDownPayAmount)
@@ -132,6 +137,7 @@ public class PayMoneyFragment extends BasePayFragment {
                 .addFormDataPart("RemoveFee", removeFee)
                 .addFormDataPart("OtherArea", otherArea)
                 .addFormDataPart("OverAuditArea", overAuditArea)
+                .addFormDataPart("MoveBackFee", moveBackFee)
                 .addFormDataPart("FixedFacilitiesAmount", fixedFacilitiesAmount);
     }
 
@@ -145,19 +151,5 @@ public class PayMoneyFragment extends BasePayFragment {
         tvTotalBackPay.setString(CalculateUtil.getTotalValue(tvOldHouseMarketTotalMoney, tvInnerDecorateMoney,
                 tvAppurtenancePay, etKongFanPayAmount, etPulledDownPayAmount, etOtherFee, etTempPlacementFee,
                 etRemoveFee));
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }

@@ -65,7 +65,7 @@
                 style="@style/Title_Sub"
                 android:text="街道"/>
 
-            <LinearLayout style="@style/Ll_Container_Arrow_W2">
+            <LinearLayout style="@style/Ll_Container_Arrow_W1_8">
 
                 <com.jdp.hls.view.StringTextView
                     android:id="@+id/tv_projectStreet"
@@ -106,7 +106,7 @@
                 style="@style/Title_Sub"
                 android:text="年份"/>
 
-            <LinearLayout style="@style/Ll_Container_Arrow_W2">
+            <LinearLayout style="@style/Ll_Container_Arrow_W1_8">
 
                 <com.jdp.hls.view.StringTextView
                     android:id="@+id/tv_year"
@@ -132,7 +132,7 @@
                 style="@style/Title_Sub"
                 android:text="负责人"/>
 
-            <LinearLayout style="@style/Ll_Container_Arrow_W2">
+            <LinearLayout style="@style/Ll_Container_Arrow_W1_8">
 
                 <com.jdp.hls.view.StringTextView
                     android:id="@+id/tv_projectEmployee"
@@ -174,7 +174,7 @@
                 style="@style/Title_Sub"
                 android:text="套型"/>
 
-            <LinearLayout style="@style/Ll_Container_Arrow_W2">
+            <LinearLayout style="@style/Ll_Container_Arrow_W1_8">
 
                 <com.jdp.hls.view.StringTextView
                     android:id="@+id/tv_taoType"
@@ -188,51 +188,6 @@
 
                 <ImageView style="@style/BG_ARROW"/>
             </LinearLayout>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="政策内增购价"/>
-
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1_8"
-                android:hint="请输入政策内增购价"
-                android:inputType="number"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="新房市场评估价"/>
-
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1_8"
-                android:hint="请输入新房市场评估价"
-                android:inputType="number"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="集中回购市场价"/>
-
-            <com.jdp.hls.view.EnableEditText
-                style="@style/Content_ET_W1_8"
-                android:hint="请输入集中回购市场价"
-                android:inputType="number"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -294,7 +249,7 @@
                     style="@style/BG_ARROW"/>
 
             </RelativeLayout>
-
+            <View style="@style/div_hor_gray_margin24"/>
             <RelativeLayout
                 android:id="@+id/rl_projectGroup"
                 style="@style/Container_Normal"
@@ -313,7 +268,7 @@
                     style="@style/BG_ARROW"/>
 
             </RelativeLayout>
-
+            <View style="@style/div_hor_gray_margin24"/>
             <RelativeLayout
                 android:id="@+id/rl_projectContrast"
                 style="@style/Container_Normal"
@@ -327,6 +282,25 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="改造前后比对"/>
+
+                <ImageView
+                    style="@style/BG_ARROW"/>
+
+            </RelativeLayout>
+            <View style="@style/div_hor_gray_margin24"/>
+            <RelativeLayout
+                android:id="@+id/rl_payScheme"
+                style="@style/Container_Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_hi">
+
+                <TextView
+                    style="@style/font_6_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="补偿方案"/>
 
                 <ImageView
                     style="@style/BG_ARROW"/>

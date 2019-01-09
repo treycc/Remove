@@ -2,6 +2,7 @@ package com.jdp.hls.page.supervise.statistics.total.pay.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,19 +18,18 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.AmountInfo;
-import com.jdp.hls.model.entiy.PayItem;
 import com.jdp.hls.model.entiy.PayOwner;
 import com.jdp.hls.model.entiy.PayOwnerListInfo;
-import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.page.supervise.statistics.total.pay.detaillist.StatisticsPayDetailListActivity;
 import com.jdp.hls.util.SimpleTextWatcher;
+import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 import com.jdp.hls.view.StringTextView;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 
@@ -54,6 +54,8 @@ public class SupervisePayOwnerListActivity extends BaseTitleActivity implements 
     StringTextView tvPaidAmount;
     @BindView(R.id.tv_balanceAmount)
     StringTextView tvBalanceAmount;
+    @BindView(R.id.rsrl)
+    RefreshSwipeRefreshLayout rsrl;
     private PayOwnerAdapter payDetailAdapter;
     private int buildingType;
     private int userItemId;
@@ -62,7 +64,11 @@ public class SupervisePayOwnerListActivity extends BaseTitleActivity implements 
     @OnItemClick({R.id.lv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         PayOwner payOwner = (PayOwner) adapterView.getItemAtPosition(position);
-        StatisticsPayDetailListActivity.goActivity(this, payOwner,title);
+        if (payOwner.getQuantity() == 0) {
+            ToastUtil.showText("暂无支付明细");
+            return;
+        }
+        StatisticsPayDetailListActivity.goActivity(this, payOwner, title);
     }
 
     @OnClick({R.id.iv_clear})
@@ -102,6 +108,7 @@ public class SupervisePayOwnerListActivity extends BaseTitleActivity implements 
 
     @Override
     protected void initView() {
+        rsrl.stepRefresh(this);
 
     }
 
@@ -148,5 +155,12 @@ public class SupervisePayOwnerListActivity extends BaseTitleActivity implements 
             tvBalanceAmount.setString(amountInfo.getBalanceAmount() + "元");
         }
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

@@ -373,7 +373,7 @@
                 <ImageView style="@style/BG_ARROW"/>
             </RelativeLayout>
         </LinearLayout>
-
+        <View style="@style/div_hor_gray_margin24"/>
 
         <TextView
             style="@style/Title_Normal"
@@ -452,8 +452,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white_hi"
                 android:gravity="start"
-                android:hint="请输入备注"
-                android:lines="3"/>
+                android:hint="请输入备注"/>
         </LinearLayout>
 
         <TextView

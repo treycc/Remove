@@ -196,7 +196,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="94档面积"/>
+                android:text="90/94档面积"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_age_area94"
@@ -223,83 +223,6 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="90有土地证面积"/>
-
-            <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_age_area90y"
-                style="@style/Content_ET_W1"
-                android:hint="请输入面积"
-                android:inputType="numberDecimal"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="90无土地证面积"/>
-
-            <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_age_area90n"
-                style="@style/Content_ET_W1"
-                android:hint="请输入面积"
-                android:inputType="numberDecimal"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="86/90档附属用房"/>
-
-            <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_age_area8690"
-                style="@style/Content_ET_W1"
-                android:hint="请输入面积"
-                android:inputType="numberDecimal"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="98档无土地证面积"/>
-
-            <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_age_area98n"
-                style="@style/Content_ET_W1"
-                android:hint="请输入面积"
-                android:inputType="numberDecimal"/>
-        </LinearLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="98档有土地证面积"/>
-
-            <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_age_area98y"
-                style="@style/Content_ET_W1"
-                android:hint="请输入面积"
-                android:inputType="numberDecimal"/>
-        </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
         <LinearLayout
@@ -307,7 +230,7 @@
 
             <TextView
                 style="@style/Title_Sub"
-                android:text="98后建筑面积"/>
+                android:text="98后/2000档"/>
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_age_area98l"
@@ -316,22 +239,6 @@
                 android:inputType="numberDecimal"/>
         </LinearLayout>
 
-        <View style="@style/div_hor_gray_margin24"/>
-
-
-        <LinearLayout
-            style="@style/Content_LL_T6">
-
-            <TextView
-                style="@style/Title_Sub"
-                android:text="视同合法面积"/>
-
-            <com.jdp.hls.view.EnableEditText
-                android:id="@+id/et_age_asLegitimateArea"
-                style="@style/Content_ET_W1"
-                android:hint="请输入面积"
-                android:inputType="numberDecimal"/>
-        </LinearLayout>
 
 
         <TextView
@@ -375,6 +282,84 @@
                 style="@style/Title_Main"
                 android:text="未登记审批认定面积"/>
 
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <TextView
+                    style="@style/Title_Sub"
+                    android:text="90有土地证面积"/>
+
+                <com.jdp.hls.view.EnableEditText
+                    android:id="@+id/et_age_area90y"
+                    style="@style/Content_ET_W1"
+                    android:hint="请输入面积"
+                    android:inputType="numberDecimal"/>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <TextView
+                    style="@style/Title_Sub"
+                    android:text="90无土地证面积"/>
+
+                <com.jdp.hls.view.EnableEditText
+                    android:id="@+id/et_age_area90n"
+                    style="@style/Content_ET_W1"
+                    android:hint="请输入面积"
+                    android:inputType="numberDecimal"/>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <TextView
+                    style="@style/Title_Sub"
+                    android:text="86/90档附属用房"/>
+
+                <com.jdp.hls.view.EnableEditText
+                    android:id="@+id/et_age_area8690"
+                    style="@style/Content_ET_W1"
+                    android:hint="请输入面积"
+                    android:inputType="numberDecimal"/>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <TextView
+                    style="@style/Title_Sub"
+                    android:text="98档无土地证面积"/>
+
+                <com.jdp.hls.view.EnableEditText
+                    android:id="@+id/et_age_area98n"
+                    style="@style/Content_ET_W1"
+                    android:hint="请输入面积"
+                    android:inputType="numberDecimal"/>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <TextView
+                    style="@style/Title_Sub"
+                    android:text="98档有土地证面积"/>
+
+                <com.jdp.hls.view.EnableEditText
+                    android:id="@+id/et_age_area98y"
+                    style="@style/Content_ET_W1"
+                    android:hint="请输入面积"
+                    android:inputType="numberDecimal"/>
+            </LinearLayout>
+            <View style="@style/div_hor_gray_margin24"/>
             <LinearLayout
                 style="@style/Content_LL_T6">
 
@@ -470,6 +455,21 @@
                     style="@style/BG_ARROW"/>
 
             </RelativeLayout>
+            <View style="@style/div_hor_gray_margin24"/>
+
+            <LinearLayout
+                style="@style/Content_LL_T6">
+
+                <TextView
+                    style="@style/Title_Sub"
+                    android:text="视同合法面积"/>
+
+                <com.jdp.hls.view.EnableEditText
+                    android:id="@+id/et_age_asLegitimateArea"
+                    style="@style/Content_ET_W1"
+                    android:hint="请输入面积"
+                    android:inputType="numberDecimal"/>
+            </LinearLayout>
             <View style="@style/div_hor_gray_margin24"/>
             <LinearLayout
                 android:layout_width="match_parent"

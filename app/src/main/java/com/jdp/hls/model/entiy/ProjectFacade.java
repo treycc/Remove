@@ -12,25 +12,25 @@ public class ProjectFacade {
     private String ProjectId;
     private String OldVRUrl;
     private String NewVRUrl;
-    private String HouseIchnographyVRUrl;
+    private String NewHouseVRUrl;
     private List<ImgInfo> OldFiles;
     private List<ImgInfo> NewFiles;
-    private List<ImgInfo> HouseIchnographyFiles;
+    private List<ImgInfo> HousePlaneFiles;
 
-    public String getHouseIchnographyVRUrl() {
-        return null == HouseIchnographyVRUrl ? "" : HouseIchnographyVRUrl;
+    public String getNewHouseVRUrl() {
+        return null == NewHouseVRUrl ? "" : NewHouseVRUrl;
     }
 
-    public void setHouseIchnographyVRUrl(String houseIchnographyVRUrl) {
-        HouseIchnographyVRUrl = houseIchnographyVRUrl;
+    public void setNewHouseVRUrl(String newHouseVRUrl) {
+        NewHouseVRUrl = newHouseVRUrl;
     }
 
-    public List<ImgInfo> getHouseIchnographyFiles() {
-        return HouseIchnographyFiles;
+    public List<ImgInfo> getHousePlaneFiles() {
+        return HousePlaneFiles;
     }
 
-    public void setHouseIchnographyFiles(List<ImgInfo> houseIchnographyFiles) {
-        HouseIchnographyFiles = houseIchnographyFiles;
+    public void setHousePlaneFiles(List<ImgInfo> housePlaneFiles) {
+        HousePlaneFiles = housePlaneFiles;
     }
 
     public String getProjectId() {

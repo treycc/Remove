@@ -3,6 +3,7 @@ package com.jdp.hls.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -23,6 +24,7 @@ import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.page.photo.PhotoContract;
 import com.jdp.hls.page.photo.PhotoPresenter;
 import com.jdp.hls.util.FileUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.PermissionsUtil;
 import com.zhihu.matisse.Matisse;
@@ -76,6 +78,7 @@ public class PhotoPreviewActivity extends BaseTitleActivity implements PhotoCont
     public void click(View view) {
         switch (view.getId()) {
             case R.id.tv_photo_delete:
+                LogUtil.e(TAG,"删除");
                 photoPreviewAdapter.deleteImgs();
                 break;
             case R.id.tv_photo_save:

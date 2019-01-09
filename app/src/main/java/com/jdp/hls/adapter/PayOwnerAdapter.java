@@ -3,6 +3,7 @@ package com.jdp.hls.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.model.entiy.PayItem;
@@ -34,6 +35,7 @@ public class PayOwnerAdapter extends BaseSearchAdapter<PayOwner> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         PayOwner payItem = (PayOwner) getItem(position);
+        viewHolder.iv_arrow.setVisibility(payItem.getQuantity()==0?View.GONE:View.VISIBLE);
         viewHolder.tv_realName.setString(payItem.getRealName());
         viewHolder.tv_cusCode.setString(payItem.getCusCode());
         viewHolder.tv_address.setString(payItem.getAddress());
@@ -60,6 +62,7 @@ public class PayOwnerAdapter extends BaseSearchAdapter<PayOwner> {
         public StringTextView tv_address;
         public StringTextView tv_mobilePhone;
         public StringTextView tv_cusCode;
+        public ImageView iv_arrow;
 
         public ViewHolder(View root) {
             this.root = root;
@@ -69,6 +72,7 @@ public class PayOwnerAdapter extends BaseSearchAdapter<PayOwner> {
             tv_address = root.findViewById(R.id.tv_address);
             tv_mobilePhone = root.findViewById(R.id.tv_mobilePhone);
             tv_cusCode = root.findViewById(R.id.tv_cusCode);
+            iv_arrow = root.findViewById(R.id.iv_arrow);
         }
     }
 }

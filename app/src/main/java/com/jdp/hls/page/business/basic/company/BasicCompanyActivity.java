@@ -18,6 +18,7 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
+import com.jdp.hls.event.RefreshReminderEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BasicCompany;
 import com.jdp.hls.model.entiy.FlowNode;
@@ -171,6 +172,11 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
         operateNodePresenter.recoverNode(requestBody, buildingIds);
     }
 
+    @Override
+    protected void onReminderNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.reminderNode(requestBody, buildingIds);
+    }
+
     public static void goActivity(Context context, String buildingId) {
         Intent intent = new Intent(context, BasicCompanyActivity.class);
         intent.putExtra("buildingId", buildingId);
@@ -224,6 +230,12 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
     @Override
     public void onRecoverNodeSuccess(String buildingIds) {
         onOperateSuccess("恢复成功", buildingIds);
+    }
+
+    @Override
+    public void onReminderNodeSuccess(String buildingIds) {
+        EventBus.getDefault().post(new RefreshReminderEvent(buildingIds));
+        showSuccessDialogAndFinish("催办成功");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

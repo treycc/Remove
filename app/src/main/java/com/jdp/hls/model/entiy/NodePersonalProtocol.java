@@ -60,8 +60,26 @@ public class NodePersonalProtocol implements Serializable {
     private double ClearObstaclePay;
     private double PayableAmount;
     private double PaidAmount;
+    private double MoveBackFee;
     private double BalanceAmount;
+    private String PatternInfo;
     private List<TaoType> Patterns;
+
+    public String getPatternInfo() {
+        return null == PatternInfo ? "" : PatternInfo;
+    }
+
+    public void setPatternInfo(String patternInfo) {
+        PatternInfo = patternInfo;
+    }
+
+    public double getMoveBackFee() {
+        return MoveBackFee;
+    }
+
+    public void setMoveBackFee(double moveBackFee) {
+        MoveBackFee = moveBackFee;
+    }
 
     public List<TaoType> getPatterns() {
         return Patterns;

@@ -6,9 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -56,9 +54,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Description:TODO
@@ -198,7 +194,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
 
     @Override
     protected int getContentId() {
-        return R.layout.fragment_map;
+        return R.layout.activity_roster;
     }
 
     /**

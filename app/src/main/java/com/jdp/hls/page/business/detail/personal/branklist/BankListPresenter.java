@@ -3,17 +3,14 @@ package com.jdp.hls.page.business.detail.personal.branklist;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
-import com.jdp.hls.model.entiy.BrankListInfo;
-import com.jdp.hls.model.entiy.DetailPersonal;
+import com.jdp.hls.model.entiy.BankListInfo;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
-import com.jdp.hls.page.business.detail.personal.DetailPersonalContract;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.RequestBody;
 
 
 /**
@@ -22,12 +19,12 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class BrankListPresenter implements BrankListContract.Presenter {
+public class BankListPresenter implements BankListContract.Presenter {
     private UserApi mApi;
-    private BrankListContract.View mView;
+    private BankListContract.View mView;
 
     @Inject
-    public BrankListPresenter(UserApi mApi) {
+    public BankListPresenter(UserApi mApi) {
         this.mApi = mApi;
     }
 
@@ -35,17 +32,29 @@ public class BrankListPresenter implements BrankListContract.Presenter {
     public void getBrankList(String buildingId) {
         mApi.getApiService().getBrankList(buildingId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<BrankListInfo>(mView) {
+                (new LoadSirObserver<BankListInfo>(mView) {
                     @Override
-                    protected void onSuccess(BrankListInfo brankListInfo) {
+                    protected void onSuccess(BankListInfo brankListInfo) {
                         mView.onGetBrankListSuccess(brankListInfo);
+                    }
+                });
+    }
+
+    @Override
+    public void deleteBankInfo(String id, int position) {
+        mApi.getApiService().deleteBankInfo(id).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onDeleteBankInfo(position);
                     }
                 });
     }
 
 
     @Override
-    public void attachView(@NonNull BrankListContract.View view) {
+    public void attachView(@NonNull BankListContract.View view) {
         this.mView = view;
     }
 

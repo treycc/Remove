@@ -11,6 +11,7 @@ import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
+import com.jdp.hls.event.RefreshReminderEvent;
 import com.jdp.hls.i.OnBusinessItemSelectedListener;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Business;
@@ -19,6 +20,7 @@ import com.jdp.hls.model.entiy.TaskInfo;
 import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
 import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.page.rosterlist.GetRostersByTypeContract;
+import com.jdp.hls.util.CollectionUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
@@ -180,6 +182,14 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     public void modifyBusinessEvent(ModifyBusinessEvent event) {
         if (event.getBuildingType() == buildingType) {
             adapter.modify(event);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshReminder(RefreshReminderEvent event) {
+        List<String> buildingIdList = CollectionUtil.getBuildingIdList(event.getBuildingIds());
+        if (buildingIdList.size() > 0) {
+            adapter.refreshReminder(buildingIdList);
         }
     }
 

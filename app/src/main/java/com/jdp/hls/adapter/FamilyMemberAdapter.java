@@ -37,7 +37,7 @@ public class FamilyMemberAdapter extends BaseLvAdapter<FamilyMember> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tv_familyRelation_title.setText(list.get(position).getTypeName());
+        viewHolder.tv_familyRelation_title.setText(list.get(position).getAppellation());
         viewHolder.tv_familyRelation_name.setText(list.get(position).getRealName());
         viewHolder.tv_familyRelation_idCard.setText(list.get(position).getIdcard());
         viewHolder.tv_delete.setOnClickListener(v -> {
@@ -83,6 +83,7 @@ public class FamilyMemberAdapter extends BaseLvAdapter<FamilyMember> {
                 item.setIsFarming(familyMember.getIsFarming());
                 item.setTypeId(familyMember.getTypeId());
                 item.setTypeName(familyMember.getTypeName());
+                item.setAppellation(familyMember.getAppellation());
             }
         }
         notifyDataSetChanged();

@@ -2,7 +2,6 @@ package com.jdp.hls.page.business.detail.personal.branklist;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.jdp.hls.R;
@@ -11,13 +10,12 @@ import com.jdp.hls.adapter.BrankAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
-import com.jdp.hls.constant.Status;
-import com.jdp.hls.event.AddBrankInfoEvent;
-import com.jdp.hls.event.ModifyBrankInfoEvent;
+import com.jdp.hls.event.AddBankInfoEvent;
+import com.jdp.hls.event.ModifyBankInfoEvent;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.BrankInfo;
-import com.jdp.hls.model.entiy.BrankListInfo;
-import com.jdp.hls.page.deed.personal.bank.DeedPersonalBankActivity;
+import com.jdp.hls.model.entiy.BankInfo;
+import com.jdp.hls.model.entiy.BankListInfo;
+import com.jdp.hls.page.business.detail.personal.bankdetail.DeedPersonalBankActivity;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.PullToBottomListView;
@@ -36,12 +34,12 @@ import butterknife.BindView;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class BrankListActivity extends BaseTitleActivity implements BrankListContract.View {
+public class BankListActivity extends BaseTitleActivity implements BankListContract.View {
     @BindView(R.id.plv)
     PullToBottomListView plv;
     private BrankAdapter brankAdapter;
     @Inject
-    BrankListPresenter brankListPresenter;
+    BankListPresenter brankListPresenter;
     private String buildingId;
 
     @Override
@@ -83,15 +81,17 @@ public class BrankListActivity extends BaseTitleActivity implements BrankListCon
 
     @Override
     protected void initData() {
-        brankAdapter.setOnItemOperListener(new BaseLvAdapter.OnItemOperListener<BrankInfo>() {
+        brankAdapter.setOnItemOperListener(new BaseLvAdapter.OnItemOperListener<BankInfo>() {
             @Override
-            public void onItemDelete(BrankInfo brankInfo, int position) {
-                DialogUtil.showDoubleDialog(BrankListActivity.this, "是否确定删除该项?", (dialog, which) -> {
+            public void onItemDelete(BankInfo brankInfo, int position) {
+                DialogUtil.showDoubleDialog(BankListActivity.this, "是否确定删除该项?", (dialog, which) -> {
+                    brankListPresenter.deleteBankInfo(String.valueOf(brankInfo.getId()), position);
                 });
             }
 
             @Override
-            public void onItemClick(BrankInfo item) {
+            public void onItemClick(BankInfo item) {
+                DeedPersonalBankActivity.goActivity(BankListActivity.this, String.valueOf(item.getId()), buildingId);
             }
         });
     }
@@ -102,7 +102,7 @@ public class BrankListActivity extends BaseTitleActivity implements BrankListCon
     }
 
     public static void goActivity(Context context, String buildingId) {
-        Intent intent = new Intent(context, BrankListActivity.class);
+        Intent intent = new Intent(context, BankListActivity.class);
         intent.putExtra(Constants.Extra.BUILDING_ID, buildingId);
         context.startActivity(intent);
     }
@@ -113,26 +113,32 @@ public class BrankListActivity extends BaseTitleActivity implements BrankListCon
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void addBrankInfo(AddBrankInfoEvent event) {
+    public void addBankInfo(AddBankInfoEvent event) {
         showSuccessCallback();
-        brankAdapter.addFirst(event.getBrankInfo());
+        brankAdapter.addFirst(event.getBankInfo());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void modifyBrankInfo(ModifyBrankInfoEvent event) {
-        brankAdapter.modifyItem(event.getBrankInfo());
+    public void modifyBankInfo(ModifyBankInfoEvent event) {
+        brankAdapter.modifyItem(event.getBankInfo());
     }
 
     @Override
-    public void onGetBrankListSuccess(BrankListInfo brankListInfo) {
+    public void onGetBrankListSuccess(BankListInfo brankListInfo) {
         boolean allowEdit = brankListInfo.isAllowEdit();
         if (allowEdit) {
             setRightClick("增加", new NoDoubleClickListener() {
                 @Override
                 public void onNoDoubleClick(View v) {
+                    DeedPersonalBankActivity.goActivity(BankListActivity.this, "", buildingId);
                 }
             });
         }
-        setListView(brankListInfo.getBrankList(), brankAdapter, allowEdit);
+        setListView(brankListInfo.getLstBankAccount(), brankAdapter, allowEdit);
+    }
+
+    @Override
+    public void onDeleteBankInfo(int position) {
+        brankAdapter.removeItem(position);
     }
 }

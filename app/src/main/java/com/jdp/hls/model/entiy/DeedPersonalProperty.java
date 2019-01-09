@@ -22,7 +22,16 @@ public class DeedPersonalProperty {
     private String Remark;
     private List<ImgInfo> Files;
     private String DeleteFileIDs;
+    private String BuildOccupyArea;
     private boolean IsAllowEdit;
+
+    public String getBuildOccupyArea() {
+        return null == BuildOccupyArea ? "" : BuildOccupyArea;
+    }
+
+    public void setBuildOccupyArea(String buildOccupyArea) {
+        BuildOccupyArea = buildOccupyArea;
+    }
 
     public String getRemark() {
         return Remark;

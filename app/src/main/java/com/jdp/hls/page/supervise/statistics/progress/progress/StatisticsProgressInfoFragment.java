@@ -13,7 +13,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.CommonPositionAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseFragment;
@@ -25,8 +24,6 @@ import com.jdp.hls.model.entiy.ProgressItem;
 import com.jdp.hls.model.entiy.StatisticsProgressInfo;
 import com.jdp.hls.page.supervise.statistics.progress.detail.head.StatisticsProgressDetailActivity;
 import com.jdp.hls.util.AppUtil;
-import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.FixedListView;
 
 import java.util.ArrayList;
@@ -55,7 +52,8 @@ public class StatisticsProgressInfoFragment extends BaseFragment implements Stat
     private int[] colorAttr = {R.color.pink, R.color.main};
     private List<ProgressItem> statisticsProgressList = new ArrayList<>();
     private CommonPositionAdapter<ProgressItem> adapter;
-    private int[] progressLayers = {R.drawable.layer_gradient_blue, R.drawable.layer_gradient_red,R.drawable.layer_gradient_yellow};
+    private int[] progressLayers = {R.drawable.layer_gradient_blue, R.drawable.layer_gradient_red, R.drawable
+            .layer_gradient_yellow};
 
     @Inject
     StatisticsProgressInfoPresenter statisticsProgressPresenter;
@@ -71,7 +69,7 @@ public class StatisticsProgressInfoFragment extends BaseFragment implements Stat
     @OnItemClick({R.id.flv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         ProgressItem progressItem = (ProgressItem) adapterView.getItemAtPosition(position);
-        StatisticsProgressDetailActivity.goActivity(getActivity(),progressItem);
+        StatisticsProgressDetailActivity.goActivity(getActivity(), progressItem);
     }
 
     @Override
@@ -104,10 +102,10 @@ public class StatisticsProgressInfoFragment extends BaseFragment implements Stat
             public void convert(ViewHolder helper, ProgressItem item, int position) {
                 helper.setText(R.id.tv_itemTypeName, item.getItemTypeName());
                 helper.setText(R.id.tv_percentDesc, item.getPercentDesc());
-                helper.setText(R.id.tv_totalQuantity, item.getQuantity()+"户");
+                helper.setText(R.id.tv_totalQuantity, item.getQuantity() + "户");
                 helper.setProgress(R.id.pb, getProgress(item.getQuantity(), item.getTotalQuantity()));
-                helper.setProgressDrawable(R.id.pb,progressLayers[position%progressLayers.length] );
-                helper.setImageByUrl(R.id.iv_iconUrl,item.getIconUrl());
+                helper.setProgressDrawable(R.id.pb, progressLayers[position % progressLayers.length]);
+                helper.setImageByUrl(R.id.iv_iconUrl, item.getIconUrl());
             }
         });
     }
@@ -122,7 +120,7 @@ public class StatisticsProgressInfoFragment extends BaseFragment implements Stat
 
     @Override
     public void initNet() {
-        statisticsProgressPresenter.getStatisticsProgress(SpSir.getInstance().getProjectId(), buildingType);
+        statisticsProgressPresenter.getStatisticsProgress(buildingType);
     }
 
     private void setData(ArrayList<PieEntry> entries, int totalQuantity) {
@@ -204,12 +202,12 @@ public class StatisticsProgressInfoFragment extends BaseFragment implements Stat
         if (pieChartItemList != null && pieChartItemList.size() > 0) {
             ArrayList<PieEntry> entries = new ArrayList<>();
             for (PieChartItem pieChartItem : pieChartItemList) {
-                entries.add(new PieEntry((float) pieChartItem.getQuantity(), String.format("%s：%d户",pieChartItem.getName(),pieChartItem.getQuantity())));
+                entries.add(new PieEntry((float) pieChartItem.getQuantity(), String.format("%s：%d户", pieChartItem
+                        .getName(), pieChartItem.getQuantity())));
             }
             setData(entries, totalQuantity);
         }
         adapter.setData(progressItemList);
-
     }
 
     @Override

@@ -12,6 +12,15 @@ public class LevyInfo {
     private List<Task> LstTaskTypeCount;
     private List<BusinessAction> LstAppAction;
     private List<BusinessAction> LstStatisAction;
+    private List<BusinessAction> LstDataStatisAction;
+
+    public List<BusinessAction> getLstDataStatisAction() {
+        return LstDataStatisAction;
+    }
+
+    public void setLstDataStatisAction(List<BusinessAction> lstDataStatisAction) {
+        LstDataStatisAction = lstDataStatisAction;
+    }
 
     public List<Task> getLstTaskTypeCount() {
         return LstTaskTypeCount;

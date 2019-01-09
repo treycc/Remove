@@ -26,6 +26,7 @@ import com.jdp.hls.page.admin.contrast.ProjectContrastDetailActivity;
 import com.jdp.hls.page.admin.group.list.GroupListActivity;
 import com.jdp.hls.page.admin.manager.ManagerListActivity;
 import com.jdp.hls.page.admin.project.config.ProjectConfigActivity;
+import com.jdp.hls.page.admin.project.detail.payscheme.PaySchemeActivity;
 import com.jdp.hls.page.admin.project.detail.tao.TaoTypeListAddActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.DateUtil;
@@ -117,7 +118,7 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
     private String jsonProjectPatterns = "";
 
     @OnClick({R.id.ll_projectArea, R.id.ll_projectStreet, R.id.ll_Year, R.id.ll_projectEmployee, R.id
-            .rl_projectConfig, R.id.rl_projectGroup, R.id.rl_projectContrast, R.id.ll_taoType})
+            .rl_projectConfig, R.id.rl_projectGroup, R.id.rl_projectContrast, R.id.ll_taoType, R.id.rl_payScheme})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_taoType:
@@ -147,6 +148,9 @@ public class ProjectDetailActivity extends BaseTitleActivity implements ProjecDe
                 break;
             case R.id.rl_projectContrast:
                 ProjectContrastDetailActivity.goActivity(this, projectId);
+                break;
+            case R.id.rl_payScheme:
+                PaySchemeActivity.goActivity(this, projectId);
                 break;
             default:
                 break;

@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
@@ -73,6 +74,10 @@ public class PayChangeFragment extends BasePayFragment {
     @BindView(R.id.et_protocol_overAuditArea)
     EnableEditText etProtocolOverAuditArea;
     Unbinder unbinder;
+    @BindView(R.id.et_moveBackFee)
+    EnableEditText etMoveBackFee;
+    @BindView(R.id.iv_arrow_taoType)
+    ImageView ivArrowTaoType;
     private NodePersonalProtocol nodePersonalProtocol;
     private List<TaoType> taoTypeList;
 
@@ -117,6 +122,10 @@ public class PayChangeFragment extends BasePayFragment {
         taoTypeList = nodePersonalProtocol.getPatterns();
         if (taoTypeList != null && taoTypeList.size() > 0) {
             tvTaoType.setHint(String.format("已选择%d个套型", getTaoTypeCount(taoTypeList)));
+        } else if (!allowEdit) {
+            tvTaoType.setText(nodePersonalProtocol.getPatternInfo());
+            llTaoType.setClickable(false);
+            ivArrowTaoType.setVisibility(View.GONE);
         }
         tvHouseResetMoney.setString(nodePersonalProtocol.getHouseResetMoney());
         tvInnerDecorateMoney.setString(nodePersonalProtocol.getInnerDecorateMoney());
@@ -131,6 +140,7 @@ public class PayChangeFragment extends BasePayFragment {
         etFixedFacilitiesAmount.setString(nodePersonalProtocol.getFixedFacilitiesAmount());
         etAZBuildingArea.setString(nodePersonalProtocol.getAZBuildingArea());
         etAZTNArea.setString(nodePersonalProtocol.getAZTNArea());
+        etMoveBackFee.setString(nodePersonalProtocol.getMoveBackFee());
 
         etProtocolOtherArea.setString(nodePersonalProtocol.getOtherArea());
         etProtocolOverAuditArea.setString(nodePersonalProtocol.getOverAuditArea());
@@ -156,6 +166,7 @@ public class PayChangeFragment extends BasePayFragment {
         etFixedFacilitiesAmount.setEnabled(allowEdit);
         etAZBuildingArea.setEnabled(allowEdit);
         etAZTNArea.setEnabled(allowEdit);
+        etMoveBackFee.setEnabled(allowEdit);
         calculate();
         calculateNeedPayMoney();
     }
@@ -185,6 +196,7 @@ public class PayChangeFragment extends BasePayFragment {
         String aZTNArea = etAZTNArea.getText().toString().trim();
         String otherArea = etProtocolOtherArea.getText().toString().trim();
         String overAuditArea = etProtocolOverAuditArea.getText().toString().trim();
+        String moveBackFee = etMoveBackFee.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("PulledDownPayAmount", pulledDownPayAmount)
                 .addFormDataPart("ClearObstaclePay", clearObstaclePay)
@@ -197,6 +209,7 @@ public class PayChangeFragment extends BasePayFragment {
                 .addFormDataPart("JsonPattern", getTaoTypeJson(taoTypeList))
                 .addFormDataPart("OtherArea", otherArea)
                 .addFormDataPart("OverAuditArea", overAuditArea)
+                .addFormDataPart("MoveBackFee", moveBackFee)
                 .addFormDataPart("AZTNArea", aZTNArea);
     }
 

@@ -16,6 +16,9 @@ import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
+import com.jdp.hls.event.RefreshBusinessListEvent;
+import com.jdp.hls.event.RefreshReminderEvent;
+import com.jdp.hls.event.RefreshTaskEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.FlowNode;
@@ -169,6 +172,11 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         operateNodePresenter.recoverNode(requestBody, buildingIds);
     }
 
+    @Override
+    protected void onReminderNode(RequestBody requestBody, String buildingIds) {
+        operateNodePresenter.reminderNode(requestBody, buildingIds);
+    }
+
     public static void goActivity(Context context, String buildingId) {
         Intent intent = new Intent(context, BasicPersonalActivity.class);
         intent.putExtra("buildingId", buildingId);
@@ -227,6 +235,12 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
         onOperateSuccess("恢复成功", buildingIds);
     }
 
+    @Override
+    public void onReminderNodeSuccess(String buildingIds) {
+        EventBus.getDefault().post(new RefreshReminderEvent(buildingIds));
+        showSuccessDialogAndFinish("催办成功");
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void modifyBusinessEvent(ModifyBusinessEvent event) {
         if (event.getBuildingType() == Status.BuildingType.PERSONAL) {
@@ -234,7 +248,7 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
             tvBasicAddress.setText(event.getAddress());
             vrUrl = event.getVRUrl();
             tvVrTip.setVisibility(TextUtils.isEmpty(vrUrl) ? View.VISIBLE : View.GONE);
-            LogUtil.e(TAG,"vrUrl:"+vrUrl);
+            LogUtil.e(TAG, "vrUrl:" + vrUrl);
         }
     }
 }

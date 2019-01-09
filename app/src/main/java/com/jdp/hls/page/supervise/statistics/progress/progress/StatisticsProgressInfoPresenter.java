@@ -28,8 +28,8 @@ public class StatisticsProgressInfoPresenter implements StatisticsProgressInfoCo
     }
 
     @Override
-    public void getStatisticsProgress(String projectId, int buildingType) {
-        mApi.getApiService().getStatisticsProgress(projectId, buildingType).subscribeOn(Schedulers.io())
+    public void getStatisticsProgress(int buildingType) {
+        mApi.getApiService().getStatisticsProgress(buildingType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<StatisticsProgressInfo>(mView) {
                     @Override

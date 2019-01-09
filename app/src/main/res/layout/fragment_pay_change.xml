@@ -182,6 +182,22 @@
 
             <TextView
                 style="@style/Title_Sub"
+                android:text="回迁费"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_moveBackFee"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入回迁费"
+                android:inputType="numberDecimal"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
                 android:text="固定设施报销费"/>
 
             <com.jdp.hls.view.EnableEditText
@@ -244,7 +260,7 @@
                     android:hint="请选择套型"
                     android:textColorHint="@color/c_c"/>
 
-                <ImageView style="@style/BG_ARROW"/>
+                <ImageView style="@style/BG_ARROW" android:id="@+id/iv_arrow_taoType"/>
             </RelativeLayout>
         </LinearLayout>
 

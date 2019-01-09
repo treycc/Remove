@@ -6,9 +6,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.jdp.hls.i.ILvSetData;
-import com.jdp.hls.model.entiy.BrankInfo;
-import com.jdp.hls.model.entiy.OtherArea;
-import com.jdp.hls.model.entiy.UnRecordBuilding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +58,7 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter implements ILvSetData
     }
 
     public void modifyItem(T item) {
+
     }
 
     public void addLast(T item) {

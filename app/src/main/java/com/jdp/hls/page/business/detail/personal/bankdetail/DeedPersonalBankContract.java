@@ -1,10 +1,10 @@
-package com.jdp.hls.page.deed.personal.bank;
+package com.jdp.hls.page.business.detail.personal.bankdetail;
 
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
+import com.jdp.hls.model.entiy.BankInfo;
 import com.jdp.hls.model.entiy.DeedPersonalBank;
-import com.jdp.hls.model.entiy.DeedPersonalImmovable;
 
 import okhttp3.RequestBody;
 
@@ -18,9 +18,9 @@ public interface DeedPersonalBankContract {
     interface View extends BaseView {
         void onGetDeedPersonalBankSuccess(DeedPersonalBank deedPersonalBank);
 
-        void onAddDeedPersonalBankSuccess();
+        void onAddDeedPersonalBankSuccess(BankInfo bankInfo);
 
-        void onModifyDeedPersonalBankSuccess();
+        void onModifyDeedPersonalBankSuccess(BankInfo bankInfo);
     }
 
     interface Presenter extends BasePresenter<View> {

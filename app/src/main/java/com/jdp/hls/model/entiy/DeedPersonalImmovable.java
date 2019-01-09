@@ -27,8 +27,17 @@ public class DeedPersonalImmovable {
     private String StructureTypeName;
     private String DeleteFileIDs;
     private String Remark;
+    private double BuildOccupyArea_Property;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
+
+    public double getBuildOccupyArea_Property() {
+        return BuildOccupyArea_Property;
+    }
+
+    public void setBuildOccupyArea_Property(double buildOccupyArea_Property) {
+        BuildOccupyArea_Property = buildOccupyArea_Property;
+    }
 
     public String getRemark() {
         return Remark;

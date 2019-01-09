@@ -14,6 +14,24 @@ public class ModifyBusinessEvent {
     private String address;
     private String VRUrl;
     private int buildingType;
+    private boolean IsUrgent;
+    private boolean IsReminder;
+
+    public boolean isUrgent() {
+        return IsUrgent;
+    }
+
+    public void setUrgent(boolean urgent) {
+        IsUrgent = urgent;
+    }
+
+    public boolean isReminder() {
+        return IsReminder;
+    }
+
+    public void setReminder(boolean reminder) {
+        IsReminder = reminder;
+    }
 
     public String getVRUrl() {
         return null == VRUrl ? "" : VRUrl;

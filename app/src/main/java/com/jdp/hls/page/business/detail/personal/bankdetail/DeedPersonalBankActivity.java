@@ -1,7 +1,9 @@
-package com.jdp.hls.page.deed.personal.bank;
+package com.jdp.hls.page.business.detail.personal.bankdetail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -11,21 +13,29 @@ import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
-import com.jdp.hls.constant.Status;
-import com.jdp.hls.event.RefreshCertNumEvent;
+import com.jdp.hls.event.AddBankInfoEvent;
+import com.jdp.hls.event.ModifyBankInfoEvent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.BankInfo;
 import com.jdp.hls.model.entiy.DeedPersonalBank;
-import com.jdp.hls.other.file.FileConfig;
-import com.jdp.hls.page.business.detail.personal.branklist.BrankListActivity;
+import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.util.CheckUtil;
+import com.jdp.hls.util.FileUtil;
+import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.view.AddableRecyclerView;
 import com.jdp.hls.view.EnableEditText;
-import com.jdp.hls.view.PreviewRecyclerView;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -46,17 +56,19 @@ public class DeedPersonalBankActivity extends BaseTitleActivity implements DeedP
     EnableEditText etRemark;
     @Inject
     DeedPersonalBankPresenter deedPersonalBankPresenter;
-    @BindView(R.id.rv_photo_preview)
-    PreviewRecyclerView rvPhotoPreview;
+    @BindView(R.id.rv_addable_photo_preview)
+    AddableRecyclerView rvAddablePhotoPreview;
     private String remark;
     private String bankAccount;
     private String bankName;
     private String bankAccountName;
     private String id;
+    private String houseId;
 
     @Override
     public void initVariable() {
         id = getIntent().getStringExtra(Constants.Extra.ID);
+        houseId = getIntent().getStringExtra(Constants.Extra.HOUSEID);
     }
 
     @Override
@@ -91,6 +103,7 @@ public class DeedPersonalBankActivity extends BaseTitleActivity implements DeedP
     @Override
     public void initNet() {
         if (TextUtils.isEmpty(id)) {
+            showSuccessCallback();
             setRightClick("保存", addListener);
         } else {
             //获取接口
@@ -100,13 +113,25 @@ public class DeedPersonalBankActivity extends BaseTitleActivity implements DeedP
 
     @NonNull
     private RequestBody getRequestBody() {
-        return new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("HouseId", "")
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("Id", TextUtils.isEmpty(id) ? "" : id)
+                .addFormDataPart("HouseId", TextUtils.isEmpty(houseId) ? "" : houseId)
                 .addFormDataPart("BankAccountName", bankAccountName)
                 .addFormDataPart("BankName", bankName)
                 .addFormDataPart("BankAccount", bankAccount)
                 .addFormDataPart("Remark", remark)
-                .build();
+                .addFormDataPart("DeleteFileIDs", TextUtils.isEmpty(rvAddablePhotoPreview.getDeleteImgIds()) ? "" :
+                        rvAddablePhotoPreview.getDeleteImgIds());
+        List<ImgInfo> imgInfos = rvAddablePhotoPreview.getDate();
+        for (int i = 0; i < imgInfos.size(); i++) {
+            Uri uri = imgInfos.get(i).getUri();
+            if (uri != null) {
+                File photoFile = FileUtil.getFileByUri(uri, this);
+                builder.addFormDataPart("Files" + i, photoFile.getName(), RequestBody.create(MediaType
+                        .parse("image/*"), photoFile));
+            }
+        }
+        return builder.build();
     }
 
     public boolean checkDataVaildable() {
@@ -118,7 +143,6 @@ public class DeedPersonalBankActivity extends BaseTitleActivity implements DeedP
                 CheckUtil.checkEmpty(bankAccount, "请输入银行账号");
     }
 
-
     private void setEditable(boolean allowEdit) {
         if (allowEdit) {
             setRightClick("保存", editListener);
@@ -127,7 +151,6 @@ public class DeedPersonalBankActivity extends BaseTitleActivity implements DeedP
         etBankName.setEnabled(allowEdit);
         etBankAccountName.setEnabled(allowEdit);
         etRemark.setEnabled(allowEdit);
-
     }
 
     private NoDoubleClickListener editListener = new NoDoubleClickListener() {
@@ -156,22 +179,50 @@ public class DeedPersonalBankActivity extends BaseTitleActivity implements DeedP
         etRemark.setText(deedPersonalBank.getRemark());
         boolean allowEdit = deedPersonalBank.isAllowEdit();
         setEditable(allowEdit);
-//        rvPhotoPreview.setData(deedPersonalBank.getFiles(), new FileConfig(Status.FileType.BANK,), allowEdit);
+        rvAddablePhotoPreview.setDate(deedPersonalBank.getFiles(), allowEdit);
     }
 
     @Override
-    public void onAddDeedPersonalBankSuccess() {
-
+    public void onAddDeedPersonalBankSuccess(BankInfo bankInfo) {
+        EventBus.getDefault().post(new AddBankInfoEvent(bankInfo));
+        showSuccessDialogAndFinish("保存成功");
     }
 
     @Override
-    public void onModifyDeedPersonalBankSuccess() {
-
+    public void onModifyDeedPersonalBankSuccess(BankInfo bankInfo) {
+        EventBus.getDefault().post(new ModifyBankInfoEvent(bankInfo));
+        showSuccessDialogAndFinish("保存成功");
     }
 
-    public static void goActivity(Context context, String id) {
+    public static void goActivity(Context context, String id, String houseId) {
         Intent intent = new Intent(context, DeedPersonalBankActivity.class);
         intent.putExtra(Constants.Extra.ID, id);
+        intent.putExtra(Constants.Extra.HOUSEID, houseId);
         context.startActivity(intent);
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            switch (requestCode) {
+                case MatisseUtil.REQUEST_CODE_CHOOSE:
+                    rvAddablePhotoPreview.onPhotoCallback(requestCode, resultCode, data);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

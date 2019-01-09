@@ -343,7 +343,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".page.deed.personal.bank.DeedPersonalBankActivity"
+            android:name=".page.business.detail.personal.bankdetail.DeedPersonalBankActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
         <activity
@@ -396,7 +396,10 @@
         <activity android:name=".page.supervise.statistics.total.taotype.StatisticsTaotypeListActivity"/>
         <activity android:name=".page.supervise.statistics.total.taotype.person.TaoTypePersonListActivity"/>
         <activity android:name=".page.supervise.statistics.total.pay.detaillist.StatisticsPayDetailListActivity"/>
-        <activity android:name=".page.business.detail.personal.branklist.BrankListActivity"/>
+        <activity android:name=".page.business.detail.personal.branklist.BankListActivity"/>
+        <activity android:name=".page.business.detail.personal.bankdetail.list.BrankListActivity"/>
+        <activity android:name=".page.admin.project.detail.payscheme.PaySchemeActivity"/>
+        <activity android:name=".page.node.protocol.personal.lastst.pay.banklist.ReceiveAccountListActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

@@ -99,4 +99,16 @@ public class OperateNodePresenter implements OperateNodeContract.Presenter {
                 });
     }
 
+    @Override
+    public void reminderNode(RequestBody requestBody, String buildingIds) {
+        mApi.getApiService().reminderNode(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onReminderNodeSuccess(buildingIds);
+                    }
+                });
+    }
+
 }

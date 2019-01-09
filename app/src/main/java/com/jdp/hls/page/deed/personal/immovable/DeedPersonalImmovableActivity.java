@@ -58,6 +58,8 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
     DeedPersonalImmovablePresenter deedPersonalImmovablePresenter;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
+    @BindView(R.id.et_buildOccupyArea_Property)
+    EnableEditText etBuildOccupyAreaProperty;
     private List<TDict> landUseList;
     private List<TDict> landTypeList;
     private List<TDict> propertyUseList;
@@ -73,6 +75,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
     private String landTotalArea;
     private String buildOccupyArea;
     private String remark;
+    private String buildOccupyAreaProperty;
 
     @Override
     public void initVariable() {
@@ -169,6 +172,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
                 .addFormDataPart("HouseShareArea", houseShareArea)
                 .addFormDataPart("LandTotalArea", landTotalArea)
                 .addFormDataPart("BuildOccupyArea", buildOccupyArea)
+                .addFormDataPart("BuildOccupyArea_Property", buildOccupyAreaProperty)
                 .addFormDataPart("Remark", remark)
                 .addFormDataPart("Address", address).build();
     }
@@ -180,6 +184,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
         landTotalArea = etLandCertArea.getText().toString().trim();
         buildOccupyArea = etLandBuildOccupyArea.getText().toString().trim();
         address = etLandAddress.getText().toString().trim();
+        buildOccupyAreaProperty = etBuildOccupyAreaProperty.getText().toString().trim();
         remark = etRemark.getText().toString().trim();
         return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
     }
@@ -196,6 +201,9 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
         etPropertyShareArea.setText(String.valueOf(deedPersonalImmovable.getHouseShareArea()));
 
         etLandAddress.setText(deedPersonalImmovable.getAddress());
+
+        etBuildOccupyAreaProperty.setString(deedPersonalImmovable.getBuildOccupyArea_Property());
+
         etRemark.setText(deedPersonalImmovable.getRemark());
 
         landUseId = deedPersonalImmovable.getLandUseTypeId();
@@ -224,6 +232,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
         etPropertyShareArea.setEnabled(allowEdit);
         etLandAddress.setEnabled(allowEdit);
         etRemark.setEnabled(allowEdit);
+        etBuildOccupyAreaProperty.setEnabled(allowEdit);
         spinnerLandUse.enable(allowEdit);
         spinnerLandType.enable(allowEdit);
         spinnerPropertyUse.enable(allowEdit);

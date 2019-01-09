@@ -1,5 +1,6 @@
 package com.jdp.hls.page.node.protocol.personal.lastst.pay.detail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -22,6 +24,7 @@ import com.jdp.hls.model.entiy.AddPayEvent;
 import com.jdp.hls.model.entiy.ModifyPayEvent;
 import com.jdp.hls.model.entiy.PayItem;
 import com.jdp.hls.other.file.FileConfig;
+import com.jdp.hls.page.node.protocol.personal.lastst.pay.banklist.ReceiveAccountListActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
@@ -63,7 +66,7 @@ public class PayDetailActivity extends BaseTitleActivity implements PayDetailCon
     @BindView(R.id.tv_limitEndDate)
     StringTextView tvLimitEndDate;
     @BindView(R.id.smb_isDouble)
-    SwitchMultiButton smbIsDouble;
+    Switch smbIsDouble;
     @BindView(R.id.rv_photo_preview)
     PreviewRecyclerView rvPhotoPreview;
     @BindView(R.id.rl_photo_preview)
@@ -78,6 +81,12 @@ public class PayDetailActivity extends BaseTitleActivity implements PayDetailCon
     ImageView ivLimitEndDate;
     @BindView(R.id.ll_tempPlacementFee)
     LinearLayout llTempPlacementFee;
+    @BindView(R.id.tv_receiveAccount)
+    StringTextView tvReceiveAccount;
+    @BindView(R.id.iv_arrow_receiveAccount)
+    ImageView ivArrowReceiveAccount;
+    @BindView(R.id.ll_receiveAccount)
+    LinearLayout llReceiveAccount;
     //id为0为增加，否则为修改
     private int id;
     @Inject
@@ -94,8 +103,9 @@ public class PayDetailActivity extends BaseTitleActivity implements PayDetailCon
     private String limitStartDate;
     private String limitEndDate;
     private String payDate;
+    private int recBankAccountId = -1;
 
-    @OnClick({R.id.iv_payDate, R.id.iv_limitStartDate, R.id.iv_limitEndDate})
+    @OnClick({R.id.iv_payDate, R.id.iv_limitStartDate, R.id.iv_limitEndDate, R.id.ll_receiveAccount})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.iv_payDate:
@@ -151,6 +161,9 @@ public class PayDetailActivity extends BaseTitleActivity implements PayDetailCon
                         .build();
                 endDateSelector.show(this.getSupportFragmentManager(), String.valueOf(ivLimitEndDate.hashCode()));
                 break;
+            case R.id.ll_receiveAccount:
+                ReceiveAccountListActivity.goActivity(this, buildingId);
+                break;
         }
     }
 
@@ -192,19 +205,25 @@ public class PayDetailActivity extends BaseTitleActivity implements PayDetailCon
     protected void initData() {
         rvPhotoPreview.setData(null, new FileConfig(Status.FileType.PAY_DETAIL, buildingId,
                 buildingType), isAllowEdit);
-        smbIsDouble.setOnSwitchListener((position, tabText) -> isDouble = position == 0);
+        smbIsDouble.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            isDouble = isChecked;
+        });
         spinnerType.setDicts(payTypeList, typeId -> {
             payType = typeId;
             llTempPlacementFee.setVisibility(payType == Status.PayTypeItem.TempPlacementFee ? View.VISIBLE : View.GONE);
         });
         payType = spinnerType.getDefaultTypeId();
         llTempPlacementFee.setVisibility(payType == Status.PayTypeItem.TempPlacementFee ? View.VISIBLE : View.GONE);
-        setRightClick("保存", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                doSave();
-            }
-        });
+        if (isAllowEdit) {
+            setRightClick("保存", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    doSave();
+                }
+            });
+        }
+
+
     }
 
     private void doSave() {
@@ -216,6 +235,7 @@ public class PayDetailActivity extends BaseTitleActivity implements PayDetailCon
         if (CheckUtil.checkEmpty(payDate, "请选择支付日期") && CheckUtil.checkEmpty(amount, "请输入支付金额")) {
             payDetailPresenter.savePay(new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("Id", String.valueOf(id))
+                    .addFormDataPart("RecBankAccountId", String.valueOf(recBankAccountId))
                     .addFormDataPart("BuildingId", buildingId)
                     .addFormDataPart("BuildingType", buildingType)
                     .addFormDataPart("PayDate", payDate)
@@ -262,19 +282,25 @@ public class PayDetailActivity extends BaseTitleActivity implements PayDetailCon
         etAmount.setString(payItem.getAmount());
         tvLimitStartDate.setString(limitStartDate);
         tvLimitEndDate.setString(limitEndDate);
-        smbIsDouble.setSelectedTab(payItem.isIsDouble() ? 0 : 1);
+        smbIsDouble.setChecked(payItem.isIsDouble());
         etRemark.setString(payItem.getRemark());
+        recBankAccountId = payItem.getRecBankAccountId();
+        tvReceiveAccount.setString(payItem.getBankAccountName() + "" + payItem.getBankAccount());
 
         rvPhotoPreview.setData(payItem.getFiles(), new FileConfig(Status.FileType.PAY_DETAIL, buildingId,
                 buildingType), isAllowEdit);
-
         etAmount.setEnabled(isAllowEdit);
         etRemark.setEnabled(isAllowEdit);
         spinnerType.enable(isAllowEdit);
+        smbIsDouble.setEnabled(isAllowEdit);
+
+        llReceiveAccount.setClickable(isAllowEdit);
+        ivArrowReceiveAccount.setVisibility(isAllowEdit ? View.VISIBLE : View.GONE);
 
         ivPayDate.setVisibility(isAllowEdit ? View.VISIBLE : View.GONE);
         ivLimitStartDate.setVisibility(isAllowEdit ? View.VISIBLE : View.GONE);
         ivLimitEndDate.setVisibility(isAllowEdit ? View.VISIBLE : View.GONE);
+
 
     }
 
@@ -298,5 +324,21 @@ public class PayDetailActivity extends BaseTitleActivity implements PayDetailCon
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         rvPhotoPreview.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            switch (requestCode) {
+                case Constants.RequestCode.ReceiveAccount:
+                    String receiveAccount = data.getStringExtra(Constants.Extra.ReceiveAccount);
+                    recBankAccountId = data.getIntExtra(Constants.Extra.RecBankAccountId, -1);
+                    tvReceiveAccount.setString(receiveAccount);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

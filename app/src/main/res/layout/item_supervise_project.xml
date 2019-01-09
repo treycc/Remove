@@ -18,12 +18,27 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <com.jdp.hls.view.StringTextView
-            android:id="@+id/tv_projectName"
-            style="@style/font_3_16"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="鹿城拆迁项目"/>
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_project_sel"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="8dp"
+                android:background="@mipmap/ic_project_sel"
+                android:visibility="gone"/>
+
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_projectName"
+                style="@style/font_3_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -39,7 +54,7 @@
                 style="@style/font_9_13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="89"/>
+                android:text="/"/>
 
             <TextView
                 style="@style/font_9_12"
@@ -59,7 +74,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="司马懿"/>
+                android:text="/"/>
         </LinearLayout>
 
         <com.jdp.hls.view.StringTextView
@@ -67,7 +82,7 @@
             style="@style/font_9_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区浙江省鹿城区"/>
+            android:text="/"/>
     </LinearLayout>
 
     <LinearLayout
@@ -82,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="center"
-            android:text="60%"
+            android:text="0%"
             app:super_solidColor="@color/white_hi"
             app:super_strokeColor="@color/main"
             app:super_strokeWidth="1dp"
@@ -96,7 +111,7 @@
             android:layout_height="20dp"
             android:background="@color/main"
             android:gravity="center"
-            android:text="1000户"
+            android:text="0户"
             app:super_bottomLeftRadius="5dp"
             app:super_bottomRightRadius="5dp"
             app:super_solidColor="@color/main"

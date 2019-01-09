@@ -17,6 +17,7 @@ import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolContract;
 import com.jdp.hls.page.node.protocol.personal.NodePersonalProtocolPresenter;
 import com.jdp.hls.page.node.protocol.personal.lastst.pay.list.PayListActivity;
 import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.StringTextView;
@@ -79,7 +80,7 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_payList:
-                PayListActivity.goActivity(this, mBuildingId, mBuildingType, allowEdit);
+                PayListActivity.goActivity(this, mBuildingId, mBuildingType, SpSir.getInstance().isOperatorAccount());
                 break;
         }
     }

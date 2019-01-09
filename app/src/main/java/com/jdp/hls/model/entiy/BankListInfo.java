@@ -8,9 +8,9 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class BrankListInfo {
+public class BankListInfo {
     private boolean IsAllowEdit;
-    private List<BrankInfo> BrankList;
+    private List<BankInfo> LstBankAccount;
 
     public boolean isAllowEdit() {
         return IsAllowEdit;
@@ -20,11 +20,11 @@ public class BrankListInfo {
         IsAllowEdit = allowEdit;
     }
 
-    public List<BrankInfo> getBrankList() {
-        return BrankList;
+    public List<BankInfo> getLstBankAccount() {
+        return LstBankAccount;
     }
 
-    public void setBrankList(List<BrankInfo> brankList) {
-        BrankList = brankList;
+    public void setLstBankAccount(List<BankInfo> lstBankAccount) {
+        LstBankAccount = lstBankAccount;
     }
 }

@@ -24,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
-            android:layout_marginTop="12dp"
             android:orientation="horizontal">
 
             <TextView
@@ -130,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
                 android:layout_weight="1"
-                android:text="银行卡号"/>
+                android:text="收款账号"/>
 
             <com.jdp.hls.view.StringTextView
                 android:id="@+id/tv_bankAccount"

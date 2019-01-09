@@ -13,7 +13,6 @@
         android:background="@color/white_hi"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:animateLayoutChanges="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -31,6 +30,32 @@
                 android:hint="请选择类型"
                 app:backgroundSelector="@drawable/sel_t2g"
                 app:textTint="@color/c_9"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_receiveAccount"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="收款账号"/>
+
+            <RelativeLayout style="@style/Rl_Container_Arrow_W2">
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_receiveAccount"
+                    style="@style/font_9_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="请选择收款账号"
+                    android:textColorHint="@color/c_c"
+                    android:text=""/>
+
+                <ImageView style="@style/BG_ARROW" android:id="@+id/iv_arrow_receiveAccount"/>
+            </RelativeLayout>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -73,10 +98,10 @@
                 android:text="支付金额"/>
 
             <com.jdp.hls.view.EnableEditText
-                android:inputType="numberDecimal"
                 android:id="@+id/et_amount"
                 style="@style/Content_ET_W2"
-                android:hint="请输入支付金额"/>
+                android:hint="请输入支付金额"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -84,9 +109,9 @@
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/ll_tempPlacementFee"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 style="@style/Content_LL_T6">
@@ -159,10 +184,9 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:paddingLeft="12dp">
+                    android:layout_weight="2">
 
-                    <lib.kingja.switchbutton.SwitchMultiButton
+                   <!-- <lib.kingja.switchbutton.SwitchMultiButton
                         android:id="@+id/smb_isDouble"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
@@ -173,7 +197,15 @@
                         app:strokeRadius="4dp"
                         app:strokeWidth="1dp"
                         app:switchTabs="@array/switch_yesorno"
-                        app:textSize="14sp"/>
+                        app:textSize="14sp"/>-->
+
+                    <Switch
+                        android:id="@+id/smb_isDouble"
+                        style="@style/KSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textOff="否"
+                        android:textOn="是"/>
                 </FrameLayout>
 
 
@@ -181,7 +213,6 @@
 
 
         </LinearLayout>
-
 
 
         <TextView

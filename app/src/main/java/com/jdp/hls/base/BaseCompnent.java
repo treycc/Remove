@@ -11,6 +11,7 @@ import com.jdp.hls.page.admin.manager.ManagerListActivity;
 import com.jdp.hls.page.admin.project.company.CompanyListActivity;
 import com.jdp.hls.page.admin.project.config.ProjectConfigActivity;
 import com.jdp.hls.page.admin.project.detail.ProjectDetailActivity;
+import com.jdp.hls.page.admin.project.detail.payscheme.PaySchemeActivity;
 import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
 import com.jdp.hls.page.admin.query.ProjectSelectActivity;
 import com.jdp.hls.page.admin.query.list.QueryListActivity;
@@ -24,7 +25,7 @@ import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
 import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.page.business.detail.company.DetailCompanyActivity;
 import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
-import com.jdp.hls.page.business.detail.personal.branklist.BrankListActivity;
+import com.jdp.hls.page.business.detail.personal.branklist.BankListActivity;
 import com.jdp.hls.page.business.list.BusinessListActivity;
 import com.jdp.hls.page.business.list.BusinessListFragment;
 import com.jdp.hls.page.crash.CrashActivity;
@@ -33,7 +34,7 @@ import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
 import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
-import com.jdp.hls.page.deed.personal.bank.DeedPersonalBankActivity;
+import com.jdp.hls.page.business.detail.personal.bankdetail.DeedPersonalBankActivity;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
@@ -51,6 +52,7 @@ import com.jdp.hls.page.mine.MineFragment;
 import com.jdp.hls.page.module.HomeFragment;
 import com.jdp.hls.page.node.age.company.NodeCompanyAgeActivity;
 import com.jdp.hls.page.node.age.personal.NodePersonalAgeActivity;
+import com.jdp.hls.page.node.protocol.personal.lastst.pay.banklist.ReceiveAccountListActivity;
 import com.jdp.hls.page.node.protocol.personal.lastst.pay.detail.PayDetailActivity;
 import com.jdp.hls.page.node.protocol.personal.lastst.pay.list.PayListActivity;
 import com.jdp.hls.page.node.evaluate.company.NodeCompanyEvaluateActivity;
@@ -67,6 +69,7 @@ import com.jdp.hls.page.node.protocol.personal.lastst.NodePersonalProtocolNewAct
 import com.jdp.hls.page.operate.back.BackDialog;
 import com.jdp.hls.page.operate.delete.DeleteDialog;
 import com.jdp.hls.page.operate.recover.RecoverDialog;
+import com.jdp.hls.page.operate.reminder.ReminderDialog;
 import com.jdp.hls.page.operate.review.ReviewDialog;
 import com.jdp.hls.page.operate.send.SendDialog;
 import com.jdp.hls.page.otherarea.add.OtherAreaAddActivity;
@@ -116,8 +119,15 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
-    void inject(BrankListActivity target);
+    void inject(ReceiveAccountListActivity target);
+    void inject(PaySchemeActivity target);
+
+    void inject(ReminderDialog target);
+
+    void inject(BankListActivity target);
+
     void inject(StatisticsPayDetailListActivity target);
+
     void inject(TaoTypePersonListActivity target);
 
     void inject(StatisticsTaotypeListActivity target);

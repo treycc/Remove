@@ -121,6 +121,10 @@ public class Status {
         int AIRPHOTO = 3;
         int TABLE = 4;
     }
+    public interface DataStatisticsType {
+        int PROGRESS_STATISTICS = 30;
+        int TOTAL_STATISTICS = 31;
+    }
 
     public interface AirPhotoType {
         int FIRST = 0;

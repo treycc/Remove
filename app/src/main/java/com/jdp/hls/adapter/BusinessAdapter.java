@@ -11,14 +11,9 @@ import com.jdp.hls.R;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
 import com.jdp.hls.i.OnBusinessItemSelectedListener;
-import com.jdp.hls.i.OnBusinessSelectedListener;
 import com.jdp.hls.model.entiy.Business;
-import com.jdp.hls.model.entiy.OtherArea;
-import com.jdp.hls.util.LogUtil;
-import com.jdp.hls.view.DrawHelperLayout;
-import com.jdp.hls.view.StringTextView;
+import com.kingja.supershapeview.view.SuperShapeTextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,7 +64,9 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
         viewHolder.tv_business_node.setText(list.get(position).getStatusDesc());
         viewHolder.iv_business_hasLocation.setBackgroundResource(list.get(position).isHasLongitudeAndLatitude() ? R
                 .mipmap.ic_location_sel : R.mipmap.ic_location_nor);
-        viewHolder.iv_business_isBack.setVisibility(list.get(position).isFlowBack() ? View.VISIBLE : View.GONE);
+        viewHolder.set_business_isBack.setVisibility(list.get(position).isFlowBack() ? View.VISIBLE : View.GONE);
+        viewHolder.set_business_isUrgent.setVisibility(list.get(position).isUrgent() ? View.VISIBLE : View.GONE);
+        viewHolder.set_business_isReminder.setVisibility(list.get(position).isReminder() ? View.VISIBLE : View.GONE);
         return convertView;
     }
 
@@ -92,6 +89,17 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
                 business.setAddress(event.getAddress());
                 business.setMobilePhone(event.getMobile());
                 business.setCusCode(event.getCusCode());
+                business.setReminder(event.isReminder());
+                business.setUrgent(event.isUrgent());
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void refreshReminder(List<String> buildingIdList) {
+        for (Business business : list) {
+            if (buildingIdList.contains(business.getBuildingId())) {
+                business.setReminder(true);
             }
         }
         notifyDataSetChanged();
@@ -106,7 +114,9 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
         public TextView tv_business_mobile;
         public TextView tv_business_node;
         public ImageView iv_business_hasLocation;
-        public ImageView iv_business_isBack;
+        public SuperShapeTextView set_business_isBack;
+        public SuperShapeTextView set_business_isUrgent;
+        public SuperShapeTextView set_business_isReminder;
         public CheckBox cb_business;
 
         public ViewHolder(View root) {
@@ -118,7 +128,9 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
             tv_business_mobile = root.findViewById(R.id.tv_business_mobile);
             tv_business_node = root.findViewById(R.id.tv_business_node);
             iv_business_hasLocation = root.findViewById(R.id.iv_business_hasLocation);
-            iv_business_isBack = root.findViewById(R.id.iv_business_isBack);
+            set_business_isBack = root.findViewById(R.id.set_business_isBack);
+            set_business_isUrgent = root.findViewById(R.id.set_business_isUrgent);
+            set_business_isReminder = root.findViewById(R.id.set_business_isReminder);
             cb_business = root.findViewById(R.id.cb_business);
         }
     }

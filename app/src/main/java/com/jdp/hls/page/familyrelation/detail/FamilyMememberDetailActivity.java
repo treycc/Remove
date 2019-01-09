@@ -2,6 +2,7 @@ package com.jdp.hls.page.familyrelation.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.jdp.hls.R;
@@ -28,6 +29,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -39,8 +41,6 @@ import okhttp3.MultipartBody;
 public class FamilyMememberDetailActivity extends BaseTitleActivity implements FamilyMememberDetailContract.View {
     @BindView(R.id.et_familyRelation_name)
     EnableEditText etFamilyRelationName;
-    @BindView(R.id.spinner_familyMemember_title)
-    KSpinner spinnerFamilyMememberTitle;
     @BindView(R.id.spinner_familyMemember_gender)
     KSpinner spinnerFamilyMememberGender;
     @BindView(R.id.spinner_familyMemember_type)
@@ -49,6 +49,8 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
     EnableEditText etFamilyRelationIdcard;
     @BindView(R.id.et_familyRelation_bookletNum)
     EnableEditText etFamilyRelationBookletNum;
+    @BindView(R.id.et_appellation)
+    EnableEditText etAppellation;
     private FamilyMember familyMember;
     private String bookletId;
     private boolean gender = true;
@@ -64,6 +66,7 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
     private String typeName;
     private String bookletNum;
     private boolean editable;
+    private String appellation;
 
     @Override
     public void initVariable() {
@@ -115,22 +118,15 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         spinnerFamilyMememberType.setBooleanDate(Arrays.asList("农业", "非农业"), selected -> {
             isFarmer = selected;
         });
-        spinnerFamilyMememberTitle.setDictsItem(familyRelationTitles, dict -> {
-            titleTypeId = dict.getTypeId();
-            typeName = dict.getTypeName();
-        });
-        TDict defaultDict = spinnerFamilyMememberTitle.getDefaultDict();
-        titleTypeId = defaultDict.getTypeId();
-        typeName = defaultDict.getTypeName();
         etFamilyRelationBookletNum.setString(bookletNum == null ? "" : bookletNum);
         if (familyMember != null) {
             etFamilyRelationBookletNum.setString(familyMember.getBookletNum());
             etFamilyRelationName.setString(familyMember.getRealName());
+            etAppellation.setString(familyMember.getAppellation());
             etFamilyRelationIdcard.setString(familyMember.getIdcard());
             etFamilyRelationBookletNum.setString(familyMember.getBookletNum());
             spinnerFamilyMememberGender.setSelectedIndex(familyMember.isGender() ? 0 : 1);
             spinnerFamilyMememberType.setSelectedIndex(familyMember.getIsFarming() ? 0 : 1);
-            spinnerFamilyMememberTitle.setSelectItem(familyMember.getTypeId());
             titleTypeId = familyMember.getTypeId();
             typeName = familyMember.getTypeName();
             gender = familyMember.isGender();
@@ -140,9 +136,9 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
             etFamilyRelationName.setEnabled(editable);
             etFamilyRelationIdcard.setEnabled(editable);
             etFamilyRelationBookletNum.setEnabled(editable);
+            etAppellation.setEnabled(editable);
             spinnerFamilyMememberGender.enable(editable);
             spinnerFamilyMememberType.enable(editable);
-            spinnerFamilyMememberTitle.enable(editable);
 
         }
     }
@@ -151,21 +147,25 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         realName = etFamilyRelationName.getText().toString().trim();
         idcard = etFamilyRelationIdcard.getText().toString().trim();
         bookletNum = etFamilyRelationBookletNum.getText().toString().trim();
-        if (!CheckUtil.checkEmpty(realName, "请输入姓名")) {
-            return;
+        appellation = etAppellation.getText().toString().trim();
+        if (CheckUtil.checkEmpty(realName, "请输入姓名")
+                && CheckUtil.checkEmpty(appellation, "请输入称谓")
+                && CheckUtil.checkEmpty(idcard, "请输入身份证号")) {
+            familyMememberDetailPresenter.saveFamilyRemember(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("PersonId", familyMember == null ? "" : familyMember.getPersonId())
+                    .addFormDataPart("BookletId", familyMember == null ? bookletId : String.valueOf(familyMember
+                            .getBookletId()))
+                    .addFormDataPart("HouseId", houseId)
+                    .addFormDataPart("RealName", realName)
+//                .addFormDataPart("TypeId", String.valueOf(titleTypeId))
+                    .addFormDataPart("Gender", String.valueOf(gender))
+                    .addFormDataPart("IsFarming", String.valueOf(isFarmer))
+                    .addFormDataPart("Idcard", idcard)
+                    .addFormDataPart("BookletNum", bookletNum)
+                    .addFormDataPart("Appellation", appellation)
+                    .build());
         }
-        familyMememberDetailPresenter.saveFamilyRemember(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("PersonId", familyMember == null ? "" : familyMember.getPersonId())
-                .addFormDataPart("BookletId", familyMember == null ? bookletId : String.valueOf(familyMember
-                        .getBookletId()))
-                .addFormDataPart("HouseId", houseId)
-                .addFormDataPart("RealName", realName)
-                .addFormDataPart("TypeId", String.valueOf(titleTypeId))
-                .addFormDataPart("Gender", String.valueOf(gender))
-                .addFormDataPart("IsFarming", String.valueOf(isFarmer))
-                .addFormDataPart("Idcard", idcard)
-                .addFormDataPart("BookletNum", bookletNum)
-                .build());
+
     }
 
     @Override
@@ -201,6 +201,7 @@ public class FamilyMememberDetailActivity extends BaseTitleActivity implements F
         eventObj.setIsFarming(isFarmer);
         eventObj.setGender(gender);
         eventObj.setBookletNum(bookletNum);
+        eventObj.setAppellation(appellation);
         if (familyMember != null) {
             EventBus.getDefault().post(new ModifyFamilyMememberEvent(eventObj));
         } else {

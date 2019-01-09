@@ -1,7 +1,10 @@
 package com.jdp.hls.page.levy;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.CommonAdapter;
@@ -20,9 +23,12 @@ import com.jdp.hls.page.business.list.BusinessListActivity;
 import com.jdp.hls.page.map.RosterActivity;
 import com.jdp.hls.page.publicity.PublicityActivity;
 import com.jdp.hls.page.statistics.StatisticsActivity;
+import com.jdp.hls.page.supervise.statistics.progress.progress.StatisticsProgressInfoActivity;
+import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.SpSir;
+import com.jdp.hls.view.FixedGridView;
 import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,6 +41,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Description:征收系统
@@ -53,19 +60,28 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
     GridView gvStatisticsAction;
     @BindView(R.id.srl)
     RefreshableSwipeRefreshLayout srl;
+    @BindView(R.id.gv_dataStatistics)
+    FixedGridView gvDataStatistics;
+    @BindView(R.id.ll_businessAction)
+    LinearLayout llBusinessAction;
+    @BindView(R.id.ll_dataStatistics)
+    LinearLayout llDataStatistics;
+    @BindView(R.id.ll_statisticsAction)
+    LinearLayout llStatisticsAction;
     private CommonAdapter taskAdapter;
     private CommonPositionAdapter businessActionAdapter;
     private CommonPositionAdapter statisticsActionAdapter;
+    private CommonPositionAdapter dataStatisticsAdapter;
     private List<Task> tasks = new ArrayList<>();
     private List<BusinessAction> businessActions = new ArrayList<>();
     private List<BusinessAction> statisticsActions = new ArrayList<>();
+    private List<BusinessAction> dataStatisticsActions = new ArrayList<>();
     private int[] businessActionIcons = {R.mipmap.ic_nav_roster, R.mipmap.ic_publicity_manage, R.mipmap
             .ic_aerial_photograph, R.mipmap.ic_list_table};
     private int[] statisticsActionsIcons = {R.mipmap.ic_contract_count, R.mipmap.ic_surveying, R.mipmap
             .ic_mapping, R.mipmap.ic_agelimit_appraisal, R.mipmap.ic_nav_evaluate, R.mipmap.ic_protocol_generation, R
-            .mipmap
-            .ic_aerial_photograph_count, R.mipmap.ic_publicity_count};
-
+            .mipmap.ic_aerial_photograph_count, R.mipmap.ic_publicity_count};
+    private int[] dataStatisticsIcons = {R.mipmap.ic_progress_statistics, R.mipmap.ic_total_statistics};
 
     @Override
     public void initVariable() {
@@ -110,18 +126,31 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
                 businessActions, R.layout.item_business_action) {
             @Override
             public void convert(ViewHolder helper, BusinessAction item, int position) {
-                helper.setBackgroundResource(R.id.iv_businessAction, businessActionIcons[position]);
+//                helper.setBackgroundResource(R.id.iv_businessAction, businessActionIcons[position]);
                 helper.setText(R.id.tv_taskName, item.getActionName());
+                helper.setImageByUrl(R.id.iv_businessAction, item.getActionPicUrl());
             }
         });
         gvStatisticsAction.setAdapter(statisticsActionAdapter = new CommonPositionAdapter<BusinessAction>(this,
                 statisticsActions, R.layout.item_business_action) {
             @Override
             public void convert(ViewHolder helper, BusinessAction item, int position) {
-                helper.setBackgroundResource(R.id.iv_businessAction, statisticsActionsIcons[position]);
+//                helper.setBackgroundResource(R.id.iv_businessAction, statisticsActionsIcons[position]);
                 helper.setText(R.id.tv_taskName, item.getActionName());
+                helper.setImageByUrl(R.id.iv_businessAction, item.getActionPicUrl());
             }
         });
+        gvDataStatistics.setAdapter(dataStatisticsAdapter = new CommonPositionAdapter<BusinessAction>(this,
+                dataStatisticsActions, R.layout.item_business_action) {
+            @Override
+            public void convert(ViewHolder helper, BusinessAction item, int position) {
+//                helper.setBackgroundResource(R.id.iv_businessAction, dataStatisticsIcons[position]);
+                helper.setText(R.id.tv_taskName, item.getActionName());
+                helper.setImageByUrl(R.id.iv_businessAction, item.getActionPicUrl());
+            }
+        });
+
+
         gvTask.setOnItemClickListener((parent, view, position, id) -> {
             Task task = (Task) parent.getItemAtPosition(position);
             BusinessListActivity.GoActivity(LevyActivity.this, task.getTaskType(), task.getTaskTypeName());
@@ -144,6 +173,22 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
                 case Status.BusinessActionType.TABLE:
                     /*一览表*/
                     GoUtil.goActivity(this, TableListActivity.class);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        gvDataStatistics.setOnItemClickListener((parent, view, position, id) -> {
+            BusinessAction businessAction = (BusinessAction) parent.getItemAtPosition(position);
+            switch (businessAction.getActionId()) {
+                case Status.DataStatisticsType.PROGRESS_STATISTICS:
+                    /*进度统计*/
+                    GoUtil.goActivity(this, StatisticsProgressInfoActivity.class);
+                    break;
+                case Status.DataStatisticsType.TOTAL_STATISTICS:
+                    /*汇总统计*/
+                    GoUtil.goActivity(this, StatisticsTotalActivity.class);
                     break;
                 default:
                     break;
@@ -172,11 +217,18 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
         }
         List<BusinessAction> businessActionList = levyInfo.getLstAppAction();
         if (businessActionList != null && businessActionList.size() > 0) {
+            llBusinessAction.setVisibility(View.VISIBLE);
             businessActionAdapter.setData(businessActionList);
         }
         List<BusinessAction> statisticsActionList = levyInfo.getLstStatisAction();
         if (statisticsActionList != null && statisticsActionList.size() > 0) {
+            llStatisticsAction.setVisibility(View.VISIBLE);
             statisticsActionAdapter.setData(statisticsActionList);
+        }
+        List<BusinessAction> lstDataStatisAction = levyInfo.getLstDataStatisAction();
+        if (lstDataStatisAction != null && lstDataStatisAction.size() > 0) {
+            llDataStatistics.setVisibility(View.VISIBLE);
+            dataStatisticsAdapter.setData(lstDataStatisAction);
         }
     }
 
@@ -214,5 +266,12 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
     @Override
     public void hideLoading() {
         srl.setRefreshing(false);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
