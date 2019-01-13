@@ -57,6 +57,7 @@
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_detail_mobile"
+                android:inputType="numberDecimal"
                 style="@style/Content_ET_W2"
                 android:hint="请输入联系号码"/>
         </LinearLayout>
@@ -202,7 +203,9 @@
 
 
         </LinearLayout>
+
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout style="@style/Content_LL_T12">
 
             <TextView
@@ -373,6 +376,7 @@
                 <ImageView style="@style/BG_ARROW"/>
             </RelativeLayout>
         </LinearLayout>
+
         <View style="@style/div_hor_gray_margin24"/>
 
         <TextView
@@ -395,8 +399,8 @@
 
             <ImageView
                 style="@style/BG_ARROW"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"/>
 
@@ -422,8 +426,8 @@
 
             <ImageView
                 style="@style/BG_ARROW"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"/>
 

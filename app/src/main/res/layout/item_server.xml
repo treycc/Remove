@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="12dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_serverName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试服"/>
+
+        <ImageView
+            android:id="@+id/iv_sel"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="12dp"
+            android:background="@mipmap/ic_sel"/>
+
+
+    </LinearLayout>
+
+    <com.jdp.hls.view.StringTextView
+        android:id="@+id/tv_serverUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="http://192.168.0.5:8081/"/>
+
+</LinearLayout>

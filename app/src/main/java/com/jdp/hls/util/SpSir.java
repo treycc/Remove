@@ -3,6 +3,7 @@ package com.jdp.hls.util;
 import android.content.SharedPreferences;
 
 import com.jdp.hls.base.App;
+import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 
 
@@ -32,10 +33,12 @@ public class SpSir {
     private String UserName = "UserName";
     private String AccountType = "accountType";
     private String IsOperatorAccount = "IsOperatorAccount";
+    private String IsAllowDistributeProjects = "IsAllowDistributeProjects";
     private String AreaVersion = "AreaVersion";
     private String UpdateTime = "UpdateTime";
     private String AreaJson = "AreaJson";
     private String RouteId = "RouteId";
+    private String DebugUrl = "DebugUrl";
     private static final String EMPTY_STRING = "";
     private static final int ZERO_INT = -1;
     private static SpSir mSpSir;
@@ -202,6 +205,15 @@ public class SpSir {
     }
 
 
+    public void setDebugUrl(String debugUrl) {
+        putString(DebugUrl, debugUrl);
+    }
+
+    public String getDebugUrl() {
+        return getString(DebugUrl, Constants.BASE_URL);
+    }
+
+
 
     public boolean isOperatorAccount() {
         return getBoolean(IsOperatorAccount, false);
@@ -209,6 +221,14 @@ public class SpSir {
 
     public void setIsOperatorAccount(boolean isOperatorAccount) {
         putboolean(IsOperatorAccount, isOperatorAccount);
+    }
+
+    public boolean isAllowDistributeProjects() {
+        return getBoolean(IsAllowDistributeProjects, false);
+    }
+
+    public void setIsAllowDistributeProjects(boolean isAllowDistributeProjects) {
+        putboolean(IsAllowDistributeProjects, isAllowDistributeProjects);
     }
 
 

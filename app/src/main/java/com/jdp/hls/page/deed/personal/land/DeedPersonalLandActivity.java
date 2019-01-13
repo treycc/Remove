@@ -1,6 +1,5 @@
 package com.jdp.hls.page.deed.personal.land;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -23,7 +22,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -134,7 +132,7 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
         buildOccupyArea = etBuildOccupyArea.getText().toString().trim();
         address = etLandAddress.getText().toString().trim();
         remark = etRemark.getText().toString().trim();
-        return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
+        return CheckUtil.checkEmpty(certNum, "请输入证号") && CheckUtil.checkEmpty(address, "请输入地址");
     }
 
 

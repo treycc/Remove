@@ -18,6 +18,15 @@ public class UserInfo {
     private String AccountType;
     private String AccountAlias;
     private boolean IsOperatorAccount;
+    private boolean IsAllowDistributeProjects;
+
+    public boolean isAllowDistributeProjects() {
+        return IsAllowDistributeProjects;
+    }
+
+    public void setAllowDistributeProjects(boolean allowDistributeProjects) {
+        IsAllowDistributeProjects = allowDistributeProjects;
+    }
 
     public boolean isOperatorAccount() {
         return IsOperatorAccount;

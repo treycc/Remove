@@ -139,7 +139,9 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
                 //权益回购
                 getSupportFragmentManager().beginTransaction().replace(R.id.fl_payType, payRebuyFragment).commit();
                 break;
-
+            default:
+                //产权置换
+                getSupportFragmentManager().beginTransaction().replace(R.id.fl_payType, payChangeFragment).commit();
         }
     }
 
@@ -209,11 +211,15 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
         tvBalanceAmount.setString(nodePersonalProtocol.getBalanceAmount());
 
         payType = nodePersonalProtocol.getPayType();
+        if (payType == 99) {
+            payType=spinnerProtocolPayType.getDefaultTypeId();
+        }
         payMoneyFragment = PayMoneyFragment.newInstance(nodePersonalProtocol);
         payChangeFragment = PayChangeFragment.newInstance(nodePersonalProtocol);
         payRebuyFragment = PayRebuyFragment.newInstance(nodePersonalProtocol);
         spinnerProtocolPayType.setSelectItem(payType);
         switchPayType(payType);
+        rvPhotoPreview.setData(nodePersonalProtocol.getFiles(), getFileConfig(), allowEdit);
 
 
     }

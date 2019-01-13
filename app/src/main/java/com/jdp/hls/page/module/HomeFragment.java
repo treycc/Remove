@@ -2,7 +2,9 @@ package com.jdp.hls.page.module;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,6 +45,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
@@ -62,18 +65,18 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     ListView flv;
     @BindView(R.id.rsrl)
     RefreshSwipeRefreshLayout rsrl;
-    @BindView(R.id.ll_switch)
-    LinearLayout llSwitch;
-    Unbinder unbinder;
+    @BindView(R.id.tv_list)
+    StringTextView tvList;
+    Unbinder unbinder1;
     private String routeId;
 
     @Inject
     ModulePresenter modulePresenter;
 
-    @OnClick({R.id.ll_switch})
+    @OnClick({R.id.tv_list})
     public void click(View view) {
         switch (view.getId()) {
-            case R.id.ll_switch:
+            case R.id.tv_list:
                 GoUtil.goActivity(getActivity(), ProjectListActivity.class);
                 break;
         }
@@ -165,7 +168,7 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     @Override
     protected void initData() {
         rsrl.stepRefresh(this);
-        tvTitle.setText(TextUtils.isEmpty(SpSir.getInstance().getProjectName()) ? "项目未选择" : SpSir.getInstance()
+        tvTitle.setText(TextUtils.isEmpty(SpSir.getInstance().getProjectName()) ? "未选择" : SpSir.getInstance()
                 .getProjectName());
     }
 
@@ -211,4 +214,17 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
         tvTitle.setText(SpSir.getInstance().getProjectName());
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder1.unbind();
+    }
 }

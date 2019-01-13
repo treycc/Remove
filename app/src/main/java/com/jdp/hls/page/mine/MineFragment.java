@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,6 +24,7 @@ import com.jdp.hls.imgaeloader.ImageLoader;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.page.modify.ModifyAndUploadActivity;
 import com.jdp.hls.page.projects.ProjectListActivity;
+import com.jdp.hls.page.server.ServerSelectorActivity;
 import com.jdp.hls.page.setting.SettingActivity;
 import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.GoUtil;
@@ -40,7 +45,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -83,9 +90,14 @@ public class MineFragment extends BaseFragment implements MineContract.View {
     public static final int REQUST_PROJECTS = 8;
     @Inject
     MinePresenter minePresenter;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    Unbinder unbinder;
+    private long[] mHits = new long[5];
+    private boolean debugMode;
 
     @OnClick({R.id.rl_mine_account, R.id.rl_mine_alias, R.id.rl_mine_project, R.id.rl_mine_phone, R.id
-            .rl_mine_setting, R.id.ll_mine_service, R.id.ll_personal_head})
+            .rl_mine_setting, R.id.ll_mine_service, R.id.ll_personal_head, R.id.tv_title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_mine_account:
@@ -110,9 +122,34 @@ public class MineFragment extends BaseFragment implements MineContract.View {
             case R.id.ll_personal_head:
                 MatisseUtil.openCameraInFragment(this, Constants.SINGLE_IMG_UPLOAD_COUNT);
                 break;
+            case R.id.tv_title:
+//                openDebug();
+                break;
             default:
                 break;
         }
+    }
+
+    private void openDebug() {
+        System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+        mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+        if (mHits[0] >= (SystemClock.uptimeMillis() - 1000)&&!debugMode) {
+            debugMode=true;
+            ToastUtil.showText("开启调试模式");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    GoUtil.goActivity(getActivity(), ServerSelectorActivity.class);
+                }
+            },300);
+
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        debugMode=false;
     }
 
     public void callPhone(String phoneNum) {

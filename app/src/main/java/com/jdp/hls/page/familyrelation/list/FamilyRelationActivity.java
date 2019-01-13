@@ -3,7 +3,7 @@ package com.jdp.hls.page.familyrelation.list;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.FamilyMemberAdapter;
@@ -19,7 +19,6 @@ import com.jdp.hls.model.entiy.FamilyRelation;
 import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.page.familyrelation.detail.FamilyMememberDetailActivity;
 import com.jdp.hls.util.DialogUtil;
-import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.FixedListView;
 import com.jdp.hls.view.PreviewRecyclerView;
@@ -52,16 +51,20 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     PreviewRecyclerView rvPhotoPreview;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
+    @BindView(R.id.tv_save)
+    TextView tvSave;
+    @BindView(R.id.tv_add)
+    TextView tvAdd;
 
     private List<FamilyMember> familyMembers = new ArrayList<>();
     private String houseId;
     private String bookletId;
-    private boolean editable;
 
     @Inject
     FamilyRelationPresenter familyRelationPresenter;
     private FamilyMemberAdapter familyMemberAdapter;
     private String bookletNum;
+    private boolean editable;
 
     @OnClick({R.id.tv_save, R.id.tv_add, R.id.ll_back})
     public void click(View view) {
@@ -95,7 +98,6 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
     public void initVariable() {
         EventBus.getDefault().register(this);
         houseId = getIntent().getStringExtra(Constants.Extra.HOUSEID);
-        editable = getIntent().getBooleanExtra(Constants.Extra.EDITABLE, false);
     }
 
     @Override
@@ -125,15 +127,7 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
     @Override
     protected void initData() {
-        if (editable) {
-            setRightClick("增加", new NoDoubleClickListener() {
-                @Override
-                public void onNoDoubleClick(View v) {
-                    FamilyMememberDetailActivity.goActivity(FamilyRelationActivity.this, bookletId, bookletNum,
-                            houseId);
-                }
-            });
-        }
+
         familyMemberAdapter.setOnDeleteFamilyMemberListener(new FamilyMemberAdapter.OnDeleteFamilyMemberListener() {
             @Override
             public void onDeleteFamilyMember(String personId, String bookletId, int position) {
@@ -169,6 +163,7 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
     @Override
     public void onGetFamilyRelationSuccess(FamilyRelation familyRelation) {
+        editable = familyRelation.isAllowEdit();
         bookletId = String.valueOf(familyRelation.getBookletId());
         bookletNum = familyRelation.getBookletNum();
         etFamilyRelationNum.setText(bookletNum);
@@ -182,6 +177,8 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
 
         etFamilyRelationNum.setEnabled(editable);
         etRemark.setEnabled(editable);
+        tvAdd.setVisibility(editable ? View.VISIBLE : View.GONE);
+        tvSave.setVisibility(editable ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -194,10 +191,9 @@ public class FamilyRelationActivity extends BaseTitleActivity implements FamilyR
         showSuccessDialogAndFinish();
     }
 
-    public static void goActivity(Context context, String houseId, boolean editable) {
+    public static void goActivity(Context context, String houseId) {
         Intent intent = new Intent(context, FamilyRelationActivity.class);
         intent.putExtra(Constants.Extra.HOUSEID, houseId);
-        intent.putExtra(Constants.Extra.EDITABLE, editable);
         context.startActivity(intent);
     }
 

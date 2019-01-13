@@ -186,7 +186,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
         address = etLandAddress.getText().toString().trim();
         buildOccupyAreaProperty = etBuildOccupyAreaProperty.getText().toString().trim();
         remark = etRemark.getText().toString().trim();
-        return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
+        return CheckUtil.checkEmpty(certNum, "请输入证号") && CheckUtil.checkEmpty(address, "请输入地址");
     }
 
 

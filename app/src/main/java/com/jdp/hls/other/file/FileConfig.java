@@ -13,7 +13,7 @@ public class FileConfig implements Serializable {
     private String buildingId;
     private String buildingType;
     private String masterId;
-    private boolean editable;
+    private boolean editable=true;
 
     public String getMasterId() {
         return null == masterId ? "" : masterId;
@@ -22,13 +22,16 @@ public class FileConfig implements Serializable {
     public void setMasterId(String masterId) {
         this.masterId = masterId;
     }
+    public FileConfig(int fileType, String buildingId, String buildingType) {
+        this(fileType, buildingId, buildingType, "", true);
+    }
 
     public FileConfig(int fileType, String buildingId, String buildingType, boolean editable) {
         this(fileType, buildingId, buildingType, "", editable);
     }
 
     public FileConfig(int fileType, String buildingId, String buildingType, String masterId) {
-        this(fileType, buildingId, buildingType, masterId, false);
+        this(fileType, buildingId, buildingType, masterId, true);
     }
 
     public FileConfig(int fileType, String buildingId, String buildingType, String masterId, boolean editable) {
@@ -47,11 +50,7 @@ public class FileConfig implements Serializable {
         this.editable = editable;
     }
 
-    public FileConfig(int fileType, String buildingId, String buildingType) {
-        this.fileType = fileType;
-        this.buildingId = buildingId;
-        this.buildingType = buildingType;
-    }
+
 
 
     public int getFileType() {

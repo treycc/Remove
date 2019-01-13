@@ -167,6 +167,9 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
         lineChart.setNoDataTextColor(ContextCompat.getColor(getActivity(), R.color.main));
         //禁用Y轴
         lineChart.getAxisRight().setEnabled(false);
+
+        lineChart.setExtraLeftOffset(25f);
+        lineChart.setExtraRightOffset(25f);
         //透明化图例
         Legend legend = lineChart.getLegend();
         legend.setForm(Legend.LegendForm.NONE);
@@ -267,6 +270,7 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
             leftAxis.setAxisMinimum(minValue);
             leftAxis.setAxisMaximum(maxValue);
             leftAxis.setLabelCount(6, false);
+
             //设置Y轴网格线
 //            leftAxis.enableGridDashedLine(10f, 10f, 0f);
 //            leftAxis.setValueFormatter((value, axis) -> String.valueOf((int) value));
@@ -279,8 +283,12 @@ public class StatisticsProgressLineFragment extends BaseFragment implements Stat
             xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
             xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
+            xAxis.setDrawGridLines(false);
+            xAxis.setSpaceMin(1);
+            xAxis.setSpaceMax(1);
+//            xAxis.setAxisMinimum(1);
             xAxis.setGranularityEnabled(true);
-            xAxis.setGranularity(1f);//禁止放大后x轴标签重绘
+            xAxis.setGranularity(1);
 
 
             //设置一页最大显示个数为6，超出部分就滑动

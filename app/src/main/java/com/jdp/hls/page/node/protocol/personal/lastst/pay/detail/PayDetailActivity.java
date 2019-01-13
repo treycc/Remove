@@ -288,7 +288,7 @@ public class PayDetailActivity extends BaseTitleActivity implements PayDetailCon
         tvReceiveAccount.setString(payItem.getBankAccountName() + "" + payItem.getBankAccount());
 
         rvPhotoPreview.setData(payItem.getFiles(), new FileConfig(Status.FileType.PAY_DETAIL, buildingId,
-                buildingType), isAllowEdit);
+                buildingType,String.valueOf(payItem.getId())), isAllowEdit);
         etAmount.setEnabled(isAllowEdit);
         etRemark.setEnabled(isAllowEdit);
         spinnerType.enable(isAllowEdit);

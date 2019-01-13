@@ -29,6 +29,7 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
     protected String mBuildingId;
     protected String mBuildingType;
     protected String mFileType;
+    protected String mEditable;
 
     public FileConfig getFileConfig() {
         return mFileConfig;
@@ -63,7 +64,7 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
     @Override
     protected void initData() {
         setFileConfig(new FileConfig(Integer.valueOf(mFileType), mBuildingId, mBuildingType));
-        rvPhotoPreview.setConfig(getFileConfig());
+        rvPhotoPreview.setData(null,getFileConfig(),true);
     }
 
     @Override

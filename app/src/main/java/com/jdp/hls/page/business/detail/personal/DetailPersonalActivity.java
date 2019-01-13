@@ -3,7 +3,6 @@ package com.jdp.hls.page.business.detail.personal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -46,7 +45,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -136,7 +134,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_unrecordBuilding:
-                FamilyRelationActivity.goActivity(this, detailPersonal.getHouseId(), allowEdit);
+                FamilyRelationActivity.goActivity(this, detailPersonal.getHouseId());
                 break;
             case R.id.ll_detail_propertyDeed:
                 String propertyNum = tvDetailPropertyDeed.getText().toString().trim();
@@ -406,10 +404,4 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

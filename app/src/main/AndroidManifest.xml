@@ -400,6 +400,7 @@
         <activity android:name=".page.business.detail.personal.bankdetail.list.BrankListActivity"/>
         <activity android:name=".page.admin.project.detail.payscheme.PaySchemeActivity"/>
         <activity android:name=".page.node.protocol.personal.lastst.pay.banklist.ReceiveAccountListActivity"/>
+        <activity android:name=".page.server.ServerSelectorActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

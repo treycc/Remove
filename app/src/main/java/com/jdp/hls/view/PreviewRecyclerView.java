@@ -41,7 +41,7 @@ public class PreviewRecyclerView extends RecyclerView {
     private ArrayList<String> deleteIds = new ArrayList<>();
     private PreviewImgAdapter previewImgAdapter;
     private FileConfig fileConfig;
-    private boolean editable ;
+    private boolean editable=true ;
 
     public PreviewRecyclerView(Context context) {
         this(context, null);
@@ -87,7 +87,7 @@ public class PreviewRecyclerView extends RecyclerView {
     }
 
     public void setData(List<ImgInfo> photos, FileConfig fileConfig) {
-        setData(photos, fileConfig, false);
+        setData(photos, fileConfig, true);
     }
 
     public void setData(List<ImgInfo> photos, FileConfig fileConfig, boolean editable) {

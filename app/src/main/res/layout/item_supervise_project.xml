@@ -28,7 +28,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginRight="8dp"
-                android:background="@mipmap/ic_project_sel"
+                android:background="@mipmap/ic_sel"
                 android:visibility="gone"/>
 
             <com.jdp.hls.view.StringTextView

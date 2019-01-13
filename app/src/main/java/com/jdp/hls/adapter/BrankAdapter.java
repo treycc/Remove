@@ -65,6 +65,7 @@ public class BrankAdapter extends BaseLvAdapter<BankInfo> {
             if (bankInfo.getId() == item.getId()) {
                 bankInfo.setBankAccountName(item.getBankAccountName());
                 bankInfo.setBankAccount(item.getBankAccount());
+                bankInfo.setBankName(item.getBankName());
             }
         }
         notifyDataSetChanged();

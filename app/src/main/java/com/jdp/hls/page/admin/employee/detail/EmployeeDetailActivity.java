@@ -18,6 +18,7 @@ import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.EncryptUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
 
@@ -102,6 +103,7 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
     @Override
     protected void initData() {
         smbAccountStatus.setOnSwitchListener((position, tabText) -> isStop = position != 0);
+        llProjectSelector.setVisibility(SpSir.getInstance().isAllowDistributeProjects()?View.VISIBLE:View.GONE);
         setRightClick("保存", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {

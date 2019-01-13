@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.jdp.hls.R;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.util.ServerUtil;
 
 /**
  * Description：TODO
@@ -21,7 +22,7 @@ public class GlideLoader implements IImageLoader {
     @Override
     public void loadImage(Context context, String url, int resourceId, ImageView view) {
         Glide.with(context)
-                .load(Constants.BASE_URL + url)
+                .load(ServerUtil.getServerUrl() + url)
                 .centerCrop()
                 .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
                 .error(R.drawable.ic_img_fail)
@@ -44,7 +45,7 @@ public class GlideLoader implements IImageLoader {
     @Override
     public void loadRoundImage(Context context, String url, int resourceId, ImageView view, int connerWidth) {
         Glide.with(context)
-                .load(Constants.BASE_URL + url)
+                .load(ServerUtil.getServerUrl() + url)
                 .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
                 .error(R.drawable.ic_img_fail)
                 .crossFade()
@@ -55,7 +56,7 @@ public class GlideLoader implements IImageLoader {
     @Override
     public void loadCircleImage(Context context, String url, int resourceId, ImageView view) {
         Glide.with(context)
-                .load(Constants.BASE_URL + url)
+                .load(ServerUtil.getServerUrl() + url)
                 .centerCrop()
                 .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
                 .error(R.drawable.ic_img_fail)

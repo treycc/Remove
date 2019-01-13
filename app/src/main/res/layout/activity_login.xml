@@ -24,6 +24,7 @@
             app:super_strokeWidth="2dp"/>
 
         <TextView
+            android:id="@+id/tv_r"
             style="@style/font_f_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,6 +98,7 @@
     </LinearLayout>
 
     <TextView
+
         style="@style/font_f_13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

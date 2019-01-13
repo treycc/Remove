@@ -3,6 +3,9 @@ package com.jdp.hls.model.api;
 
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.model.service.ApiService;
+import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.ServerUtil;
+import com.jdp.hls.util.SpSir;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +27,7 @@ public class UserApi {
     private ApiService apiService;
 
     public UserApi() {
+        LogUtil.e("UserApi","切换前设置:"+ SpSir.getInstance().getDebugUrl());
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
@@ -34,7 +38,7 @@ public class UserApi {
                 .addInterceptor(httpLoggingInterceptor)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
+                .baseUrl(ServerUtil.getServerUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)

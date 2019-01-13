@@ -7,42 +7,37 @@
     android:background="@color/white_hi"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <LinearLayout
-            android:id="@+id/ll_switch"
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_title"
+            style="@style/font_6_18"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="6dp"
+            android:ellipsize="end"
             android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_title"
-                style="@style/font_6_18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="6dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="项目未选择"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/ic_drop_down"/>
-
-        </LinearLayout>
+            android:singleLine="true"
+            android:text="项目名称"/>
 
 
-    </LinearLayout>
+        <com.jdp.hls.view.StringTextView
+            android:id="@+id/tv_list"
+            style="@style/font_main_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="项目选择"/>
+
+
+    </RelativeLayout>
 
     <View style="@style/div_hor_gray"/>
 

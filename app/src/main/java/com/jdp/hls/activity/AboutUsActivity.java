@@ -32,7 +32,7 @@ public class AboutUsActivity extends BaseTitleActivity {
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_aboutus_agreement:
-                GoUtil.goActivity(this,ProtocolActivity.class);
+                GoUtil.goActivity(this, ProtocolActivity.class);
                 break;
             default:
                 break;
@@ -66,7 +66,8 @@ public class AboutUsActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        tvAboutusVersion.setText(String.format("当前版本:%s",VersionUtil.getVerName(this)));
+        tvAboutusVersion.setText(String.format("当前版本:%s(%d)", VersionUtil.getVerName(this), VersionUtil
+                .getVersionCode(this)));
     }
 
     @Override

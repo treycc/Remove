@@ -1,13 +1,10 @@
 package com.jdp.hls.page.setting;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jdp.hls.R;
 import com.jdp.hls.activity.AboutUsActivity;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -18,7 +15,6 @@ import com.jdp.hls.page.modifyPassword.ModifyPasswordActivity;
 import com.jdp.hls.page.suggest.SuggestActivity;
 import com.jdp.hls.util.AppManager;
 import com.jdp.hls.util.DataCleanManager;
-import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.ToastUtil;
 import com.kingja.supershapeview.view.SuperShapeTextView;
