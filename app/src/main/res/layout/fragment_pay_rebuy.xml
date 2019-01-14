@@ -125,6 +125,21 @@
                 android:id="@+id/tv_needPayBuildingAmount"
                 style="@style/Content_ET_W1_5"/>
         </LinearLayout>
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="回购比例(%)"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_equityRepurchaseRatio"
+                style="@style/Content_ET_W1_5"
+                android:hint="请输入回购比例"
+                android:inputType="numberDecimal"/>
+        </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
 

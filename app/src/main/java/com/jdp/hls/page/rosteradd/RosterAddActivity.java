@@ -3,7 +3,6 @@ package com.jdp.hls.page.rosteradd;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
@@ -38,10 +37,10 @@ import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.PermissionsUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.RequiredTextView;
 import com.jdp.hls.view.RvItemDecoration;
 import com.jdp.hls.view.dialog.ConfirmDialog;
-import com.kingja.supershapeview.view.SuperShapeEditText;
 import com.kingja.supershapeview.view.SuperShapeTextView;
 import com.zhihu.matisse.Matisse;
 
@@ -68,60 +67,48 @@ import okhttp3.RequestBody;
  * Email:kingjavip@gmail.com
  */
 public class RosterAddActivity extends BaseTitleActivity implements RosterAddContract.View {
-    @BindView(R.id.set_roster_name)
-    SuperShapeEditText setRosterName;
-    @BindView(R.id.ll_roster_name)
-    LinearLayout llRosterName;
-    @BindView(R.id.set_roster_address)
-    SuperShapeEditText setRosterAddress;
-    @BindView(R.id.ll_roster_address)
-    LinearLayout llRosterAddress;
-    @BindView(R.id.set_roster_phone)
-    SuperShapeEditText setRosterPhone;
-    @BindView(R.id.ll_roster_phone)
-    LinearLayout llRosterPhone;
-    @BindView(R.id.set_roster_idcard)
-    SuperShapeEditText setRosterIdcard;
-    @BindView(R.id.ll_roster_idcard)
-    LinearLayout llRosterIdcard;
-    @BindView(R.id.rv_roster_img)
-    RecyclerView rvRosterImg;
-    @BindView(R.id.ll_roster_img)
-    LinearLayout llRosterImg;
-    @BindView(R.id.set_roster_remark)
-    SuperShapeEditText setRosterRemark;
-    @BindView(R.id.ll_roster_remark)
-    LinearLayout llRosterRemark;
-    @BindView(R.id.ll_roster_location)
-    LinearLayout llRosterLocation;
-    @BindView(R.id.smb_roster_gender)
-    SwitchMultiButton smbRosterGender;
     @BindView(R.id.smb_roster_type)
     SwitchMultiButton smbRosterType;
+    @BindView(R.id.ll_detail_tempHouse)
+    LinearLayout llDetailTempHouse;
+    @BindView(R.id.et_roster_companyName)
+    EnableEditText etRosterCompanyName;
+    @BindView(R.id.ll_roster_companyName)
+    LinearLayout llRosterCompanyName;
+    @BindView(R.id.rtv_ownerType)
+    RequiredTextView rtvOwnerType;
+    @BindView(R.id.et_roster_name)
+    EnableEditText etRosterName;
+    @BindView(R.id.set_roster_import)
+    SuperShapeTextView setRosterImport;
+    @BindView(R.id.ll_roster_name)
+    LinearLayout llRosterName;
+    @BindView(R.id.et_roster_phone)
+    EnableEditText etRosterPhone;
+    @BindView(R.id.et_roster_idcard)
+    EnableEditText etRosterIdcard;
+    @BindView(R.id.smb_roster_gender)
+    SwitchMultiButton smbRosterGender;
+    @BindView(R.id.et_roster_address)
+    EnableEditText etRosterAddress;
     @BindView(R.id.smb_roster_measured)
     SwitchMultiButton smbRosterMeasured;
     @BindView(R.id.smb_roster_evaluated)
     SwitchMultiButton smbRosterEvaluated;
-    @BindView(R.id.iv_roster_location)
-    ImageView ivRosterLocation;
-    @BindView(R.id.rtv_ownerType)
-    RequiredTextView rtvOwnerType;
-    @BindView(R.id.set_roster_import)
-    SuperShapeTextView setRosterImport;
-    @BindView(R.id.set_roster_companyName)
-    SuperShapeEditText setRosterCompanyName;
-    @BindView(R.id.ll_roster_companyName)
-    LinearLayout llRosterCompanyName;
-    @BindView(R.id.ll_roster_gender)
-    LinearLayout llRosterGender;
-    @BindView(R.id.ll_roster_type)
-    LinearLayout llRosterType;
-    @BindView(R.id.tv_roster_hasLocationed)
-    TextView tvRosterHasLocationed;
     @BindView(R.id.smb_roster_assetEvaluator)
     SwitchMultiButton smbRosterAssetEvaluator;
     @BindView(R.id.ll_assetEvaluator)
     LinearLayout llAssetEvaluator;
+    @BindView(R.id.rv_roster_img)
+    RecyclerView rvRosterImg;
+    @BindView(R.id.tv_roster_hasLocationed)
+    TextView tvRosterHasLocationed;
+    @BindView(R.id.iv_roster_location)
+    ImageView ivRosterLocation;
+    @BindView(R.id.ll_roster_location)
+    LinearLayout llRosterLocation;
+    @BindView(R.id.et_remark)
+    EnableEditText etRemark;
     private List<Uri> photoUris = new ArrayList<>();
     private ImgUriAdapter imgUriAdapter;
     List<Uri> mSelectedUris;
@@ -231,12 +218,12 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
 
 
     private void checkDate() {
-        String address = setRosterAddress.getText().toString().trim();
-        String name = setRosterName.getText().toString().trim();
-        String phone = setRosterPhone.getText().toString().trim();
-        String idcard = setRosterIdcard.getText().toString().trim();
-        String remark = setRosterRemark.getText().toString().trim();
-        String companyName = setRosterCompanyName.getText().toString().trim();
+        String address = etRosterAddress.getText().toString().trim();
+        String name = etRosterName.getText().toString().trim();
+        String phone = etRosterPhone.getText().toString().trim();
+        String idcard = etRosterIdcard.getText().toString().trim();
+        String remark = etRemark.getText().toString().trim();
+        String companyName = etRosterCompanyName.getText().toString().trim();
 
         if (CheckUtil.checkEmpty(address, "请输入地址")
                 && checkCompanyName(companyName)
@@ -305,24 +292,22 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
                     String realName = person.getRealName();
                     String mobilePhone = person.getMobilePhone().trim();
                     String idcard = person.getIdcard().trim();
-                    setSwtichEnable(mobilePhone, setRosterPhone);
-                    setSwtichEnable(realName, setRosterName);
-                    setSwtichEnable(idcard, setRosterIdcard);
+                    setSwtichEnable(mobilePhone, etRosterPhone);
+                    setSwtichEnable(realName, etRosterName);
+                    setSwtichEnable(idcard, etRosterIdcard);
                     smbRosterGender.setSelectedTab(person.isGender() ? 0 : 1);
-                    smbRosterGender.setOnTouchListener(null);
+                    smbRosterGender.setEnabled(false);
                     personId = person.getPersonId();
                     break;
             }
         }
     }
 
-    private void setSwtichEnable(String mobilePhone, SuperShapeEditText editText) {
+    private void setSwtichEnable(String mobilePhone, EnableEditText editText) {
         if (!TextUtils.isEmpty(mobilePhone)) {
             editText.setText(mobilePhone);
-            editText.getSuperManager().setStrokeColor(ContextCompat.getColor(this, R.color.transparent));
             editText.setEnabled(false);
         } else {
-            editText.getSuperManager().setStrokeColor(ContextCompat.getColor(this, R.color.c_6));
             editText.setEnabled(true);
         }
     }
@@ -362,9 +347,9 @@ public class RosterAddActivity extends BaseTitleActivity implements RosterAddCon
     }
 
     private AddRostersEvent getRefreshRostersEvent(String houseId) {
-        String address = setRosterAddress.getText().toString().trim();
-        String realName = setRosterName.getText().toString().trim();
-        String phone = setRosterPhone.getText().toString().trim();
+        String address = etRosterAddress.getText().toString().trim();
+        String realName = etRosterName.getText().toString().trim();
+        String phone = etRosterPhone.getText().toString().trim();
         Roster roster = new Roster();
         roster.setHouseId(houseId);
         roster.setLongitude(lng);

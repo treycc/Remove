@@ -121,7 +121,7 @@ dependencies {
     implementation('com.github.tbruyelle:rxpermissions:0.10.2') { exclude group: 'com.android.support' }
 
     /*多重选择按钮*/
-    implementation 'lib.kingja.switchbutton:switchbutton:1.1.7'
+    implementation 'lib.kingja.switchbutton:switchbutton:1.1.8'
 
     /*数据库，SP调试*/
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'

@@ -4,24 +4,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jdp.hls.R;
 import com.jdp.hls.activity.BigImgActivity;
 import com.jdp.hls.activity.LocationActivity;
-import com.jdp.hls.activity.ModifyActivity;
 import com.jdp.hls.adapter.BaseRvPositionAdapter;
 import com.jdp.hls.adapter.ImgAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -41,12 +36,11 @@ import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.PermissionsUtil;
-import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
-import com.jdp.hls.view.ModifyMap;
+import com.jdp.hls.view.EnableEditText;
+import com.jdp.hls.view.RequiredTextView;
 import com.jdp.hls.view.RvItemDecoration;
-import com.kingja.supershapeview.view.SuperShapeEditText;
 import com.zhihu.matisse.Matisse;
 
 import org.greenrobot.eventbus.EventBus;
@@ -72,30 +66,18 @@ import okhttp3.RequestBody;
  * Email:kingjavip@gmail.com
  */
 public class RosterDetailActivity extends BaseTitleActivity implements RosterDetailContract.View {
-    @BindView(R.id.tv_roster_name)
-    TextView tvRosterName;
-    @BindView(R.id.ll_roster_name)
-    LinearLayout llRosterName;
-    @BindView(R.id.tv_roster_address)
-    TextView tvRosterAddress;
-    @BindView(R.id.ll_roster_address)
-    LinearLayout llRosterAddress;
-    @BindView(R.id.tv_roster_phone)
-    TextView tvRosterPhone;
-    @BindView(R.id.ll_roster_phone)
-    LinearLayout llRosterPhone;
-    @BindView(R.id.tv_roster_idcard)
-    TextView tvRosterIdcard;
-    @BindView(R.id.ll_roster_idcard)
-    LinearLayout llRosterIdcard;
+    @BindView(R.id.et_roster_name)
+    EnableEditText etRosterName;
+    @BindView(R.id.et_roster_address)
+    EnableEditText etRosterAddress;
+    @BindView(R.id.et_roster_phone)
+    EnableEditText tvRosterPhone;
+    @BindView(R.id.et_roster_idcard)
+    EnableEditText etRosterIdcard;
     @BindView(R.id.rv_roster_img)
     RecyclerView rvRosterImg;
-    @BindView(R.id.set_roster_remark)
-    SuperShapeEditText setRosterRemark;
-    @BindView(R.id.ll_roster_remark)
-    LinearLayout llRosterRemark;
-    @BindView(R.id.ll_roster_img)
-    LinearLayout llRosterImg;
+    @BindView(R.id.et_remark)
+    EnableEditText etRemark;
     @BindView(R.id.smb_roster_gender)
     SwitchMultiButton smbRosterGender;
     @BindView(R.id.smb_roster_measured)
@@ -108,20 +90,21 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     TextView tvRosterHasLocationed;
     @BindView(R.id.ll_roster_companyName)
     LinearLayout llRosterCompanyName;
-    @BindView(R.id.tv_roster_companyName)
-    TextView tvRosterCompanyName;
+    @BindView(R.id.et_roster_companyName)
+    EnableEditText etRosterCompanyName;
     @BindView(R.id.ll_roster_location)
     LinearLayout llRosterLocation;
     @BindView(R.id.smb_roster_assetEvaluator)
     SwitchMultiButton smbRosterAssetEvaluator;
     @BindView(R.id.ll_assetEvaluator)
     LinearLayout llAssetEvaluator;
+    @BindView(R.id.rtv_ownerType)
+    RequiredTextView rtvOwnerType;
     private List<ImgInfo> imgInfos = new ArrayList<>();
     private Roster roster;
     private LngLatFragment lngLatFragment;
     private ImgAdapter imgAdapter;
     List<Uri> mSelectedUris;
-    private ModifyMap modifyMap = new ModifyMap();
     @Inject
     RosterDetailPresenter rosterDetailPresenter;
     private double lng;
@@ -133,37 +116,12 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     private boolean isAssetEvaluator = false;
     private String personId;
     private String houseId;
+    private String realNameTip;
 
 
-    @OnClick({R.id.ll_roster_name, R.id.ll_roster_address, R.id.ll_roster_idcard, R.id.ll_roster_phone, R.id
-            .ll_roster_location, R.id.ll_roster_companyName, R.id.ll_roster_remark})
+    @OnClick({R.id.ll_roster_location})
     public void click(View view) {
         switch (view.getId()) {
-            case R.id.ll_roster_companyName:
-                String companyName = tvRosterCompanyName.getText().toString().trim();
-                ModifyActivity.goActivityInActivity(this, Constants.ModifyCode.MODIFY_COMPANY_NAME, "企业名称",
-                        companyName);
-                break;
-            case R.id.ll_roster_name:
-                String name = tvRosterName.getText().toString().trim();
-                ModifyActivity.goActivityInActivity(this, Constants.ModifyCode.MODIFY_OWNER_NAME, "户主", name);
-                break;
-            case R.id.ll_roster_address:
-                String address = tvRosterAddress.getText().toString().trim();
-                ModifyActivity.goActivityInActivity(this, Constants.ModifyCode.MODIFY_ADDRESS, "地址", address);
-                break;
-            case R.id.ll_roster_idcard:
-                String idcard = tvRosterIdcard.getText().toString().trim();
-                ModifyActivity.goActivityInActivity(this, Constants.ModifyCode.MODIFY_IDCARD, "身份证号", idcard);
-                break;
-            case R.id.ll_roster_phone:
-                String phone = tvRosterPhone.getText().toString().trim();
-                ModifyActivity.goActivityInActivity(this, Constants.ModifyCode.MODIFY_PHONE, "手机号", phone);
-                break;
-            case R.id.ll_roster_remark:
-                String remark = setRosterRemark.getText().toString().trim();
-                ModifyActivity.goActivityInActivity(this, Constants.ModifyCode.MODIFY_REMARK, "备注", remark);
-                break;
             case R.id.ll_roster_location:
                 GoUtil.goActivityForResult(this, LocationActivity.class, Constants.RequestCode.LOCATION);
                 break;
@@ -174,47 +132,19 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
-            String newVaule = data.getStringExtra("newVaule");
             switch (requestCode) {
-                case Constants.ModifyCode.MODIFY_COMPANY_NAME:
-                    tvRosterCompanyName.setText(newVaule);
-                    modifyMap.setCompanyName(newVaule);
-                    break;
-                case Constants.ModifyCode.MODIFY_OWNER_NAME:
-                    tvRosterName.setText(newVaule);
-                    modifyMap.setRealName(newVaule);
-                    break;
-                case Constants.ModifyCode.MODIFY_ADDRESS:
-                    tvRosterAddress.setText(newVaule);
-                    modifyMap.setAddress(newVaule);
-                    break;
-                case Constants.ModifyCode.MODIFY_PHONE:
-                    tvRosterPhone.setText(newVaule);
-                    modifyMap.setMobile(newVaule);
-                    break;
-                case Constants.ModifyCode.MODIFY_IDCARD:
-                    tvRosterIdcard.setText(newVaule);
-                    modifyMap.setIdcard(newVaule);
-                    break;
-                case Constants.ModifyCode.MODIFY_REMARK:
-                    setRosterRemark.setText(newVaule);
-                    modifyMap.setRemark(newVaule);
-                    break;
                 case Constants.RequestCode.LOCATION:
                     lng = data.getDoubleExtra("lng", -1);
                     lat = data.getDoubleExtra("lat", -1);
                     setLocation(lng, lat);
-                    modifyMap.setLocation(lng, lat);
                     break;
                 case MatisseUtil.REQUEST_CODE_CHOOSE:
                     mSelectedUris = Matisse.obtainResult(data);
                     imgAdapter.addData(MatisseUtil.getImgInfoFromUri(mSelectedUris));
-                    modifyMap.setImgs();
                     break;
                 default:
                     break;
             }
-            checkHasModified();
         }
     }
 
@@ -263,13 +193,13 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     };
 
     private void checkDate() {
-        String address = tvRosterAddress.getText().toString().trim();
-        String name = tvRosterName.getText().toString().trim();
+        String address = etRosterAddress.getText().toString().trim();
+        String name = etRosterName.getText().toString().trim();
         String phone = tvRosterPhone.getText().toString().trim();
-        String idcard = tvRosterIdcard.getText().toString().trim();
-        String remark = setRosterRemark.getText().toString().trim();
-        String companyName = tvRosterCompanyName.getText().toString().trim();
-        if (CheckUtil.checkEmpty(name, "请输入户主姓名")
+        String idcard = etRosterIdcard.getText().toString().trim();
+        String remark = etRemark.getText().toString().trim();
+        String companyName = etRosterCompanyName.getText().toString().trim();
+        if (CheckUtil.checkEmpty(name, "请输入" + realNameTip)
                 && CheckUtil.checkEmpty(address, "请输入地址")
                 && checkCompanyName(companyName)
                 && CheckUtil.checkLngLat(lng, lat)) {
@@ -322,7 +252,6 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     @Override
     protected void initData() {
         setRightClick("保存", noDoubleClickListener);
-        setRightClickable(false);
         lngLatFragment = (LngLatFragment) getSupportFragmentManager().findFragmentById(R.id
                 .fragment_lnglat);
         imgAdapter.setOnItemClickListener(new BaseRvPositionAdapter.OnItemClickListener<ImgInfo>() {
@@ -336,50 +265,21 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
                 }
             }
         });
-        imgAdapter.setOnImgDeletedListener(new ImgAdapter.OnImgDeletedListener() {
-            @Override
-            public void onImgDeleted() {
-                modifyMap.setImgs();
-                checkHasModified();
-            }
-        });
-        setRosterRemark.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                modifyMap.setRemark(s.toString());
-                checkHasModified();
-            }
-        });
         initSwitchButton();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        getSupportFragmentManager().beginTransaction().remove(lngLatFragment).commitAllowingStateLoss();
     }
 
     private void initSwitchButton() {
         smbRosterGender.setOnSwitchListener((position, tabText) -> {
             gender = position == 0;
-            modifyMap.setGender(gender);
-            checkHasModified();
         });
         smbRosterMeasured.setOnSwitchListener((position, tabText) -> {
             isMeasured = position == 1;
-            modifyMap.setMeasured(isMeasured);
-            checkHasModified();
         });
         smbRosterEvaluated.setOnSwitchListener((position, tabText) -> {
             isEvaluated = position == 1;
-            modifyMap.setEvaluated(isEvaluated);
-            checkHasModified();
         });
-
         smbRosterAssetEvaluator.setOnSwitchListener((position, tabText) -> {
             isAssetEvaluator = position == 1;
-            modifyMap.setAssetEvaluated(isAssetEvaluator);
-            checkHasModified();
         });
     }
 
@@ -401,12 +301,11 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         personId = rosterDetail.getPersonId();
         lng = rosterDetail.getLongitude();
         lat = rosterDetail.getLatitude();
-        modifyMap.setData(rosterDetail);
-        tvRosterName.setText(rosterDetail.getRealName());
-        tvRosterAddress.setText(rosterDetail.getHouseAddress());
+        etRosterName.setText(rosterDetail.getRealName());
+        etRosterAddress.setText(rosterDetail.getHouseAddress());
         tvRosterPhone.setText(rosterDetail.getMobilePhone());
-        tvRosterIdcard.setText(rosterDetail.getIdcard());
-        setRosterRemark.setText(rosterDetail.getRemark());
+        etRosterIdcard.setText(rosterDetail.getIdcard());
+        etRemark.setText(rosterDetail.getRemark());
         isEnterprise = rosterDetail.isEnterprise();
         gender = rosterDetail.isGender();
         isMeasured = rosterDetail.isMeasured();
@@ -418,7 +317,10 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         smbRosterAssetEvaluator.setSelectedTab(isAssetEvaluator ? 1 : 0);
         llRosterCompanyName.setVisibility(rosterDetail.isEnterprise() ? View.VISIBLE : View.GONE);
         llAssetEvaluator.setVisibility(rosterDetail.isEnterprise() ? View.VISIBLE : View.GONE);
-        tvRosterCompanyName.setText(rosterDetail.getEnterpriseName());
+        etRosterCompanyName.setText(rosterDetail.getEnterpriseName());
+        realNameTip = (isEnterprise ? "负责人" : "户主");
+        rtvOwnerType.setText(realNameTip);
+
         setLocation(lng, lat);
         List<ImgInfo> houseFiles = rosterDetail.getHouseFiles();
         if (houseFiles != null && houseFiles.size() > 0) {
@@ -434,8 +336,8 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     }
 
     private ModifyRostersEvent getModifyRostersEvent() {
-        String address = tvRosterAddress.getText().toString().trim();
-        String name = tvRosterName.getText().toString().trim();
+        String address = etRosterAddress.getText().toString().trim();
+        String name = etRosterName.getText().toString().trim();
         String phone = tvRosterPhone.getText().toString().trim();
         Roster roster = new Roster();
         roster.setHouseId(houseId);
@@ -460,37 +362,6 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
             ivRosterLocation.setBackgroundResource(R.mipmap.ic_confirm_nor);
             tvRosterHasLocationed.setText("未定位");
         }
-    }
-
-    private void checkHasModified() {
-        setRightClickable(modifyMap.hasModified());
-    }
-
-    @Override
-    public void onBackPressed() {
-        showQuitDialog();
-    }
-
-    private void showQuitDialog() {
-        if (modifyMap == null) {
-            finish();
-            return;
-        }
-        if (!modifyMap.hasModified()) {
-            finish();
-            return;
-        }
-        DialogUtil.showDoubleDialog(this, "当前正处于修改状态，是否确认退出？", new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                finish();
-            }
-        });
-    }
-
-    @Override
-    protected void onBack() {
-        showQuitDialog();
     }
 
     @Override

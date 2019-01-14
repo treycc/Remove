@@ -62,8 +62,17 @@ public class NodePersonalProtocol implements Serializable {
     private double PaidAmount;
     private double MoveBackFee;
     private double BalanceAmount;
+    private double EquityRepurchaseRatio;
     private String PatternInfo;
     private List<TaoType> Patterns;
+
+    public double getEquityRepurchaseRatio() {
+        return EquityRepurchaseRatio;
+    }
+
+    public void setEquityRepurchaseRatio(double equityRepurchaseRatio) {
+        EquityRepurchaseRatio = equityRepurchaseRatio;
+    }
 
     public String getPatternInfo() {
         return null == PatternInfo ? "" : PatternInfo;

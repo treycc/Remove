@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -17,7 +15,6 @@ import com.jdp.hls.model.entiy.NodePersonalProtocol;
 import com.jdp.hls.model.entiy.TaoType;
 import com.jdp.hls.page.node.protocol.personal.lastst.taotype.TaoTypeSelectActivity;
 import com.jdp.hls.util.CalculateUtil;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
@@ -25,9 +22,7 @@ import com.jdp.hls.view.StringTextView;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import okhttp3.MultipartBody;
 
 /**
@@ -77,13 +72,12 @@ public class PayRebuyFragment extends BasePayFragment {
     EnableEditText etProtocolOtherArea;
     @BindView(R.id.et_protocol_overAuditArea)
     EnableEditText etProtocolOverAuditArea;
-    Unbinder unbinder;
     @BindView(R.id.et_moveBackFee)
     EnableEditText etMoveBackFee;
-    Unbinder unbinder1;
     @BindView(R.id.iv_arrow_taoType)
     ImageView ivArrowTaoType;
-    Unbinder unbinder2;
+    @BindView(R.id.et_equityRepurchaseRatio)
+    EnableEditText etEquityRepurchaseRatio;
     private NodePersonalProtocol nodePersonalProtocol;
     private List<TaoType> taoTypeList;
 
@@ -150,6 +144,7 @@ public class PayRebuyFragment extends BasePayFragment {
         etProtocolOtherArea.setString(nodePersonalProtocol.getOtherArea());
         etProtocolOverAuditArea.setString(nodePersonalProtocol.getOverAuditArea());
         etMoveBackFee.setString(nodePersonalProtocol.getMoveBackFee());
+        etEquityRepurchaseRatio.setString(nodePersonalProtocol.getEquityRepurchaseRatio());
         etPulledDownPayAmount.addTextChangedListener(calculateWatcher);
         etOtherFee.addTextChangedListener(calculateWatcher);
         calculate();
@@ -184,6 +179,7 @@ public class PayRebuyFragment extends BasePayFragment {
         etFixedFacilitiesAmount.setEnabled(allowEdit);
         etAZBuildingArea.setEnabled(allowEdit);
         etAZTNArea.setEnabled(allowEdit);
+        etEquityRepurchaseRatio.setEnabled(allowEdit);
 
     }
 
@@ -207,6 +203,7 @@ public class PayRebuyFragment extends BasePayFragment {
         String otherArea = etProtocolOtherArea.getText().toString().trim();
         String overAuditArea = etProtocolOverAuditArea.getText().toString().trim();
         String moveBackFee = etMoveBackFee.getText().toString().trim();
+        String equityRepurchaseRatio = etEquityRepurchaseRatio.getText().toString().trim();
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("PulledDownPayAmount", pulledDownPayAmount)
                 .addFormDataPart("OtherFee", otherFee)
@@ -221,6 +218,7 @@ public class PayRebuyFragment extends BasePayFragment {
                 .addFormDataPart("OtherArea", otherArea)
                 .addFormDataPart("OverAuditArea", overAuditArea)
                 .addFormDataPart("MoveBackFee", moveBackFee)
+                .addFormDataPart("EquityRepurchaseRatio", equityRepurchaseRatio)
                 .addFormDataPart("AZTNArea", aZTNArea);
     }
 
@@ -239,7 +237,6 @@ public class PayRebuyFragment extends BasePayFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LogUtil.e(TAG, "onActivityResult：");
         if (resultCode == Activity.RESULT_OK && data != null) {
             switch (requestCode) {
                 case Constants.RequestCode.TaoTypeSelect:
@@ -252,17 +249,4 @@ public class PayRebuyFragment extends BasePayFragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder2 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder2.unbind();
-    }
 }

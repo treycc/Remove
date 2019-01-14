@@ -22,9 +22,9 @@ public class RequiredTextView extends AppCompatTextView {
 
     @Override
     public void setText(CharSequence text, BufferType type) {
-        SpannableString spanString = new SpannableString("* " + text);
+        SpannableString spanString = new SpannableString(text+"*");
         ForegroundColorSpan span = new ForegroundColorSpan(Color.RED);
-        spanString.setSpan(span, 0, 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        spanString.setSpan(span, spanString.length()-1, spanString.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         super.setText(spanString, type);
     }
 }
