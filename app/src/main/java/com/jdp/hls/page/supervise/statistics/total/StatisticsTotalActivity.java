@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.NormalPageAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
-import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 

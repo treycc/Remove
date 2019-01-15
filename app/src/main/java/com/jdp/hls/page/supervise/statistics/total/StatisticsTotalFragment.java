@@ -59,7 +59,6 @@ public class StatisticsTotalFragment extends BaseFragment implements StatisticsT
 
     @Override
     protected void initView() {
-
     }
 
     @Override

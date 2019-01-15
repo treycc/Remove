@@ -75,11 +75,9 @@ public class TitleItemAdapter extends BaseLvAdapter<TitleItem> {
                 if (Status.AreaType.BUILDING_AREA.equals(keyValue.getName())) {
                     return keyValue.getValue();
                 }
-
             }
         }
         return "0";
-
     }
 
 
