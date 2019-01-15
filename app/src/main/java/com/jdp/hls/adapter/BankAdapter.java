@@ -18,8 +18,8 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class BrankAdapter extends BaseLvAdapter<BankInfo> {
-    public BrankAdapter(Context context, List<BankInfo> list) {
+public class BankAdapter extends BaseLvAdapter<BankInfo> {
+    public BankAdapter(Context context, List<BankInfo> list) {
         super(context, list);
     }
 

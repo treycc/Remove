@@ -1,36 +1,20 @@
 package com.jdp.hls.page.node.protocol.personal.lastst.pay.banklist;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.BaseLvAdapter;
-import com.jdp.hls.adapter.BrankAdapter;
 import com.jdp.hls.adapter.CommonAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
-import com.jdp.hls.constant.Status;
-import com.jdp.hls.event.AddBankInfoEvent;
-import com.jdp.hls.event.ModifyBankInfoEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BankInfo;
 import com.jdp.hls.model.entiy.BankListInfo;
-import com.jdp.hls.model.entiy.ProjectItem;
-import com.jdp.hls.model.entiy.Task;
-import com.jdp.hls.page.admin.query.list.QueryListActivity;
-import com.jdp.hls.page.business.detail.personal.bankdetail.DeedPersonalBankActivity;
-import com.jdp.hls.util.DialogUtil;
-import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.PullToBottomListView;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 

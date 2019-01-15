@@ -1,7 +1,9 @@
 package com.jdp.hls.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
@@ -16,10 +18,14 @@ import com.jdp.hls.injector.module.ApiModule;
 import com.jdp.hls.injector.module.AppModule;
 import com.jdp.hls.injector.module.SpModule;
 import com.jdp.hls.page.crash.CrashActivity;
+import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.SimpleActivityLifecycleCallbacks;
 import com.kingja.loadsir.core.LoadSir;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
+
+import org.greenrobot.eventbus.EventBus;
 
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 
@@ -35,6 +41,7 @@ public class App extends MultiDexApplication {
     private AppComponent appComponent;
     private static SharedPreferences mSharedPreferences;
     private AppModule appModule;
+    private static int activityCount;
 
     @Override
     public void onCreate() {
@@ -53,6 +60,20 @@ public class App extends MultiDexApplication {
         CaocConfig.Builder.create()
                 .errorActivity(CrashActivity.class)
                 .apply();
+        registerActivityLifecycleCallbacks(new SimpleActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                activityCount++;
+                if (activityCount == 1) {
+                    LogUtil.e("App", "回到前台");
+                }
+//                LogUtil.e("App", "栈深度:" + activityCount);
+            }
+        });
+    }
+
+    public static int getActivityCount() {
+        return activityCount;
     }
 
     public static SharedPreferences getSp() {

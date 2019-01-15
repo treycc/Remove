@@ -20,7 +20,23 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="16dp"
-                android:src="@mipmap/ic_back"/>
+                android:background="@mipmap/ic_back"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_title_home"
+            android:layout_width="wrap_content"
+            android:paddingRight="12dp"
+            android:layout_height="48dp"
+            android:layout_toRightOf="@id/ll_title_back"
+            android:background="@drawable/sel_t2g"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@mipmap/ic_home"/>
         </LinearLayout>
 
 

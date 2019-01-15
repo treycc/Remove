@@ -18,6 +18,9 @@ public class AppManager {
     private static AppManager instance;
 
     private AppManager() {
+        if (activityStack == null) {
+            activityStack = new Stack<Activity>();
+        }
     }
 
     /**
@@ -34,9 +37,6 @@ public class AppManager {
      * 添加Activity到堆栈
      */
     public void addActivity(Activity activity) {
-        if (activityStack == null) {
-            activityStack = new Stack<Activity>();
-        }
         activityStack.add(activity);
     }
 
@@ -105,5 +105,9 @@ public class AppManager {
 
     public boolean isAppExit() {
         return activityStack == null || activityStack.isEmpty();
+    }
+
+    public int getActivityCount() {
+        return activityStack.size();
     }
 }

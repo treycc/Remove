@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.BaseLvAdapter;
-import com.jdp.hls.adapter.BrankAdapter;
+import com.jdp.hls.adapter.BankAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
@@ -37,7 +37,7 @@ import butterknife.BindView;
 public class BankListActivity extends BaseTitleActivity implements BankListContract.View {
     @BindView(R.id.plv)
     PullToBottomListView plv;
-    private BrankAdapter brankAdapter;
+    private BankAdapter brankAdapter;
     @Inject
     BankListPresenter brankListPresenter;
     private String buildingId;
@@ -75,7 +75,7 @@ public class BankListActivity extends BaseTitleActivity implements BankListContr
 
     @Override
     protected void initView() {
-        brankAdapter = new BrankAdapter(this, null);
+        brankAdapter = new BankAdapter(this, null);
         plv.setAdapter(brankAdapter);
     }
 

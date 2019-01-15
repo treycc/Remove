@@ -1,8 +1,8 @@
 package com.jdp.hls.page.levy;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
@@ -27,6 +27,7 @@ import com.jdp.hls.page.supervise.statistics.progress.progress.StatisticsProgres
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalActivity;
 import com.jdp.hls.page.table.list.TableListActivity;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.NoDoubleItemClickListener;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.FixedGridView;
 import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
@@ -41,7 +42,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:征收系统
@@ -155,27 +155,30 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
             Task task = (Task) parent.getItemAtPosition(position);
             BusinessListActivity.GoActivity(LevyActivity.this, task.getTaskType(), task.getTaskTypeName());
         });
-        gvBusinessAction.setOnItemClickListener((parent, view, position, id) -> {
-            BusinessAction businessAction = (BusinessAction) parent.getItemAtPosition(position);
-            switch (businessAction.getActionId()) {
-                case Status.BusinessActionType.ROSTER:
-                    /*花名册*/
-                    GoUtil.goActivity(this, RosterActivity.class);
-                    break;
-                case Status.BusinessActionType.PUBLICITY:
-                    /*公示管理*/
-                    GoUtil.goActivity(this, PublicityActivity.class);
-                    break;
-                case Status.BusinessActionType.AIRPHOTO:
-                    /*航拍复查*/
-                    GoUtil.goActivity(this, AirphotoListActivity.class);
-                    break;
-                case Status.BusinessActionType.TABLE:
-                    /*一览表*/
-                    GoUtil.goActivity(this, TableListActivity.class);
-                    break;
-                default:
-                    break;
+        gvBusinessAction.setOnItemClickListener(new NoDoubleItemClickListener() {
+            @Override
+            public void onNoDoubleItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BusinessAction businessAction = (BusinessAction) parent.getItemAtPosition(position);
+                switch (businessAction.getActionId()) {
+                    case Status.BusinessActionType.ROSTER:
+                        /*花名册*/
+                        GoUtil.goActivity(LevyActivity.this, RosterActivity.class);
+                        break;
+                    case Status.BusinessActionType.PUBLICITY:
+                        /*公示管理*/
+                        GoUtil.goActivity(LevyActivity.this, PublicityActivity.class);
+                        break;
+                    case Status.BusinessActionType.AIRPHOTO:
+                        /*航拍复查*/
+                        GoUtil.goActivity(LevyActivity.this, AirphotoListActivity.class);
+                        break;
+                    case Status.BusinessActionType.TABLE:
+                        /*一览表*/
+                        GoUtil.goActivity(LevyActivity.this, TableListActivity.class);
+                        break;
+                    default:
+                        break;
+                }
             }
         });
 
@@ -268,10 +271,5 @@ public class LevyActivity extends BaseTitleActivity implements TaskContract.View
         srl.setRefreshing(false);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

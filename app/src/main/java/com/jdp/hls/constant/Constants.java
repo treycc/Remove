@@ -10,9 +10,9 @@ import com.jdp.hls.util.EncryptUtil;
  * 修改备注：
  */
 public class Constants {
-        public static final String BASE_URL = "http://192.168.0.2:8080/";//本地
+//        public static final String BASE_URL = "http://192.168.0.2:8080/";//本地
 //    public static String BASE_URL = "http://192.168.0.5:8081/";//服务器
-//    public static final String BASE_URL = "http://api.fwzspt.cn/";//外网
+    public static final String BASE_URL = "http://api.fwzspt.cn/";//外网
 
     public static final int PAGE_SIZE = 20;
     public static final int PAGE_FIRST = 1;
@@ -27,6 +27,8 @@ public class Constants {
     public static final int SINGLE_IMG_UPLOAD_COUNT = 1;
     public static final String LOG_FILENAME = "Logs";
     public static final String DIR_HIL = "HLS";
+
+    public static final int SHOW_HOME_STACK_SIZE = 4;
 
     /*Extra*/
 

@@ -1,25 +1,25 @@
 package com.jdp.hls.page.rosterlist;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.View;
-import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.CommonAdapter;
-import com.jdp.hls.adapter.ViewHolder;
+import com.jdp.hls.adapter.BaseLvAdapter;
+import com.jdp.hls.adapter.RosterListAdapter;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.event.AddRostersEvent;
 import com.jdp.hls.event.ModifyRostersEvent;
+import com.jdp.hls.event.RemoveRosterEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Roster;
+import com.jdp.hls.page.operate.delete.DeleteNodeContract;
+import com.jdp.hls.page.operate.delete.DeleteNodePresenter;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
-import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.SpSir;
-import com.jdp.hls.view.PullToBottomListView;
-import com.jdp.hls.view.RefreshableSwipeRefreshLayout;
+import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -32,7 +32,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnItemClick;
+import okhttp3.MultipartBody;
 
 /**
  * Description:花名册列表
@@ -41,30 +41,27 @@ import butterknife.OnItemClick;
  * Email:kingjavip@gmail.com
  */
 public class RosterListFragment extends BaseFragment implements GetRostersByTypeContract.View, SwipeRefreshLayout
-        .OnRefreshListener {
+        .OnRefreshListener, DeleteRosterContract.View {
     @BindView(R.id.plv)
-    PullToBottomListView plv;
-    @BindView(R.id.srl)
-    RefreshableSwipeRefreshLayout srl;
+    ListView plv;
+    @BindView(R.id.rsrl)
+    RefreshSwipeRefreshLayout srl;
     private List<Roster> rosters = new ArrayList<>();
     private RosterListAdapter adapter;
-    private int isEnterprise;
+    private int buildingType;
     @Inject
     GetRostersByTypePresenter getRostersByTypePresenter;
+    @Inject
+    DeleteRosterPresenter deleteRosterPresenter;
 
-    public static RosterListFragment newInstance(List<Roster> rosters, int isEnterprise) {
+
+    public static RosterListFragment newInstance(List<Roster> rosters, int buildingType) {
         RosterListFragment fragment = new RosterListFragment();
         Bundle args = new Bundle();
         args.putSerializable("rosters", (Serializable) rosters);
-        args.putInt("isEnterprise", isEnterprise);
+        args.putInt("buildingType", buildingType);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @OnItemClick({R.id.plv})
-    public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Roster roster = (Roster) adapterView.getItemAtPosition(position);
-        RosterDetailActivity.goActivity(getActivity(), roster);
     }
 
     @Override
@@ -72,14 +69,8 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
         EventBus.getDefault().register(this);
         if (getArguments() != null) {
             rosters = (List<Roster>) getArguments().getSerializable("rosters");
-            isEnterprise = getArguments().getInt("isEnterprise", 0);
+            buildingType = getArguments().getInt("buildingType", 0);
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -88,56 +79,37 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
+        deleteRosterPresenter.attachView(this);
+        getRostersByTypePresenter.attachView(this);
     }
 
     @Override
     protected void initView() {
-        getRostersByTypePresenter.attachView(this);
-        adapter = new RosterListAdapter(getActivity(), rosters, R.layout.item_roster);
+
+        adapter = new RosterListAdapter(getActivity(), rosters);
         plv.setAdapter(adapter);
-    }
-
-    class RosterListAdapter extends CommonAdapter<Roster> {
-        public RosterListAdapter(Context context, List<Roster> datas, int itemLayoutId) {
-            super(context, datas, itemLayoutId);
-        }
-
-        @Override
-        public void convert(ViewHolder helper, Roster item) {
-            helper.setText(R.id.tv_roster_address, item.getHouseAddress());
-            helper.setText(R.id.tv_roster_name, item.getRealName());
-            helper.setText(R.id.tv_roster_phone, item.getMobilePhone());
-            helper.setVisibility(R.id.iv_roster_isAssetEvaluated, item.isEnterprise());
-            helper.setBackgroundResource(R.id.iv_roster_hasLocation, (item.getLatitude() <=0 || item.getLongitude()
-                    <=0) ? R.mipmap.ic_has_location_nor : R.mipmap.ic_has_location_sel);
-            helper.setBackgroundResource(R.id.iv_roster_isMeasure, item.isMeasured() ? R.mipmap
-                    .ic_measure_action : R.mipmap.ic_measure_nor);
-            helper.setBackgroundResource(R.id.iv_roster_isEvaluated, item.isEvaluated() ? R.mipmap
-                    .ic_evaluate_action : R.mipmap.ic_evaluate_nor);
-            helper.setBackgroundResource(R.id.iv_roster_isAssetEvaluated, item.isEvaluated() ? R.mipmap
-                    .ic_assetevaluate_action : R.mipmap.ic_assetevaluate_nor);
-        }
-
-        public void modifyData(Roster roster) {
-            for (Roster mData : this.mDatas) {
-                if (mData.getHouseId().equals(roster.getHouseId())) {
-                    mData.setLongitude(roster.getLongitude());
-                    mData.setLatitude(roster.getLatitude());
-                    mData.setEnterprise(roster.isEnterprise());
-                    mData.setEvaluated(roster.isEvaluated());
-                    mData.setMeasured(roster.isMeasured());
-                    mData.setRealName(roster.getRealName());
-                    mData.setMobilePhone(roster.getMobilePhone());
-                    mData.setHouseAddress(roster.getHouseAddress());
-                }
-            }
-            notifyDataSetChanged();
-        }
     }
 
     @Override
     protected void initData() {
         srl.setOnRefreshListener(this);
+        adapter.setOnItemOperListener(new BaseLvAdapter.OnItemOperListener<Roster>() {
+            @Override
+            public void onItemDelete(Roster roster, int position) {
+                DialogUtil.showDoubleDialog(getActivity(), "是否确定删除该项?", (dialog, which) -> {
+                    deleteRosterPresenter.deleteRoster(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                            .addFormDataPart("buildingId", roster.getHouseId())
+                            .addFormDataPart("buildingType", String.valueOf(roster.isEnterprise() ? 1 : 0))
+                            .build(), roster, position);
+                });
+
+            }
+
+            @Override
+            public void onItemClick(Roster item) {
+                RosterDetailActivity.goActivity(getActivity(), item);
+            }
+        });
     }
 
     @Override
@@ -147,7 +119,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
 
     @Override
     protected int getContentId() {
-        return R.layout.common_lv_sl;
+        return R.layout.fragment_roster_list;
     }
 
     @Override
@@ -172,23 +144,28 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
     @Override
     public void onRefresh() {
         getRostersByTypePresenter.getRosterListByType(SpSir.getInstance().getProjectId(), SpSir.getInstance()
-                .getEmployeeId(), isEnterprise);
+                .getEmployeeId(), buildingType);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshRosters(AddRostersEvent event) {
-        int enterprise = event.getRoster().isEnterprise() ? 1 : 0;
-        if (enterprise == isEnterprise) {
-            adapter.addData(event.getRoster());
+        int buildingType = event.getRoster().isEnterprise() ? 1 : 0;
+        if (buildingType == this.buildingType) {
+            adapter.addFirst(event.getRoster());
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void modifyRosters(ModifyRostersEvent event) {
-        int enterprise = event.getRoster().isEnterprise() ? 1 : 0;
-        LogUtil.e(TAG, "enterprise:" + enterprise + " isEnterprise:" + isEnterprise);
-        if (enterprise == isEnterprise) {
-            adapter.modifyData(event.getRoster());
+        int buildingType = event.getRoster().isEnterprise() ? 1 : 0;
+        if (buildingType == this.buildingType) {
+            adapter.modifyItem(event.getRoster());
         }
+    }
+
+    @Override
+    public void onDeleteRosterSuccess(Roster roster, int position) {
+        adapter.removeItem(position);
+        EventBus.getDefault().post(new RemoveRosterEvent(roster.getHouseId(), roster.isEnterprise()));
     }
 }

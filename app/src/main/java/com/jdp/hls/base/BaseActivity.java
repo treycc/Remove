@@ -36,6 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppManager.getAppManager().addActivity(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initCommon();
         initVariable();
@@ -45,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         initView();
         initData();
         initNet();
-        AppManager.getAppManager().addActivity(this);
+
     }
 
     /*初始化公共组件*/

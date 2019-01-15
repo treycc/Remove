@@ -31,6 +31,7 @@ import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.RefreshRostersEvent;
+import com.jdp.hls.event.RemoveRosterEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.map.KMapInfoWindowAdapter;
 import com.jdp.hls.model.entiy.Roster;
@@ -220,9 +221,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
 
     @Override
     public void onDestroy() {
-        LogUtil.e(TAG, "消灭onDestroy");
-        LogUtil.e(TAG, "mMapView:" + (mMapView == null));
-        EventBus.getDefault().unregister(this);
+        Log.e(TAG, "onDestroy: ");
         if (mMapView != null) {
             mMapView.onDestroy();
         }
@@ -231,6 +230,12 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
             mLocationClient.onDestroy();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.e(TAG, "onDestroyView: ");
+        super.onDestroyView();
     }
 
     /**
@@ -325,11 +330,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
         setProgressShow(false);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshRosters(RefreshRostersEvent refreshRostersEvent) {
-        LogUtil.e(TAG, "刷新花名册");
-        initNet();
-    }
+
 
     /**
      * 绘制地图锚点
@@ -393,7 +394,7 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
     }
 
     private void doSearch(String keyword) {
-        if (rosters == null && rosters.size() == 0) {
+        if (rosters == null || rosters.size() == 0) {
             ToastUtil.showText("暂无花名册信息");
             return;
         }
@@ -406,4 +407,12 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
         }
         refreshRostersOnMap(selectRosters);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshRosters(RefreshRostersEvent refreshRostersEvent) {
+        LogUtil.e(TAG, "刷新花名册");
+        initNet();
+    }
+
+
 }

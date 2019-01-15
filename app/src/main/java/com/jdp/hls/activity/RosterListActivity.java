@@ -3,7 +3,6 @@ package com.jdp.hls.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
@@ -13,14 +12,17 @@ import com.jdp.hls.R;
 import com.jdp.hls.adapter.RosterPageAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.event.AddRostersEvent;
+import com.jdp.hls.event.RemoveRosterEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
 import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.view.NoScrollViewPager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,7 +45,7 @@ public class RosterListActivity extends BaseTitleActivity {
     @BindView(R.id.tab_roster)
     TabLayout tabRoster;
     @BindView(R.id.vp_roster)
-    ViewPager vpRoster;
+    NoScrollViewPager vpRoster;
     @BindView(R.id.et_rosters_keyword)
     EditText etRostersKeyword;
     @BindView(R.id.iv_rosters_search)
@@ -211,5 +213,19 @@ public class RosterListActivity extends BaseTitleActivity {
             personalCount++;
         }
         refreshTitles(personalCount, companyCount);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void removeRoster(RemoveRosterEvent event) {
+        LogUtil.e(TAG,"删除前:"+rosters.size());
+        for (Roster roster : rosters) {
+            if (roster.getHouseId().equals(event.getHouseId())) {
+                LogUtil.e(TAG,"删除");
+                rosters.remove(roster);
+                break;
+            }
+        }
+        LogUtil.e(TAG,"删除后:"+rosters.size());
+        checkData(etRostersKeyword.getText().toString().trim());
     }
 }

@@ -25,6 +25,7 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.RefreshRostersEvent;
+import com.jdp.hls.event.RemoveRosterEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.map.KMapInfoWindowAdapter;
 import com.jdp.hls.model.entiy.Roster;
@@ -114,7 +115,6 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
                 etKeyword.setText("");
                 break;
             case R.id.ll_back:
-                LogUtil.e(TAG, "返回");
                 finish();
                 break;
             default:
@@ -138,6 +138,7 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
             mAMap.setOnMapClickListener(this);
             mAMap.setInfoWindowAdapter(new KMapInfoWindowAdapter(this));
         }
+        LogUtil.e(TAG,"onCreate");
     }
 
     @Override
@@ -191,12 +192,14 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        LogUtil.e(TAG,"onResume");
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mMapView.onPause();
+
     }
 
     @Override
@@ -331,6 +334,19 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
             }
         }
         refreshRostersOnMap(selectRosters);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void removeRosterOuter(RemoveRosterEvent event) {
+        LogUtil.e(TAG,"外层删除前:"+rosters.size());
+        for (Roster roster : rosters) {
+            if (roster.getHouseId().equals(event.getHouseId())) {
+                LogUtil.e(TAG,"外层删除");
+                rosters.remove(roster);
+                break;
+            }
+        }
+        LogUtil.e(TAG,"外层删除后:"+rosters.size());
     }
 
 }

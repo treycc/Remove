@@ -1,6 +1,8 @@
 package com.jdp.hls.base;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,8 +18,14 @@ import com.jdp.hls.callback.EmptyCallback;
 import com.jdp.hls.callback.ErrorCallback;
 import com.jdp.hls.callback.ErrorMessageCallback;
 import com.jdp.hls.callback.LoadingCallback;
+import com.jdp.hls.constant.Constants;
 import com.jdp.hls.i.ILvSetData;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.page.home.HomeActivity;
+import com.jdp.hls.util.AppManager;
+import com.jdp.hls.util.GoUtil;
+import com.jdp.hls.util.LogUtil;
+import com.jdp.hls.util.NoDoubleClickListener;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
@@ -41,6 +49,7 @@ public abstract class BaseTitleActivity extends BaseActivity {
     private Unbinder bind;
     protected LoadService mBaseLoadService;
 
+
     @Override
     public View getContentId() {
         rootView = View.inflate(this, R.layout.activity_title, null);
@@ -48,6 +57,18 @@ public abstract class BaseTitleActivity extends BaseActivity {
         RelativeLayout rl_title_root = rootView.findViewById(R.id.rl_title_root);
         tvTitleTitle = rootView.findViewById(R.id.tv_title_title);
         LinearLayout llTitleBack = rootView.findViewById(R.id.ll_title_back);
+        LinearLayout llTitleHome = rootView.findViewById(R.id.ll_title_home);
+        LogUtil.e(TAG, "Activity栈深度:" + AppManager.getAppManager().getActivityCount());
+        if (AppManager.getAppManager().getActivityCount() >= Constants.SHOW_HOME_STACK_SIZE) {
+            llTitleHome.setVisibility(View.VISIBLE);
+            llTitleHome.setOnClickListener(new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    GoUtil.goActivity(BaseTitleActivity.this, HomeActivity.class);
+                }
+            });
+
+        }
         tvTitleTitle.setText(getContentTitle() == null ? "" : getContentTitle());
         llTitleBack.setOnClickListener(v -> onBack());
         View content = View.inflate(this, getContentView(), null);
