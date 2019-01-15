@@ -2,6 +2,7 @@ package com.jdp.hls.page.map;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.view.KeyEvent;
@@ -138,7 +139,6 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
             mAMap.setOnMapClickListener(this);
             mAMap.setInfoWindowAdapter(new KMapInfoWindowAdapter(this));
         }
-        LogUtil.e(TAG,"onCreate");
     }
 
     @Override
@@ -185,14 +185,18 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
 
     @Override
     public void initNet() {
-        getRosterPresenter.getRosterList(SpSir.getInstance().getProjectId(), SpSir.getInstance().getEmployeeId());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getRosterPresenter.getRosterList(SpSir.getInstance().getProjectId(), SpSir.getInstance().getEmployeeId());
+            }
+        },100);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mMapView.onResume();
-        LogUtil.e(TAG,"onResume");
     }
 
     @Override
@@ -210,7 +214,6 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
 
     @Override
     public void onDestroy() {
-        EventBus.getDefault().unregister(this);
         if (mMapView != null) {
             mMapView.onDestroy();
         }
@@ -338,15 +341,15 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void removeRosterOuter(RemoveRosterEvent event) {
-        LogUtil.e(TAG,"外层删除前:"+rosters.size());
+        LogUtil.e(TAG, "外层删除前:" + rosters.size());
         for (Roster roster : rosters) {
             if (roster.getHouseId().equals(event.getHouseId())) {
-                LogUtil.e(TAG,"外层删除");
+                LogUtil.e(TAG, "外层删除");
                 rosters.remove(roster);
                 break;
             }
         }
-        LogUtil.e(TAG,"外层删除后:"+rosters.size());
+        LogUtil.e(TAG, "外层删除后:" + rosters.size());
     }
 
 }
