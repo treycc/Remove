@@ -41,7 +41,7 @@ public class PreviewRecyclerView extends RecyclerView {
     private ArrayList<String> deleteIds = new ArrayList<>();
     private PreviewImgAdapter previewImgAdapter;
     private FileConfig fileConfig;
-    private boolean editable=true ;
+    private boolean editable = true;
 
     public PreviewRecyclerView(Context context) {
         this(context, null);
@@ -73,12 +73,12 @@ public class PreviewRecyclerView extends RecyclerView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        ViewGroup parentView = (ViewGroup) getParent();
-        if (parentView.getId() == R.id.rl_photo_preview) {
-            parentView.setOnClickListener(v -> {
-                goPhotoPreviewActivity((Activity) getContext(), fileConfig, editable);
-            });
-        }
+//        ViewGroup parentView = (ViewGroup) getParent();
+//        if (parentView.getId() == R.id.rl_photo_preview) {
+//            parentView.setOnClickListener(v -> {
+//                goPhotoPreviewActivity((Activity) getContext(), fileConfig, editable);
+//            });
+//        }
     }
 
 
@@ -121,6 +121,7 @@ public class PreviewRecyclerView extends RecyclerView {
             }
         }
     }
+
     public void onActivityResult(int requestCode, Intent data) {
         if (requestCode == Constants.RequestCode.PHOTO_PREVIEW && data != null) {
             int fileType = data.getIntExtra(Constants.Extra.FILETYPE, 0);

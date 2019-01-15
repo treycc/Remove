@@ -214,49 +214,53 @@
 -dontwarn com.squareup.javapoet.**
 -dontwarn com.google.common.**
 
-# flowlayout
--dontwarn com.zhy.view.**
--keep class com.zhy.view.** { *; }
 # 自定义View
 -dontwarn com.jdp.hls.view.**
 -keep class com.jdp.hls.view.** { *; }
-# lifecycle
--dontwarn android.arch.lifecycle.**
--keep class android.arch.lifecycle.** { *; }
+
 # materialdialogs
 -dontwarn com.afollestad.materialdialogs.**
 -keep class com.afollestad.materialdialogs.** { *; }
-# timessquare
--dontwarn com.squareup.timessquare.**
--keep class com.squareup.timessquare.** { *; }
+
 # it.sephiroth.android
 -dontwarn it.sephiroth.android.**
 -keep class it.sephiroth.android.** { *; }
-# RangeSeekBar
--dontwarn com.jaygoo.widget.**
--keep class com.jaygoo.widget.** { *; }
+
 # javax.inject
 -dontwarn javax.inject.**
 -keep class javax.inject.** { *; }
-# android.app
--dontwarn android.app.**
--keep class android.app.** { *; }
-# android.app
--dontwarn com.bumptech.**
--keep class com.bumptech.** { *; }
-# android.app
--dontwarn com.bumptech.**
--keep class com.bumptech.** { *; }
-# alipay
--dontwarn android.net.**
--keep class android.net.SSLCertificateSocketFactory{*;}
+
+
 # 数据库greendao
 -dontwarn org.greenrobot.**
 -keep class org.greenrobot.**{*;}
 -keep class com.jdp.hls.dao.**{*;}
-# 底部对话框
+
+# flipboard底部对话框
 -dontwarn com.flipboard.**
 -keep class com.flipboard.**{*;}
+
+# supershapeview
+-dontwarn com.kingja.supershapeview.**
+-keep class com.kingja.supershapeview.**{*;}
+
+# switchbutton
+-dontwarn lib.kingja.switchbutton.**
+-keep class lib.kingja.switchbutton.**{*;}
+
+# butterknife
+# rxpermissions
+# nice-spinner
+-dontwarn org.angmarch.views.**
+-keep class org.angmarch.views.**{*;}
+# MPAndroidChart
+-dontwarn com.github.mikephil.**
+-keep class com.github.mikephil.**{*;}
+
+# popwindowsir
+-dontwarn com.kingja.popwindowsir.**
+-keep class com.kingja.popwindowsir.**{*;}
+
 
 # 注解
 -keep class * extends java.lang.annotation.Annotation { *; }

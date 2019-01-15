@@ -152,9 +152,6 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                         .isEmpty(immovableNum));
                 break;
             case R.id.ll_detail_bankDeed:
-//                String bankAccount = tvDetailBankAccount.getText().toString().trim();
-//                goDeedActivity(DeedPersonalBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
-//                        (bankAccount));
                 BankListActivity.goActivity(this, buildingId);
                 break;
         }
@@ -401,7 +398,5 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                     break;
             }
         }
-
     }
-
 }

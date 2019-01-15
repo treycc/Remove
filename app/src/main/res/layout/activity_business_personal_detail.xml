@@ -57,9 +57,9 @@
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_detail_mobile"
-                android:inputType="numberDecimal"
                 style="@style/Content_ET_W2"
-                android:hint="请输入联系号码"/>
+                android:hint="请输入联系号码"
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -410,7 +410,6 @@
             style="@style/Title_Normal"
             android:text="房屋现状图"/>
 
-
         <RelativeLayout
             style="@style/Content_LL_T12"
             android:layout_width="match_parent"
@@ -432,8 +431,6 @@
                 android:layout_centerVertical="true"/>
 
         </RelativeLayout>
-
-        <View style="@style/div_hor_gray_margin24"/>
 
         <TextView
             style="@style/Title_Normal"
