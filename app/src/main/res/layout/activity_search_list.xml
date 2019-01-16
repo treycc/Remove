@@ -9,6 +9,18 @@
 
     <include layout="@layout/layout_search_white"/>
 
+    <com.jdp.hls.view.FixedGridView
+        android:background="@color/white_hi"
+        android:id="@+id/fgv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none"
+        android:numColumns="4"
+        tools:listitem="@layout/item_area_select"/>
+
+    <View style="@style/div_hor_gray"/>
+
     <com.jdp.hls.view.RefreshSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"

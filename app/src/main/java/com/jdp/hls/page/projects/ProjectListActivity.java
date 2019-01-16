@@ -1,7 +1,5 @@
 package com.jdp.hls.page.projects;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -11,6 +9,7 @@ import android.widget.ImageView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.CommonAdapter;
+import com.jdp.hls.adapter.CommonPositionAdapter;
 import com.jdp.hls.adapter.ProjectSearchAdapter;
 import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -18,19 +17,20 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.event.SwitchProjectEvent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.AreaSelector;
+import com.jdp.hls.model.entiy.BusinessAction;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.page.home.HomeActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.InputMethodManagerUtil;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
+import com.jdp.hls.view.FixedGridView;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +59,10 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     ImageView ivClear;
     @Inject
     ProjectsPresenter projectsPresenter;
+    @BindView(R.id.fgv)
+    FixedGridView fgv;
     private ProjectSearchAdapter projectSearchAdapter;
+    private CommonAdapter<AreaSelector> areaSelectorAdapter;
 
     @OnClick({R.id.iv_clear})
     public void click(View view) {
@@ -69,6 +72,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
                 break;
         }
     }
+
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Project project = (Project) adapterView.getItemAtPosition(position);
@@ -119,7 +123,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
 
     @Override
     protected void initData() {
-        etKeyword.setHint("请输入项目名称/地址/负责人");
+        etKeyword.setHint("请输入项目名称/负责人/地址");
         etKeyword.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -128,6 +132,24 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
             }
         });
         rsrl.stepRefresh(this);
+
+        List<AreaSelector> areaSelectorList=new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            AreaSelector areaSelector = new AreaSelector();
+            areaSelector.setAreaName("组件"+i);
+            areaSelector.setAvailable(i%2==0);
+            areaSelectorList.add(areaSelector);
+        }
+
+        fgv.setAdapter(areaSelectorAdapter = new CommonAdapter<AreaSelector>(this,
+                areaSelectorList, R.layout.item_area_select) {
+            @Override
+            public void convert(ViewHolder helper, AreaSelector item) {
+                helper.setText(R.id.tv_areaName, item.getAreaName());
+                helper.setVisibility(R.id.iv_arrow, item.isAvailable());
+            }
+        });
+
     }
 
 
@@ -140,7 +162,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     @Override
     public void onGetProjectsSuccess(List<Project> projects) {
         String keyword = etKeyword.getText().toString().trim();
-       setSearchListView(projects,projectSearchAdapter,keyword);
+        setSearchListView(projects, projectSearchAdapter, keyword);
     }
 
     @Override
@@ -156,5 +178,12 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     protected void onDestroy() {
         InputMethodManagerUtil.fixInputMethodManagerLeak(this);
         super.onDestroy();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
