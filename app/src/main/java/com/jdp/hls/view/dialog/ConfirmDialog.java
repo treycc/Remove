@@ -25,7 +25,7 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
     protected TextView tv_confirm;
     protected TextView tv_dialog_message;
     protected TextView tv_cancle;
-    protected LinearLayout ll_cancel;
+    protected View v_div;
     private OnConfirmListener onConfirmListener;
     private OnCancelListener onCancelListener;
 
@@ -42,6 +42,8 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
         this.cancelText = cancelText;
         this.onConfirmListener = onConfirmListener;
         this.onCancelListener = onCancelListener;
+        setCancelable(false);
+        setCanceledOnTouchOutside(false);
     }
 
     public ConfirmDialog(@NonNull Context context, String message, OnConfirmListener
@@ -62,11 +64,12 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener {
         setContentView(R.layout.dialog_comfirm);
         tv_confirm = findViewById(R.id.tv_confirm);
         tv_cancle = findViewById(R.id.tv_cancle);
-        ll_cancel = findViewById(R.id.ll_cancel);
+        v_div = findViewById(R.id.v_div);
         tv_confirm.setText(confirmText);
         tv_cancle.setText(cancelText);
         tv_dialog_message = findViewById(R.id.tv_dialog_message);
-        ll_cancel.setVisibility(onCancelListener == null ? View.GONE : View.VISIBLE);
+        tv_cancle.setVisibility(onCancelListener == null ? View.GONE : View.VISIBLE);
+        v_div.setVisibility(onCancelListener == null ? View.GONE : View.VISIBLE);
         tv_dialog_message.setText(message);
         tv_confirm.setOnClickListener(this);
         tv_cancle.setOnClickListener(this);

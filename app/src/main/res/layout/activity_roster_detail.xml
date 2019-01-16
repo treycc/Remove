@@ -286,6 +286,7 @@
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_roster_phone"
                 style="@style/Content_ET_W2"
+                android:inputType="numberDecimal"
                 android:hint="请输入联系号码"/>
         </LinearLayout>
 

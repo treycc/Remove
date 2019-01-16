@@ -40,12 +40,9 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class RosterListFragment extends BaseFragment implements GetRostersByTypeContract.View, SwipeRefreshLayout
-        .OnRefreshListener, DeleteRosterContract.View {
+public class RosterListFragment extends BaseFragment implements GetRostersByTypeContract.View, DeleteRosterContract.View {
     @BindView(R.id.plv)
     ListView plv;
-    @BindView(R.id.rsrl)
-    RefreshSwipeRefreshLayout srl;
     private List<Roster> rosters = new ArrayList<>();
     private RosterListAdapter adapter;
     private int buildingType;
@@ -92,7 +89,6 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
 
     @Override
     protected void initData() {
-        srl.setOnRefreshListener(this);
         adapter.setOnItemOperListener(new BaseLvAdapter.OnItemOperListener<Roster>() {
             @Override
             public void onItemDelete(Roster roster, int position) {
@@ -131,21 +127,12 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
         adapter.setData(rosters);
     }
 
-    @Override
-    public void showLoading() {
-        srl.setRefreshing(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        srl.setRefreshing(false);
-    }
-
-    @Override
-    public void onRefresh() {
-        getRostersByTypePresenter.getRosterListByType(SpSir.getInstance().getProjectId(), SpSir.getInstance()
-                .getEmployeeId(), buildingType);
-    }
+//
+//    @Override
+//    public void onRefresh() {
+//        getRostersByTypePresenter.getRosterListByType(SpSir.getInstance().getProjectId(), SpSir.getInstance()
+//                .getEmployeeId(), buildingType);
+//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshRosters(AddRostersEvent event) {

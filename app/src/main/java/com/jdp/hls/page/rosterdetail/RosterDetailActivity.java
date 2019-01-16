@@ -332,7 +332,8 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     public void onModifyRosterSuccess() {
         EventBus.getDefault().post(new RefreshRostersEvent());
         EventBus.getDefault().post(getModifyRostersEvent());
-        DialogUtil.showQuitDialog(this, "花名册修改成功");
+//        DialogUtil.showQuitDialog(this, "花名册修改成功");
+        showSuccessDialogAndFinish();
     }
 
     private ModifyRostersEvent getModifyRostersEvent() {

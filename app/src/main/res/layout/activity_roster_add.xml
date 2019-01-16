@@ -120,6 +120,7 @@
 
             <com.jdp.hls.view.EnableEditText
                 android:id="@+id/et_roster_phone"
+                android:inputType="numberDecimal"
                 style="@style/Content_ET_W2"
                 android:hint="请输入联系号码"/>
         </LinearLayout>
