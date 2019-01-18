@@ -19,6 +19,7 @@ import java.util.List;
  */
 public abstract class BaseSearchAdapter<T> extends BaseLvAdapter<T> implements OnSearchListener {
     protected List<T> resultList = new ArrayList<>();
+    protected String keyword;
 
     public BaseSearchAdapter(Context context, List<T> list) {
         super(context, list);
@@ -30,6 +31,7 @@ public abstract class BaseSearchAdapter<T> extends BaseLvAdapter<T> implements O
 
     @Override
     public void onSearch(String keyword) {
+        this.keyword = keyword;
         resultList = new ArrayList<>();
         doSearch(list, resultList, keyword);
         notifyDataSetChanged();

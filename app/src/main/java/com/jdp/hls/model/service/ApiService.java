@@ -1,6 +1,7 @@
 package com.jdp.hls.model.service;
 
 
+import com.jdp.hls.model.ProjectAreaInfo;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.AreaResult;
@@ -144,6 +145,10 @@ public interface ApiService {
     /*获取用户项目*/
     @GET("project/GetUserProject")
     Observable<HttpResult<List<Project>>> getProjects(@Query("userId") int userId);
+
+    /*获取用户项目*/
+    @GET("project/GetUserAreaProject")
+    Observable<HttpResult<ProjectAreaInfo>> getAreaProjects(@Query("userId") int userId);
 
     /*添加花名册*/
     @POST("person/AddRoster")

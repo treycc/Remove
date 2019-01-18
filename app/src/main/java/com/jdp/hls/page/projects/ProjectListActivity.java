@@ -1,43 +1,48 @@
 package com.jdp.hls.page.projects;
 
-import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.adapter.CommonAdapter;
-import com.jdp.hls.adapter.CommonPositionAdapter;
+import com.jdp.hls.adapter.AreaSelectAdapter;
 import com.jdp.hls.adapter.ProjectSearchAdapter;
-import com.jdp.hls.adapter.ViewHolder;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
+import com.jdp.hls.constant.Status;
+import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.event.SwitchProjectEvent;
+import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.AreaSelector;
-import com.jdp.hls.model.entiy.BusinessAction;
+import com.jdp.hls.model.ProjectAreaInfo;
+import com.jdp.hls.model.entiy.AreaSelectorItem;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.page.home.HomeActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.InputMethodManagerUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
+import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.FixedGridView;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.dialog.AreaListDialog;
+import com.jdp.hls.view.dialog.BaseWheelListDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import okhttp3.MultipartBody;
@@ -48,7 +53,7 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class ProjectListActivity extends BaseTitleActivity implements ProjectsContract.View {
+public class ProjectListActivity extends BaseTitleActivity implements ProjectsAreaContract.View {
     @BindView(R.id.plv)
     PullToBottomListView plv;
     @BindView(R.id.srl)
@@ -58,11 +63,13 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     @BindView(R.id.iv_clear)
     ImageView ivClear;
     @Inject
-    ProjectsPresenter projectsPresenter;
+    ProjectsAreaPresenter projectsPresenter;
     @BindView(R.id.fgv)
     FixedGridView fgv;
     private ProjectSearchAdapter projectSearchAdapter;
-    private CommonAdapter<AreaSelector> areaSelectorAdapter;
+    private AreaSelectAdapter areaSelectorAdapter;
+    private List<AreaSelectorItem> areaSelectorItemList = new ArrayList<>();
+    private AreaListDialog areaListDialog;
 
     @OnClick({R.id.iv_clear})
     public void click(View view) {
@@ -83,11 +90,12 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
 
     @Override
     public void initVariable() {
+
     }
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_search_list;
+        return R.layout.activity_project_search_list;
     }
 
     @Override
@@ -96,6 +104,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
+        projectsPresenter.attachView(this);
     }
 
     @Override
@@ -106,7 +115,6 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
 
     @Override
     protected void initView() {
-        projectsPresenter.attachView(this);
         projectSearchAdapter = new ProjectSearchAdapter(this, null);
         plv.setAdapter(projectSearchAdapter);
     }
@@ -133,20 +141,33 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
         });
         rsrl.stepRefresh(this);
 
-        List<AreaSelector> areaSelectorList=new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            AreaSelector areaSelector = new AreaSelector();
-            areaSelector.setAreaName("组件"+i);
-            areaSelector.setAvailable(i%2==0);
-            areaSelectorList.add(areaSelector);
-        }
-
-        fgv.setAdapter(areaSelectorAdapter = new CommonAdapter<AreaSelector>(this,
-                areaSelectorList, R.layout.item_area_select) {
+        areaListDialog = new AreaListDialog(ProjectListActivity.this);
+        fgv.setAdapter(areaSelectorAdapter = new AreaSelectAdapter(this, null));
+        fgv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void convert(ViewHolder helper, AreaSelector item) {
-                helper.setText(R.id.tv_areaName, item.getAreaName());
-                helper.setVisibility(R.id.iv_arrow, item.isAvailable());
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AreaSelectorItem item = (AreaSelectorItem) parent.getItemAtPosition(position);
+                if (!item.isVisible()) {
+                    return;
+                }
+                int parentId = areaSelectorAdapter.getParentId(item.getParentId(), position);
+                if (parentId == 0) {
+                    ToastUtil.showText("请先选择上级区域");
+                    return;
+                }
+                switch (item.getAreaLevel()) {
+                    case Status.AreaLevel.PROVINCE:
+                    case Status.AreaLevel.CITY:
+                    case Status.AreaLevel.AREA:
+                    case Status.AreaLevel.STREET:
+                        if (areaListDialog.hasData(parentId)) {
+                            areaListDialog.fillData(item.getAreaLevel(), parentId, item.getAreaNumber());
+                            areaListDialog.show();
+                        } else {
+                            ToastUtil.showText("无区域数据");
+                        }
+                        break;
+                }
             }
         });
 
@@ -160,9 +181,26 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
 
 
     @Override
-    public void onGetProjectsSuccess(List<Project> projects) {
+    public void onGetProjectsSuccess(ProjectAreaInfo projectAreaInfo) {
         String keyword = etKeyword.getText().toString().trim();
-        setSearchListView(projects, projectSearchAdapter, keyword);
+        setSearchListView(projectAreaInfo.getProjectList(), projectSearchAdapter, keyword);
+
+        if (projectAreaInfo.isAvailable()) {
+            fgv.setVisibility(View.VISIBLE);
+            areaSelectorAdapter.setData(projectAreaInfo.getAuthoritys());
+            areaListDialog.setOnConfirmListener((BaseWheelListDialog.OnConfirmListener<Area>)
+                    area -> {
+                        switch (area.getLevel()) {
+                            case Status.AreaLevel.PROVINCE:
+                            case Status.AreaLevel.CITY:
+                            case Status.AreaLevel.AREA:
+                            case Status.AreaLevel.STREET:
+                                areaSelectorAdapter.resetData(area);
+                                projectSearchAdapter.filterArea(area);
+                                break;
+                        }
+                    });
+        }
     }
 
     @Override
@@ -178,12 +216,5 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsCo
     protected void onDestroy() {
         InputMethodManagerUtil.fixInputMethodManagerLeak(this);
         super.onDestroy();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

@@ -6,7 +6,7 @@ package com.jdp.hls.model.entiy;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class AreaSelector {
+public class AreaSelectorItem {
 
     /**
      * AreaLevel : 3
@@ -16,16 +16,25 @@ public class AreaSelector {
      */
 
     private int AreaLevel;
-    private boolean IsAvailable;
+    private boolean IsVisible;
     private int AreaNumber;
+    private int ParentId;
     private String AreaName;
 
-    public boolean isAvailable() {
-        return IsAvailable;
+    public int getParentId() {
+        return ParentId;
     }
 
-    public void setAvailable(boolean available) {
-        IsAvailable = available;
+    public void setParentId(int parentId) {
+        ParentId = parentId;
+    }
+
+    public boolean isVisible() {
+        return IsVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        IsVisible = visible;
     }
 
     public int getAreaLevel() {

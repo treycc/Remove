@@ -19,19 +19,17 @@ import butterknife.ButterKnife;
  * Email:kingjavip@gmail.com
  */
 public abstract class CommonDialog extends Dialog {
-    protected  final String TAG = getClass().getSimpleName();
+    protected final String TAG = getClass().getSimpleName();
     protected OnConfirmListener onConfirmListener;
     protected OnCancelListener onCancelListener;
 
     public CommonDialog(@NonNull Context context) {
         super(context, R.style.CustomAlertDialog);
-        LogUtil.e(TAG,"CommonDialog");
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtil.e(TAG,"onCreate");
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         initComponent(App.getContext().getAppComponent());

@@ -121,6 +121,7 @@ public class Status {
         int AIRPHOTO = 3;
         int TABLE = 4;
     }
+
     public interface DataStatisticsType {
         int PROGRESS_STATISTICS = 30;
         int TOTAL_STATISTICS = 31;
@@ -177,6 +178,13 @@ public class Status {
 
     public interface PayTypeItem {
         int TempPlacementFee = 2;
+    }
+
+    public interface AreaLevel {
+        int PROVINCE = 1;
+        int CITY = 2;
+        int AREA = 3;
+        int STREET = 4;
     }
 
 //    文件类型 基础 = 0, 个人不动产证 = 1, 个人房屋现状 = 2, 个人土地证 = 3, 个人房产证 = 4, 企业证件 = 5, 企业现状 = 6, 企业不动产证 = 7, 企业土地证 = 8, 企业房产证 = 9,

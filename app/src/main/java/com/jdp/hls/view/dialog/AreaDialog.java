@@ -11,8 +11,6 @@ import com.jdp.hls.R;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.util.CheckUtil;
-import com.jdp.hls.util.EncryptUtil;
 import com.jdp.hls.util.LogUtil;
 import com.kingja.wheelview.AbstractWheelTextAdapter;
 import com.kingja.wheelview.OnWheelChangedListener;
@@ -130,8 +128,8 @@ public class AreaDialog extends CommonDialog implements OnWheelScrollListener, O
             areaIndexs = sourceMap.get(areasList.get(cityIndexs.get(0)).getRegionIntId());
         } else {
             provinceIndexs = sourceMap.get(1);
-            cityIndexs = sourceMap.get(provinceId)==null?new ArrayList<>():sourceMap.get(provinceId);
-            areaIndexs = sourceMap.get(cityId)==null?new ArrayList<>():sourceMap.get(cityId);
+            cityIndexs = sourceMap.get(provinceId) == null ? new ArrayList<>() : sourceMap.get(provinceId);
+            areaIndexs = sourceMap.get(cityId) == null ? new ArrayList<>() : sourceMap.get(cityId);
 
             LogUtil.e(TAG, "cityIndexs:" + cityIndexs.size());
             LogUtil.e(TAG, "areaIndexs:" + areaIndexs.size());

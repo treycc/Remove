@@ -18,6 +18,80 @@ public class Project implements Serializable {
     private int TotalQuantity;
     private String PercentDesc;
 
+    private int ProvinceId;
+    private int CityId;
+    private int AreaId;
+    private int StreetId;
+
+    private String ProvinceName;
+    private String CityName;
+    private String AreaName;
+    private String StreetName;
+
+    public String getProvinceName() {
+        return null == ProvinceName ? "" : ProvinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        ProvinceName = provinceName;
+    }
+
+    public String getCityName() {
+        return null == CityName ? "" : CityName;
+    }
+
+    public void setCityName(String cityName) {
+        CityName = cityName;
+    }
+
+    public String getAreaName() {
+        return null == AreaName ? "" : AreaName;
+    }
+
+    public void setAreaName(String areaName) {
+        AreaName = areaName;
+    }
+
+    public String getStreetName() {
+        return null == StreetName ? "" : StreetName;
+    }
+
+    public void setStreetName(String streetName) {
+        StreetName = streetName;
+    }
+
+    public int getProvinceId() {
+        return ProvinceId;
+    }
+
+    public void setProvinceId(int provinceId) {
+        ProvinceId = provinceId;
+    }
+
+    public int getCityId() {
+        return CityId;
+    }
+
+    public void setCityId(int cityId) {
+        CityId = cityId;
+    }
+
+    public int getAreaId() {
+        return AreaId;
+    }
+
+    public void setAreaId(int areaId) {
+        AreaId = areaId;
+    }
+
+    public int getStreetId() {
+        return StreetId;
+    }
+
+    public void setStreetId(int streetId) {
+        StreetId = streetId;
+    }
+
     public int getTotalQuantity() {
         return TotalQuantity;
     }
