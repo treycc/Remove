@@ -11,8 +11,6 @@ import com.jdp.hls.R;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.util.CheckUtil;
-import com.jdp.hls.util.EncryptUtil;
 import com.jdp.hls.util.LogUtil;
 import com.kingja.wheelview.AbstractWheelTextAdapter;
 import com.kingja.wheelview.OnWheelChangedListener;
@@ -87,6 +85,14 @@ public class AreaDialog extends CommonDialog implements OnWheelScrollListener, O
         this.provinceId = provinceId;
         this.cityId = cityId;
         this.areaId = areaId;
+
+        //默认选择浙江省温州市
+        if (this.provinceId == 0) {
+            this.provinceId=330000;
+        }
+        if (this.cityId == 0) {
+            this.cityId=330300;
+        }
     }
 
     public Area getAreaByIndex(int areaIndex) {
@@ -130,13 +136,12 @@ public class AreaDialog extends CommonDialog implements OnWheelScrollListener, O
             areaIndexs = sourceMap.get(areasList.get(cityIndexs.get(0)).getRegionIntId());
         } else {
             provinceIndexs = sourceMap.get(1);
-            cityIndexs = sourceMap.get(provinceId)==null?new ArrayList<>():sourceMap.get(provinceId);
-            areaIndexs = sourceMap.get(cityId)==null?new ArrayList<>():sourceMap.get(cityId);
+            cityIndexs = sourceMap.get(provinceId) == null ? new ArrayList<>() : sourceMap.get(provinceId);
+            areaIndexs = sourceMap.get(cityId) == null ? new ArrayList<>() : sourceMap.get(cityId);
 
             LogUtil.e(TAG, "cityIndexs:" + cityIndexs.size());
             LogUtil.e(TAG, "areaIndexs:" + areaIndexs.size());
         }
-
     }
 
     @Override
@@ -149,9 +154,9 @@ public class AreaDialog extends CommonDialog implements OnWheelScrollListener, O
     public void initData() {
         provinceIndex = provinceIndexs.get(getProvinceIndex(provinceId));
         cityIndex = cityIndexs.get(getCityIndex(cityId));
-        areaIndex = areaIndexs.get(getAresIndex(areaId));
-
-        provinceIndex = provinceIndexs.get(getProvinceIndex(provinceId));
+        if (areaIndexs != null && areaIndexs.size()>0) {
+            areaIndex = areaIndexs.get(getAresIndex(areaId));
+        }
         provinceAdapter = new AreaWheelTextAdapter(getContext(), provinceIndexs);
         wvProvince.setVisibleItems(VisibleItems);
         wvProvince.setViewAdapter(provinceAdapter);
@@ -192,9 +197,11 @@ public class AreaDialog extends CommonDialog implements OnWheelScrollListener, O
     }
 
     private int getCurrentIndex(List<Integer> indexList, int id) {
-        for (int i = 0; i < indexList.size(); i++) {
-            if (areasList.get(indexList.get(i)).getRegionId() == id) {
-                return i;
+        if (indexList != null && indexList.size() > 0) {
+            for (int i = 0; i < indexList.size(); i++) {
+                if (areasList.get(indexList.get(i)).getRegionId() == id) {
+                    return i;
+                }
             }
         }
         return 0;

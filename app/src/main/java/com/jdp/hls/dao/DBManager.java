@@ -3,6 +3,7 @@ package com.jdp.hls.dao;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jdp.hls.base.App;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.greendaobean.TDict;
 
@@ -99,5 +100,12 @@ public class DBManager {
         List<Area> results = areaDao.queryBuilder().where(AreaDao.Properties.ParentId.eq(parentId)).list();
         return results == null ? new ArrayList<>() : results;
     }
+
+    public List<Area> getProvinces() {
+        AreaDao areaDao = getAreaDao();
+        List<Area> results = areaDao.queryBuilder().where(AreaDao.Properties.Level.eq(Status.AreaLevel.PROVINCE)).list();
+        return results == null ? new ArrayList<>() : results;
+    }
+
 
 }

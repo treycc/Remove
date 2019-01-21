@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.constant.Status;
+import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.StringTextView;
@@ -20,6 +22,10 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class ProjectSearchAdapter extends BaseSearchAdapter<Project> {
+    private int provinceId;
+    private int cityId;
+    private int areaId;
+    private int streetId;
 
     public ProjectSearchAdapter(Context context, List<Project> list) {
         super(context, list);
@@ -45,18 +51,50 @@ public class ProjectSearchAdapter extends BaseSearchAdapter<Project> {
         viewHolder.tv_realName.setString(project.getRealName());
         viewHolder.tv_percentDesc.setText(project.getPercentDesc());
         viewHolder.tv_totalQuantity.setText(project.getTotalQuantity() + "户");
+        viewHolder.tv_area.setString(project.getProvinceName() + project.getCityName() + project.getAreaName()
+                + project.getStreetName());
         return convertView;
     }
 
     @Override
     protected void doSearch(List<Project> list, List<Project> resultList, String keyword) {
         for (Project project : list) {
-            if (project.getProjectName().contains(keyword) || project.getAddress().contains(keyword) || project
-                    .getRealName().contains(keyword)) {
+            if (checkKeyword(project) && checkProject(project)) {
                 resultList.add(project);
             }
         }
     }
+
+    private boolean checkKeyword(Project project) {
+        return project.getProjectName().contains(keyword) || project.getAddress().contains(keyword) || project
+                .getRealName().contains(keyword);
+    }
+
+    private boolean checkProject(Project project) {
+        return (provinceId == 0 || provinceId == project.getProvinceId())
+                && (cityId == 0 || cityId == project.getCityId())
+                && (areaId == 0 || areaId == project.getAreaId())
+                && (streetId == 0 || streetId == project.getStreetId());
+    }
+
+    public void filterArea(Area area) {
+        switch (area.getLevel()) {
+            case Status.AreaLevel.PROVINCE:
+                provinceId = area.getRegionIntId();
+                break;
+            case Status.AreaLevel.CITY:
+                cityId = area.getRegionIntId();
+                break;
+            case Status.AreaLevel.AREA:
+                areaId = area.getRegionIntId();
+                break;
+            case Status.AreaLevel.STREET:
+                streetId = area.getRegionIntId();
+                break;
+        }
+        onSearch(keyword);
+    }
+
 
     public class ViewHolder {
         public final View root;
@@ -66,6 +104,7 @@ public class ProjectSearchAdapter extends BaseSearchAdapter<Project> {
         public StringTextView tv_realName;
         public SuperShapeTextView tv_percentDesc;
         public SuperShapeTextView tv_totalQuantity;
+        public StringTextView tv_area;
         public ImageView iv_project_sel;
 
         public ViewHolder(View root) {
@@ -77,6 +116,7 @@ public class ProjectSearchAdapter extends BaseSearchAdapter<Project> {
             tv_percentDesc = root.findViewById(R.id.tv_percentDesc);
             tv_totalQuantity = root.findViewById(R.id.tv_totalQuantity);
             iv_project_sel = root.findViewById(R.id.iv_project_sel);
+            tv_area = root.findViewById(R.id.tv_area);
         }
     }
 }
