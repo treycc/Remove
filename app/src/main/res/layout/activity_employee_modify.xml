@@ -16,6 +16,8 @@
 
         <com.jdp.hls.view.StringTextView
             android:id="@+id/tv_loginName"
+            android:hint="系统自动生成"
+            android:textColorHint="@color/c_c"
             style="@style/Content_ET_W3"/>
     </LinearLayout>
 
@@ -23,14 +25,14 @@
 
     <LinearLayout style="@style/Content_LL_T6">
 
-        <TextView
+        <com.jdp.hls.view.RequiredTextView
             style="@style/Title_Sub"
             android:text="密码"/>
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_password"
             style="@style/Content_ET_W3"
-            android:hint="如不修改请留空"
+            android:hint="请输入密码"
             android:inputType="textPassword"/>
     </LinearLayout>
 
@@ -95,6 +97,7 @@
 
 
     </LinearLayout>
+
     <View style="@style/div_hor_gray_margin24"/>
     <LinearLayout
         android:id="@+id/ll_projectSelector"
@@ -119,4 +122,39 @@
             <ImageView style="@style/BG_ARROW"/>
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_areaSelector"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <LinearLayout
+
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="监管区域"/>
+
+            <LinearLayout style="@style/Ll_Container_Arrow_W3">
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_areaSelector"
+                    style="@style/font_9_15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:hint="请选择监管区域"
+                    android:textColorHint="@color/c_9"/>
+
+                <ImageView style="@style/BG_ARROW"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

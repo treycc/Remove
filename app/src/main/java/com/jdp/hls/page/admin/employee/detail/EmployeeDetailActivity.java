@@ -2,6 +2,7 @@ package com.jdp.hls.page.admin.employee.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,8 +13,10 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.ModifyEmployeeEvent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.AreaSupervise;
 import com.jdp.hls.model.entiy.Employee;
 import com.jdp.hls.page.admin.employee.add.projectlist.SuperviseProjectListActivity;
+import com.jdp.hls.page.admin.employee.areasupervise.list.AreaSuperviseListActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.EncryptUtil;
 import com.jdp.hls.util.LogUtil;
@@ -24,9 +27,12 @@ import com.jdp.hls.view.StringTextView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lib.kingja.switchbutton.SwitchMultiButton;
 import okhttp3.MultipartBody;
@@ -54,13 +60,21 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
     StringTextView tvProjectSelector;
     @BindView(R.id.ll_projectSelector)
     LinearLayout llProjectSelector;
+    @BindView(R.id.tv_areaSelector)
+    StringTextView tvAreaSelector;
+    @BindView(R.id.ll_areaSelector)
+    LinearLayout llAreaSelector;
     private String employeeId;
+    private List<AreaSupervise> areaSuperviseList;
 
-    @OnClick({R.id.ll_projectSelector})
+    @OnClick({R.id.ll_projectSelector, R.id.ll_areaSelector})
     public void rl_protocol_otherArea(View view) {
         switch (view.getId()) {
             case R.id.ll_projectSelector:
                 SuperviseProjectListActivity.goActivity(this, projectIDs, isManageAllProjects);
+                break;
+            case R.id.ll_areaSelector:
+                AreaSuperviseListActivity.goActivity(this, areaSuperviseList);
                 break;
             default:
                 break;
@@ -103,7 +117,7 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
     @Override
     protected void initData() {
         smbAccountStatus.setOnSwitchListener((position, tabText) -> isStop = position != 0);
-        llProjectSelector.setVisibility(SpSir.getInstance().isAllowDistributeProjects()?View.VISIBLE:View.GONE);
+        llProjectSelector.setVisibility(SpSir.getInstance().isAllowDistributeProjects() ? View.VISIBLE : View.GONE);
         setRightClick("保存", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
@@ -146,6 +160,13 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
             isStop = employee.isStop();
             isManageAllProjects = employee.isManageAllProjects();
             projectIDs = employee.getProjectIDs();
+
+            /*设置区域权限*/
+//            if (employee.isAreaVisible()) {
+                llAreaSelector.setVisibility(View.VISIBLE);
+                areaSuperviseList = employee.getAreaList();
+//            }
+
             if (isManageAllProjects) {
                 tvProjectSelector.setHint("已选择所有项目");
             } else {
@@ -189,5 +210,12 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
                     break;
             }
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

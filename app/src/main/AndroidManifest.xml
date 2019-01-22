@@ -401,6 +401,8 @@
         <activity android:name=".page.admin.project.detail.payscheme.PaySchemeActivity"/>
         <activity android:name=".page.node.protocol.personal.lastst.pay.banklist.ReceiveAccountListActivity"/>
         <activity android:name=".page.server.ServerSelectorActivity"/>
+        <activity android:name=".page.admin.employee.areasupervise.add.AreaSuperviseAddActivity"/>
+        <activity android:name=".page.admin.employee.areasupervise.list.AreaSuperviseListActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->
