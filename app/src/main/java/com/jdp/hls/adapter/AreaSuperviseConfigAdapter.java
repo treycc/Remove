@@ -112,8 +112,10 @@ public class AreaSuperviseConfigAdapter extends BaseLvAdapter<AreaSupervise> {
             Iterator<AreaSupervise> it = selectedAreaList.iterator();
             while (it.hasNext()) {
                 AreaSupervise item = it.next();
+                String itemregionIdStr = String.valueOf(item.getRegionId()).replaceAll("0+$", "");
                 if (areaSupervise.getRegionId() == item.getParentId() ||String.valueOf(item.getRegionId())
-                        .startsWith(regionIdStr)) {
+                        .startsWith(regionIdStr)||String.valueOf(areaSupervise.getRegionId())
+                        .startsWith(itemregionIdStr)) {
                     it.remove();
                 }
             }
