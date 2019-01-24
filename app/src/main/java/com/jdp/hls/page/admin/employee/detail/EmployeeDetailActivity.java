@@ -2,7 +2,6 @@ package com.jdp.hls.page.admin.employee.detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -38,7 +37,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lib.kingja.switchbutton.SwitchMultiButton;
 import okhttp3.MultipartBody;
@@ -146,7 +144,6 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
                     } else {
                         employeeDetailPresenter.modifyEmployee(getRequestBody());
                     }
-
                 }
             }
         });

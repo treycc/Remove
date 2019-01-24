@@ -347,6 +347,7 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
         roster.setEnterprise(isEnterprise);
         roster.setEvaluated(isEvaluated);
         roster.setMeasured(isMeasured);
+        roster.setAssetEvaluator(isAssetEvaluator);
         roster.setRealName(name);
         roster.setMobilePhone(phone);
         roster.setHouseAddress(address);
@@ -368,12 +369,5 @@ public class RosterDetailActivity extends BaseTitleActivity implements RosterDet
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

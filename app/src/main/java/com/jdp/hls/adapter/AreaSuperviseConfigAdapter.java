@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.jdp.hls.R;
@@ -34,9 +35,9 @@ public class AreaSuperviseConfigAdapter extends BaseLvAdapter<AreaSupervise> {
 
     public AreaSuperviseConfigAdapter(Context context, List<AreaSupervise> list, List<AreaSupervise> selectedAreaList) {
         super(context, list);
+        initData();
         this.selectedAreaList = selectedAreaList;
         visibleAreaList = this.list;
-        initData();
     }
 
     private void initData() {
@@ -89,7 +90,7 @@ public class AreaSuperviseConfigAdapter extends BaseLvAdapter<AreaSupervise> {
             refresh();
         });
         viewHolder.cb_check.setChecked(areaSupervise.isSelected());
-        convertView.setPadding(areaSupervise.getLevel() * AppUtil.dp2px(12), AppUtil.dp2px(12), AppUtil.dp2px(12),
+        convertView.setPadding(areaSupervise.getLevel() * AppUtil.dp2px(16), AppUtil.dp2px(12), AppUtil.dp2px(12),
                 AppUtil.dp2px(12));
         return convertView;
     }
@@ -105,17 +106,18 @@ public class AreaSuperviseConfigAdapter extends BaseLvAdapter<AreaSupervise> {
         }
         return false;
     }
-
     private void setSelectStatus(AreaSupervise areaSupervise, boolean isChecked) {
         if (isChecked) {
-            selectedAreaList.add(areaSupervise);
+            String regionIdStr = String.valueOf(areaSupervise.getRegionId()).replaceAll("0+$", "");
             Iterator<AreaSupervise> it = selectedAreaList.iterator();
             while (it.hasNext()) {
                 AreaSupervise item = it.next();
-                if (areaSupervise.getRegionId() == item.getParentId()) {
+                if (areaSupervise.getRegionId() == item.getParentId() ||String.valueOf(item.getRegionId())
+                        .startsWith(regionIdStr)) {
                     it.remove();
                 }
             }
+            selectedAreaList.add(areaSupervise);
         } else {
             if (selectedAreaList.contains(areaSupervise)) {
                 selectedAreaList.remove(areaSupervise);
@@ -197,6 +199,7 @@ public class AreaSuperviseConfigAdapter extends BaseLvAdapter<AreaSupervise> {
         }
         return areaList;
     }
+
     private boolean isSelected(int regionIntId) {
         if (selectedAreaList != null && selectedAreaList.size() > 0) {
             for (AreaSupervise areaSupervise : selectedAreaList) {
@@ -213,7 +216,7 @@ public class AreaSuperviseConfigAdapter extends BaseLvAdapter<AreaSupervise> {
         public SuperShapeTextView set_expand;
         public StringTextView tv_areaName;
         public ImageView iv_subset;
-        public AppCompatCheckBox cb_check;
+        public CheckBox cb_check;
 
         public ViewHolder(View root) {
             this.root = root;

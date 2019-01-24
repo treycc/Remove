@@ -16,24 +16,49 @@
         <com.jdp.hls.view.StringTextView
             android:id="@+id/tv_roster_address"
             style="@style/font_3_15"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="浙江省温州市龙湾区三垟湿地3期"/>
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp">
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_roster_name"
-                style="@style/font_9_13"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="高佳林"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginRight="4dp"
+                    style="@style/font_9_13"
+                    android:text="姓名/号码:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_roster_name"
+                    style="@style/font_9_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text=""/>
+                <TextView
+                    style="@style/font_9_13"
+                    android:text="/"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_roster_phone"
+                    style="@style/font_9_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,56 +70,33 @@
                     android:id="@+id/iv_roster_hasLocation"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:layout_marginRight="12dp"
+                    android:layout_marginRight="4dp"
                     android:background="@mipmap/ic_has_location_nor"/>
 
                 <ImageView
                     android:id="@+id/iv_roster_isEvaluated"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:layout_marginRight="12dp"
+                    android:layout_marginRight="4dp"
                     android:background="@mipmap/ic_evaluate_nor"/>
 
                 <ImageView
                     android:id="@+id/iv_roster_isAssetEvaluated"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:layout_marginRight="12dp"
+                    android:layout_marginRight="4dp"
                     android:background="@mipmap/ic_assetevaluate_nor"/>
-
 
                 <ImageView
                     android:id="@+id/iv_roster_isMeasure"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:layout_marginRight="12dp"
+                    android:layout_marginRight="4dp"
                     android:background="@mipmap/ic_measure_nor"/>
 
             </LinearLayout>
 
         </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:background="@mipmap/ic_phone"/>
-
-            <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_roster_phone"
-                style="@style/font_9_13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="18866998652"/>
-
-        </LinearLayout>
-
-
     </LinearLayout>
 
     <LinearLayout

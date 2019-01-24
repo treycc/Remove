@@ -49,11 +49,10 @@ public class AreaSuperviseAddActivity extends BaseTitleActivity implements AreaS
     @OnItemClick({R.id.lv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         AreaSupervise areaSupervise = (AreaSupervise) adapterView.getItemAtPosition(position);
-//        List<Integer> areaIndexs = sourceMap.get(areaSupervise.getRegionId());
         List<Integer> areaIndexs = areaSuperviseConfigAdapter.getChildrenIndexs(areaSupervise.getRegionId());
         // 1.如果选中则不打开(已选中子节点)
         if (areaSupervise.isSelected()) {
-            ToastUtil.showText("已选择全部下级区域");
+            ToastUtil.showText("已选择该级权限");
             return;
         }
         // 2.如果没有孩子则不打开(没有下级区域)
@@ -83,16 +82,6 @@ public class AreaSuperviseAddActivity extends BaseTitleActivity implements AreaS
         areaSuperviseConfigAdapter.refresh();
     }
 
-//    private List<AreaSupervise> getChildren(List<Integer> areaIndexs) {
-//        List<AreaSupervise> areaList = new ArrayList<>();
-//        for (Integer index : areaIndexs) {
-//            Area area = areasList.get(index);
-//            areaList.add(new AreaSupervise(area.getLevel(), area.getRegionIntId(), area.getRegionName(), area
-//                    .getParentId(), isSelected(area.getRegionIntId())));
-//        }
-//        return areaList;
-//    }
-
     private boolean isSelected(int regionIntId) {
         if (selectedAreaList != null && selectedAreaList.size() > 0) {
             for (AreaSupervise areaSupervise : selectedAreaList) {
@@ -104,27 +93,10 @@ public class AreaSuperviseAddActivity extends BaseTitleActivity implements AreaS
         return false;
     }
 
-    private void initAreas() {
-//        areasList = DBManager.getInstance().getAreas();
-//        for (int i = 0; i < areasList.size(); i++) {
-//            Area area = areasList.get(i);
-//            if (sourceMap.get(area.getParentId()) == null) {
-//                List<Integer> indexList = new ArrayList<>();
-//                indexList.add(i);
-//                sourceMap.put(area.getParentId(), indexList);
-//            } else {
-//                List<Integer> indexList = sourceMap.get(area.getParentId());
-//                indexList.add(i);
-//                sourceMap.put(area.getParentId(), indexList);
-//            }
-//        }
-    }
-
     @Override
     public void initVariable() {
         selectedAreaList = (List<AreaSupervise>) getIntent().getSerializableExtra(Constants.Extra
                 .AreaSuperviseList);
-        initAreas();
     }
 
     @Override

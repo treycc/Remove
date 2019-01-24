@@ -18,6 +18,7 @@ import com.jdp.hls.page.operate.delete.DeleteNodeContract;
 import com.jdp.hls.page.operate.delete.DeleteNodePresenter;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.util.DialogUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
@@ -146,6 +147,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
     public void modifyRosters(ModifyRostersEvent event) {
         int buildingType = event.getRoster().isEnterprise() ? 1 : 0;
         if (buildingType == this.buildingType) {
+            LogUtil.e(TAG,"修改:"+buildingType);
             adapter.modifyItem(event.getRoster());
         }
     }
