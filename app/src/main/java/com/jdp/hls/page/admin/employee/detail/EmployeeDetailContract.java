@@ -24,6 +24,6 @@ public interface EmployeeDetailContract {
 
         void modifyEmployee(RequestBody requestBody);
 
-        void getEmployeeDetail(String employeeId);
+        void getEmployeeDetail(int employeeId);
     }
 }

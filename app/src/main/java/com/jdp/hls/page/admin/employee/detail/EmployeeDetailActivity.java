@@ -7,14 +7,19 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.event.AddEmployeeEvent;
 import com.jdp.hls.event.ModifyEmployeeEvent;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.AreaDto;
 import com.jdp.hls.model.entiy.AreaSupervise;
 import com.jdp.hls.model.entiy.Employee;
+import com.jdp.hls.page.admin.employee.add.EmployeeAddContract;
+import com.jdp.hls.page.admin.employee.add.EmployeeAddPresenter;
 import com.jdp.hls.page.admin.employee.add.projectlist.SuperviseProjectListActivity;
 import com.jdp.hls.page.admin.employee.areasupervise.list.AreaSuperviseListActivity;
 import com.jdp.hls.util.CheckUtil;
@@ -27,6 +32,7 @@ import com.jdp.hls.view.StringTextView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,6 +42,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lib.kingja.switchbutton.SwitchMultiButton;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:TODO
@@ -43,7 +50,8 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class EmployeeDetailActivity extends BaseTitleActivity implements EmployeeDetailContract.View {
+public class EmployeeDetailActivity extends BaseTitleActivity implements EmployeeDetailContract.View,
+        EmployeeAddContract.View {
     @BindView(R.id.tv_loginName)
     StringTextView tvLoginName;
     @BindView(R.id.et_password)
@@ -54,6 +62,8 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
     EnableEditText etMobile;
     @Inject
     EmployeeDetailPresenter employeeDetailPresenter;
+    @Inject
+    EmployeeAddPresenter employeeAddPresenter;
     @BindView(R.id.smb_accountStatus)
     SwitchMultiButton smbAccountStatus;
     @BindView(R.id.tv_projectSelector)
@@ -64,8 +74,15 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
     StringTextView tvAreaSelector;
     @BindView(R.id.ll_areaSelector)
     LinearLayout llAreaSelector;
-    private String employeeId;
+    private int employeeId;
     private List<AreaSupervise> areaSuperviseList;
+    private boolean isStop;
+    private boolean isManageAllProjects;
+    private String projectIDs = "";
+    private boolean isAdd;
+    private String realName;
+    private String mobile;
+    private String password;
 
     @OnClick({R.id.ll_projectSelector, R.id.ll_areaSelector})
     public void rl_protocol_otherArea(View view) {
@@ -83,7 +100,8 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
 
     @Override
     public void initVariable() {
-        employeeId = getIntent().getStringExtra(Constants.Extra.EmployeeId);
+        employeeId = getIntent().getIntExtra(Constants.Extra.EmployeeId, 0);
+        isAdd = (employeeId == 0);
     }
 
     @Override
@@ -98,6 +116,7 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
                 .build()
                 .inject(this);
         employeeDetailPresenter.attachView(this);
+        employeeAddPresenter.attachView(this);
     }
 
     @Override
@@ -110,34 +129,52 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
 
     }
 
-    private boolean isStop;
-    private boolean isManageAllProjects;
-    private String projectIDs = "";
-
     @Override
     protected void initData() {
-        smbAccountStatus.setOnSwitchListener((position, tabText) -> isStop = position != 0);
+        /*监管项目可见性*/
         llProjectSelector.setVisibility(SpSir.getInstance().isAllowDistributeProjects() ? View.VISIBLE : View.GONE);
+        smbAccountStatus.setOnSwitchListener((position, tabText) -> isStop = position != 0);
         setRightClick("保存", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                String password = etPassword.getText().toString().trim();
-                String realName = etRealName.getText().toString().trim();
-                String mobile = etMobile.getText().toString().trim();
+                password = etPassword.getText().toString().trim();
+                realName = etRealName.getText().toString().trim();
+                mobile = etMobile.getText().toString().trim();
                 if (CheckUtil.checkEmpty(realName, "请输入姓名") && CheckUtil.checkPhoneFormat(mobile)) {
-                    employeeDetailPresenter.modifyEmployee(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                            .addFormDataPart("EmployeeId", employeeId)
-                            .addFormDataPart("Password", TextUtils.isEmpty(password) ? "" : EncryptUtil.getDoubleMd5
-                                    (password))
-                            .addFormDataPart("RealName", realName)
-                            .addFormDataPart("Mobile", mobile)
-                            .addFormDataPart("IsStop", String.valueOf(isStop))
-                            .addFormDataPart("IsManageAllProjects", String.valueOf(isManageAllProjects))
-                            .addFormDataPart("ProjectIDs", TextUtils.isEmpty(projectIDs) ? "" : projectIDs)
-                            .build());
+                    if (isAdd) {
+                        employeeAddPresenter.addEmployee(getRequestBody());
+                    } else {
+                        employeeDetailPresenter.modifyEmployee(getRequestBody());
+                    }
+
                 }
             }
         });
+    }
+
+    protected String getListJson(List<AreaSupervise> list) {
+        if (list != null && list.size() > 0) {
+            List<AreaDto> areaDtoList = new ArrayList<>();
+            for (AreaSupervise areaSupervise : list) {
+                areaDtoList.add(new AreaDto(areaSupervise.getLevel(), areaSupervise.getRegionId()));
+            }
+            return new Gson().toJson(areaDtoList);
+        }
+        return "[]";
+    }
+
+    public RequestBody getRequestBody() {
+        return new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("EmployeeId", String.valueOf(employeeId))
+                .addFormDataPart("Password", TextUtils.isEmpty(password) ? "" : EncryptUtil.getDoubleMd5
+                        (password))
+                .addFormDataPart("RealName", realName)
+                .addFormDataPart("Mobile", mobile)
+                .addFormDataPart("IsStop", String.valueOf(isStop))
+                .addFormDataPart("AreaList", getListJson(areaSuperviseList))
+                .addFormDataPart("IsManageAllProjects", String.valueOf(isManageAllProjects))
+                .addFormDataPart("ProjectIDs", TextUtils.isEmpty(projectIDs) ? "" : projectIDs)
+                .build();
     }
 
     @Override
@@ -152,21 +189,32 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
     }
 
     @Override
+    public void onAddEmployeeSuccess(Employee employee) {
+        EventBus.getDefault().post(new AddEmployeeEvent(employee));
+        showSuccessDialogAndFinish();
+    }
+
+    @Override
     public void onGetEmployeeDetailSuccess(Employee employee) {
-        if (employee != null) {
+        if (isAdd) {
+            if (employee.isAreaVisible()) {
+                llAreaSelector.setVisibility(View.VISIBLE);
+            }
+        } else {
+            etPassword.setHint("不修改请留空");
             tvLoginName.setString(employee.getLoginName());
             etRealName.setString(employee.getRealName());
             etMobile.setString(employee.getMobilePhone());
             isStop = employee.isStop();
             isManageAllProjects = employee.isManageAllProjects();
             projectIDs = employee.getProjectIDs();
-
             /*设置区域权限*/
-//            if (employee.isAreaVisible()) {
+            if (employee.isAreaVisible()) {
                 llAreaSelector.setVisibility(View.VISIBLE);
                 areaSuperviseList = employee.getAreaList();
-//            }
-
+                tvAreaSelector.setHint((areaSuperviseList == null || areaSuperviseList.size() == 0) ? "请选择监管区域" :
+                        String.format("已选择%d个区域", areaSuperviseList.size()));
+            }
             if (isManageAllProjects) {
                 tvProjectSelector.setHint("已选择所有项目");
             } else {
@@ -177,6 +225,7 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
             }
             smbAccountStatus.setSelectedTab(isStop ? 1 : 0);
         }
+
     }
 
     @Override
@@ -184,7 +233,7 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
         return true;
     }
 
-    public static void goActivity(Context context, String employeeId) {
+    public static void goActivity(Context context, int employeeId) {
         Intent intent = new Intent(context, EmployeeDetailActivity.class);
         intent.putExtra(Constants.Extra.EmployeeId, employeeId);
         context.startActivity(intent);
@@ -208,14 +257,15 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
                         }
                     }
                     break;
+                case Constants.RequestCode.AreaSuperviseList:
+                    areaSuperviseList = (List<AreaSupervise>) data.getSerializableExtra(Constants.Extra
+                            .AreaSuperviseList);
+                    tvAreaSelector.setHint((areaSuperviseList == null || areaSuperviseList.size() == 0) ? "请选择监管区域" :
+                            String.format("已选择%d个区域", areaSuperviseList.size()));
+                    break;
             }
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

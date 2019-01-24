@@ -9,7 +9,7 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class AreaSupervise implements Serializable{
+public class AreaSupervise implements Serializable {
     private List<AreaSupervise> children;
     private boolean isSelected;
     private boolean isExpand;
@@ -23,11 +23,12 @@ public class AreaSupervise implements Serializable{
     public AreaSupervise() {
     }
 
-    public AreaSupervise(int level, int regionId, String regionName, int parentId) {
+    public AreaSupervise(int level, int regionId, String regionName, int parentId, boolean isSelected) {
         Level = level;
         RegionId = regionId;
         RegionName = regionName;
         ParentId = parentId;
+        this.isSelected = isSelected;
     }
 
     public int getLevel() {
@@ -56,6 +57,23 @@ public class AreaSupervise implements Serializable{
 
     public String getRegionName() {
         return null == RegionName ? "" : RegionName;
+
+    }
+
+    public String getParentName() {
+        StringBuilder sb = new StringBuilder();
+        sb.insert(0, getRegionName());
+        if (parent != null) {
+            addName(sb, parent);
+        }
+        return sb.toString();
+    }
+
+    private void addName(StringBuilder stringBuilder, AreaSupervise areaSupervise) {
+        stringBuilder.insert(0, areaSupervise.getRegionName() + " ");
+        if (areaSupervise.getParent() != null) {
+            addName(stringBuilder, areaSupervise.getParent());
+        }
     }
 
     public void setRegionName(String regionName) {
@@ -89,6 +107,7 @@ public class AreaSupervise implements Serializable{
     public boolean isRootNode() {
         return parent == null;
     }
+
     public boolean isParentExpand() {
         if (parent == null)
             return false;
@@ -104,19 +123,12 @@ public class AreaSupervise implements Serializable{
     }
 
     public void setExpand(boolean isExpand) {
-        this.isExpand = isExpand;
-        if (!isExpand) {
-            if (children != null) {
-                for (AreaSupervise node : children) {
-                    node.setExpand(false);
-                    node.setSelected(false);
-                }
-            }
-        }
+        setExpand(isExpand, false);
     }
 
+
     public boolean hasAdded() {
-        return isSelected|| checkChildrenAdded(children);
+        return isSelected || checkChildrenAdded(children);
     }
 
     public boolean checkChildrenAdded(List<AreaSupervise> children) {
@@ -126,14 +138,52 @@ public class AreaSupervise implements Serializable{
                     return true;
                 }
                 if (child.children != null) {
-                    return  checkChildrenAdded(children);
+                    return checkChildrenAdded(child.children);
                 }
-
-
             }
         }
         return false;
+    }
 
+    public void setExpand(boolean isExpand, boolean isClear) {
+        this.isExpand = isExpand;
+        if (!isExpand) {
+            if (children != null) {
+                for (AreaSupervise node : children) {
+                    node.setExpand(false);
+                    if (isClear) {
+                        node.setSelected(false);
+                    }
+                }
+            }
+        }
+    }
 
+    @Override
+    public String toString() {
+        return "AreaSupervise{" +
+                "Level=" + Level +
+                ", RegionId=" + RegionId +
+                ", RegionName=" + RegionName +
+                ", getParentName='" + getParentName() + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof AreaSupervise)) {
+            return false;
+        }
+        AreaSupervise item = (AreaSupervise) obj;
+        return RegionId == item.getRegionId();
+    }
+
+    @Override
+    public int hashCode() {
+        return RegionId;
+    }
+
+    public boolean expandable() {
+        return !isExpand;
     }
 }

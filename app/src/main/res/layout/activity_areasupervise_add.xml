@@ -6,7 +6,7 @@
               android:background="@color/bg_hi"
               android:orientation="vertical">
 
-    <com.jdp.hls.view.FixedListView
+    <ListView
         android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

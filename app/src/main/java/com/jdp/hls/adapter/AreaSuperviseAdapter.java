@@ -5,8 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jdp.hls.R;
 import com.jdp.hls.model.entiy.AreaSupervise;
+import com.jdp.hls.model.entiy.TaoType;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.view.DrawHelperLayout;
 import com.jdp.hls.view.StringTextView;
 
@@ -35,7 +38,7 @@ public class AreaSuperviseAdapter extends BaseLvAdapter<AreaSupervise> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         AreaSupervise areaSupervise = list.get(position);
-        viewHolder.tv.setString(areaSupervise.getRegionName());
+        viewHolder.tv.setString(areaSupervise.getParentName());
         viewHolder.tv_delete.setOnClickListener(v -> {
             if (onItemOperListener != null) {
                 onItemOperListener.onItemDelete(areaSupervise, position);
@@ -50,6 +53,13 @@ public class AreaSuperviseAdapter extends BaseLvAdapter<AreaSupervise> {
         });
 
         return convertView;
+    }
+
+    protected String getListJson() {
+        if (list != null && list.size() > 0) {
+            return new Gson().toJson(list);
+        }
+        return "[]";
     }
 
     public class ViewHolder {

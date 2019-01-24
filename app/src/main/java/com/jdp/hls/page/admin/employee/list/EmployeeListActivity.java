@@ -55,7 +55,7 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
     @OnItemClick({R.id.plv})
     public void itemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Employee employee = (Employee) adapterView.getItemAtPosition(position);
-        EmployeeDetailActivity.goActivity(this, String.valueOf(employee.getEmployeeId()));
+        EmployeeDetailActivity.goActivity(this, employee.getEmployeeId());
     }
 
     @OnClick({R.id.iv_clear})
@@ -101,7 +101,8 @@ public class EmployeeListActivity extends BaseTitleActivity implements EmployeeL
     protected void initData() {
         etKeyword.setHint("请输入姓名/手机号/别名");
         setRightClick("增加", v -> {
-            GoUtil.goActivity(EmployeeListActivity.this, EmployeeAddActivity.class);
+//            GoUtil.goActivity(EmployeeListActivity.this, EmployeeAddActivity.class);
+            EmployeeDetailActivity.goActivity(EmployeeListActivity.this,0);
         });
         rsrl.stepRefresh(this);
         etKeyword.addTextChangedListener(new SimpleTextWatcher() {

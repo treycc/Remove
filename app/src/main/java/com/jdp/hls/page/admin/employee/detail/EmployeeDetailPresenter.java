@@ -53,7 +53,7 @@ public class EmployeeDetailPresenter implements EmployeeDetailContract.Presenter
     }
 
     @Override
-    public void getEmployeeDetail(String employeeId) {
+    public void getEmployeeDetail(int employeeId) {
         mApi.getApiService().getEmployeeDetail(employeeId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<Employee>(mView) {

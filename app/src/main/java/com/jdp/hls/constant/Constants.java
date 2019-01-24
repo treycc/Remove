@@ -59,6 +59,7 @@ public class Constants {
         int TaoTypeSelect = 21;
         int ReceiveAccount = 22;
         int AreaSuperviseList = 23;
+        int AreaSuperviseAddList = 24;
     }
 
     public interface MapSetting {

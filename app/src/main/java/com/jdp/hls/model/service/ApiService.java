@@ -650,7 +650,7 @@ public interface ApiService {
 
     /*员工-详情*/
     @GET("user/GetUserDetail")
-    Observable<HttpResult<Employee>> getEmployeeDetail(@Query("EmployeeId") String employeeId);
+    Observable<HttpResult<Employee>> getEmployeeDetail(@Query("EmployeeId") int employeeId);
 
     /*通知-列表*/
     @GET("SystemSevice/GetMessageCount")
