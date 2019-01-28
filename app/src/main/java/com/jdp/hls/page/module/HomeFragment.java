@@ -67,9 +67,7 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     RefreshSwipeRefreshLayout rsrl;
     @BindView(R.id.tv_list)
     StringTextView tvList;
-    Unbinder unbinder1;
     private String routeId;
-
     @Inject
     ModulePresenter modulePresenter;
 
@@ -103,7 +101,6 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
             case Status.ModuleId.SYSTEM_QUERY:
                 //数据查询
                 if (CheckUtil.checkEmpty(SpSir.getInstance().getProjectId(), "请选择项目")) {
-//                    GoUtil.goActivity(getActivity(), ProjectSelectActivity.class);
                     QueryListActivity.GoActivity(getActivity(), SpSir.getInstance().getProjectId(), SpSir.getInstance
                             ().getProjectName());
                 }
@@ -212,19 +209,5 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void switchProject(SwitchProjectEvent event) {
         tvTitle.setText(SpSir.getInstance().getProjectName());
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder1 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder1.unbind();
     }
 }

@@ -58,6 +58,8 @@ public class Constants {
         int SuperviseProjectList = 20;
         int TaoTypeSelect = 21;
         int ReceiveAccount = 22;
+        int AreaSuperviseList = 23;
+        int AreaSuperviseAddList = 24;
     }
 
     public interface MapSetting {
@@ -157,6 +159,7 @@ public class Constants {
         String Value = "value";
         String ReceiveAccount = "ReceiveAccount";
         String RecBankAccountId = "RecBankAccountId";
+        String AreaSuperviseList = "AreaSuperviseList";
     }
 
     public interface AirPhotoType {

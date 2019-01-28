@@ -78,9 +78,11 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
                 roster.setEnterprise(item.isEnterprise());
                 roster.setEvaluated(item.isEvaluated());
                 roster.setMeasured(item.isMeasured());
+                roster.setAssetEvaluator(item.isAssetEvaluator());
                 roster.setRealName(item.getRealName());
                 roster.setMobilePhone(item.getMobilePhone());
                 roster.setHouseAddress(item.getHouseAddress());
+                break;
             }
         }
         notifyDataSetChanged();

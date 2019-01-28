@@ -1,10 +1,12 @@
 package com.jdp.hls.model.service;
 
 
+import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.model.ProjectAreaInfo;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.AreaResult;
+import com.jdp.hls.model.entiy.AreaSupervise;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.BankInfo;
 import com.jdp.hls.model.entiy.BasicCompany;
@@ -648,7 +650,7 @@ public interface ApiService {
 
     /*员工-详情*/
     @GET("user/GetUserDetail")
-    Observable<HttpResult<Employee>> getEmployeeDetail(@Query("EmployeeId") String employeeId);
+    Observable<HttpResult<Employee>> getEmployeeDetail(@Query("EmployeeId") int employeeId);
 
     /*通知-列表*/
     @GET("SystemSevice/GetMessageCount")
@@ -837,6 +839,10 @@ public interface ApiService {
     /*删除银行卡账号*/
     @FormUrlEncoded
     @POST("cert/DeleteHouseOpenAccountCert")
-    Observable<HttpResult<Object>> deleteBankInfo( @Field("IDs") String mobile);
+    Observable<HttpResult<Object>> deleteBankInfo(@Field("IDs") String mobile);
+
+    /*可见区域-列表*/
+    @GET("user/GetUserViewArea")
+    Observable<HttpResult<List<AreaSupervise>>> getAreaSuperviseList();
 
 }

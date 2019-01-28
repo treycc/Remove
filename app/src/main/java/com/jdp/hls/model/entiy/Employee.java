@@ -1,6 +1,7 @@
 package com.jdp.hls.model.entiy;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Description:TODO
@@ -23,6 +24,25 @@ public class Employee implements Serializable {
     private boolean IsStop;
     private boolean IsManageAllProjects;
     private String ProjectIDs;
+    private boolean AreaVisible;
+    private List<AreaSupervise>AreaList;
+
+    public List<AreaSupervise> getAreaList() {
+        return AreaList;
+    }
+
+    public void setAreaList(List<AreaSupervise> areaList) {
+        AreaList = areaList;
+    }
+
+
+    public boolean isAreaVisible() {
+        return AreaVisible;
+    }
+
+    public void setAreaVisible(boolean areaVisible) {
+        AreaVisible = areaVisible;
+    }
 
     public boolean isStop() {
         return IsStop;
