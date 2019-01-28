@@ -35,7 +35,7 @@ public class AreaSuperviseConfigAdapter extends BaseLvAdapter<AreaSupervise> {
     public AreaSuperviseConfigAdapter(Context context, List<AreaSupervise> list, List<AreaSupervise> selectedAreaList) {
         super(context, list);
         initData();
-        this.selectedAreaList = selectedAreaList;
+        this.selectedAreaList = (selectedAreaList==null?new ArrayList<>():selectedAreaList);
         visibleAreaList = this.list;
     }
 
