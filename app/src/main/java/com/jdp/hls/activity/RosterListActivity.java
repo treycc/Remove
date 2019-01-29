@@ -11,18 +11,21 @@ import android.widget.ImageView;
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.RosterPageAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.AddRostersEvent;
 import com.jdp.hls.event.RemoveRosterEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
+import com.jdp.hls.util.BaseListFactory;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.NoScrollViewPager;
+import com.jdp.hls.view.dialog.BaseListDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -130,10 +133,25 @@ public class RosterListActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
+        BaseListDialog baseListDialog = new BaseListDialog(this, BaseListFactory.getBuildingTypeList(),"花名册类型");
+        baseListDialog.setOnDisPlayItemClickListener(new BaseListDialog.OnDisPlayItemClickListener() {
+            @Override
+            public void onDisPlayItemClick(BaseListDialog.DisplayItem displayItem) {
+                switch (displayItem.getCode()) {
+                    case Status.BuildingType.PERSONAL:
+                        ToastUtil.showText("个人");
+                        break;
+                    case Status.BuildingType.COMPANY:
+                        ToastUtil.showText("企业");
+                        break;
+                }
+            }
+        });
         setRightClick("添加", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-                GoUtil.goActivity(RosterListActivity.this, RosterAddActivity.class);
+//                GoUtil.goActivity(RosterListActivity.this, RosterAddActivity.class);
+                baseListDialog.show();
             }
         });
         etRostersKeyword.addTextChangedListener(new SimpleTextWatcher() {
@@ -150,7 +168,7 @@ public class RosterListActivity extends BaseTitleActivity {
     }
 
     private void doSearch(String keyword) {
-        if (rosters == null && rosters.size() == 0) {
+        if (rosters == null|| rosters.size() == 0) {
             ToastUtil.showText("暂无花名册信息");
             return;
         }
@@ -217,15 +235,15 @@ public class RosterListActivity extends BaseTitleActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void removeRoster(RemoveRosterEvent event) {
-        LogUtil.e(TAG,"删除前:"+rosters.size());
+        LogUtil.e(TAG, "删除前:" + rosters.size());
         for (Roster roster : rosters) {
             if (roster.getHouseId().equals(event.getHouseId())) {
-                LogUtil.e(TAG,"删除");
+                LogUtil.e(TAG, "删除");
                 rosters.remove(roster);
                 break;
             }
         }
-        LogUtil.e(TAG,"删除后:"+rosters.size());
+        LogUtil.e(TAG, "删除后:" + rosters.size());
         checkData(etRostersKeyword.getText().toString().trim());
     }
 }
