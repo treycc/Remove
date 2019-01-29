@@ -11,19 +11,13 @@ import com.jdp.hls.adapter.AreaSuperviseConfigAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
-import com.jdp.hls.dao.DBManager;
-import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.AreaSupervise;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
-import com.jdp.hls.view.FixedListView;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 

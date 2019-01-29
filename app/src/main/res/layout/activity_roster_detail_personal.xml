@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_hi"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+
+        <!--联系人-->
+        <LinearLayout
+            android:id="@+id/ll_contacts"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll_detail_propertyDeed"
+                style="@style/Content_LL_T12">
+
+                <TextView
+                    style="@style/Title_Sub"
+                    android:text="户主"/>
+
+                <RelativeLayout style="@style/Rl_Container_Arrow_W2">
+
+                    <TextView
+                        android:id="@+id/tv_detail_propertyDeed"
+                        style="@style/font_9_15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:hint="共0人"/>
+
+                    <ImageView style="@style/BG_ARROW"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View style="@style/div_hor_gray_margin24"/>
+
+
+        </LinearLayout>
+
+
+
+
+        <!--地址-->
+        <LinearLayout
+            style="@style/Content_LL_T6">
+
+            <com.jdp.hls.view.RequiredTextView
+                style="@style/Title_Sub"
+                android:text="地址"/>
+
+            <com.jdp.hls.view.EnableEditText
+                android:id="@+id/et_roster_address"
+                style="@style/Content_ET_W2"
+                android:hint="请输入地址"/>
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <!--是否丈量-->
+        <LinearLayout
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="是否丈量"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/smb_roster_measured"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="4dp"
+                    app:selectedColor="@color/main"
+                    app:selectedTab="0"
+                    app:strokeRadius="4dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/switch_measure"
+                    app:textSize="14sp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <!--房地产评估-->
+        <LinearLayout
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="是否评估"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/smb_roster_evaluated"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="4dp"
+                    app:selectedColor="@color/main"
+                    app:selectedTab="0"
+                    app:strokeRadius="4dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/switch_evaluated"
+                    app:textSize="14sp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+        <TextView
+            style="@style/Title_Normal"
+            android:text="房屋现状图"/>
+        <LinearLayout
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_roster_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout
+            android:id="@+id/ll_roster_location"
+            style="@style/Content_LL_T12">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="定位"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_roster_hasLocationed"
+                    style="@style/font_9_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="未定位"/>
+
+                <ImageView
+                    android:id="@+id/iv_roster_location"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/ic_confirm_nor"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <fragment
+            android:id="@+id/fragment_lnglat"
+            android:name="com.jdp.hls.fragment.LngLatFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <include layout="@layout/layout_remark"/>
+    </LinearLayout>
+</ScrollView>

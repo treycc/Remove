@@ -1,8 +1,15 @@
 package com.jdp.hls.page.rosterdetail.contacts.list;
 
+import android.view.View;
+
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.util.BaseListFactory;
+import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.view.dialog.BaseListDialog;
 
 /**
  * Description:TODO
@@ -38,6 +45,23 @@ public class ContactsListActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
+        BaseListDialog createTypeDialog = new BaseListDialog(this, BaseListFactory.getCreateTypeList(), "添加方式");
+        createTypeDialog.setOnDisPlayItemClickListener(displayItem -> {
+            switch (displayItem.getCode()) {
+                case Status.BuildingType.PERSONAL:
+                    ToastUtil.showText("导入");
+                    break;
+                case Status.BuildingType.COMPANY:
+                    ToastUtil.showText("新增");
+                    break;
+            }
+        });
+        setRightClick("添加", new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                createTypeDialog.show();
+            }
+        });
 
     }
 
