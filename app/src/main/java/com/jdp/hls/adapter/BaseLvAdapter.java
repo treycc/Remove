@@ -113,7 +113,7 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter implements ILvSetData
         void onItemClick(T item);
     }
 
-    public void setOnItemOperListener(OnItemOperListener onItemOperListener) {
+    public void setOnItemOperListener(OnItemOperListener<T> onItemOperListener) {
         this.onItemOperListener = onItemOperListener;
     }
 }
