@@ -98,7 +98,7 @@ public class AreaSuperviseConfigAdapter extends BaseLvAdapter<AreaSupervise> {
         if (selectedAreaList != null && selectedAreaList.size() > 0) {
             for (AreaSupervise selectArea : selectedAreaList) {
                 String regionIdStr = String.valueOf(currentItem.getRegionId()).replaceAll("0+$", "");
-                if (String.valueOf(selectArea.getRegionId()).startsWith(regionIdStr)) {
+                if (String.valueOf(selectArea.getRegionId()).startsWith(regionIdStr)&&selectArea.getLevel()>currentItem.getLevel()) {
                     return true;
                 }
             }
