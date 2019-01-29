@@ -34,9 +34,7 @@ public class AreaSuperviseAddActivity extends BaseTitleActivity implements AreaS
     @BindView(R.id.lv)
     ListView lv;
     private AreaSuperviseConfigAdapter areaSuperviseConfigAdapter;
-//    private Map<Integer, List<Integer>> sourceMap = new HashMap<>();
     private List<AreaSupervise> selectedAreaList;
-//    private List<Area> areasList;
     @Inject
     AreaSuperviseListPresenter areaSuperviseListPresenter;
 

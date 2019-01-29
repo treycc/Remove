@@ -11,7 +11,16 @@ import java.util.List;
 public class ModuleDetail {
     private String Title;
     private String ImageUrl;
+    private boolean IsVisible;
     private List<Module>Modules;
+
+    public boolean isVisible() {
+        return IsVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        IsVisible = visible;
+    }
 
     public String getTitle() {
         return Title;

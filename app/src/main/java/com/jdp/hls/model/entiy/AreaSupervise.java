@@ -128,7 +128,7 @@ public class AreaSupervise implements Serializable {
 
 
     public boolean hasAdded() {
-        return isSelected || checkChildrenAdded(children);
+        return checkChildrenAdded(children);
     }
 
     public boolean checkChildrenAdded(List<AreaSupervise> children) {

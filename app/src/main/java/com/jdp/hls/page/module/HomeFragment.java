@@ -182,6 +182,11 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
 
     @Override
     public void onGetModuleDetailSuccess(ModuleDetail moduleDetail) {
+        boolean visible = moduleDetail.isVisible();
+        tvList.setVisibility(visible ?View.VISIBLE:View.GONE);
+        if (!visible) {
+            tvTitle.setString(moduleDetail.getTitle());
+        }
         if (moduleDetail != null) {
 //            tvTitle.setString(moduleDetail.getTitle());
             ImageLoader.getInstance().loadImage(getActivity(), moduleDetail.getImageUrl(), ivImageUrl);
