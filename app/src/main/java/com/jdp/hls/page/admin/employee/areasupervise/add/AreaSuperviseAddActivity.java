@@ -11,19 +11,13 @@ import com.jdp.hls.adapter.AreaSuperviseConfigAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
-import com.jdp.hls.dao.DBManager;
-import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.AreaSupervise;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
-import com.jdp.hls.view.FixedListView;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -66,15 +60,12 @@ public class AreaSuperviseAddActivity extends BaseTitleActivity implements AreaS
         if (areaSupervise.isExpand()) {
             // 展开=》关闭
             areaSupervise.setExpand(false);
-
         } else {
             // 关闭=》展开
             areaSupervise.setExpand(true);
             //添加子节点
-
             if (areaSupervise.getChildren() == null) {
                 List<AreaSupervise> children = areaSuperviseConfigAdapter.getChildrenList(areaIndexs);
-
                 areaSuperviseConfigAdapter.addChildren(areaSupervise, children);
             }
         }
