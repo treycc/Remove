@@ -7,6 +7,7 @@ import com.jdp.hls.model.entiy.ContactsItem;
 import com.jdp.hls.model.entiy.ContactsListDetail;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
+import com.jdp.hls.model.entiy.resultdata.ContactsResult;
 
 import javax.inject.Inject;
 
@@ -69,10 +70,10 @@ public class ContactsListPresenter implements ContactsListContract.Presenter {
     public void importMainContacts(String houseId, String personId, int buildingType, ContactsItem contactsItem) {
         mApi.getApiService().importMainContacts(houseId, personId, buildingType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<ContactsResult>(mView) {
                     @Override
-                    protected void onSuccess(Object object) {
-                        mView.onImportMainContactsSuccess(contactsItem);
+                    protected void onSuccess(ContactsResult contactsResult) {
+                        mView.onImportMainContactsSuccess(contactsResult,contactsItem);
                     }
                 });
     }

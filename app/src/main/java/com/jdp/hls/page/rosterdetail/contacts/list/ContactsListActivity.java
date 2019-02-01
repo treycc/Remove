@@ -21,6 +21,7 @@ import com.jdp.hls.model.entiy.ContactsItem;
 import com.jdp.hls.model.entiy.ContactsListDetail;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Roster;
+import com.jdp.hls.model.entiy.resultdata.ContactsResult;
 import com.jdp.hls.page.node.protocol.personal.lastst.pay.list.PayListActivity;
 import com.jdp.hls.page.personsearch.PersonSearchActivity;
 import com.jdp.hls.page.rosterdetail.contacts.detail.ContactsDetailActivity;
@@ -168,7 +169,11 @@ public class ContactsListActivity extends BaseTitleActivity implements ContactsL
 
     @Override
     public void onDeleteContactsSuccess(int position) {
+        //如果删除主联系人则刷新列表为空
         contactsAdapter.removeItem(position);
+        if (contactsAdapter.getCount() == 0) {
+            showEmptyCallback();
+        }
     }
 
     @Override
@@ -177,8 +182,14 @@ public class ContactsListActivity extends BaseTitleActivity implements ContactsL
     }
 
     @Override
-    public void onImportMainContactsSuccess(ContactsItem contactsItem) {
+    public void onImportMainContactsSuccess(ContactsResult contactsResult, ContactsItem contactsItem) {
+        showSuccessCallback();
+        if (contactsAdapter.getCount() == 0 && contactsItem.getIsMainContact() == 1) {
+            //TODO 如果是第一个人，则是主联系人，要刷新列表
+            EventBus.getDefault().post(new ModifyContactsEvent(contactsItem));
+        }
         contactsAdapter.addFirst(contactsItem);
+
     }
 
     @Override
@@ -225,7 +236,8 @@ public class ContactsListActivity extends BaseTitleActivity implements ContactsL
                     contactsItem.setPersonId(person.getPersonId());
                     contactsItem.setMobilePhone(person.getMobilePhone());
                     contactsItem.setRealName(person.getRealName());
-                    contactsListPresenter.importMainContacts(buildingId,contactsItem.getPersonId(),buildingType,contactsItem);
+                    contactsListPresenter.importMainContacts(buildingId, contactsItem.getPersonId(), buildingType,
+                            contactsItem);
                     break;
             }
         }

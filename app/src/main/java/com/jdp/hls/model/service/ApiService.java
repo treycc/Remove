@@ -84,6 +84,7 @@ import com.jdp.hls.model.entiy.TaoTypePerson;
 import com.jdp.hls.model.entiy.TaskInfo;
 import com.jdp.hls.model.entiy.TitleItem;
 import com.jdp.hls.model.entiy.resultdata.ContactsResult;
+import com.jdp.hls.model.entiy.resultdata.RosterResult;
 
 import java.util.List;
 
@@ -854,7 +855,7 @@ public interface ApiService {
 
     /*房产信息-个人*/
     @POST("person/SaveRosterHouse")
-    Observable<HttpResult<Object>> saveRosterHouse(@Body RequestBody requestBody);
+    Observable<HttpResult<RosterResult>> saveRosterHouse(@Body RequestBody requestBody);
 
     /*联系人列表*/
     @GET("person/GetMainPersonList")
@@ -881,6 +882,6 @@ public interface ApiService {
 
     /*联系人-导入*/
     @GET("person/ImportMainPerson")
-    Observable<HttpResult<Object>> importMainContacts(@Query("houseId") String houseId, @Query("personId") String
+    Observable<HttpResult<ContactsResult>> importMainContacts(@Query("houseId") String houseId, @Query("personId") String
             personId, @Query("buildingType") int buildingType);
 }

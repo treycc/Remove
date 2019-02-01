@@ -8,7 +8,7 @@ package com.jdp.hls.model.entiy.resultdata;
  */
 public class ContactsResult {
     private String PersonId;
-    private  int IsMainContact;
+    private int IsMainContact;
 
     public String getPersonId() {
         return null == PersonId ? "" : PersonId;

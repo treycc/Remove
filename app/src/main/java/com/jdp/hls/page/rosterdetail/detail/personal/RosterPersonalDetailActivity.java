@@ -12,23 +12,34 @@ import android.widget.TextView;
 
 import com.jdp.hls.R;
 import com.jdp.hls.activity.LocationActivity;
+import com.jdp.hls.activity.RosterListActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
+import com.jdp.hls.event.AddRostersEvent;
+import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ImgInfo;
+import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.RosterPersonalDetail;
+import com.jdp.hls.model.entiy.resultdata.RosterResult;
 import com.jdp.hls.page.rosterdetail.contacts.list.ContactsListActivity;
+import com.jdp.hls.util.BaseListFactory;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.AddableRecyclerView;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
+import com.jdp.hls.view.dialog.BaseListDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.List;
@@ -80,6 +91,7 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
     private double lat;
     private LngLatFragment locationFragment;
     private int buildingType;
+    private String address;
 
     @OnClick({R.id.ll_location, R.id.ll_contacts})
     public void click(View view) {
@@ -143,7 +155,7 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
     }
 
     private void saveData() {
-        String address = etRosterAddress.getText().toString().trim();
+        address = etRosterAddress.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
         if (CheckUtil.checkEmpty(address, "请输入地址")) {
             MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -194,7 +206,7 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
         isEvaluated = rosterPersonalDetail.isEvaluated();
         smbMeasure.setSelectedTab(isMeasured ? 1 : 0);
         smbEvaluate.setSelectedTab(isEvaluated ? 1 : 0);
-        tvPersonCount.setString(String.format("共%d人", rosterPersonalDetail.getPersonCount()));
+        tvPersonCount.setHint(String.format("共%d人", rosterPersonalDetail.getPersonCount()));
         setLocation(lng, lat);
     }
 
@@ -210,14 +222,54 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
     }
 
     @Override
-    public void onSaveRosterHouseSuccess() {
+    public void onSaveRosterHouseSuccess(RosterResult rosterResult) {
+        Roster roster = new Roster();
+        roster.setHouseId(rosterResult.getHouseId());
+        roster.setEnterprise(rosterResult.getBuildingType() == 1);
+        roster.setLongitude(lng);
+        roster.setLatitude(lat);
+        roster.setEvaluated(isEvaluated);
+        roster.setMeasured(isMeasured);
+        roster.setHouseAddress(address);
         if (TextUtils.isEmpty(buildingId)) {
             //新增
+            EventBus.getDefault().post(new AddRostersEvent(roster));
             llContacts.setVisibility(View.VISIBLE);
+            BaseListDialog baseListDialog = new BaseListDialog(this, BaseListFactory.getRosterOperTypeList(),
+                    "请选择后续操作");
+            baseListDialog.setCancelable(false);
+            baseListDialog.setCanceledOnTouchOutside(false);
+            baseListDialog.setOnDisPlayItemClickListener(displayItem -> {
+                switch (displayItem.getCode()) {
+                    case 0:
+                        //返回列表
+                        finish();
+                        break;
+                    case 1:
+                        //添加所有人
+                        buildingId = rosterResult.getHouseId();
+                        buildingType = rosterResult.getBuildingType();
+                        rvAddablePhotoPreview.setDate(rosterResult.getHouseFiles(), true);
+                        break;
+                    case 2:
+                        //添加花名册
+                        restartActivity();
+                        break;
+                }
+            });
+            baseListDialog.show();
         } else {
             //修改
+            EventBus.getDefault().post(new ModifyRostersEvent(roster));
+            showSuccessDialogAndFinish();
         }
-        showSuccessDialogAndFinish();
+
+    }
+
+    private void restartActivity() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     @Override
@@ -246,7 +298,7 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
 
                 case Constants.RequestCode.ContactsList:
                     int personCount = data.getIntExtra(Constants.Extra.Number, 0);
-                    tvPersonCount.setString(String.format("共%d人",personCount));
+                    tvPersonCount.setHint(String.format("共%d人", personCount));
                     break;
                 default:
                     break;

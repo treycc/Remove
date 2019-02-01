@@ -6,6 +6,7 @@ import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
 import com.jdp.hls.model.entiy.RosterPersonalDetail;
+import com.jdp.hls.model.entiy.resultdata.RosterResult;
 
 import javax.inject.Inject;
 
@@ -45,10 +46,10 @@ public class RosterPersonalDetailPresenter implements RosterPersonalDetailContra
     public void saveRosterHouse(RequestBody requestBody) {
         mApi.getApiService().saveRosterHouse(requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<RosterResult>(mView) {
                     @Override
-                    protected void onSuccess(Object obj) {
-                        mView.onSaveRosterHouseSuccess();
+                    protected void onSuccess(RosterResult rosterResult) {
+                        mView.onSaveRosterHouseSuccess(rosterResult);
                     }
                 });
     }

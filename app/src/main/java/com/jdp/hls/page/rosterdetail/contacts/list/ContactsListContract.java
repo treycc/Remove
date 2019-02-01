@@ -1,10 +1,13 @@
 package com.jdp.hls.page.rosterdetail.contacts.list;
 
 
+import android.provider.ContactsContract;
+
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.ContactsItem;
 import com.jdp.hls.model.entiy.ContactsListDetail;
+import com.jdp.hls.model.entiy.resultdata.ContactsResult;
 
 /**
  * Description：TODO
@@ -20,7 +23,7 @@ public interface ContactsListContract {
 
         void onSetMainContactsSuccess(int position);
 
-        void onImportMainContactsSuccess(ContactsItem contactsItem);
+        void onImportMainContactsSuccess(ContactsResult contactsResult, ContactsItem contactsItem);
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -30,6 +33,6 @@ public interface ContactsListContract {
 
         void setMainContacts(String houseId, String personId, int buildingType, int position);
 
-        void importMainContacts(String houseId, String personId, int buildingType,ContactsItem contactsItem);
+        void importMainContacts(String houseId, String personId, int buildingType, ContactsItem contactsItem);
     }
 }

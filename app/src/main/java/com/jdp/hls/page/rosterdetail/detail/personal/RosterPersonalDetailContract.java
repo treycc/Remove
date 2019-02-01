@@ -5,6 +5,7 @@ import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.RosterPersonalDetail;
+import com.jdp.hls.model.entiy.resultdata.RosterResult;
 
 import okhttp3.RequestBody;
 
@@ -18,7 +19,7 @@ public interface RosterPersonalDetailContract {
     interface View extends BaseView {
         void onGetRosterPersonalDetailSuccess(RosterPersonalDetail rosterPersonalDetail);
 
-        void onSaveRosterHouseSuccess();
+        void onSaveRosterHouseSuccess(RosterResult rosterResult);
     }
 
     interface Presenter extends BasePresenter<View> {

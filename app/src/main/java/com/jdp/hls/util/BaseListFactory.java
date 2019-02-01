@@ -27,4 +27,12 @@ public class BaseListFactory {
         reslutList.add(new BaseListDialog.DisplayItem(1, "新增"));
         return reslutList;
     }
+
+    public static List<BaseListDialog.DisplayItem> getRosterOperTypeList() {
+        List<BaseListDialog.DisplayItem> reslutList = new ArrayList<>();
+        reslutList.add(new BaseListDialog.DisplayItem(0, "返回列表"));
+        reslutList.add(new BaseListDialog.DisplayItem(1, "添加所有人"));
+        reslutList.add(new BaseListDialog.DisplayItem(2, "添加花名册"));
+        return reslutList;
+    }
 }
