@@ -53,7 +53,7 @@ public class BigImgPageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         PhotoView imageView = new PhotoView(context);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

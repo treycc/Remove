@@ -23,7 +23,7 @@ public class GlideLoader implements IImageLoader {
     public void loadImage(Context context, String url, int resourceId, ImageView view) {
         Glide.with(context)
                 .load(ServerUtil.getServerUrl() + url)
-                .centerCrop()
+//                .centerCrop()
                 .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
                 .error(R.drawable.ic_img_fail)
                 .crossFade()
@@ -34,7 +34,7 @@ public class GlideLoader implements IImageLoader {
     public void loadImage(Context context, Uri uri, ImageView view) {
         Glide.with(context)
                 .load(uri)
-                .centerCrop()
+//                .centerCrop()
                 .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_img_fail)
                 .crossFade()
