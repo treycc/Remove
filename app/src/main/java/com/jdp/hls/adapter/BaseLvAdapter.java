@@ -108,9 +108,14 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter implements ILvSetData
     }
 
     public interface OnItemOperListener<T> {
-        void onItemDelete(T t, int position);
+        default void onItemDelete(T t, int position) {
+        }
 
-        void onItemClick(T item);
+        default void onItemClick(T item) {
+        }
+
+        default void onAction1(T t, int position) {
+        }
     }
 
     public void setOnItemOperListener(OnItemOperListener<T> onItemOperListener) {

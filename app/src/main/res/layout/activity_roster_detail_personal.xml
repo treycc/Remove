@@ -20,12 +20,11 @@
         <!--联系人-->
         <LinearLayout
             android:id="@+id/ll_contacts"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/ll_detail_propertyDeed"
                 style="@style/Content_LL_T12">
 
                 <TextView
@@ -34,8 +33,8 @@
 
                 <RelativeLayout style="@style/Rl_Container_Arrow_W2">
 
-                    <TextView
-                        android:id="@+id/tv_detail_propertyDeed"
+                    <com.jdp.hls.view.StringTextView
+                        android:id="@+id/tv_personCount"
                         style="@style/font_9_15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -50,10 +49,6 @@
 
 
         </LinearLayout>
-
-
-
-
         <!--地址-->
         <LinearLayout
             style="@style/Content_LL_T6">
@@ -85,7 +80,7 @@
 
 
                 <lib.kingja.switchbutton.SwitchMultiButton
-                    android:id="@+id/smb_roster_measured"
+                    android:id="@+id/smb_measure"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4dp"
@@ -117,7 +112,7 @@
 
 
                 <lib.kingja.switchbutton.SwitchMultiButton
-                    android:id="@+id/smb_roster_evaluated"
+                    android:id="@+id/smb_evaluate"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4dp"
@@ -134,28 +129,16 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <TextView
             style="@style/Title_Normal"
             android:text="房屋现状图"/>
-        <LinearLayout
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_roster_img"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
+        <include layout="@layout/layout_addable_photo_preview"/>
 
         <View style="@style/div_hor_gray_margin24"/>
 
         <LinearLayout
-            android:id="@+id/ll_roster_location"
+            android:id="@+id/ll_location"
             style="@style/Content_LL_T12">
 
             <TextView
@@ -169,7 +152,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_roster_hasLocationed"
+                    android:id="@+id/tv_location"
                     style="@style/font_9_13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -177,7 +160,7 @@
                     android:text="未定位"/>
 
                 <ImageView
-                    android:id="@+id/iv_roster_location"
+                    android:id="@+id/iv_location"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignParentRight="true"
@@ -191,7 +174,7 @@
         <View style="@style/div_hor_gray"/>
 
         <fragment
-            android:id="@+id/fragment_lnglat"
+            android:id="@+id/fragment_location"
             android:name="com.jdp.hls.fragment.LngLatFragment"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>

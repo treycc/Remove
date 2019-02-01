@@ -17,6 +17,7 @@ import com.jdp.hls.event.RemoveRosterEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosteradd.RosterAddActivity;
+import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
 import com.jdp.hls.util.BaseListFactory;
 import com.jdp.hls.util.GoUtil;
@@ -139,7 +140,7 @@ public class RosterListActivity extends BaseTitleActivity {
             public void onDisPlayItemClick(BaseListDialog.DisplayItem displayItem) {
                 switch (displayItem.getCode()) {
                     case Status.BuildingType.PERSONAL:
-                        ToastUtil.showText("个人");
+                        RosterPersonalDetailActivity.goActivity(RosterListActivity.this,"");
                         break;
                     case Status.BuildingType.COMPANY:
                         ToastUtil.showText("企业");

@@ -405,6 +405,7 @@
         <activity android:name=".page.admin.employee.areasupervise.list.AreaSuperviseListActivity"/>
         <activity android:name=".page.rosterdetail.contacts.detail.ContactsDetailActivity"/>
         <activity android:name=".page.rosterdetail.contacts.list.ContactsListActivity"/>
+        <activity android:name=".page.rosterdetail.detail.personal.RosterPersonalDetailActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

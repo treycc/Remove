@@ -88,6 +88,17 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
         notifyDataSetChanged();
     }
 
+    public void modifyMainContacts(Roster item) {
+        for (Roster roster : list) {
+            if (roster.getHouseId().equals(item.getHouseId())) {
+                roster.setRealName(item.getRealName());
+                roster.setMobilePhone(item.getMobilePhone());
+                break;
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder {
         public final View root;
         public StringTextView tv_roster_address;

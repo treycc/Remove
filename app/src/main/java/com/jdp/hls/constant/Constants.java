@@ -60,6 +60,7 @@ public class Constants {
         int ReceiveAccount = 22;
         int AreaSuperviseList = 23;
         int AreaSuperviseAddList = 24;
+        int ContactsList = 25;
     }
 
     public interface MapSetting {
@@ -91,6 +92,7 @@ public class Constants {
 
     public interface Extra {
         String LIST = "LIST";
+        String PersonId = "PersonId";
         String ItemType = "itemType";
         String DateType = "dateType";
         String BeginDate = "beginDate";
@@ -160,6 +162,7 @@ public class Constants {
         String ReceiveAccount = "ReceiveAccount";
         String RecBankAccountId = "RecBankAccountId";
         String AreaSuperviseList = "AreaSuperviseList";
+        String Number = "Number";
     }
 
     public interface AirPhotoType {

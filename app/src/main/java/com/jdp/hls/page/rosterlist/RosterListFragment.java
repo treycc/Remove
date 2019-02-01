@@ -5,11 +5,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.activity.RosterListActivity;
 import com.jdp.hls.adapter.BaseLvAdapter;
 import com.jdp.hls.adapter.RosterListAdapter;
 import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.event.AddRostersEvent;
+import com.jdp.hls.event.ModifyMainContactsEvent;
 import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.event.RemoveRosterEvent;
 import com.jdp.hls.injector.component.AppComponent;
@@ -17,6 +19,7 @@ import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.operate.delete.DeleteNodeContract;
 import com.jdp.hls.page.operate.delete.DeleteNodePresenter;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
+import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
@@ -41,7 +44,8 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class RosterListFragment extends BaseFragment implements GetRostersByTypeContract.View, DeleteRosterContract.View {
+public class RosterListFragment extends BaseFragment implements GetRostersByTypeContract.View, DeleteRosterContract
+        .View {
     @BindView(R.id.plv)
     ListView plv;
     private List<Roster> rosters = new ArrayList<>();
@@ -104,7 +108,8 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
 
             @Override
             public void onItemClick(Roster item) {
-                RosterDetailActivity.goActivity(getActivity(), item);
+//                RosterDetailActivity.goActivity(getActivity(), item);
+                RosterPersonalDetailActivity.goActivity(getActivity(), item.getHouseId());
             }
         });
     }
@@ -128,12 +133,6 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
         adapter.setData(rosters);
     }
 
-//
-//    @Override
-//    public void onRefresh() {
-//        getRostersByTypePresenter.getRosterListByType(SpSir.getInstance().getProjectId(), SpSir.getInstance()
-//                .getEmployeeId(), buildingType);
-//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshRosters(AddRostersEvent event) {
@@ -144,10 +143,17 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modifyMainContacts(ModifyMainContactsEvent event) {
+        int buildingType = event.getRoster().isEnterprise() ? 1 : 0;
+        if (buildingType == this.buildingType) {
+            adapter.modifyMainContacts(event.getRoster());
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void modifyRosters(ModifyRostersEvent event) {
         int buildingType = event.getRoster().isEnterprise() ? 1 : 0;
         if (buildingType == this.buildingType) {
-            LogUtil.e(TAG,"修改:"+buildingType);
             adapter.modifyItem(event.getRoster());
         }
     }
