@@ -3,6 +3,7 @@ package com.jdp.hls.page.business.detail.personal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -29,12 +30,13 @@ import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
 import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
 import com.jdp.hls.page.familyrelation.list.FamilyRelationActivity;
+import com.jdp.hls.page.rosterdetail.contacts.list.ContactsListActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
-import com.jdp.hls.view.KSpinner;
 import com.jdp.hls.view.PreviewRecyclerView;
+import com.jdp.hls.view.StringTextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -45,6 +47,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -58,20 +61,10 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
 
     @BindView(R.id.et_detail_cusCode)
     EnableEditText etDetailcusCode;
-    @BindView(R.id.et_detail_realName)
-    EnableEditText etDetailRealName;
-    @BindView(R.id.et_detail_mobile)
-    EnableEditText etDetailMobile;
-    @BindView(R.id.et_detail_idcard)
-    EnableEditText etDetailIdcard;
     @BindView(R.id.et_detail_address)
     EnableEditText etDetailAddress;
     @BindView(R.id.rl_unrecordBuilding)
     RelativeLayout rlFamilyRelation;
-    @BindView(R.id.spinner_detail_socialRelation)
-    KSpinner spinnerDetailSocialRelation;
-    @BindView(R.id.ll_detail_socialRelation)
-    LinearLayout llDetailSocialRelation;
     @BindView(R.id.ll_detail_tempHouse)
     LinearLayout llDetailTempHouse;
     @BindView(R.id.ll_detail_hasShop)
@@ -110,6 +103,12 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     EnableEditText etDetailVrUrl;
     @BindView(R.id.switch_detail_isUrgent)
     Switch switchDetailIsUrgent;
+    @BindView(R.id.tv_personCount)
+    StringTextView tvPersonCount;
+    @BindView(R.id.ll_owner)
+    LinearLayout llOwner;
+    @BindView(R.id.ll_detail_bankDeed)
+    LinearLayout llDetailBankDeed;
     private String buildingId;
     @Inject
     DetailPersonalPresenter detailPersonalPresenter;
@@ -118,19 +117,16 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private boolean hasShop;
     private boolean needHouse;
     private boolean ifPublicity;
-    private int socialRelation;
     private DetailPersonal detailPersonal;
     private LngLatFragment lngLatFragment;
     private boolean allowEdit;
     private String address;
-    private String realName;
-    private String mobile;
     private String cusCode;
     private String vrUrl;
     private boolean isUrgent;
 
     @OnClick({R.id.rl_unrecordBuilding, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
-            .ll_detail_immovableDeed, R.id.ll_detail_bankDeed})
+            .ll_detail_immovableDeed, R.id.ll_detail_bankDeed, R.id.ll_owner})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.rl_unrecordBuilding:
@@ -153,6 +149,9 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                 break;
             case R.id.ll_detail_bankDeed:
                 BankListActivity.goActivity(this, buildingId);
+                break;
+            case R.id.ll_owner:
+                ContactsListActivity.goActivity(this, buildingId, Status.BuildingType.PERSONAL,allowEdit);
                 break;
         }
     }
@@ -203,12 +202,6 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     }
 
     private void initSpinners() {
-        List<TDict> societyRelationList = DBManager.getInstance().getDictsByConfigType(Status.ConfigType
-                .SOCIAL_RELATION);
-        spinnerDetailSocialRelation.setDicts(societyRelationList, typeId -> {
-            socialRelation = typeId;
-        });
-        socialRelation = spinnerDetailSocialRelation.getDefaultTypeId();
         switchDetailNeedHouse.setOnCheckedChangeListener((buttonView, isChecked) -> {
             needHouse = isChecked;
         });
@@ -232,17 +225,13 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     @Override
     public void onGetPersonalDetailSuccess(DetailPersonal detailPersonal) {
         this.detailPersonal = detailPersonal;
-        int politicalTitle = detailPersonal.getPoliticalTitle();
+        tvPersonCount.setHint(String.format("共%d人", detailPersonal.getPersonCount()));
         setContentTitle(detailPersonal.getAddress());
-        socialRelation = politicalTitle == 0 ? 1 : politicalTitle;
         hasShop = detailPersonal.isShop();
         isUrgent = detailPersonal.isUrgent();
         needHouse = detailPersonal.isNeedTempHouse();
         ifPublicity = detailPersonal.isAllowPublicity();
         etDetailcusCode.setText(detailPersonal.getCusCode());
-        etDetailRealName.setText(detailPersonal.getRealName());
-        etDetailMobile.setText(detailPersonal.getMobilePhone().trim());
-        etDetailIdcard.setText(detailPersonal.getIdcard().trim());
         etDetailAddress.setText(detailPersonal.getAddress());
         etDetailVrUrl.setString(detailPersonal.getVRUrl());
         etDetailBizUseArea.setText(String.valueOf(detailPersonal.getBizUseArea()));
@@ -255,7 +244,6 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         switchDetailNeedHouse.setChecked(detailPersonal.isNeedTempHouse());
         switchDetailPublicity.setChecked(detailPersonal.isAllowPublicity());
         switchDetailIsUrgent.setChecked(isUrgent);
-        spinnerDetailSocialRelation.setSelectItem(politicalTitle);
         llBusinessArea.setVisibility(hasShop ? View.VISIBLE : View.GONE);
         initLngLat(detailPersonal.getLongitude(), detailPersonal.getLatitude());
         allowEdit = detailPersonal.isAllowEdit();
@@ -269,18 +257,14 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         }
         lngLatFragment.setEditable(allowEdit);
         etDetailcusCode.setEnabled(allowEdit);
-        etDetailRealName.setEnabled(allowEdit);
-        etDetailMobile.setEnabled(allowEdit);
         etDetailAddress.setEnabled(allowEdit);
         etDetailVrUrl.setEnabled(allowEdit);
-        etDetailIdcard.setEnabled(allowEdit);
         etDetailBizUseArea.setEnabled(allowEdit);
         etDetailRemark.setEnabled(allowEdit);
         switchDetailHasShop.setEnabled(allowEdit);
         switchDetailNeedHouse.setEnabled(allowEdit);
         switchDetailPublicity.setEnabled(allowEdit);
         switchDetailIsUrgent.setEnabled(allowEdit);
-        spinnerDetailSocialRelation.enable(allowEdit);
         lngLatFragment.setEditable(allowEdit);
         rvPhotoPreviewHouse.setData(detailPersonal.getFiles(), new FileConfig(Status.FileType
                 .PERSONAL_CURRENT,
@@ -302,13 +286,10 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private void modifyData() {
         cusCode = etDetailcusCode.getText().toString().trim();
         address = etDetailAddress.getText().toString().trim();
-        mobile = etDetailMobile.getText().toString().trim();
-        realName = etDetailRealName.getText().toString().trim();
-        String idcard = etDetailIdcard.getText().toString().trim();
         String remark = etDetailRemark.getText().toString().trim();
         String bizUseArea = etDetailBizUseArea.getText().toString().trim();
         vrUrl = etDetailVrUrl.getText().toString().trim();
-        if (!CheckUtil.checkEmpty(realName, "请输入户主名称") || !CheckUtil.checkEmpty(address, "请输入地址")) {
+        if (!CheckUtil.checkEmpty(address, "请输入地址")) {
             return;
         }
         detailPersonalPresenter.modifyPersonalDetail(new MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -323,10 +304,6 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                 .addFormDataPart("IsAllowPublicity", String.valueOf(ifPublicity))
                 .addFormDataPart("Longitude", String.valueOf(longitude))
                 .addFormDataPart("Latitude", String.valueOf(latitude))
-                .addFormDataPart("RealName", realName)
-                .addFormDataPart("PoliticalTitle", String.valueOf(socialRelation))
-                .addFormDataPart("Idcard", idcard)
-                .addFormDataPart("MobilePhone", mobile)
                 .addFormDataPart("VRUrl", vrUrl)
                 .build());
     }
@@ -338,8 +315,6 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         businessEvent.setBuildingType(Status.BuildingType.PERSONAL);
         businessEvent.setAddress(address);
         businessEvent.setCusCode(cusCode);
-        businessEvent.setMobile(mobile);
-        businessEvent.setRealName(realName);
         businessEvent.setBuildingId(buildingId);
         businessEvent.setUrgent(isUrgent);
         businessEvent.setVRUrl(vrUrl);
@@ -372,6 +347,10 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                     rvPhotoPreviewHouse.onActivityResult(requestCode, data);
                     rvPhotoPreviewProcedure.onActivityResult(requestCode, data);
                     break;
+                case Constants.RequestCode.ContactsList:
+                    int personCount = data.getIntExtra(Constants.Extra.Number, 0);
+                    tvPersonCount.setHint(String.format("共%d人", personCount));
+                    break;
                 default:
                     break;
             }
@@ -399,4 +378,5 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
             }
         }
     }
+
 }

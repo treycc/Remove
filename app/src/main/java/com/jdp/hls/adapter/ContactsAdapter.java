@@ -24,8 +24,11 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class ContactsAdapter extends BaseLvAdapter<ContactsItem> {
-    public ContactsAdapter(Context context, List<ContactsItem> list) {
+    private  boolean allowEdit;
+
+    public ContactsAdapter(Context context, List<ContactsItem> list, boolean allowEdit) {
         super(context, list);
+        this.allowEdit = allowEdit;
     }
 
     @Override
@@ -42,7 +45,7 @@ public class ContactsAdapter extends BaseLvAdapter<ContactsItem> {
         ContactsItem contacts = list.get(position);
         viewHolder.iv_main.setBackgroundResource(contacts.getIsMainContact() == 1 ? R.mipmap.ic_confirm_sel : R
                 .mipmap.ic_confirm_nor);
-        viewHolder.tv_setMain.setText(contacts.getIsMainContact() == 1 ? "主联系人" : "设为主联系人");
+        viewHolder.tv_setMain.setText(contacts.getIsMainContact() == 1 ? "主联系人" : editable? "设为主联系人" : "");
         viewHolder.tv_setMain.setTextColor(contacts.getIsMainContact() == 1 ? ContextCompat.getColor(context, R.color
                 .main) : ContextCompat.getColor(context, R.color.c_9));
         viewHolder.tv_name.setString(contacts.getRealName());
@@ -53,6 +56,7 @@ public class ContactsAdapter extends BaseLvAdapter<ContactsItem> {
             }
         });
         viewHolder.drawHelperLayout.close(false);
+        viewHolder.drawHelperLayout.setDragable(editable);
         viewHolder.drawHelperLayout.setOnRootClickListener(() -> {
             if (onItemOperListener != null) {
                 onItemOperListener.onItemClick(contacts);
@@ -94,7 +98,6 @@ public class ContactsAdapter extends BaseLvAdapter<ContactsItem> {
         public final View root;
         public StringTextView tv_name;
         public StringTextView tv_mobile;
-        public ImageView iv_main_contacts;
         public DrawHelperLayout drawHelperLayout;
         public TextView tv_delete;
         public LinearLayout ll_setMain;
@@ -105,7 +108,6 @@ public class ContactsAdapter extends BaseLvAdapter<ContactsItem> {
             this.root = root;
             tv_name = root.findViewById(R.id.tv_name);
             tv_mobile = root.findViewById(R.id.tv_mobile);
-            iv_main_contacts = root.findViewById(R.id.iv_main_contacts);
             drawHelperLayout = root.findViewById(R.id.drawHelperLayout);
             tv_delete = root.findViewById(R.id.tv_delete);
             ll_setMain = root.findViewById(R.id.ll_setMain);

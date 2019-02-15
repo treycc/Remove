@@ -71,7 +71,7 @@
 
                 <TextView
                     style="@style/Title_Sub"
-                    android:text="户主姓名"/>
+                    android:text="主联系人"/>
 
                 <TextView
                     android:id="@+id/tv_basic_name"
@@ -110,10 +110,10 @@
                     android:text="全景VR"/>
 
                 <RelativeLayout
-                    android:paddingLeft="12dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3">
+                    android:layout_weight="3"
+                    android:paddingLeft="12dp">
 
                     <TextView
                         android:id="@+id/tv_vrTip"
@@ -121,8 +121,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:visibility="gone"
-                        android:text="暂无VR信息"/>
+                        android:text="暂无VR信息"
+                        android:visibility="gone"/>
 
                     <ImageView
                         android:layout_width="16dp"

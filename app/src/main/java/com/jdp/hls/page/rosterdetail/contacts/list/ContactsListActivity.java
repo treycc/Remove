@@ -11,9 +11,7 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
-import com.jdp.hls.event.AddBankInfoEvent;
 import com.jdp.hls.event.AddContactsEvent;
-import com.jdp.hls.event.ModifyBankInfoEvent;
 import com.jdp.hls.event.ModifyContactsEvent;
 import com.jdp.hls.event.ModifyMainContactsEvent;
 import com.jdp.hls.injector.component.AppComponent;
@@ -22,15 +20,12 @@ import com.jdp.hls.model.entiy.ContactsListDetail;
 import com.jdp.hls.model.entiy.Person;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.resultdata.ContactsResult;
-import com.jdp.hls.page.node.protocol.personal.lastst.pay.list.PayListActivity;
 import com.jdp.hls.page.personsearch.PersonSearchActivity;
 import com.jdp.hls.page.rosterdetail.contacts.detail.ContactsDetailActivity;
 import com.jdp.hls.util.BaseListFactory;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.GoUtil;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.dialog.BaseListDialog;
 
@@ -57,11 +52,13 @@ public class ContactsListActivity extends BaseTitleActivity implements ContactsL
     @Inject
     ContactsListPresenter contactsListPresenter;
     private ContactsAdapter contactsAdapter;
+    private boolean allowEdit;
 
 
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
+        allowEdit = getIntent().getBooleanExtra(Constants.Extra.EDITABLE, false);
         buildingId = getIntent().getStringExtra(Constants.Extra.BUILDING_ID);
         buildingType = getIntent().getIntExtra(Constants.Extra.BUILDING_TYPE, 0);
     }
@@ -87,7 +84,7 @@ public class ContactsListActivity extends BaseTitleActivity implements ContactsL
 
     @Override
     protected void initView() {
-        plv.setAdapter(contactsAdapter = new ContactsAdapter(this, null));
+        plv.setAdapter(contactsAdapter = new ContactsAdapter(this, null,allowEdit));
         contactsAdapter.setOnItemOperListener(new BaseLvAdapter.OnItemOperListener<ContactsItem>() {
             @Override
             public void onItemDelete(ContactsItem contacts, int position) {
@@ -105,6 +102,13 @@ public class ContactsListActivity extends BaseTitleActivity implements ContactsL
             @Override
             public void onAction1(ContactsItem contactsItem, int position) {
                 // 设为主联系人
+                if (!allowEdit) {
+                    return;
+                }
+
+                if (contactsItem.getIsMainContact() == 1) {
+                    return;
+                }
                 contactsListPresenter.setMainContacts(buildingId, contactsItem.getPersonId(), buildingType, position);
                 postModifyMainContacts(contactsItem);
             }
@@ -138,12 +142,15 @@ public class ContactsListActivity extends BaseTitleActivity implements ContactsL
                     break;
             }
         });
-        setRightClick("添加", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                createTypeDialog.show();
-            }
-        });
+        if (allowEdit) {
+            setRightClick("添加", new NoDoubleClickListener() {
+                @Override
+                public void onNoDoubleClick(View v) {
+                    createTypeDialog.show();
+                }
+            });
+        }
+
     }
 
     @Override
@@ -151,10 +158,11 @@ public class ContactsListActivity extends BaseTitleActivity implements ContactsL
         contactsListPresenter.getMainPersonList(buildingId, buildingType);
     }
 
-    public static void goActivity(Activity context, String buildingId, int buildingType) {
+    public static void goActivity(Activity context, String buildingId, int buildingType, boolean allowEdit) {
         Intent intent = new Intent(context, ContactsListActivity.class);
         intent.putExtra(Constants.Extra.BUILDING_ID, buildingId);
         intent.putExtra(Constants.Extra.BUILDING_TYPE, buildingType);
+        intent.putExtra(Constants.Extra.EDITABLE, allowEdit);
         context.startActivityForResult(intent, Constants.RequestCode.ContactsList);
     }
 
@@ -179,14 +187,22 @@ public class ContactsListActivity extends BaseTitleActivity implements ContactsL
     @Override
     public void onSetMainContactsSuccess(int position) {
         contactsAdapter.setMainContacts(position);
+        ContactsItem contactsItem = (ContactsItem) contactsAdapter.getItem(position);
+        EventBus.getDefault().post(new ModifyContactsEvent(contactsItem));
     }
 
     @Override
     public void onImportMainContactsSuccess(ContactsResult contactsResult, ContactsItem contactsItem) {
         showSuccessCallback();
+        contactsItem.setIsMainContact(contactsResult.getIsMainContact());
         if (contactsAdapter.getCount() == 0 && contactsItem.getIsMainContact() == 1) {
             //TODO 如果是第一个人，则是主联系人，要刷新列表
-            EventBus.getDefault().post(new ModifyContactsEvent(contactsItem));
+            Roster roster = new Roster();
+            roster.setHouseId(buildingId);
+            roster.setEnterprise(buildingType==1);
+            roster.setRealName(contactsItem.getRealName());
+            roster.setMobilePhone(contactsItem.getMobilePhone());
+            EventBus.getDefault().post(new ModifyMainContactsEvent(roster));
         }
         contactsAdapter.addFirst(contactsItem);
 

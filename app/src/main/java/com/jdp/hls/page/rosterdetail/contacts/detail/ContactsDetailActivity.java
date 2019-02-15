@@ -13,10 +13,12 @@ import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.event.AddContactsEvent;
 import com.jdp.hls.event.ModifyContactsEvent;
+import com.jdp.hls.event.ModifyMainContactsEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ContactsItem;
 import com.jdp.hls.model.entiy.ContactsDetail;
+import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.resultdata.ContactsResult;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
@@ -102,12 +104,7 @@ public class ContactsDetailActivity extends BaseTitleActivity implements Contact
             politicalTitle = typeId;
         });
         politicalTitle = spinnerPoliticalTitle.getDefaultTypeId();
-        setRightClick("保存", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                saveData();
-            }
-        });
+
     }
 
     private void saveData() {
@@ -130,6 +127,7 @@ public class ContactsDetailActivity extends BaseTitleActivity implements Contact
     public void initNet() {
         if (TextUtils.isEmpty(personId)) {
             showSuccessCallback();
+            allowSave();
             //增加
         } else {
             //修改
@@ -150,13 +148,29 @@ public class ContactsDetailActivity extends BaseTitleActivity implements Contact
         etName.setString(contactsDetail.getRealName());
         etMobile.setString(contactsDetail.getMobilePhone());
         etIdcard.setString(contactsDetail.getIdcard());
-
         gender = contactsDetail.isGender();
         smbGender.setSelectedTab(gender ? 0 : 1);
-
         politicalTitle = contactsDetail.getPoliticalTitle();
         spinnerPoliticalTitle.setSelectItem(politicalTitle);
+        boolean allowEdit = contactsDetail.isAllowEdit();
+        etName.setEnabled(allowEdit);
+        etMobile.setEnabled(allowEdit);
+        etIdcard.setEnabled(allowEdit);
+        smbGender.setEnabled(allowEdit);
+        spinnerPoliticalTitle.enable(allowEdit);
 
+        if (allowEdit) {
+            allowSave();
+        }
+    }
+
+    private void allowSave() {
+        setRightClick("保存", new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                saveData();
+            }
+        });
     }
 
     @Override
@@ -172,6 +186,15 @@ public class ContactsDetailActivity extends BaseTitleActivity implements Contact
         } else {
             //修改
             EventBus.getDefault().post(new ModifyContactsEvent(contacts));
+
+        }
+        if (contactsResult.getIsMainContact() == 1) {
+            Roster roster = new Roster();
+            roster.setHouseId(buildingId);
+            roster.setEnterprise(buildingType==1);
+            roster.setRealName(realName);
+            roster.setMobilePhone(mobile);
+            EventBus.getDefault().post(new ModifyMainContactsEvent(roster));
         }
         showSuccessDialogAndFinish();
     }

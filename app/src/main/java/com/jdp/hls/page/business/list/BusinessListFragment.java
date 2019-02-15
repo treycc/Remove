@@ -11,6 +11,7 @@ import com.jdp.hls.base.BaseFragment;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
+import com.jdp.hls.event.ModifyMainContactsEvent;
 import com.jdp.hls.event.RefreshReminderEvent;
 import com.jdp.hls.i.OnBusinessItemSelectedListener;
 import com.jdp.hls.injector.component.AppComponent;
@@ -192,7 +193,13 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
             adapter.refreshReminder(buildingIdList);
         }
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modifyMainContacts(ModifyMainContactsEvent event) {
+        int buildingType = event.getRoster().isEnterprise() ? 1 : 0;
+        if (buildingType == this.buildingType) {
+            adapter.modifyMainContacts(event.getRoster());
+        }
+    }
     @Override
     public boolean ifRegisterLoadSir() {
         return true;

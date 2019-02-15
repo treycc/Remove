@@ -71,6 +71,7 @@ import com.jdp.hls.model.entiy.ReportBuilding;
 import com.jdp.hls.model.entiy.ReportDayResult;
 import com.jdp.hls.model.entiy.ReportHourResult;
 import com.jdp.hls.model.entiy.Roster;
+import com.jdp.hls.model.entiy.RosterCompanyDetail;
 import com.jdp.hls.model.entiy.RosterDetail;
 import com.jdp.hls.model.entiy.RosterPersonalDetail;
 import com.jdp.hls.model.entiy.StatisticsDetail;
@@ -853,7 +854,7 @@ public interface ApiService {
     @GET("person/GetRosterDetailHouse")
     Observable<HttpResult<RosterPersonalDetail>> getRosterPersonalDetail(@Query("houseId") String houseId);
 
-    /*房产信息-个人*/
+    /*保存房产信息-个人*/
     @POST("person/SaveRosterHouse")
     Observable<HttpResult<RosterResult>> saveRosterHouse(@Body RequestBody requestBody);
 
@@ -882,6 +883,14 @@ public interface ApiService {
 
     /*联系人-导入*/
     @GET("person/ImportMainPerson")
-    Observable<HttpResult<ContactsResult>> importMainContacts(@Query("houseId") String houseId, @Query("personId") String
-            personId, @Query("buildingType") int buildingType);
+    Observable<HttpResult<ContactsResult>> importMainContacts(@Query("houseId") String houseId, @Query("personId")
+            String personId, @Query("buildingType") int buildingType);
+
+    /*获取花名册详情-企业*/
+    @GET("person/GetRosterDetailEnt")
+    Observable<HttpResult<RosterCompanyDetail>> getRosterCompanyDetail(@Query("entId") String entId);
+
+    /*保存房产信息-企业*/
+    @POST("person/SaveRosterEnt")
+    Observable<HttpResult<RosterResult>> saveRosterCompany(@Body RequestBody requestBody);
 }

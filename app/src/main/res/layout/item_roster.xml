@@ -18,7 +18,7 @@
             style="@style/font_3_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="浙江省温州市龙湾区三垟湿地3期"/>
+            android:text=""/>
 
 
 
@@ -44,19 +44,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text=""/>
-                <TextView
-                    style="@style/font_9_13"
-                    android:text="/"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <com.jdp.hls.view.StringTextView
-                    android:id="@+id/tv_roster_phone"
-                    style="@style/font_9_13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
 
             </LinearLayout>
             <LinearLayout

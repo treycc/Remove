@@ -1,4 +1,4 @@
-package com.jdp.hls.page.rosterdetail.detail.personal;
+package com.jdp.hls.page.rosterdetail.detail.company;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,7 +22,7 @@ import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.model.entiy.Roster;
-import com.jdp.hls.model.entiy.RosterPersonalDetail;
+import com.jdp.hls.model.entiy.RosterCompanyDetail;
 import com.jdp.hls.model.entiy.resultdata.RosterResult;
 import com.jdp.hls.page.rosterdetail.contacts.list.ContactsListActivity;
 import com.jdp.hls.util.BaseListFactory;
@@ -56,7 +56,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class RosterPersonalDetailActivity extends BaseTitleActivity implements RosterPersonalDetailContract.View {
+public class RosterCompanyDetailActivity extends BaseTitleActivity implements RosterCompanyDetailContract.View {
     @BindView(R.id.tv_personCount)
     StringTextView tvPersonCount;
     @BindView(R.id.ll_contacts)
@@ -79,10 +79,15 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
     LinearLayout llLocation;
     @BindView(R.id.et_remark)
     EnableEditText etRemark;
+    @BindView(R.id.et_roster_companyName)
+    EnableEditText etRosterCompanyName;
+    @BindView(R.id.smb_assetEvaluator)
+    SwitchMultiButton smbAssetEvaluator;
     private boolean isMeasured;
     private boolean isEvaluated;
+    private boolean isAssetEvaluator;
     @Inject
-    RosterPersonalDetailPresenter rosterPersonalDetailPresenter;
+    RosterCompanyDetailPresenter rosterCompanyDetailPresenter;
     private String buildingId;
     private double lng;
     private double lat;
@@ -97,8 +102,9 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
                 break;
             case R.id.ll_contacts:
                 //联系人
-                ContactsListActivity.goActivity(this, buildingId, Status.BuildingType.PERSONAL, true);
+                ContactsListActivity.goActivity(this, buildingId, Status.BuildingType.COMPANY, true);
                 break;
+
         }
     }
 
@@ -109,7 +115,7 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_roster_detail_personal;
+        return R.layout.activity_roster_detail_company;
     }
 
     @Override
@@ -118,12 +124,12 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
-        rosterPersonalDetailPresenter.attachView(this);
+        rosterCompanyDetailPresenter.attachView(this);
     }
 
     @Override
     protected String getContentTitle() {
-        return "个人房产";
+        return "企业房产";
     }
 
     @Override
@@ -139,6 +145,9 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
         smbEvaluate.setOnSwitchListener((position, tabText) -> {
             isEvaluated = position == 1;
         });
+        smbAssetEvaluator.setOnSwitchListener((position, tabText) -> {
+            isAssetEvaluator = position == 1;
+        });
         setRightClick("保存", new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
@@ -152,12 +161,15 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
     private void saveData() {
         address = etRosterAddress.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
+        String companyName = etRosterCompanyName.getText().toString().trim();
         if (CheckUtil.checkEmpty(address, "请输入地址")) {
             MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("HouseId", buildingId)
                     .addFormDataPart("address", address)
+                    .addFormDataPart("EnterpriseName", companyName)
                     .addFormDataPart("isEvaluated", String.valueOf(isEvaluated))
                     .addFormDataPart("isMeasured", String.valueOf(isMeasured))
+                    .addFormDataPart("isAssetEvaluator", String.valueOf(isAssetEvaluator))
                     .addFormDataPart("longitude", String.valueOf(lng))
                     .addFormDataPart("latitude", String.valueOf(lat))
                     .addFormDataPart("deleteFileIDs", TextUtils.isEmpty(rvAddablePhotoPreview.getDeleteImgIds()) ? "" :
@@ -173,7 +185,7 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
                 }
             }
             RequestBody requestBody = bodyBuilder.build();
-            rosterPersonalDetailPresenter.saveRosterHouse(requestBody);
+            rosterCompanyDetailPresenter.saveRosterCompany(requestBody);
         }
     }
 
@@ -185,22 +197,25 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
             llContacts.setVisibility(View.GONE);
         } else {
             //修改
-            rosterPersonalDetailPresenter.getRosterPersonalDetail(buildingId);
+            rosterCompanyDetailPresenter.getRosterCompanyDetail(buildingId);
         }
     }
 
     @Override
-    public void onGetRosterPersonalDetailSuccess(RosterPersonalDetail rosterPersonalDetail) {
-        rvAddablePhotoPreview.setDate(rosterPersonalDetail.getHouseFiles(), true);
-        lng = rosterPersonalDetail.getLongitude();
-        lat = rosterPersonalDetail.getLatitude();
-        etRosterAddress.setText(rosterPersonalDetail.getHouseAddress());
-        etRemark.setText(rosterPersonalDetail.getRemark());
-        isMeasured = rosterPersonalDetail.isMeasured();
-        isEvaluated = rosterPersonalDetail.isEvaluated();
+    public void onGetRosterCompanyDetailSuccess(RosterCompanyDetail rosterCompanyDetail) {
+        rvAddablePhotoPreview.setDate(rosterCompanyDetail.getHouseFiles(), true);
+        etRosterCompanyName.setString(rosterCompanyDetail.getEnterpriseName());
+        lng = rosterCompanyDetail.getLongitude();
+        lat = rosterCompanyDetail.getLatitude();
+        etRosterAddress.setText(rosterCompanyDetail.getAddress());
+        etRemark.setText(rosterCompanyDetail.getRemark());
+        isMeasured = rosterCompanyDetail.isMeasured();
+        isEvaluated = rosterCompanyDetail.isEvaluated();
+        isAssetEvaluator = rosterCompanyDetail.isAssetEvaluator();
         smbMeasure.setSelectedTab(isMeasured ? 1 : 0);
         smbEvaluate.setSelectedTab(isEvaluated ? 1 : 0);
-        tvPersonCount.setHint(String.format("共%d人", rosterPersonalDetail.getPersonCount()));
+        smbAssetEvaluator.setSelectedTab(isAssetEvaluator ? 1 : 0);
+        tvPersonCount.setHint(String.format("共%d人", rosterCompanyDetail.getPersonCount()));
         setLocation(lng, lat);
     }
 
@@ -216,7 +231,7 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
     }
 
     @Override
-    public void onSaveRosterHouseSuccess(RosterResult rosterResult) {
+    public void onSaveRosterCompanySuccess(RosterResult rosterResult) {
         Roster roster = new Roster();
         roster.setHouseId(rosterResult.getHouseId());
         roster.setEnterprise(rosterResult.getBuildingType() == 1);
@@ -224,6 +239,7 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
         roster.setLatitude(lat);
         roster.setEvaluated(isEvaluated);
         roster.setMeasured(isMeasured);
+        roster.setAssetEvaluator(isAssetEvaluator);
         roster.setHouseAddress(address);
         if (TextUtils.isEmpty(buildingId)) {
             //新增
@@ -271,7 +287,7 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
     }
 
     public static void goActivity(Activity context, String buildingId) {
-        Intent intent = new Intent(context, RosterPersonalDetailActivity.class);
+        Intent intent = new Intent(context, RosterCompanyDetailActivity.class);
         intent.putExtra(Constants.Extra.BUILDING_ID, buildingId);
         context.startActivity(intent);
     }

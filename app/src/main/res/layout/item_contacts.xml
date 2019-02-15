@@ -23,32 +23,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white_hi"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:padding="12dp">
 
-                <LinearLayout
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_name"
+                    style="@style/font_3_15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <com.jdp.hls.view.StringTextView
-                        android:id="@+id/tv_name"
-                        style="@style/font_3_15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="雨果"/>
-
-                    <ImageView
-                        android:visibility="gone"
-                        android:id="@+id/iv_main_contacts"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:background="@mipmap/ic_contacts"/>
-                </LinearLayout>
-
+                    android:text="雨果"/>
                 <LinearLayout
+                    android:id="@+id/ll_mobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -61,7 +46,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="18888888888"/>
-
 
                 </LinearLayout>
             </RelativeLayout>

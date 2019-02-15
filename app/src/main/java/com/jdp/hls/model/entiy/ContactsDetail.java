@@ -9,11 +9,20 @@ package com.jdp.hls.model.entiy;
 public class ContactsDetail {
     private String RealName;
     private boolean Gender;
+    private boolean IsAllowEdit;
     private String MobilePhone;
     private String Idcard;
     private int PoliticalTitle;
     private String PoliticalTitleDescription;
     private String PersonId;
+
+    public boolean isAllowEdit() {
+        return IsAllowEdit;
+    }
+
+    public void setAllowEdit(boolean allowEdit) {
+        IsAllowEdit = allowEdit;
+    }
 
     public String getMobilePhone() {
         return null == MobilePhone ? "" : MobilePhone;

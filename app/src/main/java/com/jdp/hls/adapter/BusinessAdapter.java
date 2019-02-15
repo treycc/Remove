@@ -12,6 +12,7 @@ import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
 import com.jdp.hls.i.OnBusinessItemSelectedListener;
 import com.jdp.hls.model.entiy.Business;
+import com.jdp.hls.model.entiy.Roster;
 import com.kingja.supershapeview.view.SuperShapeTextView;
 
 import java.util.List;
@@ -53,8 +54,6 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
                 onBusinessSelectedListener.onBusinessRemove(list.get(position));
             }
         });
-        viewHolder.tv_business_nameTip.setText(list.get(position).getBuildingType() == Status.BuildingType.PERSONAL ?
-                "户主" : "负责人");
         viewHolder.cb_business.setVisibility(checkable ? View.VISIBLE : View.GONE);
         viewHolder.cb_business.setChecked(list.get(position).isSelected());
         viewHolder.tv_business_address.setText(list.get(position).getAddress());
@@ -85,12 +84,21 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
     public void modify(ModifyBusinessEvent event) {
         for (Business business : list) {
             if (business.getBuildingId().equals(event.getBuildingId())) {
-                business.setRealName(event.getRealName());
                 business.setAddress(event.getAddress());
-                business.setMobilePhone(event.getMobile());
                 business.setCusCode(event.getCusCode());
                 business.setReminder(event.isReminder());
                 business.setUrgent(event.isUrgent());
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void modifyMainContacts(Roster item) {
+        for (Business business : list) {
+            if (business.getBuildingId().equals(item.getHouseId())) {
+                business.setRealName(item.getRealName());
+                business.setMobilePhone(item.getMobilePhone());
+                break;
             }
         }
         notifyDataSetChanged();

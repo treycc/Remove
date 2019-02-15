@@ -19,6 +19,7 @@ import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.operate.delete.DeleteNodeContract;
 import com.jdp.hls.page.operate.delete.DeleteNodePresenter;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
+import com.jdp.hls.page.rosterdetail.detail.company.RosterCompanyDetailActivity;
 import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.LogUtil;
@@ -87,7 +88,6 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
 
     @Override
     protected void initView() {
-
         adapter = new RosterListAdapter(getActivity(), rosters);
         plv.setAdapter(adapter);
     }
@@ -99,6 +99,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
             public void onItemDelete(Roster roster, int position) {
                 DialogUtil.showDoubleDialog(getActivity(), "是否确定删除该项?", (dialog, which) -> {
                     deleteRosterPresenter.deleteRoster(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                            .addFormDataPart("Reason", "花名册删除")
                             .addFormDataPart("buildingId", roster.getHouseId())
                             .addFormDataPart("buildingType", String.valueOf(roster.isEnterprise() ? 1 : 0))
                             .build(), roster, position);
@@ -108,8 +109,12 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
 
             @Override
             public void onItemClick(Roster item) {
-//                RosterDetailActivity.goActivity(getActivity(), item);
-                RosterPersonalDetailActivity.goActivity(getActivity(), item.getHouseId());
+                if (item.isEnterprise()) {
+                    RosterCompanyDetailActivity.goActivity(getActivity(), item.getHouseId());
+                }else{
+                    RosterPersonalDetailActivity.goActivity(getActivity(), item.getHouseId());
+                }
+
             }
         });
     }

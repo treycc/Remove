@@ -25,6 +25,7 @@ public class DetailCompany {
     private String LicenseNo;
     private String Remark;
     private int StatusId;
+    private int PersonCount;
     private String StatusDesc;
     private String CurrentOccupyArea;
     private String JuridicalPersonName;
@@ -38,6 +39,14 @@ public class DetailCompany {
     private List<ImgInfo> Files;
     private List<ImgInfo> ApprovalFiles;
     private List<ImgInfo> OtherFiles;
+
+    public int getPersonCount() {
+        return PersonCount;
+    }
+
+    public void setPersonCount(int personCount) {
+        PersonCount = personCount;
+    }
 
     public boolean isUrgent() {
         return IsUrgent;

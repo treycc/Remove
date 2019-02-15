@@ -53,7 +53,7 @@
 
                 <TextView
                     style="@style/Title_Sub"
-                    android:text="档案编号"/>
+                    android:text="系统编号"/>
 
                 <TextView
                     android:id="@+id/tv_basic_syscode"
