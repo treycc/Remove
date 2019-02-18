@@ -1,6 +1,7 @@
 package com.jdp.hls.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.jdp.hls.R;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.util.LatLngUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.view.DrawHelperLayout;
 import com.jdp.hls.view.StringTextView;
 
@@ -39,8 +41,14 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
         Roster roster = list.get(position);
 
         viewHolder.tv_roster_address.setString(roster.getHouseAddress());
-        viewHolder.tv_roster_name.setString(roster.getRealName()+"/"+roster.getMobilePhone());
-
+        if (TextUtils.isEmpty(roster.getRealName())) {
+            viewHolder.tv_roster_name.setString("未设置主联系人");
+        }else if (TextUtils.isEmpty(roster.getMobilePhone())){
+            viewHolder.tv_roster_name.setString(roster.getRealName());
+        }else {
+            viewHolder.tv_roster_name.setString(String.format("%s/%s",roster.getRealName(),roster.getMobilePhone()));
+            LogUtil.e(TAG,String.format("%s/%s",roster.getRealName(),roster.getMobilePhone()));
+        }
         viewHolder.iv_roster_isAssetEvaluated.setVisibility(roster.isEnterprise() ? View.VISIBLE : View.GONE);
 
         viewHolder.iv_roster_hasLocation.setBackgroundResource(LatLngUtil.isChinaLatLng(roster.getLatitude(), roster

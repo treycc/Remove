@@ -1,6 +1,7 @@
 package com.jdp.hls.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -8,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
 import com.jdp.hls.i.OnBusinessItemSelectedListener;
 import com.jdp.hls.model.entiy.Business;
@@ -58,8 +58,13 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
         viewHolder.cb_business.setChecked(list.get(position).isSelected());
         viewHolder.tv_business_address.setText(list.get(position).getAddress());
         viewHolder.tv_business_number.setText(list.get(position).getCusCode());
-        viewHolder.tv_business_name.setText(list.get(position).getRealName());
-        viewHolder.tv_business_mobile.setText(list.get(position).getMobilePhone());
+        if (TextUtils.isEmpty(list.get(position).getRealName())) {
+            viewHolder.tv_business_name.setText("未设置主联系人");
+        }else if (TextUtils.isEmpty(list.get(position).getMobilePhone())){
+            viewHolder.tv_business_name.setText(list.get(position).getRealName());
+        }else {
+            viewHolder.tv_business_name.setText(String.format("%s/%s",list.get(position).getRealName(),list.get(position).getMobilePhone()));
+        }
         viewHolder.tv_business_node.setText(list.get(position).getStatusDesc());
         viewHolder.iv_business_hasLocation.setBackgroundResource(list.get(position).isHasLongitudeAndLatitude() ? R
                 .mipmap.ic_location_sel : R.mipmap.ic_location_nor);
@@ -115,11 +120,9 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
 
     public class ViewHolder {
         public final View root;
-        public TextView tv_business_nameTip;
         public TextView tv_business_address;
         public TextView tv_business_number;
         public TextView tv_business_name;
-        public TextView tv_business_mobile;
         public TextView tv_business_node;
         public ImageView iv_business_hasLocation;
         public SuperShapeTextView set_business_isBack;
@@ -129,11 +132,9 @@ public class BusinessAdapter extends BaseLvAdapter<Business> {
 
         public ViewHolder(View root) {
             this.root = root;
-            tv_business_nameTip = root.findViewById(R.id.tv_business_nameTip);
             tv_business_address = root.findViewById(R.id.tv_business_address);
             tv_business_number = root.findViewById(R.id.tv_business_number);
             tv_business_name = root.findViewById(R.id.tv_business_name);
-            tv_business_mobile = root.findViewById(R.id.tv_business_mobile);
             tv_business_node = root.findViewById(R.id.tv_business_node);
             iv_business_hasLocation = root.findViewById(R.id.iv_business_hasLocation);
             set_business_isBack = root.findViewById(R.id.set_business_isBack);

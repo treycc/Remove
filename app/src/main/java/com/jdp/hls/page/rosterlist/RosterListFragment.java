@@ -1,11 +1,9 @@
 package com.jdp.hls.page.rosterlist;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.activity.RosterListActivity;
 import com.jdp.hls.adapter.BaseLvAdapter;
 import com.jdp.hls.adapter.RosterListAdapter;
 import com.jdp.hls.base.BaseFragment;
@@ -16,15 +14,9 @@ import com.jdp.hls.event.ModifyRostersEvent;
 import com.jdp.hls.event.RemoveRosterEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Roster;
-import com.jdp.hls.page.operate.delete.DeleteNodeContract;
-import com.jdp.hls.page.operate.delete.DeleteNodePresenter;
-import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.page.rosterdetail.detail.company.RosterCompanyDetailActivity;
 import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.util.DialogUtil;
-import com.jdp.hls.util.LogUtil;
-import com.jdp.hls.util.SpSir;
-import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

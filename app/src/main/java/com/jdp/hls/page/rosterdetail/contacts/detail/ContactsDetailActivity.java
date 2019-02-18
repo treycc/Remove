@@ -20,6 +20,7 @@ import com.jdp.hls.model.entiy.ContactsItem;
 import com.jdp.hls.model.entiy.ContactsDetail;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.model.entiy.resultdata.ContactsResult;
+import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
@@ -111,16 +112,19 @@ public class ContactsDetailActivity extends BaseTitleActivity implements Contact
         idcard = etIdcard.getText().toString().trim();
         mobile = etMobile.getText().toString().trim();
         realName = etName.getText().toString().trim();
-        contactsDetailPresenter.saveContactsDetail(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("buildingType", String.valueOf(buildingType))
-                .addFormDataPart("HouseId", buildingId)
-                .addFormDataPart("PersonId", TextUtils.isEmpty(personId) ? "" : personId)
-                .addFormDataPart("RealName", realName)
-                .addFormDataPart("Gender", String.valueOf(gender))
-                .addFormDataPart("MobilePhone", mobile)
-                .addFormDataPart("Idcard", idcard)
-                .addFormDataPart("PoliticalTitle", String.valueOf(politicalTitle))
-                .build());
+        if (CheckUtil.checkEmpty(realName, "请输入姓名")) {
+            contactsDetailPresenter.saveContactsDetail(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("buildingType", String.valueOf(buildingType))
+                    .addFormDataPart("HouseId", buildingId)
+                    .addFormDataPart("PersonId", TextUtils.isEmpty(personId) ? "" : personId)
+                    .addFormDataPart("RealName", realName)
+                    .addFormDataPart("Gender", String.valueOf(gender))
+                    .addFormDataPart("MobilePhone", mobile)
+                    .addFormDataPart("Idcard", idcard)
+                    .addFormDataPart("PoliticalTitle", String.valueOf(politicalTitle))
+                    .build());
+        }
+
     }
 
     @Override

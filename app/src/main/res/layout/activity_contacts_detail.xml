@@ -9,14 +9,14 @@
 
     <LinearLayout style="@style/Content_LL_T6">
 
-        <TextView
+        <com.jdp.hls.view.RequiredTextView
             style="@style/Title_Sub"
-            android:text="名称"/>
+            android:text="姓名"/>
 
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_name"
             style="@style/Content_ET_W3"
-            android:hint="请输入名称"/>
+            android:hint="请输入姓名"/>
     </LinearLayout>
     <View style="@style/div_hor_gray_margin24"/>
 

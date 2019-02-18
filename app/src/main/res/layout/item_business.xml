@@ -68,36 +68,16 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/tv_business_nameTip"
-                    style="@style/font_9_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="产权人"/>
-
-                <TextView
                     style="@style/font_9_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
-                    android:text="/联系号码:"/>
+                    android:text="主联系人:"/>
 
                 <TextView
                     android:id="@+id/tv_business_name"
                     style="@style/font_9_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-
-                <TextView
-                    style="@style/font_9_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="/"/>
-
-                <TextView
-                    android:id="@+id/tv_business_mobile"
-                    style="@style/font_9_12"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""/>
             </LinearLayout>
