@@ -31,13 +31,10 @@ import com.jdp.hls.event.RemoveRosterEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.map.KMapInfoWindowAdapter;
 import com.jdp.hls.model.entiy.Roster;
-import com.jdp.hls.page.rosteradd.RosterAddActivity;
-import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.page.rosterdetail.detail.company.RosterCompanyDetailActivity;
 import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.util.AppUtil;
 import com.jdp.hls.util.BaseListFactory;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LatLngUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
@@ -210,9 +207,10 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                getRosterPresenter.getRosterList(SpSir.getInstance().getProjectId(), SpSir.getInstance().getEmployeeId());
+                getRosterPresenter.getRosterList(SpSir.getInstance().getProjectId(), SpSir.getInstance()
+                        .getEmployeeId());
             }
-        },100);
+        }, 100);
     }
 
     @Override
@@ -332,8 +330,8 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
 //        RosterDetailActivity.goActivity(this, roster);
         if (roster.isEnterprise()) {
             RosterCompanyDetailActivity.goActivity(RosterActivity.this, roster.getHouseId());
-        }else {
-            RosterPersonalDetailActivity.goActivity(RosterActivity.this,  roster.getHouseId());
+        } else {
+            RosterPersonalDetailActivity.goActivity(RosterActivity.this, roster.getHouseId());
         }
     }
 
