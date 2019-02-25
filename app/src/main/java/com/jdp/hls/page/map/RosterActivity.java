@@ -25,6 +25,7 @@ import com.jdp.hls.activity.RosterListActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
+import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.event.RemoveRosterEvent;
 import com.jdp.hls.injector.component.AppComponent;
@@ -32,7 +33,10 @@ import com.jdp.hls.map.KMapInfoWindowAdapter;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
+import com.jdp.hls.page.rosterdetail.detail.company.RosterCompanyDetailActivity;
+import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.util.AppUtil;
+import com.jdp.hls.util.BaseListFactory;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LatLngUtil;
 import com.jdp.hls.util.LogUtil;
@@ -40,6 +44,7 @@ import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SoftKeyboardUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.view.dialog.BaseListDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -84,6 +89,7 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
     GetRosterPresenter getRosterPresenter;
     private List<Roster> rosters;
     private Marker currentMarker;
+    private BaseListDialog baseListDialog;
 
     @OnClick({R.id.tv_roster_list, R.id.tv_roster_add, R.id.iv_map_refresh, R.id.iv_map_showall, R.id.iv_search, R.id
             .iv_clear, R.id.ll_back})
@@ -97,7 +103,9 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
                 }
                 break;
             case R.id.tv_roster_add:
-                GoUtil.goActivity(this, RosterAddActivity.class);
+//                GoUtil.goActivity(this, RosterAddActivity.class);
+                //TODO
+                baseListDialog.show();
                 break;
             case R.id.iv_map_refresh:
                 initNet();
@@ -180,6 +188,20 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
             }
         });
         tvTitle.setText(SpSir.getInstance().getProjectName());
+        baseListDialog = new BaseListDialog(this, BaseListFactory.getBuildingTypeList(), "花名册类型");
+        baseListDialog.setOnDisPlayItemClickListener(new BaseListDialog.OnDisPlayItemClickListener() {
+            @Override
+            public void onDisPlayItemClick(BaseListDialog.DisplayItem displayItem) {
+                switch (displayItem.getCode()) {
+                    case Status.BuildingType.PERSONAL:
+                        RosterPersonalDetailActivity.goActivity(RosterActivity.this, "");
+                        break;
+                    case Status.BuildingType.COMPANY:
+                        RosterCompanyDetailActivity.goActivity(RosterActivity.this, "");
+                        break;
+                }
+            }
+        });
     }
 
 
@@ -307,7 +329,12 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
     @Override
     public void onInfoWindowClick(Marker marker) {
         Roster roster = (Roster) marker.getObject();
-        RosterDetailActivity.goActivity(this, roster);
+//        RosterDetailActivity.goActivity(this, roster);
+        if (roster.isEnterprise()) {
+            RosterCompanyDetailActivity.goActivity(RosterActivity.this, roster.getHouseId());
+        }else {
+            RosterPersonalDetailActivity.goActivity(RosterActivity.this,  roster.getHouseId());
+        }
     }
 
     @Override
