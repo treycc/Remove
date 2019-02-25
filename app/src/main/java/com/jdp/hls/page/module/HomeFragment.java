@@ -183,7 +183,6 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
             tvTitle.setString(moduleDetail.getTitle());
         }
         if (moduleDetail != null) {
-            boolean visible = moduleDetail.isVisible();
             tvList.setVisibility(visible ?View.VISIBLE:View.GONE);
             if (!visible) {
                 tvTitle.setString(moduleDetail.getTitle());
