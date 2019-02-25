@@ -1,15 +1,16 @@
 package com.jdp.hls.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.model.entiy.BankInfo;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.util.LatLngUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.view.DrawHelperLayout;
 import com.jdp.hls.view.StringTextView;
 
@@ -40,9 +41,14 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
         Roster roster = list.get(position);
 
         viewHolder.tv_roster_address.setString(roster.getHouseAddress());
-        viewHolder.tv_roster_name.setString(roster.getRealName());
-        viewHolder.tv_roster_phone.setString(roster.getMobilePhone());
-
+        if (TextUtils.isEmpty(roster.getRealName())) {
+            viewHolder.tv_roster_name.setString("未设置主联系人");
+        }else if (TextUtils.isEmpty(roster.getMobilePhone())){
+            viewHolder.tv_roster_name.setString(roster.getRealName());
+        }else {
+            viewHolder.tv_roster_name.setString(String.format("%s/%s",roster.getRealName(),roster.getMobilePhone()));
+            LogUtil.e(TAG,String.format("%s/%s",roster.getRealName(),roster.getMobilePhone()));
+        }
         viewHolder.iv_roster_isAssetEvaluated.setVisibility(roster.isEnterprise() ? View.VISIBLE : View.GONE);
 
         viewHolder.iv_roster_hasLocation.setBackgroundResource(LatLngUtil.isChinaLatLng(roster.getLatitude(), roster
@@ -79,9 +85,18 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
                 roster.setEvaluated(item.isEvaluated());
                 roster.setMeasured(item.isMeasured());
                 roster.setAssetEvaluator(item.isAssetEvaluator());
+                roster.setHouseAddress(item.getHouseAddress());
+                break;
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void modifyMainContacts(Roster item) {
+        for (Roster roster : list) {
+            if (roster.getHouseId().equals(item.getHouseId())) {
                 roster.setRealName(item.getRealName());
                 roster.setMobilePhone(item.getMobilePhone());
-                roster.setHouseAddress(item.getHouseAddress());
                 break;
             }
         }
@@ -92,7 +107,6 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
         public final View root;
         public StringTextView tv_roster_address;
         public StringTextView tv_roster_name;
-        public StringTextView tv_roster_phone;
         public ImageView iv_roster_isAssetEvaluated;
         public ImageView iv_roster_hasLocation;
         public ImageView iv_roster_isMeasure;
@@ -104,8 +118,6 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
             this.root = root;
             tv_roster_address = root.findViewById(R.id.tv_roster_address);
             tv_roster_name = root.findViewById(R.id.tv_roster_name);
-            tv_roster_phone = root.findViewById(R.id.tv_roster_phone);
-
             iv_roster_isAssetEvaluated = root.findViewById(R.id.iv_roster_isAssetEvaluated);
             iv_roster_hasLocation = root.findViewById(R.id.iv_roster_hasLocation);
             iv_roster_isMeasure = root.findViewById(R.id.iv_roster_isMeasure);

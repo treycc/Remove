@@ -16,9 +16,8 @@ import com.jdp.hls.base.BaseBasicActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
-import com.jdp.hls.event.RefreshBusinessListEvent;
+import com.jdp.hls.event.ModifyMainContactsEvent;
 import com.jdp.hls.event.RefreshReminderEvent;
-import com.jdp.hls.event.RefreshTaskEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.FlowNode;
@@ -249,6 +248,14 @@ public class BasicPersonalActivity extends BaseBasicActivity implements BaiscPer
             vrUrl = event.getVRUrl();
             tvVrTip.setVisibility(TextUtils.isEmpty(vrUrl) ? View.VISIBLE : View.GONE);
             LogUtil.e(TAG, "vrUrl:" + vrUrl);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void modifyMainContacts(ModifyMainContactsEvent event) {
+        int buildingType = event.getRoster().isEnterprise() ? 1 : 0;
+        if (buildingType == Status.BuildingType.PERSONAL) {
+           tvBasicName.setText(event.getRoster().getRealName());
         }
     }
 }

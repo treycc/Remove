@@ -1,7 +1,6 @@
 package com.jdp.hls.model.service;
 
 
-import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.model.ProjectAreaInfo;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
@@ -14,6 +13,8 @@ import com.jdp.hls.model.entiy.BankListInfo;
 import com.jdp.hls.model.entiy.BusinessQuery;
 import com.jdp.hls.model.entiy.Company;
 import com.jdp.hls.model.entiy.ConfigCompany;
+import com.jdp.hls.model.entiy.ContactsDetail;
+import com.jdp.hls.model.entiy.ContactsListDetail;
 import com.jdp.hls.model.entiy.DecorationItem;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
@@ -70,7 +71,9 @@ import com.jdp.hls.model.entiy.ReportBuilding;
 import com.jdp.hls.model.entiy.ReportDayResult;
 import com.jdp.hls.model.entiy.ReportHourResult;
 import com.jdp.hls.model.entiy.Roster;
+import com.jdp.hls.model.entiy.RosterCompanyDetail;
 import com.jdp.hls.model.entiy.RosterDetail;
+import com.jdp.hls.model.entiy.RosterPersonalDetail;
 import com.jdp.hls.model.entiy.StatisticsDetail;
 import com.jdp.hls.model.entiy.StatisticsProgressDetail;
 import com.jdp.hls.model.entiy.StatisticsProgressInfo;
@@ -81,6 +84,8 @@ import com.jdp.hls.model.entiy.TaoType;
 import com.jdp.hls.model.entiy.TaoTypePerson;
 import com.jdp.hls.model.entiy.TaskInfo;
 import com.jdp.hls.model.entiy.TitleItem;
+import com.jdp.hls.model.entiy.resultdata.ContactsResult;
+import com.jdp.hls.model.entiy.resultdata.RosterResult;
 
 import java.util.List;
 
@@ -845,4 +850,47 @@ public interface ApiService {
     @GET("user/GetUserViewArea")
     Observable<HttpResult<List<AreaSupervise>>> getAreaSuperviseList();
 
+    /*花名册详情-个人*/
+    @GET("person/GetRosterDetailHouse")
+    Observable<HttpResult<RosterPersonalDetail>> getRosterPersonalDetail(@Query("houseId") String houseId);
+
+    /*保存房产信息-个人*/
+    @POST("person/SaveRosterHouse")
+    Observable<HttpResult<RosterResult>> saveRosterHouse(@Body RequestBody requestBody);
+
+    /*联系人列表*/
+    @GET("person/GetMainPersonList")
+    Observable<HttpResult<ContactsListDetail>> getMainPersonList(@Query("houseId") String houseId, @Query
+            ("buildingType") int buildingType);
+
+    /*联系人-详情*/
+    @GET("person/GetMainPerson")
+    Observable<HttpResult<ContactsDetail>> getContactsDetail(@Query("personId") String personId);
+
+    /*联系人-修改*/
+    @POST("person/SaveMainPerson")
+    Observable<HttpResult<ContactsResult>> saveContactsDetail(@Body RequestBody requestBody);
+
+    /*联系人-删除*/
+    @GET("person/DelMainPerson")
+    Observable<HttpResult<Object>> deleteContacts(@Query("houseId") String houseId, @Query("personId") String
+            personId, @Query("buildingType") int buildingType);
+
+    /*联系人-设主联系*/
+    @GET("person/SetMainContact")
+    Observable<HttpResult<Object>> setMainContacts(@Query("houseId") String houseId, @Query("personId") String
+            personId, @Query("buildingType") int buildingType);
+
+    /*联系人-导入*/
+    @GET("person/ImportMainPerson")
+    Observable<HttpResult<ContactsResult>> importMainContacts(@Query("houseId") String houseId, @Query("personId")
+            String personId, @Query("buildingType") int buildingType);
+
+    /*获取花名册详情-企业*/
+    @GET("person/GetRosterDetailEnt")
+    Observable<HttpResult<RosterCompanyDetail>> getRosterCompanyDetail(@Query("entId") String entId);
+
+    /*保存房产信息-企业*/
+    @POST("person/SaveRosterEnt")
+    Observable<HttpResult<RosterResult>> saveRosterCompany(@Body RequestBody requestBody);
 }

@@ -3,7 +3,6 @@ package com.jdp.hls.page.business.detail.company;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -28,10 +27,12 @@ import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
 import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
+import com.jdp.hls.page.rosterdetail.contacts.list.ContactsListActivity;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
+import com.jdp.hls.view.StringTextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -40,7 +41,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
@@ -58,10 +58,6 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     EnableEditText etDetailEnterpriseName;
     @BindView(R.id.et_detail_address)
     EnableEditText etDetailAddress;
-    @BindView(R.id.et_detail_RealName)
-    EnableEditText etDetailRealName;
-    @BindView(R.id.et_detail_MobilePhone)
-    EnableEditText etDetailMobilePhone;
     @BindView(R.id.et_detail_bizInfo)
     EnableEditText etDetailBizInfo;
     @BindView(R.id.et_detail_rentInfo)
@@ -88,10 +84,6 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     Switch switchDetailPublicity;
     @BindView(R.id.et_mapping_currentOccupyArea)
     EnableEditText etDetailCurrentOccupyArea;
-    @BindView(R.id.tv_detail_juridicalPersonName)
-    TextView tvDetailJuridicalPersonName;
-    @BindView(R.id.tv_detail_juridicalPersonMobile)
-    TextView tvDetailJuridicalPersonMobile;
     @BindView(R.id.tv_detail_bankAccount)
     TextView tvDetailBankAccount;
     @BindView(R.id.ll_detail_bankDeed)
@@ -104,6 +96,10 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     PreviewRecyclerView rvPhotoPreviewOtherCert;
     @BindView(R.id.switch_detail_isUrgent)
     Switch switchDetailIsUrgent;
+    @BindView(R.id.tv_personCount)
+    StringTextView tvPersonCount;
+    @BindView(R.id.ll_owner)
+    LinearLayout llOwner;
     private String buildingId;
     private boolean ifPublicity;
     @Inject
@@ -116,11 +112,10 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     private double latitude;
     private LngLatFragment lngLatFragment;
     private boolean allowEdit;
-    private String realName;
-    private String mobile;
     private String address;
     private String cusCode;
     private boolean isUrgent;
+    private String enterpriseName;
 
     @Override
     public void initVariable() {
@@ -128,7 +123,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     }
 
     @OnClick({R.id.ll_detail_licenseDeed, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
-            .ll_detail_immovableDeed, R.id.ll_detail_bankDeed})
+            .ll_detail_immovableDeed, R.id.ll_detail_bankDeed, R.id.ll_owner})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.ll_detail_licenseDeed:
@@ -156,6 +151,8 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                 goDeedActivity(DeedCompanyBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
                         (openAccountCertNum));
                 break;
+            case R.id.ll_owner:
+                ContactsListActivity.goActivity(this, buildingId, Status.BuildingType.COMPANY, allowEdit);
         }
     }
 
@@ -214,6 +211,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     @Override
     public void onGetCompanyDetailSuccess(DetailCompany detailCompany) {
         setContentTitle(detailCompany.getAddress());
+        tvPersonCount.setHint(String.format("共%d人", detailCompany.getPersonCount()));
         estateCertNum = detailCompany.getEstateCertNum();
         licenseNo = detailCompany.getLicenseNo();
         landCertNum = detailCompany.getLandCertNum();
@@ -222,13 +220,9 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         etDetailCusCode.setText(detailCompany.getCusCode());
         etDetailEnterpriseName.setText(detailCompany.getEnterpriseName());
         etDetailAddress.setText(detailCompany.getAddress());
-        etDetailRealName.setText(detailCompany.getRealName());
-        etDetailMobilePhone.setText(detailCompany.getMobilePhone().trim());
         etDetailBizInfo.setText(detailCompany.getBizInfo());
         etDetailRentInfo.setText(detailCompany.getRentInfo());
         etDetailRemark.setText(detailCompany.getRemark());
-        tvDetailJuridicalPersonName.setText(detailCompany.getJuridicalPersonName());
-        tvDetailJuridicalPersonMobile.setText(detailCompany.getJuridicalPersonMobilePhone());
         tvDetailBankAccount.setText(detailCompany.getBankAccount());
         tvDetailBusinessDeed.setText(licenseNo);
         tvDetailLandDeed.setText(landCertNum);
@@ -253,8 +247,6 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         etDetailCusCode.setEnabled(allowEdit);
         etDetailEnterpriseName.setEnabled(allowEdit);
         etDetailAddress.setEnabled(allowEdit);
-        etDetailRealName.setEnabled(allowEdit);
-        etDetailMobilePhone.setEnabled(allowEdit);
         etDetailBizInfo.setEnabled(allowEdit);
         etDetailRentInfo.setEnabled(allowEdit);
         etDetailRemark.setEnabled(allowEdit);
@@ -273,9 +265,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     private void saveData() {
         cusCode = etDetailCusCode.getText().toString().trim();
         address = etDetailAddress.getText().toString().trim();
-        mobile = etDetailMobilePhone.getText().toString().trim();
-        realName = etDetailRealName.getText().toString().trim();
-        String enterpriseName = etDetailEnterpriseName.getText().toString().trim();
+        enterpriseName = etDetailEnterpriseName.getText().toString().trim();
         String remark = etDetailRemark.getText().toString().trim();
         String rentInfo = etDetailRentInfo.getText().toString().trim();
         String bizInfo = etDetailBizInfo.getText().toString().trim();
@@ -292,8 +282,6 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                 .addFormDataPart("Latitude", String.valueOf(latitude))
                 .addFormDataPart("RentInfo", rentInfo)
                 .addFormDataPart("BizInfo", bizInfo)
-                .addFormDataPart("RealName", realName)
-                .addFormDataPart("MobilePhone", mobile)
                 .addFormDataPart("CurrentOccupyArea", currentOccupyArea)
                 .build());
     }
@@ -312,8 +300,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         businessEvent.setBuildingType(Status.BuildingType.COMPANY);
         businessEvent.setAddress(address);
         businessEvent.setCusCode(cusCode);
-        businessEvent.setMobile(mobile);
-        businessEvent.setRealName(realName);
+        businessEvent.setEnterpriseName(enterpriseName);
         businessEvent.setBuildingId(buildingId);
         EventBus.getDefault().post(businessEvent);
         showSuccessDialogAndFinish("保存成功");
@@ -338,12 +325,15 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                     rvPhotoPreviewProcedure.onActivityResult(requestCode, data);
                     rvPhotoPreviewOtherCert.onActivityResult(requestCode, data);
                     break;
+                case Constants.RequestCode.ContactsList:
+                    int personCount = data.getIntExtra(Constants.Extra.Number, 0);
+                    tvPersonCount.setHint(String.format("共%d人", personCount));
+                    break;
                 default:
                     break;
             }
         }
     }
-
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshDeedEvent(RefreshCertNumEvent event) {
@@ -369,12 +359,5 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
             }
         }
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

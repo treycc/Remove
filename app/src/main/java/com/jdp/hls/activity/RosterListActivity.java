@@ -17,6 +17,8 @@ import com.jdp.hls.event.RemoveRosterEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosteradd.RosterAddActivity;
+import com.jdp.hls.page.rosterdetail.detail.company.RosterCompanyDetailActivity;
+import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
 import com.jdp.hls.util.BaseListFactory;
 import com.jdp.hls.util.GoUtil;
@@ -133,16 +135,16 @@ public class RosterListActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        BaseListDialog baseListDialog = new BaseListDialog(this, BaseListFactory.getBuildingTypeList(),"花名册类型");
+        BaseListDialog baseListDialog = new BaseListDialog(this, BaseListFactory.getBuildingTypeList(), "花名册类型");
         baseListDialog.setOnDisPlayItemClickListener(new BaseListDialog.OnDisPlayItemClickListener() {
             @Override
             public void onDisPlayItemClick(BaseListDialog.DisplayItem displayItem) {
                 switch (displayItem.getCode()) {
                     case Status.BuildingType.PERSONAL:
-                        ToastUtil.showText("个人");
+                        RosterPersonalDetailActivity.goActivity(RosterListActivity.this, "");
                         break;
                     case Status.BuildingType.COMPANY:
-                        ToastUtil.showText("企业");
+                        RosterCompanyDetailActivity.goActivity(RosterListActivity.this, "");
                         break;
                 }
             }
@@ -168,7 +170,7 @@ public class RosterListActivity extends BaseTitleActivity {
     }
 
     private void doSearch(String keyword) {
-        if (rosters == null|| rosters.size() == 0) {
+        if (rosters == null || rosters.size() == 0) {
             ToastUtil.showText("暂无花名册信息");
             return;
         }

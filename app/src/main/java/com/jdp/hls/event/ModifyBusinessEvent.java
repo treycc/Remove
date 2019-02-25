@@ -13,9 +13,18 @@ public class ModifyBusinessEvent {
     private String mobile;
     private String address;
     private String VRUrl;
+    private String EnterpriseName;
     private int buildingType;
     private boolean IsUrgent;
     private boolean IsReminder;
+
+    public String getEnterpriseName() {
+        return null == EnterpriseName ? "" : EnterpriseName;
+    }
+
+    public void setEnterpriseName(String enterpriseName) {
+        EnterpriseName = enterpriseName;
+    }
 
     public boolean isUrgent() {
         return IsUrgent;

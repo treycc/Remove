@@ -81,6 +81,10 @@ import com.jdp.hls.page.publicity.apply.PublicityApplyActivity;
 import com.jdp.hls.page.publicity.detail.PublicityDetailActivity;
 import com.jdp.hls.page.publicity.list.PublicityListFragment;
 import com.jdp.hls.page.publicity.object.PublicityObjectActivity;
+import com.jdp.hls.page.rosterdetail.contacts.detail.ContactsDetailActivity;
+import com.jdp.hls.page.rosterdetail.contacts.list.ContactsListActivity;
+import com.jdp.hls.page.rosterdetail.detail.company.RosterCompanyDetailActivity;
+import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.page.setting.SettingActivity;
 import com.jdp.hls.injector.annotation.PerActivity;
 import com.jdp.hls.injector.component.AppComponent;
@@ -120,6 +124,14 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(RosterCompanyDetailActivity target);
+
+    void inject(ContactsDetailActivity target);
+
+    void inject(ContactsListActivity target);
+
+    void inject(RosterPersonalDetailActivity target);
+
     void inject(AreaSuperviseAddActivity target);
 
     void inject(ReceiveAccountListActivity target);

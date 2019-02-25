@@ -69,6 +69,7 @@ public class DetailPersonal {
     private String EstateCertNum;
     private String Remark;
     private int StatusId;
+    private int PersonCount;
     private String StatusDesc;
     private String PersonId;
     private String BookletId;
@@ -76,6 +77,14 @@ public class DetailPersonal {
     private String VRUrl;
     private List<ImgInfo> Files;
     private List<ImgInfo> ApprovalFiles;
+
+    public int getPersonCount() {
+        return PersonCount;
+    }
+
+    public void setPersonCount(int personCount) {
+        PersonCount = personCount;
+    }
 
     public boolean isUrgent() {
         return IsUrgent;

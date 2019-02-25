@@ -241,7 +241,7 @@ public class BasicCompanyActivity extends BaseBasicActivity implements BaiscComp
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void modifyBusinessEvent(ModifyBusinessEvent event) {
         if (event.getBuildingType() == Status.BuildingType.COMPANY) {
-            tvBasicName.setText(event.getRealName());
+            tvBasicName.setText(event.getEnterpriseName());
             tvBasicAddress.setText(event.getAddress());
         }
     }

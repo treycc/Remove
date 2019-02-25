@@ -35,6 +35,11 @@ public class Status {
         int COMPANY = 1;
     }
 
+    public interface AddType {
+        int IMPORT = 0;
+        int ADD = 1;
+    }
+
     //    string,路由ID 1.普通账号  2:后台管理,
     public interface RouteId {
         int SYSTEM_LEVY = 1;
