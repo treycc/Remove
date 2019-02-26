@@ -69,10 +69,6 @@ public class MineFragment extends BaseFragment implements MineContract.View {
     TextView tvMineAlias;
     @BindView(R.id.rl_mine_alias)
     LinearLayout rlMineAlias;
-    @BindView(R.id.tv_mine_project)
-    TextView tvMineProject;
-    @BindView(R.id.rl_mine_project)
-    LinearLayout rlMineProject;
     @BindView(R.id.tv_mine_phone)
     TextView tvMinePhone;
     @BindView(R.id.rl_mine_phone)
@@ -96,7 +92,7 @@ public class MineFragment extends BaseFragment implements MineContract.View {
     private long[] mHits = new long[5];
     private boolean debugMode;
 
-    @OnClick({R.id.rl_mine_account, R.id.rl_mine_alias, R.id.rl_mine_project, R.id.rl_mine_phone, R.id
+    @OnClick({R.id.rl_mine_account, R.id.rl_mine_alias, R.id.rl_mine_phone, R.id
             .rl_mine_setting, R.id.ll_mine_service, R.id.ll_personal_head, R.id.tv_title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -105,9 +101,6 @@ public class MineFragment extends BaseFragment implements MineContract.View {
             case R.id.rl_mine_alias:
                 String alias = tvMineAlias.getText().toString().trim();
                 ModifyAndUploadActivity.goActivityInFragment(this, Constants.ModifyCode.MODIFY_ALIAS, "别名", alias);
-                break;
-            case R.id.rl_mine_project:
-                GoUtil.goActivityForResultInFragment(this, ProjectListActivity.class, REQUST_PROJECTS);
                 break;
             case R.id.rl_mine_phone:
                 String phone = tvMinePhone.getText().toString().trim();
@@ -170,10 +163,6 @@ public class MineFragment extends BaseFragment implements MineContract.View {
                 case Constants.ModifyCode.MODIFY_PHONE:
                     tvMinePhone.setText(newVaule);
                     break;
-                case REQUST_PROJECTS:
-                    LogUtil.e(TAG, "projectName:" + data.getStringExtra("projectName"));
-                    tvMineProject.setText(data.getStringExtra("projectName"));
-                    break;
                 case MatisseUtil.REQUEST_CODE_CHOOSE:
                     List<Uri> selectedUris = Matisse.obtainResult(data);
                     if (selectedUris != null && selectedUris.size() > 0) {
@@ -230,7 +219,6 @@ public class MineFragment extends BaseFragment implements MineContract.View {
         tvMineCompanyName.setText(SpSir.getInstance().getCompanyName());
         tvMinePhone.setText(SpSir.getInstance().getMobilePhone());
         tvMineAccount.setText(String.valueOf(SpSir.getInstance().getAccountName()));
-        tvMineProject.setText(SpSir.getInstance().getProjectName());
         String alias = SpSir.getInstance().getAccountAlias();
         ivArrowAlias.setVisibility(TextUtils.isEmpty(alias) ? View.VISIBLE : View.GONE);
         rlMineAlias.setEnabled(TextUtils.isEmpty(alias));
@@ -258,8 +246,4 @@ public class MineFragment extends BaseFragment implements MineContract.View {
         ToastUtil.showText("头像上传成功");
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void switchProject(SwitchProjectEvent event) {
-        tvMineProject.setText(SpSir.getInstance().getProjectName());
-    }
 }

@@ -19,6 +19,24 @@ public class Roster implements Serializable {
     private boolean IsEvaluated;
     private boolean IsAssetEvaluator;
     private boolean IsMeasured;
+    private int StatusId;
+    private int buildingType;
+
+    public int getBuildingType() {
+        return buildingType;
+    }
+
+    public void setBuildingType(int buildingType) {
+        this.buildingType = buildingType;
+    }
+
+    public int getStatusId() {
+        return StatusId;
+    }
+
+    public void setStatusId(int statusId) {
+        StatusId = statusId;
+    }
 
     public boolean isAssetEvaluator() {
         return IsAssetEvaluator;

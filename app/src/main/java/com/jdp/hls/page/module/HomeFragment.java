@@ -116,7 +116,9 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
                 break;
             case Status.ModuleId.SYSTEM_LOCATION:
                 //地理信息
-                GoUtil.goActivity(getActivity(), GeographyActivity.class);
+                if (CheckUtil.checkEmpty(SpSir.getInstance().getProjectId(), "请选择项目")) {
+                    GoUtil.goActivity(getActivity(), GeographyActivity.class);
+                }
                 break;
             case Status.ModuleId.SYSTEM_PROJECRT_CHECK:
                 //项目审批系统
@@ -180,12 +182,12 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
     @Override
     public void onGetModuleDetailSuccess(ModuleDetail moduleDetail) {
         boolean visible = moduleDetail.isVisible();
-        tvList.setVisibility(visible ?View.VISIBLE:View.GONE);
+        tvList.setVisibility(visible ? View.VISIBLE : View.GONE);
         if (!visible) {
             tvTitle.setString(moduleDetail.getTitle());
         }
         if (moduleDetail != null) {
-            tvList.setVisibility(visible ?View.VISIBLE:View.GONE);
+            tvList.setVisibility(visible ? View.VISIBLE : View.GONE);
             if (!visible) {
                 tvTitle.setString(moduleDetail.getTitle());
             }

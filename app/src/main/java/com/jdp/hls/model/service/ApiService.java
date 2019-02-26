@@ -890,6 +890,10 @@ public interface ApiService {
     @GET("person/GetRosterDetailEnt")
     Observable<HttpResult<RosterCompanyDetail>> getRosterCompanyDetail(@Query("entId") String entId);
 
+    /*获取花名册列表-地理信息*/
+    @GET("person/GetRosterListForMap")
+    Observable<HttpResult<List<Roster>>> getGeographyRosterList();
+
     /*保存房产信息-企业*/
     @POST("person/SaveRosterEnt")
     Observable<HttpResult<RosterResult>> saveRosterCompany(@Body RequestBody requestBody);

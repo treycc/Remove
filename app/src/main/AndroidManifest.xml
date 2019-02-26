@@ -409,7 +409,8 @@
         <activity android:name=".page.rosterdetail.contacts.list.ContactsListActivity"/>
         <activity android:name=".page.rosterdetail.detail.personal.RosterPersonalDetailActivity"/>
         <activity android:name=".page.rosterdetail.detail.company.RosterCompanyDetailActivity"/>
-        <activity android:name=".page.geography.GeographyActivity"/>
+        <activity android:name=".page.geography.GeographyActivity"
+                  android:windowSoftInputMode="adjustPan"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

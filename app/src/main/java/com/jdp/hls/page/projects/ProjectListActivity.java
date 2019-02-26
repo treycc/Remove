@@ -209,7 +209,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
         SpSir.getInstance().setProjectName(project.getProjectName());
         EventBus.getDefault().post(new RefreshRostersEvent());
         EventBus.getDefault().post(new SwitchProjectEvent());
-        GoUtil.goActivityAndFinish(this, HomeActivity.class);
+        finish();
     }
 
     @Override
