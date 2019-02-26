@@ -24,6 +24,8 @@ import com.jdp.hls.page.admin.employee.list.EmployeeListActivity;
 import com.jdp.hls.page.admin.message.notification.NotificationActivity;
 import com.jdp.hls.page.admin.project.list.ProjectListAdminActivity;
 import com.jdp.hls.page.admin.query.list.QueryListActivity;
+import com.jdp.hls.page.geography.GeographyActivity;
+import com.jdp.hls.page.geography.TileOverlayActivity;
 import com.jdp.hls.page.levy.LevyActivity;
 import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.page.supervise.project.detail.ProjectDetailSuperviseActivity;
@@ -114,7 +116,7 @@ public class HomeFragment extends BaseFragment implements ModuleContract.View {
                 break;
             case Status.ModuleId.SYSTEM_LOCATION:
                 //地理信息
-                TodoActivity.goActivity(getActivity(), "地理信息系统");
+                GoUtil.goActivity(getActivity(), GeographyActivity.class);
                 break;
             case Status.ModuleId.SYSTEM_PROJECRT_CHECK:
                 //项目审批系统

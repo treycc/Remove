@@ -50,6 +50,8 @@
         <!--项目列表-->
         <activity
             android:name=".page.projects.ProjectListActivity"
+            android:screenOrientation="portrait"/>       <activity
+            android:name=".page.geography.TileOverlayActivity"
             android:screenOrientation="portrait"/>
         <!--修改页-->
         <activity
@@ -407,6 +409,7 @@
         <activity android:name=".page.rosterdetail.contacts.list.ContactsListActivity"/>
         <activity android:name=".page.rosterdetail.detail.personal.RosterPersonalDetailActivity"/>
         <activity android:name=".page.rosterdetail.detail.company.RosterCompanyDetailActivity"/>
+        <activity android:name=".page.geography.GeographyActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->
