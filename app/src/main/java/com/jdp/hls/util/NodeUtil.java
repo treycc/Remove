@@ -58,27 +58,27 @@ public class NodeUtil {
                         .NODE_PROTOCOL, Status.BuildingTypeStr.COMPANY);
                 break;
             case Constants.BusinessNode.PERSONAL_MEASURE:
-                //个人入户丈量
+                //住宅入户丈量
                 goNodeActivity(activity, NodePersonalMeasureActivity.class, buildingId, Status.FileType.NODE_MEASURE,
                         Status.BuildingTypeStr.PERSONAL);
                 break;
             case Constants.BusinessNode.PERSONAL_MAPPING:
-                //个人测绘出图
+                //住宅测绘出图
                 goNodeActivity(activity, NodePersonalMappingActivity.class, buildingId, Status.FileType.NODE_MAPPING,
                         Status.BuildingTypeStr.PERSONAL);
                 break;
             case Constants.BusinessNode.PERSONAL_AGE:
-                //个人年限鉴定
+                //住宅年限鉴定
                 goNodeActivity(activity, NodePersonalAgeActivity.class, buildingId, Status.FileType.NODE_AGE, Status
                         .BuildingTypeStr.PERSONAL);
                 break;
             case Constants.BusinessNode.PERSONAL_EVALUATE:
-                //个人评估
+                //住宅评估
                 goNodeActivity(activity, NodePersonalEvaluateActivity.class, buildingId, Status.FileType
                         .HOUSE_EVALUATE, Status.BuildingTypeStr.PERSONAL);
                 break;
             case Constants.BusinessNode.PERSONAL_PROTOCOL:
-                //个人协议生成
+                //住宅协议生成
 //                goNodeActivity(activity, NodePersonalProtocolActivity.class, buildingId, Status.FileType
 //                        .NODE_PROTOCOL, Status.BuildingTypeStr.PERSONAL);
 

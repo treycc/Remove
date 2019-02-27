@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
@@ -59,8 +60,8 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
                 .ic_evaluate_action : R.mipmap.ic_evaluate_nor);
         viewHolder.iv_roster_isAssetEvaluated.setBackgroundResource(roster.isAssetEvaluator() ? R.mipmap
                 .ic_assetevaluate_action : R.mipmap.ic_assetevaluate_nor);
-
-
+        viewHolder.ll_enterpriseName.setVisibility(roster.getBuildingType()==1?View.VISIBLE:View.GONE);
+        viewHolder.tv_enterpriseName.setString(roster.getEnterpriseName());
         viewHolder.tv_delete.setOnClickListener(v -> {
             if (onItemOperListener != null) {
                 onItemOperListener.onItemDelete(roster, position);
@@ -86,6 +87,7 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
                 roster.setMeasured(item.isMeasured());
                 roster.setAssetEvaluator(item.isAssetEvaluator());
                 roster.setHouseAddress(item.getHouseAddress());
+                roster.setEnterpriseName(item.getEnterpriseName());
                 break;
             }
         }
@@ -107,6 +109,8 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
         public final View root;
         public StringTextView tv_roster_address;
         public StringTextView tv_roster_name;
+        public StringTextView tv_enterpriseName;
+        public LinearLayout ll_enterpriseName;
         public ImageView iv_roster_isAssetEvaluated;
         public ImageView iv_roster_hasLocation;
         public ImageView iv_roster_isMeasure;
@@ -123,6 +127,8 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
             iv_roster_isMeasure = root.findViewById(R.id.iv_roster_isMeasure);
             iv_roster_isEvaluated = root.findViewById(R.id.iv_roster_isEvaluated);
             drawHelperLayout = root.findViewById(R.id.drawHelperLayout);
+            ll_enterpriseName = root.findViewById(R.id.ll_enterpriseName);
+            tv_enterpriseName = root.findViewById(R.id.tv_enterpriseName);
             tv_delete = root.findViewById(R.id.tv_delete);
         }
     }

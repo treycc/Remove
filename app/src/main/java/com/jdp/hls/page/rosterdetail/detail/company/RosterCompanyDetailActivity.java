@@ -93,6 +93,7 @@ public class RosterCompanyDetailActivity extends BaseTitleActivity implements Ro
     private double lat;
     private LngLatFragment locationFragment;
     private String address;
+    private String companyName;
 
     @OnClick({R.id.ll_location, R.id.ll_contacts})
     public void click(View view) {
@@ -161,7 +162,7 @@ public class RosterCompanyDetailActivity extends BaseTitleActivity implements Ro
     private void saveData() {
         address = etRosterAddress.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
-        String companyName = etRosterCompanyName.getText().toString().trim();
+        companyName = etRosterCompanyName.getText().toString().trim();
         if (CheckUtil.checkEmpty(address, "请输入地址")) {
             MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("HouseId", buildingId)
@@ -241,6 +242,7 @@ public class RosterCompanyDetailActivity extends BaseTitleActivity implements Ro
         roster.setMeasured(isMeasured);
         roster.setAssetEvaluator(isAssetEvaluator);
         roster.setHouseAddress(address);
+        roster.setEnterpriseName(companyName);
         if (TextUtils.isEmpty(buildingId)) {
             //新增
             EventBus.getDefault().post(new AddRostersEvent(roster));

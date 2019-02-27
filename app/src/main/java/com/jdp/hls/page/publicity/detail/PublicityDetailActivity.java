@@ -169,7 +169,7 @@ public class PublicityDetailActivity extends BaseTitleActivity implements Public
         tvPublicityCount.setString(publicityDetail.getTotalQuantity());
         tvPublicityStartDate.setString(DateUtil.getShortDate(publicityDetail.getStartDate()));
         tvPublicityEndDate.setString(DateUtil.getShortDate(publicityDetail.getEndDate()));
-        tvBuildingType.setString(publicityDetail.getBuildingType() == Status.BuildingType.PERSONAL ? "个人" : "企业");
+        tvBuildingType.setString(publicityDetail.getBuildingType() == Status.BuildingType.PERSONAL ? "住宅" : "企业");
         tvPublicityType.setString(publicityDetail.getPubType() == Status.PublicityType.SURVEY ? "调查公示" : "认定公示");
         etDes.setString(publicityDetail.getDescriptiton());
         rvPhoto.setDate(publicityDetail.getFiles(), publicityDetail.isAllowEdit());

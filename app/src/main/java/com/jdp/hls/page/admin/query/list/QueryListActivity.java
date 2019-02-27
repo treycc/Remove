@@ -45,7 +45,7 @@ public class QueryListActivity extends BaseTitleActivity implements QueryListCon
     TabLayout tab;
     @BindView(R.id.vp)
     ViewPager vp;
-    private String[] tabBusinessTitles = {"个人业务", "企业业务"};
+    private String[] tabBusinessTitles = {"住宅业务", "企业业务"};
     private String[] tabBusinessCounts = {"0", "0"};
     private int[] tabBusinessIcons = {R.drawable.selector_tab_personal, R.drawable.selector_tab_company};
     private QueryListFragment mFragmentArr[] = new QueryListFragment[2];

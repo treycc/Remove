@@ -49,10 +49,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import lib.kingja.switchbutton.SwitchMultiButton;
 import okhttp3.MultipartBody;
 
 /**
- * Description:个人业务详情
+ * Description:住宅业务详情
  * Create Time:2018/9/10 0010 上午 8:45
  * Author:KingJA
  * Email:kingjavip@gmail.com
@@ -86,11 +87,11 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     @BindView(R.id.et_detail_remark)
     EnableEditText etDetailRemark;
     @BindView(R.id.switch_detail_needHouse)
-    Switch switchDetailNeedHouse;
+    SwitchMultiButton switchDetailNeedHouse;
     @BindView(R.id.switch_detail_publicity)
-    Switch switchDetailPublicity;
+    SwitchMultiButton switchDetailPublicity;
     @BindView(R.id.switch_detail_hasShop)
-    Switch switchDetailHasShop;
+    SwitchMultiButton switchDetailHasShop;
     @BindView(R.id.ll_businessArea)
     LinearLayout llBusinessArea;
     @BindView(R.id.rv_photo_preview_procedure)
@@ -102,7 +103,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     @BindView(R.id.et_detail_vrUrl)
     EnableEditText etDetailVrUrl;
     @BindView(R.id.switch_detail_isUrgent)
-    Switch switchDetailIsUrgent;
+    SwitchMultiButton switchDetailIsUrgent;
     @BindView(R.id.tv_personCount)
     StringTextView tvPersonCount;
     @BindView(R.id.ll_owner)
@@ -202,17 +203,17 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     }
 
     private void initSpinners() {
-        switchDetailNeedHouse.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            needHouse = isChecked;
+        switchDetailNeedHouse.setOnSwitchListener((position, tabText) -> {
+            needHouse = position==1;
         });
-        switchDetailPublicity.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            ifPublicity = isChecked;
+        switchDetailPublicity.setOnSwitchListener((position, tabText) -> {
+            ifPublicity = position==1;
         });
-        switchDetailIsUrgent.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            isUrgent = isChecked;
+        switchDetailIsUrgent.setOnSwitchListener((position, tabText) -> {
+            isUrgent = position==1;
         });
-        switchDetailHasShop.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            hasShop = isChecked;
+        switchDetailHasShop.setOnSwitchListener((position, tabText) -> {
+            hasShop = position==1;
             llBusinessArea.setVisibility(hasShop ? View.VISIBLE : View.GONE);
         });
     }
@@ -240,10 +241,12 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         tvDetailImmovableDeed.setText(detailPersonal.getEstateCertNum());
 //        tvDetailBankAccount.setText(detailPersonal.getBankAccount());
         etDetailRemark.setText(detailPersonal.getRemark());
-        switchDetailHasShop.setChecked(hasShop);
-        switchDetailNeedHouse.setChecked(detailPersonal.isNeedTempHouse());
-        switchDetailPublicity.setChecked(detailPersonal.isAllowPublicity());
-        switchDetailIsUrgent.setChecked(isUrgent);
+
+        switchDetailHasShop.setSelectedTab(hasShop ? 1 : 0);
+        switchDetailNeedHouse.setSelectedTab(needHouse ? 1 : 0);
+        switchDetailPublicity.setSelectedTab(ifPublicity ? 1 : 0);
+        switchDetailIsUrgent.setSelectedTab(isUrgent ? 1 : 0);
+
         llBusinessArea.setVisibility(hasShop ? View.VISIBLE : View.GONE);
         initLngLat(detailPersonal.getLongitude(), detailPersonal.getLatitude());
         allowEdit = detailPersonal.isAllowEdit();

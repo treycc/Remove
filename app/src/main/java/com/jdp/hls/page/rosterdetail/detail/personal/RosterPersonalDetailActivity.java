@@ -123,7 +123,7 @@ public class RosterPersonalDetailActivity extends BaseTitleActivity implements R
 
     @Override
     protected String getContentTitle() {
-        return "个人房产";
+        return "住宅房产";
     }
 
     @Override

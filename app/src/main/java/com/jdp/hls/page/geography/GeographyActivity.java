@@ -20,28 +20,19 @@ import com.amap.api.maps.model.TileOverlay;
 import com.amap.api.maps.model.TileOverlayOptions;
 import com.amap.api.maps.model.UrlTileProvider;
 import com.jdp.hls.R;
-import com.jdp.hls.activity.RosterListActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
-import com.jdp.hls.event.SwitchProjectEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.map.KMapInfoWindowAdapter;
 import com.jdp.hls.model.entiy.Roster;
-import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.page.rosterdetail.detail.company.RosterCompanyDetailActivity;
 import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.util.AppUtil;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LatLngUtil;
-import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -75,7 +66,8 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
     @BindView(R.id.iv_map_showall)
     ImageView ivMapShowall;
     private AMap mAMap;
-    final String url = "content/MapImg/tiles/%d/%d_%d.png";
+//    final String url = "content/MapImg/tiles/%d/%d_%d.png";
+    final String url = "/person/MapUrl?img=%d_%d_%d&projectId=%s";///person/MapUrl?img=z_x_y&projectId=xxxxx"
     private TileOverlay tileOverlay;
     private boolean showTileOverlay;
     private TileOverlayOptions tileOverlayOptions;
@@ -117,7 +109,6 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
 
     @Override
     public void initVariable() {
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -146,12 +137,6 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
 
     @Override
     protected void initData() {
-        setRightClick("项目选择", new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                GoUtil.goActivity(GeographyActivity.this, ProjectListActivity.class);
-            }
-        });
         etKeyword.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -216,7 +201,7 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
             public URL getTileUrl(int x, int y, int zoom) {
                 try {
                     Log.e("getTileUrl", "URL:" + new URL(String.format(SpSir.getInstance().getServerName() + url,
-                            zoom, x, y)).toString());
+                            zoom, x, y,SpSir.getInstance().getProjectId())).toString());
                     return new URL(String.format(SpSir.getInstance().getServerName() + url, zoom, x, y));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -317,7 +302,7 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
         MarkerOptions markOptions = new MarkerOptions();
         markOptions.draggable(true);//设置Marker可拖动
         markOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),
-                R.mipmap.ic_protocol_generation_cpy))).anchor(0.5f, 0.5f);
+                R.mipmap.bbb))).anchor(0.5f, 0.5f);
 
 //        markOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),
 //                getRosterIconf(roster.isEnterprise(), roster.getStatusId())))).anchor(0.5f, 0.5f);
@@ -326,11 +311,5 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
         marker.setSnippet(roster.getHouseAddress());
         marker.setObject(roster);
         marker.setPosition(new LatLng(roster.getLatitude(), roster.getLongitude()));
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void switchProject(SwitchProjectEvent event) {
-        setContentTitle(SpSir.getInstance().getProjectName());
-        initNet();
     }
 }

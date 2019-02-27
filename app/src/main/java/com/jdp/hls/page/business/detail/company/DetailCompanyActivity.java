@@ -42,6 +42,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import lib.kingja.switchbutton.SwitchMultiButton;
 import okhttp3.MultipartBody;
 
 /**
@@ -81,7 +82,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     @BindView(R.id.et_detail_remark)
     EditText etDetailRemark;
     @BindView(R.id.switch_detail_publicity)
-    Switch switchDetailPublicity;
+    SwitchMultiButton switchDetailPublicity;
     @BindView(R.id.et_mapping_currentOccupyArea)
     EnableEditText etDetailCurrentOccupyArea;
     @BindView(R.id.tv_detail_bankAccount)
@@ -95,7 +96,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     @BindView(R.id.rv_photo_preview_otherCert)
     PreviewRecyclerView rvPhotoPreviewOtherCert;
     @BindView(R.id.switch_detail_isUrgent)
-    Switch switchDetailIsUrgent;
+    SwitchMultiButton switchDetailIsUrgent;
     @BindView(R.id.tv_personCount)
     StringTextView tvPersonCount;
     @BindView(R.id.ll_owner)
@@ -191,8 +192,11 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
 
     @Override
     protected void initData() {
-        switchDetailPublicity.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            ifPublicity = isChecked;
+        switchDetailPublicity.setOnSwitchListener((position, tabText) -> {
+            ifPublicity = position==1;
+        });
+        switchDetailIsUrgent.setOnSwitchListener((position, tabText) -> {
+            isUrgent = position == 1;
         });
         lngLatFragment = (LngLatFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_lnglat);
     }
@@ -231,8 +235,8 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
 
         ifPublicity = detailCompany.isAllowPublicity();
         isUrgent = detailCompany.isUrgent();
-        switchDetailPublicity.setChecked(ifPublicity);
-        switchDetailIsUrgent.setChecked(isUrgent);
+        switchDetailPublicity.setSelectedTab(ifPublicity ? 1 : 0);
+        switchDetailIsUrgent.setSelectedTab(isUrgent ? 1 : 0);
 
         initLngLat(detailCompany.getLongitude(), detailCompany.getLatitude());
         allowEdit = detailCompany.isAllowEdit();
@@ -302,6 +306,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         businessEvent.setCusCode(cusCode);
         businessEvent.setEnterpriseName(enterpriseName);
         businessEvent.setBuildingId(buildingId);
+        businessEvent.setUrgent(isUrgent);
         EventBus.getDefault().post(businessEvent);
         showSuccessDialogAndFinish("保存成功");
     }

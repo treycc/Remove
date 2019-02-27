@@ -183,7 +183,7 @@ public class PublicityApplyActivity extends BaseTitleActivity implements Publici
         });
         publicityType=spinnerPublicityType.getDefaultTypeId();
 
-        spinnerBuildingType.attachDataSource(Arrays.asList("个人", "企业"));
+        spinnerBuildingType.attachDataSource(Arrays.asList("住宅", "企业"));
         spinnerBuildingType.addOnItemClickListener((parent, view, position, id) -> {
             buildingType = position;
         });

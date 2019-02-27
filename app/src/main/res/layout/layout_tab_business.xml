@@ -17,7 +17,7 @@
         android:textColor="@drawable/selector_tab_txt_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="个人业务"/>
+        android:text="住宅业务"/>
     <TextView
         android:textColor="@drawable/selector_tab_txt_color"
         android:layout_width="wrap_content"

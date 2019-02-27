@@ -33,7 +33,7 @@ import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
 /**
- * Description:协议生成-个人
+ * Description:协议生成-住宅
  * Create Time:2018/9/11 0011 下午 3:20
  * Author:KingJA
  * Email:kingjavip@gmail.com

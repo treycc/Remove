@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
- * Description:测绘出图-个人
+ * Description:测绘出图-住宅
  * Create Time:2018/9/11 0011 下午 3:20
  * Author:KingJA
  * Email:kingjavip@gmail.com
