@@ -1,9 +1,9 @@
 package com.jdp.hls.page.geography;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -66,8 +66,8 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
     @BindView(R.id.iv_map_showall)
     ImageView ivMapShowall;
     private AMap mAMap;
-//    final String url = "content/MapImg/tiles/%d/%d_%d.png";
-    final String url = "/person/MapUrl?img=%d_%d_%d&projectId=%s";///person/MapUrl?img=z_x_y&projectId=xxxxx"
+    //    final String url = "content/MapImg/tiles/%d/%d_%d.png";
+    final String url = "/person/MapUrl?img=%d_%d_%d&projectId=%s&token=%s";///person/MapUrl?img=z_x_y&projectId=xxxxx"
     private TileOverlay tileOverlay;
     private boolean showTileOverlay;
     private TileOverlayOptions tileOverlayOptions;
@@ -146,6 +146,7 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
             }
         });
     }
+
     private void checkData(String keyword) {
         doSearch(keyword);
     }
@@ -164,6 +165,7 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
         }
         refreshRostersOnMap(selectRosters);
     }
+
     @Override
     public void initNet() {
         getGeographyRosterListPresenter.getGeographyRosterList();
@@ -190,7 +192,6 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
             mAMap.setOnInfoWindowClickListener(this);// 设置点击InfoWindow事件监听器
             mAMap.setOnMapClickListener(this);
             mAMap.setInfoWindowAdapter(new KMapInfoWindowAdapter(this));
-
             initTileOverlay();
         }
     }
@@ -201,8 +202,10 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
             public URL getTileUrl(int x, int y, int zoom) {
                 try {
                     Log.e("getTileUrl", "URL:" + new URL(String.format(SpSir.getInstance().getServerName() + url,
-                            zoom, x, y,SpSir.getInstance().getProjectId())).toString());
-                    return new URL(String.format(SpSir.getInstance().getServerName() + url, zoom, x, y));
+                            zoom, x, y, SpSir.getInstance().getProjectId(), SpSir.getInstance().getToken())).toString
+                            ());
+                    return new URL(String.format(SpSir.getInstance().getServerName() + url, zoom, x, y, SpSir
+                            .getInstance().getProjectId(), SpSir.getInstance().getToken()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -301,11 +304,14 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
     private void setMarket(Roster roster) {
         MarkerOptions markOptions = new MarkerOptions();
         markOptions.draggable(true);//设置Marker可拖动
-        markOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),
-                R.mipmap.bbb))).anchor(0.5f, 0.5f);
+
+        ImageView markerView = (ImageView) LayoutInflater.from(this).inflate(R.layout.view_marker, mapView, false);
+        markerView.setBackgroundResource(R.mipmap.bbb);
+        markOptions.icon(BitmapDescriptorFactory.fromView(markerView)).anchor(0.5f, 1.0f);
 
 //        markOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),
-//                getRosterIconf(roster.isEnterprise(), roster.getStatusId())))).anchor(0.5f, 0.5f);
+//                R.mipmap.bbb))).anchor(0.5f, 1.0f);
+
         Marker marker = mAMap.addMarker(markOptions);
         marker.setTitle(roster.getRealName());
         marker.setSnippet(roster.getHouseAddress());
