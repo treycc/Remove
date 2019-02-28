@@ -1,6 +1,7 @@
 package com.jdp.hls.page.geography;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,6 +76,7 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
     @Inject
     GetGeographyRosterListPresenter getGeographyRosterListPresenter;
     private List<Roster> rosters;
+    private LatLngBounds.Builder newbounds;
     //    final String url = "http://a.tile.openstreetmap.org/%d/%d/%d.png";
 
     @OnClick({R.id.iv_map_tileoverlay, R.id.iv_map_showall, R.id.iv_map_refresh, R.id.iv_clear})
@@ -89,7 +91,8 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
                 }
                 break;
             case R.id.iv_map_refresh:
-                initNet();
+                getGeographyRosterListPresenter.getGeographyRosterList();
+                break;
             case R.id.iv_clear:
                 etKeyword.setText("");
                 break;
@@ -168,7 +171,13 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
 
     @Override
     public void initNet() {
-        getGeographyRosterListPresenter.getGeographyRosterList();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getGeographyRosterListPresenter.getGeographyRosterList();
+            }
+        },200);
+
     }
 
     @Override
@@ -182,11 +191,11 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
         if (mAMap == null) {
             mAMap = mapView.getMap();
             mAMap.moveCamera(CameraUpdateFactory.zoomTo(4));
-            mAMap.setMapTextZIndex(2);
+//            mAMap.setMapTextZIndex(2);
 
-            mAMap.setMapType(AMap.MAP_TYPE_NORMAL);// 标准地图模式
-            mAMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Constants.MapSetting.Lat, Constants.MapSetting
-                    .Lng)));
+//            mAMap.setMapType(AMap.MAP_TYPE_NORMAL);// 标准地图模式
+//            mAMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(Constants.MapSetting.Lat, Constants.MapSetting
+//                    .Lng)));
             mAMap.getUiSettings().setZoomControlsEnabled(true);
             mAMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
             mAMap.setOnInfoWindowClickListener(this);// 设置点击InfoWindow事件监听器
@@ -276,12 +285,12 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
     }
 
     private void refreshRostersOnMap(List<Roster> rosters) {
-        drawRostersOnMap(rosters);
         showAllRostersOnMap(rosters);
+        drawRostersOnMap(rosters);
     }
 
     private void showAllRostersOnMap(List<Roster> rosters) {
-        LatLngBounds.Builder newbounds = new LatLngBounds.Builder();
+         newbounds = new LatLngBounds.Builder();
         for (Roster roster : rosters) {
             if (LatLngUtil.isChinaLatLng(roster.getLatitude(), roster.getLongitude())) {
                 newbounds.include(new LatLng(roster.getLatitude(), roster.getLongitude()));
@@ -298,7 +307,7 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
                 setMarket(roster);
             }
         }
-        mapView.invalidate();
+//        mapView.invalidate();
     }
 
     private void setMarket(Roster roster) {
