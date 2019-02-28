@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -12,13 +11,11 @@ import android.widget.CheckBox;
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
-import com.jdp.hls.constant.Status;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.Login;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.UserInfo;
 import com.jdp.hls.page.home.HomeActivity;
-import com.jdp.hls.page.projects.ProjectListActivity;
 import com.jdp.hls.page.server.ServerSelectorActivity;
 import com.jdp.hls.service.initialize.InitializeService;
 import com.jdp.hls.util.AesUtil;
@@ -92,13 +89,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
         mHits[mHits.length - 1] = SystemClock.uptimeMillis();
         if (mHits[0] >= (SystemClock.uptimeMillis() - 1000)&&!debugMode) {
             debugMode=true;
-            ToastUtil.showText("开启调试模式");
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    GoUtil.goActivity(LoginActivity.this, ServerSelectorActivity.class);
-                }
-            },300);
+            GoUtil.goActivity(LoginActivity.this, ServerSelectorActivity.class);
 
         }
     }

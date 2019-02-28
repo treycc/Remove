@@ -7,9 +7,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.ServerAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
@@ -17,11 +20,13 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.ServerInfo;
 import com.jdp.hls.page.login.LoginActivity;
 import com.jdp.hls.util.AppManager;
+import com.jdp.hls.util.DialogUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
+import com.jdp.hls.view.dialog.ConfirmDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +105,12 @@ public class ServerSelectorActivity extends BaseTitleActivity {
     @Override
     protected void initData() {
         rsrl.setOnRefreshListener(() -> rsrl.setRefreshing(false));
+        DialogUtil.createSingleDialog(this, "你好，辛苦了", new ConfirmDialog.OnConfirmListener() {
+            @Override
+            public void onConfirm() {
+
+            }
+        });
     }
 
     @Override

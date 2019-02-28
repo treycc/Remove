@@ -16,6 +16,7 @@
     <color name="red_hi">#EA1022</color>
     <color name="white_hi">#ffffff</color>
     <color name="half_hi">#33ffffff</color>
+    <color name="tran_1">#aaffffff</color>
     <color name="half_t">#77000000</color>
     <color name="main">#27AEFA</color>
     <color name="main_light">#a8dffe</color>

@@ -12,7 +12,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="6dp"
         android:background="@color/white_hi">
 
         <com.amap.api.maps.MapView
@@ -41,7 +40,7 @@
                 android:paddingRight="12dp"
                 android:paddingTop="8dp"
                 app:super_cornerRadius="4dp"
-                app:super_solidColor="@color/white_hi">
+                app:super_solidColor="@color/tran_1">
 
                 <ImageView
                     android:id="@+id/iv_search"

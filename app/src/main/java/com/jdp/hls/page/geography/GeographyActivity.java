@@ -306,7 +306,8 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
         markOptions.draggable(true);//设置Marker可拖动
 
         ImageView markerView = (ImageView) LayoutInflater.from(this).inflate(R.layout.view_marker, mapView, false);
-        markerView.setBackgroundResource(R.mipmap.bbb);
+        markerView.setBackgroundResource(AppUtil.getResImg(this, String.format("geo_status_%d_%d", roster
+                .getBuildingType(), roster.getStatusId())));
         markOptions.icon(BitmapDescriptorFactory.fromView(markerView)).anchor(0.5f, 1.0f);
 
 //        markOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),
