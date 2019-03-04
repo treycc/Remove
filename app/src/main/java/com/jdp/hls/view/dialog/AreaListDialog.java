@@ -79,13 +79,12 @@ public class AreaListDialog extends BaseWheelListDialog<Area> {
         for (Integer index : dataIndexList) {
             areaList.add(areasList.get(index));
         }
-
         //增加不限项
         Area noLimitArea = new Area();
         noLimitArea.setLevel(areaLevel);
         noLimitArea.setRegionId(Long.valueOf(0));
         noLimitArea.setRegionName("不限");
-        areaList.add(0,noLimitArea);
+        areaList.add(0, noLimitArea);
 
         for (int i = 0; i < areaList.size(); i++) {
             if (areaList.get(i).getRegionIntId() == regionId) {
@@ -95,6 +94,30 @@ public class AreaListDialog extends BaseWheelListDialog<Area> {
         }
         setData(areaList, 0);
     }
+
+    public void fillData(List<Area> areaList, int regionId) {
+        this.regionId = regionId;
+//        List<Integer> dataIndexList = sourceMap.get(parentId);
+//        List<Area> areaList = new ArrayList<>();
+//        for (Integer index : dataIndexList) {
+//            areaList.add(areasList.get(index));
+//        }
+//        //增加不限项
+//        Area noLimitArea = new Area();
+//        noLimitArea.setLevel(areaLevel);
+//        noLimitArea.setRegionId(Long.valueOf(0));
+//        noLimitArea.setRegionName("不限");
+//        areaList.add(0, noLimitArea);
+
+        for (int i = 0; i < areaList.size(); i++) {
+            if (areaList.get(i).getRegionIntId() == regionId) {
+                setData(areaList, i);
+                return;
+            }
+        }
+        setData(areaList, 0);
+    }
+
 
     private List<Area> getData(int parentId) {
         List<Integer> dataIndexList = sourceMap.get(parentId);

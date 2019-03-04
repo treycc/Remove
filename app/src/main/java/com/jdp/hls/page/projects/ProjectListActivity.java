@@ -2,6 +2,7 @@ package com.jdp.hls.page.projects;
 
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.page.home.HomeActivity;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.InputMethodManagerUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
@@ -70,6 +72,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
     private AreaSelectAdapter areaSelectorAdapter;
     private List<AreaSelectorItem> areaSelectorItemList = new ArrayList<>();
     private AreaListDialog areaListDialog;
+    private Map<Integer, List<Area>> authList = new HashMap<>();
 
     @OnClick({R.id.iv_clear})
     public void click(View view) {
@@ -150,22 +153,45 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
                 if (!item.isVisible()) {
                     return;
                 }
-                int parentId = areaSelectorAdapter.getParentId(item.getParentId(), position);
-                if (parentId == 0) {
+//                int parentId = areaSelectorAdapter.getParentId(item.getParentId(), position);
+                AreaSelectorItem parentAreaItem = areaSelectorAdapter.getParent(position);
+                if (parentAreaItem.getAreaNumber() == 0) {
                     ToastUtil.showText("请先选择上级区域");
                     return;
                 }
+
+
                 switch (item.getAreaLevel()) {
                     case Status.AreaLevel.PROVINCE:
                     case Status.AreaLevel.CITY:
                     case Status.AreaLevel.AREA:
                     case Status.AreaLevel.STREET:
-                        if (areaListDialog.hasData(parentId)) {
-                            areaListDialog.fillData(item.getAreaLevel(), parentId, item.getAreaNumber());
-                            areaListDialog.show();
-                        } else {
+//                        if (areaListDialog.hasData(parentId)) {
+//                            areaListDialog.fillData(item.getAreaLevel(), parentId, item.getAreaNumber());
+//                            areaListDialog.show();
+//                        } else {
+//                            ToastUtil.showText("无区域数据");
+//                        }
+
+                        List<Area> areaList = authList.get(parentAreaItem.getAreaNumber());
+                        if (areaList == null) {
+                            //没选过,从网络获取
+                            projectsPresenter.getAuthAreaList(parentAreaItem.getAreaNumber(), parentAreaItem
+                                    .getAreaLevel(),item);
+                        } else if (areaList.size() == 0) {
+                            //无区域列表
                             ToastUtil.showText("无区域数据");
+                        } else {
+                            //有区域列表，填充数据
+                            areaListDialog.fillData(areaList, item.getAreaNumber());
+                            areaListDialog.show();
                         }
+
+
+                        LogUtil.e(TAG, String.format("ParentId=%s AreaLevel=%s", parentAreaItem.getAreaNumber(),
+                                parentAreaItem.getAreaLevel()));
+
+
                         break;
                 }
             }
@@ -210,6 +236,33 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
         EventBus.getDefault().post(new RefreshRostersEvent());
         EventBus.getDefault().post(new SwitchProjectEvent());
         finish();
+    }
+
+    @Override
+    public void onGetAuthAreaListSuccess(List<AreaSelectorItem> areaSelectorItemList,AreaSelectorItem areaItem) {
+        LogUtil.e(TAG, "areaSelectorItemList=" + areaSelectorItemList.size());
+        if (areaSelectorItemList.size() > 0) {
+            List<Area> areaList = new ArrayList<>();
+            for (AreaSelectorItem areaSelectorItem : areaSelectorItemList) {
+                Area area = new Area();
+                area.setLevel(areaSelectorItem.getAreaLevel());
+                area.setRegionId(Long.valueOf(areaSelectorItem.getAreaNumber()));
+                area.setRegionName(areaSelectorItem.getAreaName());
+                areaList.add(0, area);
+            }
+            Area noLimitArea = new Area();
+            noLimitArea.setLevel(areaSelectorItemList.get(0).getAreaLevel());
+            noLimitArea.setRegionId(Long.valueOf(0));
+            noLimitArea.setRegionName("不限");
+            areaList.add(0, noLimitArea);
+            authList.put(areaItem.getParentId(),areaList);
+            areaListDialog.fillData(areaList, areaItem.getAreaNumber());
+            areaListDialog.show();
+        } else {
+            authList.put(areaItem.getParentId(),new ArrayList<>());
+            ToastUtil.showText("无区域数据");
+        }
+
     }
 
     @Override

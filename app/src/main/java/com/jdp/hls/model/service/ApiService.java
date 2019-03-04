@@ -5,6 +5,7 @@ import com.jdp.hls.model.ProjectAreaInfo;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.AreaResult;
+import com.jdp.hls.model.entiy.AreaSelectorItem;
 import com.jdp.hls.model.entiy.AreaSupervise;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.BankInfo;
@@ -889,6 +890,11 @@ public interface ApiService {
     /*获取花名册详情-企业*/
     @GET("person/GetRosterDetailEnt")
     Observable<HttpResult<RosterCompanyDetail>> getRosterCompanyDetail(@Query("entId") String entId);
+
+    /*省市区-指定权限地区*/
+    @GET("/Project/GetUserLevelArea")
+    Observable<HttpResult<List<AreaSelectorItem>>> getAuthAreaList(@Query("parentId") int parentId, @Query("level")
+            int level);
 
     /*获取花名册列表-地理信息*/
     @GET("person/GetRosterListForMap")

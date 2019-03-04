@@ -111,6 +111,10 @@ public class AreaSelectAdapter extends BaseLvAdapter<AreaSelectorItem> {
         return preItem.getAreaNumber();
     }
 
+    public AreaSelectorItem getParent(int position) {
+        return list.get(position - 1);
+    }
+
 
     public class ViewHolder {
         public final View root;
