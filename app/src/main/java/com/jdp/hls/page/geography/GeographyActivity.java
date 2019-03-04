@@ -23,7 +23,6 @@ import com.amap.api.maps.model.UrlTileProvider;
 import com.jdp.hls.R;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
-import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.map.KMapInfoWindowAdapter;
 import com.jdp.hls.model.entiy.Roster;
@@ -171,12 +170,7 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
 
     @Override
     public void initNet() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getGeographyRosterListPresenter.getGeographyRosterList();
-            }
-        },200);
+        new Handler().postDelayed(() -> getGeographyRosterListPresenter.getGeographyRosterList(), 200);
 
     }
 
@@ -290,7 +284,7 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
     }
 
     private void showAllRostersOnMap(List<Roster> rosters) {
-         newbounds = new LatLngBounds.Builder();
+        newbounds = new LatLngBounds.Builder();
         for (Roster roster : rosters) {
             if (LatLngUtil.isChinaLatLng(roster.getLatitude(), roster.getLongitude())) {
                 newbounds.include(new LatLng(roster.getLatitude(), roster.getLongitude()));

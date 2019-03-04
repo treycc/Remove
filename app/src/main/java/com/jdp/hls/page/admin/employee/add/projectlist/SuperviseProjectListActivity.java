@@ -103,24 +103,19 @@ public class SuperviseProjectListActivity extends BaseTitleActivity implements P
                 break;
 
             case R.id.tv_confirm:
-                if (selectedProjectAdapter.getCount() == 0) {
-                    ToastUtil.showText("请选择监管项目");
-                    return;
-                } else {
-                    List<Project> selectedProjects = selectedProjectAdapter.getData();
-                    StringBuilder selectedProjectIds = new StringBuilder();
-                    for (int i = 0; i < selectedProjects.size(); i++) {
-                        selectedProjectIds.append(selectedProjects.get(i).getProjectId());
-                        if (i != selectedProjects.size() - 1) {
-                            selectedProjectIds.append("#");
-                        }
+                List<Project> selectedProjects = selectedProjectAdapter.getData();
+                StringBuilder selectedProjectIds = new StringBuilder();
+                for (int i = 0; i < selectedProjects.size(); i++) {
+                    selectedProjectIds.append(selectedProjects.get(i).getProjectId());
+                    if (i != selectedProjects.size() - 1) {
+                        selectedProjectIds.append("#");
                     }
-                    Intent intent = new Intent();
-                    intent.putExtra(Constants.Extra.Ids, selectedProjectIds.toString());
-                    intent.putExtra(Constants.Extra.IsManageAllProjects, false);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
                 }
+                Intent intent = new Intent();
+                intent.putExtra(Constants.Extra.Ids, selectedProjectIds.toString());
+                intent.putExtra(Constants.Extra.IsManageAllProjects, false);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
 
                 break;
             case R.id.iv_clear:
@@ -248,12 +243,5 @@ public class SuperviseProjectListActivity extends BaseTitleActivity implements P
     @Override
     public void onSwitchProjectSuccess(Project project) {
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

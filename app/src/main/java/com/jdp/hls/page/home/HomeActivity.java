@@ -156,8 +156,7 @@ public class HomeActivity extends BaseTitleActivity {
         tvTabMap.setTextColor(fragmentId == FRAGMENT_HOME ? ContextCompat.getColor(this, R.color.main) : ContextCompat
                 .getColor(this, R.color.c_9));
         tvTabMessage.setTextColor(fragmentId == FRAGMENT_MESSAGE ? ContextCompat.getColor(this, R.color.main) :
-                ContextCompat
-                        .getColor(this, R.color.c_9));
+                ContextCompat.getColor(this, R.color.c_9));
         tvTabMine.setTextColor(fragmentId == FRAGMENT_MINE ? ContextCompat.getColor(this, R.color.main) : ContextCompat
                 .getColor(this, R.color.c_9));
         ivTabMap.setBackgroundResource(fragmentId == FRAGMENT_HOME ? R.mipmap.ic_tab_home_sel : R.mipmap

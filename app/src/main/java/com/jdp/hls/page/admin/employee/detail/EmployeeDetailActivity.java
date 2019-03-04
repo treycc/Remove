@@ -248,9 +248,11 @@ public class EmployeeDetailActivity extends BaseTitleActivity implements Employe
                         tvProjectSelector.setHint("已选择全部项目");
                     } else {
                         String[] selectProjectIds = projectIDs.split("#");
-                        if (selectProjectIds.length > 0) {
+                        if (!TextUtils.isEmpty(projectIDs)&&selectProjectIds.length > 0) {
                             tvProjectSelector.setHint(String.format("已选择%d个项目", selectProjectIds.length));
                             LogUtil.e(TAG, "projectIDs:" + projectIDs);
+                        }else{
+                            tvProjectSelector.setHint("请选择监管项目");
                         }
                     }
                     break;
