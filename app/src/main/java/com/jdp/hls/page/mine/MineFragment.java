@@ -184,7 +184,6 @@ public class MineFragment extends BaseFragment implements MineContract.View {
 
     @Override
     protected void initVariable() {
-        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             String param = getArguments().getString("param");
         }

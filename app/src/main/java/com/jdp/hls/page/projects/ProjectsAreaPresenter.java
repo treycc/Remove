@@ -62,7 +62,7 @@ public class ProjectsAreaPresenter implements ProjectsAreaContract.Presenter {
                 (new ResultObserver<List<AreaSelectorItem>>(mView) {
                     @Override
                     protected void onSuccess(List<AreaSelectorItem> areaSelectorItemList) {
-                        mView.onGetAuthAreaListSuccess(areaSelectorItemList, areaSelectorItem);
+                        mView.onGetAuthAreaListSuccess(areaSelectorItemList, parentId, areaSelectorItem);
                     }
                 });
     }

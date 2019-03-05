@@ -176,8 +176,8 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
                         List<Area> areaList = authList.get(parentAreaItem.getAreaNumber());
                         if (areaList == null) {
                             //没选过,从网络获取
-                            projectsPresenter.getAuthAreaList(parentAreaItem.getAreaNumber(), parentAreaItem
-                                    .getAreaLevel(),item);
+                            projectsPresenter.getAuthAreaList(parentAreaItem.getAreaNumber(), item.getAreaLevel(),
+                                    item);
                         } else if (areaList.size() == 0) {
                             //无区域列表
                             ToastUtil.showText("无区域数据");
@@ -189,7 +189,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
 
 
                         LogUtil.e(TAG, String.format("ParentId=%s AreaLevel=%s", parentAreaItem.getAreaNumber(),
-                                parentAreaItem.getAreaLevel()));
+                                item.getAreaLevel()));
 
 
                         break;
@@ -239,7 +239,8 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
     }
 
     @Override
-    public void onGetAuthAreaListSuccess(List<AreaSelectorItem> areaSelectorItemList,AreaSelectorItem areaItem) {
+    public void onGetAuthAreaListSuccess(List<AreaSelectorItem> areaSelectorItemList, int parentId, AreaSelectorItem
+            areaItem) {
         LogUtil.e(TAG, "areaSelectorItemList=" + areaSelectorItemList.size());
         if (areaSelectorItemList.size() > 0) {
             List<Area> areaList = new ArrayList<>();
@@ -255,11 +256,11 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
             noLimitArea.setRegionId(Long.valueOf(0));
             noLimitArea.setRegionName("不限");
             areaList.add(0, noLimitArea);
-            authList.put(areaItem.getParentId(),areaList);
+            authList.put(parentId, areaList);
             areaListDialog.fillData(areaList, areaItem.getAreaNumber());
             areaListDialog.show();
         } else {
-            authList.put(areaItem.getParentId(),new ArrayList<>());
+            authList.put(parentId, new ArrayList<>());
             ToastUtil.showText("无区域数据");
         }
 

@@ -24,7 +24,7 @@ public interface ProjectsAreaContract {
 
         void onSwitchProjectSuccess(Project project);
 
-        void onGetAuthAreaListSuccess(List<AreaSelectorItem> areaSelectorItemList, AreaSelectorItem areaSelectorItem);
+        void onGetAuthAreaListSuccess(List<AreaSelectorItem> areaSelectorItemList, int parentId,AreaSelectorItem areaSelectorItem);
     }
 
     interface Presenter extends BasePresenter<View> {
