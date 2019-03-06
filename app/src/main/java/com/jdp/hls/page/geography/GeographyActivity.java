@@ -26,6 +26,8 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.map.KMapInfoWindowAdapter;
 import com.jdp.hls.model.entiy.Roster;
+import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
+import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
 import com.jdp.hls.page.rosterdetail.detail.company.RosterCompanyDetailActivity;
 import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.util.AppUtil;
@@ -261,9 +263,9 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
     public void onInfoWindowClick(Marker marker) {
         Roster roster = (Roster) marker.getObject();
         if (roster.isEnterprise()) {
-            RosterCompanyDetailActivity.goActivity(GeographyActivity.this, roster.getHouseId());
+            BasicCompanyActivity.goActivity(this,roster.getHouseId());
         } else {
-            RosterPersonalDetailActivity.goActivity(GeographyActivity.this, roster.getHouseId());
+            BasicPersonalActivity.goActivity(this,roster.getHouseId());
         }
     }
 
@@ -307,17 +309,10 @@ public class GeographyActivity extends BaseTitleActivity implements AMap.OnMarke
     private void setMarket(Roster roster) {
         MarkerOptions markOptions = new MarkerOptions();
         markOptions.draggable(true);//设置Marker可拖动
-
         ImageView markerView = (ImageView) LayoutInflater.from(this).inflate(R.layout.view_marker, mapView, false);
         markerView.setBackgroundResource(AppUtil.getResImg(this, String.format("geo_status_%d_%d", roster
                 .getBuildingType(), roster.getStatusId())));
-
-//        markerView.setBackgroundResource(AppUtil.getResImg(this, "ccc"));
         markOptions.icon(BitmapDescriptorFactory.fromView(markerView)).anchor(0.5f, 1.0f);
-
-//        markOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),
-//                R.mipmap.bbb))).anchor(0.5f, 1.0f);
-
         Marker marker = mAMap.addMarker(markOptions);
         marker.setTitle(roster.getRealName());
         marker.setSnippet(roster.getHouseAddress());

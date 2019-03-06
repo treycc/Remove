@@ -370,5 +370,4 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
             }
         }
     }
-
 }
