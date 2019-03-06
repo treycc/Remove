@@ -1,7 +1,6 @@
 package com.jdp.hls.page.projects;
 
 import android.text.Editable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -13,7 +12,6 @@ import com.jdp.hls.adapter.ProjectSearchAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
-import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.event.SwitchProjectEvent;
 import com.jdp.hls.greendaobean.Area;
@@ -21,9 +19,8 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.ProjectAreaInfo;
 import com.jdp.hls.model.entiy.AreaSelectorItem;
 import com.jdp.hls.model.entiy.Project;
-import com.jdp.hls.page.home.HomeActivity;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.InputMethodManagerUtil;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.util.ToastUtil;
@@ -31,7 +28,6 @@ import com.jdp.hls.view.FixedGridView;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 import com.jdp.hls.view.dialog.AreaListDialog;
-import com.jdp.hls.view.dialog.BaseWheelListDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -70,6 +66,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
     private AreaSelectAdapter areaSelectorAdapter;
     private List<AreaSelectorItem> areaSelectorItemList = new ArrayList<>();
     private AreaListDialog areaListDialog;
+    private Map<Integer, List<Area>> authList = new HashMap<>();
 
     @OnClick({R.id.iv_clear})
     public void click(View view) {
@@ -150,8 +147,9 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
                 if (!item.isVisible()) {
                     return;
                 }
-                int parentId = areaSelectorAdapter.getParentId(item.getParentId(), position);
-                if (parentId == 0) {
+//                int parentId = areaSelectorAdapter.getParentId(item.getParentId(), position);
+                AreaSelectorItem parentAreaItem = areaSelectorAdapter.getParent(position);
+                if (parentAreaItem.getAreaNumber() == 0) {
                     ToastUtil.showText("请先选择上级区域");
                     return;
                 }
@@ -160,12 +158,32 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
                     case Status.AreaLevel.CITY:
                     case Status.AreaLevel.AREA:
                     case Status.AreaLevel.STREET:
-                        if (areaListDialog.hasData(parentId)) {
-                            areaListDialog.fillData(item.getAreaLevel(), parentId, item.getAreaNumber());
-                            areaListDialog.show();
-                        } else {
+//                        if (areaListDialog.hasData(parentId)) {
+//                            areaListDialog.fillData(item.getAreaLevel(), parentId, item.getAreaNumber());
+//                            areaListDialog.show();
+//                        } else {
+//                            ToastUtil.showText("无区域数据");
+//                        }
+
+                        List<Area> areaList = authList.get(parentAreaItem.getAreaNumber());
+                        if (areaList == null) {
+                            //没选过,从网络获取
+                            projectsPresenter.getAuthAreaList(parentAreaItem.getAreaNumber(), item.getAreaLevel(),
+                                    item);
+                        } else if (areaList.size() == 0) {
+                            //无区域列表
                             ToastUtil.showText("无区域数据");
+                        } else {
+                            //有区域列表，填充数据
+                            areaListDialog.fillData(areaList, item.getAreaNumber());
+                            areaListDialog.show();
                         }
+
+
+                        LogUtil.e(TAG, String.format("ParentId=%s AreaLevel=%s", parentAreaItem.getAreaNumber(),
+                                item.getAreaLevel()));
+
+
                         break;
                 }
             }
@@ -188,18 +206,17 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
         if (projectAreaInfo.isAvailable()) {
             fgv.setVisibility(View.VISIBLE);
             areaSelectorAdapter.setData(projectAreaInfo.getAuthoritys());
-            areaListDialog.setOnConfirmListener((BaseWheelListDialog.OnConfirmListener<Area>)
-                    area -> {
-                        switch (area.getLevel()) {
-                            case Status.AreaLevel.PROVINCE:
-                            case Status.AreaLevel.CITY:
-                            case Status.AreaLevel.AREA:
-                            case Status.AreaLevel.STREET:
-                                areaSelectorAdapter.resetData(area);
-                                projectSearchAdapter.filterArea(area);
-                                break;
-                        }
-                    });
+            areaListDialog.setOnConfirmListener(area -> {
+                switch (area.getLevel()) {
+                    case Status.AreaLevel.PROVINCE:
+                    case Status.AreaLevel.CITY:
+                    case Status.AreaLevel.AREA:
+                    case Status.AreaLevel.STREET:
+                        areaSelectorAdapter.resetData(area);
+                        projectSearchAdapter.filterArea(area);
+                        break;
+                }
+            });
         }
     }
 
@@ -209,7 +226,34 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
         SpSir.getInstance().setProjectName(project.getProjectName());
         EventBus.getDefault().post(new RefreshRostersEvent());
         EventBus.getDefault().post(new SwitchProjectEvent());
-        GoUtil.goActivityAndFinish(this, HomeActivity.class);
+        finish();
+    }
+
+    @Override
+    public void onGetAuthAreaListSuccess(List<AreaSelectorItem> areaSelectorItemList, int parentId, AreaSelectorItem
+            areaItem) {
+        List<Area> areaList = new ArrayList<>();
+        if (areaSelectorItemList.size() > 0) {
+            for (AreaSelectorItem areaSelectorItem : areaSelectorItemList) {
+                Area area = new Area();
+                area.setLevel(areaSelectorItem.getAreaLevel());
+                area.setRegionId(Long.valueOf(areaSelectorItem.getAreaNumber()));
+                area.setRegionName(areaSelectorItem.getAreaName());
+                areaList.add(area);
+            }
+            Area noLimitArea = new Area();
+            noLimitArea.setLevel(areaItem.getAreaLevel());
+            noLimitArea.setRegionId(Long.valueOf(0));
+            noLimitArea.setRegionName("不限");
+            areaList.add(0, noLimitArea);
+            authList.put(parentId, areaList);
+            areaListDialog.fillData(areaList, areaItem.getAreaNumber());
+            areaListDialog.show();
+        } else {
+            authList.put(parentId,areaList);
+            ToastUtil.showText("无区域数据");
+        }
+
     }
 
     @Override

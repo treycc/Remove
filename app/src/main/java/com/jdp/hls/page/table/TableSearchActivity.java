@@ -151,7 +151,7 @@ public class TableSearchActivity extends BaseTitleActivity {
 
     private void initFlowTypePop() {
         BaseSpinnerAdapter<String> buildingTypeAdapter = new BaseSpinnerAdapter<String>(this, Arrays.asList("不限",
-                "个人", "企业")) {
+                "住宅", "企业")) {
             @Override
             protected String setSpinnerText(String item) {
                 return item;

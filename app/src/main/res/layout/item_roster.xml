@@ -20,7 +20,28 @@
             android:layout_height="wrap_content"
             android:text=""/>
 
+        <LinearLayout
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            android:id="@+id/ll_enterpriseName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginRight="4dp"
+                style="@style/font_9_13"
+                android:text="企业名称:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
+            <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_enterpriseName"
+                style="@style/font_9_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text=""/>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -12,11 +12,11 @@ import com.jdp.hls.base.App;
  * Email:kingjavip@gmail.com
  */
 public class ToastUtil {
-   private static Toast mToast;
+    private static Toast mToast;
 
     public static void showText(String msg) {
         if (mToast == null) {
-            mToast = Toast.makeText(App.getContext(), "", Toast.LENGTH_LONG);
+            mToast = Toast.makeText(App.getContext(), "", Toast.LENGTH_SHORT);
         }
         mToast.setText(msg);
         mToast.show();

@@ -15,7 +15,7 @@ public class BaseListFactory {
 
     public static List<BaseListDialog.DisplayItem> getBuildingTypeList() {
         List<BaseListDialog.DisplayItem> reslutList = new ArrayList<>();
-        reslutList.add(new BaseListDialog.DisplayItem(0, "个人"));
+        reslutList.add(new BaseListDialog.DisplayItem(0, "住宅"));
         reslutList.add(new BaseListDialog.DisplayItem(1, "企业"));
         return reslutList;
     }

@@ -28,7 +28,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * Description:不动产证-个人
+ * Description:不动产证-住宅
  * Create Time:2018/9/11 0011 下午 3:20
  * Author:KingJA
  * Email:kingjavip@gmail.com

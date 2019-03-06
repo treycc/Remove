@@ -13,12 +13,39 @@ public class Roster implements Serializable {
     private String RealName;
     private String HouseAddress;
     private String MobilePhone;
+    private String EnterpriseName;
     private double Longitude;
     private double Latitude;
     private boolean IsEnterprise;
     private boolean IsEvaluated;
     private boolean IsAssetEvaluator;
     private boolean IsMeasured;
+    private int StatusId;
+    private int BuildingType;
+
+    public String getEnterpriseName() {
+        return null == EnterpriseName ? "" : EnterpriseName;
+    }
+
+    public void setEnterpriseName(String enterpriseName) {
+        EnterpriseName = enterpriseName;
+    }
+
+    public int getBuildingType() {
+        return BuildingType;
+    }
+
+    public void setBuildingType(int buildingType) {
+        this.BuildingType = buildingType;
+    }
+
+    public int getStatusId() {
+        return StatusId;
+    }
+
+    public void setStatusId(int statusId) {
+        StatusId = statusId;
+    }
 
     public boolean isAssetEvaluator() {
         return IsAssetEvaluator;

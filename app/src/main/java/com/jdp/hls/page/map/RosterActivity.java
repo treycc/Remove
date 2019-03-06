@@ -100,8 +100,6 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
                 }
                 break;
             case R.id.tv_roster_add:
-//                GoUtil.goActivity(this, RosterAddActivity.class);
-                //TODO
                 baseListDialog.show();
                 break;
             case R.id.iv_map_refresh:
@@ -327,7 +325,6 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
     @Override
     public void onInfoWindowClick(Marker marker) {
         Roster roster = (Roster) marker.getObject();
-//        RosterDetailActivity.goActivity(this, roster);
         if (roster.isEnterprise()) {
             RosterCompanyDetailActivity.goActivity(RosterActivity.this, roster.getHouseId());
         } else {
@@ -366,15 +363,11 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void removeRosterOuter(RemoveRosterEvent event) {
-        LogUtil.e(TAG, "外层删除前:" + rosters.size());
         for (Roster roster : rosters) {
             if (roster.getHouseId().equals(event.getHouseId())) {
-                LogUtil.e(TAG, "外层删除");
                 rosters.remove(roster);
                 break;
             }
         }
-        LogUtil.e(TAG, "外层删除后:" + rosters.size());
     }
-
 }

@@ -33,7 +33,7 @@ public class TableListSuperviseActivity extends BaseTitleActivity implements Tab
     TabLayout tabTable;
     @BindView(R.id.vp_table)
     ViewPager vpTable;
-    private String[] tabBusinessTitles = {"个人一览表", "企业一览表"};
+    private String[] tabBusinessTitles = {"住宅一览表", "企业一览表"};
     private String[] tabBusinessCounts = {"0", "0"};
     private int[] tabBusinessIcons = {R.drawable.selector_tab_personal, R.drawable.selector_tab_company};
     private TableListFragment mFragmentArr[] = new TableListFragment[2];

@@ -58,4 +58,14 @@ public class AppUtil {
         DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
         return dm.heightPixels;
     }
+
+    /**
+     * 获取图片名称获取图片的资源id的方法
+     *
+     * @param imageName
+     * @return
+     */
+    public static int getResImg(Context context, String imageName) {
+        return context.getResources().getIdentifier(imageName, "mipmap", context.getPackageName());
+    }
 }

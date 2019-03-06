@@ -26,7 +26,7 @@ import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
 /**
- * Description:入户评估-个人
+ * Description:入户评估-住宅
  * Create Time:2018/9/11 0011 下午 3:20
  * Author:KingJA
  * Email:kingjavip@gmail.com

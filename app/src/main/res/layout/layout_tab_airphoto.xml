@@ -16,7 +16,7 @@
         android:id="@+id/tv_tab_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="个人业务"
+        android:text="住宅业务"
         android:textColor="@drawable/selector_tab_txt_color"
         android:textSize="16sp"/>
 </LinearLayout>

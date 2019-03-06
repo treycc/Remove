@@ -196,7 +196,7 @@ public class ContactsListActivity extends BaseTitleActivity implements ContactsL
         showSuccessCallback();
         contactsItem.setIsMainContact(contactsResult.getIsMainContact());
         if (contactsAdapter.getCount() == 0 && contactsItem.getIsMainContact() == 1) {
-            //TODO 如果是第一个人，则是主联系人，要刷新列表
+            //TODO 如果是第一住宅，则是主联系人，要刷新列表
             Roster roster = new Roster();
             roster.setHouseId(buildingId);
             roster.setEnterprise(buildingType==1);

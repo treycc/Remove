@@ -57,7 +57,7 @@ public class RosterListActivity extends BaseTitleActivity {
     ImageView ivRostersSearch;
     @BindView(R.id.iv_clear)
     ImageView ivClear;
-    private String[] rosterArr = {"个人", "企业"};
+    private String[] rosterArr = {"住宅", "企业"};
     private String[] rosterCountArr = {"0户", "0家"};
     private int[] imgArr = {R.drawable.selector_tab_personal, R.drawable.selector_tab_company};
     private RosterListFragment mFragmentArr[] = new RosterListFragment[2];

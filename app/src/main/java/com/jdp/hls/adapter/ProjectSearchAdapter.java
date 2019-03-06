@@ -9,6 +9,7 @@ import com.jdp.hls.R;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.greendaobean.Area;
 import com.jdp.hls.model.entiy.Project;
+import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SpSir;
 import com.jdp.hls.view.StringTextView;
 import com.kingja.supershapeview.view.SuperShapeTextView;
@@ -71,6 +72,8 @@ public class ProjectSearchAdapter extends BaseSearchAdapter<Project> {
     }
 
     private boolean checkProject(Project project) {
+        LogUtil.e(TAG, "provinceId:" + provinceId + " cityId:" + cityId + " areaId:" + areaId + " streetId:" +
+                streetId);
         return (provinceId == 0 || provinceId == project.getProvinceId())
                 && (cityId == 0 || cityId == project.getCityId())
                 && (areaId == 0 || areaId == project.getAreaId())
@@ -81,12 +84,18 @@ public class ProjectSearchAdapter extends BaseSearchAdapter<Project> {
         switch (area.getLevel()) {
             case Status.AreaLevel.PROVINCE:
                 provinceId = area.getRegionIntId();
+                cityId=0;
+                areaId=0;
+                streetId=0;
                 break;
             case Status.AreaLevel.CITY:
                 cityId = area.getRegionIntId();
+                areaId=0;
+                streetId=0;
                 break;
             case Status.AreaLevel.AREA:
                 areaId = area.getRegionIntId();
+                streetId=0;
                 break;
             case Status.AreaLevel.STREET:
                 streetId = area.getRegionIntId();

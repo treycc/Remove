@@ -44,7 +44,7 @@ import butterknife.OnItemClick;
 import okhttp3.RequestBody;
 
 /**
- * Description:个人业务首页
+ * Description:住宅业务首页
  * Create Time:2018/9/10 0010 上午 8:45
  * Author:KingJA
  * Email:kingjavip@gmail.com

@@ -20,17 +20,17 @@
         <item>女</item>
     </string-array>
     <string-array name="switch_roster_type">
-        <item>个人</item>
+        <item>住宅</item>
         <item>企业</item>
     </string-array>
 
     <string-array name="building_type">
-        <item>个人</item>
+        <item>住宅</item>
         <item>企业</item>
     </string-array>
 
     <string-array name="statistics_type">
-        <item>个人统计</item>
+        <item>住宅统计</item>
         <item>企业统计</item>
     </string-array>
     <string-array name="switch_measure">
@@ -48,5 +48,26 @@
         <item>年限鉴定</item>
         <item>入户评估</item>
         <item>协议审核</item>
+    </string-array>
+
+    <!--可公示-->
+    <string-array name="switch_publicity">
+        <item>不公示</item>
+        <item>可公示</item>
+    </string-array>
+    <!--加急-->
+    <string-array name="switch_urgent">
+        <item>不加急</item>
+        <item>加急</item>
+    </string-array>
+    <!--店面-->
+    <string-array name="switch_shop">
+        <item>无店面</item>
+        <item>有店面</item>
+    </string-array>
+    <!--需要-->
+    <string-array name="switch_need">
+        <item>不需要</item>
+        <item>需要</item>
     </string-array>
 </resources>

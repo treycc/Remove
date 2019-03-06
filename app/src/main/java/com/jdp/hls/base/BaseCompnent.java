@@ -44,6 +44,7 @@ import com.jdp.hls.page.admin.employee.detail.EmployeeDetailActivity;
 import com.jdp.hls.page.admin.employee.list.EmployeeListActivity;
 import com.jdp.hls.page.familyrelation.detail.FamilyMememberDetailActivity;
 import com.jdp.hls.page.familyrelation.list.FamilyRelationActivity;
+import com.jdp.hls.page.geography.GeographyActivity;
 import com.jdp.hls.page.innerdecoration.detail.DecorationDetailActivity;
 import com.jdp.hls.page.innerdecoration.list.DecorationListActivity;
 import com.jdp.hls.page.levy.LevyActivity;
@@ -124,6 +125,8 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(GeographyActivity target);
+
     void inject(RosterCompanyDetailActivity target);
 
     void inject(ContactsDetailActivity target);

@@ -4,8 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.ProjectAreaInfo;
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.AreaSelectorItem;
 import com.jdp.hls.model.entiy.Project;
 import com.jdp.hls.model.entiy.ResultObserver;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -48,6 +51,18 @@ public class ProjectsAreaPresenter implements ProjectsAreaContract.Presenter {
                     @Override
                     protected void onSuccess(ProjectAreaInfo projectAreaInfo) {
                         mView.onGetProjectsSuccess(projectAreaInfo);
+                    }
+                });
+    }
+
+    @Override
+    public void getAuthAreaList(int parentId, int level, AreaSelectorItem areaSelectorItem) {
+        mApi.getApiService().getAuthAreaList(parentId, level).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<List<AreaSelectorItem>>(mView) {
+                    @Override
+                    protected void onSuccess(List<AreaSelectorItem> areaSelectorItemList) {
+                        mView.onGetAuthAreaListSuccess(areaSelectorItemList, parentId, areaSelectorItem);
                     }
                 });
     }

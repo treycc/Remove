@@ -50,6 +50,8 @@
         <!--项目列表-->
         <activity
             android:name=".page.projects.ProjectListActivity"
+            android:screenOrientation="portrait"/>       <activity
+            android:name=".page.geography.TileOverlayActivity"
             android:screenOrientation="portrait"/>
         <!--修改页-->
         <activity
@@ -142,30 +144,30 @@
             android:name=".page.business.list.BusinessListActivity"
             android:screenOrientation="portrait"/>
 
-        <!--个人年限鉴定-->
+        <!--住宅年限鉴定-->
         <activity
             android:name=".page.node.age.personal.NodePersonalAgeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
 
-        <!--个人测绘出图-->
+        <!--住宅测绘出图-->
         <activity
             android:name=".page.node.mapping.personal.NodePersonalMappingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
 
-        <!--个人入户评估-->
+        <!--住宅入户评估-->
         <activity
             android:name=".page.node.evaluate.personal.NodePersonalEvaluateActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
-        <!--个人入户丈量-->
+        <!--住宅入户丈量-->
         <activity
             android:name=".page.node.measure.personal.NodePersonalMeasureActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
 
-        <!--个人协议生成-->
+        <!--住宅协议生成-->
         <activity
             android:name=".page.node.protocol.personal.NodePersonalProtocolActivity"
             android:screenOrientation="portrait"
@@ -195,11 +197,11 @@
             android:name=".page.publicity.apply.PublicityApplyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
-        <!--个人业务首页-->
+        <!--住宅业务首页-->
         <activity
             android:name=".page.business.basic.personla.BasicPersonalActivity"
             android:screenOrientation="portrait"/>
-        <!--个人业务详情-->
+        <!--住宅业务详情-->
         <activity
             android:name=".page.business.detail.personal.DetailPersonalActivity"
             android:screenOrientation="portrait"
@@ -407,6 +409,8 @@
         <activity android:name=".page.rosterdetail.contacts.list.ContactsListActivity"/>
         <activity android:name=".page.rosterdetail.detail.personal.RosterPersonalDetailActivity"/>
         <activity android:name=".page.rosterdetail.detail.company.RosterCompanyDetailActivity"/>
+        <activity android:name=".page.geography.GeographyActivity"
+                  android:windowSoftInputMode="adjustPan"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

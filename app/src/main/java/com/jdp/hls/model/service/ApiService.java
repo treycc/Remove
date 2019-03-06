@@ -5,6 +5,7 @@ import com.jdp.hls.model.ProjectAreaInfo;
 import com.jdp.hls.model.entiy.AirPhotoBuilding;
 import com.jdp.hls.model.entiy.AirPhotoItem;
 import com.jdp.hls.model.entiy.AreaResult;
+import com.jdp.hls.model.entiy.AreaSelectorItem;
 import com.jdp.hls.model.entiy.AreaSupervise;
 import com.jdp.hls.model.entiy.BaiscPersonal;
 import com.jdp.hls.model.entiy.BankInfo;
@@ -263,7 +264,7 @@ public interface ApiService {
     @GET("SystemSevice/GetAllConfigList")
     Observable<HttpResult<List<Dict>>> getDicts();
 
-    /*个人基本信息*/
+    /*住宅基本信息*/
     @GET("Workflow/GetHouseTaskBasicInfo")
     Observable<HttpResult<BaiscPersonal>> getPersonalBasic(@Query("buildingId") String buildingId);
 
@@ -271,11 +272,11 @@ public interface ApiService {
     @GET("workflow/GetEnterpriseTaskBasicInfo")
     Observable<HttpResult<BasicCompany>> getCompanyBasic(@Query("buildingId") String buildingId);
 
-    /*个人信息详情*/
+    /*住宅信息详情*/
     @GET("workflow/GetHouseTaskDetail")
     Observable<HttpResult<DetailPersonal>> getPersonalDetail(@Query("buildingId") String buildingId);
 
-    /*个人信息详情-修改*/
+    /*住宅信息详情-修改*/
     @POST("workflow/SaveHouseTask")
     Observable<HttpResult<Object>> modifyPersonalDetail(@Body RequestBody rosterBody);
 
@@ -287,54 +288,54 @@ public interface ApiService {
     @POST("workflow/SaveEnterpriseTask")
     Observable<HttpResult<Object>> modifyCompanyDetail(@Body RequestBody rosterBody);
 
-    /*======================个人证件======================*/
-    /*个人产权证-获取*/
+    /*======================住宅证件======================*/
+    /*住宅产权证-获取*/
     @GET("cert/GetHousePropertyCert")
     Observable<HttpResult<DeedPersonalProperty>> getDeedPersonalProperty(@Query("houseId") String houseId);
 
-    /*个人产权证-修改*/
+    /*住宅产权证-修改*/
     @POST("cert/UpdateHousePropertyCert")
     Observable<HttpResult<Object>> modifyDeedPersonalProperty(@Body RequestBody rosterBody);
 
-    /*个人产权证-创建*/
+    /*住宅产权证-创建*/
     @POST("cert/AddHousePropertyCert")
     Observable<HttpResult<Object>> addDeedPersonalProperty(@Body RequestBody rosterBody);
 
-    /*个人土地证-获取*/
+    /*住宅土地证-获取*/
     @GET("cert/GetHouseLandCert")
     Observable<HttpResult<DeedPersonalLand>> getDeedPersonalLand(@Query("houseId") String houseId);
 
-    /*个人土地证-修改*/
+    /*住宅土地证-修改*/
     @POST("cert/UpdateHouseLandCert")
     Observable<HttpResult<Object>> modifyDeedPersonalLand(@Body RequestBody rosterBody);
 
-    /*个人土地证-创建*/
+    /*住宅土地证-创建*/
     @POST("cert/AddHouseLandCert")
     Observable<HttpResult<Object>> addDeedPersonalLand(@Body RequestBody rosterBody);
 
 
-    /*个人不动产证-获取*/
+    /*住宅不动产证-获取*/
     @GET("cert/GetHouseEstateCert")
     Observable<HttpResult<DeedPersonalImmovable>> getDeedPersonalImmovable(@Query("houseId") String houseId);
 
-    /*个人不动产证-修改*/
+    /*住宅不动产证-修改*/
     @POST("cert/UpdateHouseEstateCert")
     Observable<HttpResult<Object>> modifyDeedPersonalImmovable(@Body RequestBody rosterBody);
 
-    /*个人不动产证-创建*/
+    /*住宅不动产证-创建*/
     @POST("cert/AddHouseEstateCert")
     Observable<HttpResult<Object>> addDeedPersonalImmovable(@Body RequestBody rosterBody);
 
 
-    /*个人银行信息-获取*/
+    /*住宅银行信息-获取*/
     @GET("cert/GetHouseOpenAccountCert")
     Observable<HttpResult<DeedPersonalBank>> getDeedPersonalBank(@Query("Id") String id);
 
-    /*个人银行信息-修改*/
+    /*住宅银行信息-修改*/
     @POST("cert/UpdateHouseOpenAccountCert")
     Observable<HttpResult<BankInfo>> modifyDeedPersonalBank(@Body RequestBody rosterBody);
 
-    /*个人银行信息-创建*/
+    /*住宅银行信息-创建*/
     @POST("cert/AddHouseOpenAccountCert")
     Observable<HttpResult<BankInfo>> addDeedPersonalBank(@Body RequestBody rosterBody);
 
@@ -403,45 +404,45 @@ public interface ApiService {
     @POST("cert/AddEnterpriseOpenAccountCert")
     Observable<HttpResult<Object>> addDeedCompanyOpenAccountCert(@Body RequestBody rosterBody);
 
-    /*======================个人节点======================*/
+    /*======================住宅节点======================*/
 
-    /*个人-入户丈量-获取*/
+    /*住宅-入户丈量-获取*/
     @GET("Workflow/GetHouseMeasurement")
     Observable<HttpResult<NodePersonalMeasure>> getPersonalMeasure(@Query("houseId") String houseId);
 
-    /*个人-入户丈量-修改*/
+    /*住宅-入户丈量-修改*/
     @POST("workflow/UpdateHouseMeasurement")
     Observable<HttpResult<Object>> modifyPersonalMeasure(@Body RequestBody rosterBody);
 
-    /*个人-测绘出图-获取*/
+    /*住宅-测绘出图-获取*/
     @GET("workflow/GetHouseMapOut")
     Observable<HttpResult<NodePersonalMapping>> getPersonalMapping(@Query("houseId") String houseId);
 
-    /*个人-测绘出图-修改*/
+    /*住宅-测绘出图-修改*/
     @POST("workflow/UpdateHouseMapOut")
     Observable<HttpResult<Object>> modifyPersonalMapping(@Body RequestBody rosterBody);
 
-    /*个人-年限审核-获取*/
+    /*住宅-年限审核-获取*/
     @GET("workflow/getHouseAppraise")
     Observable<HttpResult<NodePersonalAge>> getPersonalAge(@Query("houseId") String houseId);
 
-    /*个人-年限审核-修改*/
+    /*住宅-年限审核-修改*/
     @POST("workflow/UpdateHouseAppraise")
     Observable<HttpResult<Object>> modifyPersonalAge(@Body RequestBody rosterBody);
 
-    /*个人-入户评估-获取*/
+    /*住宅-入户评估-获取*/
     @GET("workflow/GetHouseEvaluation")
     Observable<HttpResult<NodePersonalEvaluate>> getPersonalEvaluate(@Query("houseId") String houseId);
 
-    /*个人-入户评估-修改*/
+    /*住宅-入户评估-修改*/
     @POST("workflow/UpdateHouseEvaluation")
     Observable<HttpResult<Object>> modifyPersonalEvaluate(@Body RequestBody rosterBody);
 
-    /*个人-协议生成-获取*/
+    /*住宅-协议生成-获取*/
     @GET("workflow/GetHouseProtocolCheck")
     Observable<HttpResult<NodePersonalProtocol>> getPersonalProtocol(@Query("houseId") String houseId);
 
-    /*个人-协议生成-修改*/
+    /*住宅-协议生成-修改*/
     @POST("workflow/UpdateHouseProtocolCheck")
     Observable<HttpResult<Object>> modifyPersonalProtocol(@Body RequestBody rosterBody);
 
@@ -850,11 +851,11 @@ public interface ApiService {
     @GET("user/GetUserViewArea")
     Observable<HttpResult<List<AreaSupervise>>> getAreaSuperviseList();
 
-    /*花名册详情-个人*/
+    /*花名册详情-住宅*/
     @GET("person/GetRosterDetailHouse")
     Observable<HttpResult<RosterPersonalDetail>> getRosterPersonalDetail(@Query("houseId") String houseId);
 
-    /*保存房产信息-个人*/
+    /*保存房产信息-住宅*/
     @POST("person/SaveRosterHouse")
     Observable<HttpResult<RosterResult>> saveRosterHouse(@Body RequestBody requestBody);
 
@@ -889,6 +890,15 @@ public interface ApiService {
     /*获取花名册详情-企业*/
     @GET("person/GetRosterDetailEnt")
     Observable<HttpResult<RosterCompanyDetail>> getRosterCompanyDetail(@Query("entId") String entId);
+
+    /*省市区-指定权限地区*/
+    @GET("/Project/GetUserLevelArea")
+    Observable<HttpResult<List<AreaSelectorItem>>> getAuthAreaList(@Query("parentId") int parentId, @Query("level")
+            int level);
+
+    /*获取花名册列表-地理信息*/
+    @GET("person/GetRosterListForMap")
+    Observable<HttpResult<List<Roster>>> getGeographyRosterList();
 
     /*保存房产信息-企业*/
     @POST("person/SaveRosterEnt")
