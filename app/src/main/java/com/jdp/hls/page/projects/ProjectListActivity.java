@@ -1,8 +1,6 @@
 package com.jdp.hls.page.projects;
 
 import android.text.Editable;
-import android.text.TextUtils;
-import android.util.ArrayMap;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -14,7 +12,6 @@ import com.jdp.hls.adapter.ProjectSearchAdapter;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
-import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.event.RefreshRostersEvent;
 import com.jdp.hls.event.SwitchProjectEvent;
 import com.jdp.hls.greendaobean.Area;
@@ -22,8 +19,6 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.ProjectAreaInfo;
 import com.jdp.hls.model.entiy.AreaSelectorItem;
 import com.jdp.hls.model.entiy.Project;
-import com.jdp.hls.page.home.HomeActivity;
-import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.InputMethodManagerUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
@@ -33,7 +28,6 @@ import com.jdp.hls.view.FixedGridView;
 import com.jdp.hls.view.PullToBottomListView;
 import com.jdp.hls.view.RefreshSwipeRefreshLayout;
 import com.jdp.hls.view.dialog.AreaListDialog;
-import com.jdp.hls.view.dialog.BaseWheelListDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -159,8 +153,6 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
                     ToastUtil.showText("请先选择上级区域");
                     return;
                 }
-
-
                 switch (item.getAreaLevel()) {
                     case Status.AreaLevel.PROVINCE:
                     case Status.AreaLevel.CITY:
@@ -214,18 +206,17 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
         if (projectAreaInfo.isAvailable()) {
             fgv.setVisibility(View.VISIBLE);
             areaSelectorAdapter.setData(projectAreaInfo.getAuthoritys());
-            areaListDialog.setOnConfirmListener((BaseWheelListDialog.OnConfirmListener<Area>)
-                    area -> {
-                        switch (area.getLevel()) {
-                            case Status.AreaLevel.PROVINCE:
-                            case Status.AreaLevel.CITY:
-                            case Status.AreaLevel.AREA:
-                            case Status.AreaLevel.STREET:
-                                areaSelectorAdapter.resetData(area);
-                                projectSearchAdapter.filterArea(area);
-                                break;
-                        }
-                    });
+            areaListDialog.setOnConfirmListener(area -> {
+                switch (area.getLevel()) {
+                    case Status.AreaLevel.PROVINCE:
+                    case Status.AreaLevel.CITY:
+                    case Status.AreaLevel.AREA:
+                    case Status.AreaLevel.STREET:
+                        areaSelectorAdapter.resetData(area);
+                        projectSearchAdapter.filterArea(area);
+                        break;
+                }
+            });
         }
     }
 
@@ -241,18 +232,17 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
     @Override
     public void onGetAuthAreaListSuccess(List<AreaSelectorItem> areaSelectorItemList, int parentId, AreaSelectorItem
             areaItem) {
-        LogUtil.e(TAG, "areaSelectorItemList=" + areaSelectorItemList.size());
+        List<Area> areaList = new ArrayList<>();
         if (areaSelectorItemList.size() > 0) {
-            List<Area> areaList = new ArrayList<>();
             for (AreaSelectorItem areaSelectorItem : areaSelectorItemList) {
                 Area area = new Area();
                 area.setLevel(areaSelectorItem.getAreaLevel());
                 area.setRegionId(Long.valueOf(areaSelectorItem.getAreaNumber()));
                 area.setRegionName(areaSelectorItem.getAreaName());
-                areaList.add(0, area);
+                areaList.add(area);
             }
             Area noLimitArea = new Area();
-            noLimitArea.setLevel(areaSelectorItemList.get(0).getAreaLevel());
+            noLimitArea.setLevel(areaItem.getAreaLevel());
             noLimitArea.setRegionId(Long.valueOf(0));
             noLimitArea.setRegionName("不限");
             areaList.add(0, noLimitArea);
@@ -260,7 +250,7 @@ public class ProjectListActivity extends BaseTitleActivity implements ProjectsAr
             areaListDialog.fillData(areaList, areaItem.getAreaNumber());
             areaListDialog.show();
         } else {
-            authList.put(parentId, new ArrayList<>());
+            authList.put(parentId,areaList);
             ToastUtil.showText("无区域数据");
         }
 

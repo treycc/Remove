@@ -97,19 +97,8 @@ public class AreaListDialog extends BaseWheelListDialog<Area> {
 
     public void fillData(List<Area> areaList, int regionId) {
         this.regionId = regionId;
-//        List<Integer> dataIndexList = sourceMap.get(parentId);
-//        List<Area> areaList = new ArrayList<>();
-//        for (Integer index : dataIndexList) {
-//            areaList.add(areasList.get(index));
-//        }
-//        //增加不限项
-//        Area noLimitArea = new Area();
-//        noLimitArea.setLevel(areaLevel);
-//        noLimitArea.setRegionId(Long.valueOf(0));
-//        noLimitArea.setRegionName("不限");
-//        areaList.add(0, noLimitArea);
-
         for (int i = 0; i < areaList.size(); i++) {
+            //设置上次选中项
             if (areaList.get(i).getRegionIntId() == regionId) {
                 setData(areaList, i);
                 return;
