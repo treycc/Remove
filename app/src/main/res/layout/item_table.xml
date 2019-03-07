@@ -85,7 +85,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="张三"/>
+                android:text=""/>
 
             <TextView
                 style="@style/font_9_12"
@@ -98,7 +98,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="/13355556665"/>
+                android:text=""/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1100"/>
+                android:text=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -140,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                android:text="330355555588888886"/>
+                android:text=""/>
 
         </LinearLayout>
 
@@ -162,7 +162,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="温州龙湾"/>
+                android:text=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -183,7 +183,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="出图审核"/>
+                android:text=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -204,7 +204,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="225"/>
+                android:text=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -225,7 +225,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3232656"/>
+                android:text=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -245,7 +245,7 @@
                 style="@style/font_9_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="产权置换"/>
+                android:text=""/>
         </LinearLayout>
 
     </LinearLayout>

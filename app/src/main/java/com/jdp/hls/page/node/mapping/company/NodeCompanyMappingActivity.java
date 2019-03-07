@@ -34,8 +34,8 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
     EnableEditText etMappingSimpleHouseArea;
     @BindView(R.id.et_mapping_totalBuildingArea)
     EnableEditText etMappingTotalBuildingArea;
-    @BindView(R.id.et_mapping_totalLegalArea)
-    EnableEditText etMappingTotalLegalArea;
+    @BindView(R.id.tv_mapping_totalLegalArea)
+    StringTextView tvMappingTotalLegalArea;
     @BindView(R.id.et_mapping_appurtenanceArea)
     EnableEditText etMappingAppurtenanceArea;
     @BindView(R.id.tv_mapping_companyName)
@@ -96,7 +96,7 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         etMappingTotalNotRecordArea.setEnabled(allowEdit);
         etMappingSimpleHouseArea.setEnabled(allowEdit);
         etMappingTotalBuildingArea.setEnabled(allowEdit);
-        etMappingTotalLegalArea.setEnabled(allowEdit);
+        tvMappingTotalLegalArea.setEnabled(allowEdit);
         etMappingAppurtenanceArea.setEnabled(allowEdit);
         etMappingOtherLandArea.setEnabled(allowEdit);
         etMappingCurrentOccupyArea.setEnabled(allowEdit);
@@ -113,7 +113,7 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         String totalBuildingArea = etMappingTotalBuildingArea.getText().toString().trim();
         String otherLandArea = etMappingOtherLandArea.getText().toString().trim();
         String currentOccupyArea = etMappingCurrentOccupyArea.getText().toString().trim();
-        String totalLegalArea = etMappingTotalLegalArea.getText().toString().trim();
+        String totalLegalArea = tvMappingTotalLegalArea.getText().toString().trim();
         String remark = etRemark.getText().toString().trim();
         nodeCompanyMappingPresenter.modifyCompanyMapping(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("EnterpriseId", mBuildingId)
@@ -121,7 +121,7 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
                 .addFormDataPart("SimpleHouseArea", simpleHouseArea)
                 .addFormDataPart("AppurtenanceArea", appurtenanceArea)
                 .addFormDataPart("MapDate", mapDate)
-                .addFormDataPart("TotalBuildingArea", totalBuildingArea)
+//                .addFormDataPart("TotalBuildingArea", totalBuildingArea)
                 .addFormDataPart("TotalLegalArea", totalLegalArea)
                 .addFormDataPart("OtherLandArea", otherLandArea)
                 .addFormDataPart("CurrentOccupyArea", currentOccupyArea)
@@ -137,7 +137,7 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
         etMappingTotalNotRecordArea.setString(nodeCompanyMapping.getTotalNotRecordArea());
         etMappingSimpleHouseArea.setString(nodeCompanyMapping.getSimpleHouseArea());
         etMappingTotalBuildingArea.setString(nodeCompanyMapping.getTotalBuildingArea());
-        etMappingTotalLegalArea.setString(nodeCompanyMapping.getTotalLegalArea());
+        tvMappingTotalLegalArea.setString(nodeCompanyMapping.getTotalLegalArea());
         etMappingAppurtenanceArea.setString(nodeCompanyMapping.getAppurtenanceArea());
 
         tvMappingConfirmer.setString(nodeCompanyMapping.getConfirmer());

@@ -1,5 +1,7 @@
 package com.jdp.hls.util;
 
+import android.text.TextUtils;
+
 import java.util.List;
 
 /**
@@ -20,5 +22,9 @@ public class StringUtil {
             }
         }
         return sb.toString();
+    }
+
+    public static String getDefaultZero(String text) {
+        return TextUtils.isEmpty(text)?"0":text;
     }
 }

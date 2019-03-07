@@ -15,6 +15,7 @@ public class MathUtil {
     // 不能实例化
     private MathUtil() {
     }
+
     public static double add(double v1, double v2) {
         BigDecimal b1 = new BigDecimal(Double.toString(v1));// 建议写string类型的参数，下同
         BigDecimal b2 = new BigDecimal(Double.toString(v2));
@@ -32,6 +33,19 @@ public class MathUtil {
         BigDecimal b2 = new BigDecimal(Double.toString(v2));
         return b1.multiply(b2).doubleValue();
     }
+
+    public static double add(int scale, double... values) {
+        BigDecimal result = new BigDecimal(Double.toString(0));
+        for (double value : values) {
+            result = result.add(new BigDecimal(Double.toString(value)));
+        }
+        return result.setScale(scale, BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+
+    public static double add(double... values) {
+        return add(2, values);
+    }
+
 
     public static double div(double v1, double v2) {
         return div(v1, v2, DEF_DIV_SCALE);

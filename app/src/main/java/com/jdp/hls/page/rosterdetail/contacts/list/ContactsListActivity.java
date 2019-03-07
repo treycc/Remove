@@ -79,7 +79,7 @@ public class ContactsListActivity extends BaseTitleActivity implements ContactsL
 
     @Override
     protected String getContentTitle() {
-        return "产权人列表";
+        return "联系人列表";
     }
 
     @Override

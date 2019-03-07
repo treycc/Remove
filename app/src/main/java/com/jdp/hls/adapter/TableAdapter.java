@@ -39,6 +39,7 @@ public class TableAdapter extends CommonAdapter<Table> {
         helper.setText(R.id.tv_table_area, item.getPropertyArea());
         helper.setText(R.id.tv_table_certNumber, item.getCertNum());
         helper.setText(R.id.tv_table_payType, item.getPayTypeName());
+        helper.setText(R.id.tv_table_idcard, item.getIdcard());
         helper.setVisibility(R.id.set_status_back, item.isFlowBack());
         helper.setVisibility(R.id.set_status_banned, item.isBanned());
     }

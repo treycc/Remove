@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.jdp.hls.R;
@@ -16,9 +18,13 @@ import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
 import com.jdp.hls.util.CheckUtil;
+import com.jdp.hls.util.MathUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
+import com.jdp.hls.util.SimpleTextWatcher;
+import com.jdp.hls.util.StringUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
+import com.jdp.hls.view.StringTextView;
 
 import java.util.List;
 
@@ -54,6 +60,8 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
     EnableEditText etImmovableLandUse;
     @BindView(R.id.et_immovable_propertyUse)
     EnableEditText etImmovablePropertyUse;
+    @BindView(R.id.tv_land_mu)
+    StringTextView tvLandMu;
     private List<TDict> landTypeList;
     private List<TDict> propertyStructureList;
     private int propertyStructure;
@@ -68,6 +76,7 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
     private String remark;
     private String landUse;
     private String propertyUse;
+    private String area;
 
     @Override
     public void initVariable() {
@@ -110,6 +119,20 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
             propertyStructure = typeId;
         });
         propertyStructure = spinnerPropertyStructure.getDefaultTypeId();
+        etImmovableLandArea.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculate();
+
+            }
+        });
+    }
+
+    private void calculate() {
+        area = etImmovableLandArea.getText().toString().trim();
+        double areaStr = TextUtils.isEmpty(area) ? 0d : Double.valueOf
+                (area);
+        tvLandMu.setText(String.format("%.4f", MathUtil.div(areaStr, 666.66d)));
     }
 
     @Override
@@ -149,8 +172,8 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
                 .addFormDataPart("LandUse", landUse)
                 .addFormDataPart("PropertyUse", propertyUse)
                 .addFormDataPart("StructureTypeId", String.valueOf(propertyStructure))
-                .addFormDataPart("LandArea", landArea)
-                .addFormDataPart("PropertyArea", propertyArea)
+                .addFormDataPart("LandArea", StringUtil.getDefaultZero(landArea))
+                .addFormDataPart("PropertyArea", StringUtil.getDefaultZero(propertyArea))
                 .addFormDataPart("Remark", remark)
                 .addFormDataPart("Address", address).build();
     }
@@ -163,7 +186,10 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
         remark = etRemark.getText().toString().trim();
         landUse = etImmovableLandUse.getText().toString().trim();
         propertyUse = etImmovablePropertyUse.getText().toString().trim();
-        return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
+        return CheckUtil.checkEmpty(certNum, "请输入证件号")
+                && CheckUtil.checkEmpty(address, "请输入地址")
+                && CheckUtil.checkEmpty(landArea, "请输入土地面积")
+                && CheckUtil.checkEmpty(propertyArea, "请输入产权证面积");
     }
 
 
@@ -199,11 +225,11 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
         etRemark.setText(deedCompanyImmovable.getRemark());
         etImmovableLandUse.setText(deedCompanyImmovable.getLandUse());
         etImmovablePropertyUse.setText(deedCompanyImmovable.getPropertyUse());
-
         landTypeId = deedCompanyImmovable.getLandNatureTypeId();
         spinnerLandType.setSelectItem(landTypeId);
         propertyStructure = deedCompanyImmovable.getStructureTypeId();
         spinnerPropertyStructure.setSelectItem(propertyStructure);
+        calculate();
         boolean allowEdit = deedCompanyImmovable.isAllowEdit();
         setEditable(allowEdit);
         rvPhotoPreview.setData(deedCompanyImmovable.getFiles(), getFileConfig(), allowEdit);
@@ -220,5 +246,4 @@ public class DeedCompanyImmovableActivity extends BaseDeedActivity implements De
         showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_IMMOVABLE, Status
                 .BuildingType.COMPANY));
     }
-
 }

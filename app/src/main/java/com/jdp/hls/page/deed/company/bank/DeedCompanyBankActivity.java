@@ -148,10 +148,4 @@ public class DeedCompanyBankActivity extends BaseDeedActivity implements DeedCom
         showSaveDeedSuccess(new RefreshCertNumEvent(bankAccount, Status.FileType.BANK, Status.BuildingType.COMPANY));
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

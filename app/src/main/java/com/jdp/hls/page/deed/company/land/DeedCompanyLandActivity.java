@@ -124,9 +124,8 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
 
     private void calculate() {
         area = etLandArea.getText().toString().trim();
-        double areaStr = TextUtils.isEmpty(area) ? 0d : Double.valueOf
-                (area);
-        tvLandMu.setText(String.valueOf(MathUtil.div(areaStr,666.66d)));
+        double areaStr = TextUtils.isEmpty(area) ? 0d : Double.valueOf(area);
+        tvLandMu.setString(String.format("%.4f", MathUtil.div(areaStr, 666.66d)));
     }
 
     @Override
@@ -164,7 +163,9 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
         address = etLandAddress.getText().toString().trim();
         landUse = etLandLandUse.getText().toString().trim();
         landOutExpiryDate = tvLandOutExpiryDate.getText().toString().trim();
-        return CheckUtil.checkEmpty(certNum, "请输入证件号") && CheckUtil.checkEmpty(address, "请输入地址");
+        return CheckUtil.checkEmpty(certNum, "请输入证件号")
+                && CheckUtil.checkEmpty(area, "请输入土地面积")
+                && CheckUtil.checkEmpty(address, "请输入地址");
     }
 
     @NonNull
@@ -192,6 +193,7 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
         etLandLandUse.setEnabled(allowEdit);
         setDateSelector(ivDateSelector, tvLandOutExpiryDate, allowEdit);
     }
+
     protected void setDateSelector(ImageView ivDate, TextView tvDate, boolean allowEdit) {
         ivDate.setVisibility(allowEdit ? View.VISIBLE : View.GONE);
         if (!allowEdit) {
@@ -224,7 +226,7 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     public void onGetDeedCompanyLandSuccess(DeedCompanyLand deedCompanyLand) {
         etLandCertNum.setText(deedCompanyLand.getCertNum());
         etLandArea.setText(String.valueOf(deedCompanyLand.getArea()));
-        tvLandMu.setText(String.valueOf(deedCompanyLand.getMu()));
+//        tvLandMu.setText(String.valueOf(deedCompanyLand.getMu()));
         etLandAddress.setText(deedCompanyLand.getAddress());
         etRemark.setText(deedCompanyLand.getRemark());
         etLandLandUse.setText(deedCompanyLand.getLandUse());

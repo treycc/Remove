@@ -22,7 +22,7 @@
         <LinearLayout
             style="@style/Content_LL_T6">
 
-            <TextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/Title_Sub"
                 android:text="土地证号"/>
 
@@ -72,7 +72,7 @@
         <LinearLayout
             style="@style/Content_LL_T6">
 
-            <TextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/Title_Sub"
                 android:text="土地证面积"/>
 
@@ -143,7 +143,7 @@
         <LinearLayout
             style="@style/Content_LL_T6">
 
-            <TextView
+            <com.jdp.hls.view.RequiredTextView
                 style="@style/Title_Sub"
                 android:text="坐落地址"/>
 

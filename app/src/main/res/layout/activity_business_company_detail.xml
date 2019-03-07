@@ -136,7 +136,7 @@
 
         <View style="@style/div_hor_gray_margin24"/>
 
-        <LinearLayout style="@style/Content_LL_T12">
+        <LinearLayout style="@style/Content_LL_T12" android:visibility="gone">
 
             <TextView
                 style="@style/Title_Sub"
@@ -172,7 +172,7 @@
 
         </LinearLayout>
         <View style="@style/div_hor_gray_margin24"/>
-        <LinearLayout style="@style/Content_LL_T12">
+        <LinearLayout style="@style/Content_LL_T12" android:visibility="gone">
 
             <TextView
                 style="@style/Title_Sub"

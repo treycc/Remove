@@ -7,25 +7,27 @@
     android:background="@color/white_hi"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:orientation="horizontal"
+        android:gravity="center"
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
         <com.jdp.hls.view.StringTextView
+            android:layout_toLeftOf="@id/tv_list"
             android:id="@+id/tv_title"
             style="@style/font_6_18"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginRight="6dp"
             android:ellipsize="end"
             android:gravity="center"
-            android:singleLine="true"
+            android:maxLines="2"
             android:text="项目名称"/>
-
 
         <com.jdp.hls.view.StringTextView
             android:id="@+id/tv_list"
@@ -34,10 +36,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:text="项目选择"/>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <View style="@style/div_hor_gray"/>
 

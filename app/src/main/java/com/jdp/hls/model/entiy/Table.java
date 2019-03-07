@@ -24,6 +24,15 @@ public class Table implements Serializable {
     private String CreateDatetime;
     private String CertNum;
     private String CusCode;
+    private String Idcard;
+
+    public String getIdcard() {
+        return null == Idcard ? "" : Idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        Idcard = idcard;
+    }
 
     public String getCusCode() {
         return CusCode;

@@ -20,6 +20,16 @@ public class DeedCompanyImmovable {
     private int StructureTypeId;
     private double LandArea;
     private double PropertyArea;
+
+    public double getMu() {
+        return Mu;
+    }
+
+    public void setMu(double mu) {
+        Mu = mu;
+    }
+
+    private double Mu;
     private String Address;
     private String LandNatureTypeName;
     private String LandUseTypeName;

@@ -14,6 +14,7 @@ public class Roster implements Serializable {
     private String HouseAddress;
     private String MobilePhone;
     private String EnterpriseName;
+    private String Idcard;
     private double Longitude;
     private double Latitude;
     private boolean IsEnterprise;
@@ -22,6 +23,14 @@ public class Roster implements Serializable {
     private boolean IsMeasured;
     private int StatusId;
     private int BuildingType;
+
+    public String getIdcard() {
+        return null == Idcard ? "" : Idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        Idcard = idcard;
+    }
 
     public String getEnterpriseName() {
         return null == EnterpriseName ? "" : EnterpriseName;
