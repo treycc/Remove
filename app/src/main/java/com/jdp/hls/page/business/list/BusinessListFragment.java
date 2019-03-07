@@ -1,6 +1,7 @@
 package com.jdp.hls.page.business.list;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
@@ -203,5 +204,12 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Override
+    public void onStop() {
+        LogUtil.e(TAG,"F onStop前");
+        super.onStop();
+        LogUtil.e(TAG,"F onStop后");
     }
 }

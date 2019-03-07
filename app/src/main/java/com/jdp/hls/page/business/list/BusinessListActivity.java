@@ -2,6 +2,7 @@ package com.jdp.hls.page.business.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
@@ -386,4 +387,16 @@ public class BusinessListActivity extends BaseBasicActivity implements Bussiness
         refreshData();
     }
 
+    @Override
+    protected void onStop() {
+        LogUtil.e(TAG,"onStop前");
+        super.onStop();
+        LogUtil.e(TAG,"onStop后");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+        //为了防止保存大数据(上千条)报TransactionTooLargeException错误，暂时去掉保存
+    }
 }

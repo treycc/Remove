@@ -35,6 +35,8 @@ import com.jdp.hls.page.rosterdetail.detail.company.RosterCompanyDetailActivity;
 import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.util.AppUtil;
 import com.jdp.hls.util.BaseListFactory;
+import com.jdp.hls.util.DataHolder;
+import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LatLngUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
@@ -94,7 +96,8 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
         switch (view.getId()) {
             case R.id.tv_roster_list:
                 if (rosters != null) {
-                    RosterListActivity.goActivity(this, rosters);
+                    DataHolder.getInstance().save("rosters",rosters);
+                    GoUtil.goActivity(this,RosterListActivity.class);
                 } else {
                     ToastUtil.showText("没有花名册信息");
                 }
@@ -224,10 +227,16 @@ public class RosterActivity extends BaseTitleActivity implements GetRosterContra
 
     }
 
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+////        super.onSaveInstanceState(outState);
+//        mMapView.onSaveInstanceState(outState);
+//    }
+
+
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.jdp.hls.page.node.mapping.company;
 
+import android.text.Editable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -9,6 +11,8 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodeCompanyMapping;
 import com.jdp.hls.page.node.BaseNodeActivity;
 import com.jdp.hls.util.DateUtil;
+import com.jdp.hls.util.MathUtil;
+import com.jdp.hls.util.SimpleTextWatcher;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
 
@@ -83,8 +87,24 @@ public class NodeCompanyMappingActivity extends BaseNodeActivity implements Node
     @Override
     protected void initData() {
         super.initData();
+        etMappingOtherLandArea.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculate();
+
+            }
+        });
     }
 
+    private void calculate() {
+        String propertyAreaStr = tvMappingEstateCertPropertyArea.getText().toString().trim();
+        String landAreaStr = tvMappingEstateCertLandArea.getText().toString().trim();
+        String otherLandAreaStr = etMappingOtherLandArea.getText().toString().trim();
+        double propertyArea = TextUtils.isEmpty(propertyAreaStr) ? 0d : Double.valueOf(propertyAreaStr);
+        double landArea = TextUtils.isEmpty(landAreaStr) ? 0d : Double.valueOf(landAreaStr);
+        double otherLandArea = TextUtils.isEmpty(otherLandAreaStr) ? 0d : Double.valueOf(otherLandAreaStr);
+        tvMappingTotalLegalArea.setText(String.format("%.2f",MathUtil.add(propertyArea, landArea, otherLandArea)));
+    }
 
     @Override
     public void initNet() {

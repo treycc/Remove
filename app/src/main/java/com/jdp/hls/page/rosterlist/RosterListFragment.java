@@ -17,6 +17,7 @@ import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosterdetail.detail.company.RosterCompanyDetailActivity;
 import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.util.DialogUtil;
+import com.jdp.hls.util.SpSir;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -54,6 +55,14 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
         RosterListFragment fragment = new RosterListFragment();
         Bundle args = new Bundle();
         args.putSerializable("rosters", (Serializable) rosters);
+        args.putInt("buildingType", buildingType);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static RosterListFragment newInstance(int buildingType) {
+        RosterListFragment fragment = new RosterListFragment();
+        Bundle args = new Bundle();
         args.putInt("buildingType", buildingType);
         fragment.setArguments(args);
         return fragment;
@@ -103,7 +112,7 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
             public void onItemClick(Roster item) {
                 if (item.isEnterprise()) {
                     RosterCompanyDetailActivity.goActivity(getActivity(), item.getHouseId());
-                }else{
+                } else {
                     RosterPersonalDetailActivity.goActivity(getActivity(), item.getHouseId());
                 }
 
@@ -113,7 +122,8 @@ public class RosterListFragment extends BaseFragment implements GetRostersByType
 
     @Override
     public void initNet() {
-
+//        getRostersByTypePresenter.getRosterListByType(SpSir.getInstance().getProjectId(), SpSir.getInstance()
+//                .getEmployeeId(), buildingType);
     }
 
     @Override

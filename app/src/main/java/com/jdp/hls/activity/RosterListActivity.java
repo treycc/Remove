@@ -2,6 +2,7 @@ package com.jdp.hls.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.text.Editable;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.jdp.hls.page.rosterdetail.detail.company.RosterCompanyDetailActivity;
 import com.jdp.hls.page.rosterdetail.detail.personal.RosterPersonalDetailActivity;
 import com.jdp.hls.page.rosterlist.RosterListFragment;
 import com.jdp.hls.util.BaseListFactory;
+import com.jdp.hls.util.DataHolder;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
@@ -82,7 +84,8 @@ public class RosterListActivity extends BaseTitleActivity {
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
-        rosters = (List<Roster>) getIntent().getSerializableExtra("rosters");
+//        rosters = (List<Roster>) getIntent().getSerializableExtra("rosters");
+        rosters = (List<Roster>) DataHolder.getInstance().retrieve("rosters");
         for (Roster roster : rosters) {
             if (roster.isEnterprise()) {
                 companyRosters.add(roster);
@@ -97,6 +100,7 @@ public class RosterListActivity extends BaseTitleActivity {
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
+        DataHolder.getInstance().save("rosters","");
         super.onDestroy();
     }
 
@@ -120,8 +124,8 @@ public class RosterListActivity extends BaseTitleActivity {
         tabRoster.setTabMode(TabLayout.MODE_FIXED);
         tabRoster.addTab(tabRoster.newTab().setText(rosterArr[0]));
         tabRoster.addTab(tabRoster.newTab().setText(rosterArr[1]));
-        mFragmentArr[0] = RosterListFragment.newInstance(personalRosters, 0);
-        mFragmentArr[1] = RosterListFragment.newInstance(companyRosters, 1);
+        mFragmentArr[0] = RosterListFragment.newInstance(personalRosters,0);
+        mFragmentArr[1] = RosterListFragment.newInstance(companyRosters,1);
         mRosterPageAdapter = new RosterPageAdapter(this, getSupportFragmentManager(), mFragmentArr,
                 rosterArr, rosterCountArr, imgArr);
         vpRoster.setAdapter(mRosterPageAdapter);
@@ -223,6 +227,7 @@ public class RosterListActivity extends BaseTitleActivity {
         activity.startActivity(intent);
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addRosters(AddRostersEvent event) {
         int personalCount = personalRosters.size();
@@ -247,5 +252,10 @@ public class RosterListActivity extends BaseTitleActivity {
         }
         LogUtil.e(TAG, "删除后:" + rosters.size());
         checkData(etRostersKeyword.getText().toString().trim());
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+        //为了防止保存大数据(上千条)报TransactionTooLargeException错误，暂时去掉保存
     }
 }

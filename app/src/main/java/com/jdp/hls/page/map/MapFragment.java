@@ -38,6 +38,7 @@ import com.jdp.hls.model.entiy.Roster;
 import com.jdp.hls.page.rosteradd.RosterAddActivity;
 import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
 import com.jdp.hls.util.AppUtil;
+import com.jdp.hls.util.DataHolder;
 import com.jdp.hls.util.GoUtil;
 import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
@@ -98,7 +99,9 @@ public class MapFragment extends BaseFragment implements LocationSource, AMapLoc
         switch (view.getId()) {
             case R.id.tv_roster_list:
                 if (rosters != null) {
-                    RosterListActivity.goActivity(getActivity(), rosters);
+                    DataHolder.getInstance().save("rosters",rosters);
+                    GoUtil.goActivity(getActivity(),RosterListActivity.class);
+//                    RosterListActivity.goActivity(getActivity(), rosters);
                 } else {
                     ToastUtil.showText("没有花名册信息");
                 }
