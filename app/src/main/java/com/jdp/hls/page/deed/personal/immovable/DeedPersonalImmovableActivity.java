@@ -1,6 +1,5 @@
 package com.jdp.hls.page.deed.personal.immovable;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -12,6 +11,7 @@ import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.DeedPersonalImmovable;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
@@ -23,7 +23,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -133,27 +132,17 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
     @Override
     public void initNet() {
         if (mIsAdd) {
-            setRightClick("保存", addListener);
+            setRightClick("保存", saveListener);
         } else {
             //获取接口
             deedPersonalImmovablePresenter.getDeedPersonalImmovable(mBuildingId);
         }
     }
-
-    private NoDoubleClickListener editListener = new NoDoubleClickListener() {
+    private NoDoubleClickListener saveListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
             if (checkDataVaildable()) {
-                deedPersonalImmovablePresenter.modifyDeedPersonalImmovable(getRequestBody());
-            }
-
-        }
-    };
-    private NoDoubleClickListener addListener = new NoDoubleClickListener() {
-        @Override
-        public void onNoDoubleClick(View v) {
-            if (checkDataVaildable()) {
-                deedPersonalImmovablePresenter.addDeedPersonalImmovable(getRequestBody());
+                deedPersonalImmovablePresenter.saveDeedPersonalImmovable(getRequestBody());
             }
 
         }
@@ -163,6 +152,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
     private RequestBody getRequestBody() {
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
+                .addFormDataPart("CertId",String.valueOf(mCertId) )
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("PropertyUseTypeId", String.valueOf(propertyUse))
                 .addFormDataPart("StructureTypeId", String.valueOf(propertyStructure))
@@ -223,7 +213,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
 
     private void setEditable(boolean allowEdit) {
         if (allowEdit) {
-            setRightClick("保存", editListener);
+            setRightClick("保存", saveListener);
         }
         etImmovableNum.setEnabled(allowEdit);
         etLandCertArea.setEnabled(allowEdit);
@@ -240,14 +230,9 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
     }
 
     @Override
-    public void onAddDeedPersonalImmovableSuccess() {
+    public void onSaveDeedPersonalImmovableSuccess(DeedItem deedItem) {
         showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_IMMOVABLE, Status
                 .BuildingType.PERSONAL));
     }
 
-    @Override
-    public void onModifyDeedPersonalImmovableSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_IMMOVABLE, Status
-                .BuildingType.PERSONAL));
-    }
 }

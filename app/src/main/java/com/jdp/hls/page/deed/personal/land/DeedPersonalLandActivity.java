@@ -11,6 +11,7 @@ import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.DeedPersonalLand;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
@@ -106,17 +107,27 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
     @Override
     public void initNet() {
         if (mIsAdd) {
-            setRightClick("保存", addListener);
+            setRightClick("保存", saveListener);
         } else {
             //获取接口
-            deedPersonalLandPresenter.getDeedPersonalLand(mBuildingId);
+            deedPersonalLandPresenter.getDeedPersonalLandDetail(mCertId);
         }
     }
+
+    private NoDoubleClickListener saveListener = new NoDoubleClickListener() {
+        @Override
+        public void onNoDoubleClick(View v) {
+            if (checkDataVaildable()) {
+                deedPersonalLandPresenter.saveDeedPersonalLand(getRequestBody());
+            }
+        }
+    };
 
     @NonNull
     private RequestBody getRequestBody() {
         return new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
+                .addFormDataPart("CertId", String.valueOf(mCertId))
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("LandNatureId", String.valueOf(landTypeId))
                 .addFormDataPart("LandUseTypeId", String.valueOf(landUseId))
@@ -138,7 +149,7 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
 
     private void setEditable(boolean allowEdit) {
         if (allowEdit) {
-            setRightClick("保存", editListener);
+            setRightClick("保存", saveListener);
         }
         etLandCertNum.setEnabled(allowEdit);
         etLandCertArea.setEnabled(allowEdit);
@@ -149,25 +160,6 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
         spinnerLandType.enable(allowEdit);
 
     }
-
-    private NoDoubleClickListener editListener = new NoDoubleClickListener() {
-        @Override
-        public void onNoDoubleClick(View v) {
-            if (checkDataVaildable()) {
-                deedPersonalLandPresenter.modifyDeedPersonalLand(getRequestBody());
-            }
-
-        }
-    };
-    private NoDoubleClickListener addListener = new NoDoubleClickListener() {
-        @Override
-        public void onNoDoubleClick(View v) {
-            if (checkDataVaildable()) {
-                deedPersonalLandPresenter.addDeedPersonalLand(getRequestBody());
-            }
-        }
-    };
-
 
     @Override
     public void onGetDeedPersonalLandSuccess(DeedPersonalLand deedPersonalLand) {
@@ -187,13 +179,7 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
 
 
     @Override
-    public void onAddDeedPersonalLandSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_LAND, Status.BuildingType
-                .PERSONAL));
-    }
-
-    @Override
-    public void onModifyDeedPersonalLandSuccess() {
+    public void onSaveDeedPersonalLandSuccess(DeedItem deedItem) {
         showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_LAND, Status.BuildingType
                 .PERSONAL));
     }

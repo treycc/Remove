@@ -3,6 +3,7 @@ package com.jdp.hls.page.deed.personal.land;
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.DeedPersonalLand;
 
 import okhttp3.RequestBody;
@@ -17,16 +18,14 @@ public interface DeedPersonalLandContract {
     interface View extends BaseView {
         void onGetDeedPersonalLandSuccess(DeedPersonalLand deedPersonalLand);
 
-        void onAddDeedPersonalLandSuccess();
+        void onSaveDeedPersonalLandSuccess(DeedItem deedItem);
 
-        void onModifyDeedPersonalLandSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getDeedPersonalLand(String houseId);
+        void getDeedPersonalLandDetail(int certId);
 
-        void addDeedPersonalLand(RequestBody rosterBody);
+        void saveDeedPersonalLand(RequestBody rosterBody);
 
-        void modifyDeedPersonalLand(RequestBody rosterBody);
     }
 }

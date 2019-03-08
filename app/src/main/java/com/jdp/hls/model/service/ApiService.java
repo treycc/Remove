@@ -22,6 +22,8 @@ import com.jdp.hls.model.entiy.DeedCompanyLand;
 import com.jdp.hls.model.entiy.DeedCompanyLicense;
 import com.jdp.hls.model.entiy.DeedCompanyOpenAccountCert;
 import com.jdp.hls.model.entiy.DeedCompanyProperty;
+import com.jdp.hls.model.entiy.DeedItem;
+import com.jdp.hls.model.entiy.DeedListInfo;
 import com.jdp.hls.model.entiy.DeedPersonalBank;
 import com.jdp.hls.model.entiy.DeedPersonalImmovable;
 import com.jdp.hls.model.entiy.DeedPersonalLand;
@@ -903,4 +905,45 @@ public interface ApiService {
     /*保存房产信息-企业*/
     @POST("person/SaveRosterEnt")
     Observable<HttpResult<RosterResult>> saveRosterCompany(@Body RequestBody requestBody);
+
+    /*获取证件列表*/
+    @GET("cert/GetCertList")
+    Observable<HttpResult<DeedListInfo>> getDeedList(@Query("buildingId") String buildingId, @Query("certType") int
+            certType);
+
+    /*删除证书*/
+    @GET("cert/DeleteCert")
+    Observable<HttpResult<Object>> deleteDeed(@Query("buildingId") String buildingId, @Query("certType") int
+            certType, @Query("certId") int certId);
+
+
+    /*保存土地证-个人*/
+    @POST("cert/SaveHouseLandCert")
+    Observable<HttpResult<DeedItem>> saveDeedLandPersonal(@Body RequestBody requestBody);
+
+    /*保存产权证-个人*/
+    @POST("cert/SaveHousePropertyCert")
+    Observable<HttpResult<DeedItem>> saveDeedPropertyPersonal(@Body RequestBody requestBody);
+
+    /*保存不动产证-个人*/
+    @POST("cert/SaveHouseEstateCert")
+    Observable<HttpResult<DeedItem>> saveDeedImmovablePersonal(@Body RequestBody requestBody);
+
+    /*保存土地证-企业*/
+    @POST("cert/SaveEnterpriseLandCert")
+    Observable<HttpResult<DeedItem>> saveDeedLandCompany(@Body RequestBody requestBody);
+
+    /*保存产权证-企业*/
+    @POST("cert/SaveEnterprisePropertyCert")
+    Observable<HttpResult<DeedItem>> saveDeedPropertyCompany(@Body RequestBody requestBody);
+
+    /*保存不动产证-企业*/
+    @POST("cert/SaveEnterpriseEstateCert")
+    Observable<HttpResult<DeedItem>> saveDeedImmovableCompany(@Body RequestBody requestBody);
+
+    /*获取土地证-个人*/
+    @GET("cert/GetHouseLandCertificate")
+    Observable<HttpResult<DeedPersonalLand>> getDeedPersonalLandDetail(@Query("certId") int certId);
+
+
 }

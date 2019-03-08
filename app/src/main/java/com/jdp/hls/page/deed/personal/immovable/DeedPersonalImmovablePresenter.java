@@ -3,6 +3,7 @@ package com.jdp.hls.page.deed.personal.immovable;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.DeedPersonalImmovable;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
@@ -42,28 +43,17 @@ public class DeedPersonalImmovablePresenter implements DeedPersonalImmovableCont
     }
 
     @Override
-    public void addDeedPersonalImmovable(RequestBody rosterBody) {
-        mApi.getApiService().addDeedPersonalImmovable(rosterBody).subscribeOn(Schedulers.io())
+    public void saveDeedPersonalImmovable(RequestBody rosterBody) {
+        mApi.getApiService().saveDeedImmovablePersonal(rosterBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<DeedItem>(mView) {
                     @Override
-                    protected void onSuccess(Object object) {
-                        mView.onAddDeedPersonalImmovableSuccess();
+                    protected void onSuccess(DeedItem deedItem) {
+                        mView.onSaveDeedPersonalImmovableSuccess(deedItem);
                     }
                 });
     }
 
-    @Override
-    public void modifyDeedPersonalImmovable(RequestBody rosterBody) {
-        mApi.getApiService().modifyDeedPersonalImmovable(rosterBody).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
-                    @Override
-                    protected void onSuccess(Object object) {
-                        mView.onModifyDeedPersonalImmovableSuccess();
-                    }
-                });
-    }
 
     @Override
     public void attachView(@NonNull DeedPersonalImmovableContract.View view) {

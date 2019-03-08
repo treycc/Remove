@@ -3,6 +3,7 @@ package com.jdp.hls.page.deed.personal.land;
 import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.DeedPersonalLand;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
@@ -30,8 +31,8 @@ public class DeedPersonalLandPresenter implements DeedPersonalLandContract.Prese
     }
 
     @Override
-    public void getDeedPersonalLand(String houseId) {
-        mApi.getApiService().getDeedPersonalLand(houseId).subscribeOn(Schedulers.io())
+    public void getDeedPersonalLandDetail(int certId) {
+        mApi.getApiService().getDeedPersonalLandDetail(certId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<DeedPersonalLand>(mView) {
                     @Override
@@ -42,25 +43,13 @@ public class DeedPersonalLandPresenter implements DeedPersonalLandContract.Prese
     }
 
     @Override
-    public void addDeedPersonalLand(RequestBody rosterBody) {
-        mApi.getApiService().addDeedPersonalLand(rosterBody).subscribeOn(Schedulers.io())
+    public void saveDeedPersonalLand(RequestBody rosterBody) {
+        mApi.getApiService().saveDeedLandPersonal(rosterBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<DeedItem>(mView) {
                     @Override
-                    protected void onSuccess(Object object) {
-                        mView.onAddDeedPersonalLandSuccess();
-                    }
-                });
-    }
-
-    @Override
-    public void modifyDeedPersonalLand(RequestBody rosterBody) {
-        mApi.getApiService().modifyDeedPersonalLand(rosterBody).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
-                    @Override
-                    protected void onSuccess(Object object) {
-                        mView.onModifyDeedPersonalLandSuccess();
+                    protected void onSuccess(DeedItem deedItem) {
+                        mView.onSaveDeedPersonalLandSuccess(deedItem);
                     }
                 });
     }

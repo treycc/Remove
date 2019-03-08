@@ -185,6 +185,15 @@ public class Status {
         int TempPlacementFee = 2;
     }
 
+    public interface CertType {
+        int IMMOVABLE_PERSONAL = 1;
+        int PROPERTY_PERSONAL = 2;
+        int IMMOVABLE_COMPANY = 4;
+        int LAND_PERSONAL = 3;
+        int PROPERTY_COMPANY = 5;
+        int LAND_COMPANY = 6;
+    }
+
     public interface AreaLevel {
         int PROVINCE = 1;
         int CITY = 2;

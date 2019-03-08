@@ -1,8 +1,5 @@
 package com.jdp.hls.page.deed.personal.property;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -14,6 +11,7 @@ import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.DeedPersonalProperty;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.LogUtil;
@@ -26,7 +24,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -118,27 +115,18 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
         //2.修改 先获取接口，然后可编辑，点保存修改
         //3.查看 先获取接口，然后不可编辑，不出现按钮
         if (mIsAdd) {
-            LogUtil.e(TAG, "add:" + mIsAdd);
-            setRightClick("保存", addListener);
+            setRightClick("保存", saveListener);
         } else {
             //获取接口
             deedPersonalPropertyPresenter.getDeedPersonalProperty(mBuildingId);
         }
     }
 
-    private NoDoubleClickListener editListener = new NoDoubleClickListener() {
+    private NoDoubleClickListener saveListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
             if (checkDataVaildable()) {
-                deedPersonalPropertyPresenter.modifyDeedPersonalProperty(getRequestBody());
-            }
-        }
-    };
-    private NoDoubleClickListener addListener = new NoDoubleClickListener() {
-        @Override
-        public void onNoDoubleClick(View v) {
-            if (checkDataVaildable()) {
-                deedPersonalPropertyPresenter.addDeedPersonalProperty(getRequestBody());
+                deedPersonalPropertyPresenter.saveDeedPersonalProperty(getRequestBody());
             }
         }
     };
@@ -149,6 +137,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
                 .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("PropertyUseTypeId", String.valueOf(propertyUse))
                 .addFormDataPart("StructureTypeId", String.valueOf(propertyStructure))
+                .addFormDataPart("CertId", String.valueOf(mCertId))
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("TotalArea", totalArea)
                 .addFormDataPart("ShareArea", shareArea)
@@ -166,14 +155,6 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
         remark = etRemark.getText().toString().trim();
         buildOccupyArea = etPropertyBuildOccupyArea.getText().toString().trim();
         return CheckUtil.checkEmpty(certNum, "请输入证号") && CheckUtil.checkEmpty(address, "请输入地址");
-    }
-
-
-    public static void goActivity(Context context, String houdeId, boolean isAdd) {
-        Intent intent = new Intent(context, DeedPersonalPropertyActivity.class);
-        intent.putExtra("houdeId", houdeId);
-        intent.putExtra("isAdd", isAdd);
-        context.startActivity(intent);
     }
 
     @Override
@@ -195,7 +176,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
 
     private void setEditable(boolean allowEdit) {
         if (allowEdit) {
-            setRightClick("保存", editListener);
+            setRightClick("保存", saveListener);
         }
         etPropertyNum.setEnabled(allowEdit);
         etPropertyTotalArea.setEnabled(allowEdit);
@@ -208,13 +189,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
     }
 
     @Override
-    public void onAddDeedPersonalPropertySuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_PROPERTY, Status
-                .BuildingType.PERSONAL));
-    }
-
-    @Override
-    public void onModifyDeedPersonalPropertySuccess() {
+    public void onSaveDeedPersonalPropertySuccess(DeedItem deedIte) {
         showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_PROPERTY, Status
                 .BuildingType.PERSONAL));
     }

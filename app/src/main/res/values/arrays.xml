@@ -60,6 +60,11 @@
         <item>不加急</item>
         <item>加急</item>
     </string-array>
+    <!--是否腾空-->
+    <string-array name="switch_house_empty">
+        <item>未腾空</item>
+        <item>已腾空</item>
+    </string-array>
     <!--店面-->
     <string-array name="switch_shop">
         <item>无店面</item>

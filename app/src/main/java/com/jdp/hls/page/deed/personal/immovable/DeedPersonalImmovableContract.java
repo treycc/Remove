@@ -3,6 +3,7 @@ package com.jdp.hls.page.deed.personal.immovable;
 
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.DeedPersonalImmovable;
 
 import okhttp3.RequestBody;
@@ -17,16 +18,14 @@ public interface DeedPersonalImmovableContract {
     interface View extends BaseView {
         void onGetDeedPersonalImmovableSuccess(DeedPersonalImmovable deedPersonalImmovable);
 
-        void onAddDeedPersonalImmovableSuccess();
+        void onSaveDeedPersonalImmovableSuccess(DeedItem deedItem);
 
-        void onModifyDeedPersonalImmovableSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
         void getDeedPersonalImmovable(String houseId);
 
-        void addDeedPersonalImmovable(RequestBody rosterBody);
+        void saveDeedPersonalImmovable(RequestBody rosterBody);
 
-        void modifyDeedPersonalImmovable(RequestBody rosterBody);
     }
 }

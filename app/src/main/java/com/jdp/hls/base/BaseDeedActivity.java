@@ -30,6 +30,7 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
     protected String mBuildingType;
     protected String mFileType;
     protected String mEditable;
+    protected int mCertId;
 
     public FileConfig getFileConfig() {
         return mFileConfig;
@@ -43,10 +44,11 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
 
     @Override
     public void initVariable() {
-        mIsAdd = getIntent().getBooleanExtra(Constants.Extra.ISADD, false);
         mBuildingId = getIntent().getStringExtra(Constants.Extra.BUILDING_ID);
         mBuildingType = getIntent().getStringExtra(Constants.Extra.BUILDING_TYPE);
         mFileType = getIntent().getStringExtra(Constants.Extra.FILETYPE);
+        mCertId = getIntent().getIntExtra(Constants.Extra.CERT_ID,0);
+        mIsAdd = mCertId == 0;
     }
 
     @Override
@@ -64,19 +66,19 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
     @Override
     protected void initData() {
         setFileConfig(new FileConfig(Integer.valueOf(mFileType), mBuildingId, mBuildingType));
-        rvPhotoPreview.setData(null,getFileConfig(),true);
+        rvPhotoPreview.setData(null, getFileConfig(), true);
     }
 
     @Override
     public abstract void initNet();
 
     public static void goActivity(Activity context, Class<? extends BaseDeedActivity> clazz, String fileType, String
-            buildingId, String buildingType, boolean isAdd) {
+            buildingId, String buildingType, int certId) {
         Intent intent = new Intent(context, clazz);
         intent.putExtra(Constants.Extra.FILETYPE, fileType);
         intent.putExtra(Constants.Extra.BUILDING_ID, buildingId);
         intent.putExtra(Constants.Extra.BUILDING_TYPE, buildingType);
-        intent.putExtra(Constants.Extra.ISADD, isAdd);
+        intent.putExtra(Constants.Extra.CERT_ID, certId);
         context.startActivity(intent);
     }
 
@@ -106,7 +108,7 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
             public void run() {
                 finish();
             }
-        },100);
+        }, 100);
 
     }
 }

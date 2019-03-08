@@ -24,6 +24,7 @@ import com.jdp.hls.page.airphoto.list.AirPhotoListFragment;
 import com.jdp.hls.page.airphoto.unrecordbuilding.UnrecordBuildingListActivity;
 import com.jdp.hls.page.business.basic.company.BasicCompanyActivity;
 import com.jdp.hls.page.business.basic.personla.BasicPersonalActivity;
+import com.jdp.hls.page.business.deed.list.DeedListActivity;
 import com.jdp.hls.page.business.detail.company.DetailCompanyActivity;
 import com.jdp.hls.page.business.detail.personal.DetailPersonalActivity;
 import com.jdp.hls.page.business.detail.personal.branklist.BankListActivity;
@@ -125,6 +126,8 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(DeedListActivity target);
+
     void inject(GeographyActivity target);
 
     void inject(RosterCompanyDetailActivity target);

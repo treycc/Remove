@@ -3,12 +3,10 @@ package com.jdp.hls.page.business.detail.personal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
@@ -17,14 +15,13 @@ import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
-import com.jdp.hls.dao.DBManager;
 import com.jdp.hls.event.ModifyBusinessEvent;
 import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.fragment.LngLatFragment;
-import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailPersonal;
 import com.jdp.hls.other.file.FileConfig;
+import com.jdp.hls.page.business.deed.list.DeedListActivity;
 import com.jdp.hls.page.business.detail.personal.branklist.BankListActivity;
 import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
 import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
@@ -42,12 +39,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lib.kingja.switchbutton.SwitchMultiButton;
 import okhttp3.MultipartBody;
@@ -134,19 +128,13 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                 FamilyRelationActivity.goActivity(this, detailPersonal.getHouseId());
                 break;
             case R.id.ll_detail_propertyDeed:
-                String propertyNum = tvDetailPropertyDeed.getText().toString().trim();
-                goDeedActivity(DeedPersonalPropertyActivity.class, Status.FileType.PERSONAL_DEED_PROPERTY, TextUtils
-                        .isEmpty(propertyNum));
+                DeedListActivity.goActivity(this,buildingId,Status.CertType.PROPERTY_PERSONAL,Status.BuildingType.PERSONAL);
                 break;
             case R.id.ll_detail_landDeed:
-                String landNum = tvDetailLandDeed.getText().toString().trim();
-                goDeedActivity(DeedPersonalLandActivity.class, Status.FileType.PERSONAL_DEED_LAND, TextUtils
-                        .isEmpty(landNum));
+                DeedListActivity.goActivity(this,buildingId,Status.CertType.LAND_PERSONAL,Status.BuildingType.PERSONAL);
                 break;
             case R.id.ll_detail_immovableDeed:
-                String immovableNum = tvDetailImmovableDeed.getText().toString().trim();
-                goDeedActivity(DeedPersonalImmovableActivity.class, Status.FileType.PERSONAL_DEED_IMMOVABLE, TextUtils
-                        .isEmpty(immovableNum));
+                DeedListActivity.goActivity(this,buildingId,Status.CertType.IMMOVABLE_PERSONAL,Status.BuildingType.PERSONAL);
                 break;
             case R.id.ll_detail_bankDeed:
                 BankListActivity.goActivity(this, buildingId);
@@ -157,14 +145,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         }
     }
 
-    private void goDeedActivity(Class<? extends BaseDeedActivity> clazz, int fileType, boolean isAdd) {
-        if (isAdd && !allowEdit) {
-            ToastUtil.showText("证件还未添加");
-            return;
-        }
-        BaseDeedActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
-                .PERSONAL, isAdd);
-    }
+
 
     @Override
     public void initVariable() {

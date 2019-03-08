@@ -32,6 +32,7 @@
         </LinearLayout>
 
         <View style="@style/div_hor_gray_margin24"/>
+
         <LinearLayout
             android:id="@+id/ll_owner"
             style="@style/Content_LL_T12">
@@ -45,11 +46,11 @@
                 <com.jdp.hls.view.StringTextView
                     android:id="@+id/tv_personCount"
                     style="@style/font_9_15"
-                    android:textColorHint="@color/c_c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:hint="共0人"/>
+                    android:hint="共0人"
+                    android:textColorHint="@color/c_c"/>
 
                 <ImageView style="@style/BG_ARROW"/>
             </RelativeLayout>
@@ -153,6 +154,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2">
+
                 <lib.kingja.switchbutton.SwitchMultiButton
                     android:id="@+id/switch_detail_publicity"
                     android:layout_width="120dp"
@@ -182,6 +184,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2">
+
                 <lib.kingja.switchbutton.SwitchMultiButton
                     android:id="@+id/switch_detail_isUrgent"
                     android:layout_width="120dp"
@@ -198,6 +201,102 @@
 
 
         </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <LinearLayout style="@style/Content_LL_T12"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/Title_Sub"
+                android:text="是否腾空"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+                <lib.kingja.switchbutton.SwitchMultiButton
+                    android:id="@+id/switch_detail_houseEmpty"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="4dp"
+                    app:selectedColor="@color/main"
+                    app:selectedTab="0"
+                    app:strokeRadius="4dp"
+                    app:strokeWidth="1dp"
+                    app:switchTabs="@array/switch_house_empty"
+                    app:textSize="14sp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:visibility="gone"
+            style="@style/Title_Main"
+            android:text="腾空信息"/>
+
+        <LinearLayout
+            android:visibility="gone"
+            style="@style/Content_LL_T6">
+
+            <com.jdp.hls.view.StringTextView
+                style="@style/Title_Sub"
+                android:text="腾空时间"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_date"
+                    style="@style/font_9_15_eet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint=""/>
+
+                <ImageView
+                    android:id="@+id/iv_dateSelector"
+                    style="@style/BG_DATE_SELECTOR"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray_margin24"/>
+
+        <TextView
+            android:visibility="gone"
+            style="@style/Title_Normal"
+            android:text="腾空资料"/>
+
+
+        <RelativeLayout
+            android:visibility="gone"
+            style="@style/Content_LL_T12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_hi">
+
+            <com.jdp.hls.view.PreviewRecyclerView
+                android:id="@+id/rv_photo_preview_houseEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"/>
+
+            <ImageView
+                style="@style/BG_ARROW"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
 
 
         <TextView
@@ -423,14 +522,14 @@
             android:paddingTop="12dp">
 
             <com.jdp.hls.view.EnableEditText
-                android:padding="12dp"
                 android:id="@+id/et_detail_remark"
                 style="@style/font_9_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white_hi"
                 android:gravity="start"
-                android:hint="请输入备注"/>
+                android:hint="请输入备注"
+                android:padding="12dp"/>
         </LinearLayout>
 
         <TextView

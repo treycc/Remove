@@ -51,6 +51,8 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
             LogUtil.e(TAG,String.format("%s/%s",roster.getRealName(),roster.getMobilePhone()));
         }
         viewHolder.iv_roster_isAssetEvaluated.setVisibility(roster.isEnterprise() ? View.VISIBLE : View.GONE);
+        viewHolder.ll_idcard.setVisibility(roster.getBuildingType()==0 ? View.VISIBLE : View.GONE);
+        viewHolder.tv_idcard.setString(roster.getIdcard());
 
         viewHolder.iv_roster_hasLocation.setBackgroundResource(LatLngUtil.isChinaLatLng(roster.getLatitude(), roster
                 .getLongitude()) ? R.mipmap.ic_has_location_sel : R.mipmap.ic_has_location_nor);
@@ -110,7 +112,9 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
         public StringTextView tv_roster_address;
         public StringTextView tv_roster_name;
         public StringTextView tv_enterpriseName;
+        public StringTextView tv_idcard;
         public LinearLayout ll_enterpriseName;
+        public LinearLayout ll_idcard;
         public ImageView iv_roster_isAssetEvaluated;
         public ImageView iv_roster_hasLocation;
         public ImageView iv_roster_isMeasure;
@@ -120,6 +124,8 @@ public class RosterListAdapter extends BaseLvAdapter<Roster> {
 
         public ViewHolder(View root) {
             this.root = root;
+            ll_idcard = root.findViewById(R.id.ll_idcard);
+            tv_idcard = root.findViewById(R.id.tv_idcard);
             tv_roster_address = root.findViewById(R.id.tv_roster_address);
             tv_roster_name = root.findViewById(R.id.tv_roster_name);
             iv_roster_isAssetEvaluated = root.findViewById(R.id.iv_roster_isAssetEvaluated);

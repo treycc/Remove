@@ -127,44 +127,44 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
             .ll_detail_immovableDeed, R.id.ll_detail_bankDeed, R.id.ll_owner})
     public void click(View view) {
         switch (view.getId()) {
-            case R.id.ll_detail_licenseDeed:
-                String businessNum = tvDetailBusinessDeed.getText().toString().trim();
-                goDeedActivity(DeedCompanyBusinessActivity.class, Status.FileType.COMPANY_DEED_BUSINESS, TextUtils
-                        .isEmpty(businessNum));
-                break;
-            case R.id.ll_detail_propertyDeed:
-                String propertyNum = tvDetailPropertyDeed.getText().toString().trim();
-                goDeedActivity(DeedCompanyPropertyActivity.class, Status.FileType.COMPANY_DEED_PROPERTY, TextUtils
-                        .isEmpty(propertyNum));
-                break;
-            case R.id.ll_detail_landDeed:
-                String landNum = tvDetailLandDeed.getText().toString().trim();
-                goDeedActivity(DeedCompanyLandActivity.class, Status.FileType.COMPANY_DEED_LAND, TextUtils
-                        .isEmpty(landNum));
-                break;
-            case R.id.ll_detail_immovableDeed:
-                String immovableNum = tvDetailImmovableDeed.getText().toString().trim();
-                goDeedActivity(DeedCompanyImmovableActivity.class, Status.FileType.COMPANY_DEED_IMMOVABLE, TextUtils
-                        .isEmpty(immovableNum));
-                break;
-            case R.id.ll_detail_bankDeed:
-                String openAccountCertNum = tvDetailBankAccount.getText().toString().trim();
-                goDeedActivity(DeedCompanyBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
-                        (openAccountCertNum));
-                break;
+//            case R.id.ll_detail_licenseDeed:
+//                String businessNum = tvDetailBusinessDeed.getText().toString().trim();
+//                goDeedActivity(DeedCompanyBusinessActivity.class, Status.FileType.COMPANY_DEED_BUSINESS, TextUtils
+//                        .isEmpty(businessNum));
+//                break;
+//            case R.id.ll_detail_propertyDeed:
+//                String propertyNum = tvDetailPropertyDeed.getText().toString().trim();
+//                goDeedActivity(DeedCompanyPropertyActivity.class, Status.FileType.COMPANY_DEED_PROPERTY, TextUtils
+//                        .isEmpty(propertyNum));
+//                break;
+//            case R.id.ll_detail_landDeed:
+//                String landNum = tvDetailLandDeed.getText().toString().trim();
+//                goDeedActivity(DeedCompanyLandActivity.class, Status.FileType.COMPANY_DEED_LAND, TextUtils
+//                        .isEmpty(landNum));
+//                break;
+//            case R.id.ll_detail_immovableDeed:
+//                String immovableNum = tvDetailImmovableDeed.getText().toString().trim();
+//                goDeedActivity(DeedCompanyImmovableActivity.class, Status.FileType.COMPANY_DEED_IMMOVABLE, TextUtils
+//                        .isEmpty(immovableNum));
+//                break;
+//            case R.id.ll_detail_bankDeed:
+//                String openAccountCertNum = tvDetailBankAccount.getText().toString().trim();
+//                goDeedActivity(DeedCompanyBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
+//                        (openAccountCertNum));
+//                break;
             case R.id.ll_owner:
                 ContactsListActivity.goActivity(this, buildingId, Status.BuildingType.COMPANY, allowEdit);
         }
     }
 
-    private void goDeedActivity(Class<? extends BaseDeedActivity> clazz, int fileType, boolean isAdd) {
-        if (isAdd && !allowEdit) {
-            ToastUtil.showText("证件还未添加");
-            return;
-        }
-        BaseDeedActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
-                .COMPANY, isAdd);
-    }
+//    private void goDeedActivity(Class<? extends BaseDeedActivity> clazz, int fileType, boolean isAdd) {
+//        if (isAdd && !allowEdit) {
+//            ToastUtil.showText("证件还未添加");
+//            return;
+//        }
+//        BaseDeedActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
+//                .COMPANY, isAdd);
+//    }
 
     @Override
     protected int getContentView() {

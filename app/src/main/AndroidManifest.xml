@@ -411,6 +411,7 @@
         <activity android:name=".page.rosterdetail.detail.company.RosterCompanyDetailActivity"/>
         <activity android:name=".page.geography.GeographyActivity"
                   android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".page.business.deed.list.DeedListActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->
