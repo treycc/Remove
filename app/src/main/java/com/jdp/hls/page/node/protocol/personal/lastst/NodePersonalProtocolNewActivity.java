@@ -71,9 +71,9 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
     @Inject
     NodePersonalProtocolPresenter nodePersonalProtocolPresenter;
     private List<TDict> payTypeList;
-    private PayMoneyFragment payMoneyFragment;
-    private PayChangeFragment payChangeFragment;
-    private PayRebuyFragment payRebuyFragment;
+    private PersonalPayMoneyFragment payMoneyFragment;
+    private PersonalPayChangeFragment payChangeFragment;
+    private PersonalPayRebuyFragment payRebuyFragment;
 
 
     @OnClick({R.id.rl_payList})
@@ -214,9 +214,9 @@ public class NodePersonalProtocolNewActivity extends BaseNodeActivity implements
         if (payType == 99) {
             payType=spinnerProtocolPayType.getDefaultTypeId();
         }
-        payMoneyFragment = PayMoneyFragment.newInstance(nodePersonalProtocol);
-        payChangeFragment = PayChangeFragment.newInstance(nodePersonalProtocol);
-        payRebuyFragment = PayRebuyFragment.newInstance(nodePersonalProtocol);
+        payMoneyFragment = PersonalPayMoneyFragment.newInstance(nodePersonalProtocol);
+        payChangeFragment = PersonalPayChangeFragment.newInstance(nodePersonalProtocol);
+        payRebuyFragment = PersonalPayRebuyFragment.newInstance(nodePersonalProtocol);
         spinnerProtocolPayType.setSelectItem(payType);
         switchPayType(payType);
         rvPhotoPreview.setData(nodePersonalProtocol.getFiles(), getFileConfig(), allowEdit);

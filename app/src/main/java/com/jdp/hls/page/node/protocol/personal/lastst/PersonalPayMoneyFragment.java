@@ -1,20 +1,17 @@
 package com.jdp.hls.page.node.protocol.personal.lastst;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.jdp.hls.R;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodePersonalProtocol;
+import com.jdp.hls.page.node.protocol.BasePayFragment;
 import com.jdp.hls.util.CalculateUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.StringTextView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import okhttp3.MultipartBody;
 
@@ -24,7 +21,7 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class PayMoneyFragment extends BasePayFragment {
+public class PersonalPayMoneyFragment extends BasePayFragment {
 
     @BindView(R.id.tv_oldHouseMarketTotalMoney)
     StringTextView tvOldHouseMarketTotalMoney;
@@ -55,8 +52,8 @@ public class PayMoneyFragment extends BasePayFragment {
     EnableEditText etMoveBackFee;
     private NodePersonalProtocol nodePersonalProtocol;
 
-    public static PayMoneyFragment newInstance(NodePersonalProtocol nodePersonalProtocol) {
-        PayMoneyFragment fragment = new PayMoneyFragment();
+    public static PersonalPayMoneyFragment newInstance(NodePersonalProtocol nodePersonalProtocol) {
+        PersonalPayMoneyFragment fragment = new PersonalPayMoneyFragment();
         Bundle args = new Bundle();
         args.putSerializable(Constants.Extra.Object, nodePersonalProtocol);
         fragment.setArguments(args);

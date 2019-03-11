@@ -7,29 +7,27 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
+import com.jdp.hls.event.RefreshCertCountEvent;
 import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailCompany;
 import com.jdp.hls.other.file.FileConfig;
-import com.jdp.hls.page.deed.company.bank.DeedCompanyBankActivity;
+import com.jdp.hls.page.business.deed.list.DeedListActivity;
 import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
-import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
 import com.jdp.hls.page.rosterdetail.contacts.list.ContactsListActivity;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.util.OtherUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
 import com.jdp.hls.view.StringTextView;
@@ -105,10 +103,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     private boolean ifPublicity;
     @Inject
     DetailCompanyPresenter detailCompanyPresenter;
-    private String estateCertNum;
     private String licenseNo;
-    private String landCertNum;
-    private String propertyCertNum;
     private double longitude;
     private double latitude;
     private LngLatFragment lngLatFragment;
@@ -117,6 +112,9 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     private String cusCode;
     private boolean isUrgent;
     private String enterpriseName;
+    private int landCount;
+    private int estateCount;
+    private int propertyCount;
 
     @Override
     public void initVariable() {
@@ -132,21 +130,18 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
 //                goDeedActivity(DeedCompanyBusinessActivity.class, Status.FileType.COMPANY_DEED_BUSINESS, TextUtils
 //                        .isEmpty(businessNum));
 //                break;
-//            case R.id.ll_detail_propertyDeed:
-//                String propertyNum = tvDetailPropertyDeed.getText().toString().trim();
-//                goDeedActivity(DeedCompanyPropertyActivity.class, Status.FileType.COMPANY_DEED_PROPERTY, TextUtils
-//                        .isEmpty(propertyNum));
-//                break;
-//            case R.id.ll_detail_landDeed:
-//                String landNum = tvDetailLandDeed.getText().toString().trim();
-//                goDeedActivity(DeedCompanyLandActivity.class, Status.FileType.COMPANY_DEED_LAND, TextUtils
-//                        .isEmpty(landNum));
-//                break;
-//            case R.id.ll_detail_immovableDeed:
-//                String immovableNum = tvDetailImmovableDeed.getText().toString().trim();
-//                goDeedActivity(DeedCompanyImmovableActivity.class, Status.FileType.COMPANY_DEED_IMMOVABLE, TextUtils
-//                        .isEmpty(immovableNum));
-//                break;
+            case R.id.ll_detail_propertyDeed:
+                DeedListActivity.goActivity(this, buildingId, Status.CertType.PROPERTY_COMPANY, Status.BuildingType
+                        .COMPANY);
+                break;
+            case R.id.ll_detail_landDeed:
+                DeedListActivity.goActivity(this, buildingId, Status.CertType.LAND_COMPANY, Status.BuildingType
+                        .COMPANY);
+                break;
+            case R.id.ll_detail_immovableDeed:
+                DeedListActivity.goActivity(this, buildingId, Status.CertType.IMMOVABLE_COMPANY, Status.BuildingType
+                        .COMPANY);
+                break;
 //            case R.id.ll_detail_bankDeed:
 //                String openAccountCertNum = tvDetailBankAccount.getText().toString().trim();
 //                goDeedActivity(DeedCompanyBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
@@ -157,12 +152,12 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         }
     }
 
-//    private void goDeedActivity(Class<? extends BaseDeedActivity> clazz, int fileType, boolean isAdd) {
+//    private void goDeedActivity(Class<? extends BaseDeedMulActivity> clazz, int fileType, boolean isAdd) {
 //        if (isAdd && !allowEdit) {
 //            ToastUtil.showText("证件还未添加");
 //            return;
 //        }
-//        BaseDeedActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
+//        BaseDeedMulActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
 //                .COMPANY, isAdd);
 //    }
 
@@ -193,7 +188,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     @Override
     protected void initData() {
         switchDetailPublicity.setOnSwitchListener((position, tabText) -> {
-            ifPublicity = position==1;
+            ifPublicity = position == 1;
         });
         switchDetailIsUrgent.setOnSwitchListener((position, tabText) -> {
             isUrgent = position == 1;
@@ -216,10 +211,7 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     public void onGetCompanyDetailSuccess(DetailCompany detailCompany) {
         setContentTitle(detailCompany.getAddress());
         tvPersonCount.setHint(String.format("共%d人", detailCompany.getPersonCount()));
-        estateCertNum = detailCompany.getEstateCertNum();
         licenseNo = detailCompany.getLicenseNo();
-        landCertNum = detailCompany.getLandCertNum();
-        propertyCertNum = detailCompany.getPropertyCertNum();
         etDetailCurrentOccupyArea.setText(detailCompany.getCurrentOccupyArea());
         etDetailCusCode.setText(detailCompany.getCusCode());
         etDetailEnterpriseName.setText(detailCompany.getEnterpriseName());
@@ -229,9 +221,14 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
         etDetailRemark.setText(detailCompany.getRemark());
         tvDetailBankAccount.setText(detailCompany.getBankAccount());
         tvDetailBusinessDeed.setText(licenseNo);
-        tvDetailLandDeed.setText(landCertNum);
-        tvDetailImmovableDeed.setText(estateCertNum);
-        tvDetailPropertyDeed.setText(propertyCertNum);
+
+        landCount = detailCompany.getLandCount();
+        estateCount = detailCompany.getEstateCount();
+        propertyCount = detailCompany.getPropertyCount();
+
+        tvDetailLandDeed.setText(String.format(getString(R.string.deed_count), landCount));
+        tvDetailImmovableDeed.setText(String.format(getString(R.string.deed_count), estateCount));
+        tvDetailPropertyDeed.setText(String.format(getString(R.string.deed_count), propertyCount));
 
         ifPublicity = detailCompany.isAllowPublicity();
         isUrgent = detailCompany.isUrgent();
@@ -341,18 +338,9 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshDeedEvent(RefreshCertNumEvent event) {
+    public void refreshOtherDeedEvent(RefreshCertNumEvent event) {
         if (event.getBuildType() == Status.BuildingType.COMPANY) {
             switch (event.getCertType()) {
-                case Status.FileType.COMPANY_DEED_PROPERTY:
-                    tvDetailPropertyDeed.setText(event.getCertNum());
-                    break;
-                case Status.FileType.COMPANY_DEED_LAND:
-                    tvDetailLandDeed.setText(event.getCertNum());
-                    break;
-                case Status.FileType.COMPANY_DEED_IMMOVABLE:
-                    tvDetailImmovableDeed.setText(event.getCertNum());
-                    break;
                 case Status.FileType.COMPANY_DEED_BUSINESS:
                     tvDetailBusinessDeed.setText(event.getCertNum());
                     break;
@@ -364,5 +352,29 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
             }
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshDeedEvent(RefreshCertCountEvent event) {
+        switch (event.getCertType()) {
+            case Status.CertType.LAND_COMPANY:
+                landCount = OtherUtil.getNewCount(landCount, event.isAdd());
+                tvDetailLandDeed.setText(String.format(getString(R.string.deed_count), OtherUtil.getNewCount
+                        (landCount, event.isAdd())));
+                break;
+            case Status.CertType.PROPERTY_COMPANY:
+                propertyCount = OtherUtil.getNewCount(propertyCount, event.isAdd());
+                tvDetailPropertyDeed.setText(String.format(getString(R.string.deed_count), propertyCount));
+                break;
+            case Status.CertType.IMMOVABLE_COMPANY:
+                estateCount = OtherUtil.getNewCount(propertyCount, event.isAdd());
+                tvDetailImmovableDeed.setText(String.format(getString(R.string.deed_count), estateCount));
+                break;
+            case Status.FileType.BANK:
+//                tvDetailBankAccount.setText(event.getCertNum());
+                break;
+            default:
+                break;
+        }
     }
 }

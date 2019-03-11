@@ -3,19 +3,18 @@ package com.jdp.hls.page.business.detail.personal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
+import com.jdp.hls.event.RefreshCertCountEvent;
 import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.fragment.LngLatFragment;
 import com.jdp.hls.injector.component.AppComponent;
@@ -23,14 +22,11 @@ import com.jdp.hls.model.entiy.DetailPersonal;
 import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.page.business.deed.list.DeedListActivity;
 import com.jdp.hls.page.business.detail.personal.branklist.BankListActivity;
-import com.jdp.hls.page.deed.personal.immovable.DeedPersonalImmovableActivity;
-import com.jdp.hls.page.deed.personal.land.DeedPersonalLandActivity;
-import com.jdp.hls.page.deed.personal.property.DeedPersonalPropertyActivity;
 import com.jdp.hls.page.familyrelation.list.FamilyRelationActivity;
 import com.jdp.hls.page.rosterdetail.contacts.list.ContactsListActivity;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
+import com.jdp.hls.util.OtherUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
 import com.jdp.hls.view.StringTextView;
@@ -119,6 +115,9 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private String cusCode;
     private String vrUrl;
     private boolean isUrgent;
+    private int landCount;
+    private int estateCount;
+    private int propertyCount;
 
     @OnClick({R.id.rl_unrecordBuilding, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
             .ll_detail_immovableDeed, R.id.ll_detail_bankDeed, R.id.ll_owner})
@@ -128,23 +127,25 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                 FamilyRelationActivity.goActivity(this, detailPersonal.getHouseId());
                 break;
             case R.id.ll_detail_propertyDeed:
-                DeedListActivity.goActivity(this,buildingId,Status.CertType.PROPERTY_PERSONAL,Status.BuildingType.PERSONAL);
+                DeedListActivity.goActivity(this, buildingId, Status.CertType.PROPERTY_PERSONAL, Status.BuildingType
+                        .PERSONAL);
                 break;
             case R.id.ll_detail_landDeed:
-                DeedListActivity.goActivity(this,buildingId,Status.CertType.LAND_PERSONAL,Status.BuildingType.PERSONAL);
+                DeedListActivity.goActivity(this, buildingId, Status.CertType.LAND_PERSONAL, Status.BuildingType
+                        .PERSONAL);
                 break;
             case R.id.ll_detail_immovableDeed:
-                DeedListActivity.goActivity(this,buildingId,Status.CertType.IMMOVABLE_PERSONAL,Status.BuildingType.PERSONAL);
+                DeedListActivity.goActivity(this, buildingId, Status.CertType.IMMOVABLE_PERSONAL, Status.BuildingType
+                        .PERSONAL);
                 break;
             case R.id.ll_detail_bankDeed:
                 BankListActivity.goActivity(this, buildingId);
                 break;
             case R.id.ll_owner:
-                ContactsListActivity.goActivity(this, buildingId, Status.BuildingType.PERSONAL,allowEdit);
+                ContactsListActivity.goActivity(this, buildingId, Status.BuildingType.PERSONAL, allowEdit);
                 break;
         }
     }
-
 
 
     @Override
@@ -185,16 +186,16 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
 
     private void initSpinners() {
         switchDetailNeedHouse.setOnSwitchListener((position, tabText) -> {
-            needHouse = position==1;
+            needHouse = position == 1;
         });
         switchDetailPublicity.setOnSwitchListener((position, tabText) -> {
-            ifPublicity = position==1;
+            ifPublicity = position == 1;
         });
         switchDetailIsUrgent.setOnSwitchListener((position, tabText) -> {
-            isUrgent = position==1;
+            isUrgent = position == 1;
         });
         switchDetailHasShop.setOnSwitchListener((position, tabText) -> {
-            hasShop = position==1;
+            hasShop = position == 1;
             llBusinessArea.setVisibility(hasShop ? View.VISIBLE : View.GONE);
         });
     }
@@ -217,9 +218,14 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         etDetailAddress.setText(detailPersonal.getAddress());
         etDetailVrUrl.setString(detailPersonal.getVRUrl());
         etDetailBizUseArea.setText(String.valueOf(detailPersonal.getBizUseArea()));
-        tvDetailPropertyDeed.setText(detailPersonal.getPropertyCertNum());
-        tvDetailLandDeed.setText(detailPersonal.getLandCertNum());
-        tvDetailImmovableDeed.setText(detailPersonal.getEstateCertNum());
+        landCount = detailPersonal.getLandCount();
+        estateCount = detailPersonal.getEstateCount();
+        propertyCount = detailPersonal.getPropertyCount();
+
+        tvDetailLandDeed.setText(String.format(getString(R.string.deed_count), landCount));
+        tvDetailImmovableDeed.setText(String.format(getString(R.string.deed_count), estateCount));
+        tvDetailPropertyDeed.setText(String.format(getString(R.string.deed_count), propertyCount));
+
 //        tvDetailBankAccount.setText(detailPersonal.getBankAccount());
         etDetailRemark.setText(detailPersonal.getRemark());
 
@@ -342,25 +348,28 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshDeedEvent(RefreshCertNumEvent event) {
-        if (event.getBuildType() == Status.BuildingType.PERSONAL) {
-            switch (event.getCertType()) {
-                case Status.FileType.PERSONAL_DEED_PROPERTY:
-                    tvDetailPropertyDeed.setText(event.getCertNum());
-                    break;
-                case Status.FileType.PERSONAL_DEED_LAND:
-                    tvDetailLandDeed.setText(event.getCertNum());
-                    break;
-                case Status.FileType.PERSONAL_DEED_IMMOVABLE:
-                    tvDetailImmovableDeed.setText(event.getCertNum());
-                    break;
-                case Status.FileType.BANK:
-                    tvDetailBankAccount.setText(event.getCertNum());
-                    break;
-                default:
-                    break;
-            }
+    public void refreshDeedEvent(RefreshCertCountEvent event) {
+        switch (event.getCertType()) {
+            case Status.CertType.LAND_PERSONAL:
+                landCount = OtherUtil.getNewCount(landCount, event.isAdd());
+                tvDetailLandDeed.setText(String.format(getString(R.string.deed_count), OtherUtil.getNewCount
+                        (landCount, event.isAdd())));
+                break;
+            case Status.CertType.PROPERTY_PERSONAL:
+                propertyCount = OtherUtil.getNewCount(propertyCount, event.isAdd());
+                tvDetailPropertyDeed.setText(String.format(getString(R.string.deed_count), propertyCount));
+                break;
+            case Status.CertType.IMMOVABLE_PERSONAL:
+                estateCount = OtherUtil.getNewCount(propertyCount, event.isAdd());
+                tvDetailImmovableDeed.setText(String.format(getString(R.string.deed_count), estateCount));
+                break;
+            case Status.FileType.BANK:
+//                tvDetailBankAccount.setText(event.getCertNum());
+                break;
+            default:
+                break;
         }
     }
+
 
 }

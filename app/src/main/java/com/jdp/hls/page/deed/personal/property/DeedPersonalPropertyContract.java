@@ -23,7 +23,7 @@ public interface DeedPersonalPropertyContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getDeedPersonalProperty(String houseId);
+        void getDeedPersonalPropertyDetail(int certId);
 
         void saveDeedPersonalProperty(RequestBody rosterBody);
 

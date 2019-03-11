@@ -5,4 +5,5 @@
     <string name="title_decoration_detail">室内装饰装修明细</string>
     <string name="title_appendant_detail">附属物及其它构筑物明细</string>
     <string name="title_node_age">认定结果</string>
+    <string name="deed_count">共%d本</string>
 </resources>

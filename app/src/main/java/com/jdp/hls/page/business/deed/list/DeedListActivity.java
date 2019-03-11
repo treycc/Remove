@@ -7,17 +7,17 @@ import android.view.View;
 import com.jdp.hls.R;
 import com.jdp.hls.adapter.BaseLvAdapter;
 import com.jdp.hls.adapter.DeedAdapter;
-import com.jdp.hls.base.BaseDeedActivity;
+import com.jdp.hls.base.BaseDeedMulActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
-import com.jdp.hls.event.AddBankInfoEvent;
-import com.jdp.hls.event.ModifyBankInfoEvent;
+import com.jdp.hls.event.AddDeedListEvent;
+import com.jdp.hls.event.ModifyDeedListEvent;
+import com.jdp.hls.event.RefreshCertCountEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.DeedListInfo;
-import com.jdp.hls.page.business.detail.personal.bankdetail.DeedPersonalBankActivity;
 import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
@@ -131,31 +131,35 @@ public class DeedListActivity extends BaseTitleActivity implements DeedListContr
     private void switchDeedDetail(int certType, int certId) {
         switch (certType) {
             case Status.CertType.LAND_PERSONAL:
-                BaseDeedActivity.goActivity(DeedListActivity.this, DeedPersonalLandActivity.class, String
+                BaseDeedMulActivity.goActivity(DeedListActivity.this, DeedPersonalLandActivity.class, String
                         .valueOf(Status.FileType.PERSONAL_DEED_LAND), buildingId, String.valueOf(buildingType), certId);
                 break;
             case Status.CertType.LAND_COMPANY:
-                BaseDeedActivity.goActivity(DeedListActivity.this, DeedCompanyLandActivity.class, String
+                BaseDeedMulActivity.goActivity(DeedListActivity.this, DeedCompanyLandActivity.class, String
                         .valueOf(Status.FileType.COMPANY_DEED_LAND), buildingId, String.valueOf(buildingType), certId);
                 break;
             case Status.CertType.PROPERTY_PERSONAL:
-                BaseDeedActivity.goActivity(DeedListActivity.this, DeedPersonalPropertyActivity.class, String
-                        .valueOf(Status.FileType.PERSONAL_DEED_PROPERTY), buildingId, String.valueOf(buildingType),
+                BaseDeedMulActivity.goActivity(DeedListActivity.this, DeedPersonalPropertyActivity.class, String
+                                .valueOf(Status.FileType.PERSONAL_DEED_PROPERTY), buildingId, String.valueOf
+                                (buildingType),
                         certId);
                 break;
             case Status.CertType.PROPERTY_COMPANY:
-                BaseDeedActivity.goActivity(DeedListActivity.this, DeedCompanyPropertyActivity.class, String
-                        .valueOf(Status.FileType.COMPANY_DEED_PROPERTY), buildingId, String.valueOf(buildingType),
+                BaseDeedMulActivity.goActivity(DeedListActivity.this, DeedCompanyPropertyActivity.class, String
+                                .valueOf(Status.FileType.COMPANY_DEED_PROPERTY), buildingId, String.valueOf
+                                (buildingType),
                         certId);
                 break;
             case Status.CertType.IMMOVABLE_PERSONAL:
-                BaseDeedActivity.goActivity(DeedListActivity.this, DeedPersonalImmovableActivity.class, String
-                        .valueOf(Status.FileType.PERSONAL_DEED_IMMOVABLE), buildingId, String.valueOf(buildingType),
+                BaseDeedMulActivity.goActivity(DeedListActivity.this, DeedPersonalImmovableActivity.class, String
+                                .valueOf(Status.FileType.PERSONAL_DEED_IMMOVABLE), buildingId, String.valueOf
+                                (buildingType),
                         certId);
                 break;
             case Status.CertType.IMMOVABLE_COMPANY:
-                BaseDeedActivity.goActivity(DeedListActivity.this, DeedCompanyImmovableActivity.class, String
-                        .valueOf(Status.FileType.COMPANY_DEED_IMMOVABLE), buildingId, String.valueOf(buildingType),
+                BaseDeedMulActivity.goActivity(DeedListActivity.this, DeedCompanyImmovableActivity.class, String
+                                .valueOf(Status.FileType.COMPANY_DEED_IMMOVABLE), buildingId, String.valueOf
+                                (buildingType),
                         certId);
                 break;
         }
@@ -180,14 +184,14 @@ public class DeedListActivity extends BaseTitleActivity implements DeedListContr
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void addBankInfo(AddBankInfoEvent event) {
+    public void addItem(AddDeedListEvent event) {
         showSuccessCallback();
-//        deedAdapter.addFirst(event.getBankInfo());
+        deedAdapter.addFirst(event.getDeedItem());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void modifyBankInfo(ModifyBankInfoEvent event) {
-//        deedAdapter.modifyItem(event.getBankInfo());
+    public void modifyItem(ModifyDeedListEvent event) {
+        deedAdapter.modifyItem(event.getDeedItem());
     }
 
     @Override
@@ -204,10 +208,9 @@ public class DeedListActivity extends BaseTitleActivity implements DeedListContr
         setListView(deedListInfo.getItems(), deedAdapter, allowEdit);
     }
 
-
-
     @Override
     public void onDeleteDeed(int position) {
         deedAdapter.removeItem(position);
+        EventBus.getDefault().post(new RefreshCertCountEvent(certType, false));
     }
 }

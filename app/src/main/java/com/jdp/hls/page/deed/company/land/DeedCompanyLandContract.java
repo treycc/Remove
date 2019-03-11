@@ -4,6 +4,7 @@ package com.jdp.hls.page.deed.company.land;
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
+import com.jdp.hls.model.entiy.DeedItem;
 
 import okhttp3.RequestBody;
 
@@ -17,16 +18,14 @@ public interface DeedCompanyLandContract {
     interface View extends BaseView {
         void onGetDeedCompanyLandSuccess(DeedCompanyLand deedCompanyLand);
 
-        void onAddDeedCompanyLandSuccess();
+        void onSaveDeedCompanyLandSuccess(DeedItem deedItem);
 
-        void onModifyDeedCompanyLandSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getDeedCompanyLand(String enterpriseId);
+        void getDeedCompanyLandDetail(int certId);
 
-        void addDeedCompanyLand(RequestBody rosterBody);
+        void saveDeedCompanyLand(RequestBody rosterBody);
 
-        void modifyDeedCompanyLand(RequestBody rosterBody);
     }
 }

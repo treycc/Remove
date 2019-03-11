@@ -9,19 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
-import com.jdp.hls.model.entiy.ImgInfo;
 import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.PreviewRecyclerView;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
-
-import java.util.List;
 
 import butterknife.BindView;
 

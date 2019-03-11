@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseDeedActivity;
+import com.jdp.hls.base.BaseDeedMulActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
@@ -35,7 +35,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedCompanyBusinessActivity extends BaseDeedActivity implements DeedCompanyLicenseContract.View {
+public class DeedCompanyBusinessActivity extends BaseDeedMulActivity implements DeedCompanyLicenseContract.View {
 
     @BindView(R.id.et_license_certNum)
     EnableEditText etLicenseCertNum;
@@ -203,7 +203,7 @@ public class DeedCompanyBusinessActivity extends BaseDeedActivity implements Dee
         allowEdit = deedCompanyLicense.isAllowEdit();
         String personId = deedCompanyLicense.getPersonId();
         setEditable(allowEdit);
-        rvPhotoPreview.setData(deedCompanyLicense.getFiles(), getFileConfig(), allowEdit);
+        rvAddablePhotoPreview.setDate(deedCompanyLicense.getFiles(), deedCompanyLicense.isAllowEdit());
     }
 
     @Override

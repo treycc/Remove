@@ -55,6 +55,7 @@ import com.jdp.hls.page.mine.MineFragment;
 import com.jdp.hls.page.module.HomeFragment;
 import com.jdp.hls.page.node.age.company.NodeCompanyAgeActivity;
 import com.jdp.hls.page.node.age.personal.NodePersonalAgeActivity;
+import com.jdp.hls.page.node.protocol.company.lastst.NodeCompanyProtocolNewActivity;
 import com.jdp.hls.page.node.protocol.personal.lastst.pay.banklist.ReceiveAccountListActivity;
 import com.jdp.hls.page.node.protocol.personal.lastst.pay.detail.PayDetailActivity;
 import com.jdp.hls.page.node.protocol.personal.lastst.pay.list.PayListActivity;
@@ -126,6 +127,8 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(NodeCompanyProtocolNewActivity target);
+
     void inject(DeedListActivity target);
 
     void inject(GeographyActivity target);

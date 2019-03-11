@@ -12,14 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseDeedActivity;
+import com.jdp.hls.base.BaseDeedMulActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
-import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.DateUtil;
 import com.jdp.hls.util.MathUtil;
@@ -45,7 +45,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCompanyLandContract.View {
+public class DeedCompanyLandActivity extends BaseDeedMulActivity implements DeedCompanyLandContract.View {
     @BindView(R.id.spinner_landType)
     KSpinner spinnerLandType;
     @BindView(R.id.et_land_certNum)
@@ -64,8 +64,6 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     TextView tvLandOutExpiryDate;
     @BindView(R.id.iv_dateSelector)
     ImageView ivDateSelector;
-    @BindView(R.id.rl_photo_preview)
-    RelativeLayout rlPhotoPreview;
     private List<TDict> landTypeList;
     private int landTypeId;
     @Inject
@@ -131,27 +129,18 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     @Override
     public void initNet() {
         if (mIsAdd) {
-            setRightClick("保存", addListener);
+            setRightClick("保存", saveListener);
             setDateSelector(ivDateSelector, tvLandOutExpiryDate, mIsAdd);
         } else {
-            deedCompanyLandPresenter.getDeedCompanyLand(mBuildingId);
+            deedCompanyLandPresenter.getDeedCompanyLandDetail(mCertId);
         }
 
     }
-
-    private NoDoubleClickListener editListener = new NoDoubleClickListener() {
+    private NoDoubleClickListener saveListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
             if (checkDataVaildable()) {
-                deedCompanyLandPresenter.modifyDeedCompanyLand(getRequestBody());
-            }
-        }
-    };
-    private NoDoubleClickListener addListener = new NoDoubleClickListener() {
-        @Override
-        public void onNoDoubleClick(View v) {
-            if (checkDataVaildable()) {
-                deedCompanyLandPresenter.addDeedCompanyLand(getRequestBody());
+                deedCompanyLandPresenter.saveDeedCompanyLand(getRequestBody());
             }
         }
     };
@@ -170,20 +159,25 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
 
     @NonNull
     private RequestBody getRequestBody() {
-        return new MultipartBody.Builder().setType(MultipartBody.FORM)
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("CertNum", certNum)
+                .addFormDataPart("Id", String.valueOf(mCertId))
                 .addFormDataPart("LandNatureTypeId", String.valueOf(landTypeId))
                 .addFormDataPart("LandUse", landUse)
                 .addFormDataPart("Area", area)
                 .addFormDataPart("LandOutExpiryDate", landOutExpiryDate)
                 .addFormDataPart("Remark", remark)
-                .addFormDataPart("Address", address).build();
+                .addFormDataPart("Address", address)
+                .addFormDataPart("deleteFileIDs", TextUtils.isEmpty
+                        (rvAddablePhotoPreview.getDeleteImgIds()) ? "" :
+                        rvAddablePhotoPreview.getDeleteImgIds());
+        return rvAddablePhotoPreview.getValidData(builder).build();
     }
 
     private void setEditable(boolean allowEdit) {
         if (allowEdit) {
-            setRightClick("保存", editListener);
+            setRightClick("保存", saveListener);
         }
         etLandCertNum.setEnabled(allowEdit);
         etLandArea.setEnabled(allowEdit);
@@ -226,7 +220,6 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
     public void onGetDeedCompanyLandSuccess(DeedCompanyLand deedCompanyLand) {
         etLandCertNum.setText(deedCompanyLand.getCertNum());
         etLandArea.setText(String.valueOf(deedCompanyLand.getArea()));
-//        tvLandMu.setText(String.valueOf(deedCompanyLand.getMu()));
         etLandAddress.setText(deedCompanyLand.getAddress());
         etRemark.setText(deedCompanyLand.getRemark());
         etLandLandUse.setText(deedCompanyLand.getLandUse());
@@ -235,20 +228,13 @@ public class DeedCompanyLandActivity extends BaseDeedActivity implements DeedCom
         spinnerLandType.setSelectItem(landTypeId);
         boolean allowEdit = deedCompanyLand.isAllowEdit();
         setEditable(allowEdit);
-        rvPhotoPreview.setData(deedCompanyLand.getFiles(), getFileConfig(), allowEdit);
+        rvAddablePhotoPreview.setDate(deedCompanyLand.getFiles(), deedCompanyLand.isAllowEdit());
         calculate();
     }
 
     @Override
-    public void onAddDeedCompanyLandSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_LAND, Status.BuildingType
-                .COMPANY));
-    }
-
-    @Override
-    public void onModifyDeedCompanyLandSuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_LAND, Status.BuildingType
-                .COMPANY));
+    public void onSaveDeedCompanyLandSuccess(DeedItem deedItem) {
+        refreshDeedList(deedItem);
     }
 
 }

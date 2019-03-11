@@ -2,19 +2,19 @@ package com.jdp.hls.page.deed.company.property;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseDeedActivity;
+import com.jdp.hls.base.BaseDeedMulActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
-import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedCompanyProperty;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.util.CheckUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
@@ -25,7 +25,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -35,7 +34,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedCompanyPropertyActivity extends BaseDeedActivity implements DeedCompanyPropertyContract.View {
+public class DeedCompanyPropertyActivity extends BaseDeedMulActivity implements DeedCompanyPropertyContract.View {
     @BindView(R.id.spinner_property_structure)
     KSpinner spinnerPropertyStructure;
     @BindView(R.id.et_property_area)
@@ -99,26 +98,17 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
     @Override
     public void initNet() {
         if (mIsAdd) {
-            setRightClick("保存", addListener);
+            setRightClick("保存", saveListener);
         } else {
-            deedCompanyPropertyPresenter.getDeedCompanyProperty(mBuildingId);
+            deedCompanyPropertyPresenter.getDeedCompanyPropertyDetail(mCertId);
         }
     }
 
-    private NoDoubleClickListener editListener = new NoDoubleClickListener() {
+    private NoDoubleClickListener saveListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
             if (checkDataVaildable()) {
-                deedCompanyPropertyPresenter.modifyDeedCompanyProperty(getRequestBody());
-            }
-
-        }
-    };
-    private NoDoubleClickListener addListener = new NoDoubleClickListener() {
-        @Override
-        public void onNoDoubleClick(View v) {
-            if (checkDataVaildable()) {
-                deedCompanyPropertyPresenter.addDeedCompanyProperty(getRequestBody());
+                deedCompanyPropertyPresenter.saveDeedCompanyProperty(getRequestBody());
             }
 
         }
@@ -126,15 +116,19 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
 
     @NonNull
     private RequestBody getRequestBody() {
-        return new MultipartBody.Builder().setType(MultipartBody.FORM)
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("EnterpriseId", mBuildingId)
+                .addFormDataPart("Id", String.valueOf(mCertId))
                 .addFormDataPart("PropertyUseTypeId", String.valueOf(propertyUse))
                 .addFormDataPart("StructureTypeId", String.valueOf(propertyStructure))
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("Address", address)
                 .addFormDataPart("Remark", remark)
                 .addFormDataPart("PropertyUse", propertyUse)
-                .addFormDataPart("Area", area).build();
+                .addFormDataPart("Area", area).addFormDataPart("deleteFileIDs", TextUtils.isEmpty
+                        (rvAddablePhotoPreview.getDeleteImgIds()) ? "" :
+                        rvAddablePhotoPreview.getDeleteImgIds());
+        return rvAddablePhotoPreview.getValidData(builder).build();
     }
 
     public boolean checkDataVaildable() {
@@ -165,12 +159,12 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
         spinnerPropertyStructure.setSelectItem(propertyStructure);
         boolean allowEdit = deedCompanyProperty.isAllowEdit();
         setEditable(allowEdit);
-        rvPhotoPreview.setData(deedCompanyProperty.getFiles(), getFileConfig(), allowEdit);
+        rvAddablePhotoPreview.setDate(deedCompanyProperty.getFiles(), deedCompanyProperty.isAllowEdit());
     }
 
     private void setEditable(boolean allowEdit) {
         if (allowEdit) {
-            setRightClick("保存", editListener);
+            setRightClick("保存", saveListener);
         }
         etPropertyCertNum.setEnabled(allowEdit);
         etPropertyArea.setEnabled(allowEdit);
@@ -181,16 +175,8 @@ public class DeedCompanyPropertyActivity extends BaseDeedActivity implements Dee
     }
 
     @Override
-    public void onAddDeedCompanyPropertySuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_PROPERTY, Status
-                .BuildingType.COMPANY));
-    }
-
-    @Override
-    public void onModifyDeedCompanyPropertySuccess() {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.COMPANY_DEED_PROPERTY, Status
-                .BuildingType.COMPANY));
-
+    public void onSaveDeedCompanyPropertySuccess(DeedItem deedItem) {
+        refreshDeedList(deedItem);
     }
 
 }

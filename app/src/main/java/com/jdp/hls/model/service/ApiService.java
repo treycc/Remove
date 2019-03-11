@@ -931,19 +931,40 @@ public interface ApiService {
 
     /*保存土地证-企业*/
     @POST("cert/SaveEnterpriseLandCert")
-    Observable<HttpResult<DeedItem>> saveDeedLandCompany(@Body RequestBody requestBody);
+    Observable<HttpResult<DeedItem>> saveDeedCompanyLand(@Body RequestBody requestBody);
 
     /*保存产权证-企业*/
     @POST("cert/SaveEnterprisePropertyCert")
-    Observable<HttpResult<DeedItem>> saveDeedPropertyCompany(@Body RequestBody requestBody);
+    Observable<HttpResult<DeedItem>> saveDeedCompanyProperty(@Body RequestBody requestBody);
 
     /*保存不动产证-企业*/
     @POST("cert/SaveEnterpriseEstateCert")
-    Observable<HttpResult<DeedItem>> saveDeedImmovableCompany(@Body RequestBody requestBody);
+    Observable<HttpResult<DeedItem>> saveDeedCompanyImmovable(@Body RequestBody requestBody);
 
     /*获取土地证-个人*/
     @GET("cert/GetHouseLandCertificate")
     Observable<HttpResult<DeedPersonalLand>> getDeedPersonalLandDetail(@Query("certId") int certId);
+
+    /*获取产权证-个人*/
+    @GET("cert/GetHousePropertyCertificate")
+    Observable<HttpResult<DeedPersonalProperty>> getDeedPersonalPropertyDetail(@Query("certId") int certId);
+
+    /*获取不动产证-个人*/
+    @GET("cert/GetHouseEstateCertificate")
+    Observable<HttpResult<DeedPersonalImmovable>> getDeedPersonalImmovableDetail(@Query("certId") int certId);
+
+
+    /*获取土地证-企业*/
+    @GET("cert/GetEnterpriseLandCertificate")
+    Observable<HttpResult<DeedCompanyLand>> getDeedCompanyLandDetail(@Query("certId") int certId);
+
+    /*获取产权证-企业*/
+    @GET("cert/GetEnterprisePropertyCertificate")
+    Observable<HttpResult<DeedCompanyProperty>> getDeedCompanyPropertyDetail(@Query("certId") int certId);
+
+    /*获取不动产证-企业*/
+    @GET("cert/GetEnterpriseEstateCertificate")
+    Observable<HttpResult<DeedCompanyImmovable>> getDeedCompanyImmovableDetail(@Query("certId") int certId);
 
 
 }

@@ -1,14 +1,14 @@
 package com.jdp.hls.page.deed.personal.immovable;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseDeedActivity;
+import com.jdp.hls.base.BaseDeedMulActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
-import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedItem;
@@ -32,7 +32,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedPersonalImmovableActivity extends BaseDeedActivity implements DeedPersonalImmovableContract.View {
+public class DeedPersonalImmovableActivity extends BaseDeedMulActivity implements DeedPersonalImmovableContract.View {
     @BindView(R.id.et_immovableNum)
     EnableEditText etImmovableNum;
     @BindView(R.id.spinner_property_use)
@@ -135,9 +135,10 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
             setRightClick("保存", saveListener);
         } else {
             //获取接口
-            deedPersonalImmovablePresenter.getDeedPersonalImmovable(mBuildingId);
+            deedPersonalImmovablePresenter.getDeedPersonalImmovableDetail(mCertId);
         }
     }
+
     private NoDoubleClickListener saveListener = new NoDoubleClickListener() {
         @Override
         public void onNoDoubleClick(View v) {
@@ -150,9 +151,9 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
 
     @NonNull
     private RequestBody getRequestBody() {
-        return new MultipartBody.Builder().setType(MultipartBody.FORM)
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
-                .addFormDataPart("CertId",String.valueOf(mCertId) )
+                .addFormDataPart("Id", String.valueOf(mCertId))
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("PropertyUseTypeId", String.valueOf(propertyUse))
                 .addFormDataPart("StructureTypeId", String.valueOf(propertyStructure))
@@ -164,7 +165,11 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
                 .addFormDataPart("BuildOccupyArea", buildOccupyArea)
                 .addFormDataPart("BuildOccupyArea_Property", buildOccupyAreaProperty)
                 .addFormDataPart("Remark", remark)
-                .addFormDataPart("Address", address).build();
+                .addFormDataPart("Address", address)
+                .addFormDataPart("deleteFileIDs", TextUtils.isEmpty
+                        (rvAddablePhotoPreview.getDeleteImgIds()) ? "" :
+                        rvAddablePhotoPreview.getDeleteImgIds());
+        return rvAddablePhotoPreview.getValidData(builder).build();
     }
 
     public boolean checkDataVaildable() {
@@ -208,7 +213,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
 
         boolean allowEdit = deedPersonalImmovable.isAllowEdit();
         setEditable(allowEdit);
-        rvPhotoPreview.setData(deedPersonalImmovable.getFiles(), getFileConfig(), allowEdit);
+        rvAddablePhotoPreview.setDate(deedPersonalImmovable.getFiles(), deedPersonalImmovable.isAllowEdit());
     }
 
     private void setEditable(boolean allowEdit) {
@@ -231,8 +236,7 @@ public class DeedPersonalImmovableActivity extends BaseDeedActivity implements D
 
     @Override
     public void onSaveDeedPersonalImmovableSuccess(DeedItem deedItem) {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_IMMOVABLE, Status
-                .BuildingType.PERSONAL));
+        refreshDeedList(deedItem);
     }
 
 }

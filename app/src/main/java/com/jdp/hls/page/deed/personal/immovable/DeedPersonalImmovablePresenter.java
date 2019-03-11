@@ -31,8 +31,8 @@ public class DeedPersonalImmovablePresenter implements DeedPersonalImmovableCont
     }
 
     @Override
-    public void getDeedPersonalImmovable(String houseId) {
-        mApi.getApiService().getDeedPersonalImmovable(houseId).subscribeOn(Schedulers.io())
+    public void getDeedPersonalImmovableDetail(int certId) {
+        mApi.getApiService().getDeedPersonalImmovableDetail(certId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<DeedPersonalImmovable>(mView) {
                     @Override

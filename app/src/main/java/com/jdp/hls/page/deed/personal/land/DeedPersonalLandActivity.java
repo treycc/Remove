@@ -1,14 +1,14 @@
 package com.jdp.hls.page.deed.personal.land;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseDeedActivity;
+import com.jdp.hls.base.BaseDeedMulActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
-import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedItem;
@@ -32,7 +32,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPersonalLandContract.View {
+public class DeedPersonalLandActivity extends BaseDeedMulActivity implements DeedPersonalLandContract.View {
     @BindView(R.id.spinner_landType)
     KSpinner spinnerLandType;
     @BindView(R.id.spinner_landUse)
@@ -125,16 +125,19 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
 
     @NonNull
     private RequestBody getRequestBody() {
-        return new MultipartBody.Builder().setType(MultipartBody.FORM)
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
-                .addFormDataPart("CertId", String.valueOf(mCertId))
+                .addFormDataPart("Id", String.valueOf(mCertId))
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("LandNatureId", String.valueOf(landTypeId))
                 .addFormDataPart("LandUseTypeId", String.valueOf(landUseId))
                 .addFormDataPart("TotalArea", certArea)
                 .addFormDataPart("BuildOccupyArea", buildOccupyArea)
                 .addFormDataPart("Remark", remark)
-                .addFormDataPart("Address", address).build();
+                .addFormDataPart("Address", address)
+                .addFormDataPart("deleteFileIDs", TextUtils.isEmpty(rvAddablePhotoPreview.getDeleteImgIds()) ? "" :
+                        rvAddablePhotoPreview.getDeleteImgIds());
+        return rvAddablePhotoPreview.getValidData(builder).build();
     }
 
     public boolean checkDataVaildable() {
@@ -163,6 +166,7 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
 
     @Override
     public void onGetDeedPersonalLandSuccess(DeedPersonalLand deedPersonalLand) {
+        rvAddablePhotoPreview.setDate(deedPersonalLand.getFiles(), deedPersonalLand.isAllowEdit());
         etLandCertNum.setText(deedPersonalLand.getCertNum());
         etLandCertArea.setText(String.valueOf(deedPersonalLand.getTotalArea()));
         etBuildOccupyArea.setText(String.valueOf(deedPersonalLand.getBuildOccupyArea()));
@@ -174,15 +178,11 @@ public class DeedPersonalLandActivity extends BaseDeedActivity implements DeedPe
         spinnerLandType.setSelectItem(landTypeId);
         allowEdit = deedPersonalLand.isAllowEdit();
         setEditable(allowEdit);
-        rvPhotoPreview.setData(deedPersonalLand.getFiles(), getFileConfig(), allowEdit);
     }
 
 
     @Override
     public void onSaveDeedPersonalLandSuccess(DeedItem deedItem) {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_LAND, Status.BuildingType
-                .PERSONAL));
+        refreshDeedList(deedItem);
     }
-
-
 }

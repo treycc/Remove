@@ -192,6 +192,6 @@
             style="@style/Title_Main"
             android:text="不动产证照片"/>
 
-        <include layout="@layout/layout_photo_preview"/>
+        <include layout="@layout/layout_addable_photo_preview"/>
     </LinearLayout>
 </ScrollView>

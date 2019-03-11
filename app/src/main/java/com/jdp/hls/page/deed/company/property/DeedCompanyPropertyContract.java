@@ -4,6 +4,7 @@ package com.jdp.hls.page.deed.company.property;
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.DeedCompanyProperty;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.DeedPersonalProperty;
 
 import okhttp3.RequestBody;
@@ -18,16 +19,14 @@ public interface DeedCompanyPropertyContract {
     interface View extends BaseView {
         void onGetDeedCompanyPropertySuccess(DeedCompanyProperty deedCompanyProperty);
 
-        void onAddDeedCompanyPropertySuccess();
+        void onSaveDeedCompanyPropertySuccess(DeedItem deedItem);
 
-        void onModifyDeedCompanyPropertySuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getDeedCompanyProperty(String houseId);
+        void getDeedCompanyPropertyDetail(int  cert);
 
-        void addDeedCompanyProperty(RequestBody rosterBody);
+        void saveDeedCompanyProperty(RequestBody rosterBody);
 
-        void modifyDeedCompanyProperty(RequestBody rosterBody);
     }
 }

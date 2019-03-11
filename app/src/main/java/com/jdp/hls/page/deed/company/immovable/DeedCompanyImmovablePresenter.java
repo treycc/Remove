@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
 
@@ -30,8 +31,8 @@ public class DeedCompanyImmovablePresenter implements DeedCompanyImmovableContra
     }
 
     @Override
-    public void getDeedCompanyImmovable(String houseId) {
-        mApi.getApiService().getDeedCompanyImmovable(houseId).subscribeOn(Schedulers.io())
+    public void getDeedCompanyImmovableDetail(int  certId) {
+        mApi.getApiService().getDeedCompanyImmovableDetail(certId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<DeedCompanyImmovable>(mView) {
                     @Override
@@ -42,25 +43,13 @@ public class DeedCompanyImmovablePresenter implements DeedCompanyImmovableContra
     }
 
     @Override
-    public void addDeedCompanyImmovable(RequestBody rosterBody) {
-        mApi.getApiService().addDeedCompanyImmovable(rosterBody).subscribeOn(Schedulers.io())
+    public void saveDeedCompanyImmovable(RequestBody rosterBody) {
+        mApi.getApiService().saveDeedCompanyImmovable(rosterBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<DeedItem>(mView) {
                     @Override
-                    protected void onSuccess(Object object) {
-                        mView.onAddDeedCompanyImmovableSuccess();
-                    }
-                });
-    }
-
-    @Override
-    public void modifyDeedCompanyImmovable(RequestBody rosterBody) {
-        mApi.getApiService().modifyDeedCompanyImmovable(rosterBody).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
-                    @Override
-                    protected void onSuccess(Object object) {
-                        mView.onModifyDeedCompanyImmovableSuccess();
+                    protected void onSuccess(DeedItem deedItem) {
+                        mView.onSaveDeedCompanyImmovableSuccess(deedItem);
                     }
                 });
     }

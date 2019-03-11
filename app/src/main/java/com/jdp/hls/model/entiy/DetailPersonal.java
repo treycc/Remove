@@ -77,6 +77,42 @@ public class DetailPersonal {
     private String VRUrl;
     private List<ImgInfo> Files;
     private List<ImgInfo> ApprovalFiles;
+    private int EstateCount;
+    private int PropertyCount;
+    private int LandCount;
+    private int OpenAccountCount;
+
+    public int getOpenAccountCount() {
+        return OpenAccountCount;
+    }
+
+    public void setOpenAccountCount(int openAccountCount) {
+        OpenAccountCount = openAccountCount;
+    }
+
+    public int getEstateCount() {
+        return EstateCount;
+    }
+
+    public void setEstateCount(int estateCount) {
+        EstateCount = estateCount;
+    }
+
+    public int getPropertyCount() {
+        return PropertyCount;
+    }
+
+    public void setPropertyCount(int propertyCount) {
+        PropertyCount = propertyCount;
+    }
+
+    public int getLandCount() {
+        return LandCount;
+    }
+
+    public void setLandCount(int landCount) {
+        LandCount = landCount;
+    }
 
     public int getPersonCount() {
         return PersonCount;

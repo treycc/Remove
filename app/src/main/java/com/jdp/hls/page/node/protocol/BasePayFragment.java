@@ -1,4 +1,4 @@
-package com.jdp.hls.page.node.protocol.personal.lastst;
+package com.jdp.hls.page.node.protocol;
 
 import android.text.Editable;
 import android.text.TextWatcher;

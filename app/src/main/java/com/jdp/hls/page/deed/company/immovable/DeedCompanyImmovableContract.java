@@ -5,6 +5,7 @@ import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.DeedCompanyImmovable;
 import com.jdp.hls.model.entiy.DeedCompanyLand;
+import com.jdp.hls.model.entiy.DeedItem;
 
 import okhttp3.RequestBody;
 
@@ -18,16 +19,14 @@ public interface DeedCompanyImmovableContract {
     interface View extends BaseView {
         void onGetDeedCompanyImmovableSuccess(DeedCompanyImmovable deedCompanyImmovable);
 
-        void onAddDeedCompanyImmovableSuccess();
+        void onSaveDeedCompanyImmovableSuccess(DeedItem deedItem);
 
-        void onModifyDeedCompanyImmovableSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getDeedCompanyImmovable(String enterpriseId);
+        void getDeedCompanyImmovableDetail(int  certId);
 
-        void addDeedCompanyImmovable(RequestBody rosterBody);
+        void saveDeedCompanyImmovable(RequestBody rosterBody);
 
-        void modifyDeedCompanyImmovable(RequestBody rosterBody);
     }
 }

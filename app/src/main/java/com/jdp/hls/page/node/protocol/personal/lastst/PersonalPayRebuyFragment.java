@@ -13,6 +13,7 @@ import com.jdp.hls.constant.Constants;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.NodePersonalProtocol;
 import com.jdp.hls.model.entiy.TaoType;
+import com.jdp.hls.page.node.protocol.BasePayFragment;
 import com.jdp.hls.page.node.protocol.personal.lastst.taotype.TaoTypeSelectActivity;
 import com.jdp.hls.util.CalculateUtil;
 import com.jdp.hls.util.SimpleTextWatcher;
@@ -31,7 +32,7 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class PayRebuyFragment extends BasePayFragment {
+public class PersonalPayRebuyFragment extends BasePayFragment {
     @BindView(R.id.tv_houseResetMoney)
     StringTextView tvHouseResetMoney;
     @BindView(R.id.tv_innerDecorateMoney)
@@ -91,8 +92,8 @@ public class PayRebuyFragment extends BasePayFragment {
         }
     }
 
-    public static PayRebuyFragment newInstance(NodePersonalProtocol nodePersonalProtocol) {
-        PayRebuyFragment fragment = new PayRebuyFragment();
+    public static PersonalPayRebuyFragment newInstance(NodePersonalProtocol nodePersonalProtocol) {
+        PersonalPayRebuyFragment fragment = new PersonalPayRebuyFragment();
         Bundle args = new Bundle();
         args.putSerializable(Constants.Extra.Object, nodePersonalProtocol);
         fragment.setArguments(args);

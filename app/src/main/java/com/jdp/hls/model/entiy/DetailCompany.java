@@ -9,6 +9,9 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class DetailCompany {
+    private int EstateCount;
+    private int PropertyCount;
+    private int LandCount;
     private String HouseId;
     private String SysCode;
     private String BizInfo;
@@ -39,6 +42,30 @@ public class DetailCompany {
     private List<ImgInfo> Files;
     private List<ImgInfo> ApprovalFiles;
     private List<ImgInfo> OtherFiles;
+
+    public int getEstateCount() {
+        return EstateCount;
+    }
+
+    public void setEstateCount(int estateCount) {
+        EstateCount = estateCount;
+    }
+
+    public int getPropertyCount() {
+        return PropertyCount;
+    }
+
+    public void setPropertyCount(int propertyCount) {
+        PropertyCount = propertyCount;
+    }
+
+    public int getLandCount() {
+        return LandCount;
+    }
+
+    public void setLandCount(int landCount) {
+        LandCount = landCount;
+    }
 
     public int getPersonCount() {
         return PersonCount;

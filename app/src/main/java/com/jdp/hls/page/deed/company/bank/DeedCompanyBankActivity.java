@@ -1,12 +1,11 @@
 package com.jdp.hls.page.deed.company.bank;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseDeedActivity;
+import com.jdp.hls.base.BaseDeedMulActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.RefreshCertNumEvent;
@@ -20,7 +19,6 @@ import com.jdp.hls.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -30,7 +28,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedCompanyBankActivity extends BaseDeedActivity implements DeedCompanyOpenAccountCertContract.View {
+public class DeedCompanyBankActivity extends BaseDeedMulActivity implements DeedCompanyOpenAccountCertContract.View {
     @Inject
     DeedCompanyOpenAccountCertPresenter deedCompanyOpenAccountCertPresenter;
     @BindView(R.id.tv_EnterpriseName)
@@ -135,7 +133,7 @@ public class DeedCompanyBankActivity extends BaseDeedActivity implements DeedCom
         etRemark.setText(deedCompanyOpenAccountCert.getRemark());
         boolean allowEdit = deedCompanyOpenAccountCert.isAllowEdit();
         setEditable(allowEdit);
-        rvPhotoPreview.setData(deedCompanyOpenAccountCert.getFiles(), getFileConfig(), allowEdit);
+        rvAddablePhotoPreview.setDate(deedCompanyOpenAccountCert.getFiles(), deedCompanyOpenAccountCert.isAllowEdit());
     }
 
     @Override

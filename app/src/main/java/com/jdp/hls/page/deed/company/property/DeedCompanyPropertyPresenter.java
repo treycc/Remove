@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.jdp.hls.model.api.UserApi;
 import com.jdp.hls.model.entiy.DeedCompanyProperty;
+import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.LoadSirObserver;
 import com.jdp.hls.model.entiy.ResultObserver;
 
@@ -30,8 +31,8 @@ public class DeedCompanyPropertyPresenter implements DeedCompanyPropertyContract
     }
 
     @Override
-    public void getDeedCompanyProperty(String houseId) {
-        mApi.getApiService().getDeedCompanyProperty(houseId).subscribeOn(Schedulers.io())
+    public void getDeedCompanyPropertyDetail(int  certId) {
+        mApi.getApiService().getDeedCompanyPropertyDetail(certId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new LoadSirObserver<DeedCompanyProperty>(mView) {
                     @Override
@@ -42,25 +43,13 @@ public class DeedCompanyPropertyPresenter implements DeedCompanyPropertyContract
     }
 
     @Override
-    public void addDeedCompanyProperty(RequestBody rosterBody) {
-        mApi.getApiService().addDeedCompanyProperty(rosterBody).subscribeOn(Schedulers.io())
+    public void saveDeedCompanyProperty(RequestBody rosterBody) {
+        mApi.getApiService().saveDeedCompanyProperty(rosterBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<DeedItem>(mView) {
                     @Override
-                    protected void onSuccess(Object object) {
-                        mView.onAddDeedCompanyPropertySuccess();
-                    }
-                });
-    }
-
-    @Override
-    public void modifyDeedCompanyProperty(RequestBody rosterBody) {
-        mApi.getApiService().modifyDeedCompanyProperty(rosterBody).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
-                    @Override
-                    protected void onSuccess(Object object) {
-                        mView.onModifyDeedCompanyPropertySuccess();
+                    protected void onSuccess(DeedItem deedItem) {
+                        mView.onSaveDeedCompanyPropertySuccess(deedItem);
                     }
                 });
     }

@@ -15,17 +15,19 @@ import android.util.AttributeSet;
 import com.jdp.hls.activity.BigImgActivity;
 import com.jdp.hls.adapter.BaseRvPositionAdapter;
 import com.jdp.hls.adapter.ImgAdapter;
-import com.jdp.hls.adapter.ImgUriAdapter;
-import com.jdp.hls.constant.Constants;
 import com.jdp.hls.model.entiy.ImgInfo;
-import com.jdp.hls.page.rosteradd.RosterAddActivity;
-import com.jdp.hls.page.rosterdetail.RosterDetailActivity;
+import com.jdp.hls.util.FileUtil;
 import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.PermissionsUtil;
 import com.zhihu.matisse.Matisse;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Description:TODO
@@ -37,7 +39,7 @@ public class AddableRecyclerView extends RecyclerView {
     private List<ImgInfo> imgInfos = new ArrayList<>();
     private Context context;
     private ImgAdapter imgAdapter;
-    private boolean editable=true;
+    private boolean editable = true;
 
     public AddableRecyclerView(Context context) {
         this(context, null);
@@ -65,7 +67,7 @@ public class AddableRecyclerView extends RecyclerView {
         imgAdapter.setOnItemClickListener(new BaseRvPositionAdapter.OnItemClickListener<ImgInfo>() {
             @Override
             public void onItemClick(List<ImgInfo> list, int position) {
-                if (editable&&imgAdapter.isLastItem(position)) {
+                if (editable && imgAdapter.isLastItem(position)) {
                     PermissionsUtil.checkOpenPhoto((AppCompatActivity) context);
                 } else {
                     BigImgActivity.goActivity((AppCompatActivity) context, MatisseUtil.getDTOImgInfoFromImgInfo
@@ -75,9 +77,11 @@ public class AddableRecyclerView extends RecyclerView {
         });
 
     }
+
     public String getDeleteImgIds() {
         return imgAdapter.getDeleteImgIds();
     }
+
     public void onPhotoCallback(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
             switch (requestCode) {
@@ -102,5 +106,18 @@ public class AddableRecyclerView extends RecyclerView {
 
     public List<ImgInfo> getDate() {
         return imgAdapter.getDate();
+    }
+
+    public MultipartBody.Builder getValidData(MultipartBody.Builder builder) {
+        List<ImgInfo> imgInfos = getDate();
+        for (int i = 0; i < imgInfos.size(); i++) {
+            Uri uri = imgInfos.get(i).getUri();
+            if (uri != null) {
+                File photoFile = FileUtil.getFileByUri(uri, context);
+                builder.addFormDataPart("Files" + i, photoFile.getName(), RequestBody.create(MediaType
+                        .parse("image/*"), photoFile));
+            }
+        }
+        return builder;
     }
 }

@@ -1,20 +1,19 @@
 package com.jdp.hls.page.deed.personal.property;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.jdp.hls.R;
-import com.jdp.hls.base.BaseDeedActivity;
+import com.jdp.hls.base.BaseDeedMulActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.dao.DBManager;
-import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.greendaobean.TDict;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedItem;
 import com.jdp.hls.model.entiy.DeedPersonalProperty;
 import com.jdp.hls.util.CheckUtil;
-import com.jdp.hls.util.LogUtil;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.KSpinner;
@@ -33,7 +32,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedPersonalPropertyActivity extends BaseDeedActivity implements DeedPersonalPropertyContract.View {
+public class DeedPersonalPropertyActivity extends BaseDeedMulActivity implements DeedPersonalPropertyContract.View {
 
     @BindView(R.id.et_property_num)
     EnableEditText etPropertyNum;
@@ -118,7 +117,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
             setRightClick("保存", saveListener);
         } else {
             //获取接口
-            deedPersonalPropertyPresenter.getDeedPersonalProperty(mBuildingId);
+            deedPersonalPropertyPresenter.getDeedPersonalPropertyDetail(mCertId);
         }
     }
 
@@ -133,18 +132,21 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
 
     @NonNull
     private RequestBody getRequestBody() {
-        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("HouseId", mBuildingId)
                 .addFormDataPart("PropertyUseTypeId", String.valueOf(propertyUse))
                 .addFormDataPart("StructureTypeId", String.valueOf(propertyStructure))
-                .addFormDataPart("CertId", String.valueOf(mCertId))
+                .addFormDataPart("Id", String.valueOf(mCertId))
                 .addFormDataPart("CertNum", certNum)
                 .addFormDataPart("TotalArea", totalArea)
                 .addFormDataPart("ShareArea", shareArea)
                 .addFormDataPart("Remark", remark)
                 .addFormDataPart("buildOccupyArea", buildOccupyArea)
-                .addFormDataPart("Address", address);
-        return bodyBuilder.build();
+                .addFormDataPart("Address", address)
+                .addFormDataPart("deleteFileIDs", TextUtils.isEmpty
+                        (rvAddablePhotoPreview.getDeleteImgIds()) ? "" :
+                        rvAddablePhotoPreview.getDeleteImgIds());
+        return rvAddablePhotoPreview.getValidData(builder).build();
     }
 
     public boolean checkDataVaildable() {
@@ -171,7 +173,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
         spinnerPropertyStructure.setSelectItem(propertyStructure);
         allowEdit = deedPersonalProperty.isAllowEdit();
         setEditable(allowEdit);
-        rvPhotoPreview.setData(deedPersonalProperty.getFiles(), getFileConfig(), allowEdit);
+        rvAddablePhotoPreview.setDate(deedPersonalProperty.getFiles(), deedPersonalProperty.isAllowEdit());
     }
 
     private void setEditable(boolean allowEdit) {
@@ -189,8 +191,7 @@ public class DeedPersonalPropertyActivity extends BaseDeedActivity implements De
     }
 
     @Override
-    public void onSaveDeedPersonalPropertySuccess(DeedItem deedIte) {
-        showSaveDeedSuccess(new RefreshCertNumEvent(certNum, Status.FileType.PERSONAL_DEED_PROPERTY, Status
-                .BuildingType.PERSONAL));
+    public void onSaveDeedPersonalPropertySuccess(DeedItem deedItem) {
+        refreshDeedList(deedItem);
     }
 }

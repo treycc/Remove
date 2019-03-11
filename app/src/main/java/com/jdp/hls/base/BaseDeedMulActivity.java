@@ -8,6 +8,7 @@ import com.jdp.hls.R;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.AddDeedListEvent;
 import com.jdp.hls.event.ModifyDeedListEvent;
+import com.jdp.hls.event.RefreshCertCountEvent;
 import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DeedItem;
@@ -26,7 +27,7 @@ import butterknife.BindView;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public abstract class BaseDeedActivity extends BaseTitleActivity {
+public abstract class BaseDeedMulActivity extends BaseTitleActivity {
     @BindView(R.id.rv_addable_photo_preview)
     protected AddableRecyclerView rvAddablePhotoPreview;
     protected boolean mIsAdd;
@@ -76,7 +77,7 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
     @Override
     public abstract void initNet();
 
-    public static void goActivity(Activity context, Class<? extends BaseDeedActivity> clazz, String fileType, String
+    public static void goActivity(Activity context, Class<? extends BaseDeedMulActivity> clazz, String fileType, String
             buildingId, String buildingType, int certId) {
         Intent intent = new Intent(context, clazz);
         intent.putExtra(Constants.Extra.FILETYPE, fileType);
@@ -86,12 +87,13 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
         context.startActivity(intent);
     }
 
-    public void setResult(String certNum) {
-        ToastUtil.showText("保存成功");
-        Intent intent = new Intent();
-        intent.putExtra(Constants.Extra.CERTNUM, certNum);
-        setResult(Activity.RESULT_OK, intent);
-        finish();
+    public static void goActivity(Activity context, Class<? extends BaseDeedMulActivity> clazz, String
+            buildingId, String buildingType, int certId) {
+        Intent intent = new Intent(context, clazz);
+        intent.putExtra(Constants.Extra.BUILDING_ID, buildingId);
+        intent.putExtra(Constants.Extra.BUILDING_TYPE, buildingType);
+        intent.putExtra(Constants.Extra.CERT_ID, certId);
+        context.startActivity(intent);
     }
 
     @Override
@@ -127,9 +129,11 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
     protected void refreshDeedList(DeedItem deedItem) {
         if (mIsAdd) {
             EventBus.getDefault().post(new AddDeedListEvent(deedItem));
+            EventBus.getDefault().post(new RefreshCertCountEvent(deedItem.getCertType(), true));
         } else {
             EventBus.getDefault().post(new ModifyDeedListEvent(deedItem));
         }
-       showSuccessDialogAndFinish();
+
+        showSuccessDialogAndFinish();
     }
 }

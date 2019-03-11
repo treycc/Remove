@@ -57,14 +57,14 @@ public class DeedAdapter extends BaseLvAdapter<DeedItem> {
         list.remove(position);
         notifyDataSetChanged();
     }
-//
     @Override
     public void modifyItem(DeedItem item) {
-        for (DeedItem bankInfo : list) {
-            if (bankInfo.getId() == item.getId()) {
-//                bankInfo.setBankAccountName(item.getBankAccountName());
-//                bankInfo.setBankAccount(item.getBankAccount());
-//                bankInfo.setBankName(item.getBankName());
+        for (DeedItem deedItem : list) {
+            if (deedItem.getId() == item.getId()) {
+                deedItem.setAddress(item.getAddress());
+                deedItem.setCertNum(item.getCertNum());
+                deedItem.setCertType(item.getCertType());
+                deedItem.setRemark(item.getRemark());
             }
         }
         notifyDataSetChanged();

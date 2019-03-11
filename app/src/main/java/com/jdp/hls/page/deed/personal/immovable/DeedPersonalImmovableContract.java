@@ -23,7 +23,7 @@ public interface DeedPersonalImmovableContract {
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getDeedPersonalImmovable(String houseId);
+        void getDeedPersonalImmovableDetail(int certId);
 
         void saveDeedPersonalImmovable(RequestBody rosterBody);
 
