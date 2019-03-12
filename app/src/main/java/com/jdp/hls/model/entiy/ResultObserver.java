@@ -53,7 +53,7 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
                 baseView.showSuccessCallback();
             }
             onSuccess(httpResult.getData());
-        }  else if (httpResult.getCode() == Status.ResultCode.ERROR_LOGIN_FAIL) {
+        } else if (httpResult.getCode() == Status.ResultCode.ERROR_LOGIN_FAIL) {
             onLoginFail();
         } else {
             onResultError(httpResult.getCode(), httpResult.getMessage());
@@ -83,6 +83,7 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
         ToastUtil.showText("服务器开小差");
         baseView.hideLoading();
     }
+
     @Override
     public void onComplete() {
         LogUtil.e(TAG, "onComplete: ");

@@ -1,6 +1,5 @@
 package com.jdp.hls.page.node.protocol.company.lastst;
 
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,7 +23,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import okhttp3.MultipartBody;
 
 /**
@@ -42,12 +40,6 @@ public class NodeCompanyProtocolNewActivity extends BaseNodeActivity implements 
     TextView tvProtocolDate;
     @BindView(R.id.iv_dateSelector)
     ImageView ivDateSelector;
-    @BindView(R.id.tv_protocol_totalBuildingArea)
-    StringTextView tvProtocolTotalBuildingArea;
-    @BindView(R.id.tv_protocol_totalNotRecordArea)
-    StringTextView tvProtocolTotalNotRecordArea;
-    @BindView(R.id.tv_protocol_landCertArea)
-    StringTextView tvProtocolLandCertArea;
     @BindView(R.id.spinner_payType)
     KSpinner spinnerPayType;
     @BindView(R.id.iv_arrow_right)
@@ -62,18 +54,8 @@ public class NodeCompanyProtocolNewActivity extends BaseNodeActivity implements 
     NodeCompanyProtocolPresenter nodeCompanyProtocolPresenter;
     private List<TDict> payTypeList;
     private int pcId;
+    private CompanyMoneyChangeFragment companyMoneyChangeFragment;
 
-    @OnClick({R.id.rl_protocol_otherArea})
-    public void rl_protocol_otherArea(View view) {
-        switch (view.getId()) {
-            case R.id.rl_protocol_otherArea:
-//                OtherAreaListActivity.goActivity(this, String.valueOf(pcId), String.valueOf(Status.BuildingType
-//                        .COMPANY), allowEdit);
-                break;
-            default:
-                break;
-        }
-    }
 
     @Override
     public void initVariable() {
@@ -109,6 +91,8 @@ public class NodeCompanyProtocolNewActivity extends BaseNodeActivity implements 
         super.initData();
         spinnerPayType.setDicts(payTypeList, typeId -> {
             payType = typeId;
+            //根据补偿方式切换数据
+            companyMoneyChangeFragment.switchPayType(payType);
         });
     }
 
@@ -128,7 +112,7 @@ public class NodeCompanyProtocolNewActivity extends BaseNodeActivity implements 
     protected void onSaveDate() {
         String remark = etRemark.getText().toString().trim();
         String pCDate = tvProtocolDate.getText().toString().trim();
-        MultipartBody.Builder requestBuilder = getRequestBuilder(payType);
+        MultipartBody.Builder requestBuilder = companyMoneyChangeFragment.getRequestBuilder();
         nodeCompanyProtocolPresenter.modifyCompanyProtocol(requestBuilder
                 .addFormDataPart("EnterpriseId", mBuildingId)
                 .addFormDataPart("PayType", String.valueOf(payType))
@@ -137,31 +121,6 @@ public class NodeCompanyProtocolNewActivity extends BaseNodeActivity implements 
                 .build());
     }
 
-    private MultipartBody.Builder getRequestBuilder(int payType) {
-        MultipartBody.Builder builder = null;
-        switch (payType) {
-            case 1:
-                //货币置换
-//                builder = payChangeFragment.getRequestBuilder();
-                break;
-            case 2:
-                //土地退购
-//                builder = payMoneyFragment.getRequestBuilder();
-                break;
-            case 3:
-                //功能回购
-//                builder = payRebuyFragment.getRequestBuilder();
-                break;
-            case 4:
-                //小微园置换
-//                builder = payRebuyFragment.getRequestBuilder();
-                break;
-            default:
-//                builder = payChangeFragment.getRequestBuilder();
-                break;
-        }
-        return builder;
-    }
 
     @Override
     public void onGetCompanyProtocolSuccess(NodeCompanyProtocol nodeCompanyProtocol) {
@@ -172,12 +131,14 @@ public class NodeCompanyProtocolNewActivity extends BaseNodeActivity implements 
         spinnerPayType.setSelectItem(payType);
         tvProtocolCompanyName.setString(nodeCompanyProtocol.getCompanyName());
         tvProtocolRealName.setString(nodeCompanyProtocol.getRealName());
-        tvProtocolTotalBuildingArea.setString(nodeCompanyProtocol.getTotalBuildingArea());
-        tvProtocolTotalNotRecordArea.setString(nodeCompanyProtocol.getTotalNotRecordArea());
-        tvProtocolLandCertArea.setString(nodeCompanyProtocol.getLandCertArea());
         tvProtocolDate.setText(nodeCompanyProtocol.getPCDate());
         etRemark.setString(nodeCompanyProtocol.getRemark());
         rvPhotoPreview.setData(nodeCompanyProtocol.getFiles(), getFileConfig(), allowEdit);
+
+
+        companyMoneyChangeFragment = CompanyMoneyChangeFragment.newInstance(null, 1);
+
+
     }
 
     @Override

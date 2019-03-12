@@ -43,6 +43,8 @@ public class DetailCompany {
     private List<ImgInfo> ApprovalFiles;
     private List<ImgInfo> OtherFiles;
 
+
+
     public int getEstateCount() {
         return EstateCount;
     }

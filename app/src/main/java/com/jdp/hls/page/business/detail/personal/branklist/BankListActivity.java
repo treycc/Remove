@@ -12,6 +12,7 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.event.AddBankInfoEvent;
 import com.jdp.hls.event.ModifyBankInfoEvent;
+import com.jdp.hls.event.RefreshBankEvent;
 import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.BankInfo;
 import com.jdp.hls.model.entiy.BankListInfo;
@@ -116,6 +117,7 @@ public class BankListActivity extends BaseTitleActivity implements BankListContr
     public void addBankInfo(AddBankInfoEvent event) {
         showSuccessCallback();
         brankAdapter.addFirst(event.getBankInfo());
+        EventBus.getDefault().post(new RefreshBankEvent(true));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -140,5 +142,6 @@ public class BankListActivity extends BaseTitleActivity implements BankListContr
     @Override
     public void onDeleteBankInfo(int position) {
         brankAdapter.removeItem(position);
+        EventBus.getDefault().post(new RefreshBankEvent(false));
     }
 }

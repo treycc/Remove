@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/Title_Sub"
+        android:text="空翻补偿"/>
+
+    <com.jdp.hls.view.EnableEditText
+
+        android:id="@+id/et_value"
+        style="@style/Content_ET_W1_5"
+        android:hint="请输入空翻补偿"
+        android:inputType="numberDecimal"/>
+</LinearLayout>

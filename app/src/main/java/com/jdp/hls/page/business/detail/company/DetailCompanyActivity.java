@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jdp.hls.R;
+import com.jdp.hls.base.BaseDeedActivity;
+import com.jdp.hls.base.BaseDeedMulActivity;
 import com.jdp.hls.base.BaseTitleActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
@@ -22,12 +24,15 @@ import com.jdp.hls.injector.component.AppComponent;
 import com.jdp.hls.model.entiy.DetailCompany;
 import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.page.business.deed.list.DeedListActivity;
+import com.jdp.hls.page.deed.company.bank.DeedCompanyBankActivity;
 import com.jdp.hls.page.deed.company.immovable.DeedCompanyImmovableActivity;
 import com.jdp.hls.page.deed.company.land.DeedCompanyLandActivity;
+import com.jdp.hls.page.deed.company.license.DeedCompanyBusinessActivity;
 import com.jdp.hls.page.deed.company.property.DeedCompanyPropertyActivity;
 import com.jdp.hls.page.rosterdetail.contacts.list.ContactsListActivity;
 import com.jdp.hls.util.NoDoubleClickListener;
 import com.jdp.hls.util.OtherUtil;
+import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.EnableEditText;
 import com.jdp.hls.view.PreviewRecyclerView;
 import com.jdp.hls.view.StringTextView;
@@ -125,11 +130,11 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
             .ll_detail_immovableDeed, R.id.ll_detail_bankDeed, R.id.ll_owner})
     public void click(View view) {
         switch (view.getId()) {
-//            case R.id.ll_detail_licenseDeed:
-//                String businessNum = tvDetailBusinessDeed.getText().toString().trim();
-//                goDeedActivity(DeedCompanyBusinessActivity.class, Status.FileType.COMPANY_DEED_BUSINESS, TextUtils
-//                        .isEmpty(businessNum));
-//                break;
+            case R.id.ll_detail_licenseDeed:
+                String businessNum = tvDetailBusinessDeed.getText().toString().trim();
+                goDeedActivity(DeedCompanyBusinessActivity.class, Status.FileType.COMPANY_DEED_BUSINESS, TextUtils
+                        .isEmpty(businessNum));
+                break;
             case R.id.ll_detail_propertyDeed:
                 DeedListActivity.goActivity(this, buildingId, Status.CertType.PROPERTY_COMPANY, Status.BuildingType
                         .COMPANY);
@@ -142,24 +147,24 @@ public class DetailCompanyActivity extends BaseTitleActivity implements DetailCo
                 DeedListActivity.goActivity(this, buildingId, Status.CertType.IMMOVABLE_COMPANY, Status.BuildingType
                         .COMPANY);
                 break;
-//            case R.id.ll_detail_bankDeed:
-//                String openAccountCertNum = tvDetailBankAccount.getText().toString().trim();
-//                goDeedActivity(DeedCompanyBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
-//                        (openAccountCertNum));
-//                break;
+            case R.id.ll_detail_bankDeed:
+                String openAccountCertNum = tvDetailBankAccount.getText().toString().trim();
+                goDeedActivity(DeedCompanyBankActivity.class, Status.FileType.BANK, TextUtils.isEmpty
+                        (openAccountCertNum));
+                break;
             case R.id.ll_owner:
                 ContactsListActivity.goActivity(this, buildingId, Status.BuildingType.COMPANY, allowEdit);
         }
     }
 
-//    private void goDeedActivity(Class<? extends BaseDeedMulActivity> clazz, int fileType, boolean isAdd) {
-//        if (isAdd && !allowEdit) {
-//            ToastUtil.showText("证件还未添加");
-//            return;
-//        }
-//        BaseDeedMulActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
-//                .COMPANY, isAdd);
-//    }
+    private void goDeedActivity(Class<? extends BaseDeedActivity> clazz, int fileType, boolean isAdd) {
+        if (isAdd && !allowEdit) {
+            ToastUtil.showText("证件还未添加");
+            return;
+        }
+        BaseDeedActivity.goActivity(this, clazz, String.valueOf(fileType), buildingId, Status.BuildingTypeStr
+                .COMPANY,isAdd);
+    }
 
     @Override
     protected int getContentView() {

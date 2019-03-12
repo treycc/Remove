@@ -3,6 +3,7 @@ package com.jdp.hls.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
+import android.text.TextUtils;
 
 import com.jdp.hls.R;
 import com.jdp.hls.constant.Constants;
@@ -15,6 +16,7 @@ import com.jdp.hls.other.file.FileConfig;
 import com.jdp.hls.util.MatisseUtil;
 import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.AddableRecyclerView;
+import com.jdp.hls.view.PreviewRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,14 +29,13 @@ import butterknife.BindView;
  * Email:kingjavip@gmail.com
  */
 public abstract class BaseDeedActivity extends BaseTitleActivity {
-    @BindView(R.id.rv_addable_photo_preview)
-    protected AddableRecyclerView rvAddablePhotoPreview;
+    @BindView(R.id.rv_photo_preview)
+    protected PreviewRecyclerView rvPhotoPreview;
     protected boolean mIsAdd;
     protected String mBuildingId;
     protected String mBuildingType;
     protected String mFileType;
     protected String mEditable;
-    protected int mCertId;
 
     public FileConfig getFileConfig() {
         return mFileConfig;
@@ -51,8 +52,7 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
         mBuildingId = getIntent().getStringExtra(Constants.Extra.BUILDING_ID);
         mBuildingType = getIntent().getStringExtra(Constants.Extra.BUILDING_TYPE);
         mFileType = getIntent().getStringExtra(Constants.Extra.FILETYPE);
-        mCertId = getIntent().getIntExtra(Constants.Extra.CERT_ID, 0);
-        mIsAdd = mCertId == 0;
+        mIsAdd = getIntent().getBooleanExtra(Constants.Extra.ISADD,false);
     }
 
     @Override
@@ -70,19 +70,19 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
     @Override
     protected void initData() {
         setFileConfig(new FileConfig(Integer.valueOf(mFileType), mBuildingId, mBuildingType));
-//        rvPhotoPreview.setData(null, getFileConfig(), true);
+        rvPhotoPreview.setData(null,getFileConfig(),true);
     }
 
     @Override
     public abstract void initNet();
 
     public static void goActivity(Activity context, Class<? extends BaseDeedActivity> clazz, String fileType, String
-            buildingId, String buildingType, int certId) {
+            buildingId, String buildingType,boolean isAdd) {
         Intent intent = new Intent(context, clazz);
         intent.putExtra(Constants.Extra.FILETYPE, fileType);
         intent.putExtra(Constants.Extra.BUILDING_ID, buildingId);
         intent.putExtra(Constants.Extra.BUILDING_TYPE, buildingType);
-        intent.putExtra(Constants.Extra.CERT_ID, certId);
+        intent.putExtra(Constants.Extra.ISADD, isAdd);
         context.startActivity(intent);
     }
 
@@ -96,15 +96,7 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            switch (requestCode) {
-                case MatisseUtil.REQUEST_CODE_CHOOSE:
-                    rvAddablePhotoPreview.onPhotoCallback(requestCode, resultCode, data);
-                    break;
-                default:
-                    break;
-            }
-        }
+        rvPhotoPreview.onActivityResult(requestCode, data);
     }
 
     @Override
@@ -114,22 +106,7 @@ public abstract class BaseDeedActivity extends BaseTitleActivity {
 
     protected void showSaveDeedSuccess(RefreshCertNumEvent refreshCertNumEvent) {
         EventBus.getDefault().post(refreshCertNumEvent);
-        ToastUtil.showText("保存成功");
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                finish();
-            }
-        }, 100);
-
+       showSuccessToastAndFinish();
     }
 
-    protected void refreshDeedList(DeedItem deedItem) {
-        if (mIsAdd) {
-            EventBus.getDefault().post(new AddDeedListEvent(deedItem));
-        } else {
-            EventBus.getDefault().post(new ModifyDeedListEvent(deedItem));
-        }
-       showSuccessDialogAndFinish();
-    }
 }

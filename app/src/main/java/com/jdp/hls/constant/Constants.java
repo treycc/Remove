@@ -91,6 +91,7 @@ public class Constants {
     }
 
     public interface Extra {
+        String PAYTYPE = "PAYTYPE";
         String LIST = "LIST";
         String PersonId = "PersonId";
         String ItemType = "itemType";

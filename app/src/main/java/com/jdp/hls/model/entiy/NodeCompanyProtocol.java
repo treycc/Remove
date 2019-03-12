@@ -1,5 +1,6 @@
 package com.jdp.hls.model.entiy;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodeCompanyProtocol {
+public class NodeCompanyProtocol implements Serializable{
 
     /**
      * PCId : 1
@@ -283,5 +284,15 @@ public class NodeCompanyProtocol {
 
     public void setFiles(List<ImgInfo> files) {
         Files = files;
+    }
+
+    private List<ProtocolItem> Items;
+
+    public List<ProtocolItem> getItems() {
+        return Items;
+    }
+
+    public void setItems(List<ProtocolItem> items) {
+        Items = items;
     }
 }

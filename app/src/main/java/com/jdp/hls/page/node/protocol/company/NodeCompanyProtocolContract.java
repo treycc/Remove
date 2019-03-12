@@ -4,7 +4,6 @@ package com.jdp.hls.page.node.protocol.company;
 import com.jdp.hls.base.BasePresenter;
 import com.jdp.hls.base.BaseView;
 import com.jdp.hls.model.entiy.NodeCompanyProtocol;
-import com.jdp.hls.model.entiy.NodePersonalProtocol;
 
 import okhttp3.RequestBody;
 

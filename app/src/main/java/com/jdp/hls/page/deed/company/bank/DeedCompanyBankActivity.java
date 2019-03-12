@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jdp.hls.R;
+import com.jdp.hls.base.BaseDeedActivity;
 import com.jdp.hls.base.BaseDeedMulActivity;
 import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Status;
@@ -28,7 +29,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DeedCompanyBankActivity extends BaseDeedMulActivity implements DeedCompanyOpenAccountCertContract.View {
+public class DeedCompanyBankActivity extends BaseDeedActivity implements DeedCompanyOpenAccountCertContract.View {
     @Inject
     DeedCompanyOpenAccountCertPresenter deedCompanyOpenAccountCertPresenter;
     @BindView(R.id.tv_EnterpriseName)
@@ -133,7 +134,8 @@ public class DeedCompanyBankActivity extends BaseDeedMulActivity implements Deed
         etRemark.setText(deedCompanyOpenAccountCert.getRemark());
         boolean allowEdit = deedCompanyOpenAccountCert.isAllowEdit();
         setEditable(allowEdit);
-        rvAddablePhotoPreview.setDate(deedCompanyOpenAccountCert.getFiles(), deedCompanyOpenAccountCert.isAllowEdit());
+        rvPhotoPreview.setData(deedCompanyOpenAccountCert.getFiles(), getFileConfig(), deedCompanyOpenAccountCert
+                .isAllowEdit());
     }
 
     @Override

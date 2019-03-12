@@ -77,6 +77,7 @@
         <com.jdp.hls.view.EnableEditText
             android:id="@+id/et_bankAccount"
             style="@style/Content_ET_W2"
+            android:inputType="number"
             android:hint="请输入银行卡卡号"/>
     </LinearLayout>
 

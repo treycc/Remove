@@ -14,6 +14,7 @@ import com.jdp.hls.base.DaggerBaseCompnent;
 import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.event.ModifyBusinessEvent;
+import com.jdp.hls.event.RefreshBankEvent;
 import com.jdp.hls.event.RefreshCertCountEvent;
 import com.jdp.hls.event.RefreshCertNumEvent;
 import com.jdp.hls.fragment.LngLatFragment;
@@ -118,6 +119,7 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
     private int landCount;
     private int estateCount;
     private int propertyCount;
+    private int openAccountCount;
 
     @OnClick({R.id.rl_unrecordBuilding, R.id.ll_detail_propertyDeed, R.id.ll_detail_landDeed, R.id
             .ll_detail_immovableDeed, R.id.ll_detail_bankDeed, R.id.ll_owner})
@@ -221,14 +223,14 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
         landCount = detailPersonal.getLandCount();
         estateCount = detailPersonal.getEstateCount();
         propertyCount = detailPersonal.getPropertyCount();
+        openAccountCount = detailPersonal.getOpenAccountCount();
 
         tvDetailLandDeed.setText(String.format(getString(R.string.deed_count), landCount));
         tvDetailImmovableDeed.setText(String.format(getString(R.string.deed_count), estateCount));
         tvDetailPropertyDeed.setText(String.format(getString(R.string.deed_count), propertyCount));
+        tvDetailBankAccount.setText(String.format("共%d个", openAccountCount));
 
-//        tvDetailBankAccount.setText(detailPersonal.getBankAccount());
         etDetailRemark.setText(detailPersonal.getRemark());
-
         switchDetailHasShop.setSelectedTab(hasShop ? 1 : 0);
         switchDetailNeedHouse.setSelectedTab(needHouse ? 1 : 0);
         switchDetailPublicity.setSelectedTab(ifPublicity ? 1 : 0);
@@ -360,16 +362,18 @@ public class DetailPersonalActivity extends BaseTitleActivity implements DetailP
                 tvDetailPropertyDeed.setText(String.format(getString(R.string.deed_count), propertyCount));
                 break;
             case Status.CertType.IMMOVABLE_PERSONAL:
-                estateCount = OtherUtil.getNewCount(propertyCount, event.isAdd());
+                estateCount = OtherUtil.getNewCount(estateCount, event.isAdd());
                 tvDetailImmovableDeed.setText(String.format(getString(R.string.deed_count), estateCount));
-                break;
-            case Status.FileType.BANK:
-//                tvDetailBankAccount.setText(event.getCertNum());
                 break;
             default:
                 break;
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshBankEvent(RefreshBankEvent event) {
+        openAccountCount = OtherUtil.getNewCount(openAccountCount, event.isAdd());
+        tvDetailBankAccount.setText(String.format("共%d个", openAccountCount));
+    }
 
 }
