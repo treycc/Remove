@@ -78,8 +78,6 @@ public class NodeUtil {
                 break;
             case Constants.BusinessNode.PERSONAL_PROTOCOL:
                 //住宅协议生成
-//                goNodeActivity(activity, NodePersonalProtocolActivity.class, buildingId, Status.FileType
-//                        .NODE_PROTOCOL, Status.BuildingTypeStr.PERSONAL);
 
                 goNodeActivity(activity, NodePersonalProtocolNewActivity.class, buildingId, Status.FileType
                         .NODE_PROTOCOL, Status.BuildingTypeStr.PERSONAL);

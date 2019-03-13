@@ -70,4 +70,16 @@ public class ProtocolItem implements Serializable, Comparable<ProtocolItem> {
     public int compareTo(@NonNull ProtocolItem o) {
         return this.getSort() - o.getSort();
     }
+
+    @Override
+    public String toString() {
+        return "ProtocolItem{" +
+                "Title='" + Title + '\'' +
+                ", PayType=" + PayType +
+                ", Value='" + Value + '\'' +
+                ", IsAllowEdit=" + IsAllowEdit +
+                ", Sort=" + Sort +
+                ", ParamName='" + ParamName + '\'' +
+                '}';
+    }
 }

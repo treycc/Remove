@@ -483,11 +483,11 @@ public interface ApiService {
     Observable<HttpResult<Object>> modifyCompanyEvaluate(@Body RequestBody rosterBody);
 
     /*企业-协议生成-获取*/
-    @GET("workflow/GetEnterpriseProtocolCheck")
-    Observable<HttpResult<NodeCompanyProtocol>> getCompanyProtocol(@Query("enterpriseId") String enterpriseId);
+    @GET("workflow/GetEntProtocolData")
+    Observable<HttpResult<NodeCompanyProtocol>> getCompanyProtocol(@Query("buildingId") String buildingId);
 
     /*企业-协议生成-修改*/
-    @POST("workflow/UpdateEnterpriseProtocolCheck")
+    @POST("workflow/SaveEntProtocolCheck")
     Observable<HttpResult<Object>> modifyCompanyProtocol(@Body RequestBody rosterBody);
 
     /*企业-资产评估-获取*/

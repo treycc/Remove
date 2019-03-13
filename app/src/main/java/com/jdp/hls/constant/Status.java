@@ -97,6 +97,7 @@ public class Status {
         int AIRPHOTOTYPE = 12;//航拍阶段
         int PUBLICITYTYPE = 13;//航拍阶段
         int PAY_TYPE = 15;//支付类型
+        int COMPENSATION_TYPE_COMPANY = 16;//支付类型
     }
 
     public interface BuildingId {

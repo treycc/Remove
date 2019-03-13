@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.jdp.hls.R;
 import com.jdp.hls.model.entiy.ContactsItem;
 import com.jdp.hls.util.NoDoubleClickListener;
-import com.jdp.hls.util.ToastUtil;
 import com.jdp.hls.view.DrawHelperLayout;
 import com.jdp.hls.view.StringTextView;
 
@@ -24,7 +23,7 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class ContactsAdapter extends BaseLvAdapter<ContactsItem> {
-    private  boolean allowEdit;
+    private boolean allowEdit;
 
     public ContactsAdapter(Context context, List<ContactsItem> list, boolean allowEdit) {
         super(context, list);
@@ -45,7 +44,7 @@ public class ContactsAdapter extends BaseLvAdapter<ContactsItem> {
         ContactsItem contacts = list.get(position);
         viewHolder.iv_main.setBackgroundResource(contacts.getIsMainContact() == 1 ? R.mipmap.ic_confirm_sel : R
                 .mipmap.ic_confirm_nor);
-        viewHolder.tv_setMain.setText(contacts.getIsMainContact() == 1 ? "主联系人" : editable? "设为主联系人" : "");
+        viewHolder.tv_setMain.setText(contacts.getIsMainContact() == 1 ? "主联系人" : editable ? "设为主联系人" : "");
         viewHolder.tv_setMain.setTextColor(contacts.getIsMainContact() == 1 ? ContextCompat.getColor(context, R.color
                 .main) : ContextCompat.getColor(context, R.color.c_9));
         viewHolder.tv_name.setString(contacts.getRealName());
@@ -66,7 +65,7 @@ public class ContactsAdapter extends BaseLvAdapter<ContactsItem> {
             @Override
             public void onNoDoubleClick(View v) {
                 if (onItemOperListener != null) {
-                    onItemOperListener.onAction1(contacts,position);
+                    onItemOperListener.onAction1(contacts, position);
                 }
             }
         });
@@ -89,7 +88,7 @@ public class ContactsAdapter extends BaseLvAdapter<ContactsItem> {
 
     public void setMainContacts(int position) {
         for (int i = 0; i < list.size(); i++) {
-            list.get(i).setIsMainContact(i==position?1:0);
+            list.get(i).setIsMainContact(i == position ? 1 : 0);
         }
         notifyDataSetChanged();
     }

@@ -9,153 +9,34 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class NodeCompanyProtocol implements Serializable{
+public class NodeCompanyProtocol implements Serializable {
 
-    /**
-     * PCId : 1
-     * EnterpriseId : b41d2663-f3b4-406b-a566-0655ca4437cd
-     * CheckerId : 1
-     * RealName : 杰森
-     * CompanyName : 特兰普微信朋友圈
-     * PayType : 产权置换
-     * PayTypeName :
-     * TotalPurchasePrice : 1
-     * TotalPay : 1
-     * Rate : 1
-     * RemoveFee : 1.00
-     * TempPlacementFee : 1.00
-     * OtherFee : 1.00
-     * PCDate : 2018/6/6 星期三 上午 12:00:00
-     * Remark : 12
-     * SimpleHouseArea :
-     * TotalNotRecordArea : 0.00
-     * TotalBuildingArea :
-     * Address : 不动产证，地址改了22
-     * IsAllowEdit : false
-     */
 
-    private int PCId;
-    private String EnterpriseId;
-    private int CheckerId;
-    private String RealName;
-    private String CompanyName;
-    private int PayType;
-    private String PayTypeName;
-    private double TotalPurchasePrice;
-    private double TotalPay;
-    private int Rate;
-    private String RemoveFee;
-    private String CusCode;
-    private String TempPlacementFee;
-    private String OtherFee;
-    private String PCDate;
-    private String Remark;
-    private String SimpleHouseArea;
-    private String TotalNotRecordArea;
-    private String TotalBuildingArea;
-    private String TotalLandAZArea;
-    private String ClearObstaclePay;
-    private String Address;
-    private String LandCertArea;
-    private String ChangeArea;
-    private String DamagesAmount;
-    private double NeedPayAmount;
     private boolean IsAllowEdit;
     private List<ImgInfo> Files;
-    public String getCusCode() {
-        return CusCode;
+    private List<ProtocolItem> Items;
+    private String buildingId;
+    private String CusCode;
+    private String EnterpriseName;
+    private String Address;
+    private double LegalArea;
+    private double After90Area;
+    private double OtherArea;
+    private double PropertyArea;
+    private double LandArea;
+    private String LegalName;
+    private String AuditCompany;
+    private String AuditName;
+    private String AuditDate;
+    private String Remark;
+    private int PayType;
+
+    public String getRemark() {
+        return null == Remark ? "" : Remark;
     }
 
-    public String getChangeArea() {
-        return ChangeArea;
-    }
-
-    public void setChangeArea(String changeArea) {
-        ChangeArea = changeArea;
-    }
-
-    public String getDamagesAmount() {
-        return DamagesAmount;
-    }
-
-    public void setDamagesAmount(String damagesAmount) {
-        DamagesAmount = damagesAmount;
-    }
-
-    public double getNeedPayAmount() {
-        return NeedPayAmount;
-    }
-
-    public void setNeedPayAmount(double needPayAmount) {
-        NeedPayAmount = needPayAmount;
-    }
-
-    public String getClearObstaclePay() {
-        return ClearObstaclePay;
-    }
-
-    public void setClearObstaclePay(String clearObstaclePay) {
-        ClearObstaclePay = clearObstaclePay;
-    }
-
-    public void setCusCode(String cusCode) {
-        CusCode = cusCode;
-    }
-
-    public String getTotalLandAZArea() {
-        return TotalLandAZArea;
-    }
-
-    public void setTotalLandAZArea(String totalLandAZArea) {
-        TotalLandAZArea = totalLandAZArea;
-    }
-
-    public int getPCId() {
-        return PCId;
-    }
-
-    public String getLandCertArea() {
-        return LandCertArea;
-    }
-
-    public void setLandCertArea(String landCertArea) {
-        LandCertArea = landCertArea;
-    }
-
-    public void setPCId(int PCId) {
-        this.PCId = PCId;
-    }
-
-    public String getEnterpriseId() {
-        return EnterpriseId;
-    }
-
-    public void setEnterpriseId(String EnterpriseId) {
-        this.EnterpriseId = EnterpriseId;
-    }
-
-    public int getCheckerId() {
-        return CheckerId;
-    }
-
-    public void setCheckerId(int CheckerId) {
-        this.CheckerId = CheckerId;
-    }
-
-    public String getRealName() {
-        return RealName;
-    }
-
-    public void setRealName(String RealName) {
-        this.RealName = RealName;
-    }
-
-    public String getCompanyName() {
-        return CompanyName;
-    }
-
-    public void setCompanyName(String CompanyName) {
-        this.CompanyName = CompanyName;
+    public void setRemark(String remark) {
+        Remark = remark;
     }
 
     public int getPayType() {
@@ -166,108 +47,12 @@ public class NodeCompanyProtocol implements Serializable{
         PayType = payType;
     }
 
-    public String getPayTypeName() {
-        return PayTypeName;
+    public String getBuildingId() {
+        return null == buildingId ? "" : buildingId;
     }
 
-    public void setPayTypeName(String PayTypeName) {
-        this.PayTypeName = PayTypeName;
-    }
-
-    public double getTotalPurchasePrice() {
-        return TotalPurchasePrice;
-    }
-
-    public void setTotalPurchasePrice(double TotalPurchasePrice) {
-        this.TotalPurchasePrice = TotalPurchasePrice;
-    }
-
-    public double getTotalPay() {
-        return TotalPay;
-    }
-
-    public void setTotalPay(double TotalPay) {
-        this.TotalPay = TotalPay;
-    }
-
-    public int getRate() {
-        return Rate;
-    }
-
-    public void setRate(int Rate) {
-        this.Rate = Rate;
-    }
-
-    public String getRemoveFee() {
-        return RemoveFee;
-    }
-
-    public void setRemoveFee(String RemoveFee) {
-        this.RemoveFee = RemoveFee;
-    }
-
-    public String getTempPlacementFee() {
-        return TempPlacementFee;
-    }
-
-    public void setTempPlacementFee(String TempPlacementFee) {
-        this.TempPlacementFee = TempPlacementFee;
-    }
-
-    public String getOtherFee() {
-        return OtherFee;
-    }
-
-    public void setOtherFee(String OtherFee) {
-        this.OtherFee = OtherFee;
-    }
-
-    public String getPCDate() {
-        return PCDate;
-    }
-
-    public void setPCDate(String PCDate) {
-        this.PCDate = PCDate;
-    }
-
-    public String getRemark() {
-        return Remark;
-    }
-
-    public void setRemark(String Remark) {
-        this.Remark = Remark;
-    }
-
-    public String getSimpleHouseArea() {
-        return SimpleHouseArea;
-    }
-
-    public void setSimpleHouseArea(String SimpleHouseArea) {
-        this.SimpleHouseArea = SimpleHouseArea;
-    }
-
-    public String getTotalNotRecordArea() {
-        return TotalNotRecordArea;
-    }
-
-    public void setTotalNotRecordArea(String TotalNotRecordArea) {
-        this.TotalNotRecordArea = TotalNotRecordArea;
-    }
-
-    public String getTotalBuildingArea() {
-        return TotalBuildingArea;
-    }
-
-    public void setTotalBuildingArea(String TotalBuildingArea) {
-        this.TotalBuildingArea = TotalBuildingArea;
-    }
-
-    public String getAddress() {
-        return Address;
-    }
-
-    public void setAddress(String Address) {
-        this.Address = Address;
+    public void setBuildingId(String buildingId) {
+        this.buildingId = buildingId;
     }
 
     public boolean isAllowEdit() {
@@ -286,13 +71,107 @@ public class NodeCompanyProtocol implements Serializable{
         Files = files;
     }
 
-    private List<ProtocolItem> Items;
-
     public List<ProtocolItem> getItems() {
         return Items;
     }
 
     public void setItems(List<ProtocolItem> items) {
         Items = items;
+    }
+
+    public String getCusCode() {
+        return CusCode;
+    }
+
+    public void setCusCode(String CusCode) {
+        this.CusCode = CusCode;
+    }
+
+    public String getEnterpriseName() {
+        return EnterpriseName;
+    }
+
+    public void setEnterpriseName(String EnterpriseName) {
+        this.EnterpriseName = EnterpriseName;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String Address) {
+        this.Address = Address;
+    }
+
+    public double getLegalArea() {
+        return LegalArea;
+    }
+
+    public void setLegalArea(double LegalArea) {
+        this.LegalArea = LegalArea;
+    }
+
+    public double getAfter90Area() {
+        return After90Area;
+    }
+
+    public void setAfter90Area(double After90Area) {
+        this.After90Area = After90Area;
+    }
+
+    public double getOtherArea() {
+        return OtherArea;
+    }
+
+    public void setOtherArea(double OtherArea) {
+        this.OtherArea = OtherArea;
+    }
+
+    public double getPropertyArea() {
+        return PropertyArea;
+    }
+
+    public void setPropertyArea(double PropertyArea) {
+        this.PropertyArea = PropertyArea;
+    }
+
+    public double getLandArea() {
+        return LandArea;
+    }
+
+    public void setLandArea(double LandArea) {
+        this.LandArea = LandArea;
+    }
+
+    public String getLegalName() {
+        return LegalName;
+    }
+
+    public void setLegalName(String LegalName) {
+        this.LegalName = LegalName;
+    }
+
+    public String getAuditCompany() {
+        return AuditCompany;
+    }
+
+    public void setAuditCompany(String AuditCompany) {
+        this.AuditCompany = AuditCompany;
+    }
+
+    public String getAuditName() {
+        return AuditName;
+    }
+
+    public void setAuditName(String AuditName) {
+        this.AuditName = AuditName;
+    }
+
+    public String getAuditDate() {
+        return AuditDate;
+    }
+
+    public void setAuditDate(String AuditDate) {
+        this.AuditDate = AuditDate;
     }
 }

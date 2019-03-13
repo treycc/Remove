@@ -208,8 +208,6 @@ public class BusinessListFragment extends BaseFragment implements GetRostersByTy
 
     @Override
     public void onStop() {
-        LogUtil.e(TAG,"F onStop前");
         super.onStop();
-        LogUtil.e(TAG,"F onStop后");
     }
 }

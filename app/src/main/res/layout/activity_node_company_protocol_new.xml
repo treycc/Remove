@@ -15,8 +15,6 @@
         android:orientation="vertical">
 
 
-
-
         <TextView
             style="@style/Title_Main"
             android:text="基本信息"/>
@@ -29,6 +27,7 @@
                 android:text="档案号"/>
 
             <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_cusCode"
                 style="@style/Content_ET_W1"
                 android:hint=""/>
         </LinearLayout>
@@ -43,6 +42,7 @@
                 android:text="企业名称"/>
 
             <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_enterpriseName"
                 style="@style/Content_ET_W1"
                 android:hint=""/>
         </LinearLayout>
@@ -57,6 +57,7 @@
                 android:text="企业地址"/>
 
             <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_address"
                 style="@style/Content_ET_W1"
                 android:hint=""/>
         </LinearLayout>
@@ -71,6 +72,7 @@
                 android:text="法人名称"/>
 
             <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_legalName"
                 style="@style/Content_ET_W1"
                 android:hint=""/>
         </LinearLayout>
@@ -86,10 +88,10 @@
                 android:text="产权面积"/>
 
             <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_propertyArea"
                 style="@style/Content_ET_W1"
                 android:hint=""/>
         </LinearLayout>
-
 
 
         <View style="@style/div_hor_gray_margin24"/>
@@ -102,9 +104,11 @@
                 android:text="土地使用面积"/>
 
             <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_landArea"
                 style="@style/Content_ET_W1"
                 android:hint=""/>
         </LinearLayout>
+
         <TextView
             style="@style/Title_Main"
             android:text="审核信息"/>
@@ -117,7 +121,7 @@
                 android:text="审核单位"/>
 
             <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_protocol_companyName"
+                android:id="@+id/tv_auditCompany"
                 style="@style/Content_ET_W1"
                 android:hint=""/>
         </LinearLayout>
@@ -132,7 +136,7 @@
                 android:text="审核人"/>
 
             <com.jdp.hls.view.StringTextView
-                android:id="@+id/tv_protocol_realName"
+                android:id="@+id/tv_auditName"
                 style="@style/Content_ET_W1"
                 android:hint=""/>
         </LinearLayout>
@@ -151,8 +155,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/tv_protocol_date"
+                <com.jdp.hls.view.StringTextView
+                    android:id="@+id/tv_auditDate"
                     style="@style/font_9_15_eet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -168,6 +172,7 @@
 
 
         </LinearLayout>
+
         <TextView
             style="@style/Title_Main"
             android:text="认定信息"/>
@@ -180,6 +185,7 @@
                 android:text="总认定合法面积"/>
 
             <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_legalArea"
                 style="@style/Content_ET_W1"
                 android:hint=""/>
         </LinearLayout>
@@ -194,6 +200,7 @@
                 android:text="总认定不合法面积"/>
 
             <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_after90Area"
                 style="@style/Content_ET_W1"
                 android:hint=""/>
         </LinearLayout>
@@ -208,6 +215,7 @@
                 android:text="其它面积"/>
 
             <com.jdp.hls.view.StringTextView
+                android:id="@+id/tv_otherArea"
                 style="@style/Content_ET_W1"
                 android:hint=""/>
         </LinearLayout>
