@@ -13,7 +13,16 @@ public class KeyValue {
     private int Type;
     private int InterfaceId;
     private int UseItemId;
+    private int ItemId;
     private boolean HasDetail;
+
+    public int getItemId() {
+        return ItemId;
+    }
+
+    public void setItemId(int itemId) {
+        ItemId = itemId;
+    }
 
     public String getValueDesc() {
         return null == ValueDesc ? "" : ValueDesc;

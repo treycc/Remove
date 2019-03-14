@@ -115,6 +115,7 @@ import com.jdp.hls.page.supervise.statistics.progress.report.daylist.ReportDayLi
 import com.jdp.hls.page.supervise.statistics.progress.report.hourlist.ReportHourListActivity;
 import com.jdp.hls.page.supervise.statistics.table.TableListSuperviseActivity;
 import com.jdp.hls.page.supervise.statistics.total.StatisticsTotalFragment;
+import com.jdp.hls.page.supervise.statistics.total.compensation.CompensationDetailActivity;
 import com.jdp.hls.page.supervise.statistics.total.pay.detaillist.StatisticsPayDetailListActivity;
 import com.jdp.hls.page.supervise.statistics.total.pay.list.SupervisePayOwnerListActivity;
 import com.jdp.hls.page.supervise.statistics.total.taotype.StatisticsTaotypeListActivity;
@@ -128,7 +129,10 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(CompensationDetailActivity target);
+
     void inject(CompanyMoneyChangeFragment target);
+
     void inject(NodeCompanyProtocolNewActivity target);
 
     void inject(DeedListActivity target);

@@ -28,6 +28,7 @@ public class Status {
     public interface InterfaceId {
         int PAY_DETAIL = 1;
         int TAOTYPE_DETAIL = 2;
+        int COMPENSATION_DETAIL = 3;
     }
 
     public interface BuildingType {

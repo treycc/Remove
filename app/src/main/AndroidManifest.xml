@@ -413,6 +413,7 @@
                   android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".page.business.deed.list.DeedListActivity"/>
         <activity android:name=".page.node.protocol.company.lastst.NodeCompanyProtocolNewActivity"/>
+        <activity android:name=".page.supervise.statistics.total.compensation.CompensationDetailActivity"/>
 
         <!--<activity-->
         <!--android:name=".activity.SplashActivity"-->

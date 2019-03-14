@@ -1,6 +1,5 @@
 package com.jdp.hls.page.node.protocol.company.lastst;
 
-import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -23,7 +22,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 
 /**
@@ -159,9 +157,9 @@ public class NodeCompanyProtocolNewActivity extends BaseNodeActivity implements 
         tvPropertyArea.setString(nodeCompanyProtocol.getPropertyArea());
         tvLandArea.setString(nodeCompanyProtocol.getLandArea());
 
-       tvLegalArea.setString(nodeCompanyProtocol.getLandArea());
-       tvAfter90Area.setString(nodeCompanyProtocol.getAfter90Area());
-       tvOtherArea.setString(nodeCompanyProtocol.getOtherArea());
+        tvLegalArea.setString(nodeCompanyProtocol.getLandArea());
+        tvAfter90Area.setString(nodeCompanyProtocol.getAfter90Area());
+        tvOtherArea.setString(nodeCompanyProtocol.getOtherArea());
 
         rvPhotoPreview.setData(nodeCompanyProtocol.getFiles(), getFileConfig(), allowEdit);
         companyMoneyChangeFragment = CompanyMoneyChangeFragment.newInstance(nodeCompanyProtocol.getItems(), payType,

@@ -1,13 +1,17 @@
 package com.jdp.hls.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jdp.hls.R;
+import com.jdp.hls.base.BaseKvListActivity;
+import com.jdp.hls.constant.Constants;
 import com.jdp.hls.constant.Status;
 import com.jdp.hls.model.entiy.KeyValue;
 import com.jdp.hls.model.entiy.TitleItem;
+import com.jdp.hls.page.supervise.statistics.total.compensation.CompensationDetailActivity;
 import com.jdp.hls.page.supervise.statistics.total.pay.list.SupervisePayOwnerListActivity;
 import com.jdp.hls.page.supervise.statistics.total.taotype.StatisticsTaotypeListActivity;
 import com.jdp.hls.view.FixedListView;
@@ -63,6 +67,13 @@ public class TitleItemAdapter extends BaseLvAdapter<TitleItem> {
                 case Status.InterfaceId.PAY_DETAIL:
                     SupervisePayOwnerListActivity.GoActivity(context, keyValue.getType(), keyValue.getUseItemId(),
                             keyValue.getName());
+                    break;
+
+                case Status.InterfaceId.COMPENSATION_DETAIL:
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.Extra.TITLE, keyValue.getName());
+                    bundle.putInt(Constants.Extra.ID, keyValue.getItemId());
+                    BaseKvListActivity.goActivity(context, CompensationDetailActivity.class, bundle);
                     break;
             }
         });

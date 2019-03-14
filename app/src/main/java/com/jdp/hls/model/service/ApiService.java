@@ -87,6 +87,7 @@ import com.jdp.hls.model.entiy.TaoType;
 import com.jdp.hls.model.entiy.TaoTypePerson;
 import com.jdp.hls.model.entiy.TaskInfo;
 import com.jdp.hls.model.entiy.TitleItem;
+import com.jdp.hls.model.entiy.TitleValue;
 import com.jdp.hls.model.entiy.resultdata.ContactsResult;
 import com.jdp.hls.model.entiy.resultdata.RosterResult;
 
@@ -965,6 +966,11 @@ public interface ApiService {
     /*获取不动产证-企业*/
     @GET("cert/GetEnterpriseEstateCertificate")
     Observable<HttpResult<DeedCompanyImmovable>> getDeedCompanyImmovableDetail(@Query("certId") int certId);
+
+
+    /*企业汇总统计-补偿详情*/
+    @GET("Supervise/GetItemStatistics")
+    Observable<HttpResult<List<TitleValue>>> getCompensationDetail(@Query("itemId") int itemId);
 
 
 }

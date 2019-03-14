@@ -117,7 +117,6 @@ public class CompanyMoneyChangeFragment extends BaseFragment {
                 }
             }
         }
-
         return builder;
     }
 
